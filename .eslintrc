@@ -28,6 +28,8 @@
     "@typescript-eslint"
   ],
   "rules": {
+    "react/jsx-filename-extension": 0,
+    "react/prop-types": 0,
     "no-await-in-loop": "off",
     "no-restricted-syntax": "off",
     "import/no-extraneous-dependencies": [
