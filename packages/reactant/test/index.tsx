@@ -4,11 +4,13 @@ import { add } from 'reactant-module';
 import {
   View,
   Router,
+  Link,
   injectable,
   inject,
   computed,
   createApp,
   View,
+  connect,
 } from '../src';
 
 test('base App', () => {
@@ -18,12 +20,11 @@ test('base App', () => {
   @injectable
   class Bar {}
 
-  class App {}
-
   interface HomeProps {
     a: number;
   }
 
+  @injectable
   class HomeView extends View<HomeProps> {
     a = 1;
 
@@ -34,7 +35,7 @@ test('base App', () => {
     }
   }
 
-  const Home: FC<HomeProps> = ({ a }) => <span>{a}</span>;
+  const Home = connect(HomeView)(({ a }) => <span>{a}</span>);
 
   interface DashboardProps {
     b: string;
@@ -50,16 +51,25 @@ test('base App', () => {
     }
   }
 
-  const Dashboard: FC<DashboardProps> = ({ b }) => <span>{b}</span>;
+  const Dashboard = connect(DashboardView)(({ b }) => <span>{b}</span>);
+
+  @injectable
+  class App {
+    // constructor(
+    //   @inject dashboardView: DashboardView,
+    //   @inject homeView: HomeView,
+    //   @inject foo: Foo,
+    //   @inject bar: Bar
+    // ) {}
+  }
 
   const app = createApp({
-    views: [HomeView, DashboardView],
-    modules: [Foo, Bar],
+    modules: [HomeView, DashboardView, Foo, Bar],
+    main: App,
   });
 
   const AppContainer = () => (
     <div>
-      <Logo />
       <nav>
         <Link to="/">Home</Link>
         <Link to="dashboard">Dashboard</Link>
