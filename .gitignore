@@ -102,3 +102,8 @@ dist
 
 # TernJS port file
 .tern-port
+
+# build files
+build/
+build.es6/
+dist/
