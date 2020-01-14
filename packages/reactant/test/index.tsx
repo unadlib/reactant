@@ -33,9 +33,11 @@ test('base App', () => {
         a: this.a,
       };
     }
-  }
 
-  const Home = connect(HomeView)(({ a }) => <span>{a}</span>);
+    component({ a }) {
+      return <span>{a}</span>
+    }
+  }
 
   interface DashboardProps {
     b: string;
@@ -49,37 +51,55 @@ test('base App', () => {
         b: this.b,
       };
     }
-  }
 
-  const Dashboard = connect(DashboardView)(({ b }) => <span>{b}</span>);
+    component({ b }) {
+      return <span>{b}</span>;
+    }
+  }
 
   @injectable
   class App {
-    // constructor(
-    //   @inject dashboardView: DashboardView,
-    //   @inject homeView: HomeView,
-    //   @inject foo: Foo,
-    //   @inject bar: Bar
-    // ) {}
+    // eslint-disable-next-line no-useless-constructor
+    constructor(
+      @inject dashboardView: DashboardView,
+      @inject homeView: HomeView,
+      @inject foo: Foo,
+      @inject bar: Bar
+    ) {}
+
+    component() {
+      const Home = this.homeView.component;
+      const Dashboard = this.dashboardView.component;
+      return (
+        <Router>
+          <div>
+            <ul>
+              <li>
+                <Link to="/">Home</Link>
+              </li>
+              <li>
+                <Link to="/dashboard">Topics</Link>
+              </li>
+            </ul>
+
+            <Switch>
+              <Route path="/">
+                <Home />
+              </Route>
+              <Route path="/dashboard">
+                <Dashboard />
+              </Route>
+            </Switch>
+          </div>
+        </Router>
+      );
+    }
   }
 
   const app = createApp({
-    modules: [HomeView, DashboardView, Foo, Bar],
+    modules: [HomeView, DashboardView, Foo, Bar, App],
     main: App,
   });
 
-  const AppContainer = () => (
-    <div>
-      <nav>
-        <Link to="/">Home</Link>
-        <Link to="dashboard">Dashboard</Link>
-      </nav>
-      <Router>
-        <Home path="/" />
-        <Dashboard path="dashboard" />
-      </Router>
-    </div>
-  );
-
-  app.bootstrap(AppContainer, document.getElementById('#app'));
+  app.bootstrap(document.getElementById('#app'));
 });
