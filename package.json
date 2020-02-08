@@ -9,8 +9,8 @@
   "description": "A framework for building React web applications",
   "main": "index.js",
   "scripts": {
-    "test-prod": "cross-env NODE_ENV=production jest --config ./jest.prod.json",
-    "test": "cross-env NODE_ENV=development jest --config ./jest.dev.json",
+    "test-prod": "cross-env NODE_ENV=production jest --config ./scripts/jest/prod.config.json",
+    "test": "cross-env NODE_ENV=development jest --config ./scripts/jest/dev.config.json",
     "build": "ts-node scripts/build.ts",
     "commit": "yarn git-cz"
   },
@@ -36,6 +36,7 @@
     "@types/glob-parent": "^5.1.0",
     "@types/jest": "^24.0.25",
     "@types/react": "^16.9.17",
+    "@types/react-dom": "^16.9.5",
     "@typescript-eslint/eslint-plugin": "^2.14.0",
     "@typescript-eslint/parser": "^2.14.0",
     "commitizen": "^3",

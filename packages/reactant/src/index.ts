@@ -1,3 +1,2 @@
-import { add } from 'reactant-module';
-
-export const subtract = (a: number) => add(a);
+export { View } from 'reactant-module';
+export * from './createApp';
