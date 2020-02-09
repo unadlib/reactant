@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
-import { View, createApp } from '..';
+import { View, createApp, Router, Link, Switch, Route } from '..';
 
 let container: null | void | Element;
 
@@ -21,35 +21,83 @@ afterEach(() => {
 
 test('`View` UI module', () => {
   interface AppProps {
-    a: string;
+    bar: string;
   }
 
-  const AppView: FC<AppProps> = ({ a }) => <span>{a}</span>;
-  const s = '1';
+  const value = 'title about app';
 
   class Foo {
-    a = s;
+    bar = value;
   }
 
-  class App extends View<AppProps> {
-    constructor(public foo: Foo) {
+  class HomeView extends View<{ text: string }> {
+    text = 'homeView';
+
+    get props() {
+      return {
+        text: this.text,
+      };
+    }
+
+    get component() {
+      return <span>{this.text}</span>;
+    }
+  }
+
+  class DashboardView extends View<{ text: string }> {
+    text = 'dashboardView';
+
+    get props() {
+      return {
+        text: this.text,
+      };
+    }
+
+    get component() {
+      return <span>{this.text}</span>;
+    }
+  }
+
+  class AppView extends View<AppProps> {
+    constructor(
+      public foo: Foo,
+      public homeView: HomeView,
+      public dashboardView: DashboardView
+    ) {
       super();
     }
 
     get props() {
       return {
-        a: this.foo.a,
+        bar: this.foo.bar,
       };
     }
 
     get component() {
-      return <AppView {...this.props} />;
+      return (
+        <Router>
+          <h1>{this.foo.bar}</h1>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/dashboard">Dashboard</Link>
+            </li>
+          </ul>
+
+          <Switch>
+            <Route path="/">{this.homeView.component}</Route>
+            <Route path="/dashboard">{this.dashboardView.component}</Route>
+          </Switch>
+        </Router>
+      );
     }
   }
 
   const app = createApp({
-    modules: [Foo, App],
-    main: App,
+    modules: [Foo, HomeView, DashboardView, AppView],
+    main: AppView,
   });
   act(() => {
     if (typeof container === 'undefined' || container === null) {
@@ -60,5 +108,8 @@ test('`View` UI module', () => {
   if (typeof container === 'undefined' || container === null) {
     throw new Error(`invalid container`);
   }
-  expect(container.querySelector('span')?.innerHTML).toBe(s);
+  expect(container.querySelector('h1')?.innerHTML).toBe(value);
+  expect(container.innerHTML).toBe(
+    `<h1>${value}</h1><ul><li><a href="/">Home</a></li><li><a href="/dashboard">Dashboard</a></li></ul><span>homeView</span>`
+  );
 });

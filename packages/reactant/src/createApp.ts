@@ -23,10 +23,13 @@ function createApp({ modules, main }: Config) {
   const moduleInstances: Module<any>[] = [];
   for (const Module of modules) {
     // TODO di
-    const moduleInstance = new Module(moduleInstances[0]);
-    moduleInstances.push(moduleInstance);
     if (main === Module) {
+      const moduleInstance = new Module(...moduleInstances);
       instance = moduleInstance;
+      moduleInstances.push(moduleInstance);
+    } else {
+      const moduleInstance = new Module(moduleInstances[0]);
+      moduleInstances.push(moduleInstance);
     }
   }
   return {

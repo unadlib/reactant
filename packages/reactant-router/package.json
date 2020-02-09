@@ -1,7 +1,7 @@
 {
-  "name": "reactant-di",
+  "name": "reactant-router",
   "version": "0.0.1",
-  "description": "A dependency injection for Reactant",
+  "description": "A react router for Reactant",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,6 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "reflect-metadata": "^0.1.13"
+    "react-router-dom": "^5.1.2"
   }
 }

@@ -85,7 +85,7 @@ test('base App', () => {
                 <Link to="/">Home</Link>
               </li>
               <li>
-                <Link to="/dashboard">Topics</Link>
+                <Link to="/dashboard">Dashboard</Link>
               </li>
             </ul>
 
