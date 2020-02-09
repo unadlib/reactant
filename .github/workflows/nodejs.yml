@@ -20,6 +20,7 @@ jobs:
     - name: yarn install, build, and test
       run: |
         yarn install
+# skip: yarn build
         yarn test
       env:
         CI: true

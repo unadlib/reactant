@@ -12,6 +12,7 @@
     "test-prod": "cross-env NODE_ENV=production jest --config ./scripts/jest/prod.config.json",
     "test": "cross-env NODE_ENV=development jest --config ./scripts/jest/dev.config.json",
     "build": "ts-node scripts/build.ts",
+    "clean": "lerna exec rimraf ./dist ./build",
     "commit": "yarn git-cz"
   },
   "repository": {
@@ -55,6 +56,7 @@
     "lerna": "^3.20.2",
     "load-json-file": "^6.2.0",
     "prettier": "^1.19.1",
+    "rimraf": "^3.0.2",
     "rollup": "^1.28.0",
     "rollup-plugin-terser": "^5.1.3",
     "ts-jest": "^24.2.0",

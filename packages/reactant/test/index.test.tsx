@@ -20,20 +20,25 @@ afterEach(() => {
 });
 
 test('`View` UI module', () => {
-  const AppView: FC<{ a: string }> = ({ a }) => <span>{a}</span>;
-
-  class Foo {
-    s = '1';
+  interface AppProps {
+    a: string;
   }
 
-  class App extends View<{ a: string }> {
+  const AppView: FC<AppProps> = ({ a }) => <span>{a}</span>;
+  const s = '1';
+
+  class Foo {
+    a = s;
+  }
+
+  class App extends View<AppProps> {
     constructor(public foo: Foo) {
       super();
     }
 
     get props() {
       return {
-        a: this.foo.s,
+        a: this.foo.a,
       };
     }
 
@@ -55,5 +60,5 @@ test('`View` UI module', () => {
   if (typeof container === 'undefined' || container === null) {
     throw new Error(`invalid container`);
   }
-  expect(container.querySelector('span')?.innerHTML).toBe('1');
+  expect(container.querySelector('span')?.innerHTML).toBe(s);
 });
