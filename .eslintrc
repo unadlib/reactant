@@ -8,7 +8,10 @@
   "extends": [
     "plugin:react/recommended",
     "airbnb",
-    "prettier"
+    "prettier",
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended"
   ],
   "globals": {
     "Atomics": "readonly",
@@ -28,6 +31,11 @@
     "@typescript-eslint"
   ],
   "rules": {
+    "@typescript-eslint/no-non-null-assertion": 0,
+    "react/static-property-placement": 0,
+    "react/jsx-props-no-spreading": 0,
+    "@typescript-eslint/explicit-function-return-type": 0,
+    "max-classes-per-file": 0,
     "react/jsx-filename-extension": 0,
     "react/prop-types": 0,
     "no-await-in-loop": "off",

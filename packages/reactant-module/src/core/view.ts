@@ -1,11 +1,5 @@
 export abstract class View<P extends {} = {}> {
-  props: P;
+  abstract get props(): P;
 
-  constructor() {
-    this.props = this.getProps();
-  }
-
-  abstract getProps(): P;
-
-  abstract component(): React.ComponentElement<P, any>;
+  abstract get component(): React.ComponentElement<P, any>;
 }
