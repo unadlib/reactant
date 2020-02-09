@@ -11,9 +11,6 @@ beforeEach(() => {
 });
 
 afterEach(() => {
-  if (typeof container === 'undefined' || container === null) {
-    throw new Error(`invalid container`);
-  }
   unmountComponentAtNode(container);
   container.remove();
 });
@@ -104,15 +101,11 @@ test('`View` UI module', () => {
     app.bootstrap(container);
   });
   expect(container.querySelector('h1')?.innerHTML).toBe(value);
-  expect(container.innerHTML).toBe(
-    `<h1>${value}</h1><ul><li><a href="/">Home</a></li><li><a href="/dashboard">Dashboard</a></li></ul><span>homeView</span>`
-  );
+  expect(container.querySelector('span')?.textContent).toBe('homeView');
   act(() => {
     container
       .querySelector('[href="/dashboard"]')!
       .dispatchEvent(new MouseEvent('click', { bubbles: true }));
   });
-  expect(container.innerHTML).toBe(
-    `<h1>${value}</h1><ul><li><a href="/">Home</a></li><li><a href="/dashboard">Dashboard</a></li></ul><span>dashboardView</span>`
-  );
+  expect(container.querySelector('span')?.textContent).toBe('dashboardView');
 });
