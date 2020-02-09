@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 import { unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
-import { View, createApp, Router, Link, Switch, Route } from '..';
+import { View, createApp, Link, Switch, Route, MemoryRouter } from '..';
 
-let container: null | void | Element;
+let container: Element;
 
 beforeEach(() => {
   container = document.createElement('div');
@@ -16,7 +16,6 @@ afterEach(() => {
   }
   unmountComponentAtNode(container);
   container.remove();
-  container = null;
 });
 
 test('`View` UI module', () => {
@@ -75,7 +74,7 @@ test('`View` UI module', () => {
 
     get component() {
       return (
-        <Router>
+        <MemoryRouter>
           <h1>{this.foo.bar}</h1>
           <ul>
             <li>
@@ -87,10 +86,12 @@ test('`View` UI module', () => {
           </ul>
 
           <Switch>
-            <Route path="/">{this.homeView.component}</Route>
+            <Route exact path="/">
+              {this.homeView.component}
+            </Route>
             <Route path="/dashboard">{this.dashboardView.component}</Route>
           </Switch>
-        </Router>
+        </MemoryRouter>
       );
     }
   }
@@ -100,16 +101,18 @@ test('`View` UI module', () => {
     main: AppView,
   });
   act(() => {
-    if (typeof container === 'undefined' || container === null) {
-      throw new Error(`invalid container`);
-    }
     app.bootstrap(container);
   });
-  if (typeof container === 'undefined' || container === null) {
-    throw new Error(`invalid container`);
-  }
   expect(container.querySelector('h1')?.innerHTML).toBe(value);
   expect(container.innerHTML).toBe(
     `<h1>${value}</h1><ul><li><a href="/">Home</a></li><li><a href="/dashboard">Dashboard</a></li></ul><span>homeView</span>`
+  );
+  act(() => {
+    container
+      .querySelector('[href="/dashboard"]')!
+      .dispatchEvent(new MouseEvent('click', { bubbles: true }));
+  });
+  expect(container.innerHTML).toBe(
+    `<h1>${value}</h1><ul><li><a href="/">Home</a></li><li><a href="/dashboard">Dashboard</a></li></ul><span>dashboardView</span>`
   );
 });
