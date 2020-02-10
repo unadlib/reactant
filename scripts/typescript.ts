@@ -3,6 +3,7 @@ import loadJsonFile from 'load-json-file';
 import globParent from 'glob-parent';
 import fs from 'fs-extra';
 import ts from 'typescript';
+import chalk from 'chalk';
 
 type Package = {
   workspaces: string[];
@@ -34,7 +35,8 @@ const compileTypeScript = ({
   fs.removeSync(declarationDir);
   fs.removeSync(outDir);
 
-  console.log(`Compiling TypeScript:\n-> ${outDir}`);
+  console.log(`Compiling TypeScript:`);
+  console.log(chalk.grey(`-> ${outDir}`));
 
   const tsConfig = path.resolve('tsconfig.json');
   const json = ts.parseConfigFileTextToJson(
@@ -64,9 +66,9 @@ const compileTypeScript = ({
           }:${diagnostic.start}): ${diagnostic.messageText}`
       )
       .join('\n');
-    console.error(`Failed to compile Typescript:\n\n${message}`);
+    console.log(chalk.red(`Failed to compile Typescript:\n\n${message}`));
   }
-  console.log(`Succeed to compile Typescript.\n`);
+  console.log(chalk.green(`Succeed to compile Typescript.\n`));
 };
 
 const getCamelCase = (name: string) => {

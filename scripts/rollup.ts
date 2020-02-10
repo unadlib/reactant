@@ -1,7 +1,12 @@
+/* eslint-disable global-require */
+/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable import/no-extraneous-dependencies */
 import { rollup } from 'rollup';
 import resolvePlugin from '@rollup/plugin-node-resolve';
 import replacePlugin from '@rollup/plugin-replace';
+import commonjsPlugin from '@rollup/plugin-commonjs';
 import { terser as terserPlugin } from 'rollup-plugin-terser';
+import chalk from 'chalk';
 
 type GenerateOption = {
   inputFile: string;
@@ -18,8 +23,18 @@ const generateBundledModules = async ({
   name,
   production = true,
 }: GenerateOption) => {
-  console.log(`Generating bundle:\n-> ${outputFile}`);
-  const plugins = [resolvePlugin()];
+  console.log(`Generating bundle:`);
+  console.log(chalk.grey(`-> ${outputFile}`));
+  const plugins = [
+    resolvePlugin(),
+    commonjsPlugin({
+      namedExports: {
+        react: Object.keys(require('react')),
+        'react-dom': Object.keys(require('react-dom')),
+        'react-is': Object.keys(require('react-is')),
+      },
+    }),
+  ];
   if (production) {
     plugins.push(
       replacePlugin({ 'process.env.NODE_ENV': JSON.stringify('production') }),
@@ -38,9 +53,10 @@ const generateBundledModules = async ({
       exports: 'named',
       name: isUmd ? name : undefined,
     });
-    console.log(`Succeed to generate ${outputFile} bundle.\n`);
+    console.log(chalk.green(`Succeed to generate ${outputFile} bundle.\n`));
   } catch (e) {
-    console.error(`Failed to generate ${outputFile} bundle.\n`);
+    console.log(chalk.red(`Failed to generate ${outputFile} bundle.\n`));
+    console.log(chalk.red(e));
   }
 };
 

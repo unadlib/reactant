@@ -1,4 +1,4 @@
-import {
+export {
   BrowserRouter as Router,
   MemoryRouter,
   Switch,
@@ -7,5 +7,3 @@ import {
   useRouteMatch,
   useParams,
 } from 'react-router-dom';
-
-export { Router, Switch, Route, Link, useRouteMatch, useParams, MemoryRouter };

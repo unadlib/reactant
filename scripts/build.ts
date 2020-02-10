@@ -4,6 +4,8 @@ import { generateBundledModules } from './rollup';
 
 process.chdir(path.resolve(__dirname, '..'));
 
+console.log(`\nBuilding...\n`);
+
 compileWorkspaces(async ({ currentPath, name }) => {
   await generateBundledModules({
     inputFile: path.resolve(currentPath, 'build/index.js'),
