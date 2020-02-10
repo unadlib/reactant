@@ -96,7 +96,7 @@ const compileWorkspaces = async (generate: Generate) => {
         if (!packageJson.private) {
           compileTypeScript({
             currentPath: packageChildPath,
-            target: ts.ScriptTarget.ES2015,
+            target: ts.ScriptTarget.ES5,
             module: ts.ModuleKind.ES2015,
             outDir: path.resolve(packageChildPath, defaultOutDir),
           });

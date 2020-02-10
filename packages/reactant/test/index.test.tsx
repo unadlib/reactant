@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
-import { View, createApp, Link, Switch, Route, MemoryRouter } from '..';
+import { View, createApp, Link, Switch, Route, MemoryRouter } from '../index';
 
 let container: Element;
 
