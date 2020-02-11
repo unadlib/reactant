@@ -1,5 +1,5 @@
 import { ComponentElement } from 'react';
-import { render } from 'react-dom';
+import { render, Renderer } from 'react-dom';
 import { View } from 'reactant-module';
 
 function renderApp(
@@ -16,9 +16,10 @@ interface Module<T> extends Function {
 interface Config {
   modules: Module<any>[];
   main: Module<any>;
+  render?: Renderer;
 }
 
-function createApp({ modules, main }: Config) {
+function createApp({ modules, main, render }: Config) {
   let instance: void | View;
   const moduleInstances: Module<any>[] = [];
   for (const Module of modules) {
@@ -37,6 +38,9 @@ function createApp({ modules, main }: Config) {
     bootstrap(dom: Element): Element {
       if (typeof instance === 'undefined') {
         throw new Error('`main` module has not a valid instance.');
+      }
+      if (typeof render === 'function') {
+        return render(instance.component, dom);
       }
       return renderApp(instance.component, dom);
     },

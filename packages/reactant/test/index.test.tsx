@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
-import { unmountComponentAtNode } from 'react-dom';
+import { unmountComponentAtNode, render } from 'react-dom';
 import { act } from 'react-dom/test-utils';
-import { View, createApp, Link, Switch, Route, MemoryRouter } from '../index';
+import { View, createApp, Link, Switch, Route, MemoryRouter } from '..';
 
 let container: Element;
 
@@ -96,6 +96,7 @@ test('`View` UI module', () => {
   const app = createApp({
     modules: [Foo, HomeView, DashboardView, AppView],
     main: AppView,
+    render,
   });
   act(() => {
     app.bootstrap(container);
