@@ -1,4 +1,4 @@
-import { ComponentElement } from 'react';
+import React, { ComponentElement } from 'react';
 import { render, Renderer } from 'react-dom';
 import { View } from 'reactant-module';
 
@@ -19,9 +19,13 @@ interface Config {
   render?: Renderer;
 }
 
+export interface AppProps {
+  version: string;
+}
+
 // eslint-disable-next-line no-shadow
 function createApp({ modules, main, render }: Config) {
-  let instance: void | View;
+  let instance: void | View<any, AppProps>;
   const moduleInstances: Module<any>[] = [];
   for (const Module of modules) {
     // TODO di
@@ -36,14 +40,15 @@ function createApp({ modules, main, render }: Config) {
   }
   return {
     instance,
-    bootstrap(dom: Element): Element {
+    bootstrap(dom: Element): Element | void {
       if (typeof instance === 'undefined') {
         throw new Error('`main` module has not a valid instance.');
       }
+      const element = <instance.component version="0.0.1" />;
       if (typeof render === 'function') {
-        return render(instance.component, dom);
+        return render(element, dom);
       }
-      return renderApp(instance.component, dom);
+      return renderApp(element, dom);
     },
   };
 }
