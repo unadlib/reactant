@@ -9,6 +9,7 @@ import {
   Route,
   MemoryRouter,
   AppProps,
+  defaultAttrs,
 } from '..';
 
 let container: Element;
@@ -26,6 +27,10 @@ afterEach(() => {
 describe('base API', () => {
   interface AppViewProps {
     bar: string;
+  }
+
+  interface AppViewAttrs {
+    version: string;
   }
 
   const value = 'title about app';
@@ -48,7 +53,7 @@ describe('base API', () => {
     }
   }
 
-  class DashboardView extends View<{ text: string }> {
+  class DashboardView extends View<{ text: string }, { version: string }> {
     text = 'dashboardView';
 
     get props() {
@@ -57,7 +62,10 @@ describe('base API', () => {
       };
     }
 
-    component() {
+    @defaultAttrs({
+      version: '1',
+    })
+    component({ version }: { version?: string }) {
       return <span>{this.props.text}</span>;
     }
   }
@@ -77,8 +85,7 @@ describe('base API', () => {
       };
     }
 
-    component({ version }: AppProps) {
-      console.log(`version: `, version);
+    component() {
       return (
         <MemoryRouter>
           <h1>{this.props.bar}</h1>

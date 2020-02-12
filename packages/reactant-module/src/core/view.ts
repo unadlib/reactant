@@ -1,4 +1,4 @@
-export abstract class View<P extends {} = {}, T = {}> {
+export abstract class View<P extends {} = {}, T extends {} = {}> {
   constructor() {
     const componentPropertyDescriptor = Object.getOwnPropertyDescriptor(
       Object.getPrototypeOf(this),
@@ -11,9 +11,12 @@ export abstract class View<P extends {} = {}, T = {}> {
       ...componentPropertyDescriptor,
       value: componentPropertyDescriptor.value.bind(this),
     });
+    this.attrs = {} as T;
   }
 
   abstract get props(): P;
 
-  abstract component(props?: T): React.ComponentElement<any, any>;
+  attrs: T;
+
+  abstract component(props: T): React.ComponentElement<any, any>;
 }
