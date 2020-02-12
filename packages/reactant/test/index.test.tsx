@@ -15,7 +15,7 @@ afterEach(() => {
   container.remove();
 });
 
-test('`View` UI module', () => {
+describe('base API', () => {
   interface AppProps {
     bar: string;
   }
@@ -36,7 +36,7 @@ test('`View` UI module', () => {
     }
 
     get component() {
-      return <span>{this.text}</span>;
+      return <span>{this.props.text}</span>;
     }
   }
 
@@ -50,7 +50,7 @@ test('`View` UI module', () => {
     }
 
     get component() {
-      return <span>{this.text}</span>;
+      return <span>{this.props.text}</span>;
     }
   }
 
@@ -93,20 +93,67 @@ test('`View` UI module', () => {
     }
   }
 
-  const app = createApp({
-    modules: [Foo, HomeView, DashboardView, AppView],
-    main: AppView,
-    render,
+  test(`'View' UI module without state`, () => {
+    const app = createApp({
+      modules: [Foo, HomeView, DashboardView, AppView],
+      main: AppView,
+      render,
+    });
+    act(() => {
+      app.bootstrap(container);
+    });
+    expect(container.querySelector('h1')?.innerHTML).toBe(value);
+    expect(container.querySelector('span')?.textContent).toBe('homeView');
+    act(() => {
+      container
+        .querySelector('[href="/dashboard"]')!
+        .dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    });
+    expect(container.querySelector('span')?.textContent).toBe('dashboardView');
   });
-  act(() => {
-    app.bootstrap(container);
+
+  test(`'View' UI module with state`, () => {
+    // eslint-disable-next-line no-shadow
+    class HomeView extends View<{ text: string }> {
+      state = {
+        count: 1,
+      };
+
+      increase() {
+        this.state.count += 1;
+      }
+
+      get props() {
+        return {
+          text: `${this.state.count}`,
+          increase: this.increase,
+        };
+      }
+
+      get component() {
+        return (
+          <div>
+            <div onClick={() => this.props.increase()} id="a" />
+            <span>{this.props.text}</span>
+          </div>
+        );
+      }
+    }
+
+    const app = createApp({
+      modules: [Foo, HomeView, DashboardView, AppView],
+      main: AppView,
+      render,
+    });
+
+    act(() => {
+      app.bootstrap(container);
+    });
+    expect(container.querySelector('span')?.textContent).toBe('1');
+    act(() => {
+      container
+        .querySelector('[href="/dashboard"]')!
+        .dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    });
   });
-  expect(container.querySelector('h1')?.innerHTML).toBe(value);
-  expect(container.querySelector('span')?.textContent).toBe('homeView');
-  act(() => {
-    container
-      .querySelector('[href="/dashboard"]')!
-      .dispatchEvent(new MouseEvent('click', { bubbles: true }));
-  });
-  expect(container.querySelector('span')?.textContent).toBe('dashboardView');
 });

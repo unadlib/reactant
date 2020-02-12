@@ -19,6 +19,7 @@ interface Config {
   render?: Renderer;
 }
 
+// eslint-disable-next-line no-shadow
 function createApp({ modules, main, render }: Config) {
   let instance: void | View;
   const moduleInstances: Module<any>[] = [];
