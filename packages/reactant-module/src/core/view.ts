@@ -11,12 +11,18 @@ export abstract class View<P extends {} = {}, T extends {} = {}> {
       ...componentPropertyDescriptor,
       value: componentPropertyDescriptor.value.bind(this),
     });
-    this.attrs = {} as T;
+    (this.component as any).defaultProps = this.defaultProps;
+    this.props = {} as T;
   }
 
-  abstract get props(): P;
+  abstract get data(): P;
 
-  attrs: T;
+  props: T;
+
+  // eslint-disable-next-line class-methods-use-this
+  get defaultProps(): T {
+    return {} as T;
+  }
 
   abstract component(props: T): React.ComponentElement<any, any>;
 }

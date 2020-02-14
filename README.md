@@ -33,25 +33,68 @@ test('base App', () => {
   }
 
   @injectable
-  class HomeView extends View<HomeProps> {
-    a = 1;
+  class HomeView extends View<{ text: string }> {
+      constructor(public count: Count) {
+        super();
+      }
 
-    get props() {
-      return {
-        a: this.a,
+      state = {
+        count: 1,
       };
+
+      @action
+      increase() {
+        const count = this.state.count + 1;
+        return {
+          state: {
+            ...this.state,
+            count,
+          },
+        };
+      }
+
+      @action
+      decrease() {
+        const count = this.state.count - 1;
+        return {
+          state: {
+            ...this.state,
+            count,
+          },
+          count: this.count.increase(),
+        };
+      }
+
+      @computed(
+        o => o.state.count,
+        o => o.count.state.sum,
+      )
+      get sum(number, sum) {
+        return number + sum;
+      }
+
+      get data() {
+        return {
+          text: `${this.state.count}`,
+          increase: () => this.increase,
+        };
+      }
+
+      component() {
+        return (
+          <div>
+            <div onClick={this.data.increase} id="add" />
+            <span>{this.data.text}</span>
+          </div>
+        );
+      }
     }
 
-    get component() {
-      return <span>{this.props.a}</span>
-    }
-  }
-
-  interface DashboardProps {
+  interface DashboardData {
     b: string;
   }
 
-  class DashboardView extends View<DashboardProps> {
+  class DashboardView extends View<DashboardData> {
     b = '1';
 
     get props() {
@@ -60,7 +103,7 @@ test('base App', () => {
       };
     }
 
-    get component() {
+    component() {
       return <span>{this.porps.b}</span>;
     }
   }

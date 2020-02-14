@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 import React, { FC } from 'react';
 import { unmountComponentAtNode, render } from 'react-dom';
 import { act } from 'react-dom/test-utils';
@@ -9,7 +10,6 @@ import {
   Route,
   MemoryRouter,
   AppProps,
-  defaultAttrs,
 } from '..';
 
 let container: Element;
@@ -42,31 +42,42 @@ describe('base API', () => {
   class HomeView extends View<{ text: string }> {
     text = 'homeView';
 
-    get props() {
+    get data() {
       return {
         text: this.text,
       };
     }
 
     component() {
-      return <span>{this.props.text}</span>;
+      return <span>{this.data.text}</span>;
     }
   }
 
-  class DashboardView extends View<{ text: string }, { version: string }> {
+  interface DashboardViewProps {
+    version?: string;
+    test?: string;
+  }
+
+  class DashboardView extends View<{ text: string }, DashboardViewProps> {
     text = 'dashboardView';
 
-    get props() {
+    get data() {
       return {
         text: this.text,
       };
     }
 
-    @defaultAttrs({
-      version: '1',
-    })
-    component({ version }: { version?: string }) {
-      return <span>{this.props.text}</span>;
+    get defaultProps() {
+      return {
+        version: '0.1.0',
+        test: 'test',
+      };
+    }
+
+    component(props: DashboardViewProps) {
+      expect(props.version).toBe('0.0.1');
+      expect(props.test).toBe('test');
+      return <span>{this.data.text}</span>;
     }
   }
 
@@ -79,7 +90,7 @@ describe('base API', () => {
       super();
     }
 
-    get props() {
+    get data() {
       return {
         bar: this.foo.bar,
       };
@@ -88,7 +99,7 @@ describe('base API', () => {
     component() {
       return (
         <MemoryRouter>
-          <h1>{this.props.bar}</h1>
+          <h1>{this.data.bar}</h1>
           <ul>
             <li>
               <Link to="/">Home</Link>
@@ -103,7 +114,7 @@ describe('base API', () => {
               <this.homeView.component />
             </Route>
             <Route path="/dashboard">
-              <this.dashboardView.component />
+              <this.dashboardView.component version="0.0.1" />
             </Route>
           </Switch>
         </MemoryRouter>
@@ -141,7 +152,7 @@ describe('base API', () => {
   //       this.state.count += 1;
   //     }
 
-  //     get props() {
+  //     get data() {
   //       return {
   //         text: `${this.state.count}`,
   //         increase: this.increase,
@@ -151,8 +162,8 @@ describe('base API', () => {
   //     get component() {
   //       return (
   //         <div>
-  //           <div onClick={() => this.props.increase()} id="a" />
-  //           <span>{this.props.text}</span>
+  //           <div onClick={() => this.data.increase()} id="a" />
+  //           <span>{this.data.text}</span>
   //         </div>
   //       );
   //     }
