@@ -19,8 +19,9 @@ interface Config {
   render?: Renderer;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface AppProps {
-  version: string;
+  // version: string;
 }
 
 // eslint-disable-next-line no-shadow
@@ -44,7 +45,7 @@ function createApp({ modules, main, render }: Config) {
       if (typeof instance === 'undefined') {
         throw new Error('`main` module has not a valid instance.');
       }
-      const element = <instance.component version="0.0.1" />;
+      const element = <instance.component />;
       if (typeof render === 'function') {
         return render(element, dom);
       }
