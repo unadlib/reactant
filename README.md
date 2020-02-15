@@ -154,3 +154,17 @@ test('base App', () => {
   app.bootstrap(document.getElementById('#app'));
 });
 ```
+
+## Goal
+
+* Immutable
+* Easy
+* High-performance
+* Flexible
+
+## Libraries
+
+* react
+* redux
+* react-router
+* inversify
