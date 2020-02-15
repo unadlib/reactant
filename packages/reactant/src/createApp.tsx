@@ -1,6 +1,6 @@
 import React, { ComponentElement } from 'react';
 import { render, Renderer } from 'react-dom';
-import { View } from 'reactant-module';
+import { createContainer, ContainerOptions } from 'reactant-module';
 
 function renderApp(
   element: ComponentElement<any, any>,
@@ -13,10 +13,11 @@ interface Module<T> extends Function {
   new (...args: any[]): T;
 }
 
-interface Config {
+interface Config<T> {
   modules: Module<any>[];
-  main: Module<any>;
+  main: Module<T>;
   render?: Renderer;
+  containerOptions?: ContainerOptions;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -25,20 +26,8 @@ export interface AppProps {
 }
 
 // eslint-disable-next-line no-shadow
-function createApp({ modules, main, render }: Config) {
-  let instance: void | View<any, AppProps>;
-  const moduleInstances: Module<any>[] = [];
-  for (const Module of modules) {
-    // TODO di
-    if (main === Module) {
-      const moduleInstance = new Module(...moduleInstances);
-      instance = moduleInstance;
-      moduleInstances.push(moduleInstance);
-    } else {
-      const moduleInstance = new Module(moduleInstances[0]);
-      moduleInstances.push(moduleInstance);
-    }
-  }
+function createApp<T>({ modules, main, render, containerOptions }: Config<T>) {
+  const instance = createContainer(containerOptions).get(main);
   return {
     instance,
     bootstrap(dom: Element): Element | void {

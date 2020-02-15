@@ -1,4 +1,6 @@
-/* eslint-disable class-methods-use-this */
+import { injectable } from 'reactant-di';
+
+@injectable()
 export abstract class View<P extends {} = {}, T extends {} = {}> {
   constructor() {
     const componentPropertyDescriptor = Object.getOwnPropertyDescriptor(
@@ -31,6 +33,7 @@ export abstract class View<P extends {} = {}, T extends {} = {}> {
   /**
    * current react component default props.
    */
+  // eslint-disable-next-line class-methods-use-this
   get defaultProps(): T {
     return {} as T;
   }

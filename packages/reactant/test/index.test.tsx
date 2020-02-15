@@ -10,6 +10,7 @@ import {
   Route,
   MemoryRouter,
   AppProps,
+  injectable,
 } from '..';
 
 let container: Element;
@@ -35,10 +36,12 @@ describe('base API', () => {
 
   const value = 'title about app';
 
+  @injectable()
   class Foo {
     bar = value;
   }
 
+  @injectable()
   class HomeView extends View<{ text: string }> {
     text = 'homeView';
 
@@ -58,6 +61,7 @@ describe('base API', () => {
     test?: string;
   }
 
+  @injectable()
   class DashboardView extends View<{ text: string }, DashboardViewProps> {
     text = 'dashboardView';
 
@@ -81,6 +85,7 @@ describe('base API', () => {
     }
   }
 
+  @injectable()
   class AppView extends View<AppViewProps> {
     constructor(
       public foo: Foo,
