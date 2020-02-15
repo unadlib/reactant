@@ -34,31 +34,16 @@ describe('base API', () => {
     version: string;
   }
 
+  interface DashboardViewProps {
+    version?: string;
+    test?: string;
+  }
+
   const value = 'title about app';
 
   @injectable()
   class Foo {
     bar = value;
-  }
-
-  @injectable()
-  class HomeView extends View<{ text: string }> {
-    text = 'homeView';
-
-    get data() {
-      return {
-        text: this.text,
-      };
-    }
-
-    component() {
-      return <span>{this.data.text}</span>;
-    }
-  }
-
-  interface DashboardViewProps {
-    version?: string;
-    test?: string;
   }
 
   @injectable()
@@ -85,49 +70,64 @@ describe('base API', () => {
     }
   }
 
-  @injectable()
-  class AppView extends View<AppViewProps> {
-    constructor(
-      public foo: Foo,
-      public homeView: HomeView,
-      public dashboardView: DashboardView
-    ) {
-      super();
-    }
-
-    get data() {
-      return {
-        bar: this.foo.bar,
-      };
-    }
-
-    component() {
-      return (
-        <MemoryRouter>
-          <h1>{this.data.bar}</h1>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/dashboard">Dashboard</Link>
-            </li>
-          </ul>
-
-          <Switch>
-            <Route exact path="/">
-              <this.homeView.component />
-            </Route>
-            <Route path="/dashboard">
-              <this.dashboardView.component version="0.0.1" />
-            </Route>
-          </Switch>
-        </MemoryRouter>
-      );
-    }
-  }
-
   test(`'View' UI module without state`, () => {
+    @injectable()
+    class HomeView extends View<{ text: string }> {
+      text = 'homeView';
+
+      get data() {
+        return {
+          text: this.text,
+        };
+      }
+
+      component() {
+        return <span>{this.data.text}</span>;
+      }
+    }
+
+    @injectable()
+    class AppView extends View<AppViewProps> {
+      constructor(
+        public foo: Foo,
+        public homeView: HomeView,
+        public dashboardView: DashboardView
+      ) {
+        super();
+      }
+
+      get data() {
+        return {
+          bar: this.foo.bar,
+        };
+      }
+
+      component() {
+        return (
+          <MemoryRouter>
+            <h1>{this.data.bar}</h1>
+            <ul>
+              <li>
+                <Link to="/">Home</Link>
+              </li>
+              <li>
+                <Link to="/dashboard">Dashboard</Link>
+              </li>
+            </ul>
+
+            <Switch>
+              <Route exact path="/">
+                <this.homeView.component />
+              </Route>
+              <Route path="/dashboard">
+                <this.dashboardView.component version="0.0.1" />
+              </Route>
+            </Switch>
+          </MemoryRouter>
+        );
+      }
+    }
+
     const app = createApp({
       modules: [Foo, HomeView, DashboardView, AppView],
       main: AppView,
@@ -146,48 +146,91 @@ describe('base API', () => {
     expect(container.querySelector('span')?.textContent).toBe('dashboardView');
   });
 
-  // test(`'View' UI module with state`, () => {
-  //   // eslint-disable-next-line no-shadow
-  //   class HomeView extends View<{ text: string }> {
-  //     state = {
-  //       count: 1,
-  //     };
+  test(`'View' UI module with state`, () => {
+    @injectable()
+    // eslint-disable-next-line no-shadow
+    class HomeView extends View<{ text: string }> {
+      state = {
+        count: 1,
+      };
 
-  //     increase() {
-  //       this.state.count += 1;
-  //     }
+      increase() {
+        this.state.count += 1;
+      }
 
-  //     get data() {
-  //       return {
-  //         text: `${this.state.count}`,
-  //         increase: this.increase,
-  //       };
-  //     }
+      get data() {
+        return {
+          text: `${this.state.count}`,
+          increase: this.increase,
+        };
+      }
 
-  //     get component() {
-  //       return (
-  //         <div>
-  //           <div onClick={() => this.data.increase()} id="a" />
-  //           <span>{this.data.text}</span>
-  //         </div>
-  //       );
-  //     }
-  //   }
+      component() {
+        return (
+          <div>
+            <div onClick={() => this.data.increase()} id="a" />
+            <span>{this.data.text}</span>
+          </div>
+        );
+      }
+    }
 
-  //   const app = createApp({
-  //     modules: [Foo, HomeView, DashboardView, AppView],
-  //     main: AppView,
-  //     render,
-  //   });
+    @injectable()
+    class AppView extends View<AppViewProps> {
+      constructor(
+        public foo: Foo,
+        public homeView: HomeView,
+        public dashboardView: DashboardView
+      ) {
+        super();
+      }
 
-  //   act(() => {
-  //     app.bootstrap(container);
-  //   });
-  //   expect(container.querySelector('span')?.textContent).toBe('1');
-  //   act(() => {
-  //     container
-  //       .querySelector('[href="/dashboard"]')!
-  //       .dispatchEvent(new MouseEvent('click', { bubbles: true }));
-  //   });
-  // });
+      get data() {
+        return {
+          bar: this.foo.bar,
+        };
+      }
+
+      component() {
+        return (
+          <MemoryRouter>
+            <h1>{this.data.bar}</h1>
+            <ul>
+              <li>
+                <Link to="/">Home</Link>
+              </li>
+              <li>
+                <Link to="/dashboard">Dashboard</Link>
+              </li>
+            </ul>
+
+            <Switch>
+              <Route exact path="/">
+                <this.homeView.component />
+              </Route>
+              <Route path="/dashboard">
+                <this.dashboardView.component version="0.0.1" />
+              </Route>
+            </Switch>
+          </MemoryRouter>
+        );
+      }
+    }
+
+    const app = createApp({
+      modules: [Foo, HomeView, DashboardView, AppView],
+      main: AppView,
+      render,
+    });
+
+    act(() => {
+      app.bootstrap(container);
+    });
+    expect(container.querySelector('span')?.textContent).toBe('1');
+    act(() => {
+      container
+        .querySelector('[href="/dashboard"]')!
+        .dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    });
+  });
 });
