@@ -27,4 +27,6 @@ export function createContainer(config?: interfaces.ContainerOptions) {
 
 export type ContainerOptions = interfaces.ContainerOptions;
 
+export type ServiceIdentifier<T> = interfaces.ServiceIdentifier<T>;
+
 export { optional, inject };
