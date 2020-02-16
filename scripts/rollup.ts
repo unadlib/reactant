@@ -32,6 +32,10 @@ const generateBundledModules = async ({
         react: Object.keys(require('react')),
         'react-dom': Object.keys(require('react-dom')),
         'react-is': Object.keys(require('react-is')),
+        'react-router-dom': Object.keys(require('react-router-dom')),
+        'react-redux': Object.keys(require('react-redux')),
+        redux: Object.keys(require('redux')),
+        inversify: Object.keys(require('inversify')),
       },
     }),
   ];
@@ -44,6 +48,15 @@ const generateBundledModules = async ({
   try {
     const bundle = await rollup({
       input: inputFile,
+      external: [
+        'react',
+        'react-dom',
+        'react-is',
+        'react-router-dom',
+        'react-redux',
+        'redux',
+        'inversify',
+      ],
       plugins,
     });
     const isUmd = format === 'umd';
