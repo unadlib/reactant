@@ -1,32 +1,9 @@
 import 'reflect-metadata';
-import {
-  inject,
-  injectable as injectify,
-  Container,
-  optional,
-  interfaces,
-} from 'inversify';
+import { interfaces, optional, inject } from 'inversify';
 
-const injectableList: any[] = [];
-
-export function injectable() {
-  return function fn(target: any) {
-    injectableList.push(target);
-    injectify()(target);
-    return target;
-  };
-}
-
-export function createContainer(config?: interfaces.ContainerOptions) {
-  const container = new Container(config);
-  injectableList.forEach((item: any) => {
-    container.bind(item).toSelf();
-  });
-  return container;
-}
-
+export * from './createContainer';
+export * from './injectable';
+export * from './util';
 export type ContainerOptions = interfaces.ContainerOptions;
-
 export type ServiceIdentifier<T> = interfaces.ServiceIdentifier<T>;
-
 export { optional, inject };
