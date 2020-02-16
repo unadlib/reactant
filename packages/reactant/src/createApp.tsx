@@ -5,14 +5,11 @@ import {
   ContainerOptions,
   ServiceIdentifier,
   View,
+  createStore,
+  generateServicesKeys,
+  ServicesKeysMap,
+  Provider,
 } from 'reactant-module';
-
-function renderApp(
-  element: ComponentElement<any, any>,
-  container: Element
-): Element {
-  return render(element, container);
-}
 
 interface Module<T> extends Function {
   new (...args: any[]): T;
@@ -30,17 +27,32 @@ export interface AppProps {
   // version: string;
 }
 
+function renderApp(
+  element: ComponentElement<any, any>,
+  container: Element
+): Element {
+  return render(element, container);
+}
+
 // eslint-disable-next-line no-shadow
 function createApp<T>({ modules, main, render, containerOptions }: Config<T>) {
   const instance = createContainer(containerOptions).get<T>(main);
+  const servicesKeysMap: ServicesKeysMap = new Map();
+  generateServicesKeys(instance, servicesKeysMap);
+  const store = createStore(servicesKeysMap);
   return {
     instance,
+    store,
     bootstrap(dom: Element): Element | void {
       if (typeof instance === 'undefined') {
         throw new Error('`main` module has not a valid instance.');
       }
       const Component = ((instance as any) as View).component;
-      const element = <Component />;
+      const element = (
+        <Provider store={store}>
+          <Component />
+        </Provider>
+      );
       if (typeof render === 'function') {
         return render(element, dom);
       }

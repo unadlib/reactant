@@ -1,3 +1,3 @@
-const services: any[] = [];
+const Services: any[] = [];
 
-export const getServices = () => services;
+export const getServices = () => Services;
