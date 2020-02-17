@@ -1,6 +1,7 @@
 /* eslint-disable class-methods-use-this */
 import React, { FC } from 'react';
-import { unmountComponentAtNode, render } from 'react-dom';
+import { unmountComponentAtNode, render } from 'reactant-web';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { act } from 'react-dom/test-utils';
 import {
   View,

@@ -1,5 +1,4 @@
-import React, { ComponentElement } from 'react';
-import { render, Renderer } from 'react-dom';
+import React from 'react';
 import {
   createContainer,
   ContainerOptions,
@@ -19,20 +18,13 @@ interface Module<T> extends Function {
 interface Config<T> {
   modules: Module<any>[];
   main: ServiceIdentifier<T>;
-  render?: Renderer;
+  render: (element: JSX.Element, ...args: any[]) => Element | void;
   containerOptions?: ContainerOptions;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface AppProps {
   // version: string;
-}
-
-function renderApp(
-  element: ComponentElement<any, any>,
-  container: Element
-): Element {
-  return render(element, container);
 }
 
 // eslint-disable-next-line no-shadow
@@ -47,7 +39,7 @@ function createApp<T>({ modules, main, render, containerOptions }: Config<T>) {
   }
   return {
     instance,
-    bootstrap(dom: Element): Element | void {
+    bootstrap(...args: any[]): Element | void {
       if (typeof instance === 'undefined') {
         throw new Error('`main` module has not a valid instance.');
       }
@@ -57,10 +49,7 @@ function createApp<T>({ modules, main, render, containerOptions }: Config<T>) {
           <Component />
         </Provider>
       );
-      if (typeof render === 'function') {
-        return render(element, dom);
-      }
-      return renderApp(element, dom);
+      return render(element, ...args);
     },
   };
 }

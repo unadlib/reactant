@@ -8,5 +8,12 @@
   },
   "keywords": [],
   "author": "",
-  "license": "MIT"
+  "license": "MIT",
+  "peerDependencies": {
+    "react-dom": "^16.12.0"
+  },
+  "dependencies": {
+    "react-dom": "^16.12.0",
+    "reactant-router-dom": "^0.0.1"
+  }
 }
