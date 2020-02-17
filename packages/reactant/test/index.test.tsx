@@ -1,18 +1,16 @@
 /* eslint-disable class-methods-use-this */
 import React, { FC } from 'react';
-import { unmountComponentAtNode, render } from 'reactant-web';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { act } from 'react-dom/test-utils';
 import {
-  View,
-  createApp,
+  unmountComponentAtNode,
+  render,
   Link,
   Switch,
   Route,
   MemoryRouter,
-  AppProps,
-  injectable,
-} from '..';
+} from 'reactant-web';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { act } from 'react-dom/test-utils';
+import { View, createApp, AppProps, injectable } from '..';
 
 let container: Element;
 
