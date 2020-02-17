@@ -11,7 +11,7 @@
   "scripts": {
     "test-prod": "cross-env NODE_ENV=production jest --config ./scripts/jest/prod.config.json",
     "test": "cross-env NODE_ENV=development jest --config ./scripts/jest/dev.config.json",
-    "build": "ts-node scripts/build.ts",
+    "build": "cross-env NODE_ENV=production ts-node scripts/build.ts",
     "clean": "lerna exec rimraf ./dist ./build",
     "commit": "yarn git-cz"
   },

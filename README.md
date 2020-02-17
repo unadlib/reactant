@@ -46,23 +46,9 @@ test('base App', () => {
       increase() {
         const count = this.state.count + 1;
         return {
-          state: {
             ...this.state,
             count,
-          },
-        };
-      }
-
-      @action
-      decrease() {
-        const count = this.state.count - 1;
-        return {
-          state: {
-            ...this.state,
-            count,
-          },
-          count: this.count.increase(),
-        };
+          };
       }
 
       @computed(

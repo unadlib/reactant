@@ -9,6 +9,7 @@ import {
   generateServicesKeys,
   ServicesKeysMap,
   Provider,
+  setStore,
 } from 'reactant-module';
 
 interface Module<T> extends Function {
@@ -40,9 +41,12 @@ function createApp<T>({ modules, main, render, containerOptions }: Config<T>) {
   const servicesKeysMap: ServicesKeysMap = new Map();
   generateServicesKeys(instance, servicesKeysMap);
   const store = createStore(servicesKeysMap);
+  setStore(store);
+  if (__DEV__) {
+    // todo check service naming conflicts
+  }
   return {
     instance,
-    store,
     bootstrap(dom: Element): Element | void {
       if (typeof instance === 'undefined') {
         throw new Error('`main` module has not a valid instance.');

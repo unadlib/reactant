@@ -16,6 +16,8 @@ type GenerateOption = {
   production?: boolean;
 };
 
+const isProduction = process.env.NODE_ENV === 'production';
+
 const generateBundledModules = async ({
   inputFile,
   outputFile,
@@ -41,7 +43,10 @@ const generateBundledModules = async ({
   ];
   if (production) {
     plugins.push(
-      replacePlugin({ 'process.env.NODE_ENV': JSON.stringify('production') }),
+      replacePlugin({
+        'process.env.NODE_ENV': isProduction ? "'production'" : "'development'",
+        __DEV__: isProduction ? 'false' : 'true',
+      }),
       terserPlugin()
     );
   }

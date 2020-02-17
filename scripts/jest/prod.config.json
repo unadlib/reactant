@@ -1,4 +1,7 @@
 {
   "preset": "ts-jest",
-  "rootDir": "../../"
+  "rootDir": "../../",
+  "globals": {
+    "__DEV__": false
+  }
 }
