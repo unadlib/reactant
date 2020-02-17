@@ -42,7 +42,6 @@ export abstract class View<P extends {} = {}, T extends {} = {}> {
   /**
    * current react component default props.
    */
-  // eslint-disable-next-line class-methods-use-this
   get defaultAttrs(): RequiredOnlyOptional<T> {
     return {} as RequiredOnlyOptional<T>;
   }
