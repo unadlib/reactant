@@ -1,5 +1,14 @@
 import { injectable } from 'reactant-di';
 
+type OptionalKeyOf<T extends object> = {
+  [K in keyof T]-?: T extends Record<K, T[K]> ? never : K;
+}[keyof T];
+
+type RequiredOnlyOptional<T extends object> = Pick<
+  Required<T>,
+  OptionalKeyOf<T>
+>;
+
 @injectable()
 export abstract class View<P extends {} = {}, T extends {} = {}> {
   constructor() {
@@ -15,27 +24,27 @@ export abstract class View<P extends {} = {}, T extends {} = {}> {
       value: componentPropertyDescriptor.value.bind(this),
     });
     Object.assign(this.component, {
-      defaultProps: this.defaultProps,
+      defaultProps: this.defaultAttrs,
     });
-    this.props = {} as T;
+    this.attrs = {} as Required<T>;
   }
 
   /**
    * this module inject props to current component props.
    */
-  abstract get data(): P;
+  abstract get props(): Required<T> & P;
 
   /**
    * current react component props.
    */
-  props: T;
+  attrs: Required<T>; // todo implement from connector
 
   /**
    * current react component default props.
    */
   // eslint-disable-next-line class-methods-use-this
-  get defaultProps(): T {
-    return {} as T;
+  get defaultAttrs(): RequiredOnlyOptional<T> {
+    return {} as RequiredOnlyOptional<T>;
   }
 
   /**
@@ -43,5 +52,5 @@ export abstract class View<P extends {} = {}, T extends {} = {}> {
    * and `props` or `this.props` from parent component, `this.data` from this module.
    * @param props react component props.
    */
-  abstract component(props: T): React.ComponentElement<any, any>;
+  abstract component(attrs: Required<T>): React.ComponentElement<any, any>;
 }

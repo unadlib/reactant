@@ -34,7 +34,7 @@ describe('base API', () => {
     version: string;
   }
 
-  interface DashboardViewProps {
+  interface DashboardViewAttrs {
     version?: string;
     test?: string;
   }
@@ -47,26 +47,27 @@ describe('base API', () => {
   }
 
   @injectable()
-  class DashboardView extends View<{ text: string }, DashboardViewProps> {
+  class DashboardView extends View<{ text: string }, DashboardViewAttrs> {
     text = 'dashboardView';
 
-    get data() {
+    get props() {
       return {
         text: this.text,
+        ...this.attrs,
       };
     }
 
-    get defaultProps() {
+    get defaultAttrs() {
       return {
         version: '0.1.0',
         test: 'test',
       };
     }
 
-    component(props: DashboardViewProps) {
-      expect(props.version).toBe('0.0.1');
-      expect(props.test).toBe('test');
-      return <span>{this.data.text}</span>;
+    component(attrs: DashboardViewAttrs) {
+      expect(attrs.version).toBe('0.0.1');
+      expect(attrs.test).toBe('test');
+      return <span>{this.props.text}</span>;
     }
   }
 
@@ -75,14 +76,14 @@ describe('base API', () => {
     class HomeView extends View<{ text: string }> {
       text = 'homeView';
 
-      get data() {
+      get props() {
         return {
           text: this.text,
         };
       }
 
       component() {
-        return <span>{this.data.text}</span>;
+        return <span>{this.props.text}</span>;
       }
     }
 
@@ -96,7 +97,7 @@ describe('base API', () => {
         super();
       }
 
-      get data() {
+      get props() {
         return {
           bar: this.foo.bar,
         };
@@ -105,7 +106,7 @@ describe('base API', () => {
       component() {
         return (
           <MemoryRouter>
-            <h1>{this.data.bar}</h1>
+            <h1>{this.props.bar}</h1>
             <ul>
               <li>
                 <Link to="/">Home</Link>
@@ -148,7 +149,6 @@ describe('base API', () => {
 
   test(`'View' UI module with state`, () => {
     @injectable()
-    // eslint-disable-next-line no-shadow
     class HomeView extends View<{ text: string }> {
       state = {
         count: 1,
@@ -158,7 +158,7 @@ describe('base API', () => {
         this.state.count += 1;
       }
 
-      get data() {
+      get props() {
         return {
           text: `${this.state.count}`,
           increase: this.increase,
@@ -168,8 +168,8 @@ describe('base API', () => {
       component() {
         return (
           <div>
-            <div onClick={() => this.data.increase()} id="a" />
-            <span>{this.data.text}</span>
+            <div onClick={() => this.props.increase()} id="a" />
+            <span>{this.props.text}</span>
           </div>
         );
       }
@@ -185,7 +185,7 @@ describe('base API', () => {
         super();
       }
 
-      get data() {
+      get props() {
         return {
           bar: this.foo.bar,
         };
@@ -194,7 +194,7 @@ describe('base API', () => {
       component() {
         return (
           <MemoryRouter>
-            <h1>{this.data.bar}</h1>
+            <h1>{this.props.bar}</h1>
             <ul>
               <li>
                 <Link to="/">Home</Link>
