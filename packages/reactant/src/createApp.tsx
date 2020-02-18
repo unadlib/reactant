@@ -5,8 +5,6 @@ import {
   ServiceIdentifier,
   View,
   createStore,
-  generateServicesKeys,
-  ServicesKeysMap,
   Provider,
   setStore,
 } from 'reactant-module';
@@ -29,10 +27,12 @@ export interface AppProps {
 
 // eslint-disable-next-line no-shadow
 function createApp<T>({ modules, main, render, containerOptions }: Config<T>) {
-  const instance = createContainer(containerOptions).get<T>(main);
-  const servicesKeysMap: ServicesKeysMap = new Map();
-  generateServicesKeys(instance, servicesKeysMap);
-  const store = createStore(servicesKeysMap);
+  const container = createContainer({
+    defaultScope: 'Singleton',
+    ...containerOptions,
+  });
+  const instance = container.get<T>(main);
+  const store = createStore(container);
   setStore(store);
   if (__DEV__) {
     // todo check service naming conflicts

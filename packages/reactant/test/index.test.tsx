@@ -10,7 +10,7 @@ import {
 } from 'reactant-web';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { act } from 'react-dom/test-utils';
-import { View, createApp, AppProps, injectable } from '..';
+import { View, createApp, AppProps, injectable, action, getStore } from '..';
 
 let container: Element;
 
@@ -41,7 +41,14 @@ describe('base API', () => {
   const value = 'title about app';
 
   @injectable()
+  class Foo0 {
+    name = 'Foo0';
+  }
+
+  @injectable()
   class Foo {
+    constructor(public foo0: Foo0) {}
+
     bar = value;
   }
 
@@ -146,15 +153,18 @@ describe('base API', () => {
     expect(container.querySelector('span')?.textContent).toBe('dashboardView');
   });
 
-  test(`'View' UI module with state`, () => {
+  test.only(`'View' UI module with state`, () => {
     @injectable()
     class HomeView extends View<{ text: string }> {
+      name = 'HomeView';
+
       state = {
         count: 1,
       };
 
-      increase() {
-        this.state.count += 1;
+      @action
+      increase(num: number) {
+        this.state.count += num;
       }
 
       get props() {
@@ -167,7 +177,7 @@ describe('base API', () => {
       component() {
         return (
           <div>
-            <div onClick={() => this.props.increase()} id="a" />
+            <div onClick={() => this.props.increase(1)} id="a" />
             <span>{this.props.text}</span>
           </div>
         );
@@ -231,5 +241,6 @@ describe('base API', () => {
         .querySelector('[href="/dashboard"]')!
         .dispatchEvent(new MouseEvent('click', { bubbles: true }));
     });
+    app.instance.homeView.increase(1);
   });
 });
