@@ -11,6 +11,7 @@ import {
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { act } from 'react-dom/test-utils';
 import { View, createApp, AppProps, injectable, action, getStore } from '..';
+import { stringify } from 'querystring';
 
 let container: Element;
 
@@ -153,10 +154,10 @@ describe('base API', () => {
     expect(container.querySelector('span')?.textContent).toBe('dashboardView');
   });
 
-  test.only(`'View' UI module with state`, () => {
+  test(`'View' UI module with state`, () => {
     @injectable()
     class HomeView extends View<{ text: string }> {
-      name = 'HomeView';
+      name = 'homeView';
 
       state = {
         count: 1,
@@ -236,11 +237,17 @@ describe('base API', () => {
       app.bootstrap(container);
     });
     expect(container.querySelector('span')?.textContent).toBe('1');
+    app.instance.homeView.increase(1);
+    expect(getStore().getState().homeView.count).toBe(2);
+    // act(() => {
+    //   app.instance.homeView.increase(1);
+    // });
+    // expect(container.querySelector('span')?.textContent).toBe('2');
     act(() => {
       container
         .querySelector('[href="/dashboard"]')!
         .dispatchEvent(new MouseEvent('click', { bubbles: true }));
     });
-    app.instance.homeView.increase(1);
+    expect(container.querySelector('span')?.textContent).toBe('dashboardView');
   });
 });
