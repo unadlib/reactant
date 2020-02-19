@@ -163,8 +163,12 @@ describe('base API', () => {
   test('View UI module with state', () => {
     const renderFn = jest.fn();
 
+    interface HomeViewAttrs {
+      version?: string;
+    }
+
     @injectable()
-    class HomeView extends View<{ text: string }> {
+    class HomeView extends View<{ text: string }, HomeViewAttrs> {
       name = 'homeView';
 
       state = {
@@ -188,11 +192,20 @@ describe('base API', () => {
         return {
           text: `${this.state.count}`,
           increase: () => this.increase(1),
+          ...this.attrs,
         };
       }
 
-      component() {
+      get defaultAttrs() {
+        return {
+          version: '0.0.1',
+        };
+      }
+
+      component(attrs: HomeViewAttrs) {
         renderFn();
+        expect(this.props.version).toEqual(this.attrs.version);
+        expect(this.props.version).toEqual(this.defaultAttrs.version);
         return (
           <div>
             <div onClick={this.props.increase} id="a" />
