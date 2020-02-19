@@ -16,7 +16,6 @@ import {
   AppProps,
   injectable,
   action,
-  getStore,
   createConnector,
 } from '..';
 
@@ -256,14 +255,14 @@ describe('base API', () => {
       app.bootstrap(container); // init render
     });
     expect(container.querySelector('span')?.textContent).toBe('1');
-    const { list } = getStore().getState().homeView;
+    const { list } = app.store.getState().homeView;
     act(() => {
       app.instance.homeView.increase(1); // render
     });
-    expect(getStore().getState().homeView.count).toBe(2);
+    expect(app.store.getState().homeView.count).toBe(2);
     expect(app.instance.homeView.state.count).toBe(2);
-    expect(list === getStore().getState().homeView.list).toBeFalsy();
-    expect(list[0] === getStore().getState().homeView.list[0]).toBeFalsy();
+    expect(list === app.store.getState().homeView.list).toBeFalsy();
+    expect(list[0] === app.store.getState().homeView.list[0]).toBeFalsy();
     expect(container.querySelector('span')?.textContent).toBe('2');
     act(() => {
       app.instance.homeView.increase(1); // render

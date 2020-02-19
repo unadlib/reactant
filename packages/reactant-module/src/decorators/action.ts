@@ -1,5 +1,5 @@
 import { produce } from 'immer';
-import { getStore } from '../core/store';
+import { storeKey } from '../core/createStore';
 
 type ThisType = { state: Record<string, any>; name: string };
 
@@ -14,7 +14,7 @@ export function action(
     const states = produce(this.state, (draftState: Record<string, any>) => {
       fn.call({ ...this, state: draftState }, ...args);
     });
-    getStore().dispatch({
+    (this as any)[storeKey].dispatch({
       type: this.name,
       states,
     });

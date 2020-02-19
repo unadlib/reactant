@@ -1,10 +1,11 @@
+/* eslint-disable no-loop-func */
 import {
   combineReducers,
   ReducersMapObject,
   createStore as createStoreWithRedux,
+  Store,
 } from 'redux';
 import { Container, ServiceIdentifiersMap } from 'reactant-di';
-import { getStore } from './store';
 
 interface Action<T> {
   type: string;
@@ -12,11 +13,13 @@ interface Action<T> {
 }
 
 export const reducersKey = Symbol('reducers');
+export const storeKey = Symbol('store');
 
 export function createStore(
   container: Container,
   ServiceIdentifiers: ServiceIdentifiersMap
 ) {
+  let store: Store;
   const reducers: ReducersMapObject = {};
   for (const [Service] of ServiceIdentifiers) {
     const service = container.get(Service);
@@ -36,9 +39,8 @@ export function createStore(
       }
       const isEmptyObject = Object.keys(service.state).length === 0;
       if (!isEmptyObject) {
-        // `service[reducersKey]` assign to target instance, others services will use it.
+        // `service[reducersKey]` assign to target instance, others services will use it, example: persistence.
         service[reducersKey] = Object.entries(service.state).reduce(
-          // eslint-disable-next-line no-loop-func
           (
             serviceReducersMapObject: ReducersMapObject,
             [reducerKey, initialState]
@@ -63,7 +65,16 @@ export function createStore(
             enumerable: true,
             configurable: false,
             get() {
-              return getStore().getState()[service.name];
+              return this[storeKey].getState()[service.name];
+            },
+          },
+        });
+        Object.defineProperties(service, {
+          [storeKey]: {
+            enumerable: false,
+            configurable: false,
+            get() {
+              return store;
             },
           },
         });
@@ -75,5 +86,6 @@ export function createStore(
     }
   }
   const reducer = combineReducers(reducers);
-  return createStoreWithRedux(reducer);
+  store = createStoreWithRedux(reducer);
+  return store;
 }

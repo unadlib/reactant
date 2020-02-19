@@ -20,5 +20,5 @@ test('base di', () => {
     }
   }
 
-  createContainer().get(FooBar);
+  createContainer(new Map()).get(FooBar);
 });

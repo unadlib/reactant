@@ -6,7 +6,6 @@ import {
   View,
   createStore,
   Provider,
-  setStore,
   ServiceIdentifiersMap,
 } from 'reactant-module';
 
@@ -35,12 +34,12 @@ function createApp<T>({ modules, main, render, containerOptions }: Config<T>) {
   });
   const instance = container.get<T>(main);
   const store = createStore(container, ServiceIdentifiers);
-  setStore(store);
   if (__DEV__) {
     // todo check service naming conflicts
   }
   return {
     instance,
+    store,
     bootstrap(...args: any[]): Element | void {
       if (typeof instance === 'undefined') {
         throw new Error('`main` module has not a valid instance.');
