@@ -10,8 +10,15 @@ import {
 } from 'reactant-web';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { act } from 'react-dom/test-utils';
-import { View, createApp, AppProps, injectable, action, getStore } from '..';
-import { stringify } from 'querystring';
+import {
+  View,
+  createApp,
+  AppProps,
+  injectable,
+  action,
+  getStore,
+  createConnector,
+} from '..';
 
 let container: Element;
 
@@ -78,7 +85,7 @@ describe('base API', () => {
     }
   }
 
-  test(`'View' UI module without state`, () => {
+  test('View UI module without state', () => {
     @injectable()
     class HomeView extends View<{ text: string }> {
       text = 'homeView';
@@ -154,31 +161,42 @@ describe('base API', () => {
     expect(container.querySelector('span')?.textContent).toBe('dashboardView');
   });
 
-  test(`'View' UI module with state`, () => {
+  test('View UI module with state', () => {
+    const renderFn = jest.fn();
+
     @injectable()
     class HomeView extends View<{ text: string }> {
       name = 'homeView';
 
       state = {
         count: 1,
+        list: [{ count: 1 }],
+        test: 1,
       };
 
       @action
       increase(num: number) {
         this.state.count += num;
+        this.state.list[0].count += num;
+      }
+
+      @action
+      decrease(num: number) {
+        this.state.test -= num;
       }
 
       get props() {
         return {
           text: `${this.state.count}`,
-          increase: this.increase,
+          increase: () => this.increase(1),
         };
       }
 
       component() {
+        renderFn();
         return (
           <div>
-            <div onClick={() => this.props.increase(1)} id="a" />
+            <div onClick={this.props.increase} id="a" />
             <span>{this.props.text}</span>
           </div>
         );
@@ -202,6 +220,7 @@ describe('base API', () => {
       }
 
       component() {
+        const HomeView = createConnector(this.homeView);
         return (
           <MemoryRouter>
             <h1>{this.props.bar}</h1>
@@ -216,7 +235,7 @@ describe('base API', () => {
 
             <Switch>
               <Route exact path="/">
-                <this.homeView.component />
+                <HomeView />
               </Route>
               <Route path="/dashboard">
                 <this.dashboardView.component version="0.0.1" />
@@ -234,16 +253,25 @@ describe('base API', () => {
     });
 
     act(() => {
-      app.bootstrap(container);
+      app.bootstrap(container); // init render
     });
     expect(container.querySelector('span')?.textContent).toBe('1');
-    app.instance.homeView.increase(1);
+    const { list } = getStore().getState().homeView;
+    act(() => {
+      app.instance.homeView.increase(1); // render
+    });
     expect(getStore().getState().homeView.count).toBe(2);
     expect(app.instance.homeView.state.count).toBe(2);
-    // act(() => {
-    //   app.instance.homeView.increase(1);
-    // });
-    // expect(container.querySelector('span')?.textContent).toBe('2');
+    expect(list === getStore().getState().homeView.list).toBeFalsy();
+    expect(list[0] === getStore().getState().homeView.list[0]).toBeFalsy();
+    expect(container.querySelector('span')?.textContent).toBe('2');
+    act(() => {
+      app.instance.homeView.increase(1); // render
+    });
+    act(() => {
+      app.instance.homeView.decrease(1);
+    });
+    expect(renderFn.mock.calls.length).toBe(3);
     act(() => {
       container
         .querySelector('[href="/dashboard"]')!

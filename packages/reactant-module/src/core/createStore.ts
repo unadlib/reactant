@@ -19,7 +19,8 @@ export function createStore(container: Container) {
   const reducers: ReducersMapObject = {};
   for (const Service of getServiceIdentifiers()) {
     const service = container.get(Service);
-    if (toString.call(service.state) === '[object Object]') {
+    const isPlainObject = toString.call(service.state) === '[object Object]';
+    if (isPlainObject) {
       const className = (Service as Function).name;
       if (typeof service.name !== 'string' || !service.name) {
         throw new Error(`
@@ -32,7 +33,8 @@ export function createStore(container: Container) {
             }
         `);
       }
-      if (Object.keys(service.state).length > 0) {
+      const isEmptyObject = Object.keys(service.state).length === 0;
+      if (!isEmptyObject) {
         servicesKeysMap.set(service, service.name);
         // `service[reducersKey]` assign to target instance, others services will use it.
         service[reducersKey] = Object.entries(service.state).reduce(
