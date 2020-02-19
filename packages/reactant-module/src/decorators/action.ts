@@ -1,6 +1,7 @@
 import { produce } from 'immer';
-import { getServicesKeysMap } from '../utils';
 import { getStore } from '../core/store';
+
+type ThisType = { state: Record<string, any>; name: string };
 
 export function action(
   target: object,
@@ -8,13 +9,13 @@ export function action(
   descriptor: TypedPropertyDescriptor<any>
 ) {
   const fn = descriptor.value;
-  const value = function(this: { state: Record<string, any> }, ...args: any[]) {
+  // eslint-disable-next-line func-names
+  const value = function(this: ThisType, ...args: any[]) {
     const states = produce(this.state, (draftState: Record<string, any>) => {
       fn.call({ ...this, state: draftState }, ...args);
     });
-    const type = getServicesKeysMap().get(this);
     getStore().dispatch({
-      type,
+      type: this.name,
       states,
     });
   };

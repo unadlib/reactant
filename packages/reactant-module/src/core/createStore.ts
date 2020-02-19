@@ -3,8 +3,7 @@ import {
   ReducersMapObject,
   createStore as createStoreWithRedux,
 } from 'redux';
-import { Container, getServiceIdentifiers } from 'reactant-di';
-import { setServicesKeysMap } from '../utils';
+import { Container, ServiceIdentifiersMap } from 'reactant-di';
 import { getStore } from './store';
 
 interface Action<T> {
@@ -14,10 +13,12 @@ interface Action<T> {
 
 export const reducersKey = Symbol('reducers');
 
-export function createStore(container: Container) {
-  const servicesKeysMap = setServicesKeysMap(new Map());
+export function createStore(
+  container: Container,
+  ServiceIdentifiers: ServiceIdentifiersMap
+) {
   const reducers: ReducersMapObject = {};
-  for (const Service of getServiceIdentifiers()) {
+  for (const [Service] of ServiceIdentifiers) {
     const service = container.get(Service);
     const isPlainObject = toString.call(service.state) === '[object Object]';
     if (isPlainObject) {
@@ -35,7 +36,6 @@ export function createStore(container: Container) {
       }
       const isEmptyObject = Object.keys(service.state).length === 0;
       if (!isEmptyObject) {
-        servicesKeysMap.set(service, service.name);
         // `service[reducersKey]` assign to target instance, others services will use it.
         service[reducersKey] = Object.entries(service.state).reduce(
           // eslint-disable-next-line no-loop-func

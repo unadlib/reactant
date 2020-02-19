@@ -1,12 +1,14 @@
 import { Container } from 'inversify';
-import { ContainerOptions } from './interfaces';
-import { getServices, setServiceIdentifiers } from './util';
-import { collector } from './middlewares/collector';
+import { ContainerOptions, ServiceIdentifiersMap } from './interfaces';
+import { getServices } from './util';
+import { createCollector } from './middlewares/collector';
 
-export function createContainer(config?: ContainerOptions) {
-  setServiceIdentifiers([]);
+export function createContainer(
+  ServiceIdentifiers: ServiceIdentifiersMap,
+  config?: ContainerOptions
+) {
   const container = new Container(config);
-  container.applyMiddleware(collector);
+  container.applyMiddleware(createCollector(ServiceIdentifiers));
   getServices().forEach((item: any) => {
     container.bind(item).toSelf();
   });
