@@ -219,7 +219,6 @@ describe('base API', () => {
       }
 
       component() {
-        const HomeView = createConnector(this.homeView);
         return (
           <MemoryRouter>
             <h1>{this.props.bar}</h1>
@@ -234,7 +233,7 @@ describe('base API', () => {
 
             <Switch>
               <Route exact path="/">
-                <HomeView />
+                <this.homeView.component />
               </Route>
               <Route path="/dashboard">
                 <this.dashboardView.component version="0.0.1" />

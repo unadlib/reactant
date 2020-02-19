@@ -8,6 +8,7 @@ import {
   createStore,
   ServiceIdentifiersMap,
 } from 'reactant-module';
+import { injectConnectors } from './injectConnectors';
 
 interface Module<T> extends Function {
   new (...args: any[]): T;
@@ -34,10 +35,17 @@ function createApp<T>({ modules, main, render, containerOptions }: Config<T>) {
   });
   const instance = container.get<T>(main);
   const store = createStore(container, ServiceIdentifiers);
-  console.log(ServiceIdentifiers.get(main));
-  if (__DEV__) {
-    // todo check service naming conflicts
+  const mainDepsServiceIdentifiers = ServiceIdentifiers.get(main);
+  if (typeof mainDepsServiceIdentifiers === 'undefined') {
+    throw new Error(`Main module does dependent on any module.`);
   }
+  const mainDepsViewServiceIdentifiers = mainDepsServiceIdentifiers.filter(
+    serviceIdentifier => container.get(serviceIdentifier) instanceof View
+  );
+  if (mainDepsViewServiceIdentifiers.length === 0) {
+    throw new Error(`Main module does not inject any 'View' module.`);
+  }
+  injectConnectors(container, mainDepsViewServiceIdentifiers);
   return {
     instance,
     store,
