@@ -239,6 +239,7 @@ describe('base API', () => {
     expect(container.querySelector('span')?.textContent).toBe('1');
     app.instance.homeView.increase(1);
     expect(getStore().getState().homeView.count).toBe(2);
+    expect(app.instance.homeView.state.count).toBe(2);
     // act(() => {
     //   app.instance.homeView.increase(1);
     // });

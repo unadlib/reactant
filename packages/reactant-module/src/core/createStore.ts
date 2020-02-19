@@ -5,6 +5,7 @@ import {
 } from 'redux';
 import { Container, getServiceIdentifiers } from 'reactant-di';
 import { setServicesKeysMap } from '../utils';
+import { getStore } from './store';
 
 interface Action<T> {
   type: string;
@@ -53,6 +54,16 @@ export function createStore(container: Container) {
         );
         Object.assign(reducers, {
           [service.name]: combineReducers(service[reducersKey]),
+        });
+        // redefine get service state from store state.
+        Object.defineProperties(service, {
+          state: {
+            enumerable: true,
+            configurable: false,
+            get() {
+              return getStore().getState()[service.name];
+            },
+          },
         });
       } else {
         throw new Error(`
