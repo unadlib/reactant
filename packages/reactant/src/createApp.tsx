@@ -1,11 +1,11 @@
 import React from 'react';
+import { Provider } from 'react-redux';
 import {
   createContainer,
   ContainerOptions,
   ServiceIdentifier,
   View,
   createStore,
-  Provider,
   ServiceIdentifiersMap,
 } from 'reactant-module';
 
@@ -34,6 +34,7 @@ function createApp<T>({ modules, main, render, containerOptions }: Config<T>) {
   });
   const instance = container.get<T>(main);
   const store = createStore(container, ServiceIdentifiers);
+  console.log(ServiceIdentifiers.get(main));
   if (__DEV__) {
     // todo check service naming conflicts
   }
