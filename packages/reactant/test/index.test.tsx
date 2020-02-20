@@ -17,6 +17,7 @@ import {
   injectable,
   action,
   createConnector,
+  computed,
 } from '..';
 
 let container: Element;
@@ -194,6 +195,11 @@ describe('base API', () => {
           increase: () => this.increase(1),
           ...this.attrs,
         };
+      }
+
+      @computed(() => '1')
+      getCount(s: string) {
+        return s;
       }
 
       get defaultAttrs() {
