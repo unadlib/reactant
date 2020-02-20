@@ -42,6 +42,7 @@ function createApp<T>({ modules, main, render, containerOptions }: Config<T>) {
   const mainDepsViewServiceIdentifiers = mainDepsServiceIdentifiers.filter(
     serviceIdentifier => container.get(serviceIdentifier) instanceof View
   );
+  mainDepsViewServiceIdentifiers.push(main);
   if (mainDepsViewServiceIdentifiers.length === 0) {
     throw new Error(`Main module does not inject any 'View' module.`);
   }

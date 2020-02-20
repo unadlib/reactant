@@ -289,5 +289,28 @@ describe('base API', () => {
         .dispatchEvent(new MouseEvent('click', { bubbles: true }));
     });
     expect(container.querySelector('span')?.textContent).toBe('4');
+
+    unmountComponentAtNode(container);
+    container.remove();
+    container = document.createElement('div');
+    document.body.appendChild(container);
+
+    const app1 = createApp({
+      modules: [Foo, HomeView, DashboardView, AppView],
+      main: HomeView,
+      render,
+    });
+
+    act(() => {
+      app1.bootstrap(container); // init render
+    });
+
+    expect(container.querySelector('span')?.textContent).toBe('1');
+    act(() => {
+      container
+        .querySelector('#add')!
+        .dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    });
+    expect(container.querySelector('span')?.textContent).toBe('2');
   });
 });

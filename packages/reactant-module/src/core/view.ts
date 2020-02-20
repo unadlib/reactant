@@ -12,20 +12,14 @@ type RequiredOnlyOptional<T extends object> = Pick<
 @injectable()
 export abstract class View<P extends {} = {}, T extends {} = {}> {
   constructor() {
-    const componentPropertyDescriptor = Object.getOwnPropertyDescriptor(
-      Object.getPrototypeOf(this),
-      'component'
-    );
-    if (typeof componentPropertyDescriptor === 'undefined') {
+    if (typeof this.component === 'undefined') {
       throw new Error(`View 'component' property should be defined.`);
     }
-    Object.defineProperty(Object.getPrototypeOf(this), 'component', {
-      ...componentPropertyDescriptor,
-      value: componentPropertyDescriptor.value.bind(this),
-    });
-    Object.assign(this.component, {
+    const component = this.component.bind(this);
+    Object.assign(component, {
       defaultProps: this.defaultAttrs,
     });
+    this.component = component;
     this.attrs = {} as Required<T>;
   }
 
