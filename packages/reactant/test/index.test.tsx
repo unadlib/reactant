@@ -163,6 +163,8 @@ describe('base API', () => {
 
   test('View UI module with state', () => {
     const renderFn = jest.fn();
+    const sumComputedFn = jest.fn();
+    const sum1ComputedFn = jest.fn();
 
     interface HomeViewAttrs {
       version?: string;
@@ -175,6 +177,7 @@ describe('base API', () => {
       state = {
         count: 1,
         list: [{ count: 1 }],
+        list1: [{ count: 1 }],
         test: 1,
       };
 
@@ -193,13 +196,30 @@ describe('base API', () => {
         return {
           text: `${this.state.count}`,
           increase: () => this.increase(1),
+          sum: this.sum,
+          sum1: this.sum1,
           ...this.attrs,
         };
       }
 
-      @computed(() => '1')
-      getCount(s: string) {
-        return s;
+      get sum() {
+        return computed(
+          () => this.state.list,
+          items => {
+            sumComputedFn();
+            return items.reduce((sum, item) => sum + item.count, 0);
+          }
+        );
+      }
+
+      get sum1() {
+        return computed(
+          () => this.state.list1,
+          items => {
+            sum1ComputedFn();
+            return items.reduce((sum, item) => sum + item.count, 0);
+          }
+        );
       }
 
       get defaultAttrs() {
@@ -318,5 +338,7 @@ describe('base API', () => {
         .dispatchEvent(new MouseEvent('click', { bubbles: true }));
     });
     expect(container.querySelector('span')?.textContent).toBe('2');
+    expect(sumComputedFn.mock.calls.length).toBe(6);
+    expect(sum1ComputedFn.mock.calls.length).toBe(2);
   });
 });

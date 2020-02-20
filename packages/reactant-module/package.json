@@ -23,6 +23,7 @@
   "dependencies": {
     "immer": "^5.3.6",
     "reactant-di": "^0.0.1",
-    "redux": "^4.0.5"
+    "redux": "^4.0.5",
+    "reselect": "^4.0.0"
   }
 }

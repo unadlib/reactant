@@ -6,7 +6,8 @@ import {
   Store,
   PreloadedState,
 } from 'redux';
-import { Container, ServiceIdentifiersMap } from 'reactant-di';
+import { Container, ServiceIdentifiersMap, inject } from 'reactant-di';
+import { injectComputedTrack } from './computedTrack';
 
 interface Action<T> {
   type: string;
@@ -25,6 +26,7 @@ export function createStore<T = any>(
   const reducers: ReducersMapObject = {};
   for (const [Service] of ServiceIdentifiers) {
     const service = container.get(Service);
+    injectComputedTrack(Service, service);
     const isPlainObject = toString.call(service.state) === '[object Object]';
     if (isPlainObject) {
       const className = (Service as Function).name;
