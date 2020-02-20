@@ -208,7 +208,7 @@ describe('base API', () => {
         expect(this.props.version).toEqual(this.defaultAttrs.version);
         return (
           <div>
-            <div onClick={this.props.increase} id="a" />
+            <div onClick={this.props.increase} id="add" />
             <span>{this.props.text}</span>
           </div>
         );
@@ -285,9 +285,9 @@ describe('base API', () => {
     expect(renderFn.mock.calls.length).toBe(3);
     act(() => {
       container
-        .querySelector('[href="/dashboard"]')!
+        .querySelector('#add')!
         .dispatchEvent(new MouseEvent('click', { bubbles: true }));
     });
-    expect(container.querySelector('span')?.textContent).toBe('dashboardView');
+    expect(container.querySelector('span')?.textContent).toBe('4');
   });
 });

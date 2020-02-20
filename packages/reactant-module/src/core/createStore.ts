@@ -4,6 +4,7 @@ import {
   ReducersMapObject,
   createStore as createStoreWithRedux,
   Store,
+  PreloadedState,
 } from 'redux';
 import { Container, ServiceIdentifiersMap } from 'reactant-di';
 
@@ -15,9 +16,10 @@ interface Action<T> {
 export const reducersKey = Symbol('reducers');
 export const storeKey = Symbol('store');
 
-export function createStore(
+export function createStore<T = any>(
   container: Container,
-  ServiceIdentifiers: ServiceIdentifiersMap
+  ServiceIdentifiers: ServiceIdentifiersMap,
+  preloadedState?: PreloadedState<T>
 ) {
   let store: Store;
   const reducers: ReducersMapObject = {};
@@ -86,6 +88,6 @@ export function createStore(
     }
   }
   const reducer = combineReducers(reducers);
-  store = createStoreWithRedux(reducer);
+  store = createStoreWithRedux(reducer, preloadedState);
   return store;
 }
