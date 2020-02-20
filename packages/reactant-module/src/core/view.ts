@@ -12,8 +12,12 @@ type RequiredOnlyOptional<T extends object> = Pick<
 @injectable()
 export abstract class View<P extends {} = {}, T extends {} = {}> {
   constructor() {
-    if (typeof this.component === 'undefined') {
-      throw new Error(`View 'component' property should be defined.`);
+    if (typeof this.component !== 'function') {
+      throw new Error(
+        `'${
+          Object.getPrototypeOf(this).constructor.name
+        }' View 'component' property should be defined class 'method'.`
+      );
     }
     const component = this.component.bind(this);
     Object.assign(component, {
