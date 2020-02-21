@@ -172,7 +172,7 @@ describe('base API', () => {
     }
 
     @injectable()
-    class HomeView0 extends View<{ text: string }, HomeViewAttrs> {
+    class HomeView1 extends View<{ text: string }, HomeViewAttrs> {
       name = 'homeView';
 
       state = {
@@ -243,26 +243,23 @@ describe('base API', () => {
     }
 
     @injectable()
-    class HomeView1 extends HomeView0 {
+    class HomeView extends HomeView1 {
       @action
       increase(num: number) {
         super.increase(num);
         this.state.list[0].count += num;
       }
 
-      // get sum1() {
-      //   return computed(
-      //     // @ts-ignore
-      //     () => super.sum1,
-      //     r => {
-      //       return r + 1000;
-      //     }
-      //   );
-      // }
+      get sum() {
+        return computed(
+          // @ts-ignore
+          () => super.sum,
+          r => {
+            return r + 1;
+          }
+        );
+      }
     }
-
-    @injectable()
-    class HomeView extends HomeView1 {}
 
     @injectable()
     class AppView extends View<AppViewProps> {
@@ -338,31 +335,33 @@ describe('base API', () => {
         .dispatchEvent(new MouseEvent('click', { bubbles: true }));
     });
     expect(container.querySelector('span')?.textContent).toBe('4');
+    expect(sumComputedFn.mock.calls.length).toBe(4);
+    expect(sum1ComputedFn.mock.calls.length).toBe(1);
+    expect(app.instance.homeView.props.sum).toBe(5);
 
-    unmountComponentAtNode(container);
-    container.remove();
-    container = document.createElement('div');
-    document.body.appendChild(container);
+    // unmountComponentAtNode(container);
+    // container.remove();
+    // container = document.createElement('div');
+    // document.body.appendChild(container);
 
-    const app1 = createApp({
-      modules: [Foo, HomeView, DashboardView, AppView],
-      main: HomeView,
-      render,
-    });
+    // const app1 = createApp({
+    //   modules: [Foo, HomeView, DashboardView, AppView],
+    //   main: HomeView,
+    //   render,
+    // });
 
-    act(() => {
-      app1.bootstrap(container); // init render
-    });
+    // act(() => {
+    //   app1.bootstrap(container); // init render
+    // });
 
-    expect(container.querySelector('span')?.textContent).toBe('1');
-    act(() => {
-      container
-        .querySelector('#add')!
-        .dispatchEvent(new MouseEvent('click', { bubbles: true }));
-    });
-    expect(container.querySelector('span')?.textContent).toBe('2');
+    // expect(container.querySelector('span')?.textContent).toBe('1');
+    // act(() => {
+    //   container
+    //     .querySelector('#add')!
+    //     .dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    // });
+    // expect(container.querySelector('span')?.textContent).toBe('2');
     // expect(renderFn.mock.calls.length).toBe(6);
-    // expect(getPropsFn.mock.calls.length).toBe(6);
     // expect(sumComputedFn.mock.calls.length).toBe(6);
     // expect(sum1ComputedFn.mock.calls.length).toBe(2);
   });

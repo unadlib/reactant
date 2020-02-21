@@ -26,10 +26,10 @@ export function createStore<T = any>(
 ) {
   let store: Store;
   const reducers: ReducersMapObject = {};
+  injectComputedTrack(container);
   for (const [Service] of ServiceIdentifiers) {
     const service = container.get(Service);
     injectConnector(service);
-    injectComputedTrack(Service, service);
     const isPlainObject = toString.call(service.state) === '[object Object]';
     if (isPlainObject) {
       const className = (Service as Function).name;
