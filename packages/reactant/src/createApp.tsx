@@ -8,7 +8,7 @@ import {
   createStore,
   ServiceIdentifiersMap,
 } from 'reactant-module';
-import { injectConnectors } from './injectConnectors';
+import { injectConnector } from './injectConnector';
 
 interface Module<T> extends Function {
   new (...args: any[]): T;
@@ -34,27 +34,15 @@ function createApp<T>({ modules, main, render, containerOptions }: Config<T>) {
     ...containerOptions,
   });
   const instance = container.get<T>(main);
-  const store = createStore(container, ServiceIdentifiers);
-  const mainDepsServiceIdentifiers = ServiceIdentifiers.get(main);
-  if (typeof mainDepsServiceIdentifiers === 'undefined') {
-    throw new Error(`Main module does dependent on any module.`);
+  if (!(instance instanceof View)) {
+    throw new Error(`Main module should be a 'View' module.`);
   }
-  const mainDepsViewServiceIdentifiers = mainDepsServiceIdentifiers.filter(
-    serviceIdentifier => container.get(serviceIdentifier) instanceof View
-  );
-  mainDepsViewServiceIdentifiers.push(main);
-  if (mainDepsViewServiceIdentifiers.length === 0) {
-    throw new Error(`Main module does not inject any 'View' module.`);
-  }
-  injectConnectors(container, mainDepsViewServiceIdentifiers);
+  const store = createStore(container, ServiceIdentifiers, injectConnector);
   return {
     instance,
     store,
     bootstrap(...args: any[]): Element | void {
-      if (typeof instance === 'undefined') {
-        throw new Error('`main` module has not a valid instance.');
-      }
-      const Component = ((instance as any) as View).component;
+      const Component = instance.component;
       const element = (
         <Provider store={store}>
           <Component />

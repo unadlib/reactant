@@ -6,8 +6,9 @@ import {
   Store,
   PreloadedState,
 } from 'redux';
-import { Container, ServiceIdentifiersMap, inject } from 'reactant-di';
+import { Container, ServiceIdentifiersMap } from 'reactant-di';
 import { injectComputedTrack } from './computedTrack';
+import { View } from './view';
 
 interface Action<T> {
   type: string;
@@ -20,12 +21,14 @@ export const storeKey = Symbol('store');
 export function createStore<T = any>(
   container: Container,
   ServiceIdentifiers: ServiceIdentifiersMap,
+  injectConnector: (service: object | View) => void,
   preloadedState?: PreloadedState<T>
 ) {
   let store: Store;
   const reducers: ReducersMapObject = {};
   for (const [Service] of ServiceIdentifiers) {
     const service = container.get(Service);
+    injectConnector(service);
     injectComputedTrack(Service, service);
     const isPlainObject = toString.call(service.state) === '[object Object]';
     if (isPlainObject) {
