@@ -5,6 +5,7 @@ const SelectorsMap = new Map<object, Record<string, Function>>();
 let currentComputedMark: [object, string] | [];
 
 export const getSelector = (selector: any) => {
+  if (typeof currentComputedMark === 'undefined') return selector;
   const [serviceInstance, name] = currentComputedMark;
   if (
     serviceInstance &&
