@@ -1,7 +1,8 @@
 import { getServices, Container } from 'reactant-di';
 import { View } from './view';
 
-const SelectorsMap = new Map<object, Record<string, Function>>();
+const rawGetterMap = new Map<Function, Record<string, PropertyDescriptor>>();
+let SelectorsMap: Map<object, Record<string, Function>>;
 let currentComputedMark: [object, string] | [];
 
 export const getSelector = (selector: any) => {
@@ -31,6 +32,7 @@ const unmarkSelector = () => {
 };
 
 export function injectComputedTrack(container: Container) {
+  SelectorsMap = new Map();
   const Services = getServices().filter(Service => Service !== View);
   for (const Service of Services) {
     const serviceInstance = container.get<Function>(Service);
@@ -42,9 +44,27 @@ export function injectComputedTrack(container: Container) {
       )
         return;
       if (typeof descriptor.get === 'function') {
-        const fn = descriptor.get;
+        let fn = descriptor.get;
+        if (
+          typeof rawGetterMap.get(Service) === 'undefined' ||
+          (rawGetterMap.get(Service) && !rawGetterMap.get(Service)![name])
+        ) {
+          const primitiveDescriptor = Object.getOwnPropertyDescriptor(
+            Service.prototype,
+            name
+          );
+          if (primitiveDescriptor) {
+            rawGetterMap.set(Service, {
+              ...rawGetterMap.get(Service),
+              [name]: primitiveDescriptor!,
+            });
+          }
+        } else {
+          fn = rawGetterMap.get(Service)![name].get!;
+        }
         Object.defineProperty(Service.prototype, name, {
           ...descriptor,
+          enumerable: false,
           get() {
             markSelector(this, name);
             const result = fn.call(serviceInstance);

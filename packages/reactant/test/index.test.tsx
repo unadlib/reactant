@@ -250,6 +250,16 @@ describe('base API', () => {
         this.state.list[0].count += num;
       }
 
+      get sum1() {
+        return computed(
+          // @ts-ignore
+          () => super.sum1,
+          r => {
+            return r + 1;
+          }
+        );
+      }
+
       get sum() {
         return computed(
           // @ts-ignore
@@ -338,31 +348,36 @@ describe('base API', () => {
     expect(sumComputedFn.mock.calls.length).toBe(4);
     expect(sum1ComputedFn.mock.calls.length).toBe(1);
     expect(app.instance.homeView.props.sum).toBe(5);
+    expect(sumComputedFn.mock.calls.length).toBe(4);
+    expect(sum1ComputedFn.mock.calls.length).toBe(1);
 
-    // unmountComponentAtNode(container);
-    // container.remove();
-    // container = document.createElement('div');
-    // document.body.appendChild(container);
+    unmountComponentAtNode(container);
+    container.remove();
+    container = document.createElement('div');
+    document.body.appendChild(container);
 
-    // const app1 = createApp({
-    //   modules: [Foo, HomeView, DashboardView, AppView],
-    //   main: HomeView,
-    //   render,
-    // });
+    const app1 = createApp({
+      modules: [Foo, HomeView, DashboardView, AppView],
+      main: HomeView,
+      render,
+    });
 
-    // act(() => {
-    //   app1.bootstrap(container); // init render
-    // });
+    act(() => {
+      app1.bootstrap(container); // init render
+    });
 
-    // expect(container.querySelector('span')?.textContent).toBe('1');
-    // act(() => {
-    //   container
-    //     .querySelector('#add')!
-    //     .dispatchEvent(new MouseEvent('click', { bubbles: true }));
-    // });
-    // expect(container.querySelector('span')?.textContent).toBe('2');
-    // expect(renderFn.mock.calls.length).toBe(6);
-    // expect(sumComputedFn.mock.calls.length).toBe(6);
-    // expect(sum1ComputedFn.mock.calls.length).toBe(2);
+    expect(container.querySelector('span')?.textContent).toBe('1');
+    act(() => {
+      container
+        .querySelector('#add')!
+        .dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    });
+    expect(container.querySelector('span')?.textContent).toBe('2');
+    expect(renderFn.mock.calls.length).toBe(6);
+    expect(sumComputedFn.mock.calls.length).toBe(6);
+    expect(sum1ComputedFn.mock.calls.length).toBe(2);
+    expect(app1.instance.props.sum).toBe(3);
+    expect(app1.instance.state.count).toEqual(2);
+    expect(app1.instance.state.list).toEqual([{ count: 2 }]);
   });
 });
