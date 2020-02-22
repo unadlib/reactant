@@ -18,6 +18,7 @@ import {
   action,
   createConnector,
   computed,
+  UserInterface,
 } from '..';
 
 let container: Element;
@@ -144,7 +145,7 @@ describe('base API', () => {
     }
 
     const app = createApp({
-      modules: [Foo, HomeView, DashboardView, AppView],
+      modules: [],
       main: AppView,
       render,
     });
@@ -167,20 +168,26 @@ describe('base API', () => {
     const sum1ComputedFn = jest.fn();
     const getPropsFn = jest.fn();
 
-    interface HomeViewAttrs {
+    interface HomeView1Attrs {
       version?: string;
     }
 
+    interface HomeView1Props {
+      text: string;
+    }
+
     @injectable()
-    class HomeView1 extends View<{ text: string }, HomeViewAttrs> {
+    class HomeView1 extends View<HomeView1Props, HomeView1Attrs> {
       name = 'homeView';
 
-      state = {
-        count: 1,
-        list: [{ count: 1 }],
-        list1: [{ count: 1 }],
-        test: 1,
-      };
+      get state() {
+        return {
+          count: 1,
+          list: [{ count: 1 }],
+          list1: [{ count: 1 }],
+          test: 1,
+        };
+      }
 
       @action
       increase(num: number) {
@@ -229,7 +236,7 @@ describe('base API', () => {
         };
       }
 
-      component(attrs: HomeViewAttrs) {
+      component(attrs: HomeView1Attrs) {
         renderFn();
         expect(this.props.version).toEqual(this.attrs.version);
         expect(this.props.version).toEqual(this.defaultAttrs.version);
@@ -242,12 +249,38 @@ describe('base API', () => {
       }
     }
 
+    type HomeViewAttrs = HomeView1Attrs & { s?: string };
+    type HomeViewProps = HomeView1Props & { e: number };
+
     @injectable()
-    class HomeView extends HomeView1 {
+    class HomeView extends HomeView1
+      implements UserInterface<HomeViewProps, HomeViewAttrs> {
+
       @action
       increase(num: number) {
         super.increase(num);
         this.state.list[0].count += num;
+      }
+
+      get state() {
+        return {
+          // @ts-ignore
+          ...super.state,
+          e: 1,
+        };
+      }
+
+      attrs = {} as Required<HomeViewAttrs>;
+
+      get props() {
+        return {
+          text: `${this.state.count}`,
+          increase: () => this.increase(1),
+          sum: this.sum,
+          sum1: this.sum1,
+          e: this.state.e,
+          ...this.attrs,
+        };
       }
 
       get sum1() {
@@ -270,6 +303,19 @@ describe('base API', () => {
             return r + 1;
           }
         );
+      }
+
+      get defaultAttrs() {
+        return {
+          // @ts-ignore
+          ...super.defaultAttrs,
+          s: '1',
+        };
+      }
+
+      component(attrs: HomeViewAttrs) {
+        // console.log(this.props);
+        return super.component(attrs);
       }
     }
 
@@ -316,7 +362,7 @@ describe('base API', () => {
     }
 
     const app = createApp({
-      modules: [Foo, HomeView, DashboardView, AppView],
+      modules: [{ provide: HomeView1, skip: true }],
       main: AppView,
       render,
     });
@@ -359,7 +405,7 @@ describe('base API', () => {
     document.body.appendChild(container);
 
     const app1 = createApp({
-      modules: [Foo, HomeView, DashboardView, AppView],
+      modules: [{ provide: HomeView1, skip: true }],
       main: HomeView,
       render,
     });
@@ -381,5 +427,6 @@ describe('base API', () => {
     expect(app1.instance.props.sum).toBe(3);
     expect(app1.instance.state.count).toEqual(2);
     expect(app1.instance.state.list).toEqual([{ count: 2 }]);
+    // console.log(JSON.stringify(app1.store.getState(), null, 2));
   });
 });

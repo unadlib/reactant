@@ -2,10 +2,18 @@ import { connect as connectWithRedux } from 'react-redux';
 import { View, areStatePropsEqual } from 'reactant-module';
 
 export function createConnector(service: View) {
+  const component = service.component.bind(service);
+  Object.assign(component, {
+    defaultProps: service.defaultAttrs,
+  });
+  Object.assign(service, {
+    component,
+  });
   return connectWithRedux(
     (_, ownProps) => {
-      // eslint-disable-next-line no-param-reassign
-      service.attrs = ownProps;
+      Object.assign(service, {
+        attrs: ownProps,
+      });
       return service.props;
     },
     undefined,

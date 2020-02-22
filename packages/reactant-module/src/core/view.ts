@@ -1,16 +1,35 @@
 import { injectable } from 'reactant-di';
 
-type OptionalKeyOf<T extends object> = {
+type OptionalKeyOf<T> = {
   [K in keyof T]-?: T extends Record<K, T[K]> ? never : K;
 }[keyof T];
 
-type RequiredOnlyOptional<T extends object> = Pick<
-  Required<T>,
-  OptionalKeyOf<T>
->;
+type RequiredOnlyOptional<T> = Pick<Required<T>, OptionalKeyOf<T>>;
+
+export interface UserInterface<P, T> {
+  /**
+   * this module inject props to current component props.
+   */
+  readonly props: Required<T> & P;
+  /**
+   * current component external pass props with redux's connector.
+   */
+  attrs: Required<T>;
+  /**
+   * current react component default props.
+   */
+  readonly defaultAttrs: RequiredOnlyOptional<T>;
+  /**
+   * this module bind component for UI, and it contains a connector with redux.
+   * and `props` or `this.props` from parent component, `this.data` from this module.
+   * @param props react component props.
+   */
+  component(attrs: T): React.ComponentElement<any, any>;
+}
 
 @injectable()
-export abstract class View<P extends {} = {}, T extends {} = {}> {
+export abstract class View<P extends {} = {}, T extends {} = {}>
+  implements UserInterface<P, T> {
   constructor() {
     if (typeof this.component !== 'function') {
       throw new Error(
@@ -19,35 +38,15 @@ export abstract class View<P extends {} = {}, T extends {} = {}> {
         }' View 'component' property should be defined class 'method'.`
       );
     }
-    const component = this.component.bind(this);
-    Object.assign(component, {
-      defaultProps: this.defaultAttrs,
-    });
-    this.component = component;
-    this.attrs = {} as Required<T>;
   }
 
-  /**
-   * this module inject props to current component props.
-   */
   abstract get props(): Required<T> & P;
 
-  /**
-   * current react component props.
-   */
-  attrs: Required<T>; // todo implement from connector
+  attrs = {} as Required<T>;
 
-  /**
-   * current react component default props.
-   */
   get defaultAttrs(): RequiredOnlyOptional<T> {
     return {} as RequiredOnlyOptional<T>;
   }
 
-  /**
-   * this module bind component for UI, and it contains a connector with redux.
-   * and `props` or `this.props` from parent component, `this.data` from this module.
-   * @param props react component props.
-   */
-  abstract component(attrs: Required<T>): React.ComponentElement<any, any>;
+  abstract component(attrs: T): React.ComponentElement<any, any>;
 }

@@ -9,6 +9,7 @@ import {
 import { Container, ServiceIdentifiersMap } from 'reactant-di';
 import { injectComputedTrack } from './computedTrack';
 import { View } from './view';
+import { ModuleOptions } from '../interfaces';
 
 interface Action<T> {
   type: string;
@@ -22,6 +23,7 @@ export function createStore<T = any>(
   container: Container,
   ServiceIdentifiers: ServiceIdentifiersMap,
   injectConnector: (service: object | View) => void,
+  modules: ModuleOptions[],
   preloadedState?: PreloadedState<T>
 ) {
   let store: Store;
@@ -47,25 +49,30 @@ export function createStore<T = any>(
       const isEmptyObject = Object.keys(service.state).length === 0;
       if (!isEmptyObject) {
         // `service[reducersKey]` assign to target instance, others services will use it, example: persistence.
-        service[reducersKey] = Object.entries(service.state).reduce(
-          (
-            serviceReducersMapObject: ReducersMapObject,
-            [reducerKey, initialState]
-          ) => {
-            const reducer = (state = initialState, action: Action<any>) => {
-              return action.type === service.name
-                ? action.states[reducerKey]
-                : state;
-            };
-            return Object.assign(serviceReducersMapObject, {
-              [reducerKey]: reducer,
-            });
-          },
-          {}
+        const isSkip = !!modules.find(
+          module => module.provide === Service && module.skip
         );
-        Object.assign(reducers, {
-          [service.name]: combineReducers(service[reducersKey]),
-        });
+        if (isSkip) {
+          service[reducersKey] = Object.entries(service.state).reduce(
+            (
+              serviceReducersMapObject: ReducersMapObject,
+              [reducerKey, initialState]
+            ) => {
+              const reducer = (state = initialState, action: Action<any>) => {
+                return action.type === service.name
+                  ? action.states[reducerKey]
+                  : state;
+              };
+              return Object.assign(serviceReducersMapObject, {
+                [reducerKey]: reducer,
+              });
+            },
+            {}
+          );
+          Object.assign(reducers, {
+            [service.name]: combineReducers(service[reducersKey]),
+          });
+        }
         // redefine get service state from store state.
         Object.defineProperties(service, {
           state: {
