@@ -252,6 +252,7 @@ describe('base API', () => {
 
       get sum1() {
         return computed(
+          // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
           // @ts-ignore
           () => super.sum1,
           r => {
@@ -262,6 +263,7 @@ describe('base API', () => {
 
       get sum() {
         return computed(
+          // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
           // @ts-ignore
           () => super.sum,
           r => {
