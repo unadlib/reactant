@@ -168,3 +168,5 @@ test('base App', () => {
   - optional
   - skipSelf
   - inject
+- router
+- storage
