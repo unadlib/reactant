@@ -312,8 +312,13 @@ describe('base API', () => {
       }
     }
 
+    interface AppViewAttrs {
+      head?: JSX.Element;
+      route?: JSX.Element;
+    }
+
     @injectable()
-    class AppView extends View<AppViewProps> {
+    class AppView extends View<AppViewProps, AppViewAttrs> {
       constructor(
         public foo: Foo,
         public homeView: HomeView,
@@ -325,10 +330,11 @@ describe('base API', () => {
       get props() {
         return {
           bar: this.foo.bar,
+          ...this.attrs,
         };
       }
 
-      component() {
+      component({ head, route }: AppViewAttrs) {
         return (
           <MemoryRouter>
             <h1>{this.props.bar}</h1>
@@ -336,6 +342,7 @@ describe('base API', () => {
               <li>
                 <Link to="/">Home</Link>
               </li>
+              {head}
               <li>
                 <Link to="/dashboard">Dashboard</Link>
               </li>
@@ -345,12 +352,40 @@ describe('base API', () => {
               <Route exact path="/">
                 <this.homeView.component />
               </Route>
+              {route}
               <Route path="/dashboard">
                 <this.dashboardView.component version="0.0.1" />
               </Route>
             </Switch>
           </MemoryRouter>
         );
+      }
+    }
+
+    @injectable()
+    class AppView1 extends AppView {
+      constructor(
+        public foo: Foo,
+        public homeView: HomeView,
+        public dashboardView: DashboardView,
+        public homeView1: HomeView1
+      ) {
+        super(foo, homeView, dashboardView);
+      }
+
+      component() {
+        return super.component({
+          head: (
+            <li>
+              <Link to="/homeView1">home1</Link>
+            </li>
+          ),
+          route: (
+            <Route exact path="/homeView1">
+              <this.homeView1.component />
+            </Route>
+          ),
+        });
       }
     }
 
@@ -418,5 +453,46 @@ describe('base API', () => {
     expect(app1.instance.props.sum).toBe(3);
     expect(app1.instance.state.count).toEqual(2);
     expect(app1.instance.state.list).toEqual([{ count: 2 }]);
+
+    unmountComponentAtNode(container);
+    container.remove();
+    container = document.createElement('div');
+    document.body.appendChild(container);
+
+    const app2 = createApp({
+      main: AppView1,
+      render,
+    });
+
+    act(() => {
+      app2.bootstrap(container); // init render
+    });
+    expect(container.querySelector('span')?.textContent).toBe('1');
+    act(() => {
+      app2.instance.homeView.increase(1); // render
+    });
+    expect(container.querySelector('span')?.textContent).toBe('2');
+    act(() => {
+      container
+        .querySelector('#add')!
+        .dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    });
+    expect(container.querySelector('span')?.textContent).toBe('3');
+    expect(app2.store.getState().homeView1.count).toBe(1);
+    act(() => {
+      container
+        .querySelector('[href="/homeView1"]')!
+        .dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    });
+    expect(container.querySelector('span')?.textContent).toBe('1');
+    act(() => {
+      container
+        .querySelector('#add')!
+        .dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    });
+    expect(container.querySelector('span')?.textContent).toBe('2');
+    expect(app2.store.getState().homeView.count).toBe(3);
+    expect(sumComputedFn.mock.calls.length).toBe(9);
+    expect(sum1ComputedFn.mock.calls.length).toBe(3);
   });
 });
