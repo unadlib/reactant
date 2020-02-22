@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/ban-ts-ignore */
 /* eslint-disable class-methods-use-this */
 import React, { FC } from 'react';
 import {
@@ -255,7 +257,6 @@ describe('base API', () => {
     @injectable()
     class HomeView extends HomeView1
       implements UserInterface<HomeViewProps, HomeViewAttrs> {
-
       @action
       increase(num: number) {
         super.increase(num);
@@ -285,7 +286,6 @@ describe('base API', () => {
 
       get sum1() {
         return computed(
-          // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
           // @ts-ignore
           () => super.sum1,
           r => {
@@ -296,7 +296,6 @@ describe('base API', () => {
 
       get sum() {
         return computed(
-          // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
           // @ts-ignore
           () => super.sum,
           r => {
@@ -314,7 +313,6 @@ describe('base API', () => {
       }
 
       component(attrs: HomeViewAttrs) {
-        // console.log(this.props);
         return super.component(attrs);
       }
     }
@@ -362,7 +360,6 @@ describe('base API', () => {
     }
 
     const app = createApp({
-      modules: [{ provide: HomeView1, skip: true }],
       main: AppView,
       render,
     });
@@ -405,7 +402,6 @@ describe('base API', () => {
     document.body.appendChild(container);
 
     const app1 = createApp({
-      modules: [{ provide: HomeView1, skip: true }],
       main: HomeView,
       render,
     });
@@ -427,6 +423,5 @@ describe('base API', () => {
     expect(app1.instance.props.sum).toBe(3);
     expect(app1.instance.state.count).toEqual(2);
     expect(app1.instance.state.list).toEqual([{ count: 2 }]);
-    // console.log(JSON.stringify(app1.store.getState(), null, 2));
   });
 });

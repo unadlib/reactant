@@ -49,30 +49,25 @@ export function createStore<T = any>(
       const isEmptyObject = Object.keys(service.state).length === 0;
       if (!isEmptyObject) {
         // `service[reducersKey]` assign to target instance, others services will use it, example: persistence.
-        const isSkip = !!modules.find(
-          module => module.provide === Service && module.skip
+        service[reducersKey] = Object.entries(service.state).reduce(
+          (
+            serviceReducersMapObject: ReducersMapObject,
+            [reducerKey, initialState]
+          ) => {
+            const reducer = (state = initialState, action: Action<any>) => {
+              return action.type === service.name
+                ? action.states[reducerKey]
+                : state;
+            };
+            return Object.assign(serviceReducersMapObject, {
+              [reducerKey]: reducer,
+            });
+          },
+          {}
         );
-        if (isSkip) {
-          service[reducersKey] = Object.entries(service.state).reduce(
-            (
-              serviceReducersMapObject: ReducersMapObject,
-              [reducerKey, initialState]
-            ) => {
-              const reducer = (state = initialState, action: Action<any>) => {
-                return action.type === service.name
-                  ? action.states[reducerKey]
-                  : state;
-              };
-              return Object.assign(serviceReducersMapObject, {
-                [reducerKey]: reducer,
-              });
-            },
-            {}
-          );
-          Object.assign(reducers, {
-            [service.name]: combineReducers(service[reducersKey]),
-          });
-        }
+        Object.assign(reducers, {
+          [service.name]: combineReducers(service[reducersKey]),
+        });
         // redefine get service state from store state.
         Object.defineProperties(service, {
           state: {
