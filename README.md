@@ -160,3 +160,11 @@ test('base App', () => {
 * `View` class `component` support inheritance, and it does not support call `super.component` for JSX Element but support call function.
 * `@action` and `computed` support inheritance and call `super`.
 * subclass `View` does not rename `name`, it should not be injected with the base class.
+
+## Todos
+
+- Support multiple View instances
+- Enhance DI
+  - optional
+  - skipSelf
+  - inject
