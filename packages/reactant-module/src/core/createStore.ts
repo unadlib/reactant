@@ -7,7 +7,7 @@ import {
   PreloadedState,
 } from 'redux';
 import { Container, ServiceIdentifiersMap } from 'reactant-di';
-import { injectComputedTrack } from './computedTrack';
+// import { injectComputedTrack } from './computedTrack';
 import { View } from './view';
 import { ModuleOptions } from '../interfaces';
 
@@ -28,7 +28,6 @@ export function createStore<T = any>(
 ) {
   let store: Store;
   const reducers: ReducersMapObject = {};
-  injectComputedTrack(container);
   for (const [Service] of ServiceIdentifiers) {
     const service = container.get(Service);
     injectConnector(service);

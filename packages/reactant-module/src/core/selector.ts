@@ -1,25 +1,25 @@
 import { createSelector, Selector } from 'reselect';
 import { getSelector } from './computedTrack';
 
-export function computed<S, R1, T>(
-  selector: Selector<S, R1>,
+export function selector<S, R1, T>(
+  selector1: Selector<S, R1>,
   combiner: (res: R1) => T
 ): T;
 
-export function computed<S, R1, R2, T>(
+export function selector<S, R1, R2, T>(
   selector1: Selector<S, R1>,
   selector2: Selector<S, R2>,
   combiner: (res1: R1, res2: R2) => T
 ): T;
 
-export function computed<S, R1, R2, R3, T>(
+export function selector<S, R1, R2, R3, T>(
   selector1: Selector<S, R1>,
   selector2: Selector<S, R2>,
   selector3: Selector<S, R3>,
   combiner: (res1: R1, res2: R2, res3: R3) => T
 ): T;
 
-export function computed<S, R1, R2, R3, R4, T>(
+export function selector<S, R1, R2, R3, R4, T>(
   selector1: Selector<S, R1>,
   selector2: Selector<S, R2>,
   selector3: Selector<S, R3>,
@@ -27,7 +27,7 @@ export function computed<S, R1, R2, R3, R4, T>(
   combiner: (res1: R1, res2: R2, res3: R3, res4: R4) => T
 ): T;
 
-export function computed<S, R1, R2, R3, R4, R5, T>(
+export function selector<S, R1, R2, R3, R4, R5, T>(
   selector1: Selector<S, R1>,
   selector2: Selector<S, R2>,
   selector3: Selector<S, R3>,
@@ -36,7 +36,7 @@ export function computed<S, R1, R2, R3, R4, R5, T>(
   combiner: (res1: R1, res2: R2, res3: R3, res4: R4, res5: R5) => T
 ): T;
 
-export function computed<S, R1, R2, R3, R4, R5, R6, T>(
+export function selector<S, R1, R2, R3, R4, R5, R6, T>(
   selector1: Selector<S, R1>,
   selector2: Selector<S, R2>,
   selector3: Selector<S, R3>,
@@ -46,7 +46,7 @@ export function computed<S, R1, R2, R3, R4, R5, R6, T>(
   combiner: (res1: R1, res2: R2, res3: R3, res4: R4, res5: R5, res6: R6) => T
 ): T;
 
-export function computed<S, R1, R2, R3, R4, R5, R6, R7, T>(
+export function selector<S, R1, R2, R3, R4, R5, R6, R7, T>(
   selector1: Selector<S, R1>,
   selector2: Selector<S, R2>,
   selector3: Selector<S, R3>,
@@ -65,7 +65,7 @@ export function computed<S, R1, R2, R3, R4, R5, R6, R7, T>(
   ) => T
 ): T;
 
-export function computed<S, R1, R2, R3, R4, R5, R6, R7, R8, T>(
+export function selector<S, R1, R2, R3, R4, R5, R6, R7, R8, T>(
   selector1: Selector<S, R1>,
   selector2: Selector<S, R2>,
   selector3: Selector<S, R3>,
@@ -86,7 +86,7 @@ export function computed<S, R1, R2, R3, R4, R5, R6, R7, R8, T>(
   ) => T
 ): T;
 
-export function computed<S, R1, R2, R3, R4, R5, R6, R7, R8, R9, T>(
+export function selector<S, R1, R2, R3, R4, R5, R6, R7, R8, R9, T>(
   selector1: Selector<S, R1>,
   selector2: Selector<S, R2>,
   selector3: Selector<S, R3>,
@@ -109,7 +109,7 @@ export function computed<S, R1, R2, R3, R4, R5, R6, R7, R8, R9, T>(
   ) => T
 ): T;
 
-export function computed<S, R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, T>(
+export function selector<S, R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, T>(
   selector1: Selector<S, R1>,
   selector2: Selector<S, R2>,
   selector3: Selector<S, R3>,
@@ -134,7 +134,7 @@ export function computed<S, R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, T>(
   ) => T
 ): T;
 
-export function computed<S, R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, T>(
+export function selector<S, R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, T>(
   selector1: Selector<S, R1>,
   selector2: Selector<S, R2>,
   selector3: Selector<S, R3>,
@@ -161,7 +161,7 @@ export function computed<S, R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, T>(
   ) => T
 ): T;
 
-export function computed<
+export function selector<
   S,
   R1,
   R2,
@@ -205,7 +205,7 @@ export function computed<
   ) => T
 ): T;
 
-export function computed(...args: any[]) {
+export function selector(...args: any[]) {
   // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
   // @ts-ignore
   const newSelector = createSelector(...args);

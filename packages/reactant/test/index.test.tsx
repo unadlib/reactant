@@ -21,6 +21,7 @@ import {
   createConnector,
   computed,
   UserInterface,
+  selector,
 } from '..';
 
 let container: Element;
@@ -180,7 +181,7 @@ describe('base API', () => {
 
     @injectable()
     class HomeView1 extends View<HomeView1Props, HomeView1Attrs> {
-      name = 'homeView';
+      name = 'homeView1';
 
       get state() {
         return {
@@ -206,14 +207,15 @@ describe('base API', () => {
         return {
           text: `${this.state.count}`,
           increase: () => this.increase(1),
-          sum: this.sum,
-          sum1: this.sum1,
+          sum: this.getSum(),
+          sum1: this.getSum1(),
           ...this.attrs,
         };
       }
 
-      get sum() {
-        return computed(
+      @computed
+      getSum() {
+        return selector(
           () => this.state.list,
           items => {
             sumComputedFn();
@@ -222,8 +224,9 @@ describe('base API', () => {
         );
       }
 
-      get sum1() {
-        return computed(
+      @computed
+      getSum1() {
+        return selector(
           () => this.state.list1,
           items => {
             sum1ComputedFn();
@@ -257,6 +260,8 @@ describe('base API', () => {
     @injectable()
     class HomeView extends HomeView1
       implements UserInterface<HomeViewProps, HomeViewAttrs> {
+      name = 'homeView';
+
       @action
       increase(num: number) {
         super.increase(num);
@@ -277,27 +282,17 @@ describe('base API', () => {
         return {
           text: `${this.state.count}`,
           increase: () => this.increase(1),
-          sum: this.sum,
-          sum1: this.sum1,
+          sum: this.getSum(),
+          sum1: this.getSum1(),
           e: this.state.e,
           ...this.attrs,
         };
       }
 
-      get sum1() {
-        return computed(
-          // @ts-ignore
-          () => super.sum1,
-          r => {
-            return r + 1;
-          }
-        );
-      }
-
-      get sum() {
-        return computed(
-          // @ts-ignore
-          () => super.sum,
+      @computed
+      getSum() {
+        return selector(
+          () => super.getSum(),
           r => {
             return r + 1;
           }

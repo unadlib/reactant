@@ -1,78 +1,43 @@
-import { getServices, Container } from 'reactant-di';
-import { View } from './view';
+type Key = string | symbol;
+let SelectorsCache: Map<object, Map<Key, Function>>;
+let currentComputedMark: [object, Key] | [];
 
-const rawGetterMap = new Map<Function, Record<string, PropertyDescriptor>>();
-let SelectorsMap: Map<object, Record<string, Function>>;
-let currentComputedMark: [object, string] | [];
+export const setSelectorsCache = (
+  newSelectorsCache: Map<object, Map<Key, Function>>
+) => {
+  SelectorsCache = newSelectorsCache;
+};
 
 export const getSelector = (selector: any) => {
   if (typeof currentComputedMark === 'undefined') return selector;
   const [serviceInstance, name] = currentComputedMark;
+  if (typeof serviceInstance === 'undefined' || typeof name === 'undefined') {
+    throw new Error(`'selector' should be decorated with '@computed'.`);
+  }
+  let serviceInstanceMap = SelectorsCache.get(serviceInstance);
   if (
     serviceInstance &&
     name &&
-    SelectorsMap.has(serviceInstance) &&
-    SelectorsMap.get(serviceInstance)![name]
+    typeof serviceInstanceMap !== 'undefined' &&
+    serviceInstanceMap.get(name)
   ) {
-    return SelectorsMap.get(serviceInstance)![name];
+    return serviceInstanceMap.get(name);
   }
-  SelectorsMap.set(serviceInstance!, {
-    ...SelectorsMap.get(serviceInstance!),
-    [name!]: selector,
-  });
+  if (
+    typeof serviceInstanceMap === 'undefined' ||
+    serviceInstanceMap === null
+  ) {
+    serviceInstanceMap = new Map();
+    SelectorsCache.set(serviceInstance, serviceInstanceMap);
+  }
+  serviceInstanceMap.set(name, selector);
   return selector;
 };
 
-const markSelector = (serviceInstance: object, name: string) => {
+export const markSelector = (serviceInstance: object, name: Key) => {
   currentComputedMark = [serviceInstance, name];
 };
 
-const unmarkSelector = () => {
+export const unmarkSelector = () => {
   currentComputedMark = [];
 };
-
-export function injectComputedTrack(container: Container) {
-  SelectorsMap = new Map();
-  const Services = getServices().filter(Service => Service !== View);
-  for (const Service of Services) {
-    const serviceInstance = container.get<Function>(Service);
-    const descriptors = Object.getOwnPropertyDescriptors(Service.prototype);
-    Object.entries(descriptors).forEach(([name, descriptor]) => {
-      if (
-        serviceInstance instanceof View &&
-        (name === 'props' || name === 'defaultAttrs')
-      )
-        return;
-      if (typeof descriptor.get === 'function') {
-        let fn = descriptor.get;
-        if (
-          typeof rawGetterMap.get(Service) === 'undefined' ||
-          (rawGetterMap.get(Service) && !rawGetterMap.get(Service)![name])
-        ) {
-          const primitiveDescriptor = Object.getOwnPropertyDescriptor(
-            Service.prototype,
-            name
-          );
-          if (primitiveDescriptor) {
-            rawGetterMap.set(Service, {
-              ...rawGetterMap.get(Service),
-              [name]: primitiveDescriptor!,
-            });
-          }
-        } else {
-          fn = rawGetterMap.get(Service)![name].get!;
-        }
-        Object.defineProperty(Service.prototype, name, {
-          ...descriptor,
-          enumerable: false,
-          get() {
-            markSelector(this, name);
-            const result = fn.call(serviceInstance);
-            unmarkSelector();
-            return result;
-          },
-        });
-      }
-    });
-  }
-}
