@@ -5,10 +5,12 @@ import { writeFileSync } from 'fs';
 
 const classAmount = 500;
 const oneClassReducerAmount = 20;
-const computedTime = (1000 / classAmount) | 0;
+const computedTime = (800 / classAmount) | 0; // 1000 -> Run out of memory
 
 const source = `
 // @ts-nocheck
+console.log('Initial memory usage:', process.memoryUsage());
+let rss = process.memoryUsage().rss;
 import React from 'react';
 import { render } from 'reactant-web';
 import { injectable, action, computed, selector, createApp, View } from '..';
@@ -156,6 +158,8 @@ ${(() => {
   return computedStr;
 })()}
 console.log('computed time:', Date.now() - time);
+console.log('Final memory usage:', process.memoryUsage());
+console.log('Memory Usage:', (process.memoryUsage().rss - rss) / (1024 * 1024), 'M')
 `;
 
 writeFileSync('./packages/reactant/test/performance.tsx', source);
