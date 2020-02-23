@@ -166,6 +166,7 @@ test('base App', () => {
 - [x] selector
 - [x] action
 - [x] multiple View instances
+- [ ] optimize action with `applyPatches`
 - [ ] Enhance DI
   - [ ] optional
   - [ ] skipSelf

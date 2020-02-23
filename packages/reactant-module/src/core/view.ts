@@ -18,7 +18,7 @@ export interface UserInterface<P, T> {
   /**
    * current react component default props.
    */
-  readonly defaultAttrs: RequiredOnlyOptional<T>;
+  defaultAttrs?: RequiredOnlyOptional<T>;
   /**
    * this module bind component for UI, and it contains a connector with redux.
    * and `props` or `this.props` from parent component, `this.data` from this module.
@@ -44,9 +44,7 @@ export abstract class View<P extends {} = {}, T extends {} = {}>
 
   attrs = {} as Required<T>;
 
-  get defaultAttrs(): RequiredOnlyOptional<T> {
-    return {} as RequiredOnlyOptional<T>;
-  }
+  defaultAttrs = {} as RequiredOnlyOptional<T>;
 
   abstract component(attrs: T): React.ComponentElement<any, any>;
 }

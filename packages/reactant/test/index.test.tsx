@@ -74,12 +74,10 @@ describe('base API', () => {
       };
     }
 
-    get defaultAttrs() {
-      return {
-        version: '0.1.0',
-        test: 'test',
-      };
-    }
+    defaultAttrs = {
+      version: '0.1.0',
+      test: 'test',
+    };
 
     component(attrs: DashboardViewAttrs) {
       expect(attrs.version).toBe('0.0.1');
@@ -182,14 +180,14 @@ describe('base API', () => {
     class HomeView1 extends View<HomeView1Props, HomeView1Attrs> {
       name = 'homeView1';
 
-      get state() {
-        return {
-          count: 1,
-          list: [{ count: 1 }],
-          list1: [{ count: 1 }],
-          test: 1,
-        };
-      }
+      _state = {
+        count: 1,
+        list: [{ count: 1 }],
+        list1: [{ count: 1 }],
+        test: 1,
+      };
+
+      state = this._state;
 
       @action
       increase(num: number) {
@@ -236,11 +234,11 @@ describe('base API', () => {
         return this.getSum1();
       }
 
-      get defaultAttrs() {
-        return {
-          version: '0.0.1',
-        };
-      }
+      _defaultAttrs = {
+        version: '0.0.1',
+      };
+
+      defaultAttrs = this._defaultAttrs;
 
       component(attrs: HomeView1Attrs) {
         renderFn();
@@ -269,13 +267,10 @@ describe('base API', () => {
         this.state.list[0].count += num;
       }
 
-      get state() {
-        return {
-          // @ts-ignore
-          ...super.state,
-          e: 1,
-        };
-      }
+      state = {
+        ...this._state,
+        e: 1,
+      };
 
       attrs = {} as Required<HomeViewAttrs>;
 
@@ -297,13 +292,10 @@ describe('base API', () => {
         }
       );
 
-      get defaultAttrs() {
-        return {
-          // @ts-ignore
-          ...super.defaultAttrs,
-          s: '1',
-        };
-      }
+      defaultAttrs = {
+        ...this._defaultAttrs,
+        s: '1',
+      };
 
       component(attrs: HomeViewAttrs) {
         return super.component(attrs);
@@ -451,6 +443,8 @@ describe('base API', () => {
     expect(app1.instance.props.sum).toBe(3);
     expect(app1.instance.state.count).toEqual(2);
     expect(app1.instance.state.list).toEqual([{ count: 2 }]);
+    expect(app1.instance.state.e).toEqual(1);
+    expect(app1.store.getState().homeView.e).toEqual(1);
 
     unmountComponentAtNode(container);
     container.remove();
