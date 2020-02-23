@@ -158,14 +158,17 @@ test('base App', () => {
 ## Tips
 
 * `View` class `component` support inheritance, and it does not support call `super.component` for JSX Element but support call function.
-* `@action` and `@computed` support inheritance and call `super`.
+* `@action` support inheritance and call `super`.
+* Performance optimization: selector from `createSelector`can be passed in immutable state.
 
 ## Todos
 
-- Support multiple View instances
-- Enhance DI
-  - optional
-  - skipSelf
-  - inject
-- router
-- storage
+- [x] selector
+- [x] action
+- [x] multiple View instances
+- [] Enhance DI
+  - [] optional
+  - [] skipSelf
+  - [] inject
+- [] router
+- [] storage
