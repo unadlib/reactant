@@ -13,6 +13,9 @@
     "test": "cross-env NODE_ENV=development jest --config ./scripts/jest/dev.config.json",
     "build": "cross-env NODE_ENV=production ts-node scripts/build.ts",
     "clean": "lerna exec rimraf ./dist ./build",
+    "test:generateTestSource": "ts-node scripts/generateTestSource.ts ",
+    "test:performance": "ts-node packages/reactant/test/performance.tsx",
+    "performance": "yarn test:generateTestSource && yarn test:performance",
     "commit": "yarn git-cz"
   },
   "repository": {

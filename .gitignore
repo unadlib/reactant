@@ -107,3 +107,4 @@ dist
 build/
 build.es6/
 dist/
+packages/reactant/test/performance.tsx
