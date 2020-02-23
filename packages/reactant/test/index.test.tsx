@@ -19,9 +19,8 @@ import {
   injectable,
   action,
   createConnector,
-  computed,
   UserInterface,
-  selector,
+  createSelector,
 } from '..';
 
 let container: Element;
@@ -207,32 +206,34 @@ describe('base API', () => {
         return {
           text: `${this.state.count}`,
           increase: () => this.increase(1),
-          sum: this.getSum(),
-          sum1: this.getSum1(),
+          sum: this.sum,
+          sum1: this.sum1,
           ...this.attrs,
         };
       }
 
-      @computed
-      getSum() {
-        return selector(
-          () => this.state.list,
-          items => {
-            sumComputedFn();
-            return items.reduce((sum, item) => sum + item.count, 0);
-          }
-        );
+      getSum = createSelector(
+        () => this.state.list,
+        items => {
+          sumComputedFn();
+          return items.reduce((sum, item) => sum + item.count, 0);
+        }
+      );
+
+      get sum() {
+        return this.getSum();
       }
 
-      @computed
-      getSum1() {
-        return selector(
-          () => this.state.list1,
-          items => {
-            sum1ComputedFn();
-            return items.reduce((sum, item) => sum + item.count, 0);
-          }
-        );
+      getSum1 = createSelector(
+        () => this.state.list1,
+        items => {
+          sum1ComputedFn();
+          return items.reduce((sum, item) => sum + item.count, 0);
+        }
+      );
+
+      get sum1() {
+        return this.getSum1();
       }
 
       get defaultAttrs() {
@@ -282,22 +283,19 @@ describe('base API', () => {
         return {
           text: `${this.state.count}`,
           increase: () => this.increase(1),
-          sum: this.getSum(),
-          sum1: this.getSum1(),
+          sum: this._getSum(),
+          sum1: this.sum1,
           e: this.state.e,
           ...this.attrs,
         };
       }
 
-      @computed
-      getSum() {
-        return selector(
-          () => super.getSum(),
-          r => {
-            return r + 1;
-          }
-        );
-      }
+      _getSum = createSelector(
+        () => this.sum,
+        r => {
+          return r + 1;
+        }
+      );
 
       get defaultAttrs() {
         return {
@@ -492,7 +490,7 @@ describe('base API', () => {
     });
     expect(container.querySelector('span')?.textContent).toBe('2');
     expect(app2.store.getState().homeView.count).toBe(3);
-    expect(sumComputedFn.mock.calls.length).toBe(9);
-    expect(sum1ComputedFn.mock.calls.length).toBe(3);
+    expect(sumComputedFn.mock.calls.length).toBe(10);
+    expect(sum1ComputedFn.mock.calls.length).toBe(4);
   });
 });

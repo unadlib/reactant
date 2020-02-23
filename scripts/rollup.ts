@@ -38,6 +38,7 @@ const generateBundledModules = async ({
         'react-redux': Object.keys(require('react-redux')),
         redux: Object.keys(require('redux')),
         inversify: Object.keys(require('inversify')),
+        reselect: Object.keys(require('reselect')),
       },
     }),
   ];
@@ -61,6 +62,7 @@ const generateBundledModules = async ({
         'react-redux',
         'redux',
         'inversify',
+        'reselect',
       ],
       plugins,
     });

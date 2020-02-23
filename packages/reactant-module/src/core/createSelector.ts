@@ -1,42 +1,44 @@
-import { createSelector, Selector } from 'reselect';
-import { getSelector } from './computedTrack';
+import {
+  createSelector as createSelectorWithReselect,
+  Selector,
+} from 'reselect';
 
-export function selector<S, R1, T>(
+export function createSelector<S, R1, T>(
   selector1: Selector<S, R1>,
   combiner: (res: R1) => T
-): T;
+): (checkedState?: any) => T;
 
-export function selector<S, R1, R2, T>(
+export function createSelector<S, R1, R2, T>(
   selector1: Selector<S, R1>,
   selector2: Selector<S, R2>,
   combiner: (res1: R1, res2: R2) => T
-): T;
+): (checkedState?: any) => T;
 
-export function selector<S, R1, R2, R3, T>(
+export function createSelector<S, R1, R2, R3, T>(
   selector1: Selector<S, R1>,
   selector2: Selector<S, R2>,
   selector3: Selector<S, R3>,
   combiner: (res1: R1, res2: R2, res3: R3) => T
-): T;
+): (checkedState?: any) => T;
 
-export function selector<S, R1, R2, R3, R4, T>(
+export function createSelector<S, R1, R2, R3, R4, T>(
   selector1: Selector<S, R1>,
   selector2: Selector<S, R2>,
   selector3: Selector<S, R3>,
   selector4: Selector<S, R4>,
   combiner: (res1: R1, res2: R2, res3: R3, res4: R4) => T
-): T;
+): (checkedState?: any) => T;
 
-export function selector<S, R1, R2, R3, R4, R5, T>(
+export function createSelector<S, R1, R2, R3, R4, R5, T>(
   selector1: Selector<S, R1>,
   selector2: Selector<S, R2>,
   selector3: Selector<S, R3>,
   selector4: Selector<S, R4>,
   selector5: Selector<S, R5>,
   combiner: (res1: R1, res2: R2, res3: R3, res4: R4, res5: R5) => T
-): T;
+): (checkedState?: any) => T;
 
-export function selector<S, R1, R2, R3, R4, R5, R6, T>(
+export function createSelector<S, R1, R2, R3, R4, R5, R6, T>(
   selector1: Selector<S, R1>,
   selector2: Selector<S, R2>,
   selector3: Selector<S, R3>,
@@ -44,9 +46,9 @@ export function selector<S, R1, R2, R3, R4, R5, R6, T>(
   selector5: Selector<S, R5>,
   selector6: Selector<S, R6>,
   combiner: (res1: R1, res2: R2, res3: R3, res4: R4, res5: R5, res6: R6) => T
-): T;
+): (checkedState?: any) => T;
 
-export function selector<S, R1, R2, R3, R4, R5, R6, R7, T>(
+export function createSelector<S, R1, R2, R3, R4, R5, R6, R7, T>(
   selector1: Selector<S, R1>,
   selector2: Selector<S, R2>,
   selector3: Selector<S, R3>,
@@ -63,9 +65,9 @@ export function selector<S, R1, R2, R3, R4, R5, R6, R7, T>(
     res6: R6,
     res7: R7
   ) => T
-): T;
+): (checkedState?: any) => T;
 
-export function selector<S, R1, R2, R3, R4, R5, R6, R7, R8, T>(
+export function createSelector<S, R1, R2, R3, R4, R5, R6, R7, R8, T>(
   selector1: Selector<S, R1>,
   selector2: Selector<S, R2>,
   selector3: Selector<S, R3>,
@@ -84,9 +86,9 @@ export function selector<S, R1, R2, R3, R4, R5, R6, R7, R8, T>(
     res7: R7,
     res8: R8
   ) => T
-): T;
+): (checkedState?: any) => T;
 
-export function selector<S, R1, R2, R3, R4, R5, R6, R7, R8, R9, T>(
+export function createSelector<S, R1, R2, R3, R4, R5, R6, R7, R8, R9, T>(
   selector1: Selector<S, R1>,
   selector2: Selector<S, R2>,
   selector3: Selector<S, R3>,
@@ -107,9 +109,9 @@ export function selector<S, R1, R2, R3, R4, R5, R6, R7, R8, R9, T>(
     res8: R8,
     res9: R9
   ) => T
-): T;
+): (checkedState?: any) => T;
 
-export function selector<S, R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, T>(
+export function createSelector<S, R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, T>(
   selector1: Selector<S, R1>,
   selector2: Selector<S, R2>,
   selector3: Selector<S, R3>,
@@ -132,9 +134,23 @@ export function selector<S, R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, T>(
     res9: R9,
     res10: R10
   ) => T
-): T;
+): (checkedState?: any) => T;
 
-export function selector<S, R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, T>(
+export function createSelector<
+  S,
+  R1,
+  R2,
+  R3,
+  R4,
+  R5,
+  R6,
+  R7,
+  R8,
+  R9,
+  R10,
+  R11,
+  T
+>(
   selector1: Selector<S, R1>,
   selector2: Selector<S, R2>,
   selector3: Selector<S, R3>,
@@ -159,9 +175,9 @@ export function selector<S, R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, T>(
     res10: R10,
     res11: R11
   ) => T
-): T;
+): (checkedState?: any) => T;
 
-export function selector<
+export function createSelector<
   S,
   R1,
   R2,
@@ -203,12 +219,11 @@ export function selector<
     res11: R11,
     res12: R12
   ) => T
-): T;
+): (checkedState?: any) => T;
 
-export function selector(...args: any[]) {
+export function createSelector(...args: any[]) {
   // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
   // @ts-ignore
-  const newSelector = createSelector(...args);
-  const currentSelector = getSelector(newSelector);
-  return currentSelector({});
+  const selector = createSelectorWithReselect(...args);
+  return (checkedState?: any) => selector(checkedState || {});
 }

@@ -8,7 +8,6 @@ import {
   createStore,
   ServiceIdentifiersMap,
   ModuleOptions,
-  setSelectorsCache,
 } from 'reactant-module';
 import { injectConnector } from './injectConnector';
 
@@ -31,7 +30,6 @@ function createApp<T>({
   render,
   containerOptions,
 }: Config<T>) {
-  setSelectorsCache(new Map());
   const ServiceIdentifiers: ServiceIdentifiersMap = new Map();
   const container = createContainer(ServiceIdentifiers, {
     defaultScope: 'Singleton',
