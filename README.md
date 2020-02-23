@@ -166,9 +166,9 @@ test('base App', () => {
 - [x] selector
 - [x] action
 - [x] multiple View instances
-- [] Enhance DI
-  - [] optional
-  - [] skipSelf
-  - [] inject
-- [] router
-- [] storage
+- [ ] Enhance DI
+  - [ ] optional
+  - [ ] skipSelf
+  - [ ] inject
+- [ ] router
+- [ ] storage
