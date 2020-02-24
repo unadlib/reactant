@@ -6,15 +6,13 @@ import { Service } from '../interfaces';
 let tempState: unknown;
 
 export function action(
-  target: Service,
+  target: object,
   key: string | symbol,
   descriptor: TypedPropertyDescriptor<Function>
 ) {
   const fn = descriptor.value;
   if (typeof fn === 'undefined') {
-    throw new Error(
-      `${target.name} ${String(key)} decorate error with '@action'.`
-    );
+    throw new Error(`${String(key)} decorate error with '@action'.`);
   }
   const value = function(this: Service, ...args: unknown[]) {
     if (this[storeKey]) {
