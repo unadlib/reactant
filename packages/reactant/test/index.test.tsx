@@ -20,6 +20,7 @@ import {
   createConnector,
   UserInterface,
   createSelector,
+  dispatch,
 } from '..';
 
 let container: Element;
@@ -487,20 +488,63 @@ describe('base API', () => {
     expect(sum1ComputedFn.mock.calls.length).toBe(4);
   });
 
-  test('View UI module with state dispatch', () => {
+  test('View UI module dispatch when subclassing', () => {
     @injectable()
-    class HomeView extends View<{ text: string }, {}> {
-      text = 'homeView';
+    class HomeView1 extends View<{ text: number; increase: () => void }, {}> {
+      name = 'homeView';
+
+      state = {
+        list: [{ count: 1 }],
+      };
+
+      increase() {
+        const state = {
+          ...this.state,
+          list: [
+            {
+              count: this.state.list[0].count + 1,
+            },
+            ...this.state.list.slice(1, -1),
+          ],
+        };
+        dispatch(this, {
+          state,
+        });
+      }
 
       get props() {
         return {
-          text: this.text,
+          text: this.state.list[0].count,
+          increase: () => this.increase(),
         };
       }
 
-      component(attrs: {}) {
-        console.log(attrs);
-        return <span>{this.props.text}</span>;
+      component() {
+        return (
+          <div>
+            <div onClick={this.props.increase} id="add" />
+            <span>{this.props.text}</span>
+          </div>
+        );
+      }
+    }
+
+    @injectable()
+    class HomeView extends HomeView1 {
+      increase() {
+        super.increase();
+        const state = {
+          ...this.state,
+          list: [
+            {
+              count: this.state.list[0].count + 1,
+            },
+            ...this.state.list.slice(1, -1),
+          ],
+        };
+        dispatch(this, {
+          state,
+        });
       }
     }
 
@@ -512,13 +556,12 @@ describe('base API', () => {
     act(() => {
       app.bootstrap(container);
     });
-    // expect(container.querySelector('h1')?.innerHTML).toBe(value);
-    // expect(container.querySelector('span')?.textContent).toBe('homeView');
-    // act(() => {
-    //   container
-    //     .querySelector('[href="/dashboard"]')!
-    //     .dispatchEvent(new MouseEvent('click', { bubbles: true }));
-    // });
-    // expect(container.querySelector('span')?.textContent).toBe('dashboardView');
+    expect(container.textContent).toBe('1');
+    act(() => {
+      container
+        .querySelector('#add')!
+        .dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    });
+    expect(container.textContent).toBe('3');
   });
 });

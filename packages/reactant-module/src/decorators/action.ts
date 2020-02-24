@@ -1,5 +1,5 @@
 /* eslint-disable func-names */
-import { produce, applyPatches } from 'immer';
+import { produce } from 'immer';
 import { storeKey } from '../core/createStore';
 import { Service } from '../interfaces';
 
@@ -21,7 +21,7 @@ export function action(
         fn.call({ ...this, state: draftState }, ...args);
       });
       tempState = undefined;
-      this[storeKey].dispatch({
+      this[storeKey]!.dispatch({
         type: this.name,
         state,
       });

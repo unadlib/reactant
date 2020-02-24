@@ -173,7 +173,7 @@ test('base App', () => {
 * @inject
 * createSelector
 * createConnector
-* dispatch?
+* dispatch
 * setReducers?
 
 ## Todos
@@ -181,7 +181,7 @@ test('base App', () => {
 - [x] selector
 - [x] action
 - [x] multiple View instances
-- [ ] optimize action with `applyPatches`
+- [x] optimize action
 - [ ] Enhance DI
   - [ ] optional
   - [ ] skipSelf

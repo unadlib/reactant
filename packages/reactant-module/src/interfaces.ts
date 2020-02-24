@@ -8,7 +8,7 @@ export interface Module<T> extends Function {
 export interface Service<T = any> {
   state: Record<string, T>;
   name: string;
-  [storeKey]: Store;
+  [storeKey]?: Store;
 }
 
 export type ModuleToken = Module<any> | string | symbol;
