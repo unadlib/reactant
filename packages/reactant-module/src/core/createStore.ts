@@ -72,7 +72,7 @@ export function createStore<T = any>(
             enumerable: true,
             configurable: false,
             get() {
-              return this[storeKey].getState()[service.name];
+              return store.getState()[service.name];
             },
           },
         });
