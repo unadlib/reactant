@@ -487,4 +487,39 @@ describe('base API', () => {
     expect(sumComputedFn.mock.calls.length).toBe(10);
     expect(sum1ComputedFn.mock.calls.length).toBe(4);
   });
+
+  test('View UI module with state dispatch', () => {
+    @injectable()
+    class HomeView extends View<{ text: string }, {}> {
+      text = 'homeView';
+
+      get props() {
+        return {
+          text: this.text,
+        };
+      }
+
+      component(attrs: {}) {
+        console.log(attrs);
+        return <span>{this.props.text}</span>;
+      }
+    }
+
+    const app = createApp({
+      modules: [],
+      main: HomeView,
+      render,
+    });
+    act(() => {
+      app.bootstrap(container);
+    });
+    // expect(container.querySelector('h1')?.innerHTML).toBe(value);
+    // expect(container.querySelector('span')?.textContent).toBe('homeView');
+    // act(() => {
+    //   container
+    //     .querySelector('[href="/dashboard"]')!
+    //     .dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    // });
+    // expect(container.querySelector('span')?.textContent).toBe('dashboardView');
+  });
 });

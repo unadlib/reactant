@@ -5,19 +5,18 @@ import {
   createStore as createStoreWithRedux,
   Store,
   PreloadedState,
+  Action,
 } from 'redux';
 import { Container, ServiceIdentifiersMap } from 'reactant-di';
-// import { injectComputedTrack } from './computedTrack';
 import { View } from './view';
 import { ModuleOptions } from '../interfaces';
 
-interface Action<T> {
-  type: string;
-  states: Record<string, T>;
+export interface ReactantAction<T = any> extends Action<string> {
+  state: Record<string, T>;
 }
 
-export const reducersKey = Symbol('reducers');
-export const storeKey = Symbol('store');
+export const reducersKey: unique symbol = Symbol('reducers');
+export const storeKey: unique symbol = Symbol('store');
 
 export function createStore<T = any>(
   container: Container,
@@ -53,9 +52,9 @@ export function createStore<T = any>(
             serviceReducersMapObject: ReducersMapObject,
             [reducerKey, initialState]
           ) => {
-            const reducer = (state = initialState, action: Action<any>) => {
+            const reducer = (state = initialState, action: ReactantAction) => {
               return action.type === service.name
-                ? action.states[reducerKey]
+                ? action.state[reducerKey]
                 : state;
             };
             return Object.assign(serviceReducersMapObject, {

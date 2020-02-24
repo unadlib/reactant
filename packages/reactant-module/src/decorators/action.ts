@@ -1,27 +1,34 @@
+/* eslint-disable func-names */
 import { produce, applyPatches } from 'immer';
 import { storeKey } from '../core/createStore';
+import { Service } from '../interfaces';
 
-type ThisType = { state: Record<string, any>; name: string };
-
-let tempState: any;
+let tempState: unknown;
 
 export function action(
-  target: object,
+  target: Service,
   key: string | symbol,
-  descriptor: TypedPropertyDescriptor<any>
+  descriptor: TypedPropertyDescriptor<Function>
 ) {
   const fn = descriptor.value;
-  // eslint-disable-next-line func-names
-  const value = function(this: ThisType, ...args: any[]) {
-    if ((this as any)[storeKey]) {
-      const state = produce(this.state, (draftState: Record<string, any>) => {
-        tempState = draftState;
-        fn.call({ ...this, state: draftState }, ...args);
-      });
+  if (typeof fn === 'undefined') {
+    throw new Error(
+      `${target.name} ${String(key)} decorate error with '@action'.`
+    );
+  }
+  const value = function(this: Service, ...args: unknown[]) {
+    if (this[storeKey]) {
+      const state = produce(
+        this.state,
+        (draftState: Record<string, unknown>) => {
+          tempState = draftState;
+          fn.call({ ...this, state: draftState }, ...args);
+        }
+      );
       tempState = undefined;
-      (this as any)[storeKey].dispatch({
+      this[storeKey].dispatch({
         type: this.name,
-        states: state,
+        state,
       });
     } else {
       // support inherit `action`.
