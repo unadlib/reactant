@@ -7,12 +7,8 @@ A framework for building React web applications
 ### Proposal
 
 ```tsx
-import React, { FC } from 'react';
-import { add } from 'reactant-module';
+import React from 'react';
 import {
-  View,
-  Router,
-  Link,
   injectable,
   inject,
   computed,
@@ -20,125 +16,121 @@ import {
   View,
   connect,
 } from 'reactant';
+import {
+  render,
+  Link,
+  Switch,
+  Route,
+  MemoryRouter,
+} from 'reactant-web';
 
-test('base App', () => {
-  @injectable
-  class Foo {}
+@injectable
+class Foo {}
 
-  @injectable
-  class Bar {}
+@injectable
+class Bar {}
 
-  interface HomeProps {
-    a: number;
-  }
+interface HomeProps {
+  text: string;
+  increase(): void;
+}
 
-  @injectable
-  class HomeView extends View<{ text: string }> {
-      constructor(public count: Count) {
-        super();
-      }
-
-      state = {
-        count: 1,
-      };
-
-      @action
-      increase() {
-        const count = this.state.count + 1;
-        return {
-            ...this.state,
-            count,
-          };
-      }
-
-      @computed(
-        o => o.state.count,
-        o => o.count.state.sum,
-      )
-      get sum(number, sum) {
-        return number + sum;
-      }
-
-      get data() {
-        return {
-          text: `${this.state.count}`,
-          increase: () => this.increase,
-        };
-      }
-
-      component() {
-        return (
-          <div>
-            <div onClick={this.data.increase} id="add" />
-            <span>{this.data.text}</span>
-          </div>
-        );
-      }
+@injectable
+class HomeView extends View<HomeProps> {
+    constructor(public count: Count) {
+      super();
     }
 
-  interface DashboardData {
-    b: string;
-  }
+    state = {
+      count: 1,
+    };
 
-  class DashboardView extends View<DashboardData> {
-    b = '1';
+    @action
+    increase() {
+      this.state.count += 1;
+    }
+
+    getSum = createSelector(
+      () => this.state.count,
+      () => this.count.state.sum,
+      (number, sum) => number + sum,
+    );
 
     get props() {
       return {
-        b: this.b,
+        text: `${this.getSum()}`,
+        increase: () => this.increase,
       };
     }
 
     component() {
-      return <span>{this.porps.b}</span>;
-    }
-  }
-
-  @injectable
-  class App {
-    constructor(
-      @inject dashboardView: DashboardView,
-      @inject homeView: HomeView,
-      @inject foo: Foo,
-      @inject bar: Bar
-    ) {}
-
-    component() {
-      const Home = this.homeView.component;
-      const Dashboard = this.dashboardView.component;
       return (
-        <Router>
-          <div>
-            <ul>
-              <li>
-                <Link to="/">Home</Link>
-              </li>
-              <li>
-                <Link to="/dashboard">Dashboard</Link>
-              </li>
-            </ul>
-
-            <Switch>
-              <Route path="/">
-                <Home />
-              </Route>
-              <Route path="/dashboard">
-                <Dashboard />
-              </Route>
-            </Switch>
-          </div>
-        </Router>
+        <div>
+          <div onClick={this.props.increase} id="add" />
+          <span>{this.props.text}</span>
+        </div>
       );
     }
   }
 
-  const app = createApp({
-    modules: [HomeView, DashboardView, Foo, Bar, App],
-    main: App,
-  });
+interface DashboardData {
+  bar: number;
+}
 
-  app.bootstrap(document.getElementById('#app'));
-});
+class DashboardView extends View<DashboardData> {
+  get props() {
+    return {
+      bar: 1
+    };
+  }
+
+  component() {
+    return <span>{this.porps.bar}</span>;
+  }
+}
+
+@injectable
+class App {
+  constructor(
+    public dashboardView: DashboardView,
+    public homeView: HomeView,
+    public foo: Foo,
+    public bar: Bar
+  ) {}
+
+  component() {
+    const Home = this.homeView.component;
+    const Dashboard = this.dashboardView.component;
+    return (
+      <Router>
+        <div>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/dashboard">Dashboard</Link>
+            </li>
+          </ul>
+
+          <Switch>
+            <Route path="/">
+              <Home />
+            </Route>
+            <Route path="/dashboard">
+              <Dashboard />
+            </Route>
+          </Switch>
+        </div>
+      </Router>
+    );
+  }
+}
+
+const app = createApp({
+  modules: [HomeView, DashboardView, Foo, Bar, App],
+  main: App,
+}).bootstrap(document.getElementById('#app'));
 ```
 
 ## Goal
