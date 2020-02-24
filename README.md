@@ -188,3 +188,17 @@ test('base App', () => {
   - [ ] inject
 - [ ] router
 - [ ] storage
+- [ ] mobx
+- [ ] Form
+- [ ] Network
+- [ ] i18n
+- [ ] Accessibility
+- [ ] C4
+- [ ] Micro Front-end
+- [ ] CLI
+- [ ] VSCode Plug-in
+- [ ] testing
+- [ ] SSR
+- [ ] Hook
+- [ ] Support JavaScript
+- [ ] Plug-in system
