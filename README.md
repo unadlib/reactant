@@ -161,6 +161,21 @@ test('base App', () => {
 * `@action` support inheritance and call `super`.
 * Performance optimization: selector from `createSelector`can be passed in immutable state.
 
+## API
+
+### reactant
+
+* View
+* createApp
+* @injectable
+* @action
+* @optional?
+* @inject
+* createSelector
+* createConnector
+* dispatch?
+* setReducers?
+
 ## Todos
 
 - [x] selector

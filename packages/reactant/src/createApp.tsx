@@ -18,11 +18,6 @@ interface Config<T> {
   containerOptions?: ContainerOptions;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface AppProps {
-  // version: string;
-}
-
 // eslint-disable-next-line no-shadow
 function createApp<T>({
   modules = [],

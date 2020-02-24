@@ -15,7 +15,6 @@ import { act } from 'react-dom/test-utils';
 import {
   View,
   createApp,
-  AppProps,
   injectable,
   action,
   createConnector,
