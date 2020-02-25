@@ -10,11 +10,9 @@ A framework for building React web applications
 import React from 'react';
 import {
   injectable,
-  inject,
-  computed,
+  createSelector,
   createApp,
   ViewModule,
-  connect,
 } from 'reactant';
 import {
   render,
