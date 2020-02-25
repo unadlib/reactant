@@ -21,7 +21,7 @@ import {
   UserInterface,
   createSelector,
   dispatch,
-} from '..';
+} from '../..';
 
 let container: Element;
 
