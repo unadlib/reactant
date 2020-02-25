@@ -1,7 +1,7 @@
 import { connect as connectWithRedux } from 'react-redux';
-import { View, areStatePropsEqual } from 'reactant-module';
+import { ViewModule, areStatePropsEqual } from 'reactant-module';
 
-export function createConnector(service: View) {
+export function createConnector(service: ViewModule) {
   const component = service.component.bind(service);
   Object.assign(component, {
     defaultProps: service.defaultAttrs,

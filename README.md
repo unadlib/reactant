@@ -13,7 +13,7 @@ import {
   inject,
   computed,
   createApp,
-  View,
+  ViewModule,
   connect,
 } from 'reactant';
 import {
@@ -36,7 +36,7 @@ interface HomeProps {
 }
 
 @injectable
-class HomeView extends View<HomeProps> {
+class HomeView extends ViewModule<HomeProps> {
     constructor(public count: Count) {
       super();
     }
@@ -77,7 +77,7 @@ interface DashboardData {
   bar: number;
 }
 
-class DashboardView extends View<DashboardData> {
+class DashboardView extends ViewModule<DashboardData> {
   get props() {
     return {
       bar: 1
@@ -149,7 +149,7 @@ const app = createApp({
 
 ## Tips
 
-* `View` class `component` support inheritance, and it does not support call `super.component` for JSX Element but support call function.
+* `ViewModule` class `component` support inheritance, and it does not support call `super.component` for JSX Element but support call function.
 * `@action` support inheritance and call `super`.
 * Performance optimization: selector from `createSelector`can be passed in immutable state.
 
@@ -157,7 +157,7 @@ const app = createApp({
 
 ### reactant
 
-* View
+* ViewModule
 * createApp
 * @injectable
 * @action
@@ -171,7 +171,7 @@ const app = createApp({
 
 - [x] selector
 - [x] action
-- [x] multiple View instances
+- [x] multiple ViewModule instances
 - [x] optimize action
 - [ ] Enhance DI
   - [ ] optional

@@ -28,14 +28,14 @@ export interface UserInterface<P, T> {
 }
 
 @injectable()
-export abstract class View<P extends {} = {}, T extends {} = {}>
+export abstract class ViewModule<P extends {} = {}, T extends {} = {}>
   implements UserInterface<P, T> {
   constructor() {
     if (typeof this.component !== 'function') {
       throw new Error(
         `'${
           Object.getPrototypeOf(this).constructor.name
-        }' View 'component' property should be defined class 'method'.`
+        }' ViewModule 'component' property should be defined class 'method'.`
       );
     }
   }

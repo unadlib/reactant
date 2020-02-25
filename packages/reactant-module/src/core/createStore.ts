@@ -8,7 +8,7 @@ import {
   Action,
 } from 'redux';
 import { Container, ServiceIdentifiersMap } from 'reactant-di';
-import { View } from './view';
+import { ViewModule } from './view';
 import { ModuleOptions } from '../interfaces';
 
 export interface ReactantAction<T = any> extends Action<string> {
@@ -21,7 +21,7 @@ export const storeKey: unique symbol = Symbol('store');
 export function createStore<T = any>(
   container: Container,
   ServiceIdentifiers: ServiceIdentifiersMap,
-  injectConnector: (service: object | View) => void,
+  injectConnector: (service: object | ViewModule) => void,
   modules: ModuleOptions[],
   preloadedState?: PreloadedState<T>
 ) {

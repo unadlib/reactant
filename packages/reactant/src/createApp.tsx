@@ -4,7 +4,7 @@ import {
   createContainer,
   ContainerOptions,
   ServiceIdentifier,
-  View,
+  ViewModule,
   createStore,
   ServiceIdentifiersMap,
   ModuleOptions,
@@ -32,8 +32,8 @@ function createApp<T>({
     skipBaseClassChecks: true,
   });
   const instance = container.get<T>(main);
-  if (!(instance instanceof View)) {
-    throw new Error(`Main module should be a 'View' module.`);
+  if (!(instance instanceof ViewModule)) {
+    throw new Error(`Main module should be a 'ViewModule'.`);
   }
   const store = createStore(
     container,

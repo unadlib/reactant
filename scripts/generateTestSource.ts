@@ -60,7 +60,7 @@ console.log(${JSON.stringify({
 console.log('expectedResult:', ${JSON.stringify(expectedResult)});
 import React from 'react';
 import { render } from 'reactant-web';
-import { injectable, action, computed, selector, createApp, View, createSelector, storeKey } from '..';
+import { injectable, action, computed, selector, createApp, ViewModule, createSelector, storeKey } from '..';
 let time = Date.now();
 const computedTime = ${computedTime};
 const expectedResult = ${JSON.stringify(expectedResult)};
@@ -166,7 +166,7 @@ class Service${i} {
 })()}
 
 @injectable()
-class App extends View {
+class App extends ViewModule {
   constructor(public service${classAmount - 1}: Service${classAmount -
   1}, public service0: Service0) {
     super();

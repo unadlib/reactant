@@ -13,7 +13,7 @@ import {
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { act } from 'react-dom/test-utils';
 import {
-  View,
+  ViewModule,
   createApp,
   injectable,
   action,
@@ -64,7 +64,7 @@ describe('base API', () => {
   }
 
   @injectable()
-  class DashboardView extends View<{ text: string }, DashboardViewAttrs> {
+  class DashboardView extends ViewModule<{ text: string }, DashboardViewAttrs> {
     text = 'dashboardView';
 
     get props() {
@@ -86,9 +86,9 @@ describe('base API', () => {
     }
   }
 
-  test('View UI module without state', () => {
+  test('ViewModule without state', () => {
     @injectable()
-    class HomeView extends View<{ text: string }> {
+    class HomeView extends ViewModule<{ text: string }> {
       text = 'homeView';
 
       get props() {
@@ -103,7 +103,7 @@ describe('base API', () => {
     }
 
     @injectable()
-    class AppView extends View<AppViewProps> {
+    class AppView extends ViewModule<AppViewProps> {
       constructor(
         public foo: Foo,
         public homeView: HomeView,
@@ -162,7 +162,7 @@ describe('base API', () => {
     expect(container.querySelector('span')?.textContent).toBe('dashboardView');
   });
 
-  test('View UI module with state', () => {
+  test('ViewModule with state', () => {
     const renderFn = jest.fn();
     const sumComputedFn = jest.fn();
     const sum1ComputedFn = jest.fn();
@@ -177,7 +177,7 @@ describe('base API', () => {
     }
 
     @injectable()
-    class HomeView1 extends View<HomeView1Props, HomeView1Attrs> {
+    class HomeView1 extends ViewModule<HomeView1Props, HomeView1Attrs> {
       name = 'homeView1';
 
       _state = {
@@ -308,7 +308,7 @@ describe('base API', () => {
     }
 
     @injectable()
-    class AppView extends View<AppViewProps, AppViewAttrs> {
+    class AppView extends ViewModule<AppViewProps, AppViewAttrs> {
       constructor(
         public foo: Foo,
         public homeView: HomeView,
@@ -488,9 +488,9 @@ describe('base API', () => {
     expect(sum1ComputedFn.mock.calls.length).toBe(4);
   });
 
-  test('View UI module dispatch when subclassing', () => {
+  test('ViewModule dispatch when subclassing', () => {
     @injectable()
-    class HomeView1 extends View<{ text: number; increase: () => void }, {}> {
+    class HomeView1 extends ViewModule<{ text: number; increase: () => void }, {}> {
       name = 'homeView';
 
       state = {
