@@ -16,10 +16,21 @@ export function action(
   }
   const value = function(this: Service, ...args: any[]) {
     if (this[storeKey]) {
+      let time = 0;
+      if (process.env.NODE_ENV !== 'production') {
+        time = Date.now();
+      }
       const state = produce(this.state, (draftState: Record<string, any>) => {
         tempState = draftState;
         fn.call({ ...this, state: draftState }, ...args);
       });
+      if (process.env.NODE_ENV !== 'production') {
+        if (Date.now() - time > 240) {
+          console.warn(
+            `The current operation performance is slow, it is recommended to use 'dispatch' to optimize performance.`
+          );
+        }
+      }
       tempState = undefined;
       this[storeKey]!.dispatch({
         type: this.name,

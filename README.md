@@ -164,7 +164,6 @@ const app = createApp({
 * @optional?
 * @inject
 * createSelector
-* createConnector
 * dispatch
 * setReducers?
 
@@ -180,6 +179,7 @@ const app = createApp({
   - [ ] inject
 - [ ] router
 - [ ] storage
+
 - [ ] mobx
 - [ ] Form
 - [ ] Network
