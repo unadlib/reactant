@@ -9,7 +9,6 @@ import {
   ServiceIdentifiersMap,
   ModuleOptions,
 } from 'reactant-module';
-import { injectConnector } from './injectConnector';
 
 interface Config<T> {
   modules?: ModuleOptions[];
@@ -18,7 +17,6 @@ interface Config<T> {
   containerOptions?: ContainerOptions;
 }
 
-// eslint-disable-next-line no-shadow
 function createApp<T>({
   modules = [],
   main,
@@ -35,12 +33,7 @@ function createApp<T>({
   if (!(instance instanceof ViewModule)) {
     throw new Error(`Main module should be a 'ViewModule'.`);
   }
-  const store = createStore(
-    container,
-    ServiceIdentifiers,
-    injectConnector,
-    modules
-  );
+  const store = createStore(container, ServiceIdentifiers, modules);
   return {
     instance,
     store,

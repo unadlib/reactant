@@ -10,18 +10,15 @@ import {
 import { Container, ServiceIdentifiersMap } from 'reactant-di';
 import { ViewModule } from './view';
 import { ModuleOptions } from '../interfaces';
+import { storeKey, reducersKey } from '../constants';
 
 export interface ReactantAction<T = any> extends Action<string> {
   state: Record<string, T>;
 }
 
-export const reducersKey: unique symbol = Symbol('reducers');
-export const storeKey: unique symbol = Symbol('store');
-
 export function createStore<T = any>(
   container: Container,
   ServiceIdentifiers: ServiceIdentifiersMap,
-  injectConnector: (service: object | ViewModule) => void,
   modules: ModuleOptions[],
   preloadedState?: PreloadedState<T>
 ) {
@@ -29,7 +26,6 @@ export function createStore<T = any>(
   const reducers: ReducersMapObject = {};
   for (const [Service] of ServiceIdentifiers) {
     const service = container.get(Service);
-    injectConnector(service);
     const isPlainObject = toString.call(service.state) === '[object Object]';
     if (isPlainObject) {
       const className = (Service as Function).name;
@@ -82,6 +78,7 @@ export function createStore<T = any>(
             },
           },
         });
+        // in order to support multiple instances.
         Object.defineProperties(service, {
           [storeKey]: {
             enumerable: false,

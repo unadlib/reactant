@@ -1,10 +1,10 @@
 /* eslint-disable func-names */
 import { produce } from 'immer';
-import { storeKey } from '../core/createStore';
-import { Service } from '../interfaces';
+import { ServiceWithState } from '../interfaces';
+import { storeKey } from '../constants';
 
 // support call super method decorated by `@action`.
-let stagedState: any;
+let stagedState: Record<string, any> | undefined;
 
 export function action(
   target: object,
@@ -15,7 +15,7 @@ export function action(
   if (typeof fn === 'undefined') {
     throw new Error(`${String(key)} decorate error with '@action'.`);
   }
-  const value = function(this: Service, ...args: any[]) {
+  const value = function(this: ServiceWithState, ...args: any[]) {
     if (this[storeKey]) {
       const state = produce(this.state, (draftState: Record<string, any>) => {
         stagedState = draftState;

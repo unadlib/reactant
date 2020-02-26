@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/ban-ts-ignore */
 /* eslint-disable class-methods-use-this */
@@ -10,7 +11,6 @@ import {
   Route,
   MemoryRouter,
 } from 'reactant-web';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { act } from 'react-dom/test-utils';
 import {
   ViewModule,
@@ -18,11 +18,11 @@ import {
   injectable,
   action,
   createState,
-  UserInterface,
   createSelector,
+  useConnector,
   dispatch,
 } from '../..';
-import { ReactantAction } from '../../src';
+import { ReactantAction, defaultProps } from '../../src';
 
 let container: Element;
 
@@ -41,11 +41,11 @@ describe('base API', () => {
     bar: string;
   }
 
-  interface AppViewAttrs {
+  interface AppViewProps {
     version: string;
   }
 
-  interface DashboardViewAttrs {
+  interface DashboardViewProps {
     version?: string;
     test?: string;
   }
@@ -65,46 +65,47 @@ describe('base API', () => {
   }
 
   @injectable()
-  class DashboardView extends ViewModule<{ text: string }, DashboardViewAttrs> {
+  class DashboardView extends ViewModule {
     text = 'dashboardView';
 
-    get props() {
+    getProps() {
       return {
         text: this.text,
-        ...this.attrs,
       };
     }
 
-    defaultAttrs = {
+    @defaultProps({
       version: '0.1.0',
       test: 'test',
-    };
-
-    component(attrs: DashboardViewAttrs) {
-      expect(attrs.version).toBe('0.0.1');
-      expect(attrs.test).toBe('test');
-      return <span>{this.props.text}</span>;
+    })
+    component(props: DashboardViewProps) {
+      // check merge props with default props.
+      expect(props.version).toBe('0.0.1');
+      expect(props.test).toBe('test');
+      const data = useConnector(() => this.getProps());
+      return <span>{data.text}</span>;
     }
   }
 
   test('ViewModule without state', () => {
     @injectable()
-    class HomeView extends ViewModule<{ text: string }> {
+    class HomeView extends ViewModule {
       text = 'homeView';
 
-      get props() {
+      getProps() {
         return {
           text: this.text,
         };
       }
 
       component() {
-        return <span>{this.props.text}</span>;
+        const data = useConnector(() => this.getProps());
+        return <span>{data.text}</span>;
       }
     }
 
     @injectable()
-    class AppView extends ViewModule<AppViewProps> {
+    class AppView extends ViewModule {
       constructor(
         public foo: Foo,
         public homeView: HomeView,
@@ -113,16 +114,17 @@ describe('base API', () => {
         super();
       }
 
-      get props() {
+      getProps() {
         return {
           bar: this.foo.bar,
         };
       }
 
       component() {
+        const data = useConnector(() => this.getProps());
         return (
           <MemoryRouter>
-            <h1>{this.props.bar}</h1>
+            <h1>{data.bar}</h1>
             <ul>
               <li>
                 <Link to="/">Home</Link>
@@ -169,16 +171,13 @@ describe('base API', () => {
     const sum1ComputedFn = jest.fn();
     const getPropsFn = jest.fn();
 
-    interface HomeView1Attrs {
-      version?: string;
-    }
-
     interface HomeView1Props {
-      text: string;
+      version?: string;
+      text?: string;
     }
 
     @injectable()
-    class HomeView1 extends ViewModule<HomeView1Props, HomeView1Attrs> {
+    class HomeView1 extends ViewModule {
       name = 'homeView1';
 
       _state = {
@@ -200,14 +199,13 @@ describe('base API', () => {
         this.state.test -= num;
       }
 
-      get props() {
+      getProps() {
         getPropsFn();
         return {
           text: `${this.state.count}`,
           increase: () => this.increase(1),
           sum: this.sum,
           sum1: this.sum1,
-          ...this.attrs,
         };
       }
 
@@ -235,31 +233,22 @@ describe('base API', () => {
         return this.getSum1();
       }
 
-      _defaultAttrs = {
-        version: '0.0.1',
-      };
-
-      defaultAttrs = this._defaultAttrs;
-
-      component(attrs: HomeView1Attrs) {
+      component(props: HomeView1Props) {
+        const data = useConnector(() => this.getProps());
         renderFn();
-        expect(this.props.version).toEqual(this.attrs.version);
-        expect(this.props.version).toEqual(this.defaultAttrs.version);
         return (
           <div>
-            <div onClick={this.props.increase} id="add" />
-            <span>{this.props.text}</span>
+            <div onClick={data.increase} id="add" />
+            <span>{data.text}</span>
           </div>
         );
       }
     }
 
-    type HomeViewAttrs = HomeView1Attrs & { s?: string };
-    type HomeViewProps = HomeView1Props & { e: number };
+    type HomeViewProps = HomeView1Props & { s?: string };
 
     @injectable()
-    class HomeView extends HomeView1
-      implements UserInterface<HomeViewProps, HomeViewAttrs> {
+    class HomeView extends HomeView1 {
       name = 'homeView';
 
       @action
@@ -273,8 +262,6 @@ describe('base API', () => {
         e: 1,
       };
 
-      attrs = {} as Required<HomeViewAttrs>;
-
       get props() {
         return {
           text: `${this.state.count}`,
@@ -282,7 +269,6 @@ describe('base API', () => {
           sum: this._getSum(),
           sum1: this.sum1,
           e: this.state.e,
-          ...this.attrs,
         };
       }
 
@@ -293,23 +279,18 @@ describe('base API', () => {
         }
       );
 
-      defaultAttrs = {
-        ...this._defaultAttrs,
-        s: '1',
-      };
-
-      component(attrs: HomeViewAttrs) {
-        return super.component(attrs);
+      component(props: HomeViewProps) {
+        return super.component(props);
       }
     }
 
-    interface AppViewAttrs {
+    interface AppViewProps {
       head?: JSX.Element;
       route?: JSX.Element;
     }
 
     @injectable()
-    class AppView extends ViewModule<AppViewProps, AppViewAttrs> {
+    class AppView extends ViewModule {
       constructor(
         public foo: Foo,
         public homeView: HomeView,
@@ -321,11 +302,10 @@ describe('base API', () => {
       get props() {
         return {
           bar: this.foo.bar,
-          ...this.attrs,
         };
       }
 
-      component({ head, route }: AppViewAttrs) {
+      component({ head, route }: AppViewProps) {
         return (
           <MemoryRouter>
             <h1>{this.props.bar}</h1>
@@ -491,18 +471,18 @@ describe('base API', () => {
 
   test('ViewModule dispatch when subclassing', () => {
     @injectable()
-    class HomeView1 extends ViewModule<
-      { text: number; increase: () => void },
-      {}
-    > {
+    class HomeView1 extends ViewModule {
       name = 'homeView';
 
-      state = createState({
-        list: (
-          _state: { count: number }[] = [{ count: 1 }],
-          { type, state }: ReactantAction
-        ) => (type === 'homeView' ? state.list : _state),
-      });
+      state = {
+        ...createState({
+          list: (
+            _state: { count: number }[] = [{ count: 1 }],
+            { type, state }: ReactantAction
+          ) => (type === 'homeView' ? state.list : _state),
+        }),
+        count: 1,
+      };
 
       increase() {
         const state = {
@@ -519,18 +499,28 @@ describe('base API', () => {
         });
       }
 
-      get props() {
+      @action
+      add() {
+        this.state.count += 1;
+      }
+
+      getData() {
         return {
           text: this.state.list![0].count,
           increase: () => this.increase(),
         };
       }
 
-      component() {
+      @defaultProps({
+        version: '0.1.0',
+        test: 'test',
+      })
+      component(props: { version?: string; test?: string }) {
+        const data = useConnector(() => this.getData());
         return (
           <div>
-            <div onClick={this.props.increase} id="add" />
-            <span>{this.props.text}</span>
+            <div onClick={data.increase} id="add" />
+            <span>{data.text}</span>
           </div>
         );
       }
@@ -540,17 +530,16 @@ describe('base API', () => {
     class HomeView extends HomeView1 {
       increase() {
         super.increase();
-        const state = {
-          ...this.state,
-          list: [
-            {
-              count: this.state.list![0].count + 1,
-            },
-            ...this.state.list!.slice(1, -1),
-          ],
-        };
         dispatch(this, {
-          state,
+          state: {
+            ...this.state,
+            list: [
+              {
+                count: this.state.list![0].count + 1,
+              },
+              ...this.state.list!.slice(1, -1),
+            ],
+          },
         });
       }
     }

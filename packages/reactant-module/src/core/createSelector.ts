@@ -222,8 +222,6 @@ export function createSelector<
 ): (checkedState?: any) => T;
 
 export function createSelector(...args: any[]) {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-  // @ts-ignore
-  const selector = createSelectorWithReselect(...args);
+  const selector = (createSelectorWithReselect as any)(...args);
   return (checkedState?: any) => selector(checkedState || {});
 }

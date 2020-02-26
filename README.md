@@ -157,12 +157,12 @@ const app = createApp({
 
 * ViewModule
 * createApp
+* useConnector
 * @injectable
 * @action
 * @optional
 * @inject
 * createSelector
-* useSelector? useData? useConnector
 * @defautlProps
 * dispatch
 * createState
@@ -173,6 +173,8 @@ const app = createApp({
 - [x] action
 - [x] multiple ViewModule instances
 - [x] optimize action
+- [x] @defautlProps
+- [x] useConnector
 - [ ] Enhance DI
   - [ ] optional
   - [ ] skipSelf

@@ -1,35 +1,8 @@
 import { injectable } from 'reactant-di';
-
-type OptionalKeyOf<T> = {
-  [K in keyof T]-?: T extends Record<K, T[K]> ? never : K;
-}[keyof T];
-
-type RequiredOnlyOptional<T> = Pick<Required<T>, OptionalKeyOf<T>>;
-
-export interface UserInterface<P, T> {
-  /**
-   * this module inject props to current component props.
-   */
-  readonly props: Required<T> & P;
-  /**
-   * current component external pass props with redux's connector.
-   */
-  attrs: Required<T>;
-  /**
-   * current react component default props.
-   */
-  defaultAttrs?: RequiredOnlyOptional<T>;
-  /**
-   * this module bind component for UI, and it contains a connector with redux.
-   * and `props` or `this.props` from parent component, `this.data` from this module.
-   * @param props react component props.
-   */
-  component(attrs: T): React.ComponentElement<any, any>;
-}
+import { defaultPropsKey } from '../constants';
 
 @injectable()
-export abstract class ViewModule<P extends {} = {}, T extends {} = {}>
-  implements UserInterface<P, T> {
+export abstract class ViewModule {
   constructor() {
     if (typeof this.component !== 'function') {
       throw new Error(
@@ -38,13 +11,16 @@ export abstract class ViewModule<P extends {} = {}, T extends {} = {}>
         }' ViewModule 'component' property should be defined class 'method'.`
       );
     }
+    const component = this.component.bind(this);
+    Object.assign(component, {
+      defaultProps: this[defaultPropsKey],
+    });
+    this.component = component;
   }
 
-  abstract get props(): Required<T> & P;
+  [defaultPropsKey]?: Record<string, any>;
 
-  attrs = {} as Required<T>;
-
-  defaultAttrs = {} as RequiredOnlyOptional<T>;
-
-  abstract component(attrs: T): React.ComponentElement<any, any>;
+  abstract component(
+    props: Record<string, any>
+  ): React.ComponentElement<any, any>;
 }

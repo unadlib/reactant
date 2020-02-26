@@ -27,9 +27,8 @@ export function autobind(
       assign(this, key, boundFn, { enumerable: false });
       return boundFn;
     },
-    // eslint-disable-next-line no-shadow
-    set(value: any) {
-      assign(this, key, value);
+    set(setValue: any) {
+      assign(this, key, setValue);
     },
   };
 }

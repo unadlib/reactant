@@ -1,7 +1,7 @@
-// // eslint-disable-next-line no-underscore-dangle
-// __DEV__ / process.env.NODE_ENV !== 'production';
 export * from 'reactant-di';
+
+export * from './interfaces';
 export * from './core/index';
 export * from './decorators/index';
 export * from './utils/index';
-export * from './interfaces';
+export * from './constants/index';
