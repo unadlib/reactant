@@ -17,11 +17,12 @@ import {
   createApp,
   injectable,
   action,
-  createConnector,
+  createState,
   UserInterface,
   createSelector,
   dispatch,
 } from '../..';
+import { ReactantAction } from '../../src';
 
 let container: Element;
 
@@ -490,21 +491,27 @@ describe('base API', () => {
 
   test('ViewModule dispatch when subclassing', () => {
     @injectable()
-    class HomeView1 extends ViewModule<{ text: number; increase: () => void }, {}> {
+    class HomeView1 extends ViewModule<
+      { text: number; increase: () => void },
+      {}
+    > {
       name = 'homeView';
 
-      state = {
-        list: [{ count: 1 }],
-      };
+      state = createState({
+        list: (
+          _state: { count: number }[] = [{ count: 1 }],
+          { type, state }: ReactantAction
+        ) => (type === 'homeView' ? state.list : _state),
+      });
 
       increase() {
         const state = {
           ...this.state,
           list: [
             {
-              count: this.state.list[0].count + 1,
+              count: this.state.list![0].count + 1,
             },
-            ...this.state.list.slice(1, -1),
+            ...this.state.list!.slice(1, -1),
           ],
         };
         dispatch(this, {
@@ -514,7 +521,7 @@ describe('base API', () => {
 
       get props() {
         return {
-          text: this.state.list[0].count,
+          text: this.state.list![0].count,
           increase: () => this.increase(),
         };
       }
@@ -537,9 +544,9 @@ describe('base API', () => {
           ...this.state,
           list: [
             {
-              count: this.state.list[0].count + 1,
+              count: this.state.list![0].count + 1,
             },
-            ...this.state.list.slice(1, -1),
+            ...this.state.list!.slice(1, -1),
           ],
         };
         dispatch(this, {

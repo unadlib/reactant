@@ -50,9 +50,15 @@ export function createStore<T = any>(
         service[reducersKey] = Object.entries(service.state).reduce(
           (
             serviceReducersMapObject: ReducersMapObject,
-            [reducerKey, initialState]
+            [reducerKey, value]
           ) => {
-            const reducer = (state = initialState, action: ReactantAction) => {
+            // support pure reducer
+            if (typeof value === 'function') {
+              return Object.assign(serviceReducersMapObject, {
+                [reducerKey]: value,
+              });
+            }
+            const reducer = (state = value, action: ReactantAction) => {
               return action.type === service.name
                 ? action.state[reducerKey]
                 : state;

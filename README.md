@@ -159,11 +159,13 @@ const app = createApp({
 * createApp
 * @injectable
 * @action
-* @optional?
+* @optional
 * @inject
 * createSelector
+* useSelector? useData? useConnector
+* @defautlProps
 * dispatch
-* setReducers?
+* createState
 
 ## Todos
 

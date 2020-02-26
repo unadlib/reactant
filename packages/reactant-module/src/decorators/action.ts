@@ -3,7 +3,8 @@ import { produce } from 'immer';
 import { storeKey } from '../core/createStore';
 import { Service } from '../interfaces';
 
-let tempState: any;
+// support call super method decorated by `@action`.
+let stagedState: any;
 
 export function action(
   target: object,
@@ -16,29 +17,18 @@ export function action(
   }
   const value = function(this: Service, ...args: any[]) {
     if (this[storeKey]) {
-      let time = 0;
-      if (process.env.NODE_ENV !== 'production') {
-        time = Date.now();
-      }
       const state = produce(this.state, (draftState: Record<string, any>) => {
-        tempState = draftState;
+        stagedState = draftState;
         fn.call({ ...this, state: draftState }, ...args);
       });
-      if (process.env.NODE_ENV !== 'production') {
-        if (Date.now() - time > 240) {
-          console.warn(
-            `The current operation performance is slow, it is recommended to use 'dispatch' to optimize performance.`
-          );
-        }
-      }
-      tempState = undefined;
+      stagedState = undefined;
       this[storeKey]!.dispatch({
         type: this.name,
         state,
       });
     } else {
-      // support inherit `action`.
-      fn.call({ ...this, state: tempState }, ...args);
+      // inherit `@action` in superclass.
+      fn.call({ ...this, state: stagedState }, ...args);
     }
   };
   return {
