@@ -175,6 +175,7 @@ const app = createApp({
 - [x] optimize action
 - [x] @defautlProps
 - [x] useConnector
+- [ ] check `batch`
 - [ ] Enhance DI
   - [ ] optional
   - [ ] skipSelf

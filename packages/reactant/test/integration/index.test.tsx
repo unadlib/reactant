@@ -470,6 +470,8 @@ describe('base API', () => {
   });
 
   test('ViewModule dispatch when subclassing', () => {
+    const renderFn = jest.fn();
+
     @injectable()
     class HomeView1 extends ViewModule {
       name = 'homeView';
@@ -504,19 +506,18 @@ describe('base API', () => {
         this.state.count += 1;
       }
 
-      getData() {
-        return {
-          text: this.state.list![0].count,
-          increase: () => this.increase(),
-        };
-      }
+      getData = () => ({
+        text: this.state.list![0].count,
+        increase: () => this.increase(),
+      });
 
       @defaultProps({
         version: '0.1.0',
         test: 'test',
       })
       component(props: { version?: string; test?: string }) {
-        const data = useConnector(() => this.getData());
+        const data = useConnector(this.getData);
+        renderFn(props);
         return (
           <div>
             <div onClick={data.increase} id="add" />
@@ -552,6 +553,10 @@ describe('base API', () => {
     act(() => {
       app.bootstrap(container);
     });
+    const reduxEnvent = jest.fn();
+    app.store.subscribe(() => {
+      reduxEnvent();
+    });
     expect(container.textContent).toBe('1');
     act(() => {
       container
@@ -559,5 +564,13 @@ describe('base API', () => {
         .dispatchEvent(new MouseEvent('click', { bubbles: true }));
     });
     expect(container.textContent).toBe('3');
+    act(() => {
+      app.instance.add();
+    });
+    act(() => {
+      app.instance.add();
+    });
+    expect(renderFn.mock.calls.length).toEqual(2);
+    expect(reduxEnvent.mock.calls.length).toEqual(4);
   });
 });
