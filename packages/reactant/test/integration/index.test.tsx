@@ -21,8 +21,9 @@ import {
   createSelector,
   useConnector,
   dispatch,
+  ReactantAction,
+  defaultProps,
 } from '../..';
-import { ReactantAction, defaultProps } from '../../src';
 
 let container: Element;
 

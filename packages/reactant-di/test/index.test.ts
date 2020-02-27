@@ -1,24 +1,25 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable no-useless-constructor */
-import { injectable, createContainer } from '..';
+import { injectable, createContainer, inject } from '..';
 
-test('base di', () => {
+test('base di without @injectable', () => {
   @injectable()
   class Foo {
-    name = 'test';
-  }
-
-  @injectable()
-  class Bar {
-    name = 'abc';
-  }
-
-  @injectable()
-  class FooBar {
-    constructor(public bar: Bar, foo: Foo) {
-      expect(`${this.bar.name}.${foo.name}`).toEqual('abc.test');
+    public get test() {
+      return 'test';
     }
   }
 
-  createContainer(new Map()).get(FooBar);
+  class Bar {
+    public constructor(@inject(Foo) public foo: Foo) {}
+
+    public get test() {
+      return this.foo.test;
+    }
+  }
+
+  const foo = createContainer({
+    ServiceIdentifiers: new Map(),
+    modules: [Bar, Foo],
+  }).get(Foo);
+
+  expect(foo.test).toBe('test');
 });

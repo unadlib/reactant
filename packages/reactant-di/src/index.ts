@@ -1,6 +1,12 @@
 import 'reflect-metadata';
 
-export { optional, inject } from 'inversify';
+export {
+  provide,
+  buildProviderModule,
+  autoProvide,
+} from 'inversify-binding-decorators';
+export { optional, inject, decorate } from 'inversify';
+
 export * from './createContainer';
 export * from './injectable';
 export * from './util';

@@ -8,7 +8,6 @@ import {
   Action,
 } from 'redux';
 import { Container, ServiceIdentifiersMap } from 'reactant-di';
-import { ViewModule } from './view';
 import { ModuleOptions } from '../interfaces';
 import { storeKey, reducersKey } from '../constants';
 

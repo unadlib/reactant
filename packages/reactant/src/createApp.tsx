@@ -8,26 +8,31 @@ import {
   createStore,
   ServiceIdentifiersMap,
   ModuleOptions,
+  Module,
 } from 'reactant-module';
 
 interface Config<T> {
-  modules?: ModuleOptions[];
   main: ServiceIdentifier<T>;
   render: (element: JSX.Element, ...args: any[]) => Element | void;
+  modules?: ModuleOptions[];
   containerOptions?: ContainerOptions;
 }
 
 function createApp<T>({
-  modules = [],
   main,
   render,
+  modules = [],
   containerOptions,
 }: Config<T>) {
   const ServiceIdentifiers: ServiceIdentifiersMap = new Map();
-  const container = createContainer(ServiceIdentifiers, {
-    defaultScope: 'Singleton',
-    ...containerOptions,
-    skipBaseClassChecks: true,
+  const container = createContainer({
+    ServiceIdentifiers,
+    modules: [main as Module<any>, ...modules],
+    options: {
+      defaultScope: 'Singleton',
+      ...containerOptions,
+      skipBaseClassChecks: true,
+    },
   });
   const instance = container.get<T>(main);
   if (!(instance instanceof ViewModule)) {
