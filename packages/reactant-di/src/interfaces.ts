@@ -16,10 +16,11 @@ export type ModuleToken = Module<any> | string | symbol;
 
 export type ModuleOptions =
   | {
+      deps?: [];
       provide: ModuleToken;
       useClass?: Module<any>;
       useValue?: any;
-      deps: [];
+      useFactory?: any;
     }
   | Module<any>;
 
