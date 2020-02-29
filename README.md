@@ -162,6 +162,8 @@ const app = createApp({
 * @action
 * @optional
 * @inject
+* @multiInject
+* @multiOptional
 * createSelector
 * @defautlProps
 * dispatch
@@ -179,7 +181,8 @@ const app = createApp({
 - [x] Enhance DI
   - [x] optional
   - [x] inject
-  - [ ] multi-inject
+  - [x] multi-inject
+  - [x] multi-optional
 - [ ] router
 - [ ] storage
 
