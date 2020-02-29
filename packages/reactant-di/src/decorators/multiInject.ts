@@ -1,0 +1,1 @@
+export { multiInject } from 'inversify';
