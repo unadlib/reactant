@@ -168,6 +168,7 @@ const app = createApp({
 * @defautlProps
 * dispatch
 * createState
+* batch
 
 ## Todos
 
@@ -177,7 +178,7 @@ const app = createApp({
 - [x] optimize action
 - [x] @defautlProps
 - [x] useConnector
-- [ ] check `batch`
+- [x] check `batch`
 - [x] Enhance DI
   - [x] optional
   - [x] inject
