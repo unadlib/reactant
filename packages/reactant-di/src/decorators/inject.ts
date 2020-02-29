@@ -7,11 +7,11 @@ export function inject(token?: ServiceIdentifier<any>) {
     const tokenSelf = Reflect.getMetadata(METADATA_KEY.paramtypes, target)[
       index!
     ];
-    injectWithInversify(token || tokenSelf)(target, targetKey, index);
-    // decorate(
-    //   injectWithInversify(token || tokenSelf) as ClassDecorator,
-    //   targetKey,
-    //   index
-    // );
+    decorate(
+      injectWithInversify(token || tokenSelf) as ClassDecorator,
+      target,
+      index
+    );
+    // injectWithInversify(token || tokenSelf)(target, targetKey, index);
   };
 }

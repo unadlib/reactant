@@ -90,7 +90,7 @@ export function createContainer({
             decorate(injectable(), module.provide);
           container.bind(module.provide).toSelf();
         }
-        // under: token isn't function.
+        // under -> token isn't function.
       } else if (isClassProvider(module)) {
         // auto decorate `@injectable` for module.useClass
         if (!providMeta.has(module.useClass))
@@ -106,6 +106,7 @@ export function createContainer({
           .toFactory((context: interfaces.Context) => {
             const deps = module.deps || [];
             const depInstances = deps.map(token => {
+              // todo refactor with `is` assertion
               const provide =
                 (token as DependencyProviderOption).provide ||
                 (token as ServiceIdentifier<any>);
