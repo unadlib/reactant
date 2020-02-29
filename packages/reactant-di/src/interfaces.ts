@@ -15,14 +15,40 @@ export interface Module<T> extends Function {
   new (...args: any[]): T;
 }
 
+export interface DependencyProviderOption {
+  provide: ServiceIdentifier<any>;
+  optional: boolean;
+}
+
+export type DependencyOption =
+  | DependencyProviderOption
+  | ServiceIdentifier<any>;
+
+export type ValueProvider = {
+  provide: ServiceIdentifier<any>;
+  useValue: any;
+};
+
+export type ClassProvider = {
+  provide: ServiceIdentifier<any>;
+  useClass: Module<any>;
+};
+
+export type FactoryProvider = {
+  deps?: DependencyOption[];
+  provide: ServiceIdentifier<any>;
+  useFactory: (...args: any[]) => any;
+};
+
+export type ModuleProvider = {
+  provide: Module<any>;
+};
+
 export type ModuleOptions =
-  | {
-      deps?: [];
-      provide: ServiceIdentifier<any>;
-      useClass?: Module<any>;
-      useValue?: any;
-      useFactory?: any;
-    }
+  | ValueProvider
+  | ClassProvider
+  | FactoryProvider
+  | ModuleProvider
   | Module<any>;
 
 export interface ContainerConfig {

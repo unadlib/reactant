@@ -176,10 +176,10 @@ const app = createApp({
 - [x] @defautlProps
 - [x] useConnector
 - [ ] check `batch`
-- [ ] Enhance DI
-  - [ ] optional
-  - [ ] skipSelf
-  - [ ] inject
+- [x] Enhance DI
+  - [x] optional
+  - [x] inject
+  - [ ] multi-inject
 - [ ] router
 - [ ] storage
 

@@ -322,7 +322,7 @@ test('base di with useValue and useFactory config', () => {
     public constructor(
       @inject('Foo') public foo: FooInterface,
       @optional('Foo1') public foo1: FooInterface,
-      @optional('Foo2') public foo2: FooInterface
+      @optional('Foo2') public foo2: any
     ) {}
 
     public get test() {
@@ -346,10 +346,12 @@ test('base di with useValue and useFactory config', () => {
     ServiceIdentifiers: new Map(),
     modules: [
       { provide: 'Foo', useValue: { test: 'test' } },
-      { provide: 'Foo1', useValue: { test: 'test1' } },
+      {
+        provide: 'Foo2',
+        useFactory: (foo, foo1) => [foo.test, foo1?.test],
+        deps: ['Foo', { provide: 'Foo1', optional: true }],
+      },
     ],
   }).get(Bar);
-  expect(bar.test).toEqual('test');
-  expect(bar.test1).toEqual('test1');
-  expect(bar.test2).toBeUndefined();
+  expect(bar.foo2).toEqual(['test', undefined]);
 });

@@ -5,7 +5,15 @@ import {
   ContainerModule,
   decorate,
 } from 'inversify';
-import { ContainerConfig } from './interfaces';
+import {
+  ContainerConfig,
+  ModuleOptions,
+  FactoryProvider,
+  ValueProvider,
+  ClassProvider,
+  ServiceIdentifier,
+  DependencyProviderOption,
+} from './interfaces';
 import { getMetadata } from './util';
 import { createCollector } from './middlewares/collector';
 import { METADATA_KEY } from './constants';
@@ -40,6 +48,14 @@ function autoBindModules() {
   );
 }
 
+function isClassProvider(module: ModuleOptions): module is ClassProvider {
+  return typeof (module as ClassProvider).useClass === 'function';
+}
+
+function isFactoryProvider(module: ModuleOptions): module is FactoryProvider {
+  return typeof (module as FactoryProvider).useFactory === 'function';
+}
+
 export function createContainer({
   ServiceIdentifiers,
   modules = [],
@@ -56,14 +72,14 @@ export function createContainer({
     } else if (typeof module === 'object') {
       if (typeof module.provide === 'function') {
         if (
-          module.useFactory ||
+          (module as FactoryProvider).useFactory ||
           Object.hasOwnProperty.call(module, 'useValue')
         ) {
           const { name } = module as any;
           throw new Error(
             `module '${name}' has been passed 'provide' for service, it should not pass 'useClass', 'useFactory' or 'useValue' property.`
           );
-        } else if (typeof module.useClass === 'function') {
+        } else if (isClassProvider(module)) {
           // auto decorate `@injectable` for module.useClass
           if (!providMeta.has(module.useClass))
             decorate(injectable(module.provide), module.useClass);
@@ -75,18 +91,36 @@ export function createContainer({
           container.bind(module.provide).toSelf();
         }
         // under: token isn't function.
-      } else if (typeof module.useClass === 'function') {
+      } else if (isClassProvider(module)) {
         // auto decorate `@injectable` for module.useClass
         if (!providMeta.has(module.useClass))
           decorate(injectable(), module.useClass);
         container.bind(module.provide).to(module.useClass);
       } else if (Object.hasOwnProperty.call(module, 'useValue')) {
-        container.bind(module.provide).toConstantValue(module.useValue);
-      } else if (typeof module.useFactory === 'function') {
-        container.bind(module.provide).toFactory(module.useFactory);
-        if (Array.isArray(module.deps)) {
-          // todo deps for `useFactory`
-        }
+        container
+          .bind(module.provide)
+          .toConstantValue((module as ValueProvider).useValue);
+      } else if (isFactoryProvider(module)) {
+        container
+          .bind(module.provide)
+          .toFactory((context: interfaces.Context) => {
+            const deps = module.deps || [];
+            const depInstances = deps.map(token => {
+              const provide =
+                (token as DependencyProviderOption).provide ||
+                (token as ServiceIdentifier<any>);
+              if (
+                (token as DependencyProviderOption).optional &&
+                !context.container.isBound(
+                  (token as DependencyProviderOption).provide
+                )
+              ) {
+                return undefined;
+              }
+              return context.container.get(provide);
+            });
+            return module.useFactory(...depInstances);
+          });
       } else {
         throw new Error(`${module} option error`);
       }
