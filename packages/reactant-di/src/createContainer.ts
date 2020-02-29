@@ -65,20 +65,19 @@ export function createContainer({
           );
         } else if (typeof module.useClass === 'function') {
           // auto decorate `@injectable` for module.useClass
-          if (!providMeta.has(module.provide))
+          if (!providMeta.has(module.useClass))
             decorate(injectable(module.provide), module.useClass);
           container.bind(module.provide).to(module.useClass);
-        } else if (!providMeta.has(module.provide)) {
-          // auto decorate `@injectable` for module.provide
-          decorate(injectable(), module.provide);
-          container.bind(module.provide).toSelf();
         } else {
-          //
+          // auto decorate `@injectable` for module.provide
+          if (!providMeta.has(module.provide))
+            decorate(injectable(), module.provide);
+          container.bind(module.provide).toSelf();
         }
         // under: token isn't function.
       } else if (typeof module.useClass === 'function') {
         // auto decorate `@injectable` for module.useClass
-        if (!providMeta.has(module.provide))
+        if (!providMeta.has(module.useClass))
           decorate(injectable(), module.useClass);
         container.bind(module.provide).to(module.useClass);
       } else if (Object.hasOwnProperty.call(module, 'useValue')) {
