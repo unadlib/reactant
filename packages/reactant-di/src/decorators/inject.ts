@@ -3,7 +3,7 @@ import { ServiceIdentifier } from '../interfaces';
 import { METADATA_KEY } from '../constants';
 
 export function inject(token?: ServiceIdentifier<any>) {
-  return (target: any, targetKey: string, index?: number) => {
+  return (target: object, targetKey: string, index?: number) => {
     const tokenSelf = Reflect.getMetadata(METADATA_KEY.paramtypes, target)[
       index!
     ];

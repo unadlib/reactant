@@ -13,6 +13,7 @@ import {
   ClassProvider,
   ServiceIdentifier,
   DependencyProviderOption,
+  ModuleProvider,
 } from './interfaces';
 import { getMetadata } from './util';
 import { createCollector } from './middlewares/collector';
@@ -75,7 +76,7 @@ export function createContainer({
           (module as FactoryProvider).useFactory ||
           Object.hasOwnProperty.call(module, 'useValue')
         ) {
-          const { name } = module as any;
+          const { name } = module.provide;
           throw new Error(
             `module '${name}' has been passed 'provide' for service, it should not pass 'useClass', 'useFactory' or 'useValue' property.`
           );

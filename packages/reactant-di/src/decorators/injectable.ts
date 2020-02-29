@@ -5,6 +5,7 @@ import { setMetadata } from '../util';
 
 // TODO support serice config?
 export function injectable(token?: ServiceIdentifier<any>) {
+  // TODO fix `any` type
   return (target: any) => {
     // it has to use `Reflect.getMetadata` with metadata, it just get all injectable deps.
     // so add the services set for `injectable` services.
