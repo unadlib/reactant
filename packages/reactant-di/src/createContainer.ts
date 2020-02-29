@@ -1,50 +1,102 @@
-import { Container } from 'inversify';
-import { autoProvide, buildProviderModule } from 'inversify-binding-decorators';
+import {
+  Container,
+  MetadataReader,
+  interfaces,
+  ContainerModule,
+  decorate,
+} from 'inversify';
 import { ContainerConfig } from './interfaces';
-import { getServices } from './util';
+import { getMetadata } from './util';
 import { createCollector } from './middlewares/collector';
+import { METADATA_KEY } from './constants';
+import { injectable } from './decorators';
+
+class CustomMetadataReader extends MetadataReader {
+  public getConstructorMetadata(
+    constructorFunc: Function
+  ): interfaces.ConstructorMetadata {
+    const constructorMetadata = super.getConstructorMetadata(constructorFunc);
+    // console.log(constructorMetadata);
+    return constructorMetadata;
+  }
+}
+
+function autoBindModules() {
+  return new ContainerModule(
+    (
+      bind: interfaces.Bind,
+      unbind: interfaces.Unbind,
+      isBound: interfaces.IsBound
+    ) => {
+      const providMeta = getMetadata(METADATA_KEY.provide);
+      const optionalMeta = getMetadata(METADATA_KEY.optional);
+      for (const [token, provide] of providMeta) {
+        // default injection without optional module.
+        if (!optionalMeta.has(token) && !isBound(token)) {
+          bind(token).to(provide);
+        }
+      }
+    }
+  );
+}
 
 export function createContainer({
   ServiceIdentifiers,
   modules = [],
   options,
 }: ContainerConfig) {
+  const providMeta = getMetadata(METADATA_KEY.provide);
   const container = new Container(options);
-  const autoInjectModules = [];
+  container.applyCustomMetadataReader(new CustomMetadataReader());
   for (const module of modules) {
     if (typeof module === 'function') {
-      if (getServices().indexOf(module) === -1) autoInjectModules.push(module);
+      // auto decorate `@injectable` for module.
+      if (!providMeta.has(module)) decorate(injectable(), module);
+      container.bind(module).toSelf();
     } else if (typeof module === 'object') {
       if (typeof module.provide === 'function') {
-        if (module.useClass || Object.hasOwnProperty.call(module, 'useValue')) {
+        if (
+          module.useFactory ||
+          Object.hasOwnProperty.call(module, 'useValue')
+        ) {
           const { name } = module as any;
           throw new Error(
-            `module '${name}' has been passed 'provide' for service, it should not pass 'useClass' or 'useValue' property.`
+            `module '${name}' has been passed 'provide' for service, it should not pass 'useClass', 'useFactory' or 'useValue' property.`
           );
+        } else if (typeof module.useClass === 'function') {
+          // auto decorate `@injectable` for module.useClass
+          if (!providMeta.has(module.provide))
+            decorate(injectable(module.provide), module.useClass);
+          container.bind(module.provide).to(module.useClass);
+        } else if (!providMeta.has(module.provide)) {
+          // auto decorate `@injectable` for module.provide
+          decorate(injectable(), module.provide);
+          container.bind(module.provide).toSelf();
+        } else {
+          //
         }
-        if (getServices().indexOf(module.provide) === -1)
-          autoInjectModules.push(module.provide);
+        // under: token isn't function.
       } else if (typeof module.useClass === 'function') {
-        if (getServices().indexOf(module.useClass) === -1)
-          autoInjectModules.push(module.useClass);
-      }
-      if (module.useClass) {
-        container.bind(module.provide).to(module.useValue);
+        // auto decorate `@injectable` for module.useClass
+        if (!providMeta.has(module.provide))
+          decorate(injectable(), module.useClass);
+        container.bind(module.provide).to(module.useClass);
       } else if (Object.hasOwnProperty.call(module, 'useValue')) {
         container.bind(module.provide).toConstantValue(module.useValue);
+      } else if (typeof module.useFactory === 'function') {
+        container.bind(module.provide).toFactory(module.useFactory);
+        if (Array.isArray(module.deps)) {
+          // todo deps for `useFactory`
+        }
+      } else {
+        throw new Error(`${module} option error`);
       }
+    } else {
+      throw new Error(`${module} option error`);
     }
   }
-  const autoInjectModulesObject = autoInjectModules.reduce(
-    (modulesObject, module, index) =>
-      Object.assign(modulesObject, { [index]: module }),
-    {}
-  );
-  autoProvide(container, autoInjectModulesObject);
-  container.load(buildProviderModule());
+  // load modules with `@injectable` decoration, but without `@optional` decoration.
+  container.load(autoBindModules());
   container.applyMiddleware(createCollector(ServiceIdentifiers));
-  getServices().forEach((item: any) => {
-    container.bind(item).toSelf();
-  });
   return container;
 }

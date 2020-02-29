@@ -1,3 +1,19 @@
-const Services: any[] = [];
+import {
+  MetadataMap,
+  Module,
+  ServiceIdentifier,
+  MetaDataKey,
+} from './interfaces';
 
-export const getServices = () => Services;
+export const getMetadata = (metaKey: MetaDataKey): MetadataMap =>
+  Reflect.getMetadata(metaKey, Reflect) || new Map();
+
+export const setMetadata = (
+  metaKey: MetaDataKey,
+  target: Module<any>,
+  token: ServiceIdentifier<any> = target
+) => {
+  const providesMeta = getMetadata(metaKey);
+  providesMeta.set(token || target, target);
+  Reflect.defineMetadata(metaKey, providesMeta, Reflect);
+};

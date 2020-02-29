@@ -11,7 +11,6 @@
   "license": "ISC",
   "dependencies": {
     "inversify": "^5.0.1",
-    "inversify-binding-decorators": "^4.0.0",
     "reflect-metadata": "^0.1.13"
   }
 }

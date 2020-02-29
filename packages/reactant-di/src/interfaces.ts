@@ -1,4 +1,5 @@
 import { interfaces } from 'inversify';
+import { METADATA_KEY } from './constants';
 
 export type ContainerOptions = interfaces.ContainerOptions;
 export type Container = interfaces.Container;
@@ -8,16 +9,16 @@ export type ServiceIdentifiersMap<T = any> = Map<
   ServiceIdentifier<T>[]
 >;
 
+export type MetadataMap = Map<ServiceIdentifier<any>, Module<any>>;
+
 export interface Module<T> extends Function {
   new (...args: any[]): T;
 }
 
-export type ModuleToken = Module<any> | string | symbol;
-
 export type ModuleOptions =
   | {
       deps?: [];
-      provide: ModuleToken;
+      provide: ServiceIdentifier<any>;
       useClass?: Module<any>;
       useValue?: any;
       useFactory?: any;
@@ -28,4 +29,8 @@ export interface ContainerConfig {
   ServiceIdentifiers: ServiceIdentifiersMap;
   modules?: ModuleOptions[];
   options?: ContainerOptions;
-};
+}
+
+type ValueType<T> = T extends Record<number | string, infer R> ? R : never;
+
+export type MetaDataKey = ValueType<typeof METADATA_KEY>;
