@@ -161,7 +161,7 @@ const app = createApp({
 * createState
 * batch
 
-## Todos
+## TODO
 
 - [x] selector
 - [x] action

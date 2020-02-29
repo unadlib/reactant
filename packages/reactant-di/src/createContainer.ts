@@ -107,7 +107,7 @@ export function createContainer({
           .toFactory((context: interfaces.Context) => {
             const deps = module.deps || [];
             const depInstances = deps.map(token => {
-              // todo refactor with `is` assertion
+              // TODO refactor with `is` assertion
               const provide =
                 (token as DependencyProviderOption).provide ||
                 (token as ServiceIdentifier<any>);
