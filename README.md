@@ -186,6 +186,7 @@ const app = createApp({
 - [ ] router
 - [ ] storage
 
+- [ ] hierarchical DI systems
 - [ ] mobx
 - [ ] Form
 - [ ] Network
