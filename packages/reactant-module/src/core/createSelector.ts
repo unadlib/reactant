@@ -222,6 +222,7 @@ export function createSelector<
 ): (checkedState?: any) => T;
 
 export function createSelector(...args: any[]) {
+  // TODO fix `any` type
   const selector = (createSelectorWithReselect as any)(...args);
   return (checkedState?: any) => selector(checkedState || {});
 }
