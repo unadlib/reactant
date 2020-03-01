@@ -3,6 +3,8 @@ import { storeKey } from './constants';
 
 export { ModuleOptions } from 'reactant-di';
 
+export { PreloadedState } from 'redux';
+
 export interface ServiceWithState<T = any> {
   state: Record<string, T>;
   name: string;

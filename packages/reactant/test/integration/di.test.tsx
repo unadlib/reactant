@@ -36,6 +36,15 @@ afterEach(() => {
 describe('base API', () => {
   test('ViewModule without state', () => {
     @injectable()
+    class Bar {
+      name = 'bar';
+
+      state = {
+        test: 'test',
+      };
+    }
+
+    @injectable()
     class Foo {
       name = 'foo';
     }
@@ -102,6 +111,7 @@ describe('base API', () => {
     class AppView extends ViewModule {
       constructor(
         @optional() public foo: Foo,
+        @optional() public bar: Bar,
         @inject('homeView') public homeView: InstanceType<typeof HomeView>,
         public dashboardView: DashboardView
       ) {
@@ -119,7 +129,7 @@ describe('base API', () => {
       }
     }
 
-    const app = createApp({
+    let app = createApp({
       modules: [Foo, { provide: 'homeView', useClass: HomeView }],
       main: AppView,
       render,
@@ -136,5 +146,25 @@ describe('base API', () => {
         .dispatchEvent(new MouseEvent('click', { bubbles: true }));
     });
     expect(container.querySelector('#increase')?.textContent).toBe('2');
+    expect(app.instance.bar).toBeUndefined();
+
+    const preloadedState = app.store.getState();
+    // reload and keep state with new deps.
+    app = createApp({
+      modules: [Foo, { provide: 'homeView', useClass: HomeView }, Bar],
+      main: AppView,
+      render,
+      preloadedState,
+    });
+    act(() => {
+      app.bootstrap(container);
+    });
+    act(() => {
+      container
+        .querySelector('#increase')!
+        .dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    });
+    expect(app.instance.bar.state.test).toBe('test');
+    expect(container.querySelector('#increase')?.textContent).toBe('3');
   });
 });

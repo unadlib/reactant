@@ -9,6 +9,7 @@ import {
   ServiceIdentifiersMap,
   ModuleOptions,
   Module,
+  PreloadedState,
 } from 'reactant-module';
 
 interface Config<T> {
@@ -16,6 +17,7 @@ interface Config<T> {
   render: (element: JSX.Element, ...args: any[]) => Element | void;
   modules?: ModuleOptions[];
   containerOptions?: ContainerOptions;
+  preloadedState?: PreloadedState<any>;
 }
 
 function createApp<T>({
@@ -23,6 +25,7 @@ function createApp<T>({
   render,
   modules = [],
   containerOptions,
+  preloadedState,
 }: Config<T>) {
   const ServiceIdentifiers: ServiceIdentifiersMap = new Map();
   const container = createContainer({
@@ -38,7 +41,12 @@ function createApp<T>({
   if (!(instance instanceof ViewModule)) {
     throw new Error(`Main module should be a 'ViewModule'.`);
   }
-  const store = createStore(container, ServiceIdentifiers, modules);
+  const store = createStore(
+    container,
+    ServiceIdentifiers,
+    modules,
+    preloadedState
+  );
   return {
     instance,
     store,
