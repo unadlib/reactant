@@ -43,7 +43,7 @@ export function createStore<T = any>(
         }
         if (typeof reducers[service.name] === 'function') {
           throw new Error(
-            `'${className}' module 'name' property and other module conflicts.`
+            `'${className}' module 'name'('${service.name}') property and other module conflicts.`
           );
         }
         const isEmptyObject = Object.keys(service.state).length === 0;
