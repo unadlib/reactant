@@ -32,7 +32,7 @@ export function createStore<T = any>(
         const className = (Service as Function).name;
         if (typeof service.name !== 'string' || !service.name) {
           throw new Error(`
-            Since '${className}' class has set the module state, '${className}' class must set a unique and valid class property 'name' to be used as the module index.
+            Since '${className}' module has set the module state, '${className}' module must set a unique and valid class property 'name' to be used as the module index.
             Example:
               class FooBar {
                 name = 'FooBar'; // <- add the 'name' property.
@@ -40,6 +40,11 @@ export function createStore<T = any>(
                 state = { foo: false };
               }
           `);
+        }
+        if (typeof reducers[service.name] === 'function') {
+          throw new Error(
+            `'${className}' module 'name' property and other module conflicts.`
+          );
         }
         const isEmptyObject = Object.keys(service.state).length === 0;
         if (!isEmptyObject) {
