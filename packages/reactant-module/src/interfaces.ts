@@ -1,9 +1,9 @@
-import { Store } from 'redux';
+import { Store, PreloadedState } from 'redux';
 import { storeKey } from './constants';
 
 export { ModuleOptions } from 'reactant-di';
 
-export { PreloadedState } from 'redux';
+export type TypePreloadedState<T> = PreloadedState<T>;
 
 export interface ServiceWithState<T = any> {
   state: Record<string, T>;
