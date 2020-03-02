@@ -19,7 +19,7 @@ import {
   defaultProps,
   action,
   createSelector,
-} from '../..';
+} from '../../src/public-api';
 
 let container: Element;
 
