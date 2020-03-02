@@ -9,7 +9,7 @@ import {
   ServiceIdentifiersMap,
   ModuleOptions,
   Module,
-  PreloadedState,
+  TypePreloadedState,
 } from 'reactant-module';
 
 interface Config<T> {
@@ -17,7 +17,7 @@ interface Config<T> {
   render: (element: JSX.Element, ...args: any[]) => Element | void;
   modules?: ModuleOptions[];
   containerOptions?: ContainerOptions;
-  preloadedState?: PreloadedState<any>;
+  preloadedState?: TypePreloadedState<any>;
 }
 
 function createApp<T>({
