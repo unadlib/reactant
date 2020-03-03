@@ -60,3 +60,16 @@ export interface ContainerConfig {
 type ValueType<T> = T extends Record<number | string, infer R> ? R : never;
 
 export type MetaDataKey = ValueType<typeof METADATA_KEY>;
+
+interface DependenciesProvider {
+  provide: ServiceIdentifier<any> | Module<any>;
+  optional?: boolean;
+  multi?: boolean;
+}
+
+type DependenciesModule = Module<any> | DependenciesProvider;
+
+export interface ModuleDecoratorOptions {
+  provide?: ServiceIdentifier<any>;
+  deps?: DependenciesModule[];
+}

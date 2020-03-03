@@ -17,7 +17,7 @@ test('base di with @injectable', () => {
 
   @injectable()
   class Bar {
-    public constructor(@inject(Foo) public foo: Foo) {}
+    constructor(@inject(Foo) public foo: Foo) {}
 
     public get test() {
       return this.foo.test;
@@ -39,7 +39,7 @@ test('base di without @injectable and @inject without token', () => {
   }
 
   class Bar {
-    public constructor(@inject() public foo: Foo) {}
+    constructor(@inject() public foo: Foo) {}
 
     public get test() {
       return this.foo.test;
@@ -63,7 +63,7 @@ test('base di hybrid with @injectable', () => {
   }
 
   class Bar {
-    public constructor(@inject(Foo) public foo: Foo) {}
+    constructor(@inject(Foo) public foo: Foo) {}
 
     public get test() {
       return this.foo.test;
@@ -88,7 +88,7 @@ test('base di with @optional, and without setting options', () => {
 
   @injectable()
   class Bar {
-    public constructor(@optional() public foo: Foo) {}
+    constructor(@optional() public foo: Foo) {}
 
     public get test() {
       return this.foo && this.foo.test;
@@ -101,7 +101,7 @@ test('base di with @optional, and without setting options', () => {
 
   @injectable()
   class FooBar {
-    public constructor(public bar: Bar) {}
+    constructor(public bar: Bar) {}
 
     public get test() {
       return this.bar.test;
@@ -129,7 +129,7 @@ test('base di with @optional, and with setting options', () => {
 
   @injectable()
   class Bar {
-    public constructor(@optional() public foo: Foo) {}
+    constructor(@optional() public foo: Foo) {}
 
     public get test() {
       return this.foo && this.foo.test;
@@ -142,7 +142,7 @@ test('base di with @optional, and with setting options', () => {
 
   @injectable()
   class FooBar {
-    public constructor(public bar: Bar) {}
+    constructor(public bar: Bar) {}
 
     public get test() {
       return this.bar.test;
@@ -171,7 +171,7 @@ test('base di with @optional, and with setting options for config', () => {
 
   @injectable()
   class Bar {
-    public constructor(@optional() public foo: Foo) {}
+    constructor(@optional() public foo: Foo) {}
 
     public get test() {
       return this.foo && this.foo.test;
@@ -184,7 +184,7 @@ test('base di with @optional, and with setting options for config', () => {
 
   @injectable()
   class FooBar {
-    public constructor(public bar: Bar) {}
+    constructor(public bar: Bar) {}
 
     public get test() {
       return this.bar.test;
@@ -219,7 +219,7 @@ test('base di with @optional, and resolve other module', () => {
 
   @injectable()
   class Bar {
-    public constructor(@optional() public foo: Foo) {}
+    constructor(@optional() public foo: Foo) {}
 
     public get test() {
       return this.foo && this.foo.test;
@@ -232,7 +232,7 @@ test('base di with @optional, and resolve other module', () => {
 
   @injectable()
   class FooBar {
-    public constructor(public bar: Bar) {}
+    constructor(public bar: Bar) {}
 
     public get test() {
       return this.bar.test;
@@ -270,7 +270,7 @@ test('base di with decoration for interface', () => {
 
   @injectable()
   class Bar {
-    public constructor(
+    constructor(
       @optional('Foo') public foo: FooInterface,
       @optional('Foo1') public foo1: FooInterface
     ) {}
@@ -290,7 +290,7 @@ test('base di with decoration for interface', () => {
 
   @injectable()
   class FooBar {
-    public constructor(@inject('Bar') public bar: BarInterface) {}
+    constructor(@inject('Bar') public bar: BarInterface) {}
 
     public get test() {
       return this.bar.test;
@@ -326,7 +326,7 @@ test('base di with useValue and useFactory config', () => {
 
   @injectable()
   class Bar {
-    public constructor(
+    constructor(
       @inject('Foo') public foo: FooInterface,
       @optional('Foo1') public foo1: FooInterface,
       @optional('Foo2') public foo2: any
@@ -373,7 +373,7 @@ test('base di with @multiInject', () => {
 
   @injectable()
   class Bar {
-    public constructor(@multiInject(Foo) public foos: Foo[]) {}
+    constructor(@multiInject(Foo) public foos: Foo[]) {}
 
     public get length() {
       return this.foos.length;
@@ -398,7 +398,7 @@ test('base di with @multiInject for token', () => {
 
   @injectable()
   class Bar {
-    public constructor(@multiInject('Foo') public foos: Foo[]) {}
+    constructor(@multiInject('Foo') public foos: Foo[]) {}
 
     public get length() {
       return this.foos.length;
@@ -427,7 +427,7 @@ test('base di with @multiOptional for token', () => {
 
   @injectable()
   class Bar {
-    public constructor(@multiOptional('Foo') public foos: Foo[]) {}
+    constructor(@multiOptional('Foo') public foos: Foo[]) {}
 
     public get length() {
       return this.foos.length;

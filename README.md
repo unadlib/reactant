@@ -115,29 +115,29 @@ const app = createApp({
 
 ## Goal
 
-* Immutable
-* Easy
-* High-performance
-* Flexible
+- Immutable
+- Easy
+- High-performance
+- Flexible
 
 ## Libraries
 
-* react
-* redux
-* react-router
-* inversify
-* immer
-* reselect
+- react
+- redux
+- react-router
+- inversify
+- immer
+- reselect
 
 ## Tips
 
-* `ViewModule` class `component` support inheritance, and it does not support call `super.component` for JSX Element but support call function.
-* `@action` support inheritance and call `super`.
-* Performance optimization
+- `ViewModule` class `component` support inheritance, and it does not support call `super.component` for JSX Element but support call function.
+- `@action` support inheritance and call `super`.
+- Performance optimization
   - Selector from `createSelector`can be passed in immutable state.
   - `batch` can be used to optimize rendering performance.
   - `dispatch` and `createState` support prue Redux action and reducer.
-* Decorators
+- Decorators
   - Default injection, no require `@inject` unless binding token.
   - All decorators support any token.
   - `@multiInject` and `@multiOptional` require token parameter.
@@ -146,52 +146,55 @@ const app = createApp({
 
 ### reactant
 
-* ViewModule
-* createApp
-* useConnector
-* @injectable
-* @action
-* @optional
-* @inject
-* @multiInject
-* @multiOptional
-* @module
-* createSelector
-* @defautlProps
-* dispatch
-* createState
-* batch
+- ViewModule
+- createApp
+- useConnector
+- @injectable
+- @action
+- @optional
+- @inject
+- @multiInject
+- @multiOptional
+- @module
+- createSelector
+- @defautlProps
+- dispatch
+- createState
+- batch
 
 ## TODO
 
-  - [x] selector
-  - [x] action
-  - [x] multiple ViewModule instances
-  - [x] optimize action
-  - [x] @defautlProps
-  - [x] useConnector
-  - [x] check `batch`
-  - [x] Enhance DI
-    - [x] optional
-    - [x] inject
-    - [x] multi-inject
-    - [x] multi-optional
-  - [ ] @module 
-  - [ ] router
-  - [ ] storage
+- [x] selector
+- [x] action
+- [x] multiple ViewModule instances
+- [x] optimize action
+- [x] @defautlProps
+- [x] useConnector
+- [x] check `batch`
+- [x] Enhance DI
+  - [x] optional
+  - [x] inject
+  - [x] multi-inject
+  - [x] multi-optional
+- [ ] @module
+- [ ] middleware
+- [ ] pluggable
+- [ ] router
+- [ ] storage
 
-  - [ ] hierarchical DI systems
-  - [ ] mobx
-  - [ ] Form
-  - [ ] Network
-  - [ ] i18n
-  - [ ] Accessibility
-  - [ ] C4
-  - [ ] Micro Front-end
-  - [ ] CLI
-  - [ ] VSCode Plug-in
-  - [ ] testing
-  - [ ] SSR
-  - [ ] Hook
-  - [ ] Support JavaScript
-  - [ ] Plug-in system
+- [ ] tracker
+- [ ] hierarchical DI systems
+- [ ] mobx
+- [ ] Form
+- [ ] Network
+- [ ] i18n
+- [ ] Accessibility
+- [ ] C4
+- [ ] Micro Front-end
+- [ ] CLI
+- [ ] VSCode Plug-in
+- [ ] testing
+- [ ] SSR
+- [ ] Hook
+- [ ] Support JavaScript
+- [ ] Plug-in system
