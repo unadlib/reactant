@@ -83,7 +83,7 @@ export function createContainer({
         } else if (isClassProvider(module)) {
           // auto decorate `@injectable` for module.useClass
           if (!providMeta.has(module.useClass))
-            decorate(injectable(module.provide), module.useClass);
+            decorate(injectable({ provide: module.provide }), module.useClass);
           container.bind(module.provide).to(module.useClass);
         } else {
           // auto decorate `@injectable` for module.provide
