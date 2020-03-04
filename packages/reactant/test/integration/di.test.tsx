@@ -34,7 +34,7 @@ afterEach(() => {
 });
 
 describe('base API', () => {
-  test('ViewModule without state', () => {
+  test('ViewModule with state', () => {
     @injectable()
     class Bar {
       name = 'bar';
@@ -148,7 +148,7 @@ describe('base API', () => {
     expect(container.querySelector('#increase')?.textContent).toBe('2');
     expect(app.instance.bar).toBeUndefined();
 
-    const preloadedState = app.store.getState();
+    const preloadedState = app.store!.getState();
     // reload and keep state with new deps.
     app = createApp({
       modules: [Foo, { provide: 'homeView', useClass: HomeView }, Bar],

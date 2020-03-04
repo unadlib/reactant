@@ -10,6 +10,7 @@ import {
   ModuleOptions,
   Module,
   TypePreloadedState,
+  ReactantStore,
 } from 'reactant-module';
 
 interface Config<T> {
@@ -20,13 +21,19 @@ interface Config<T> {
   preloadedState?: TypePreloadedState<any>;
 }
 
+interface ReturnValue<T> {
+  instance: T & ViewModule;
+  store: ReactantStore | null;
+  bootstrap(...args: any[]): void | Element;
+}
+
 function createApp<T>({
   main,
   render,
   modules = [],
   containerOptions,
   preloadedState,
-}: Config<T>) {
+}: Config<T>): ReturnValue<T> {
   const ServiceIdentifiers: ServiceIdentifiersMap = new Map();
   const container = createContainer({
     ServiceIdentifiers,
@@ -47,12 +54,15 @@ function createApp<T>({
     modules,
     preloadedState
   );
+  const withoutReducers = store.getState() === null;
   return {
     instance,
-    store,
+    store: withoutReducers ? null : store,
     bootstrap(...args: any[]): Element | void {
       const Component = instance.component;
-      const element = (
+      const element = withoutReducers ? (
+        <Component />
+      ) : (
         <Provider store={store}>
           <Component />
         </Provider>

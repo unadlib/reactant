@@ -83,7 +83,7 @@ describe('base API', () => {
       // check merge props with default props.
       expect(props.version).toBe('0.0.1');
       expect(props.test).toBe('test');
-      const data = useConnector(() => this.getProps());
+      const data = this.getProps();
       return <span>{data.text}</span>;
     }
   }
@@ -100,7 +100,7 @@ describe('base API', () => {
       }
 
       component() {
-        const data = useConnector(() => this.getProps());
+        const data = this.getProps();
         return <span>{data.text}</span>;
       }
     }
@@ -122,7 +122,7 @@ describe('base API', () => {
       }
 
       component() {
-        const data = useConnector(() => this.getProps());
+        const data = this.getProps();
         return (
           <MemoryRouter>
             <h1>{data.bar}</h1>
@@ -370,14 +370,14 @@ describe('base API', () => {
       app.bootstrap(container); // init render
     });
     expect(container.querySelector('span')?.textContent).toBe('1');
-    const { list } = app.store.getState().homeView;
+    const { list } = app.store!.getState().homeView;
     act(() => {
       app.instance.homeView.increase(1); // render
     });
-    expect(app.store.getState().homeView.count).toBe(2);
+    expect(app.store!.getState().homeView.count).toBe(2);
     expect(app.instance.homeView.state.count).toBe(2);
-    expect(list === app.store.getState().homeView.list).toBeFalsy();
-    expect(list[0] === app.store.getState().homeView.list[0]).toBeFalsy();
+    expect(list === app.store!.getState().homeView.list).toBeFalsy();
+    expect(list[0] === app.store!.getState().homeView.list[0]).toBeFalsy();
     expect(container.querySelector('span')?.textContent).toBe('2');
     act(() => {
       app.instance.homeView.increase(1); // render
@@ -426,7 +426,7 @@ describe('base API', () => {
     expect(app1.instance.state.count).toEqual(2);
     expect(app1.instance.state.list).toEqual([{ count: 2 }]);
     expect(app1.instance.state.e).toEqual(1);
-    expect(app1.store.getState().homeView.e).toEqual(1);
+    expect(app1.store!.getState().homeView.e).toEqual(1);
 
     unmountComponentAtNode(container);
     container.remove();
@@ -452,7 +452,7 @@ describe('base API', () => {
         .dispatchEvent(new MouseEvent('click', { bubbles: true }));
     });
     expect(container.querySelector('span')?.textContent).toBe('3');
-    expect(app2.store.getState().homeView1.count).toBe(1);
+    expect(app2.store!.getState().homeView1.count).toBe(1);
     act(() => {
       container
         .querySelector('[href="/homeView1"]')!
@@ -465,7 +465,7 @@ describe('base API', () => {
         .dispatchEvent(new MouseEvent('click', { bubbles: true }));
     });
     expect(container.querySelector('span')?.textContent).toBe('2');
-    expect(app2.store.getState().homeView.count).toBe(3);
+    expect(app2.store!.getState().homeView.count).toBe(3);
     expect(sumComputedFn.mock.calls.length).toBe(10);
     expect(sum1ComputedFn.mock.calls.length).toBe(4);
   });
@@ -555,7 +555,7 @@ describe('base API', () => {
       app.bootstrap(container);
     });
     const reduxEnvent = jest.fn();
-    app.store.subscribe(() => {
+    app.store!.subscribe(() => {
       reduxEnvent();
     });
     expect(container.textContent).toBe('1');

@@ -13,7 +13,6 @@ import {
   ClassProvider,
   ServiceIdentifier,
   DependencyProviderOption,
-  ModuleProvider,
 } from './interfaces';
 import { getMetadata } from './util';
 import { createCollector } from './middlewares/collector';

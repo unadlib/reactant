@@ -17,9 +17,9 @@ const {
     computedTime: 1000,
     allCheckedState: true,
     expectedResult: {
-      boostrap: 1300,
-      computed: 40000,
-      cache: 15000,
+      boostrap: 600,
+      computed: 35000,
+      cache: 12000,
     },
   },
   big: {
@@ -29,8 +29,8 @@ const {
     allCheckedState: true,
     expectedResult: {
       boostrap: 200,
-      computed: 3500,
-      cache: 1300,
+      computed: 3600,
+      cache: 1200,
     },
   },
   small: {
@@ -40,7 +40,7 @@ const {
     allCheckedState: true,
     expectedResult: {
       boostrap: 80,
-      computed: 1200,
+      computed: 1400,
       cache: 500,
     },
   }
@@ -190,7 +190,7 @@ const app = createApp({
 });
 const boostrapTime = Date.now() - time;
 console.log('boostrap time:', boostrapTime);
-if (expectedResult && boostrapTime > expectedResult.boostrap) throw new Error(expectedResult.boostrap);
+if (expectedResult && boostrapTime > expectedResult.boostrap) throw new Error(boostrapTime, expectedResult.boostrap);
 time = Date.now();
 ${(() => {
   let computedStr = '';
@@ -205,7 +205,7 @@ ${(() => {
 const allComputedChangedTime = Date.now() - time;
 console.log('computed with changed time:', allComputedChangedTime);
 console.log('per computed changed Time:', allComputedChangedTime / computedTime);
-if (expectedResult && allComputedChangedTime > expectedResult.computed) throw new Error(expectedResult.computed);
+if (expectedResult && allComputedChangedTime > expectedResult.computed) throw new Error(allComputedChangedTime, expectedResult.computed);
 time = Date.now();
 ${(() => {
   let computedStr = '';
@@ -219,7 +219,7 @@ ${(() => {
 const allComputedNoChangedTime = Date.now() - time;
 console.log('computed without changed time:', allComputedNoChangedTime);
 console.log('per computed no changed time:', allComputedNoChangedTime / computedTime);
-if (expectedResult && allComputedNoChangedTime > expectedResult.cache) throw new Error(expectedResult.cache);
+if (expectedResult && allComputedNoChangedTime > expectedResult.cache) throw new Error(allComputedNoChangedTime, expectedResult.cache);
 `;
 
 writeFileSync('./packages/reactant/test/performance.tsx', source);
