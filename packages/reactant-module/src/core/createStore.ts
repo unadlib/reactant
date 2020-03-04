@@ -6,9 +6,10 @@ import {
   Store,
   PreloadedState,
   Action,
+  applyMiddleware,
 } from 'redux';
 import { Container, ServiceIdentifiersMap } from 'reactant-di';
-import { ModuleOptions } from '../interfaces';
+import { ModuleOptions, ReactantMiddleware } from '../interfaces';
 import { storeKey, reducersKey } from '../constants';
 
 export interface ReactantAction<T = any> extends Action<string> {
@@ -19,7 +20,8 @@ export function createStore<T = any>(
   container: Container,
   ServiceIdentifiers: ServiceIdentifiersMap,
   modules: ModuleOptions[],
-  preloadedState?: PreloadedState<T>
+  preloadedState?: PreloadedState<T>,
+  middlewares?: ReactantMiddleware[]
 ) {
   let isExistReducer = false;
   let store: Store;
@@ -115,6 +117,10 @@ export function createStore<T = any>(
     }
   }
   const reducer = isExistReducer ? combineReducers(reducers) : () => null;
-  store = createStoreWithRedux(reducer, preloadedState);
+  store = createStoreWithRedux(
+    reducer,
+    preloadedState,
+    middlewares && applyMiddleware(...middlewares)
+  );
   return store;
 }

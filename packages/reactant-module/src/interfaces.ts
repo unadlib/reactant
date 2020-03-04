@@ -1,4 +1,4 @@
-import { Store, PreloadedState, AnyAction } from 'redux';
+import { Store, PreloadedState, AnyAction, Middleware } from 'redux';
 import { storeKey } from './constants';
 
 export { ModuleOptions } from 'reactant-di';
@@ -12,6 +12,8 @@ export interface ServiceWithState<T = any> {
 }
 
 export type ReactantStore = Store<any, AnyAction>;
+
+export type ReactantMiddleware = Middleware;
 
 export type StateMapObject<T extends Record<string, Function>> = {
   [P in keyof T]: T[P] extends (...args: any[]) => any

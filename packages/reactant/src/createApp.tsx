@@ -11,6 +11,7 @@ import {
   Module,
   TypePreloadedState,
   ReactantStore,
+  ReactantMiddleware,
 } from 'reactant-module';
 
 interface Config<T> {
@@ -18,6 +19,7 @@ interface Config<T> {
   render: (element: JSX.Element, ...args: any[]) => Element | void;
   modules?: ModuleOptions[];
   containerOptions?: ContainerOptions;
+  middlewares?: ReactantMiddleware[];
   preloadedState?: TypePreloadedState<any>;
 }
 
@@ -32,6 +34,7 @@ function createApp<T>({
   render,
   modules = [],
   containerOptions,
+  middlewares,
   preloadedState,
 }: Config<T>): ReturnValue<T> {
   const ServiceIdentifiers: ServiceIdentifiersMap = new Map();
@@ -52,7 +55,8 @@ function createApp<T>({
     container,
     ServiceIdentifiers,
     modules,
-    preloadedState
+    preloadedState,
+    middlewares
   );
   const withoutReducers = store.getState() === null;
   return {
