@@ -176,8 +176,8 @@ const app = createApp({
   - [x] inject
   - [x] multi-inject
   - [x] multi-optional
-- [ ] @module
-- [ ] middleware
+- [x] @module
+- [x] middleware
 - [ ] pluggable
 - [ ] router
 - [ ] storage
