@@ -4,7 +4,7 @@ import { ServiceWithState } from '../interfaces';
 import { storeKey } from '../constants';
 
 // support call super method decorated by `@action`.
-let stagedState: Record<string, any> | undefined;
+let stageState: Record<string, any> | undefined;
 
 export function action(
   target: object,
@@ -18,17 +18,17 @@ export function action(
   const value = function(this: ServiceWithState, ...args: any[]) {
     if (this[storeKey]) {
       const state = produce(this.state, (draftState: Record<string, any>) => {
-        stagedState = draftState;
+        stageState = draftState;
         fn.call({ ...this, state: draftState }, ...args);
       });
-      stagedState = undefined;
+      stageState = undefined;
       this[storeKey]!.dispatch({
         type: this.name,
         state,
       });
     } else {
       // inherit `@action` in superclass.
-      fn.call({ ...this, state: stagedState }, ...args);
+      fn.call({ ...this, state: stageState }, ...args);
     }
   };
   return {
