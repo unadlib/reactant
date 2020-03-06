@@ -1,6 +1,5 @@
-import { ServiceWithState } from '../interfaces';
-import { ReactantAction } from './createStore';
-import { storeKey } from '../constants';
+import { ServiceWithState, ReactantAction } from '../interfaces';
+import { storeKey, actionIdentifierKey } from '../constants';
 
 // the api should not be implemented as a decorator
 // (because it should return new state should get a the current new state, low performance.)
@@ -11,10 +10,11 @@ export const dispatch = (
 ) => {
   if (target[storeKey]) {
     target[storeKey]!.dispatch({
-      type: target.name,
+      type: target[actionIdentifierKey],
+      name: target.name,
       ...action,
     });
   } else {
-    throw new Error(`${target.name} service should set 'state' property.`);
+    throw new Error(`${target} service should set 'state' property.`);
   }
 };

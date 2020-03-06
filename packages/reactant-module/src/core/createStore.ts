@@ -5,16 +5,15 @@ import {
   createStore as createStoreWithRedux,
   Store,
   PreloadedState,
-  Action,
   applyMiddleware,
 } from 'redux';
 import { Container, ServiceIdentifiersMap } from 'reactant-di';
-import { ModuleOptions, ReactantMiddleware } from '../interfaces';
-import { storeKey, reducersKey } from '../constants';
-
-export interface ReactantAction<T = any> extends Action<string> {
-  state: Record<string, T>;
-}
+import {
+  ModuleOptions,
+  ReactantMiddleware,
+  ReactantAction,
+} from '../interfaces';
+import { storeKey, reducersKey, actionIdentifierKey } from '../constants';
 
 export function createStore<T = any>(
   container: Container,
@@ -36,6 +35,10 @@ export function createStore<T = any>(
         if (isPlainObject) {
           const className = (Service as Function).name;
           let reducersIdentifier: string | symbol = service.name;
+          const actionIdentifier =
+            typeof reducersIdentifier === 'symbol'
+              ? reducersIdentifier
+              : Symbol('state');
           if (typeof reducersIdentifier !== 'string' || !reducersIdentifier) {
             throw new Error(`
             Since '${className}' module has set the module state, '${className}' module must set a unique and valid class property 'name' to be used as the module index.
@@ -72,7 +75,7 @@ export function createStore<T = any>(
                   });
                 }
                 const reducer = (state = value, action: ReactantAction) => {
-                  return action.type === reducersIdentifier
+                  return action.type === actionIdentifier
                     ? action.state[reducerKey]
                     : state;
                 };
@@ -98,7 +101,16 @@ export function createStore<T = any>(
             });
             // in order to support multiple instances.
             Object.defineProperties(service, {
-              [reducersKey]: serviceReducers,
+              [reducersKey]: {
+                enumerable: false,
+                configurable: false,
+                value: serviceReducers,
+              },
+              [actionIdentifierKey]: {
+                enumerable: false,
+                configurable: false,
+                value: actionIdentifier,
+              },
               [storeKey]: {
                 enumerable: false,
                 configurable: false,
