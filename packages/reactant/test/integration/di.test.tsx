@@ -20,6 +20,7 @@ import {
   action,
   createSelector,
 } from '../..';
+import { autobind } from '../../src';
 
 let container: Element;
 
@@ -57,6 +58,7 @@ describe('base API', () => {
         num: 0,
       };
 
+      @autobind
       @action
       increase() {
         this.state.num += 1;
@@ -76,7 +78,7 @@ describe('base API', () => {
 
       getData = () => ({
         num: this.getSum(),
-        increase: () => this.count.increase(),
+        increase: this.count.increase,
       });
 
       component() {

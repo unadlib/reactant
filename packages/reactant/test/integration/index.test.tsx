@@ -204,7 +204,6 @@ describe('base API', () => {
         getPropsFn();
         return {
           text: `${this.state.count}`,
-          increase: () => this.increase(1),
           sum: this.sum,
           sum1: this.sum1,
         };
@@ -239,7 +238,7 @@ describe('base API', () => {
         renderFn();
         return (
           <div>
-            <div onClick={data.increase} id="add" />
+            <div onClick={() => this.increase(1)} id="add" />
             <span>{data.text}</span>
           </div>
         );
@@ -509,7 +508,6 @@ describe('base API', () => {
 
       getData = () => ({
         text: this.state.list![0].count,
-        increase: () => this.increase(),
       });
 
       @defaultProps({
@@ -521,7 +519,7 @@ describe('base API', () => {
         renderFn(props);
         return (
           <div>
-            <div onClick={data.increase} id="add" />
+            <div onClick={() => this.increase()} id="add" />
             <span>{data.text}</span>
           </div>
         );

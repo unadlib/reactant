@@ -53,13 +53,12 @@ class DashboardView extends ViewModule {
 
   getData = () => ({
     num: this.getSum(),
-    increase: () => this.count.increase(),
   });
 
   component() {
     const data = useConnector(this.getData);
     return (
-      <div onClick={data.increase} id="increase">
+      <div onClick={() => this.count.increase()} id="increase">
         {data.num}
       </div>
     );
