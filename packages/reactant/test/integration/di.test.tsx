@@ -35,7 +35,7 @@ afterEach(() => {
 });
 
 describe('base API', () => {
-  test('ViewModule with state', () => {
+  test('ViewModule with state, multiple reactant app instances', () => {
     @injectable()
     class Bar {
       name = 'bar';
@@ -150,23 +150,36 @@ describe('base API', () => {
     expect(container.querySelector('#increase')?.textContent).toBe('2');
     expect(app.instance.bar).toBeUndefined();
 
+    // Multiple reactant app instances
+
     const preloadedState = app.store!.getState();
     // reload and keep state with new deps.
-    app = createApp({
+    const container1 = document.createElement('div');
+    document.body.appendChild(container1);
+
+    const app1 = createApp({
       modules: [Foo, { provide: 'homeView', useClass: HomeView }, Bar],
       main: AppView,
       render,
       preloadedState,
     });
     act(() => {
-      app.bootstrap(container);
+      app1.bootstrap(container1);
     });
+    act(() => {
+      container1
+        .querySelector('#increase')!
+        .dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    });
+    expect(app1.instance.bar.state.test).toBe('test');
+    expect(container1.querySelector('#increase')?.textContent).toBe('3');
+
+    // Multiple reactant app instances about app.
     act(() => {
       container
         .querySelector('#increase')!
         .dispatchEvent(new MouseEvent('click', { bubbles: true }));
     });
-    expect(app.instance.bar.state.test).toBe('test');
     expect(container.querySelector('#increase')?.textContent).toBe('3');
   });
 });
