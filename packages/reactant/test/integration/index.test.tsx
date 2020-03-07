@@ -475,7 +475,7 @@ describe('base API', () => {
 
     @injectable()
     class HomeView1 extends ViewModule {
-      name = 'homeView';
+      // name = 'homeView';
 
       state = {
         ...createState({

@@ -14,6 +14,7 @@ import {
   ReactantAction,
 } from '../interfaces';
 import { storeKey, reducersKey, actionIdentifierKey } from '../constants';
+import { getStageName } from '../utils';
 
 export function createStore<T = any>(
   container: Container,
@@ -34,6 +35,14 @@ export function createStore<T = any>(
           toString.call(service.state) === '[object Object]';
         if (isPlainObject) {
           const className = (Service as Function).name;
+          if (typeof service.name === 'undefined' || service.name === null) {
+            // `service.name` is to be defined and define stage name, but persist or merge state should be defined.
+            // this solution replaces the `combineReducers` need `Object.keys` get keys without `symbol` keys.
+            const stageName = getStageName(className);
+            Object.assign(service, {
+              name: stageName,
+            });
+          }
           let reducersIdentifier: string | symbol = service.name;
           const actionIdentifier =
             typeof reducersIdentifier === 'symbol'
@@ -41,14 +50,14 @@ export function createStore<T = any>(
               : Symbol('state');
           if (typeof reducersIdentifier !== 'string' || !reducersIdentifier) {
             throw new Error(`
-            Since '${className}' module has set the module state, '${className}' module must set a unique and valid class property 'name' to be used as the module index.
-            Example:
-              class FooBar {
-                name = 'FooBar'; // <- add the 'name' property.
+              Since '${className}' module has set the module state, '${className}' module must set a unique and valid class property 'name' to be used as the module index.
+              Example:
+                class FooBar {
+                  name = 'FooBar'; // <- add the 'name' property.
 
-                state = { foo: false };
-              }
-          `);
+                  state = { foo: false };
+                }
+            `);
           }
           if (typeof reducers[reducersIdentifier] === 'function') {
             if (services.length === 1) {

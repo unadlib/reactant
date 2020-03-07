@@ -23,13 +23,11 @@ import { render } from 'reactant-web';
 
 @injectable()
 class Foo {
-  name = 'foo';
+  text = 'foo';
 }
 
 @injectable()
 class Count {
-  name = 'count';
-
   state = {
     num: 0,
   };
@@ -97,7 +95,7 @@ class AppView extends ViewModule {
   component() {
     return (
       <>
-        <div id="foo">{this.foo.name}</div>
+        <div id="foo">{this.foo.text}</div>
         <this.homeView.component version="0.1.0" />
         <this.dashboardView.component />
       </>

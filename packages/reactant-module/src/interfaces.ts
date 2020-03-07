@@ -7,7 +7,7 @@ export type TypePreloadedState<T> = PreloadedState<T>;
 
 export interface ServiceWithState<T = any> {
   state: Record<string, T>;
-  name: string;
+  name?: string;
   [storeKey]?: Store;
   [actionIdentifierKey]?: symbol;
 }
