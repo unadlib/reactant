@@ -16,6 +16,10 @@ export function action(
     throw new Error(`${String(key)} decorate error with '@action'.`);
   }
   const value = function(this: ServiceWithState, ...args: any[]) {
+    let time: number | undefined;
+    if (process.env.NODE_ENV !== 'production') {
+      time = Date.now();
+    }
     if (this[storeKey]) {
       const state = produce(this.state, (draftState: Record<string, any>) => {
         stageState = draftState;
@@ -27,6 +31,15 @@ export function action(
         name: this.name,
         state,
       });
+      if (process.env.NODE_ENV !== 'production') {
+        // performance checking
+        const executionTime = Date.now() - time!;
+        if (executionTime > 100)
+          console.warn(
+            `The execution time of method '${key.toString()}' is ${executionTime} ms, it's recommended to use 'dispatch' API.`
+          );
+        // performance detail: https://immerjs.github.io/immer/docs/performance
+      }
     } else {
       // inherit `@action` in superclass.
       fn.call({ ...this, state: stageState }, ...args);
