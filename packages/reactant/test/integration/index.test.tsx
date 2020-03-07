@@ -24,6 +24,7 @@ import {
   ReactantAction,
   defaultProps,
   actionIdentifierKey,
+  batch,
 } from '../..';
 
 let container: Element;
@@ -486,6 +487,7 @@ describe('base API', () => {
             type === (this as any)[actionIdentifierKey] ? state.list : _state,
         }),
         count: 1,
+        count1: 1,
       };
 
       increase() {
@@ -508,8 +510,14 @@ describe('base API', () => {
         this.state.count += 1;
       }
 
+      @action
+      add1() {
+        this.state.count1 += 1;
+      }
+
       getData = () => ({
         text: this.state.list![0].count,
+        count1: this.state.count1,
       });
 
       @defaultProps({
@@ -573,5 +581,18 @@ describe('base API', () => {
     });
     expect(renderFn.mock.calls.length).toEqual(2);
     expect(reduxEnvent.mock.calls.length).toEqual(4);
+    batch(() => {
+      act(() => {
+        app.instance.add1();
+      });
+      act(() => {
+        app.instance.add1();
+      });
+      act(() => {
+        app.instance.add1();
+      });
+    });
+    expect(renderFn.mock.calls.length).toEqual(3);
+    expect(reduxEnvent.mock.calls.length).toEqual(7);
   });
 });
