@@ -2,7 +2,7 @@
 
 ![Node CI](https://github.com/unadlib/reactant/workflows/Node%20CI/badge.svg)
 
-A framework for building React web applications
+A framework for building React web applications, inspired by [Angular](https://angular.io/).
 
 ### Example
 
