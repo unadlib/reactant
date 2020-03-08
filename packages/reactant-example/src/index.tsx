@@ -1,5 +1,15 @@
 import React from 'react';
-import { render } from 'reactant-web';
+import {
+  render,
+  BrowserRouter,
+  Link,
+  Switch,
+  Route,
+  useRouteMatch,
+  useParams,
+  useHistory,
+  useLocation
+} from 'reactant-web';
 import {
   ViewModule,
   createApp,
@@ -17,6 +27,7 @@ import {
   localStorage,
   IStorageOptions,
 } from 'reactant-storage';
+import { Router, RouterOptions, IRouterOptions } from 'reactant-router';
 
 @injectable()
 class Bar {
@@ -72,7 +83,10 @@ class DashboardView extends ViewModule {
     num1: this.count.state.num1,
   });
 
+  params?: { id?: string };
+
   component() {
+    this.params = useParams();
     const data = useConnector(this.getData);
     return (
       <>
@@ -113,18 +127,35 @@ class AppView extends ViewModule {
     @optional() public foo: Foo,
     @optional() public bar: Bar,
     @inject('homeView') public homeView: InstanceType<typeof HomeView>,
-    public dashboardView: DashboardView
+    public dashboardView: DashboardView,
+    public router: Router
   ) {
     super();
   }
 
   component() {
+    const { ConnectedRouter } = this.router;
     return (
-      <>
-        <div id="foo">{this.foo.text}</div>
-        <this.homeView.component version="0.1.0" />
-        <this.dashboardView.component />
-      </>
+      <ConnectedRouter>
+        <h1>{this.foo.text}</h1>
+        <ul>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/dashboard/123123">Dashboard</Link>
+          </li>
+        </ul>
+
+        <Switch>
+          <Route exact path="/">
+            <this.homeView.component version="0.1.0" />
+          </Route>
+          <Route path="/dashboard/:id">
+            <this.dashboardView.component />
+          </Route>
+        </Switch>
+      </ConnectedRouter>
     );
   }
 }
@@ -140,9 +171,17 @@ const app = createApp({
         loading: <div>loading</div>,
       } as IStorageOptions,
     },
+    {
+      provide: RouterOptions,
+      useValue: {
+        autoProvide: false,
+      } as IRouterOptions,
+    },
   ],
   main: AppView,
   render,
 });
 
 app.bootstrap(document.getElementById('app'));
+
+(window as any).app = app;

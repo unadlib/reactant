@@ -177,7 +177,7 @@ const app = createApp({
 - [x] middleware
 - [x] pluggable
 - [x] storage
-- [ ] router
+- [x] router
 
 - [ ] tracker
 - [ ] hierarchical DI systems

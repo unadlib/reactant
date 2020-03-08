@@ -38,9 +38,10 @@ export function createStore<T = any>(
       const services = container.getAll(Service);
       services.forEach((service, index) => {
         handlePlugin(service, pluginHooks);
+        const isReducer = typeof service.state === 'function';
         const isPlainObject =
           toString.call(service.state) === '[object Object]';
-        if (isPlainObject) {
+        if (isPlainObject || isReducer) {
           const className = (Service as Function).name;
           if (typeof service.name === 'undefined' || service.name === null) {
             // `service.name` is to be defined and define stage name, but persist or merge state should be defined.
@@ -82,7 +83,7 @@ export function createStore<T = any>(
             }
           }
           const isEmptyObject = Object.keys(service.state).length === 0;
-          if (!isEmptyObject) {
+          if (!isEmptyObject || isReducer) {
             const serviceReducers = Object.entries(service.state).reduce(
               (serviceReducersMapObject: ReducersMapObject, [key, value]) => {
                 // support pure reducer
@@ -105,7 +106,7 @@ export function createStore<T = any>(
             isExistReducer = true;
             const reducer = combineReducers(serviceReducers);
             Object.assign(reducers, {
-              [reducersIdentifier]: reducer,
+              [reducersIdentifier]: isReducer ? service.state : reducer,
             });
             // redefine get service state from store state.
             Object.defineProperties(service, {

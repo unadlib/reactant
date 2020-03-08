@@ -97,7 +97,7 @@ class ReactantStorage extends PluginModule {
   afterCombineRootReducers(rootReducer: Reducer) {
     return persistReducer(
       {
-        blacklist: Object.keys(this.persistConfig),
+        blacklist: [...Object.keys(this.persistConfig), 'router'],
         ...this.persistRootConfig,
       },
       rootReducer
