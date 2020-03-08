@@ -14,7 +14,7 @@ import {
 import {
   Storage,
   StorageOptions,
-  storage,
+  localStorage,
   IStorageOptions,
 } from 'reactant-storage';
 
@@ -32,8 +32,8 @@ class Foo {
 
 @injectable()
 class Count {
-  constructor(public _storage: Storage) {
-    this._storage.setStorage(this, {
+  constructor(public storage: Storage) {
+    this.storage.setStorage(this, {
       blacklist: ['num1'],
     });
   }
@@ -136,7 +136,8 @@ const app = createApp({
     {
       provide: StorageOptions,
       useValue: {
-        storage,
+        storage: localStorage,
+        loading: <div>loading</div>,
       } as IStorageOptions,
     },
   ],
@@ -145,5 +146,3 @@ const app = createApp({
 });
 
 app.bootstrap(document.getElementById('app'));
-
-(window as any).app = app;

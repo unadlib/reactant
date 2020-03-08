@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { ReactChildren, ReactNode } from 'react';
 import { PluginModule, injectable, inject } from 'reactant-module';
 import { Reducer, ReducersMapObject } from 'redux';
 import { useStore } from 'react-redux';
@@ -13,9 +13,9 @@ import storage from 'redux-persist/lib/storage';
 
 const StorageOptions = Symbol('StorageOptions');
 
-export interface IStorageOptions extends PersistConfig<any> {
+export interface IStorageOptions extends Partial<PersistConfig<any>> {
   storage: Storage;
-  loading?: Element;
+  loading?: ReactNode;
 }
 
 interface Target<T extends Record<string, any>> {
@@ -104,7 +104,7 @@ class ReactantStorage extends PluginModule {
     );
   }
 
-  provider(props: { children: ReactNode[] }) {
+  provider(props: { children: ReactChildren }) {
     const persistor = persistStore(useStore());
     return (
       <PersistGate loading={this.options.loading || null} persistor={persistor}>
@@ -114,4 +114,4 @@ class ReactantStorage extends PluginModule {
   }
 }
 
-export { ReactantStorage as Storage, storage, StorageOptions };
+export { ReactantStorage as Storage, storage as localStorage, StorageOptions };
