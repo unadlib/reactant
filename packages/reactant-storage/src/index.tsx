@@ -11,9 +11,9 @@ import {
 import { PersistGate } from 'redux-persist/integration/react';
 import storage from 'redux-persist/lib/storage';
 
-const StorgageOptions = Symbol('StorgageOptions');
+const StorageOptions = Symbol('StorageOptions');
 
-export interface IStorgageOptions extends PersistConfig<any> {
+export interface IStorageOptions extends PersistConfig<any> {
   storage: Storage;
   loading?: Element;
 }
@@ -32,8 +32,8 @@ type SetStorageOptions<T> = Pick<
 };
 
 @injectable()
-class Storgage extends PluginModule {
-  constructor(@inject(StorgageOptions) public options: IStorgageOptions) {
+class ReactantStorage extends PluginModule {
+  constructor(@inject(StorageOptions) public options: IStorageOptions) {
     super();
     if (
       typeof this.options.storage === 'undefined' ||
@@ -41,10 +41,10 @@ class Storgage extends PluginModule {
     ) {
       if (process.env.NODE_ENV !== 'production') {
         console.warn(
-          `Module 'Storgage' must depend on the 'StorgageOptions', and 'StorgageOptions' should set 'storage' property.
+          `Module 'Storage' must depend on the 'StorageOptions', and 'StorageOptions' should set 'storage' property.
             example:
               {
-                provide: StorgageOptions,
+                provide: StorageOptions,
                 useValue: {
                   storage,
                 },
@@ -114,4 +114,4 @@ class Storgage extends PluginModule {
   }
 }
 
-export { Storgage, storage, StorgageOptions };
+export { ReactantStorage as Storage, storage, StorageOptions };

@@ -24,6 +24,7 @@ class CustomMetadataReader extends MetadataReader {
     constructorFunc: Function
   ): interfaces.ConstructorMetadata {
     const constructorMetadata = super.getConstructorMetadata(constructorFunc);
+    // todo
     // console.log(constructorMetadata);
     return constructorMetadata;
   }

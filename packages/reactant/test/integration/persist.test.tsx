@@ -9,7 +9,7 @@ import {
   MemoryRouter,
   Link,
 } from 'reactant-web';
-import { Storgage, StorgageOptions } from 'reactant-storage';
+import { Storage, StorageOptions } from 'reactant-storage';
 import {
   ViewModule,
   createApp,
@@ -91,7 +91,7 @@ describe('base API', () => {
       constructor(
         public bar: Bar,
         public dashboardView: DashboardView,
-        public storgage: Storgage
+        public storage: Storage
       ) {
         super();
       }
@@ -126,7 +126,7 @@ describe('base API', () => {
     const app = createApp({
       modules: [
         {
-          provide: StorgageOptions,
+          provide: StorageOptions,
           useValue: {
             storage,
           },

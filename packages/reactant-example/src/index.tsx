@@ -12,10 +12,10 @@ import {
   createSelector,
 } from 'reactant';
 import {
-  Storgage,
-  StorgageOptions,
+  Storage,
+  StorageOptions,
   storage,
-  IStorgageOptions,
+  IStorageOptions,
 } from 'reactant-storage';
 
 @injectable()
@@ -32,8 +32,8 @@ class Foo {
 
 @injectable()
 class Count {
-  constructor(public storgage: Storgage) {
-    this.storgage.setStorage(this, {
+  constructor(public _storage: Storage) {
+    this._storage.setStorage(this, {
       blacklist: ['num1'],
     });
   }
@@ -113,7 +113,7 @@ class AppView extends ViewModule {
     @optional() public foo: Foo,
     @optional() public bar: Bar,
     @inject('homeView') public homeView: InstanceType<typeof HomeView>,
-    public dashboardView: DashboardView,
+    public dashboardView: DashboardView
   ) {
     super();
   }
@@ -134,10 +134,10 @@ const app = createApp({
     Foo,
     { provide: 'homeView', useClass: HomeView },
     {
-      provide: StorgageOptions,
+      provide: StorageOptions,
       useValue: {
         storage,
-      } as IStorgageOptions,
+      } as IStorageOptions,
     },
   ],
   main: AppView,
