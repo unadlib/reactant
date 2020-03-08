@@ -49,7 +49,7 @@ describe('base API', () => {
     class Count {
       constructor(public storage: Storage) {
         this.storage.setStorage(this, {
-          whitelist: ['num1'],
+          blacklist: ['num'],
         });
       }
 
