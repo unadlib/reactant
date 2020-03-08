@@ -6,31 +6,38 @@ import {
   Store,
   PreloadedState,
   applyMiddleware,
+  compose,
 } from 'redux';
 import { Container, ServiceIdentifiersMap } from 'reactant-di';
-import {
-  ModuleOptions,
-  ReactantMiddleware,
-  ReactantAction,
-} from '../interfaces';
-import { storeKey, reducersKey, actionIdentifierKey } from '../constants';
-import { getStageName } from '../utils';
+import { ReactantMiddleware, ReactantAction, PluginHooks } from '../interfaces';
+import { storeKey, actionIdentifierKey } from '../constants';
+import { getStageName, perform } from '../utils';
+import { handlePlugin } from './handlePlugin';
 
 export function createStore<T = any>(
   container: Container,
   ServiceIdentifiers: ServiceIdentifiersMap,
-  modules: ModuleOptions[],
   preloadedState?: PreloadedState<T>,
-  middlewares?: ReactantMiddleware[]
+  middlewares: ReactantMiddleware[] = [],
+  providers: any[] = [] // todo type
 ) {
   let isExistReducer = false;
   let store: Store;
   const reducers: ReducersMapObject = {};
+  const pluginHooks: PluginHooks = {
+    middleware: middlewares,
+    beforeCombineRootReducers: [],
+    afterCombineRootReducers: [],
+    enhancer: [],
+    preloadedStateHandler: [],
+    provider: providers,
+  };
   for (const [Service] of ServiceIdentifiers) {
     // `Service` should be bound before `createStore`.
     if (container.isBound(Service)) {
       const services = container.getAll(Service);
       services.forEach((service, index) => {
+        handlePlugin(service, pluginHooks);
         const isPlainObject =
           toString.call(service.state) === '[object Object]';
         if (isPlainObject) {
@@ -49,15 +56,20 @@ export function createStore<T = any>(
               ? reducersIdentifier
               : Symbol('state');
           if (typeof reducersIdentifier !== 'string' || !reducersIdentifier) {
-            throw new Error(`
-              Since '${className}' module has set the module state, '${className}' module must set a unique and valid class property 'name' to be used as the module index.
-              Example:
-                class FooBar {
-                  name = 'FooBar'; // <- add the 'name' property.
+            if (process.env.NODE_ENV !== 'production') {
+              console.error(`
+                Since '${className}' module has set the module state, '${className}' module must set a unique and valid class property 'name' to be used as the module index.
+                Example:
+                  class FooBar {
+                    name = 'FooBar'; // <- add the 'name' property.
 
-                  state = { foo: false };
-                }
-            `);
+                    state = { foo: 'bar' };
+                  }
+              `);
+            }
+            throw new Error(
+              `'${className}' module 'name' property should be defined as a valid 'string'.`
+            );
           }
           if (typeof reducers[reducersIdentifier] === 'function') {
             if (services.length === 1) {
@@ -71,32 +83,29 @@ export function createStore<T = any>(
           }
           const isEmptyObject = Object.keys(service.state).length === 0;
           if (!isEmptyObject) {
-            // `service[reducersKey]` assign to target instance, others services will use it, example: persistence.
             const serviceReducers = Object.entries(service.state).reduce(
-              (
-                serviceReducersMapObject: ReducersMapObject,
-                [reducerKey, value]
-              ) => {
+              (serviceReducersMapObject: ReducersMapObject, [key, value]) => {
                 // support pure reducer
                 if (typeof value === 'function') {
                   return Object.assign(serviceReducersMapObject, {
-                    [reducerKey]: value,
+                    [key]: value,
                   });
                 }
                 const reducer = (state = value, action: ReactantAction) => {
                   return action.type === actionIdentifier
-                    ? action.state[reducerKey]
+                    ? action.state[key]
                     : state;
                 };
                 return Object.assign(serviceReducersMapObject, {
-                  [reducerKey]: reducer,
+                  [key]: reducer,
                 });
               },
               {}
             );
             isExistReducer = true;
+            const reducer = combineReducers(serviceReducers);
             Object.assign(reducers, {
-              [reducersIdentifier]: combineReducers(serviceReducers),
+              [reducersIdentifier]: reducer,
             });
             // redefine get service state from store state.
             Object.defineProperties(service, {
@@ -107,19 +116,12 @@ export function createStore<T = any>(
                   return store.getState()[reducersIdentifier];
                 },
               },
-            });
-            // in order to support multiple instances.
-            Object.defineProperties(service, {
-              [reducersKey]: {
-                enumerable: false,
-                configurable: false,
-                value: serviceReducers,
-              },
               [actionIdentifierKey]: {
                 enumerable: false,
                 configurable: false,
                 value: actionIdentifier,
               },
+              // in order to support multiple instances for stores.
               [storeKey]: {
                 enumerable: false,
                 configurable: false,
@@ -137,11 +139,13 @@ export function createStore<T = any>(
       });
     }
   }
-  const reducer = isExistReducer ? combineReducers(reducers) : () => null;
+  const reducer = isExistReducer
+    ? combineReducers(perform(pluginHooks.beforeCombineRootReducers, reducers))
+    : () => null;
   store = createStoreWithRedux(
-    reducer,
-    preloadedState,
-    middlewares && applyMiddleware(...middlewares)
+    perform(pluginHooks.afterCombineRootReducers, reducer),
+    perform(pluginHooks.preloadedStateHandler, preloadedState),
+    compose(applyMiddleware(...pluginHooks.middleware), ...pluginHooks.enhancer)
   );
   return store;
 }

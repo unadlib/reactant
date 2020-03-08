@@ -19,8 +19,8 @@ import {
   defaultProps,
   action,
   createSelector,
+  autobind,
 } from '../..';
-import { autobind } from '../../src';
 
 let container: Element;
 

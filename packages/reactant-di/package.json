@@ -1,14 +1,14 @@
 {
   "name": "reactant-di",
   "version": "0.0.1",
-  "description": "A dependency injection for Reactant",
+  "description": "A dependency injection tool for Reactant",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "inversify": "^5.0.1",
     "reflect-metadata": "^0.1.13"

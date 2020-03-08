@@ -42,7 +42,7 @@ test('module with multiple injection', () => {
     },
   });
   container.get(FooBar);
-  const store = createStore(container, ServiceIdentifiers, modules);
+  const store = createStore(container, ServiceIdentifiers);
   expect(store.getState()).toEqual({
     foo: { count: 1 },
     foo1: { count: 1 },

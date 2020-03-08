@@ -2,7 +2,7 @@
   "name": "reactant-example",
   "private": true,
   "version": "1.0.0",
-  "description": "",
+  "description": "An example project for Reactant",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server",
@@ -10,7 +10,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "copy-webpack-plugin": "^5.1.1",
     "ts-loader": "^6.2.1",
@@ -22,6 +22,7 @@
   "dependencies": {
     "react": "^16.12.0",
     "reactant": "^0.0.1",
-    "reactant-web": "^0.0.1"
+    "reactant-web": "^0.0.1",
+    "reactant-storage": "^0.0.1"
   }
 }

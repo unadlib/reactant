@@ -1,5 +1,6 @@
 import { Store, PreloadedState, AnyAction, Middleware, Action } from 'redux';
 import { storeKey, actionIdentifierKey } from './constants';
+import { PluginModule } from './core';
 
 export { ModuleOptions } from 'reactant-di';
 
@@ -32,3 +33,9 @@ export type FirstParameter<T extends (...args: any) => any> = T extends (
 ) => any
   ? P
   : never;
+
+type Collection<T> = {
+  [P in keyof T]-?: NonNullable<T[P]>[];
+};
+
+export type PluginHooks = Collection<PluginModule>;

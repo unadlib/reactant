@@ -11,6 +11,12 @@ import {
   action,
   createSelector,
 } from 'reactant';
+import {
+  Storgage,
+  StorgageOptions,
+  storage,
+  IStorgageOptions,
+} from 'reactant-storage';
 
 @injectable()
 class Bar {
@@ -26,13 +32,27 @@ class Foo {
 
 @injectable()
 class Count {
+  constructor(public storgage: Storgage) {
+    this.storgage.setStorage(this, {
+      blacklist: ['num1'],
+    });
+  }
+
+  name = 'count';
+
   state = {
     num: 0,
+    num1: 0,
   };
 
   @action
   increase() {
     this.state.num += 1;
+  }
+
+  @action
+  increase1() {
+    this.state.num1 += 1;
   }
 }
 
@@ -49,14 +69,22 @@ class DashboardView extends ViewModule {
 
   getData = () => ({
     num: this.getSum(),
+    num1: this.count.state.num1,
   });
 
   component() {
     const data = useConnector(this.getData);
     return (
-      <div onClick={() => this.count.increase()} id="increase">
-        {data.num}
-      </div>
+      <>
+        <div onClick={() => this.count.increase()} id="increase">
+          with persistence:
+          {data.num}
+        </div>
+        <div onClick={() => this.count.increase1()} id="increase1">
+          without persistence:
+          {data.num1}
+        </div>
+      </>
     );
   }
 }
@@ -85,7 +113,7 @@ class AppView extends ViewModule {
     @optional() public foo: Foo,
     @optional() public bar: Bar,
     @inject('homeView') public homeView: InstanceType<typeof HomeView>,
-    public dashboardView: DashboardView
+    public dashboardView: DashboardView,
   ) {
     super();
   }
@@ -102,9 +130,20 @@ class AppView extends ViewModule {
 }
 
 const app = createApp({
-  modules: [Foo, { provide: 'homeView', useClass: HomeView }],
+  modules: [
+    Foo,
+    { provide: 'homeView', useClass: HomeView },
+    {
+      provide: StorgageOptions,
+      useValue: {
+        storage,
+      } as IStorgageOptions,
+    },
+  ],
   main: AppView,
   render,
 });
 
 app.bootstrap(document.getElementById('app'));
+
+(window as any).app = app;

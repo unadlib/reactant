@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import { Provider } from 'react-redux';
 import {
   createContainer,
@@ -51,12 +51,13 @@ function createApp<T>({
   if (!(instance instanceof ViewModule)) {
     throw new Error(`Main module should be a 'ViewModule'.`);
   }
+  const providers: FunctionComponent[] = []; // todo type;
   const store = createStore(
     container,
     ServiceIdentifiers,
-    modules,
     preloadedState,
-    middlewares
+    middlewares,
+    providers
   );
   const withoutReducers = store.getState() === null;
   return {
@@ -64,11 +65,21 @@ function createApp<T>({
     store: withoutReducers ? null : store,
     bootstrap(...args: any[]): Element | void {
       const Component = instance.component;
+      const RootComponent = withoutReducers
+        ? Component
+        : providers.reverse().reduce(
+            (WrappedComponent, ProviderComponent) => () => (
+              <ProviderComponent>
+                <WrappedComponent />
+              </ProviderComponent>
+            ),
+            Component
+          );
       const element = withoutReducers ? (
-        <Component />
+        <RootComponent />
       ) : (
         <Provider store={store}>
-          <Component />
+          <RootComponent />
         </Provider>
       );
       return render(element, ...args);

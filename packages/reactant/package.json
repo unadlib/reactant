@@ -36,6 +36,7 @@
     "reactant-module": "^0.0.1"
   },
   "devDependencies": {
-    "reactant-web": "^0.0.1"
+    "reactant-web": "^0.0.1",
+    "reactant-storage": "^0.0.1"
   }
 }
