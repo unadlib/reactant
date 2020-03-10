@@ -28,7 +28,11 @@ export function action(
       stageState = undefined;
       this[storeKey]!.dispatch({
         type: this[actionIdentifierKey],
-        name: this.name,
+        // for debugging
+        name: {
+          module: this.name,
+          action: fn.name,
+        },
         state,
       });
       if (process.env.NODE_ENV !== 'production') {

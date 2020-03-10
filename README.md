@@ -178,7 +178,7 @@ const app = createApp({
 - [x] pluggable
 - [x] storage
 - [x] router
-
+- [ ] support redux-devtool
 - [ ] tracker
 - [ ] hierarchical DI systems
 - [ ] mobx
@@ -194,4 +194,3 @@ const app = createApp({
 - [ ] SSR
 - [ ] Hook
 - [ ] Support JavaScript
-- [ ] Plug-in system

@@ -8,7 +8,10 @@ export const dispatch = (target: Service, action: Partial<ReactantAction>) => {
   if (target[storeKey]) {
     target[storeKey]!.dispatch({
       type: target[actionIdentifierKey],
-      name: target.name,
+      // for debugging
+      name: {
+        module: target.name,
+      },
       ...action,
     });
   } else {
