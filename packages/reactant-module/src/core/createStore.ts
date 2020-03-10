@@ -43,19 +43,15 @@ export function createStore<T = any>(
           toString.call(service.state) === '[object Object]';
         if (isPlainObject) {
           const className = (Service as Function).name;
-          if (typeof service.name === 'undefined' || service.name === null) {
+          let reducersIdentifier: string | symbol = service.name;
+          if (
+            typeof reducersIdentifier === 'undefined' ||
+            reducersIdentifier === null
+          ) {
             // `service.name` is to be defined and define stage name, but persist or merge state should be defined.
             // this solution replaces the `combineReducers` need `Object.keys` get keys without `symbol` keys.
-            const stageName = getStageName(className);
-            Object.assign(service, {
-              name: stageName,
-            });
+            reducersIdentifier = getStageName(className);
           }
-          let reducersIdentifier: string | symbol = service.name;
-          const actionIdentifier =
-            typeof reducersIdentifier === 'symbol'
-              ? reducersIdentifier
-              : Symbol('state');
           if (typeof reducersIdentifier !== 'string' || !reducersIdentifier) {
             if (process.env.NODE_ENV !== 'production') {
               console.error(`
@@ -82,6 +78,10 @@ export function createStore<T = any>(
               reducersIdentifier = `${reducersIdentifier}${index}`;
             }
           }
+          const actionIdentifier =
+            typeof reducersIdentifier === 'symbol'
+              ? reducersIdentifier
+              : Symbol(reducersIdentifier);
           const isEmptyObject = Object.keys(service.state).length === 0;
           if (!isEmptyObject) {
             const serviceReducers = Object.entries(service.state).reduce(
@@ -107,6 +107,9 @@ export function createStore<T = any>(
             const reducer = combineReducers(serviceReducers);
             Object.assign(reducers, {
               [reducersIdentifier]: reducer,
+            });
+            Object.assign(service, {
+              name: reducersIdentifier,
             });
             // redefine get service state from store state.
             Object.defineProperties(service, {
