@@ -131,7 +131,7 @@ describe('base API', () => {
       }
     }
 
-    let app = createApp({
+    const app = createApp({
       modules: [Foo, { provide: 'homeView', useClass: HomeView }],
       main: AppView,
       render,

@@ -483,7 +483,8 @@ describe('base API', () => {
           list: (
             _state: { count: number }[] = [{ count: 1 }],
             { type, state }: ReactantAction
-          ) => (type === this[actionIdentifierKey] ? state.list : _state),
+          ) =>
+            type === (this as any)[actionIdentifierKey] ? state.list : _state,
         }),
         count: 1,
         count1: 1,
