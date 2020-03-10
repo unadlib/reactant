@@ -4,6 +4,7 @@ import {
   createContainer,
   createStore,
   ServiceIdentifiersMap,
+  action,
 } from '..';
 
 test('module with multiple injection', () => {
@@ -12,6 +13,11 @@ test('module with multiple injection', () => {
     name = 'foo';
 
     state = { count: 1 };
+
+    @action
+    increase() {
+      this.state.count += 1;
+    }
   }
 
   @injectable()
@@ -41,11 +47,25 @@ test('module with multiple injection', () => {
       defaultScope: 'Singleton',
     },
   });
-  container.get(FooBar);
+  const fooBar = container.get(FooBar);
   const store = createStore(container, ServiceIdentifiers);
   expect(store.getState()).toEqual({
     foo: { count: 1 },
     foo1: { count: 1 },
+    foo2: { count: 1 },
+    fooTest: { count: 1 },
+  });
+  fooBar.foos[0].increase();
+  expect(store.getState()).toEqual({
+    foo: { count: 2 },
+    foo1: { count: 1 },
+    foo2: { count: 1 },
+    fooTest: { count: 1 },
+  });
+  fooBar.foos[1].increase();
+  expect(store.getState()).toEqual({
+    foo: { count: 2 },
+    foo1: { count: 2 },
     foo2: { count: 1 },
     fooTest: { count: 1 },
   });
