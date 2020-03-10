@@ -30,6 +30,7 @@ export function createStore<T = any>(
     afterCombineRootReducers: [],
     enhancer: [],
     preloadedStateHandler: [],
+    afterCreateStore: [],
     provider: providers,
   };
   for (const [Service] of ServiceIdentifiers) {
@@ -38,10 +39,9 @@ export function createStore<T = any>(
       const services = container.getAll(Service);
       services.forEach((service, index) => {
         handlePlugin(service, pluginHooks);
-        const isReducer = typeof service.state === 'function';
         const isPlainObject =
           toString.call(service.state) === '[object Object]';
-        if (isPlainObject || isReducer) {
+        if (isPlainObject) {
           const className = (Service as Function).name;
           if (typeof service.name === 'undefined' || service.name === null) {
             // `service.name` is to be defined and define stage name, but persist or merge state should be defined.
@@ -83,7 +83,7 @@ export function createStore<T = any>(
             }
           }
           const isEmptyObject = Object.keys(service.state).length === 0;
-          if (!isEmptyObject || isReducer) {
+          if (!isEmptyObject) {
             const serviceReducers = Object.entries(service.state).reduce(
               (serviceReducersMapObject: ReducersMapObject, [key, value]) => {
                 // support pure reducer
@@ -106,7 +106,7 @@ export function createStore<T = any>(
             isExistReducer = true;
             const reducer = combineReducers(serviceReducers);
             Object.assign(reducers, {
-              [reducersIdentifier]: isReducer ? service.state : reducer,
+              [reducersIdentifier]: reducer,
             });
             // redefine get service state from store state.
             Object.defineProperties(service, {
@@ -148,5 +148,6 @@ export function createStore<T = any>(
     perform(pluginHooks.preloadedStateHandler, preloadedState),
     compose(applyMiddleware(...pluginHooks.middleware), ...pluginHooks.enhancer)
   );
+  perform(pluginHooks.afterCreateStore, store);
   return store;
 }

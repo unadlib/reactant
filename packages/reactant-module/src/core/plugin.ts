@@ -1,8 +1,20 @@
-import { ReducersMapObject, Middleware, PreloadedState, Reducer } from 'redux';
+import {
+  ReducersMapObject,
+  Middleware,
+  PreloadedState,
+  Reducer,
+  Store,
+} from 'redux';
 import { injectable } from 'reactant-di';
+import { storeKey, actionIdentifierKey } from '../constants';
+import { Service } from '../interfaces';
 
 @injectable()
-export abstract class PluginModule {
+export abstract class PluginModule implements Service {
+  readonly [storeKey]?: Store;
+
+  readonly [actionIdentifierKey]?: symbol;
+
   preloadedStateHandler?(
     preloadedState: PreloadedState<any>
   ): PreloadedState<any>;
@@ -10,6 +22,8 @@ export abstract class PluginModule {
   middleware?: Middleware;
 
   enhancer?: Function;
+
+  afterCreateStore?(store: Store): void;
 
   // TODO beforeCombineReducers & afterCombineReducers
 

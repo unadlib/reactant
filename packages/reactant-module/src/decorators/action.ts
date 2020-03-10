@@ -1,6 +1,6 @@
 /* eslint-disable func-names */
 import { produce } from 'immer';
-import { ServiceWithState } from '../interfaces';
+import { Service } from '../interfaces';
 import { storeKey, actionIdentifierKey } from '../constants';
 
 // support call super method decorated by `@action`.
@@ -15,7 +15,7 @@ export function action(
   if (typeof fn === 'undefined') {
     throw new Error(`${String(key)} decorate error with '@action'.`);
   }
-  const value = function(this: ServiceWithState, ...args: any[]) {
+  const value = function(this: Service, ...args: any[]) {
     let time: number | undefined;
     if (process.env.NODE_ENV !== 'production') {
       time = Date.now();

@@ -1,8 +1,11 @@
 import { ReducersMapObject, Reducer, PreloadedState } from 'redux';
 import { PluginModule } from './plugin';
-import { PluginHooks } from '../interfaces';
+import { PluginHooks, HandlePlugin } from '../interfaces';
 
-export const handlePlugin = (service: any, pluginHooks: PluginHooks) => {
+export const handlePlugin: HandlePlugin = (
+  service: any,
+  pluginHooks: PluginHooks
+) => {
   if (service instanceof PluginModule) {
     if (typeof service.beforeCombineRootReducers === 'function') {
       pluginHooks.beforeCombineRootReducers.push(
@@ -26,6 +29,9 @@ export const handlePlugin = (service: any, pluginHooks: PluginHooks) => {
     }
     if (typeof service.middleware === 'function') {
       pluginHooks.middleware.push(service.middleware.bind(service));
+    }
+    if (typeof service.afterCreateStore === 'function') {
+      pluginHooks.afterCreateStore.push(service.afterCreateStore.bind(service));
     }
     if (typeof service.provider === 'function') {
       pluginHooks.provider.push(service.provider.bind(service));

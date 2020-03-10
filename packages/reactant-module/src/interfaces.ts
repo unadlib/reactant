@@ -6,11 +6,13 @@ export { ModuleOptions } from 'reactant-di';
 
 export type TypePreloadedState<T> = PreloadedState<T>;
 
-export interface ServiceWithState<T = any> {
-  state: Record<string, T>;
+export interface State<T> {
+  state?: Record<string, T>;
   name?: string;
-  [storeKey]?: Store;
-  [actionIdentifierKey]?: symbol;
+}
+export interface Service<T = any> extends State<T> {
+  readonly [storeKey]?: Store;
+  readonly [actionIdentifierKey]?: symbol;
 }
 
 export type ReactantStore = Store<any, AnyAction>;
@@ -35,7 +37,12 @@ export type FirstParameter<T extends (...args: any) => any> = T extends (
   : never;
 
 type Collection<T> = {
-  [P in keyof T]-?: NonNullable<T[P]>[];
+  [P in Exclude<keyof T, keyof Service>]-?: NonNullable<T[P]>[];
 };
 
 export type PluginHooks = Collection<PluginModule>;
+
+export type HandlePlugin<T = any> = (
+  service: T,
+  pluginHooks: Collection<PluginModule>
+) => void;

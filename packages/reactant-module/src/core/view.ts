@@ -1,8 +1,14 @@
+import { Store } from 'redux';
 import { injectable } from 'reactant-di';
-import { defaultPropsKey } from '../constants';
+import { defaultPropsKey, storeKey, actionIdentifierKey } from '../constants';
+import { Service } from '../interfaces';
 
 @injectable()
-export abstract class ViewModule {
+export abstract class ViewModule implements Service {
+  readonly [storeKey]?: Store;
+
+  readonly [actionIdentifierKey]?: symbol;
+
   constructor() {
     if (typeof this.component !== 'function') {
       throw new Error(
