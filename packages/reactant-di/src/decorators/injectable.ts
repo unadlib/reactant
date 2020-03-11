@@ -10,7 +10,6 @@ import { setMetadata } from '../util';
 import { ModuleDecoratorOptions } from '../interfaces';
 
 export function injectable(options: ModuleDecoratorOptions = {}) {
-  // TODO fix `any` type
   return (target: any) => {
     const { deps = [], provide } = options;
     deps.forEach((option, index) => {
