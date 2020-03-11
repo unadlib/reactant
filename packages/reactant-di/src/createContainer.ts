@@ -116,7 +116,7 @@ export function createContainer({
                   (token as DependencyProviderOption).provide
                 )
               ) {
-                return;
+                return undefined;
               }
               return context.container.get(provide);
             });
