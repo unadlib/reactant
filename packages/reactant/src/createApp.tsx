@@ -64,23 +64,21 @@ function createApp<T>({
     instance,
     store: withoutReducers ? null : store,
     bootstrap(...args: any[]): Element | void {
-      const Component = instance.component;
-      const RootComponent = withoutReducers
-        ? Component
-        : providers.reverse().reduce(
-            (WrappedComponent, ProviderComponent) => () => (
-              <ProviderComponent>
-                <WrappedComponent />
-              </ProviderComponent>
-            ),
-            Component
-          );
+      const InstanceElement = <instance.component />;
+      const RootElement = withoutReducers
+        ? InstanceElement
+        : providers
+            .reverse()
+            .reduce(
+              (WrappedComponent, ProviderComponent) => (
+                <ProviderComponent>{WrappedComponent}</ProviderComponent>
+              ),
+              InstanceElement
+            );
       const element = withoutReducers ? (
-        <RootComponent />
+        RootElement
       ) : (
-        <Provider store={store}>
-          <RootComponent />
-        </Provider>
+        <Provider store={store}>{RootElement}</Provider>
       );
       return render(element, ...args);
     },
