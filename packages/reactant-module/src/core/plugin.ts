@@ -6,14 +6,14 @@ import {
   Store,
 } from 'redux';
 import { injectable } from 'reactant-di';
-import { storeKey, actionIdentifierKey } from '../constants';
+import { storeKey } from '../constants';
 import { Service } from '../interfaces';
 
 @injectable()
 export abstract class PluginModule implements Service {
   readonly [storeKey]?: Store;
 
-  readonly [actionIdentifierKey]?: symbol;
+  name?: string;
 
   preloadedStateHandler?(
     preloadedState: PreloadedState<any>

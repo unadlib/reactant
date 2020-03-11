@@ -10,7 +10,7 @@ import {
 } from 'redux';
 import { Container, ServiceIdentifiersMap } from 'reactant-di';
 import { ReactantMiddleware, ReactantAction, PluginHooks } from '../interfaces';
-import { storeKey, actionIdentifierKey } from '../constants';
+import { storeKey } from '../constants';
 import { getStageName, perform } from '../utils';
 import { handlePlugin } from './handlePlugin';
 
@@ -43,7 +43,7 @@ export function createStore<T = any>(
           toString.call(service.state) === '[object Object]';
         if (isPlainObject) {
           const className = (Service as Function).name;
-          let reducersIdentifier: string | symbol = service.name;
+          let reducersIdentifier: string = service.name;
           if (
             typeof reducersIdentifier === 'undefined' ||
             reducersIdentifier === null
@@ -71,17 +71,13 @@ export function createStore<T = any>(
           if (typeof reducers[reducersIdentifier] === 'function') {
             if (services.length === 1) {
               throw new Error(
-                `'${className}' module 'name'('${reducersIdentifier}') property and other module conflicts.`
+                `'${className}' module name '${reducersIdentifier}' property and other module conflicts.`
               );
             } else {
               // injection about multi-instances
               reducersIdentifier = `${reducersIdentifier}${index}`;
             }
           }
-          const actionIdentifier =
-            typeof reducersIdentifier === 'symbol'
-              ? reducersIdentifier
-              : Symbol(reducersIdentifier);
           const isEmptyObject = Object.keys(service.state).length === 0;
           if (!isEmptyObject) {
             const serviceReducers = Object.entries(service.state).reduce(
@@ -93,7 +89,7 @@ export function createStore<T = any>(
                   });
                 }
                 const reducer = (state = value, action: ReactantAction) => {
-                  return action.type === actionIdentifier
+                  return action.type === reducersIdentifier
                     ? action.state[key]
                     : state;
                 };
@@ -108,9 +104,6 @@ export function createStore<T = any>(
             Object.assign(reducers, {
               [reducersIdentifier]: reducer,
             });
-            Object.assign(service, {
-              name: reducersIdentifier,
-            });
             // redefine get service state from store state.
             Object.defineProperties(service, {
               state: {
@@ -120,10 +113,10 @@ export function createStore<T = any>(
                   return store.getState()[reducersIdentifier];
                 },
               },
-              [actionIdentifierKey]: {
+              name: {
                 enumerable: false,
                 configurable: false,
-                value: actionIdentifier,
+                value: reducersIdentifier,
               },
               // in order to support multiple instances for stores.
               [storeKey]: {

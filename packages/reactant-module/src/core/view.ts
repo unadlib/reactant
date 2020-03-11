@@ -1,13 +1,13 @@
 import { Store } from 'redux';
 import { injectable } from 'reactant-di';
-import { defaultPropsKey, storeKey, actionIdentifierKey } from '../constants';
+import { defaultPropsKey, storeKey } from '../constants';
 import { Service } from '../interfaces';
 
 @injectable()
 export abstract class ViewModule implements Service {
   readonly [storeKey]?: Store;
 
-  readonly [actionIdentifierKey]?: symbol;
+  name?: string;
 
   constructor() {
     if (typeof this.component !== 'function') {

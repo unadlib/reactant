@@ -1,5 +1,5 @@
 import { Store, PreloadedState, AnyAction, Middleware, Action } from 'redux';
-import { storeKey, actionIdentifierKey } from './constants';
+import { storeKey } from './constants';
 import { PluginModule } from './core';
 
 export { ModuleOptions } from 'reactant-di';
@@ -12,7 +12,6 @@ export interface State<T> {
 }
 export interface Service<T = any> extends State<T> {
   readonly [storeKey]?: Store;
-  readonly [actionIdentifierKey]?: symbol;
 }
 
 export type ReactantStore = Store<any, AnyAction>;

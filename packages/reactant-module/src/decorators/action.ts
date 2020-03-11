@@ -1,7 +1,7 @@
 /* eslint-disable func-names */
 import { produce } from 'immer';
 import { Service } from '../interfaces';
-import { storeKey, actionIdentifierKey } from '../constants';
+import { storeKey } from '../constants';
 
 // support call super method decorated by `@action`.
 let stageState: Record<string, any> | undefined;
@@ -27,7 +27,7 @@ export function action(
       });
       stageState = undefined;
       this[storeKey]!.dispatch({
-        type: this[actionIdentifierKey],
+        type: this.name,
         method: key,
         state,
       });
