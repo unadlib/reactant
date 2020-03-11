@@ -104,7 +104,6 @@ class ReactantStorage extends PluginModule {
     );
   }
 
-  // TODO think about Additional nested component.
   provider = (props: PropsWithChildren<any>) => {
     const persistor = persistStore(useStore());
     return (
