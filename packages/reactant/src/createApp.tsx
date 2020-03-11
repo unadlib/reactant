@@ -51,7 +51,7 @@ function createApp<T>({
   if (!(instance instanceof ViewModule)) {
     throw new Error(`Main module should be a 'ViewModule'.`);
   }
-  const providers: FunctionComponent[] = []; // todo type;
+  const providers: FunctionComponent[] = [];
   const store = createStore(
     container,
     ServiceIdentifiers,

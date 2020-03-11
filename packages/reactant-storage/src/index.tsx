@@ -1,4 +1,4 @@
-import React, { ReactChildren, ReactNode } from 'react';
+import React, { PropsWithChildren, ReactNode } from 'react';
 import { PluginModule, injectable, inject } from 'reactant-module';
 import { Reducer, ReducersMapObject } from 'redux';
 import { useStore } from 'react-redux';
@@ -105,14 +105,14 @@ class ReactantStorage extends PluginModule {
   }
 
   // TODO think about Additional nested component.
-  provider(props: { children: ReactChildren }) {
+  provider = (props: PropsWithChildren<any>) => {
     const persistor = persistStore(useStore());
     return (
       <PersistGate loading={this.options.loading || null} persistor={persistor}>
         {props.children}
       </PersistGate>
     );
-  }
+  };
 }
 
 export { ReactantStorage as Storage, storage as localStorage, StorageOptions };

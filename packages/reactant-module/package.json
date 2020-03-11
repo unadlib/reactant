@@ -25,5 +25,8 @@
     "reactant-di": "^0.0.1",
     "redux": "^4.0.5",
     "reselect": "^4.0.0"
+  },
+  "devDependencies": {
+    "react": "^16.12.0"
   }
 }

@@ -1,4 +1,4 @@
-import React, { ReactChildren, FunctionComponent } from 'react';
+import React, { PropsWithChildren, FunctionComponent } from 'react';
 import { PluginModule, injectable, optional, storeKey } from 'reactant-module';
 import { ReducersMapObject, Store } from 'redux';
 import {
@@ -59,6 +59,7 @@ class ReactantRouter extends PluginModule {
   }
 
   afterCreateStore(store: Store) {
+    // define store for `router` getter.
     Object.defineProperties(this, {
       [storeKey]: {
         enumerable: false,
@@ -70,10 +71,10 @@ class ReactantRouter extends PluginModule {
     });
   }
 
-  provider(props: { children: ReactChildren }) {
+  provider = (props: PropsWithChildren<any>) => {
     if (!this.autoProvide) return <>{props.children}</>;
     return <this.ConnectedRouter>{props.children}</this.ConnectedRouter>;
-  }
+  };
 }
 
 export { ReactantRouter as Router, RouterOptions };

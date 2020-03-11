@@ -43,5 +43,5 @@ export type PluginHooks = Collection<PluginModule>;
 
 export type HandlePlugin<T = any> = (
   service: T,
-  pluginHooks: Collection<PluginModule>
+  pluginHooks: PluginHooks
 ) => void;

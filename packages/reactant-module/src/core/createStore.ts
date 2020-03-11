@@ -1,4 +1,5 @@
 /* eslint-disable no-loop-func */
+import { FunctionComponent } from 'react';
 import {
   combineReducers,
   ReducersMapObject,
@@ -19,7 +20,7 @@ export function createStore<T = any>(
   ServiceIdentifiers: ServiceIdentifiersMap,
   preloadedState?: PreloadedState<T>,
   middlewares: ReactantMiddleware[] = [],
-  providers: any[] = [] // todo type
+  providers: FunctionComponent[] = []
 ) {
   let isExistReducer = false;
   let store: Store;

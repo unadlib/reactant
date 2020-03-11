@@ -1,3 +1,4 @@
+import { FunctionComponent } from 'react';
 import {
   ReducersMapObject,
   Middleware,
@@ -31,5 +32,5 @@ export abstract class PluginModule implements Service {
 
   afterCombineRootReducers?(rootReducer: Reducer): Reducer;
 
-  provider?(props: Record<string, any>): React.ComponentElement<any, any>;
+  provider?: FunctionComponent;
 }
