@@ -20,10 +20,6 @@
     "webpack-dev-server": "^3.10.3"
   },
   "dependencies": {
-    "react": "^16.12.0",
-    "reactant": "^0.0.1",
-    "reactant-router": "^0.0.1",
-    "reactant-storage": "^0.0.1",
-    "reactant-web": "^0.0.1"
+    "react": "^16.12.0"
   }
 }

@@ -8,8 +8,8 @@ import {
   useRouteMatch,
   useParams,
   useHistory,
-  useLocation
-} from 'reactant-web';
+  useLocation,
+} from '@reactant-web';
 import {
   ViewModule,
   createApp,
@@ -20,14 +20,14 @@ import {
   defaultProps,
   action,
   createSelector,
-} from 'reactant';
+} from '@reactant';
 import {
   Storage,
   StorageOptions,
   localStorage,
   IStorageOptions,
-} from 'reactant-storage';
-import { Router, RouterOptions, IRouterOptions } from 'reactant-router';
+} from '@reactant-storage';
+import { Router, RouterOptions, IRouterOptions } from '@reactant-router';
 
 @injectable()
 class Bar {
