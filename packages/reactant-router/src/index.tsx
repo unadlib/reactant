@@ -21,6 +21,8 @@ export interface IRouterOptions {
 // todo support ssr and router config
 @injectable()
 class ReactantRouter extends PluginModule {
+  readonly [storeKey]?: Store;
+
   autoProvide: boolean;
 
   constructor(@optional(RouterOptions) public options: IRouterOptions) {
