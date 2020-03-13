@@ -3,10 +3,10 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@reactant": ["../../node_modules/reactant"],
-      "@reactant-web": ["../../node_modules/reactant-web"],
-      "@reactant-storage": ["../../node_modules/reactant-storage"],
-      "@reactant-router": ["../../node_modules/reactant-router"]
+      "reactant": ["../../node_modules/reactant"],
+      "reactant-web": ["../../node_modules/reactant-web"],
+      "reactant-storage": ["../../node_modules/reactant-storage"],
+      "reactant-router": ["../../node_modules/reactant-router"]
     }
   }
 }

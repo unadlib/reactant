@@ -20,16 +20,16 @@ module.exports = {
     extensions: ['.tsx', '.ts', '.js'],
     alias: {
       react: path.resolve(__dirname, '../../node_modules/react'),
-      '@reactant': path.resolve(__dirname, '../../node_modules/reactant'),
-      '@reactant-web': path.resolve(
+      reactant: path.resolve(__dirname, '../../node_modules/reactant'),
+      'reactant-web': path.resolve(
         __dirname,
         '../../node_modules/reactant-web'
       ),
-      '@reactant-storage': path.resolve(
+      'reactant-storage': path.resolve(
         __dirname,
         '../../node_modules/reactant-storage'
       ),
-      '@reactant-router': path.resolve(
+      'reactant-router': path.resolve(
         __dirname,
         '../../node_modules/reactant-router'
       ),
