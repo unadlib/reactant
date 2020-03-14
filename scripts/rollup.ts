@@ -1,28 +1,14 @@
+/* eslint-disable import/no-dynamic-require */
 /* eslint-disable global-require */
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable import/no-extraneous-dependencies */
+import path from 'path';
 import { rollup } from 'rollup';
 import resolvePlugin from '@rollup/plugin-node-resolve';
 import replacePlugin from '@rollup/plugin-replace';
 import commonjsPlugin from '@rollup/plugin-commonjs';
 import { terser as terserPlugin } from 'rollup-plugin-terser';
 import chalk from 'chalk';
-import { handleWorkspaces } from './workspaces';
-
-const external = [
-  'react',
-  'react-dom',
-  'react-is',
-  'react-router-dom',
-  'react-redux',
-  'redux',
-  'inversify',
-  'reselect',
-];
-
-const getInternalPackages = handleWorkspaces(async (_, packageChildDir) => {
-  external.push(packageChildDir); // just package dir
-});
 
 type GenerateOption = {
   inputFile: string;
@@ -68,7 +54,9 @@ const generateBundledModules = async ({
     );
   }
   try {
-    await getInternalPackages;
+    const external = Object.keys(
+      require(path.resolve(outputFile, '../../package.json')).dependencies
+    );
     const bundle = await rollup({
       input: inputFile,
       external,
