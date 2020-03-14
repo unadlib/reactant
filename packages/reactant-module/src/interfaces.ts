@@ -1,8 +1,7 @@
 import { Store, PreloadedState, AnyAction, Middleware, Action } from 'redux';
+import { ModuleOptions } from 'reactant-di';
 import { storeKey } from './constants';
 import { PluginModule } from './core';
-
-export { ModuleOptions } from 'reactant-di';
 
 export type TypePreloadedState<T> = PreloadedState<T>;
 
@@ -13,6 +12,8 @@ export interface State<T> {
 export interface Service<T = any> extends State<T> {
   readonly [storeKey]?: Store;
 }
+
+export type ReactModuleOptions = ModuleOptions;
 
 export type ReactantStore = Store<any, AnyAction>;
 

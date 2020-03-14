@@ -7,7 +7,7 @@ import {
   ViewModule,
   createStore,
   ServiceIdentifiersMap,
-  ModuleOptions,
+  ReactModuleOptions,
   Module,
   TypePreloadedState,
   ReactantStore,
@@ -17,7 +17,7 @@ import {
 interface Config<T> {
   main: ServiceIdentifier<T>;
   render: (element: JSX.Element, ...args: any[]) => Element | void;
-  modules?: ModuleOptions[];
+  modules?: ReactModuleOptions[];
   containerOptions?: ContainerOptions;
   middlewares?: ReactantMiddleware[];
   preloadedState?: TypePreloadedState<any>;

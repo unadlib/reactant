@@ -3,5 +3,6 @@
   "rootDir": "../../",
   "globals": {
     "__DEV__": false
-  }
+  },
+  "testPathIgnorePatterns": ["examples"]
 }
