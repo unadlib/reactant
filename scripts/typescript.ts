@@ -1,15 +1,12 @@
 import path from 'path';
 import loadJsonFile from 'load-json-file';
-import globParent from 'glob-parent';
 import fs from 'fs-extra';
 import ts from 'typescript';
 import chalk from 'chalk';
+import { array } from 'yargs';
+import { handleWorkspaces, Package } from './workspaces';
 
-type Package = {
-  workspaces: string[];
-  private: boolean;
-  name: string;
-};
+const projects = array('p').argv.p;
 
 type CompileOption = {
   currentPath: string;
@@ -30,7 +27,7 @@ const compileTypeScript = ({
   module,
   outDir = path.resolve(currentPath, defaultOutDir),
   declarationDir = path.resolve(currentPath, defaultDeclarationDir),
-  inputFile = path.resolve(currentPath, defaultInputFile),
+  inputFile = path.resolve(currentPath, defaultInputFile), // its postfix is `.ts` by default
 }: CompileOption) => {
   fs.removeSync(declarationDir);
   fs.removeSync(outDir);
@@ -80,36 +77,41 @@ type Generate = (option: {
   name: string;
 }) => Promise<void>;
 
-const compileWorkspaces = async (generate: Generate) => {
-  // TODO concurrency
-  const { workspaces } = loadJsonFile.sync<Package>(
-    path.resolve('package.json')
-  );
-  for (const pattern of workspaces) {
-    const packageParentDir = path.resolve(globParent(pattern));
-    const packageChildDirs = fs.readdirSync(packageParentDir);
-    for (const packageChildDir of packageChildDirs) {
-      const packageChildPath = path.resolve(packageParentDir, packageChildDir);
-      const packageJsonPath = path.resolve(packageChildPath, 'package.json');
-      try {
-        const packageJson = loadJsonFile.sync<Package>(packageJsonPath);
-        if (!packageJson.private) {
-          compileTypeScript({
-            currentPath: packageChildPath,
-            target: ts.ScriptTarget.ES5,
-            module: ts.ModuleKind.ES2015,
-            outDir: path.resolve(packageChildPath, defaultOutDir),
-          });
-          await generate({
-            currentPath: packageChildPath,
-            name: getCamelCase(packageJson.name),
-          });
-        }
-      } catch (e) {
-        // console.error('Loaded child package.json file error.');
-      }
+const compileProject = async (generate: Generate, packageChildPath: string) => {
+  const packageJsonPath = path.resolve(packageChildPath, 'package.json');
+  try {
+    const packageJson = loadJsonFile.sync<Package>(packageJsonPath);
+    if (!packageJson.private) {
+      compileTypeScript({
+        currentPath: packageChildPath,
+        target: ts.ScriptTarget.ES5,
+        module: ts.ModuleKind.ES2015,
+        outDir: path.resolve(packageChildPath, defaultOutDir),
+      });
+      await generate({
+        currentPath: packageChildPath,
+        name: getCamelCase(packageJson.name),
+      });
     }
+  } catch (e) {
+    // console.error('Loaded child package.json file error.');
   }
 };
 
-export { compileTypeScript, compileWorkspaces };
+const compile = async (generate: Generate) => {
+  // TODO concurrency
+  if (Array.isArray(projects) && projects.length > 0) {
+    for (const project of projects) {
+      if (typeof project === 'string') {
+        await compileProject(generate, path.resolve(project));
+      }
+    }
+    return;
+  }
+  await handleWorkspaces(async (packageParentDir, packageChildDir) => {
+    const packageChildPath = path.resolve(packageParentDir, packageChildDir);
+    await compileProject(generate, packageChildPath);
+  });
+};
+
+export { compileTypeScript, compile };

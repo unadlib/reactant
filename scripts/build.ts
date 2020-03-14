@@ -1,12 +1,12 @@
 import path from 'path';
-import { compileWorkspaces } from './typescript';
+import { compile } from './typescript';
 import { generateBundledModules } from './rollup';
 
 process.chdir(path.resolve(__dirname, '..'));
 
 console.log(`\nBuilding...\n`);
 
-compileWorkspaces(async ({ currentPath, name }) => {
+compile(async ({ currentPath, name }) => {
   await generateBundledModules({
     inputFile: path.resolve(currentPath, 'build/index.js'),
     outputFile: path.resolve(currentPath, 'dist/index.cjs.js'),

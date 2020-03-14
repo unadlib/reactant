@@ -1,5 +1,6 @@
 {
   "name": "reactant-cli",
+  "private": true,
   "version": "0.0.1",
   "description": "A command line interface for Reactant",
   "main": "index.js",

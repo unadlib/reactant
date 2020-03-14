@@ -7,6 +7,22 @@ import replacePlugin from '@rollup/plugin-replace';
 import commonjsPlugin from '@rollup/plugin-commonjs';
 import { terser as terserPlugin } from 'rollup-plugin-terser';
 import chalk from 'chalk';
+import { handleWorkspaces } from './workspaces';
+
+const external = [
+  'react',
+  'react-dom',
+  'react-is',
+  'react-router-dom',
+  'react-redux',
+  'redux',
+  'inversify',
+  'reselect',
+];
+
+const getInternalPackages = handleWorkspaces(async (_, packageChildDir) => {
+  external.push(packageChildDir); // just package dir
+});
 
 type GenerateOption = {
   inputFile: string;
@@ -52,18 +68,10 @@ const generateBundledModules = async ({
     );
   }
   try {
+    await getInternalPackages;
     const bundle = await rollup({
       input: inputFile,
-      external: [
-        'react',
-        'react-dom',
-        'react-is',
-        'react-router-dom',
-        'react-redux',
-        'redux',
-        'inversify',
-        'reselect',
-      ],
+      external,
       plugins,
     });
     const isUmd = format === 'umd';
