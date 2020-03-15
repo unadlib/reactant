@@ -3,6 +3,11 @@ import { ModuleOptions } from 'reactant-di';
 import { storeKey } from './constants';
 import { PluginModule } from './core';
 
+export interface DevOptions {
+  autoFreeze?: boolean;
+  reduxDevTools?: boolean;
+}
+
 export type TypePreloadedState<T> = PreloadedState<T>;
 
 export interface State<T> {

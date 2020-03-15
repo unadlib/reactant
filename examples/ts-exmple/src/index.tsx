@@ -184,4 +184,4 @@ const app = createApp({
 
 app.bootstrap(document.getElementById('app'));
 
-(window as any).app = app;
+window.app = app;

@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable no-loop-func */
 import { FunctionComponent } from 'react';
+import { setAutoFreeze, produce } from 'immer';
 import {
   combineReducers,
   ReducersMapObject,
@@ -7,12 +9,16 @@ import {
   Store,
   PreloadedState,
   applyMiddleware,
-  compose,
 } from 'redux';
 import { Container, ServiceIdentifiersMap } from 'reactant-di';
-import { ReactantMiddleware, ReactantAction, PluginHooks } from '../interfaces';
+import {
+  ReactantMiddleware,
+  ReactantAction,
+  PluginHooks,
+  DevOptions,
+} from '../interfaces';
 import { storeKey } from '../constants';
-import { getStageName, perform } from '../utils';
+import { getStageName, perform, getComposeEnhancers } from '../utils';
 import { handlePlugin } from './handlePlugin';
 
 export function createStore<T = any>(
@@ -20,8 +26,14 @@ export function createStore<T = any>(
   ServiceIdentifiers: ServiceIdentifiersMap,
   preloadedState?: PreloadedState<T>,
   middlewares: ReactantMiddleware[] = [],
-  providers: FunctionComponent[] = []
+  providers: FunctionComponent[] = [],
+  devOptions: DevOptions = {}
 ) {
+  const autoFreeze =
+    devOptions.autoFreeze ?? process.env.NODE_ENV !== 'production';
+  const reduxDevTools =
+    devOptions.reduxDevTools ?? process.env.NODE_ENV !== 'production';
+  setAutoFreeze(autoFreeze);
   let isExistReducer = false;
   let store: Store;
   const reducers: ReducersMapObject = {};
@@ -81,7 +93,10 @@ export function createStore<T = any>(
           }
           const isEmptyObject = Object.keys(service.state).length === 0;
           if (!isEmptyObject) {
-            const serviceReducers = Object.entries(service.state).reduce(
+            const initState = autoFreeze
+              ? produce(service.state, () => {}) // freeze init state
+              : service.state;
+            const serviceReducers = Object.entries(initState).reduce(
               (serviceReducersMapObject: ReducersMapObject, [key, value]) => {
                 // support pure reducer
                 if (typeof value === 'function') {
@@ -111,7 +126,11 @@ export function createStore<T = any>(
                 enumerable: true,
                 configurable: false,
                 get() {
-                  return store.getState()[reducersIdentifier];
+                  const currentState = store.getState()[reducersIdentifier];
+                  if (autoFreeze && !Object.isFrozen(currentState)) {
+                    return Object.freeze(currentState);
+                  }
+                  return currentState;
                 },
               },
               name: {
@@ -140,10 +159,14 @@ export function createStore<T = any>(
   const reducer = isExistReducer
     ? combineReducers(perform(pluginHooks.beforeCombineRootReducers, reducers))
     : () => null;
+  const composeEnhancers = getComposeEnhancers(reduxDevTools);
   store = createStoreWithRedux(
     perform(pluginHooks.afterCombineRootReducers, reducer),
     perform(pluginHooks.preloadedStateHandler, preloadedState),
-    compose(applyMiddleware(...pluginHooks.middleware), ...pluginHooks.enhancer)
+    composeEnhancers(
+      applyMiddleware(...pluginHooks.middleware),
+      ...pluginHooks.enhancer
+    )
   );
   perform(pluginHooks.afterCreateStore, store);
   return store;

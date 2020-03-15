@@ -30,6 +30,7 @@ export function action(
         type: this.name,
         method: key,
         state,
+        _reactant: true,
       });
       if (process.env.NODE_ENV !== 'production') {
         // performance checking

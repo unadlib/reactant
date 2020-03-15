@@ -187,6 +187,10 @@ time = Date.now();
 const app = createApp({
   main: App,
   render,
+  devOptions: {
+    autoFreeze: false,
+    reduxDevTools: false,
+  },
 });
 const boostrapTime = Date.now() - time;
 console.log('boostrap time:', boostrapTime);
