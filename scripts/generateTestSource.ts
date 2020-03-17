@@ -58,6 +58,12 @@ console.log(${JSON.stringify({
   allCheckedState,
 })});
 console.log('expectedResult:', ${JSON.stringify(expectedResult)});
+declare global {
+  interface Window {
+    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: any;
+  }
+}
+global.window = {};
 import React from 'react';
 import { render } from 'reactant-web';
 import { injectable, action, computed, selector, createApp, ViewModule, createSelector, storeKey } from '..';

@@ -1,6 +1,13 @@
-import { Store, PreloadedState, AnyAction, Middleware, Action } from 'redux';
+import {
+  Store,
+  PreloadedState,
+  AnyAction,
+  Middleware,
+  Action,
+  Unsubscribe,
+} from 'redux';
 import { ModuleOptions } from 'reactant-di';
-import { storeKey } from './constants';
+import { storeKey, subscriptionsKey } from './constants';
 import { PluginModule } from './core';
 
 export interface DevOptions {
@@ -14,8 +21,12 @@ export interface State<T> {
   state?: Record<string, T>;
   name?: string;
 }
+
+export type Subscriptions = (() => void)[];
+
 export interface Service<T = any> extends State<T> {
   readonly [storeKey]?: Store;
+  readonly [subscriptionsKey]?: Subscriptions;
 }
 
 export type ReactModuleOptions = ModuleOptions;
@@ -51,3 +62,15 @@ export type HandlePlugin<T = any> = (
   service: T,
   pluginHooks: PluginHooks
 ) => void;
+
+export type Subscribe = (service: Service, listener: () => void) => Unsubscribe;
+
+type Selector<T> = () => T;
+
+type Watcher<T> = (newValue: T, oldValue: T) => void;
+
+export type Watch = <T>(
+  service: Service,
+  selector: Selector<T>,
+  watcher: Watcher<T>
+) => Unsubscribe;

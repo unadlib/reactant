@@ -16,8 +16,9 @@ import {
   ReactantAction,
   PluginHooks,
   DevOptions,
+  Subscriptions,
 } from '../interfaces';
-import { storeKey } from '../constants';
+import { storeKey, subscriptionsKey } from '../constants';
 import { getStageName, perform, getComposeEnhancers } from '../utils';
 import { handlePlugin } from './handlePlugin';
 
@@ -46,6 +47,7 @@ export function createStore<T = any>(
     afterCreateStore: [],
     provider: providers,
   };
+  const subscriptions: Subscriptions = [];
   for (const [Service] of ServiceIdentifiers) {
     // `Service` should be bound before `createStore`.
     if (container.isBound(Service)) {
@@ -145,6 +147,9 @@ export function createStore<T = any>(
           `);
           }
         }
+        if (Array.isArray(service[subscriptionsKey])) {
+          subscriptions.push(...service[subscriptionsKey]);
+        }
         Object.defineProperties(service, {
           // in order to support multiple instances for stores.
           [storeKey]: {
@@ -171,5 +176,6 @@ export function createStore<T = any>(
     )
   );
   perform(pluginHooks.afterCreateStore, store);
+  perform(subscriptions);
   return store;
 }
