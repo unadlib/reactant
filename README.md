@@ -158,6 +158,7 @@ const app = createApp({
 - dispatch
 - createState
 - batch
+- subscribe
 
 ## TODO
 
@@ -178,8 +179,11 @@ const app = createApp({
 - [x] pluggable
 - [x] storage
 - [x] router
-- [x] support redux-devtool
-- [x] support auto freeze
+- [x] redux-devtool
+- [x] auto-freeze
+- [x] subscribe
+- [ ] watch
+
 - [ ] tracker
 - [ ] hierarchical DI systems
 - [ ] mobx

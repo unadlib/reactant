@@ -5,3 +5,4 @@ export * from './dispatch';
 export * from './createState';
 export * from './plugin';
 export * from './handlePlugin';
+export * from './subscriber';

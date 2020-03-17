@@ -138,14 +138,6 @@ export function createStore<T = any>(
                 configurable: false,
                 value: reducersIdentifier,
               },
-              // in order to support multiple instances for stores.
-              [storeKey]: {
-                enumerable: false,
-                configurable: false,
-                get() {
-                  return store;
-                },
-              },
             });
           } else {
             throw new Error(`
@@ -153,6 +145,16 @@ export function createStore<T = any>(
           `);
           }
         }
+        Object.defineProperties(service, {
+          // in order to support multiple instances for stores.
+          [storeKey]: {
+            enumerable: false,
+            configurable: false,
+            get() {
+              return store;
+            },
+          },
+        });
       });
     }
   }
