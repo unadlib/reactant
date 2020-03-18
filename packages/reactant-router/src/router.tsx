@@ -60,19 +60,6 @@ class ReactantRouter extends PluginModule {
     return this.router.location.pathname;
   }
 
-  afterCreateStore(store: Store) {
-    // define store for `router` getter.
-    Object.defineProperties(this, {
-      [storeKey]: {
-        enumerable: false,
-        configurable: false,
-        get() {
-          return store;
-        },
-      },
-    });
-  }
-
   provider = (props: PropsWithChildren<any>) => {
     if (!this.autoProvide) return <>{props.children}</>;
     return <this.ConnectedRouter>{props.children}</this.ConnectedRouter>;
