@@ -121,7 +121,6 @@ const app = createApp({
 
 - react
 - redux
-- react-router
 - inversify
 - immer
 - reselect
