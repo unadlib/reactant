@@ -185,6 +185,7 @@ const app = createApp({
 - [x] subscribe
 - [x] watch
 
+- [ ] API doc
 - [ ] tracker
 - [ ] circular dependencies
 - [ ] hierarchical DI systems
