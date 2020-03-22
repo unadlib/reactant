@@ -5,7 +5,7 @@ import {
   optional,
   multiInject,
   multiOptional,
-} from '..';
+} from '../..';
 
 test('only base di with @injectable', () => {
   @injectable()
