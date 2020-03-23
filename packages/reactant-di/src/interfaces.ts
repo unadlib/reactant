@@ -27,25 +27,25 @@ export type DependencyOption =
   | DependencyProviderOption
   | ServiceIdentifier<any>;
 
-export type ValueProvider = {
+export interface ValueProvider {
   provide: ServiceIdentifier<any>;
   useValue: any;
-};
+}
 
-export type ClassProvider = {
+export interface ClassProvider {
   provide: ServiceIdentifier<any>;
   useClass: Module<any>;
-};
+}
 
-export type FactoryProvider = {
+export interface FactoryProvider {
   deps?: DependencyOption[];
   provide: ServiceIdentifier<any>;
   useFactory: (...args: any[]) => any;
-};
+}
 
-export type ModuleProvider = {
+export interface ModuleProvider {
   provide: Module<any>;
-};
+}
 
 export type ModuleOptions =
   | ValueProvider

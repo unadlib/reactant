@@ -21,7 +21,7 @@
 
 ▸ **autoBindModules**(): *ContainerModule‹›*
 
-*Defined in [packages/reactant-di/src/createContainer.ts:32](https://github.com/unadlib/reactant/blob/65137cd/packages/reactant-di/src/createContainer.ts#L32)*
+*Defined in [packages/reactant-di/src/createContainer.ts:32](https://github.com/unadlib/reactant/blob/26375f9/packages/reactant-di/src/createContainer.ts#L32)*
 
 **Returns:** *ContainerModule‹›*
 
@@ -31,7 +31,7 @@ ___
 
 ▸ **createContainer**(`__namedParameters`: object): *Container‹›*
 
-*Defined in [packages/reactant-di/src/createContainer.ts:59](https://github.com/unadlib/reactant/blob/65137cd/packages/reactant-di/src/createContainer.ts#L59)*
+*Defined in [packages/reactant-di/src/createContainer.ts:59](https://github.com/unadlib/reactant/blob/26375f9/packages/reactant-di/src/createContainer.ts#L59)*
 
 **Parameters:**
 
@@ -40,7 +40,7 @@ ___
 Name | Type | Default |
 ------ | ------ | ------ |
 `ServiceIdentifiers` | Map‹string &#124; symbol &#124; Newable‹any› &#124; Abstract‹any›, string &#124; symbol &#124; Newable‹any› &#124; Abstract‹any›[]› | - |
-`modules` | object &#124; object &#124; object &#124; object &#124; [Module](../interfaces/_interfaces_.module.md)‹any›[] | [] |
+`modules` | [ValueProvider](../interfaces/_interfaces_.valueprovider.md) &#124; [ClassProvider](../interfaces/_interfaces_.classprovider.md) &#124; [FactoryProvider](../interfaces/_interfaces_.factoryprovider.md) &#124; [ModuleProvider](../interfaces/_interfaces_.moduleprovider.md) &#124; [Module](../interfaces/_interfaces_.module.md)‹any›[] | [] |
 `options` | undefined &#124; ContainerOptions | - |
 
 **Returns:** *Container‹›*
@@ -51,7 +51,7 @@ ___
 
 ▸ **isClassProvider**(`module`: [ModuleOptions](_interfaces_.md#moduleoptions)): *module is ClassProvider*
 
-*Defined in [packages/reactant-di/src/createContainer.ts:51](https://github.com/unadlib/reactant/blob/65137cd/packages/reactant-di/src/createContainer.ts#L51)*
+*Defined in [packages/reactant-di/src/createContainer.ts:51](https://github.com/unadlib/reactant/blob/26375f9/packages/reactant-di/src/createContainer.ts#L51)*
 
 **Parameters:**
 
@@ -67,7 +67,7 @@ ___
 
 ▸ **isFactoryProvider**(`module`: [ModuleOptions](_interfaces_.md#moduleoptions)): *module is FactoryProvider*
 
-*Defined in [packages/reactant-di/src/createContainer.ts:55](https://github.com/unadlib/reactant/blob/65137cd/packages/reactant-di/src/createContainer.ts#L55)*
+*Defined in [packages/reactant-di/src/createContainer.ts:55](https://github.com/unadlib/reactant/blob/26375f9/packages/reactant-di/src/createContainer.ts#L55)*
 
 **Parameters:**
 

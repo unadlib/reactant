@@ -19,7 +19,7 @@
 
 • **deps**? : *[DependenciesModule](../modules/_interfaces_.md#dependenciesmodule)[]*
 
-*Defined in [packages/reactant-di/src/interfaces.ts:77](https://github.com/unadlib/reactant/blob/65137cd/packages/reactant-di/src/interfaces.ts#L77)*
+*Defined in [packages/reactant-di/src/interfaces.ts:77](https://github.com/unadlib/reactant/blob/26375f9/packages/reactant-di/src/interfaces.ts#L77)*
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 • **provide**? : *[ServiceIdentifier](../modules/_interfaces_.md#serviceidentifier)‹any›*
 
-*Defined in [packages/reactant-di/src/interfaces.ts:76](https://github.com/unadlib/reactant/blob/65137cd/packages/reactant-di/src/interfaces.ts#L76)*
+*Defined in [packages/reactant-di/src/interfaces.ts:76](https://github.com/unadlib/reactant/blob/26375f9/packages/reactant-di/src/interfaces.ts#L76)*

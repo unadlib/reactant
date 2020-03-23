@@ -15,7 +15,7 @@
 
 ▸ **getMetadata**(`metaKey`: [MetaDataKey](_interfaces_.md#metadatakey)): *[MetadataMap](_interfaces_.md#metadatamap)*
 
-*Defined in [packages/reactant-di/src/util.ts:8](https://github.com/unadlib/reactant/blob/65137cd/packages/reactant-di/src/util.ts#L8)*
+*Defined in [packages/reactant-di/src/util.ts:8](https://github.com/unadlib/reactant/blob/26375f9/packages/reactant-di/src/util.ts#L8)*
 
 **Parameters:**
 
@@ -31,7 +31,7 @@ ___
 
 ▸ **setMetadata**(`metaKey`: [MetaDataKey](_interfaces_.md#metadatakey), `target`: [Module](../interfaces/_interfaces_.module.md)‹any›, `token`: [ServiceIdentifier](_interfaces_.md#serviceidentifier)‹any›): *void*
 
-*Defined in [packages/reactant-di/src/util.ts:11](https://github.com/unadlib/reactant/blob/65137cd/packages/reactant-di/src/util.ts#L11)*
+*Defined in [packages/reactant-di/src/util.ts:11](https://github.com/unadlib/reactant/blob/26375f9/packages/reactant-di/src/util.ts#L11)*
 
 **Parameters:**
 

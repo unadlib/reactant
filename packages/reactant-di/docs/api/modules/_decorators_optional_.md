@@ -14,7 +14,7 @@
 
 ▸ **optional**(`token?`: [ServiceIdentifier](_interfaces_.md#serviceidentifier)‹any›): *(Anonymous function)*
 
-*Defined in [packages/reactant-di/src/decorators/optional.ts:7](https://github.com/unadlib/reactant/blob/65137cd/packages/reactant-di/src/decorators/optional.ts#L7)*
+*Defined in [packages/reactant-di/src/decorators/optional.ts:7](https://github.com/unadlib/reactant/blob/26375f9/packages/reactant-di/src/decorators/optional.ts#L7)*
 
 **Parameters:**
 

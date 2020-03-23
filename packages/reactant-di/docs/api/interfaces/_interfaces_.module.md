@@ -41,7 +41,7 @@
 
 \+ **new Module**(...`args`: any[]): *T*
 
-*Defined in [packages/reactant-di/src/interfaces.ts:17](https://github.com/unadlib/reactant/blob/65137cd/packages/reactant-di/src/interfaces.ts#L17)*
+*Defined in [packages/reactant-di/src/interfaces.ts:17](https://github.com/unadlib/reactant/blob/26375f9/packages/reactant-di/src/interfaces.ts#L17)*
 
 **Parameters:**
 
