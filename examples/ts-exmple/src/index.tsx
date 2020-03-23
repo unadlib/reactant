@@ -180,6 +180,9 @@ const app = createApp({
   ],
   main: AppView,
   render,
+  devOptions: {
+    reduxDevTools: true,
+  },
 });
 
 app.bootstrap(document.getElementById('app'));

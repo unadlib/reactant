@@ -25,6 +25,7 @@
     "test:performance": "yarn test:performance:small && yarn test:performance:big && yarn test:performance:huge",
     "test:performance:custom": "yarn test:generateTestSource:custom && yarn test:run:performance",
     "performance": "yarn test:generateTestSource && yarn test:performance",
+    "build:docs": "typedoc --out packages/reactant-di/docs/api packages/reactant-di/src/ --plugin typedoc-plugin-markdown --target ES5 --module commonjs --readme packages/reactant-di/docs/api-readme",
     "commit": "yarn git-cz"
   },
   "repository": {
@@ -50,7 +51,7 @@
     "@types/glob-parent": "^5.1.0",
     "@types/jest": "^24.0.25",
     "@types/node": "^13.7.1",
-    "@types/react": "^16.9.17",
+    "@types/react": "^16.9.25",
     "@types/react-dom": "^16.9.5",
     "@types/react-redux": "^7.1.7",
     "@types/react-router-dom": "^5.1.3",
@@ -78,6 +79,8 @@
     "rollup-plugin-terser": "^5.1.3",
     "ts-jest": "^24.2.0",
     "ts-node": "^8.5.4",
+    "typedoc": "0.16.11",
+    "typedoc-plugin-markdown": "^2.2.17",
     "typescript": "^3.7.4",
     "yargs": "^15.1.0"
   },
