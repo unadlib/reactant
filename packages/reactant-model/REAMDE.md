@@ -5,13 +5,13 @@
 ## Usage
 
 ```sh
-npm install reactant-di
+npm install reactant-model
 ```
 
 or
 
 ```sh
-yarn add reactant-di
+yarn add reactant-model
 ```
 
 ## Documentation

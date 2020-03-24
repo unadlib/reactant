@@ -1,17 +1,17 @@
-# reactant-di
+# reactant-redux
 
 ![Node CI](https://github.com/unadlib/reactant/workflows/Node%20CI/badge.svg)
 
 ## Usage
 
 ```sh
-npm install reactant-di
+npm install reactant-redux
 ```
 
 or
 
 ```sh
-yarn add reactant-di
+yarn add reactant-redux
 ```
 
 ## Documentation
