@@ -54,9 +54,11 @@ const generateBundledModules = async ({
     );
   }
   try {
-    const external = Object.keys(
-      require(path.resolve(outputFile, '../../package.json')).dependencies
-    );
+    const { dependencies = {}, devDependencies = {} } = require(path.resolve(
+      outputFile,
+      '../../package.json'
+    ));
+    const external = Object.keys({ ...dependencies, ...devDependencies });
     const bundle = await rollup({
       input: inputFile,
       external,

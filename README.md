@@ -184,6 +184,7 @@ const app = createApp({
 - [x] Support JavaScript
 - [x] subscribe
 - [x] watch
+- [x] model
 
 - [ ] API doc
 - [ ] tracker

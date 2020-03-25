@@ -18,13 +18,14 @@ export interface DevOptions {
 export type TypePreloadedState<T> = PreloadedState<T>;
 
 export interface State<T> {
-  state?: Record<string, T>;
+  state?: T;
   name?: string;
 }
 
 export type Subscriptions = (() => void)[];
 
-export interface Service<T = any> extends State<T> {
+export interface Service<T extends Record<string, any> = Record<string, any>>
+  extends State<T> {
   readonly [storeKey]?: Store;
   readonly [subscriptionsKey]?: Subscriptions;
 }
