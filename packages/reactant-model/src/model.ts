@@ -1,7 +1,9 @@
 import { produce } from 'immer';
-import { storeKey, Service } from 'reactant-module';
+import { storeKey, Service, StateService } from 'reactant-module';
 
-interface Scheme<S, A> extends Service {
+type SerivceName = Pick<Service, 'name'>;
+
+interface Scheme<S, A> extends SerivceName {
   state: S;
   actions: A;
 }
@@ -16,7 +18,7 @@ export const model = <
 >(
   scheme: Scheme<S, A>
 ) => {
-  let module: Actions<A> & Service<S>;
+  let module: Actions<A> & StateService<S>;
   Object.keys(scheme.actions).forEach(key => {
     const fn = scheme.actions[key];
     Object.assign(scheme.actions, {

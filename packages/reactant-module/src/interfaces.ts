@@ -75,3 +75,8 @@ export type Watch = <T>(
   selector: Selector<T>,
   watcher: Watcher<T>
 ) => Unsubscribe;
+
+export type PartialRequired<T, K extends keyof T> = Required<Pick<T, K>> &
+  Pick<T, Exclude<keyof T, K>>;
+
+export type StateService<T> = PartialRequired<Service<T>, 'state'>;

@@ -28,6 +28,10 @@ test('base model with `useValue`', () => {
     add(todo: string) {
       this.todo.add(todo);
     }
+
+    get todoList() {
+      return this.todo.state.todoList;
+    }
   }
 
   const ServiceIdentifiers = new Map();
@@ -75,6 +79,10 @@ test('base model with `useFactory`', () => {
 
     add(todo: string) {
       this.todo.add(todo);
+    }
+
+    get todoList() {
+      return this.todo.state.todoList;
     }
   }
 
