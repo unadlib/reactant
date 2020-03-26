@@ -14,6 +14,26 @@ or
 yarn add reactant-redux
 ```
 
+## Base Example
+
+```js
+import { redux } from 'reactant-redux';
+
+const counter = redux({
+  reducers: {
+    count: (state = 0, { type, payload }) =>
+      type === 'increase' ? state + payload : state,
+  },
+  actions: {
+    increase: num => dispatch =>
+      dispatch({
+        type: 'increase',
+        payload: num,
+      }),
+  },
+});
+```
+
 ## Documentation
 
 * Getting Started
