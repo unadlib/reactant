@@ -4,19 +4,11 @@
 
 A framework for building React web applications, inspired by [Angular](https://angular.io/).
 
-### Example
+## Motivation
+
+## Examples
 
 ```tsx
-import React from 'react';
-import { render } from 'reactant-web';
-import {
-  ViewModule,
-  createApp,
-  injectable,
-  useConnector,
-  action,
-} from 'reactant';
-
 @injectable()
 class Counter {
   state = {
