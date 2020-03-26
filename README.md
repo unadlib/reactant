@@ -185,6 +185,7 @@ const app = createApp({
 - [x] subscribe
 - [x] watch
 - [x] model
+- [x] redux
 
 - [ ] API doc
 - [ ] tracker

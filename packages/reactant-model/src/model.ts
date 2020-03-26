@@ -16,16 +16,16 @@ export const model = <
 >(
   scheme: Scheme<S, A>
 ) => {
-  let _model: Actions<A> & Service<S>;
+  let module: Actions<A> & Service<S>;
   Object.keys(scheme.actions).forEach(key => {
     const fn = scheme.actions[key];
     Object.assign(scheme.actions, {
       [key]: (...args: any[]) => {
-        const state = produce(_model.state, (draftState: S) => {
+        const state = produce(module.state, (draftState: S) => {
           fn(...args)(draftState);
         });
-        _model[storeKey]!.dispatch({
-          type: _model.name,
+        module[storeKey]!.dispatch({
+          type: module.name,
           method: key,
           state,
           _reactant: true,
@@ -33,12 +33,12 @@ export const model = <
       },
     });
   });
-  _model = {
+  module = {
     name: scheme.name,
     state: {
       ...scheme.state,
     },
     ...scheme.actions,
   };
-  return _model;
+  return module;
 };

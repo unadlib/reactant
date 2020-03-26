@@ -11,5 +11,13 @@
   },
   "keywords": [],
   "author": "",
-  "license": "MIT"
+  "license": "MIT",
+  "peerDependencies": {
+    "reactant-module": "^0.0.1",
+    "redux": "^4.0.5"
+  },
+  "devDependencies": {
+    "reactant-module": "^0.0.1",
+    "redux": "^4.0.5"
+  }
 }
