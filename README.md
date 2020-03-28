@@ -72,6 +72,7 @@ app.bootstrap(document.getElementById('app'));
   - Default injection, no require `@inject` unless binding token.
   - All decorators support any token.
   - `@multiInject` and `@multiOptional` require token parameter.
+- The module of property `name` will be changed, if the module of `token` is `string` or module is injected in multiple.
 
 ## API
 
