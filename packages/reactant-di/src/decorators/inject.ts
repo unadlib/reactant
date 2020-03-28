@@ -12,6 +12,5 @@ export function inject(token?: ServiceIdentifier<any>) {
       target,
       index
     );
-    // injectWithInversify(token || tokenSelf)(target, targetKey, index);
   };
 }

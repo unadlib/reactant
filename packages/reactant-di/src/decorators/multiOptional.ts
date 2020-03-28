@@ -10,7 +10,5 @@ export function multiOptional(token: ServiceIdentifier<any>) {
     setMetadata(METADATA_KEY.optional, paramtypes[index!], token);
     decorate(multiInject(token) as ClassDecorator, target, index);
     decorate(optionalWithInversify() as ClassDecorator, target, index);
-    // multiInject(token)(target, targetKey, index);
-    // optionalWithInversify()(target, targetKey, index);
   };
 }

@@ -10,7 +10,5 @@ export function optional(token?: ServiceIdentifier<any>) {
     setMetadata(METADATA_KEY.optional, paramtypes[index!], token);
     decorate(inject(token) as ClassDecorator, target, index);
     decorate(optionalWithInversify() as ClassDecorator, target, index);
-    // inject(token)(target, targetKey, index);
-    // optionalWithInversify()(target, targetKey, index);
   };
 }

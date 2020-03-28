@@ -73,6 +73,5 @@ interface DependenciesProvider {
 type DependenciesModule = Module<any> | DependenciesProvider;
 
 export interface ModuleDecoratorOptions {
-  provide?: ServiceIdentifier<any>;
   deps?: DependenciesModule[];
 }
