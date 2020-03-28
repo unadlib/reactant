@@ -99,3 +99,28 @@ test('base di with @inject with symbol token', () => {
 
   expect(bar.test).toBe('test');
 });
+
+test('base di with @inject with multiple tokens', () => {
+  @injectable()
+  class Foo {
+    public get test() {
+      return 'test';
+    }
+  }
+
+  @injectable()
+  class Bar {
+    constructor(public foo: Foo, @inject('Foo1') public foo1: Foo) {}
+
+    public get test() {
+      return this.foo.test;
+    }
+  }
+
+  const bar = createContainer({
+    ServiceIdentifiers: new Map(),
+    modules: [{ provide: 'Foo1', useClass: Foo }],
+  }).get(Bar);
+
+  expect(bar.foo === bar.foo1).toBeFalsy();
+});
