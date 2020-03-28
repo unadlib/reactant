@@ -75,7 +75,7 @@ test('base model with `useFactory`', () => {
 
   @injectable()
   class Foo {
-    constructor(@inject('todo') public todo: ReturnType<typeof todoModel>) {}
+    constructor(@inject('todos') public todo: ReturnType<typeof todoModel>) {}
 
     add(todo: string) {
       this.todo.add(todo);
@@ -89,7 +89,7 @@ test('base model with `useFactory`', () => {
   const ServiceIdentifiers = new Map();
   const container = createContainer({
     ServiceIdentifiers,
-    modules: [Foo, { provide: 'todo', useFactory: todoModel, deps: [Bar] }],
+    modules: [Foo, { provide: 'todos', useFactory: todoModel, deps: [Bar] }],
     options: {
       defaultScope: 'Singleton',
     },

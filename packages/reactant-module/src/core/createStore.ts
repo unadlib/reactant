@@ -59,6 +59,10 @@ export function createStore<T = any>(
         if (isPlainObject) {
           const className = (Service as Function).name;
           let reducersIdentifier: string = service.name;
+          // string token is defined primarily.
+          if (typeof Service === 'string') {
+            reducersIdentifier = Service;
+          }
           if (
             typeof reducersIdentifier === 'undefined' ||
             reducersIdentifier === null

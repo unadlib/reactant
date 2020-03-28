@@ -124,7 +124,7 @@ test('base redux with `useFactory`', () => {
 
   @injectable()
   class Foo {
-    constructor(@inject('todo') public todo: ReturnType<typeof todoModel>) {}
+    constructor(@inject('todos') public todo: ReturnType<typeof todoModel>) {}
 
     add(todo: string) {
       this.todo.add(todo);
@@ -138,7 +138,7 @@ test('base redux with `useFactory`', () => {
   const ServiceIdentifiers = new Map();
   const modules = [
     Foo,
-    { provide: 'todo', useFactory: todoModel, deps: [Bar] },
+    { provide: 'todos', useFactory: todoModel, deps: [Bar] },
   ];
   const container = createContainer({
     ServiceIdentifiers,
