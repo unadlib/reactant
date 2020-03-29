@@ -1,4 +1,4 @@
-import { injectable, createContainer, inject } from '../..';
+import { injectable, createContainer, inject, ModuleRef } from '../..';
 
 test('base di with @inject without args', () => {
   @injectable()
@@ -146,4 +146,27 @@ test('base di with @inject about inheritance', () => {
   }).get(Bar1);
 
   expect(bar.foo instanceof Foo).toBeTruthy();
+});
+
+test('base di with `moduleRef` about resolve circular dependency', () => {
+  @injectable()
+  class Foo {
+    constructor(public moduleRef: ModuleRef) {}
+
+    get bar() {
+      // eslint-disable-next-line @typescript-eslint/no-use-before-define
+      return this.moduleRef.get(Bar);
+    }
+  }
+
+  @injectable()
+  class Bar {
+    constructor(public foo: Foo) {}
+  }
+
+  const bar = createContainer({
+    ServiceIdentifiers: new Map(),
+  }).get(Bar);
+
+  expect(bar.foo.bar instanceof Bar).toBeTruthy();
 });

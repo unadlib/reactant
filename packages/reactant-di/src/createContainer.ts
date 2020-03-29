@@ -4,6 +4,7 @@ import {
   interfaces,
   ContainerModule,
   decorate,
+  LazyServiceIdentifer,
 } from 'inversify';
 import {
   ContainerConfig,
@@ -18,6 +19,10 @@ import { getMetadata } from './util';
 import { createCollector } from './middlewares/collector';
 import { METADATA_KEY } from './constants';
 import { injectable } from './decorators';
+
+export class ModuleRef extends Container {
+  //
+}
 
 class CustomMetadataReader extends MetadataReader {
   public getConstructorMetadata(
@@ -132,5 +137,9 @@ export function createContainer({
   // load modules with `@injectable` decoration, but without `@optional` decoration.
   container.load(autoBindModules());
   container.applyMiddleware(createCollector(ServiceIdentifiers));
+  if (container.isBound(ModuleRef)) {
+    container.unbind(ModuleRef);
+  }
+  container.bind(ModuleRef).toConstantValue(container);
   return container;
 }
