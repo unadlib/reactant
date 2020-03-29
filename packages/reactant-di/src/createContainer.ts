@@ -20,6 +20,9 @@ import { createCollector } from './middlewares/collector';
 import { METADATA_KEY } from './constants';
 import { injectable } from './decorators';
 
+export const forwardRef = (callback: () => ServiceIdentifier<any>) =>
+  new LazyServiceIdentifer(callback);
+
 export class ModuleRef extends Container {
   //
 }

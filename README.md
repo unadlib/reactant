@@ -95,6 +95,8 @@ app.bootstrap(document.getElementById('app'));
 - batch
 - subscribe
 - watch
+- ModuleRef
+- forwardRef
 
 ## TODO
 
