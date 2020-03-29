@@ -124,3 +124,26 @@ test('base di with @inject with multiple tokens', () => {
 
   expect(bar.foo === bar.foo1).toBeFalsy();
 });
+
+test('base di with @inject about inheritance', () => {
+  @injectable()
+  class Foo {}
+
+  @injectable()
+  class Bar {
+    constructor(public foo: Foo) {}
+  }
+
+  @injectable()
+  class Bar1 extends Bar {
+    constructor(public foo: Foo) {
+      super(foo);
+    }
+  }
+
+  const bar = createContainer({
+    ServiceIdentifiers: new Map(),
+  }).get(Bar1);
+
+  expect(bar.foo instanceof Foo).toBeTruthy();
+});

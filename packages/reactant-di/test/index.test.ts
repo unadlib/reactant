@@ -118,3 +118,54 @@ test('base di with useValue and useFactory config', () => {
   }).get(Bar);
   expect(bar.foo2).toEqual(['test', undefined]);
 });
+
+test('base di with @inject about inheritance', () => {
+  @injectable()
+  class Foo {}
+
+  @injectable()
+  class Bar {
+    constructor(@inject() public foo: Foo) {}
+  }
+
+  @injectable()
+  class Bar1 extends Bar {
+    constructor(@optional() public foo: Foo) {
+      super(foo);
+    }
+  }
+
+  const bar = createContainer({
+    ServiceIdentifiers: new Map(),
+  }).get(Bar1);
+
+  expect(bar.foo).toBeUndefined();
+});
+
+test('base di with @optional/@inject about inheritance', () => {
+  @injectable()
+  class Foo {}
+
+  @injectable()
+  class Foo1 {}
+
+  @injectable()
+  class Bar {
+    constructor(@optional() public foo: Foo) {}
+  }
+
+  @injectable()
+  class Bar1 extends Bar {
+    constructor(@optional() public foo: Foo, public foo1: Foo1) {
+      super(foo);
+    }
+  }
+
+  const bar = createContainer({
+    ServiceIdentifiers: new Map(),
+    modules: [Foo],
+  }).get(Bar1);
+
+  expect(bar.foo instanceof Foo).toBeTruthy();
+  expect(bar.foo1 instanceof Foo1).toBeTruthy();
+});
