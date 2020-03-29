@@ -122,10 +122,10 @@ app.bootstrap(document.getElementById('app'));
 - [x] watch
 - [x] model
 - [x] redux
+- [x] circular dependencies
 
 - [ ] API doc
 - [ ] tracker
-- [ ] circular dependencies
 - [ ] hierarchical DI systems
 - [ ] mobx
 - [ ] Form
