@@ -17,9 +17,9 @@ const {
     computedTime: 1000,
     allCheckedState: true,
     expectedResult: {
-      boostrap: 600,
-      computed: 35000,
-      cache: 12000,
+      boostrap: 500,
+      computed: 32000,
+      cache: 13000,
     },
   },
   big: {
@@ -28,9 +28,9 @@ const {
     computedTime: 1000,
     allCheckedState: true,
     expectedResult: {
-      boostrap: 200,
-      computed: 3600,
-      cache: 1200,
+      boostrap: 100,
+      computed: 3100,
+      cache: 1100,
     },
   },
   small: {
@@ -39,8 +39,8 @@ const {
     computedTime: 1000,
     allCheckedState: true,
     expectedResult: {
-      boostrap: 80,
-      computed: 1400,
+      boostrap: 60,
+      computed: 1200,
       cache: 500,
     },
   }
@@ -50,6 +50,7 @@ const {
 const checkedState = allCheckedState ? '' : '(this as any)[storeKey].getState()';
 const source = `
 // @ts-nocheck
+process.env.NODE_ENV = 'production';
 console.log('mode:', ${JSON.stringify(argv.mode)});
 console.log(${JSON.stringify({
   classAmount,
