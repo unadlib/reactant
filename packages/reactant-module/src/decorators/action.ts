@@ -1,10 +1,7 @@
 /* eslint-disable func-names */
 import { produce } from 'immer';
 import { Service } from '../interfaces';
-import { storeKey } from '../constants';
-
-// support call super method decorated by `@action`.
-let stageState: Record<string, any> | undefined;
+import { storeKey, stagedStateKey } from '../constants';
 
 export function action(
   target: object,
@@ -20,12 +17,12 @@ export function action(
     if (process.env.NODE_ENV !== 'production') {
       time = Date.now();
     }
-    if (this[storeKey]) {
+    if (!this[stagedStateKey]) {
       const state = produce(this.state, (draftState: Record<string, any>) => {
-        stageState = draftState;
-        fn.call({ ...this, state: draftState }, ...args);
+        this[stagedStateKey] = draftState;
+        fn.call(this, ...args);
       });
-      stageState = undefined;
+      this[stagedStateKey] = undefined;
       this[storeKey]!.dispatch({
         type: this.name,
         method: key,
@@ -42,8 +39,8 @@ export function action(
         // performance detail: https://immerjs.github.io/immer/docs/performance
       }
     } else {
-      // inherit `@action` in superclass.
-      fn.call({ ...this, state: stageState }, ...args);
+      // enable staged state mode.
+      fn.call(this, ...args);
     }
   };
   return {

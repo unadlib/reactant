@@ -18,7 +18,7 @@ import {
   DevOptions,
   Subscriptions,
 } from '../interfaces';
-import { storeKey, subscriptionsKey } from '../constants';
+import { storeKey, subscriptionsKey, stagedStateKey } from '../constants';
 import { getStageName, perform, getComposeEnhancers } from '../utils';
 import { handlePlugin } from './handlePlugin';
 
@@ -132,6 +132,7 @@ export function createStore<T = any>(
                 enumerable: true,
                 configurable: false,
                 get() {
+                  if (this[stagedStateKey]) return this[stagedStateKey];
                   const currentState = store.getState()[reducersIdentifier];
                   if (autoFreeze && !Object.isFrozen(currentState)) {
                     return Object.freeze(currentState);

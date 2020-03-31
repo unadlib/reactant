@@ -7,7 +7,7 @@ import {
   Unsubscribe,
 } from 'redux';
 import { ModuleOptions } from 'reactant-di';
-import { storeKey, subscriptionsKey } from './constants';
+import { storeKey, subscriptionsKey, stagedStateKey } from './constants';
 import { PluginModule } from './core';
 
 export interface DevOptions {
@@ -27,6 +27,7 @@ export type Subscriptions = (() => void)[];
 export interface Service<T extends Record<string, any> = Record<string, any>>
   extends State<T> {
   readonly [storeKey]?: Store;
+  [stagedStateKey]?: T;
   readonly [subscriptionsKey]?: Subscriptions;
 }
 
