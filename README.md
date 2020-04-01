@@ -11,13 +11,12 @@ A framework for building React web applications, inspired by [Angular](https://a
 ```tsx
 @injectable()
 class Counter {
-  state = {
-    count: 0,
-  };
+  @state
+  count = 0;
 
   @action
   increase() {
-    this.state.count += 1;
+    this.count += 1;
   }
 }
 
