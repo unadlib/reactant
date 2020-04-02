@@ -18,7 +18,12 @@ import {
   DevOptions,
   Subscriptions,
 } from '../interfaces';
-import { storeKey, subscriptionsKey, stagedStateKey, stateKey } from '../constants';
+import {
+  storeKey,
+  subscriptionsKey,
+  stagedStateKey,
+  stateKey,
+} from '../constants';
 import { getStageName, perform, getComposeEnhancers } from '../utils';
 import { handlePlugin } from './handlePlugin';
 
