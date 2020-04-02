@@ -7,7 +7,12 @@ import {
   Unsubscribe,
 } from 'redux';
 import { ModuleOptions } from 'reactant-di';
-import { storeKey, subscriptionsKey, stagedStateKey, stateKey } from './constants';
+import {
+  storeKey,
+  subscriptionsKey,
+  stagedStateKey,
+  stateKey,
+} from './constants';
 import { PluginModule } from './core';
 
 export interface DevOptions {
@@ -80,4 +85,8 @@ export type Watch = <T>(
 export type PartialRequired<T, K extends keyof T> = Required<Pick<T, K>> &
   Pick<T, Exclude<keyof T, K>>;
 
-export type StateService<T> = PartialRequired<Service<T>, 'state'>;
+export type StateService<T> = Service<T>;
+
+export interface PropertyDescriptor<T> extends TypedPropertyDescriptor<T> {
+  initializer(): T;
+}
