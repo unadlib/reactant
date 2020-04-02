@@ -27,7 +27,7 @@ class AppView extends ViewModule {
   }
 
   component() {
-    const count = useConnector(() => this.counter.state.count);
+    const count = useConnector(() => this.counter.count);
     return (
       <button type="button" onClick={() => this.counter.increase()}>
         {count}
