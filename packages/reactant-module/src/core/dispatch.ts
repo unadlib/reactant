@@ -5,6 +5,7 @@ import { storeKey } from '../constants';
 // (because it should return new state should get a the current new state, low performance.)
 // support prue action with redux.
 export const dispatch = (target: Service, action: Partial<ReactantAction>) => {
+  // TODO: type constraint.
   if (target[storeKey]) {
     target[storeKey]!.dispatch({
       type: target.name,

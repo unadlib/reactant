@@ -2,7 +2,6 @@ import {
   injectable,
   createContainer,
   createStore,
-  ServiceIdentifiersMap,
   action,
   subscribe,
   watch,
