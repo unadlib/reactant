@@ -65,7 +65,7 @@ test('base `@state`', () => {
   expect(counter.count1).toBe(1);
 });
 
-test.only('`@state` about inheritance', () => {
+test('`@state` about inheritance', () => {
   @injectable()
   class BaseCounter {
     @state
