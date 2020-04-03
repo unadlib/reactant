@@ -1,4 +1,4 @@
-import { Store, Action, Middleware } from 'redux';
+import { Middleware } from 'redux';
 import { injectable, createContainer, createStore, state, action } from '../..';
 
 test('`createStore` with base pararms', () => {
@@ -93,7 +93,7 @@ test('`createStore` with base providers pararms', () => {
   // TODO: providers testing
 });
 
-test.only('`createStore` with base devOptions pararms', () => {
+test('`createStore` with base devOptions pararms', () => {
   @injectable()
   class Counter {
     name = 'counter';
@@ -107,6 +107,14 @@ test.only('`createStore` with base devOptions pararms', () => {
     @action
     increase() {
       this.sum.count += 1;
+    }
+
+    increase1() {
+      this.sum.count += 1;
+    }
+
+    increase2() {
+      this.count += 1;
     }
   }
   const ServiceIdentifiers = new Map();
@@ -131,12 +139,13 @@ test.only('`createStore` with base devOptions pararms', () => {
     store.getState().counter.sum.count = 1;
   }).toThrowError(/Cannot assign to read only property/);
   couter.increase();
-  expect(() => {
-    store.getState().counter.sum.count = 1;
-  }).toThrowError(/Cannot assign to read only property/);
-
-  // TODO: freeze root state.
-  // expect(() => {
-  //   store.getState().counter.count = 1;
-  // }).toThrowError(/Cannot assign to read only property/);
+  for (const fn of [
+    () => {
+      store.getState().counter.sum.count = 1;
+    },
+    () => couter.increase1(),
+    () => couter.increase2(),
+  ]) {
+    expect(fn).toThrowError(/Cannot assign to read only property/);
+  }
 });
