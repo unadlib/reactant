@@ -65,11 +65,21 @@ test('base `@state`', () => {
   expect(counter.count1).toBe(1);
 });
 
-test('`@state` about inheritance', () => {
+test.only('`@state` about inheritance', () => {
   @injectable()
   class BaseCounter {
     @state
     count = 0;
+
+    @state
+    state = {
+      test: 'test',
+    };
+
+    @action
+    add() {
+      this.state.test += '1';
+    }
 
     @action
     increase() {
@@ -96,4 +106,24 @@ test('`@state` about inheritance', () => {
   expect(counter.count).toBe(10);
   counter.increase();
   expect(counter.count).toBe(11);
+  counter.add();
+  expect(counter.state.test).toBe('test1');
+
+  // console.log(store.getState());
+
+  const ServiceIdentifiers1 = new Map();
+  const container1 = createContainer({
+    ServiceIdentifiers: ServiceIdentifiers1,
+    modules,
+    options: {
+      defaultScope: 'Singleton',
+    },
+  });
+  const counter1 = container1.get(Counter);
+  const store1 = createStore(container1, ServiceIdentifiers1);
+  expect(counter1.count).toBe(10);
+  counter1.increase();
+  expect(counter1.count).toBe(11);
+  counter1.add();
+  expect(counter1.state.test).toBe('test1');
 });

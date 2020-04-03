@@ -105,7 +105,7 @@ export function createStore<T = any>(
           const isEmptyObject = Object.keys(service[stateKey]).length === 0;
           if (!isEmptyObject) {
             const initState = autoFreeze
-              ? produce(service[stateKey], () => {}) // freeze init state
+              ? produce({ ...service[stateKey] }, () => {}) // freeze init state
               : service[stateKey];
             const serviceReducers = Object.entries(initState).reduce(
               (serviceReducersMapObject: ReducersMapObject, [key, value]) => {

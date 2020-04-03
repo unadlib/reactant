@@ -1,5 +1,12 @@
 import React, { PropsWithChildren, ReactNode } from 'react';
-import { PluginModule, injectable, inject } from 'reactant-module';
+import {
+  PluginModule,
+  injectable,
+  inject,
+  Service,
+  stateKey,
+  PartialRequired,
+} from 'reactant-module';
 import { Reducer, ReducersMapObject } from 'redux';
 import { useStore } from 'react-redux';
 import {
@@ -16,11 +23,6 @@ const StorageOptions = Symbol('StorageOptions');
 export interface IStorageOptions extends Partial<PersistConfig<any>> {
   storage: Storage;
   loading?: ReactNode;
-}
-
-interface Target<T extends Record<string, any>> {
-  name: string;
-  state?: T;
 }
 
 type SetStorageOptions<T> = Pick<
@@ -62,11 +64,17 @@ class ReactantStorage extends PluginModule {
     ...this.options,
   };
 
-  setStorage<T>(target: Target<T>, options: SetStorageOptions<T>) {
-    if (typeof target.state !== 'object' || typeof target.name !== 'string') {
+  setStorage<T extends PartialRequired<Service, 'name'>>(
+    target: T,
+    options: SetStorageOptions<T>
+  ) {
+    if (
+      typeof target[stateKey] !== 'object' ||
+      typeof target.name !== 'string'
+    ) {
       if (process.env.NODE_ENV !== 'production') {
         console.warn(
-          `Module '${target}' is invalid for using 'setStorage', it should set 'name' and 'state' properties in module '${target}'.`
+          `Module '${target}' is invalid for using 'setStorage', it should set 'name' and  '@state' decorated properties in module '${target}'.`
         );
       }
       return;

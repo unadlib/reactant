@@ -34,8 +34,9 @@ export interface Service<T extends Record<string, any> = Record<string, any>>
   readonly [stateKey]?: T;
   readonly [storeKey]?: Store;
   readonly [subscriptionsKey]?: Subscriptions;
-  [P: string]: any;
 }
+
+export type ThisService = Service & { [P: string]: any };
 
 export type ReactModuleOptions = ModuleOptions;
 
@@ -71,14 +72,17 @@ export type HandlePlugin<T = any> = (
   pluginHooks: PluginHooks
 ) => void;
 
-export type Subscribe = (service: Service, listener: () => void) => Unsubscribe;
+export type Subscribe = (
+  service: ThisService,
+  listener: () => void
+) => Unsubscribe;
 
 type Selector<T> = () => T;
 
 type Watcher<T> = (newValue: T, oldValue: T) => void;
 
 export type Watch = <T>(
-  service: Service,
+  service: ThisService,
   selector: Selector<T>,
   watcher: Watcher<T>
 ) => Unsubscribe;
@@ -88,3 +92,6 @@ export type StateService<T> = Service<T>;
 export interface PropertyDescriptor<T> extends TypedPropertyDescriptor<T> {
   initializer(): T;
 }
+
+export type PartialRequired<T, K extends keyof T> = Required<Pick<T, K>> &
+  Pick<T, Exclude<keyof T, K>>;

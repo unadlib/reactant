@@ -44,6 +44,9 @@ test('`dispatch` with action type', () => {
   @injectable()
   class Counter {
     @state
+    sum = 0;
+
+    @state
     count = createState<number, ReactantAction>((_state = 0, _action) =>
       _action.type === type ? _action.state.count : _state
     );
@@ -70,5 +73,5 @@ test('`dispatch` with action type', () => {
   const store = createStore(container, ServiceIdentifiers);
   counter.increase();
   expect(counter.count).toBe(1);
-  expect(Object.values(store.getState())).toEqual([{ count: 1 }]);
+  expect(Object.values(store.getState())).toEqual([{ count: 1, sum: 0 }]);
 });
