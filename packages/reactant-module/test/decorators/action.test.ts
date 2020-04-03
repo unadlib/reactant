@@ -106,6 +106,16 @@ test('`@action` in inherited module with stagedState about more effects', () => 
     increase() {
       this.count0 += 1;
     }
+
+    @action
+    decrease() {
+      this.count0 -= 1;
+    }
+
+    @action
+    decrease1() {
+      this.count0 -= 1;
+    }
   }
 
   @injectable()
@@ -132,6 +142,16 @@ test('`@action` in inherited module with stagedState about more effects', () => 
     increase1() {
       this.count1 += 1;
     }
+
+    @action
+    decrease() {
+      super.decrease();
+      this.count0 -= 1;
+    }
+
+    decrease1() {
+      super.decrease1();
+    }
   }
 
   @injectable()
@@ -157,4 +177,9 @@ test('`@action` in inherited module with stagedState about more effects', () => 
   expect(fooBar.foo.count).toBe(2);
   // merge the multi-actions changed states as one redux dispatch.
   expect(subscribe.mock.calls.length).toBe(1);
+  // inheritance
+  fooBar.foo.decrease();
+  expect(fooBar.foo.count0).toBe(1);
+  fooBar.foo.decrease1();
+  expect(fooBar.foo.count0).toBe(0);
 });
