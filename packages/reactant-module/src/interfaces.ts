@@ -13,6 +13,7 @@ import { PluginModule } from './core';
 export interface DevOptions {
   autoFreeze?: boolean;
   reduxDevTools?: boolean;
+  // TODO: use `redux-immutable-state-invariant` for checking immutable?
 }
 
 export type TypePreloadedState<T> = PreloadedState<T>;

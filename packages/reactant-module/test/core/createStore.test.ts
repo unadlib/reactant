@@ -1,5 +1,11 @@
 import { Middleware } from 'redux';
-import { injectable, createContainer, createStore, action } from '../..';
+import {
+  injectable,
+  createContainer,
+  createStore,
+  action,
+  PluginModule,
+} from '../..';
 
 test('`createStore` with base pararms', () => {
   @injectable()
@@ -93,7 +99,41 @@ test('`createStore` with base middlewares pararms', () => {
 });
 
 test('`createStore` with base providers pararms', () => {
-  // TODO: providers testing
+  const Provider = () => null;
+
+  @injectable()
+  class CounterPlugin extends PluginModule {
+    provider = Provider;
+  }
+
+  @injectable()
+  class Counter {
+    constructor(public counterPlugin: CounterPlugin) {}
+
+    state = {
+      count: 0,
+    };
+  }
+  const ServiceIdentifiers = new Map();
+  const modules = [Counter];
+  const container = createContainer({
+    ServiceIdentifiers,
+    modules,
+    options: {
+      defaultScope: 'Singleton',
+    },
+  });
+  container.get(Counter);
+  const providers: React.FunctionComponent[] = [];
+  const store = createStore(
+    container,
+    ServiceIdentifiers,
+    undefined,
+    undefined,
+    providers
+  );
+  expect(providers.length).toBe(1);
+  expect(providers[0]({}) === null).toBeTruthy();
 });
 
 test('`createStore` with base devOptions pararms', () => {
