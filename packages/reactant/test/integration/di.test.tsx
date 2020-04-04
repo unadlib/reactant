@@ -20,7 +20,6 @@ import {
   action,
   createSelector,
   autobind,
-  state,
 } from '../..';
 
 let container: Element;
@@ -41,7 +40,6 @@ describe('base API', () => {
     class Bar {
       name = 'bar';
 
-      @state
       state = {
         test: 'test',
       };
@@ -56,7 +54,6 @@ describe('base API', () => {
     class Count {
       name = 'count';
 
-      @state
       state = {
         num: 0,
       };

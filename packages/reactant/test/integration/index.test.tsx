@@ -24,7 +24,6 @@ import {
   ReactantAction,
   defaultProps,
   batch,
-  state,
 } from '../..';
 
 let container: Element;
@@ -190,7 +189,6 @@ describe('base API', () => {
         test: 1,
       };
 
-      @state
       state = this._state;
 
       @action
@@ -260,7 +258,6 @@ describe('base API', () => {
         this.state.list[0].count += num;
       }
 
-      @state
       state = {
         ...this._state,
         e: 1,
@@ -373,16 +370,14 @@ describe('base API', () => {
       app.bootstrap(container); // init render
     });
     expect(container.querySelector('span')?.textContent).toBe('1');
-    const { list } = app.store!.getState().homeView.state;
+    const { list } = app.store!.getState().homeView;
     act(() => {
       app.instance.homeView.increase(1); // render
     });
-    expect(app.store!.getState().homeView.state.count).toBe(2);
+    expect(app.store!.getState().homeView.count).toBe(2);
     expect(app.instance.homeView.state.count).toBe(2);
-    expect(list === app.store!.getState().homeView.state.list).toBeFalsy();
-    expect(
-      list[0] === app.store!.getState().homeView.state.list[0]
-    ).toBeFalsy();
+    expect(list === app.store!.getState().homeView.list).toBeFalsy();
+    expect(list[0] === app.store!.getState().homeView.list[0]).toBeFalsy();
     expect(container.querySelector('span')?.textContent).toBe('2');
     act(() => {
       app.instance.homeView.increase(1); // render
@@ -431,7 +426,7 @@ describe('base API', () => {
     expect(app1.instance.state.count).toEqual(2);
     expect(app1.instance.state.list).toEqual([{ count: 2 }]);
     expect(app1.instance.state.e).toEqual(1);
-    expect(app1.store!.getState().homeView.state.e).toEqual(1);
+    expect(app1.store!.getState().homeView.e).toEqual(1);
 
     unmountComponentAtNode(container);
     container.remove();
@@ -457,7 +452,7 @@ describe('base API', () => {
         .dispatchEvent(new MouseEvent('click', { bubbles: true }));
     });
     expect(container.querySelector('span')?.textContent).toBe('3');
-    expect(app2.store!.getState().homeView1.state.count).toBe(1);
+    expect(app2.store!.getState().homeView1.count).toBe(1);
     act(() => {
       container
         .querySelector('[href="/homeView1"]')!
@@ -470,7 +465,7 @@ describe('base API', () => {
         .dispatchEvent(new MouseEvent('click', { bubbles: true }));
     });
     expect(container.querySelector('span')?.textContent).toBe('2');
-    expect(app2.store!.getState().homeView.state.count).toBe(3);
+    expect(app2.store!.getState().homeView.count).toBe(3);
     expect(sumComputedFn.mock.calls.length).toBe(10);
     expect(sum1ComputedFn.mock.calls.length).toBe(4);
   });
@@ -481,45 +476,46 @@ describe('base API', () => {
     @injectable()
     class HomeView1 extends ViewModule {
       // name = 'homeView';
-      @state
-      list = createState<{ count: number }[], ReactantAction>(
-        // eslint-disable-next-line no-shadow
-        (_state = [{ count: 1 }], { type, state }) =>
-          type === (this as any).name ? state.list : _state
-      );
 
-      @state
-      count = 1;
-
-      @state
-      count1 = 1;
+      state = {
+        ...createState({
+          list: (
+            _state: { count: number }[] = [{ count: 1 }],
+            { type, state }: ReactantAction
+          ) => (type === (this as any).name ? state.list : _state),
+        }),
+        count: 1,
+        count1: 1,
+      };
 
       increase() {
+        const state = {
+          ...this.state,
+          list: [
+            {
+              count: this.state.list![0].count + 1,
+            },
+            ...this.state.list!.slice(1, -1),
+          ],
+        };
         dispatch(this, {
-          state: {
-            list: [
-              {
-                count: this.list![0].count + 1,
-              },
-              ...this.list!.slice(1, -1),
-            ],
-          },
+          state,
         });
       }
 
       @action
       add() {
-        this.count += 1;
+        this.state.count += 1;
       }
 
       @action
       add1() {
-        this.count1 += 1;
+        this.state.count1 += 1;
       }
 
       getData = () => ({
-        text: this.list![0].count,
-        count1: this.count1,
+        text: this.state.list![0].count,
+        count1: this.state.count1,
       });
 
       @defaultProps({
@@ -544,11 +540,12 @@ describe('base API', () => {
         super.increase();
         dispatch(this, {
           state: {
+            ...this.state,
             list: [
               {
-                count: this.list![0].count + 1,
+                count: this.state.list![0].count + 1,
               },
-              ...this.list!.slice(1, -1),
+              ...this.state.list!.slice(1, -1),
             ],
           },
         });

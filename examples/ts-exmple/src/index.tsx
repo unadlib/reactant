@@ -20,7 +20,6 @@ import {
   defaultProps,
   action,
   createSelector,
-  state,
 } from 'reactant';
 import {
   Storage,
@@ -32,8 +31,9 @@ import { Router, RouterOptions, IRouterOptions } from 'reactant-router';
 
 @injectable()
 class Bar {
-  @state
-  test = 'test';
+  state = {
+    test: 'test',
+  };
 }
 
 @injectable()
@@ -51,20 +51,19 @@ class Count {
 
   name = 'count';
 
-  @state
-  num = 0;
-
-  @state
-  num1 = 0;
+  state = {
+    num: 0,
+    num1: 0,
+  };
 
   @action
   increase() {
-    this.num += 1;
+    this.state.num += 1;
   }
 
   @action
   increase1() {
-    this.num1 += 1;
+    this.state.num1 += 1;
   }
 }
 
@@ -75,13 +74,13 @@ class DashboardView extends ViewModule {
   }
 
   getSum = createSelector(
-    () => this.count.num,
+    () => this.count.state.num,
     num => num + 1
   );
 
   getData = () => ({
     num: this.getSum(),
-    num1: this.count.num1,
+    num1: this.count.state.num1,
   });
 
   params?: { id?: string };

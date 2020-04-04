@@ -4,28 +4,25 @@ import {
   createContainer,
   createStore,
   action,
-  state,
+  Service,
 } from '..';
 
 test('base module with @state and @action', () => {
   @injectable()
-  class Counter {
-    @state
-    count = 0;
-
-    @state
-    others = {
+  class Counter implements Service<{ count: number; list: number[] }> {
+    state = {
+      count: 0,
       list: [] as number[],
     };
 
     @action
     increase() {
-      this.count += 1;
+      this.state.count += 1;
     }
 
     @action
     add() {
-      this.others.list.push(this.others.list.length);
+      this.state.list.push(this.state.list.length);
     }
   }
   const ServiceIdentifiers = new Map();
@@ -39,17 +36,13 @@ test('base module with @state and @action', () => {
   });
   const counter = container.get(Counter);
   const store = createStore(container, ServiceIdentifiers);
-  expect(counter.count).toBe(0);
-  expect(Object.values(store.getState())).toEqual([
-    { count: 0, others: { list: [] } },
-  ]);
+  expect(counter.state.count).toBe(0);
+  expect(Object.values(store.getState())).toEqual([{ count: 0, list: [] }]);
   counter.increase();
-  expect(counter.count).toBe(1);
+  expect(counter.state.count).toBe(1);
   counter.add();
-  expect(counter.others.list).toEqual([0]);
-  expect(Object.values(store.getState())).toEqual([
-    { count: 1, others: { list: [0] } },
-  ]);
+  expect(counter.state.list).toEqual([0]);
+  expect(Object.values(store.getState())).toEqual([{ count: 1, list: [0] }]);
 });
 
 test('module with multiple module injection with same module or others', () => {
@@ -57,12 +50,13 @@ test('module with multiple module injection with same module or others', () => {
   class Foo {
     name = 'foo';
 
-    @state
-    count = 1;
+    state = {
+      count: 1,
+    };
 
     @action
     increase() {
-      this.count += 1;
+      this.state.count += 1;
     }
   }
 
@@ -70,8 +64,9 @@ test('module with multiple module injection with same module or others', () => {
   class FooTest {
     name = 'fooTest';
 
-    @state
-    count = 1;
+    state = {
+      count: 1,
+    };
   }
 
   @injectable()

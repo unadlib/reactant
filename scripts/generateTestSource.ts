@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-ignore */
 /* eslint-disable no-bitwise */
 /* eslint-disable prettier/prettier */
 /* eslint-disable no-unused-expressions */
@@ -19,9 +18,9 @@ const {
     allCheckedState: true,
     expectedResult: {
       boostrap: 60,
-      computed: 1280,
-      cache: 510,
-    }
+      computed: 1200,
+      cache: 500,
+    },
   },
   big: {
     classAmount: 200,
@@ -29,9 +28,9 @@ const {
     computedTime: 1000,
     allCheckedState: true,
     expectedResult: {
-      boostrap: 110,
-      computed: 3400,
-      cache: 1400,
+      boostrap: 100,
+      computed: 3100,
+      cache: 1100,
     },
   },
   huge: {
@@ -40,11 +39,11 @@ const {
     computedTime: 1000,
     allCheckedState: true,
     expectedResult: {
-      boostrap: 600,
-      computed: 37400,
-      cache: 18300,
+      boostrap: 500,
+      computed: 32000,
+      cache: 13000,
     },
-  }
+  },
   // @ts-ignore
 }[argv.mode] : (argv as any);
 
@@ -68,14 +67,15 @@ declare global {
 global.window = {};
 import React from 'react';
 import { render } from 'reactant-web';
-import { injectable, action, computed, selector, createApp, ViewModule, createSelector, storeKey, state } from '..';
+import { injectable, action, computed, selector, createApp, ViewModule, createSelector, storeKey } from '..';
 let time = Date.now();
 const computedTime = ${computedTime};
 const expectedResult = ${JSON.stringify(expectedResult)};
 @injectable()
 class Service0 {
-  @state
-  test0 = 0;
+  state = {
+    test0: 0,
+  };
 
   name = 'Service0';
 
@@ -87,11 +87,11 @@ class Service0 {
 
   @action
   decrease() {
-    this.test0 -= 1;
+    this.state.test0 -= 1;
   }
 
   getSum = createSelector(
-    () => this.test0,
+    () => this.state.test0,
     test0 => {
       return test0;
     }
@@ -108,16 +108,17 @@ class Service${i} {
 
   name = 'Service${i}';
 
-  ${(() => {
-    let stateStr = '';
-    for (let j = 0; j < oneClassReducerAmount; j+=1) {
-      stateStr += `
-        @state
-        test${j} = ${j};
-      `;
-    }
-    return stateStr;
-  })()}
+  state = {
+    ${(() => {
+      let stateStr = '';
+      for (let j = 0; j < oneClassReducerAmount; j+=1) {
+        stateStr += `
+          test${j}: ${j},
+        `;
+      }
+      return stateStr;
+    })()}
+  };
 
   get props() {
     return {
@@ -127,7 +128,7 @@ class Service${i} {
 
   @action
   decrease() {
-    this.test0 -= 1;
+    this.state.test0 -= 1;
   }
 
   getSum = createSelector(
@@ -136,7 +137,7 @@ class Service${i} {
       let stateStr = '';
       for (let j = 0; j < oneClassReducerAmount; j+=1) {
         stateStr += `
-          () => this.test${j},
+          () => this.state.test${j},
         `;
       }
       return stateStr;

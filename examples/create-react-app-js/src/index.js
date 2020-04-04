@@ -1,18 +1,19 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { injectable, createApp, ViewModule, action, useConnector, state } from 'reactant';
+import { injectable, createApp, ViewModule, action, useConnector } from 'reactant';
 import './index.css';
 import AppView from './App';
 import * as serviceWorker from './serviceWorker';
 
 @injectable()
 class Counter {
-  @state
-  count = 0;
+  state = {
+    count: 0,
+  }
 
   @action
   increase() {
-    this.count += 1;
+    this.state.count += 1;
   }
 
   get test() {
@@ -31,7 +32,7 @@ class CounterView extends ViewModule {
   }
 
   component() {
-    const count = useConnector(() => this.counter.count)
+    const count = useConnector(() => this.counter.state.count)
     return <this.appView count={count} increase={() => this.counter.increase()} />;
   }
 }

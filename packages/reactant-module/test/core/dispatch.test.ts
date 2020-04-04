@@ -2,7 +2,6 @@ import {
   injectable,
   createContainer,
   dispatch,
-  state,
   createStore,
   ReactantAction,
   createState,
@@ -11,13 +10,14 @@ import {
 test('`dispatch` without action type', () => {
   @injectable()
   class Counter {
-    @state
-    count = 0;
+    state = {
+      count: 0,
+    };
 
     increase() {
       dispatch(this, {
         state: {
-          count: this.count + 1,
+          count: this.state.count + 1,
         },
       });
     }
@@ -34,7 +34,7 @@ test('`dispatch` without action type', () => {
   const counter = container.get(Counter);
   const store = createStore(container, ServiceIdentifiers);
   counter.increase();
-  expect(counter.count).toBe(1);
+  expect(counter.state.count).toBe(1);
   expect(Object.values(store.getState())).toEqual([{ count: 1 }]);
 });
 
@@ -43,19 +43,19 @@ test('`dispatch` with action type', () => {
 
   @injectable()
   class Counter {
-    @state
-    sum = 0;
-
-    @state
-    count = createState<number, ReactantAction>((_state = 0, _action) =>
-      _action.type === type ? _action.state.count : _state
-    );
+    state = {
+      ...createState({
+        count: (_state = 0, _action: ReactantAction) =>
+          _action.type === type ? _action.state.count : _state,
+      }),
+      sum: 0,
+    };
 
     increase() {
       dispatch(this, {
         type,
         state: {
-          count: this.count + 1,
+          count: this.state.count + 1,
         },
       });
     }
@@ -72,6 +72,6 @@ test('`dispatch` with action type', () => {
   const counter = container.get(Counter);
   const store = createStore(container, ServiceIdentifiers);
   counter.increase();
-  expect(counter.count).toBe(1);
+  expect(counter.state.count).toBe(1);
   expect(Object.values(store.getState())).toEqual([{ count: 1, sum: 0 }]);
 });

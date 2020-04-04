@@ -53,7 +53,7 @@ test('base redux with `useValue`', () => {
     }
 
     get todoList() {
-      return this.todo.todoList;
+      return this.todo.state.todoList;
     }
   }
 
@@ -131,7 +131,7 @@ test('base redux with `useFactory`', () => {
     }
 
     get todoList() {
-      return this.todo.todoList;
+      return this.todo.state.todoList;
     }
   }
 

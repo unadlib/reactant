@@ -1,7 +1,7 @@
 /* eslint-disable func-names */
 import { produce } from 'immer';
 import { Service } from '../interfaces';
-import { storeKey, stagedStateKey, stateKey } from '../constants';
+import { storeKey, stagedStateKey } from '../constants';
 
 export function action(
   target: object,
@@ -18,13 +18,10 @@ export function action(
       time = Date.now();
     }
     if (!this[stagedStateKey]) {
-      const state = produce(
-        this[stateKey],
-        (draftState: Record<string, any>) => {
-          this[stagedStateKey] = draftState;
-          fn.call(this, ...args);
-        }
-      );
+      const state = produce(this.state, (draftState: Record<string, any>) => {
+        this[stagedStateKey] = draftState;
+        fn.call(this, ...args);
+      });
       this[stagedStateKey] = undefined;
       this[storeKey]!.dispatch({
         type: this.name,

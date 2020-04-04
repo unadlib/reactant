@@ -7,12 +7,7 @@ import {
   Unsubscribe,
 } from 'redux';
 import { ModuleOptions } from 'reactant-di';
-import {
-  storeKey,
-  subscriptionsKey,
-  stagedStateKey,
-  stateKey,
-} from './constants';
+import { storeKey, subscriptionsKey, stagedStateKey } from './constants';
 import { PluginModule } from './core';
 
 export interface DevOptions {
@@ -22,21 +17,19 @@ export interface DevOptions {
 
 export type TypePreloadedState<T> = PreloadedState<T>;
 
-export interface State {
+export interface State<T> {
+  state?: T;
   name?: string;
 }
 
 export type Subscriptions = (() => void)[];
 
 export interface Service<T extends Record<string, any> = Record<string, any>>
-  extends State {
-  [stagedStateKey]?: T;
-  readonly [stateKey]?: T;
+  extends State<T> {
   readonly [storeKey]?: Store;
+  [stagedStateKey]?: T;
   readonly [subscriptionsKey]?: Subscriptions;
 }
-
-export type ThisService = Service & { [P: string]: any };
 
 export type ReactModuleOptions = ModuleOptions;
 
@@ -50,7 +43,7 @@ export interface ReactantAction<T = any> extends Action<string | symbol> {
 
 export type StateMapObject<T extends Record<string, Function>> = {
   [P in keyof T]: T[P] extends (...args: any[]) => any
-    ? FirstParameter<T[P]>
+    ? Exclude<FirstParameter<T[P]>, void>
     : never;
 };
 
@@ -72,26 +65,19 @@ export type HandlePlugin<T = any> = (
   pluginHooks: PluginHooks
 ) => void;
 
-export type Subscribe = (
-  service: ThisService,
-  listener: () => void
-) => Unsubscribe;
+export type Subscribe = (service: Service, listener: () => void) => Unsubscribe;
 
 type Selector<T> = () => T;
 
 type Watcher<T> = (newValue: T, oldValue: T) => void;
 
 export type Watch = <T>(
-  service: ThisService,
+  service: Service,
   selector: Selector<T>,
   watcher: Watcher<T>
 ) => Unsubscribe;
 
-export type StateService<T> = Service<T>;
-
-export interface PropertyDescriptor<T> extends TypedPropertyDescriptor<T> {
-  initializer(): T;
-}
-
 export type PartialRequired<T, K extends keyof T> = Required<Pick<T, K>> &
   Pick<T, Exclude<keyof T, K>>;
+
+export type StateService<T> = PartialRequired<Service<T>, 'state'>;

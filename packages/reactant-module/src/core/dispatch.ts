@@ -1,23 +1,19 @@
-import { ThisService, ReactantAction } from '../interfaces';
-import { storeKey, stateKey } from '../constants';
+import { Service, ReactantAction } from '../interfaces';
+import { storeKey } from '../constants';
 
 // the api should not be implemented as a decorator
 // (because it should return new state should get a the current new state, low performance.)
 // support prue action with redux.
-export const dispatch = (
-  target: ThisService,
-  action: Partial<ReactantAction>
-) => {
-  // TODO: type constraint.
+export const dispatch = (target: Service, action: Partial<ReactantAction>) => {
   if (target[storeKey]) {
     target[storeKey]!.dispatch({
       type: target.name,
       method: '',
       ...action,
       state: {
-        ...target[stateKey],
+        ...target.state,
         ...action.state,
-      },
+      }
     });
   } else {
     throw new Error(`${target} service should set 'state' property.`);

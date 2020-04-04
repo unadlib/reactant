@@ -11,12 +11,13 @@ A framework for building React web applications, inspired by [Angular](https://a
 ```tsx
 @injectable()
 class Counter {
-  @state
-  count = 0;
+  state = {
+    count: 0
+  };
 
   @action
   increase() {
-    this.count += 1;
+    this.state.count += 1;
   }
 }
 
@@ -27,7 +28,7 @@ class AppView extends ViewModule {
   }
 
   component() {
-    const count = useConnector(() => this.counter.count);
+    const count = useConnector(() => this.counter.state.count);
     return (
       <button type="button" onClick={() => this.counter.increase()}>
         {count}
@@ -81,7 +82,6 @@ app.bootstrap(document.getElementById('app'));
 - createApp
 - useConnector
 - @injectable
-- @state
 - @action
 - @optional
 - @inject

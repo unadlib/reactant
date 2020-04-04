@@ -18,12 +18,7 @@ import {
   DevOptions,
   Subscriptions,
 } from '../interfaces';
-import {
-  storeKey,
-  subscriptionsKey,
-  stagedStateKey,
-  stateKey,
-} from '../constants';
+import { storeKey, subscriptionsKey, stagedStateKey } from '../constants';
 import { getStageName, perform, getComposeEnhancers } from '../utils';
 import { handlePlugin } from './handlePlugin';
 
@@ -60,7 +55,7 @@ export function createStore<T = any>(
       services.forEach((service, index) => {
         handlePlugin(service, pluginHooks);
         const isPlainObject =
-          toString.call(service[stateKey]) === '[object Object]';
+          toString.call(service.state) === '[object Object]';
         if (isPlainObject) {
           const className = (Service as Function).name;
           let reducersIdentifier: string = service.name;
@@ -102,11 +97,11 @@ export function createStore<T = any>(
               reducersIdentifier = `${reducersIdentifier}${index}`;
             }
           }
-          const isEmptyObject = Object.keys(service[stateKey]).length === 0;
+          const isEmptyObject = Object.keys(service.state).length === 0;
           if (!isEmptyObject) {
             const initState = autoFreeze
-              ? produce({ ...service[stateKey] }, () => {}) // freeze init state
-              : service[stateKey];
+              ? produce(service.state, () => {}) // freeze init state
+              : service.state;
             const serviceReducers = Object.entries(initState).reduce(
               (serviceReducersMapObject: ReducersMapObject, [key, value]) => {
                 // support pure reducer
@@ -133,8 +128,8 @@ export function createStore<T = any>(
             });
             // redefine get service state from store state.
             Object.defineProperties(service, {
-              [stateKey]: {
-                enumerable: false,
+              state: {
+                enumerable: true,
                 configurable: false,
                 get() {
                   if (this[stagedStateKey]) return this[stagedStateKey];

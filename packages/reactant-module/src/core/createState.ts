@@ -1,7 +1,5 @@
-import { Reducer, Action, AnyAction } from 'redux';
+import { StateMapObject } from '../interfaces';
 
-export function createState<S = any, A extends Action = AnyAction>(
-  reducer: Reducer<S, A>
-): S {
-  return reducer as any;
+export function createState<R extends Record<string, Function>>(reducers: R) {
+  return reducers as StateMapObject<R>;
 }

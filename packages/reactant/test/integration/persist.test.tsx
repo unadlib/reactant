@@ -14,7 +14,6 @@ import {
   action,
   createSelector,
   autobind,
-  state,
 } from '../..';
 
 let container: Element;
@@ -41,8 +40,9 @@ describe('base API', () => {
 
       name = 'bar';
 
-      @state
-      test = 'test';
+      state = {
+        test: 'test',
+      };
     }
 
     @injectable()
@@ -55,16 +55,15 @@ describe('base API', () => {
 
       name = 'count';
 
-      @state
-      num = 0;
-
-      @state
-      num1 = 0;
+      state = {
+        num: 0,
+        num1: 0,
+      };
 
       @autobind
       @action
       increase() {
-        this.num += 1;
+        this.state.num += 1;
       }
     }
 
@@ -75,7 +74,7 @@ describe('base API', () => {
       }
 
       getSum = createSelector(
-        () => this.count.num,
+        () => this.count.state.num,
         num => num + 1
       );
 

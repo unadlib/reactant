@@ -1,11 +1,12 @@
 import { Middleware } from 'redux';
-import { injectable, createContainer, createStore, state, action } from '../..';
+import { injectable, createContainer, createStore, action } from '../..';
 
 test('`createStore` with base pararms', () => {
   @injectable()
   class Counter {
-    @state
-    count = 0;
+    state = {
+      count: 0,
+    };
   }
   const ServiceIdentifiers = new Map();
   const modules = [Counter];
@@ -26,8 +27,9 @@ test('`createStore` with base preloadedState pararms', () => {
   class Counter {
     name = 'counter';
 
-    @state
-    count = 0;
+    state = {
+      count: 0,
+    };
   }
   const ServiceIdentifiers = new Map();
   const modules = [Counter];
@@ -50,12 +52,13 @@ test('`createStore` with base middlewares pararms', () => {
   class Counter {
     name = 'counter';
 
-    @state
-    count = 0;
+    state = {
+      count: 0,
+    };
 
     @action
     increase() {
-      this.count += 1;
+      this.state.count += 1;
     }
   }
   const ServiceIdentifiers = new Map();
@@ -98,23 +101,22 @@ test('`createStore` with base devOptions pararms', () => {
   class Counter {
     name = 'counter';
 
-    @state
-    count = 0;
-
-    @state
-    sum = { count: 0 };
+    state = {
+      count: 0,
+      sum: { count: 0 },
+    };
 
     @action
     increase() {
-      this.sum.count += 1;
+      this.state.sum.count += 1;
     }
 
     increase1() {
-      this.sum.count += 1;
+      this.state.sum.count += 1;
     }
 
     increase2() {
-      this.count += 1;
+      this.state.count += 1;
     }
   }
   const ServiceIdentifiers = new Map();
