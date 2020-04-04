@@ -1,7 +1,7 @@
 import React from 'react';
 import { injectable, ViewModule, createContainer, defaultProps } from '../..';
 
-test('base module with `@defaultProps`', () => {
+test('`@defaultProps` without parameter generi', () => {
   interface CounterProps {
     version?: string;
   }
@@ -25,12 +25,12 @@ test('base module with `@defaultProps`', () => {
     },
   });
   const counter = container.get(Counter);
-  expect((counter.component as any).defaultProps).toEqual({
+  expect((counter.component as React.FunctionComponent).defaultProps).toEqual({
     version: '0.0.1',
   });
 });
 
-test('module with `defaultProps`', () => {
+test('`@defaultProps` with parameter generic', () => {
   interface CounterProps {
     version?: string;
     name: string;
@@ -55,7 +55,7 @@ test('module with `defaultProps`', () => {
     },
   });
   const counter = container.get(Counter);
-  expect((counter.component as any).defaultProps).toEqual({
+  expect((counter.component as React.FunctionComponent).defaultProps).toEqual({
     version: '0.0.1',
   });
 });
