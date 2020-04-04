@@ -34,7 +34,7 @@ const {
     },
   },
   huge: {
-    classAmount: 500,
+    classAmount: 200,
     oneClassReducerAmount: 100,
     computedTime: 1000,
     allCheckedState: true,
