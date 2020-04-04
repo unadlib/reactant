@@ -1,6 +1,6 @@
 import { Store } from 'redux';
 import { injectable } from 'reactant-di';
-import { defaultPropsKey, storeKey } from '../constants';
+import { storeKey } from '../constants';
 import { Service } from '../interfaces';
 
 @injectable()
@@ -17,14 +17,13 @@ export abstract class ViewModule implements Service {
         }' ViewModule 'component' property should be defined class 'method'.`
       );
     }
+    const { defaultProps } = this.component as React.FunctionComponent;
     const component = this.component.bind(this);
     Object.assign(component, {
-      defaultProps: this[defaultPropsKey],
+      defaultProps,
     });
     this.component = component;
   }
-
-  [defaultPropsKey]?: Record<string, any>;
 
   abstract component(
     props: Record<string, any>
