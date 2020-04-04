@@ -1,4 +1,6 @@
-export function defaultProps<P>(props: P) {
+import { PickOptional } from '../interfaces';
+
+export function defaultProps<P>(props: P | PickOptional<P>) {
   return (
     target: object,
     key: string | symbol,

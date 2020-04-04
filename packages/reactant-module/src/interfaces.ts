@@ -81,3 +81,16 @@ export type PartialRequired<T, K extends keyof T> = Required<Pick<T, K>> &
   Pick<T, Exclude<keyof T, K>>;
 
 export type StateService<T> = PartialRequired<Service<T>, 'state'>;
+
+export type OptionalKeyOf<T> = Exclude<
+  {
+    [K in keyof T]: T extends Record<K, T[K]> ? never : K;
+  }[keyof T],
+  undefined
+>;
+
+export type ExcludeRequired<T> = {
+  [K in keyof T]-?: T extends Record<K, T[K]> ? never : T[K];
+};
+
+export type PickOptional<T> = Pick<ExcludeRequired<T>, OptionalKeyOf<T>>;
