@@ -25,7 +25,5 @@ export abstract class ViewModule implements Service {
     this.component = component;
   }
 
-  abstract component(
-    props: Record<string, any>
-  ): React.ComponentElement<any, any>;
+  abstract component(props: Record<string, any>): React.ReactElement | null;
 }

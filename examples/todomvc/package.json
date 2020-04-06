@@ -1,8 +1,8 @@
 {
-  "name": "ts-bookstore",
+  "name": "todomvc",
   "private": true,
   "version": "1.0.0",
-  "description": "A bookstore example for Reactant",
+  "description": "A todomvc example for Reactant",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server",
@@ -20,7 +20,6 @@
     "webpack-dev-server": "^3.10.3"
   },
   "dependencies": {
-    "normalizr": "^3.6.0",
     "react": "^16.12.0"
   }
 }

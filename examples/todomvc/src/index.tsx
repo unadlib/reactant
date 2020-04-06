@@ -28,38 +28,6 @@ import {
   IStorageOptions,
 } from 'reactant-storage';
 import { Router, RouterOptions, IRouterOptions } from 'reactant-router';
-import { schema, normalize } from 'normalizr';
-
-const user = new schema.Entity('users');
-
-const comment = new schema.Entity('comments', {
-  user,
-});
-
-const book = new schema.Entity('books', {
-  comments: [comment],
-});
-
-console.log(
-  normalize(
-    [
-      {
-        id: '1',
-        name: 'The Moon and Sixpence',
-        comments: [
-          {
-            id: '1',
-            content: 'Good book!',
-            user: { id: '17', username: 'foobar' },
-          },
-        ],
-        count: 99,
-        price: 15.2,
-      },
-    ],
-    [book]
-  )
-);
 
 @injectable()
 class Bar {
