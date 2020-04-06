@@ -1,8 +1,8 @@
 {
-  "name": "reactant-example",
+  "name": "ts-bookstore",
   "private": true,
   "version": "1.0.0",
-  "description": "An example project for Reactant",
+  "description": "An example bookstore project for Reactant",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server",

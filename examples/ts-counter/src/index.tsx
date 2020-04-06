@@ -18,6 +18,11 @@ class Counter {
   increase() {
     this.state.count += 1;
   }
+
+  @action
+  decrease() {
+    this.state.count -= 1;
+  }
 }
 
 @injectable()
@@ -29,9 +34,15 @@ class AppView extends ViewModule {
   component() {
     const count = useConnector(() => this.counter.state.count);
     return (
-      <button type="button" onClick={() => this.counter.increase()}>
-        {count}
-      </button>
+      <>
+        <button type="button" onClick={() => this.counter.decrease()}>
+          -
+        </button>
+        <div>{count}</div>
+        <button type="button" onClick={() => this.counter.increase()}>
+          +
+        </button>
+      </>
     );
   }
 }
