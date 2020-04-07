@@ -1,5 +1,5 @@
 import { Service, PropertyDescriptor } from '../interfaces';
-import { stateKey } from '../constants';
+import { stateKey, initializerKey } from '../constants';
 
 export function state(
   target: any,
@@ -23,6 +23,11 @@ export function state(
         [key]: descriptor.initializer.call(target),
       },
     });
+    if (!target[initializerKey]) {
+      Object.assign(target, {
+        [initializerKey]: true,
+      });
+    }
   } else if (typeof target[stateKey] === 'undefined') {
     // 1. assign empty object for TS decorators.
     Object.assign(target, {

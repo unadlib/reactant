@@ -12,6 +12,7 @@ import {
   subscriptionsKey,
   stagedStateKey,
   stateKey,
+  initializerKey,
 } from './constants';
 import { PluginModule } from './core';
 
@@ -35,6 +36,7 @@ export interface Service<T extends Record<string, any> = Record<string, any>>
   readonly [stateKey]?: T;
   readonly [storeKey]?: Store;
   readonly [subscriptionsKey]?: Subscriptions;
+  readonly [initializerKey]?: boolean;
 }
 
 export type ThisService = Service & { [P: string]: any };

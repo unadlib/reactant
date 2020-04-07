@@ -20,6 +20,7 @@ import {
   defaultProps,
   action,
   createSelector,
+  state,
 } from 'reactant';
 import {
   Storage,
@@ -28,50 +29,6 @@ import {
   IStorageOptions,
 } from 'reactant-storage';
 import { Router, RouterOptions, IRouterOptions } from 'reactant-router';
-import { schema, normalize } from 'normalizr';
-
-const user = new schema.Entity('users');
-
-const comment = new schema.Entity('comments', {
-  user,
-});
-
-const book = new schema.Entity('books', {
-  comments: [comment],
-});
-
-console.log(
-  normalize(
-    [
-      {
-        id: '1',
-        name: 'The Moon and Sixpence',
-        comments: [
-          {
-            id: '1',
-            content: 'Good book!',
-            user: { id: '17', username: 'foobar' },
-          },
-        ],
-        count: 99,
-        price: 15.2,
-      },
-    ],
-    [book]
-  )
-);
-
-@injectable()
-class Bar {
-  state = {
-    test: 'test',
-  };
-}
-
-@injectable()
-class Foo {
-  text = 'foo';
-}
 
 @injectable()
 class Count {
@@ -83,19 +40,20 @@ class Count {
 
   name = 'count';
 
-  state = {
-    num: 0,
-    num1: 0,
-  };
+  @state
+  num1 = 0;
+
+  @state
+  num = 0;
 
   @action
   increase() {
-    this.state.num += 1;
+    this.num += 1;
   }
 
   @action
   increase1() {
-    this.state.num1 += 1;
+    this.num1 += 1;
   }
 }
 
@@ -106,13 +64,13 @@ class DashboardView extends ViewModule {
   }
 
   getSum = createSelector(
-    () => this.count.state.num,
+    () => this.count.num,
     num => num + 1
   );
 
   getData = () => ({
     num: this.getSum(),
-    num1: this.count.state.num1,
+    num1: this.count.num1,
   });
 
   params?: { id?: string };
@@ -156,8 +114,6 @@ class HomeView extends ViewModule {
 @injectable()
 class AppView extends ViewModule {
   constructor(
-    @optional() public foo: Foo,
-    @optional() public bar: Bar,
     @inject('homeView') public homeView: InstanceType<typeof HomeView>,
     public dashboardView: DashboardView,
     public router: Router
@@ -169,7 +125,6 @@ class AppView extends ViewModule {
     const { ConnectedRouter } = this.router;
     return (
       <ConnectedRouter>
-        <h1>{this.foo.text}</h1>
         <ul>
           <li>
             <Link to="/">Home</Link>
@@ -194,7 +149,6 @@ class AppView extends ViewModule {
 
 const app = createApp({
   modules: [
-    Foo,
     { provide: 'homeView', useClass: HomeView },
     {
       provide: StorageOptions,

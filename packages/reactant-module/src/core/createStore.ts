@@ -25,6 +25,7 @@ import {
   subscriptionsKey,
   stagedStateKey,
   stateKey,
+  initializerKey,
 } from '../constants';
 import { getStageName, perform, getComposeEnhancers } from '../utils';
 import { handlePlugin } from './handlePlugin';
@@ -111,7 +112,8 @@ export function createStore<T = any>(
             // handle when enable `UseDefineForClassFields` in TS.
             for (const key in service[stateKey]) {
               const descriptor = Object.getOwnPropertyDescriptor(service, key);
-              if (typeof descriptor === 'undefined') break;
+              if (typeof descriptor === 'undefined' || service[initializerKey])
+                break;
               isEnableUseDefineForClassFields = true;
               Object.assign(service[stateKey], {
                 [key]: descriptor.value,
