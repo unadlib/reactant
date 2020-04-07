@@ -1,4 +1,4 @@
-import { storeKey, Service, StateService } from 'reactant-module';
+import { storeKey, Service, StateService, stateKey } from 'reactant-module';
 import { Dispatch } from 'redux';
 
 type SerivceName = Pick<Service, 'name'>;
@@ -21,8 +21,8 @@ export const redux = <
   A extends Record<string, (...args: any[]) => (dispatch: Dispatch) => void>
 >(
   scheme: Scheme<S, A>
-) => {
-  let module: Actions<A> & StateService<State<S>>;
+): Actions<A> & Service<State<S>> & State<S> => {
+  let module: Service<State<S>>;
   Object.keys(scheme.actions).forEach(key => {
     const fn = scheme.actions[key];
     Object.assign(scheme.actions, {
@@ -34,10 +34,10 @@ export const redux = <
   });
   module = {
     name: scheme.name,
-    state: {
+    [stateKey]: {
       ...scheme.reducers,
     },
     ...scheme.actions,
   };
-  return module;
+  return module as any;
 };

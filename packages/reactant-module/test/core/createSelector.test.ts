@@ -3,6 +3,7 @@ import {
   createContainer,
   createStore,
   action,
+  state,
   createSelector,
 } from '../..';
 
@@ -11,32 +12,33 @@ test('`createSelector` without an external checked value or with an external che
 
   @injectable()
   class Counter {
-    state = {
+    @state
+    count = 0;
+
+    @state
+    others = {
+      list: [] as number[],
       count: 0,
-      others: {
-        list: [] as number[],
-        count: 0,
-      },
     };
 
     @action
     increase() {
-      this.state.count += 1;
+      this.count += 1;
     }
 
     @action
     decrease() {
-      this.state.others.count -= 1;
+      this.others.count -= 1;
     }
 
     @action
     add() {
-      this.state.others.list.push(this.state.others.list.length + 1);
+      this.others.list.push(this.others.list.length + 1);
     }
 
     getSum = createSelector(
-      () => this.state.count,
-      () => this.state.others.list,
+      () => this.count,
+      () => this.others.list,
       (count, list) => {
         computeCount();
         return list.reduce((sum, item) => sum + item, count);

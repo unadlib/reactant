@@ -5,6 +5,7 @@ import {
   action,
   subscribe,
   watch,
+  state,
 } from '../..';
 
 test('subscribe in constructor', () => {
@@ -20,22 +21,23 @@ test('subscribe in constructor', () => {
 
     constructor() {
       this.unsubscribe = subscribe(this, subscribeFn);
-      this.dispose = watch(this, () => this.state.count, whenFn);
+      this.dispose = watch(this, () => this.count, whenFn);
     }
 
-    state = {
-      count: 1,
-      list: [{ count: 1 }],
-    };
+    @state
+    count = 1;
+
+    @state
+    list = [{ count: 1 }];
 
     @action
     increase() {
-      this.state.count += 1;
+      this.count += 1;
     }
 
     @action
     increase1() {
-      this.state.list[0].count += 1;
+      this.list[0].count += 1;
     }
   }
 
@@ -101,22 +103,23 @@ test('subscribe in non-constructor', () => {
 
     init() {
       this.unsubscribe = subscribe(this, subscribeFn);
-      this.dispose = watch(this, () => this.state.count, whenFn);
+      this.dispose = watch(this, () => this.count, whenFn);
     }
 
-    state = {
-      count: 1,
-      list: [{ count: 1 }],
-    };
+    @state
+    count = 1;
+
+    @state
+    list = [{ count: 1 }];
 
     @action
     increase() {
-      this.state.count += 1;
+      this.count += 1;
     }
 
     @action
     increase1() {
-      this.state.list[0].count += 1;
+      this.list[0].count += 1;
     }
   }
 

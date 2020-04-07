@@ -1,5 +1,5 @@
 import { produce } from 'immer';
-import { storeKey, Service, StateService } from 'reactant-module';
+import { storeKey, Service, stateKey } from 'reactant-module';
 
 type SerivceName = Pick<Service, 'name'>;
 
@@ -17,13 +17,13 @@ export const model = <
   A extends Record<string, (...args: any[]) => (state: S) => void>
 >(
   scheme: Scheme<S, A>
-) => {
-  let module: Actions<A> & StateService<S>;
+): Actions<A> & Service<S> & S => {
+  let module: Service<S>;
   Object.keys(scheme.actions).forEach(key => {
     const fn = scheme.actions[key];
     Object.assign(scheme.actions, {
       [key]: (...args: any[]) => {
-        const state = produce(module.state, (draftState: S) => {
+        const state = produce(module[stateKey], (draftState: S) => {
           fn(...args)(draftState);
         });
         module[storeKey]!.dispatch({
@@ -37,10 +37,10 @@ export const model = <
   });
   module = {
     name: scheme.name,
-    state: {
+    [stateKey]: {
       ...scheme.state,
     },
     ...scheme.actions,
   };
-  return module;
+  return module as any;
 };

@@ -1,15 +1,14 @@
-import { injectable, createContainer, createStore, action } from '../..';
+import { injectable, createContainer, state, createStore, action } from '../..';
 
 test('base `@action` decorate', () => {
   @injectable()
   class Counter {
-    state = {
-      count: 0,
-    };
+    @state
+    count = 0;
 
     @action
     increase() {
-      this.state.count += 1;
+      this.count += 1;
     }
   }
   const ServiceIdentifiers = new Map();
@@ -24,7 +23,7 @@ test('base `@action` decorate', () => {
   const counter = container.get(Counter);
   const store = createStore(container, ServiceIdentifiers);
   counter.increase();
-  expect(counter.state.count).toBe(1);
+  expect(counter.count).toBe(1);
   expect(Object.values(store.getState())).toEqual([{ count: 1 }]);
 });
 
@@ -33,22 +32,23 @@ test('`@action` with base devOptions pararms', () => {
   class Counter {
     name = 'counter';
 
-    state = {
-      count: 0,
-      sum: { count: 0 },
-    };
+    @state
+    count = 0;
+
+    @state
+    sum = { count: 0 };
 
     @action
     increase() {
-      this.state.sum.count += 1;
+      this.sum.count += 1;
     }
 
     increase1() {
-      this.state.sum.count += 1;
+      this.sum.count += 1;
     }
 
     increase2() {
-      this.state.count += 1;
+      this.count += 1;
     }
   }
   const ServiceIdentifiers = new Map();
@@ -89,24 +89,25 @@ test('`@action` in inherited module with stagedState about more effects', () => 
   class Foo0 {
     name = 'foo';
 
-    state = {
-      count0: 1,
-      count1: 1,
-    };
+    @state
+    count0 = 1;
+
+    @state
+    count1 = 1;
 
     @action
     increase() {
-      this.state.count0 += 1;
+      this.count0 += 1;
     }
 
     @action
     decrease() {
-      this.state.count0 -= 1;
+      this.count0 -= 1;
     }
 
     @action
     decrease1() {
-      this.state.count0 -= 1;
+      this.count0 -= 1;
     }
   }
 
@@ -123,7 +124,7 @@ test('`@action` in inherited module with stagedState about more effects', () => 
       // inheritance
       super.increase();
       // change state
-      this.state.count0 += 1;
+      this.count0 += 1;
       // call other action function
       this.increase1();
       // call unwrapped `@action` function
@@ -132,13 +133,13 @@ test('`@action` in inherited module with stagedState about more effects', () => 
 
     @action
     increase1() {
-      this.state.count1 += 1;
+      this.count1 += 1;
     }
 
     @action
     decrease() {
       super.decrease();
-      this.state.count0 -= 1;
+      this.count0 -= 1;
     }
 
     decrease1() {
@@ -164,14 +165,14 @@ test('`@action` in inherited module with stagedState about more effects', () => 
   const subscribe = jest.fn();
   store.subscribe(subscribe);
   fooBar.foo.increase();
-  expect(fooBar.foo.state.count0).toBe(3);
-  expect(fooBar.foo.state.count1).toBe(2);
+  expect(fooBar.foo.count0).toBe(3);
+  expect(fooBar.foo.count1).toBe(2);
   expect(fooBar.foo.count).toBe(2);
   // merge the multi-actions changed states as one redux dispatch.
   expect(subscribe.mock.calls.length).toBe(1);
   // inheritance
   fooBar.foo.decrease();
-  expect(fooBar.foo.state.count0).toBe(1);
+  expect(fooBar.foo.count0).toBe(1);
   fooBar.foo.decrease1();
-  expect(fooBar.foo.state.count0).toBe(0);
+  expect(fooBar.foo.count0).toBe(0);
 });

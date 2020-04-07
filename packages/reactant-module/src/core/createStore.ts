@@ -1,3 +1,4 @@
+/* eslint-disable guard-for-in */
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable no-loop-func */
 import { FunctionComponent } from 'react';
@@ -17,8 +18,14 @@ import {
   PluginHooks,
   DevOptions,
   Subscriptions,
+  ThisService,
 } from '../interfaces';
-import { storeKey, subscriptionsKey, stagedStateKey } from '../constants';
+import {
+  storeKey,
+  subscriptionsKey,
+  stagedStateKey,
+  stateKey,
+} from '../constants';
 import { getStageName, perform, getComposeEnhancers } from '../utils';
 import { handlePlugin } from './handlePlugin';
 
@@ -55,7 +62,7 @@ export function createStore<T = any>(
       services.forEach((service, index) => {
         handlePlugin(service, pluginHooks);
         const isPlainObject =
-          toString.call(service.state) === '[object Object]';
+          toString.call(service[stateKey]) === '[object Object]';
         if (isPlainObject) {
           const className = (Service as Function).name;
           let reducersIdentifier: string = service.name;
@@ -97,11 +104,33 @@ export function createStore<T = any>(
               reducersIdentifier = `${reducersIdentifier}${index}`;
             }
           }
-          const isEmptyObject = Object.keys(service.state).length === 0;
+          const isEmptyObject = Object.keys(service[stateKey]).length === 0;
           if (!isEmptyObject) {
+            let isEnableUseDefineForClassFields = false;
+            const descriptors: Record<string, PropertyDescriptor> = {};
+            // handle when enable `UseDefineForClassFields` in TS.
+            for (const key in service[stateKey]) {
+              const descriptor = Object.getOwnPropertyDescriptor(service, key);
+              if (typeof descriptor === 'undefined') break;
+              isEnableUseDefineForClassFields = true;
+              Object.assign(service[stateKey], {
+                [key]: descriptor.value,
+              });
+              descriptors[key] = {
+                enumerable: true,
+                configurable: false,
+                get(this: ThisService) {
+                  return this[stateKey]![key];
+                },
+                set(this: ThisService, value: any) {
+                  this[stateKey]![key] = value;
+                },
+              };
+            }
+
             const initState = autoFreeze
-              ? produce(service.state, () => {}) // freeze init state
-              : service.state;
+              ? produce({ ...service[stateKey] }, () => {}) // freeze init state
+              : service[stateKey];
             const serviceReducers = Object.entries(initState).reduce(
               (serviceReducersMapObject: ReducersMapObject, [key, value]) => {
                 // support pure reducer
@@ -126,10 +155,13 @@ export function createStore<T = any>(
             Object.assign(reducers, {
               [reducersIdentifier]: reducer,
             });
+            if (isEnableUseDefineForClassFields) {
+              Object.defineProperties(service, descriptors);
+            }
             // redefine get service state from store state.
             Object.defineProperties(service, {
-              state: {
-                enumerable: true,
+              [stateKey]: {
+                enumerable: false,
                 configurable: false,
                 get() {
                   if (this[stagedStateKey]) return this[stagedStateKey];

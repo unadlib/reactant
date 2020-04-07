@@ -30,7 +30,7 @@ test('base model with `useValue`', () => {
     }
 
     get todoList() {
-      return this.todo.state.todoList;
+      return this.todo.todoList;
     }
   }
 
@@ -82,7 +82,7 @@ test('base model with `useFactory`', () => {
     }
 
     get todoList() {
-      return this.todo.state.todoList;
+      return this.todo.todoList;
     }
   }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { injectable, ViewModule, createContainer, defaultProps } from '../..';
 
-test('`@defaultProps` without parameter generi', () => {
+test('base module with @state and @action', () => {
   interface CounterProps {
     version?: string;
   }

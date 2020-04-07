@@ -4,22 +4,21 @@ import {
   createContainer,
   createStore,
   action,
+  state,
   ReactantAction,
 } from '../..';
 
 test('`createSelector` with type', () => {
   @injectable()
   class Counter {
-    state = {
-      ...createState({
-        count: (_state = 0, _action: ReactantAction) =>
-          _action.type === (this as any).name ? _action.state.count : _state,
-      }),
-    };
+    @state
+    count = createState<number, ReactantAction>((_state = 0, _action) =>
+      _action.type === (this as any).name ? _action.state.count : _state
+    );
 
     @action
     increase() {
-      this.state.count += 1;
+      this.count += 1;
     }
   }
   const ServiceIdentifiers = new Map();
@@ -33,7 +32,7 @@ test('`createSelector` with type', () => {
   });
   const counter = container.get(Counter);
   const store = createStore(container, ServiceIdentifiers);
-  expect(counter.state.count).toBe(0);
+  expect(counter.count).toBe(0);
   counter.increase();
-  expect(counter.state.count).toBe(1);
+  expect(counter.count).toBe(1);
 });
