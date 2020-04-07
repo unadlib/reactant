@@ -2,8 +2,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
 import { act } from 'react-dom/test-utils';
-import { render, unmountComponentAtNode } from 'reactant-web';
-import { Storage, StorageOptions, IStorageOptions } from 'reactant-storage';
+
 import {
   ViewModule,
   createApp,
@@ -15,7 +14,9 @@ import {
   createSelector,
   autobind,
   state,
-} from '../..';
+} from 'reactant';
+import { render, unmountComponentAtNode } from 'reactant-web';
+import { Storage, StorageOptions, IStorageOptions } from '..';
 
 let container: Element;
 
