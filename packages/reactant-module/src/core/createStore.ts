@@ -107,14 +107,10 @@ export function createStore<T = any>(
           }
           const isEmptyObject = Object.keys(service[stateKey]).length === 0;
           if (!isEmptyObject) {
-            let isEnableUseDefineForClassFields = false;
             const descriptors: Record<string, PropertyDescriptor> = {};
-            // handle when enable `UseDefineForClassFields` in TS.
             for (const key in service[stateKey]) {
               const descriptor = Object.getOwnPropertyDescriptor(service, key);
-              if (typeof descriptor === 'undefined' || service[initializerKey])
-                break;
-              isEnableUseDefineForClassFields = true;
+              if (typeof descriptor === 'undefined') break;
               Object.assign(service[stateKey], {
                 [key]: descriptor.value,
               });
@@ -157,9 +153,7 @@ export function createStore<T = any>(
             Object.assign(reducers, {
               [reducersIdentifier]: reducer,
             });
-            if (isEnableUseDefineForClassFields) {
-              Object.defineProperties(service, descriptors);
-            }
+            Object.defineProperties(service, descriptors);
             // redefine get service state from store state.
             Object.defineProperties(service, {
               [stateKey]: {

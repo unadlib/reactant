@@ -2,11 +2,12 @@ import { Service, PropertyDescriptor } from '../interfaces';
 import { stateKey, initializerKey } from '../constants';
 
 export function state(
-  target: any,
+  target: object,
   key: string | symbol,
   descriptor?: PropertyDescriptor<any>
   // it must return any or void type;
-): any {
+) {
+  const service: Service = target;
   if (typeof key !== 'string') {
     throw new Error(
       `'@state' decorate ${key.toString()} error in ${
@@ -19,16 +20,16 @@ export function state(
     // https://tc39.es/proposal-decorators/#runtime-semantics-class-field-definition-evaluation
     Object.assign(target, {
       [stateKey]: {
-        ...target[stateKey],
+        ...service[stateKey],
         [key]: descriptor.initializer.call(target),
       },
     });
-    if (!target[initializerKey]) {
+    if (!service[initializerKey]) {
       Object.assign(target, {
         [initializerKey]: true,
       });
     }
-  } else if (typeof target[stateKey] === 'undefined') {
+  } else if (typeof service[stateKey] === 'undefined') {
     // 1. assign empty object for TS decorators.
     Object.assign(target, {
       [stateKey]: {
@@ -38,19 +39,7 @@ export function state(
   } else {
     // sign when enable `useDefineForClassFields` in TS.
     // eslint-disable-next-line no-param-reassign
-    target[stateKey][key] = undefined;
+    service[stateKey]![key] = undefined;
   }
   // TS decorators: https://github.com/Microsoft/TypeScript/issues/2249
-  return {
-    ...descriptor,
-    enumerable: true,
-    configurable: false,
-    get(this: Service) {
-      return this[stateKey]![key];
-    },
-    set(this: Service, value: any) {
-      // 2. initializ set a init value after execute wrapped property with TS decorators.
-      this[stateKey]![key] = value;
-    },
-  };
 }
