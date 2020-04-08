@@ -25,7 +25,6 @@ import {
   subscriptionsKey,
   stagedStateKey,
   stateKey,
-  initializerKey,
 } from '../constants';
 import { getStageName, perform, getComposeEnhancers } from '../utils';
 import { handlePlugin } from './handlePlugin';
