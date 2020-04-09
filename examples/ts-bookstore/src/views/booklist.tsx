@@ -6,16 +6,16 @@ import {
   action,
   createSelector,
 } from 'reactant';
-import { StoreBooks } from '../services/books';
+import { BooksModule } from '../modules/books';
 
 @injectable()
 class BookListView extends ViewModule {
-  constructor(public storeBooks: StoreBooks) {
+  constructor(public books: BooksModule) {
     super();
   }
 
   component() {
-    const data = useConnector(() => this.storeBooks.state.books);
+    const data = useConnector(() => this.books.books);
     return null;
   }
 }
