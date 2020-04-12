@@ -1,29 +1,19 @@
-import { injectable, action, batch, state } from 'reactant';
+import { injectable, action, batch, state, createSelector } from 'reactant';
 import { schema, normalize } from 'normalizr';
-import { Comments, Comment, CommentsModule } from './comments';
-import { Users, User } from './users';
+import { IComments, IComment, IUsers, IUser, IBooks, IBook } from '../model';
+import { Comments } from './comments';
 
-export interface Book<T = Comment['id']> {
-  id: string;
-  name: string;
-  count: number;
-  price: number;
-  comments: T[];
-}
+export type IBookList = IBook['id'][];
 
-export type BookList = Book['id'][];
-
-export type Books = Record<Book['id'], Book>;
-
-interface Entities {
-  books: Books;
-  comments: Comments;
-  users: Users;
+interface IEntities {
+  books: IBooks;
+  comments: IComments;
+  users: IUsers;
 }
 
 @injectable()
-class BooksModule {
-  constructor(public comments: CommentsModule) {}
+class Books {
+  constructor(private comments: Comments) {}
 
   schema = [
     new schema.Entity('books', {
@@ -32,13 +22,13 @@ class BooksModule {
   ];
 
   @state
-  books: Books = {};
+  books: IBooks = {};
 
   @state
-  list: BookList = [];
+  list: IBookList = [];
 
   @action
-  updateBooksList(books: Books, list: BookList) {
+  updateBooksList(books: IBooks, list: IBookList) {
     this.list.push(...list);
     this.books = {
       ...this.books,
@@ -46,8 +36,14 @@ class BooksModule {
     };
   }
 
+  getBooksList = createSelector(
+    () => this.list,
+    () => this.books,
+    (list, books) => list.map(id => books[id])
+  );
+
   async fetchBooksList() {
-    const mockData: Book<Comment<User>>[] = [
+    const mockData: IBook<IComment<IUser>>[] = [
       {
         id: '1',
         name: 'The Moon and Sixpence',
@@ -62,7 +58,7 @@ class BooksModule {
         price: 15.2,
       },
     ];
-    const { result, entities } = normalize<Book[], Entities, BookList>(
+    const { result, entities } = normalize<IBook[], IEntities, IBookList>(
       mockData,
       this.schema
     );
@@ -74,4 +70,4 @@ class BooksModule {
   }
 }
 
-export { BooksModule };
+export { Books };

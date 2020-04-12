@@ -10,6 +10,7 @@ export abstract class ViewModule implements Service {
   name?: string;
 
   constructor() {
+    // TODO: think about without `super()` in subclass.
     if (typeof this.component !== 'function') {
       throw new Error(
         `'${

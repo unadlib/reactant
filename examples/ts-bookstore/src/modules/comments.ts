@@ -1,42 +1,35 @@
-import { injectable, action, state } from 'reactant';
+import { injectable, action, state, createSelector } from 'reactant';
 import { schema } from 'normalizr';
-import { User, UsersModule, Users } from './users';
-
-export interface Comment<T = User['id']> {
-  id: string;
-  content: string;
-  user: T;
-}
-
-export type Comments = Record<Comment['id'], Comment>;
+import { Users } from './users';
+import { IComment, IComments, IUsers } from '../model';
 
 @injectable()
-class CommentsModule {
-  constructor(public users: UsersModule) {}
+class Comments {
+  constructor(private users: Users) {}
 
   schema = new schema.Entity('comments', {
     user: this.users.schema,
   });
 
   @state
-  comments: Comments = {};
+  comments: IComments = {};
 
   @action
-  updateComments(comments: Comments) {
+  updateComments(comments: IComments) {
     this.comments = {
       ...this.comments,
       ...comments,
     };
   }
 
-  addCommentUsers(users: Users) {
+  addCommentUsers(users: IUsers) {
     this.users.updateUsers(users);
   }
 
   @action
-  modifyComment(comment: Comment) {
+  modifyComment(comment: IComment) {
     this.comments[comment.id] = comment;
   }
 }
 
-export { CommentsModule };
+export { Comments };

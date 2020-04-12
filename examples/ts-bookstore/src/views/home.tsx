@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Link, Switch, Route } from 'reactant-web';
 import { ViewModule, injectable } from 'reactant';
 import { Router } from 'reactant-router';
-import { BooksModule } from '../modules/books';
+import { Books } from '../modules/books';
 import { BookView } from './book';
 import { BookListView } from './booklist';
 import { ShoppingCartView } from './shoppingCart';
@@ -10,11 +10,11 @@ import { ShoppingCartView } from './shoppingCart';
 @injectable()
 class HomeView extends ViewModule {
   constructor(
-    public books: BooksModule,
-    public bookView: BookView,
-    public bookListView: BookListView,
-    public shoppingCartView: ShoppingCartView,
-    public router: Router
+    private books: Books,
+    private bookView: BookView,
+    private bookListView: BookListView,
+    private shoppingCartView: ShoppingCartView,
+    private router: Router
   ) {
     super();
   }
@@ -40,9 +40,10 @@ class HomeView extends ViewModule {
           <Route exact path="/">
             <this.bookListView.component />
           </Route>
-          <Route path={this.bookView.path}>
-            <this.bookView.component />
-          </Route>
+          <Route
+            path={this.bookView.path}
+            component={this.bookView.component}
+          />
           <Route path={this.shoppingCartView.path}>
             <this.shoppingCartView.component />
           </Route>

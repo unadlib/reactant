@@ -1,22 +1,16 @@
 import { injectable, action, state } from 'reactant';
 import { schema } from 'normalizr';
-
-export interface User {
-  id: string;
-  username: string;
-}
-
-export type Users = Record<User['id'], User>;
+import { IUsers } from '../model';
 
 @injectable()
-class UsersModule {
+class Users {
   schema = new schema.Entity('users');
 
   @state
-  users: Users = {};
+  users: IUsers = {};
 
   @action
-  updateUsers(users: Users) {
+  updateUsers(users: IUsers) {
     this.users = {
       ...this.users,
       ...users,
@@ -24,4 +18,4 @@ class UsersModule {
   }
 }
 
-export { UsersModule };
+export { Users };
