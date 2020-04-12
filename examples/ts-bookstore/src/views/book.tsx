@@ -32,6 +32,7 @@ class BookView extends ViewModule {
     (id, books, comments, users) => {
       return {
         ...books[id],
+        // other way: it can use `denormalize` in `normalizr`.
         comments: books[id].comments.map(commentId => ({
           ...comments[commentId],
           user: users[comments[commentId].user],
@@ -43,7 +44,7 @@ class BookView extends ViewModule {
   path = `/book/:${indexKey}`;
 
   getLink(id: string) {
-    return this.path.replace(':id', id);
+    return this.path.replace(`:${indexKey}`, id);
   }
 
   component() {
