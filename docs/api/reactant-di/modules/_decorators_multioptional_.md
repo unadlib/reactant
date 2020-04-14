@@ -14,7 +14,7 @@
 
 ▸ **multiOptional**(`token`: [ServiceIdentifier](_interfaces_.md#serviceidentifier)‹any›): *(Anonymous function)*
 
-*Defined in [packages/reactant-di/src/decorators/multiOptional.ts:7](https://github.com/unadlib/reactant/blob/156662c/packages/reactant-di/src/decorators/multiOptional.ts#L7)*
+*Defined in [packages/reactant-di/src/decorators/multiOptional.ts:7](https://github.com/unadlib/reactant/blob/2a94e2e/packages/reactant-di/src/decorators/multiOptional.ts#L7)*
 
 **Parameters:**
 

@@ -18,7 +18,7 @@
   paramtypes: 'design:paramtypes',
 } as const
 
-*Defined in [packages/reactant-di/src/constants.ts:1](https://github.com/unadlib/reactant/blob/156662c/packages/reactant-di/src/constants.ts#L1)*
+*Defined in [packages/reactant-di/src/constants.ts:1](https://github.com/unadlib/reactant/blob/2a94e2e/packages/reactant-di/src/constants.ts#L1)*
 
 #### Type declaration:
 

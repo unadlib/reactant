@@ -19,7 +19,7 @@
 
 • **autoFreeze**? : *undefined | false | true*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:19](https://github.com/unadlib/reactant/blob/156662c/packages/reactant-module/src/interfaces.ts#L19)*
+*Defined in [packages/reactant-module/src/interfaces.ts:19](https://github.com/unadlib/reactant/blob/2a94e2e/packages/reactant-module/src/interfaces.ts#L19)*
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 • **reduxDevTools**? : *undefined | false | true*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:20](https://github.com/unadlib/reactant/blob/156662c/packages/reactant-module/src/interfaces.ts#L20)*
+*Defined in [packages/reactant-module/src/interfaces.ts:20](https://github.com/unadlib/reactant/blob/2a94e2e/packages/reactant-module/src/interfaces.ts#L20)*

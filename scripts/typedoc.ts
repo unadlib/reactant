@@ -18,7 +18,7 @@ const generateDocs = (project: string) => {
     '--module',
     'commonjs',
     '--readme',
-    `packages/${project}/docs/api-readme`,
+    `packages/${project}/api`,
     '--excludeExternals',
   ];
   spawn('typedoc', args, {

@@ -41,7 +41,7 @@
 
 Ƭ **Collection**: *object*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:65](https://github.com/unadlib/reactant/blob/156662c/packages/reactant-module/src/interfaces.ts#L65)*
+*Defined in [packages/reactant-module/src/interfaces.ts:65](https://github.com/unadlib/reactant/blob/2a94e2e/packages/reactant-module/src/interfaces.ts#L65)*
 
 #### Type declaration:
 
@@ -51,7 +51,7 @@ ___
 
 Ƭ **ExcludeRequired**: *object*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:107](https://github.com/unadlib/reactant/blob/156662c/packages/reactant-module/src/interfaces.ts#L107)*
+*Defined in [packages/reactant-module/src/interfaces.ts:107](https://github.com/unadlib/reactant/blob/2a94e2e/packages/reactant-module/src/interfaces.ts#L107)*
 
 #### Type declaration:
 
@@ -61,7 +61,7 @@ ___
 
 Ƭ **FirstParameter**: *T extends function ? P : never*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:58](https://github.com/unadlib/reactant/blob/156662c/packages/reactant-module/src/interfaces.ts#L58)*
+*Defined in [packages/reactant-module/src/interfaces.ts:58](https://github.com/unadlib/reactant/blob/2a94e2e/packages/reactant-module/src/interfaces.ts#L58)*
 
 ___
 
@@ -69,7 +69,7 @@ ___
 
 Ƭ **HandlePlugin**: *function*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:71](https://github.com/unadlib/reactant/blob/156662c/packages/reactant-module/src/interfaces.ts#L71)*
+*Defined in [packages/reactant-module/src/interfaces.ts:71](https://github.com/unadlib/reactant/blob/2a94e2e/packages/reactant-module/src/interfaces.ts#L71)*
 
 #### Type declaration:
 
@@ -88,7 +88,7 @@ ___
 
 Ƭ **OptionalKeyOf**: *Exclude‹object[keyof T], undefined›*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:100](https://github.com/unadlib/reactant/blob/156662c/packages/reactant-module/src/interfaces.ts#L100)*
+*Defined in [packages/reactant-module/src/interfaces.ts:100](https://github.com/unadlib/reactant/blob/2a94e2e/packages/reactant-module/src/interfaces.ts#L100)*
 
 ___
 
@@ -96,7 +96,7 @@ ___
 
 Ƭ **PartialRequired**: *Required‹Pick‹T, K›› & Pick‹T, Exclude‹keyof T, K››*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:97](https://github.com/unadlib/reactant/blob/156662c/packages/reactant-module/src/interfaces.ts#L97)*
+*Defined in [packages/reactant-module/src/interfaces.ts:97](https://github.com/unadlib/reactant/blob/2a94e2e/packages/reactant-module/src/interfaces.ts#L97)*
 
 ___
 
@@ -104,7 +104,7 @@ ___
 
 Ƭ **PickOptional**: *Pick‹[ExcludeRequired](_interfaces_.md#excluderequired)‹T›, [OptionalKeyOf](_interfaces_.md#optionalkeyof)‹T››*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:111](https://github.com/unadlib/reactant/blob/156662c/packages/reactant-module/src/interfaces.ts#L111)*
+*Defined in [packages/reactant-module/src/interfaces.ts:111](https://github.com/unadlib/reactant/blob/2a94e2e/packages/reactant-module/src/interfaces.ts#L111)*
 
 ___
 
@@ -112,7 +112,7 @@ ___
 
 Ƭ **PluginHooks**: *[Collection](_interfaces_.md#collection)‹[PluginModule](../classes/_core_plugin_.pluginmodule.md)›*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:69](https://github.com/unadlib/reactant/blob/156662c/packages/reactant-module/src/interfaces.ts#L69)*
+*Defined in [packages/reactant-module/src/interfaces.ts:69](https://github.com/unadlib/reactant/blob/2a94e2e/packages/reactant-module/src/interfaces.ts#L69)*
 
 ___
 
@@ -120,7 +120,7 @@ ___
 
 Ƭ **ReactModuleOptions**: *ModuleOptions*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:42](https://github.com/unadlib/reactant/blob/156662c/packages/reactant-module/src/interfaces.ts#L42)*
+*Defined in [packages/reactant-module/src/interfaces.ts:42](https://github.com/unadlib/reactant/blob/2a94e2e/packages/reactant-module/src/interfaces.ts#L42)*
 
 ___
 
@@ -128,7 +128,7 @@ ___
 
 Ƭ **ReactantMiddleware**: *Middleware*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:46](https://github.com/unadlib/reactant/blob/156662c/packages/reactant-module/src/interfaces.ts#L46)*
+*Defined in [packages/reactant-module/src/interfaces.ts:46](https://github.com/unadlib/reactant/blob/2a94e2e/packages/reactant-module/src/interfaces.ts#L46)*
 
 ___
 
@@ -136,7 +136,7 @@ ___
 
 Ƭ **ReactantStore**: *Store‹any, AnyAction›*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:44](https://github.com/unadlib/reactant/blob/156662c/packages/reactant-module/src/interfaces.ts#L44)*
+*Defined in [packages/reactant-module/src/interfaces.ts:44](https://github.com/unadlib/reactant/blob/2a94e2e/packages/reactant-module/src/interfaces.ts#L44)*
 
 ___
 
@@ -144,7 +144,7 @@ ___
 
 Ƭ **Selector**: *function*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:81](https://github.com/unadlib/reactant/blob/156662c/packages/reactant-module/src/interfaces.ts#L81)*
+*Defined in [packages/reactant-module/src/interfaces.ts:81](https://github.com/unadlib/reactant/blob/2a94e2e/packages/reactant-module/src/interfaces.ts#L81)*
 
 #### Type declaration:
 
@@ -156,7 +156,7 @@ ___
 
 Ƭ **StateMapObject**: *object*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:52](https://github.com/unadlib/reactant/blob/156662c/packages/reactant-module/src/interfaces.ts#L52)*
+*Defined in [packages/reactant-module/src/interfaces.ts:52](https://github.com/unadlib/reactant/blob/2a94e2e/packages/reactant-module/src/interfaces.ts#L52)*
 
 #### Type declaration:
 
@@ -166,7 +166,7 @@ ___
 
 Ƭ **StateService**: *[Service](../interfaces/_interfaces_.service.md)‹T›*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:91](https://github.com/unadlib/reactant/blob/156662c/packages/reactant-module/src/interfaces.ts#L91)*
+*Defined in [packages/reactant-module/src/interfaces.ts:91](https://github.com/unadlib/reactant/blob/2a94e2e/packages/reactant-module/src/interfaces.ts#L91)*
 
 ___
 
@@ -174,7 +174,7 @@ ___
 
 Ƭ **Subscribe**: *function*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:76](https://github.com/unadlib/reactant/blob/156662c/packages/reactant-module/src/interfaces.ts#L76)*
+*Defined in [packages/reactant-module/src/interfaces.ts:76](https://github.com/unadlib/reactant/blob/2a94e2e/packages/reactant-module/src/interfaces.ts#L76)*
 
 #### Type declaration:
 
@@ -194,7 +194,7 @@ ___
 
 Ƭ **Subscriptions**: *function[]*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:30](https://github.com/unadlib/reactant/blob/156662c/packages/reactant-module/src/interfaces.ts#L30)*
+*Defined in [packages/reactant-module/src/interfaces.ts:30](https://github.com/unadlib/reactant/blob/2a94e2e/packages/reactant-module/src/interfaces.ts#L30)*
 
 ___
 
@@ -202,7 +202,7 @@ ___
 
 Ƭ **ThisService**: *[Service](../interfaces/_interfaces_.service.md) & object*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:40](https://github.com/unadlib/reactant/blob/156662c/packages/reactant-module/src/interfaces.ts#L40)*
+*Defined in [packages/reactant-module/src/interfaces.ts:40](https://github.com/unadlib/reactant/blob/2a94e2e/packages/reactant-module/src/interfaces.ts#L40)*
 
 ___
 
@@ -210,7 +210,7 @@ ___
 
 Ƭ **TypePreloadedState**: *PreloadedState‹T›*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:24](https://github.com/unadlib/reactant/blob/156662c/packages/reactant-module/src/interfaces.ts#L24)*
+*Defined in [packages/reactant-module/src/interfaces.ts:24](https://github.com/unadlib/reactant/blob/2a94e2e/packages/reactant-module/src/interfaces.ts#L24)*
 
 ___
 
@@ -218,7 +218,7 @@ ___
 
 Ƭ **Watch**: *function*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:85](https://github.com/unadlib/reactant/blob/156662c/packages/reactant-module/src/interfaces.ts#L85)*
+*Defined in [packages/reactant-module/src/interfaces.ts:85](https://github.com/unadlib/reactant/blob/2a94e2e/packages/reactant-module/src/interfaces.ts#L85)*
 
 #### Type declaration:
 
@@ -242,7 +242,7 @@ ___
 
 Ƭ **Watcher**: *function*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:83](https://github.com/unadlib/reactant/blob/156662c/packages/reactant-module/src/interfaces.ts#L83)*
+*Defined in [packages/reactant-module/src/interfaces.ts:83](https://github.com/unadlib/reactant/blob/2a94e2e/packages/reactant-module/src/interfaces.ts#L83)*
 
 #### Type declaration:
 

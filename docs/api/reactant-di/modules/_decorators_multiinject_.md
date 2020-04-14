@@ -14,4 +14,4 @@
 
 • **multiInject**: *multiInject* = multiInjectWithInversify
 
-*Defined in [packages/reactant-di/src/decorators/multiInject.ts:3](https://github.com/unadlib/reactant/blob/156662c/packages/reactant-di/src/decorators/multiInject.ts#L3)*
+*Defined in [packages/reactant-di/src/decorators/multiInject.ts:3](https://github.com/unadlib/reactant/blob/2a94e2e/packages/reactant-di/src/decorators/multiInject.ts#L3)*

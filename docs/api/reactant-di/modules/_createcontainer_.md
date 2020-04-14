@@ -23,7 +23,7 @@
 
 ▸ **autoBindModules**(): *ContainerModule‹›*
 
-*Defined in [packages/reactant-di/src/createContainer.ts:40](https://github.com/unadlib/reactant/blob/156662c/packages/reactant-di/src/createContainer.ts#L40)*
+*Defined in [packages/reactant-di/src/createContainer.ts:40](https://github.com/unadlib/reactant/blob/2a94e2e/packages/reactant-di/src/createContainer.ts#L40)*
 
 **Returns:** *ContainerModule‹›*
 
@@ -33,7 +33,7 @@ ___
 
 ▸ **createContainer**(`__namedParameters`: object): *Container‹›*
 
-*Defined in [packages/reactant-di/src/createContainer.ts:67](https://github.com/unadlib/reactant/blob/156662c/packages/reactant-di/src/createContainer.ts#L67)*
+*Defined in [packages/reactant-di/src/createContainer.ts:67](https://github.com/unadlib/reactant/blob/2a94e2e/packages/reactant-di/src/createContainer.ts#L67)*
 
 **Parameters:**
 
@@ -53,7 +53,7 @@ ___
 
 ▸ **forwardRef**(`callback`: function): *LazyServiceIdentifer‹any›*
 
-*Defined in [packages/reactant-di/src/createContainer.ts:23](https://github.com/unadlib/reactant/blob/156662c/packages/reactant-di/src/createContainer.ts#L23)*
+*Defined in [packages/reactant-di/src/createContainer.ts:23](https://github.com/unadlib/reactant/blob/2a94e2e/packages/reactant-di/src/createContainer.ts#L23)*
 
 **Parameters:**
 
@@ -69,7 +69,7 @@ ___
 
 ▸ **isClassProvider**(`module`: [ModuleOptions](_interfaces_.md#moduleoptions)): *module is ClassProvider*
 
-*Defined in [packages/reactant-di/src/createContainer.ts:59](https://github.com/unadlib/reactant/blob/156662c/packages/reactant-di/src/createContainer.ts#L59)*
+*Defined in [packages/reactant-di/src/createContainer.ts:59](https://github.com/unadlib/reactant/blob/2a94e2e/packages/reactant-di/src/createContainer.ts#L59)*
 
 **Parameters:**
 
@@ -85,7 +85,7 @@ ___
 
 ▸ **isFactoryProvider**(`module`: [ModuleOptions](_interfaces_.md#moduleoptions)): *module is FactoryProvider*
 
-*Defined in [packages/reactant-di/src/createContainer.ts:63](https://github.com/unadlib/reactant/blob/156662c/packages/reactant-di/src/createContainer.ts#L63)*
+*Defined in [packages/reactant-di/src/createContainer.ts:63](https://github.com/unadlib/reactant/blob/2a94e2e/packages/reactant-di/src/createContainer.ts#L63)*
 
 **Parameters:**
 

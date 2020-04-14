@@ -15,7 +15,7 @@
 
 ▸ **subscribe**(`service`: [Service](../interfaces/_interfaces_.service.md)‹object› & object, `listener`: function): *Unsubscribe*
 
-*Defined in [packages/reactant-module/src/core/subscriber.ts:6](https://github.com/unadlib/reactant/blob/156662c/packages/reactant-module/src/core/subscriber.ts#L6)*
+*Defined in [packages/reactant-module/src/core/subscriber.ts:6](https://github.com/unadlib/reactant/blob/2a94e2e/packages/reactant-module/src/core/subscriber.ts#L6)*
 
 **Parameters:**
 
@@ -33,7 +33,7 @@ ___
 
 ▸ **watch**(`service`: [Service](../interfaces/_interfaces_.service.md)‹object› & object, `selector`: function, `watcher`: function): *Unsubscribe*
 
-*Defined in [packages/reactant-module/src/core/subscriber.ts:28](https://github.com/unadlib/reactant/blob/156662c/packages/reactant-module/src/core/subscriber.ts#L28)*
+*Defined in [packages/reactant-module/src/core/subscriber.ts:28](https://github.com/unadlib/reactant/blob/2a94e2e/packages/reactant-module/src/core/subscriber.ts#L28)*
 
 **Parameters:**
 

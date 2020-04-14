@@ -14,7 +14,7 @@
 
 ▸ **autobind**(`target`: object, `key`: string | symbol, `__namedParameters`: object): *object*
 
-*Defined in [packages/reactant-module/src/decorators/autobind.ts:3](https://github.com/unadlib/reactant/blob/156662c/packages/reactant-module/src/decorators/autobind.ts#L3)*
+*Defined in [packages/reactant-module/src/decorators/autobind.ts:3](https://github.com/unadlib/reactant/blob/2a94e2e/packages/reactant-module/src/decorators/autobind.ts#L3)*
 
 **Parameters:**
 
