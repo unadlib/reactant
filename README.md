@@ -73,31 +73,6 @@ app.bootstrap(document.getElementById('app'));
   - `@multiInject` and `@multiOptional` require token parameter.
 - The module of property `name` will be changed, if the module of `token` is `string` or module is injected in multiple.
 
-## API
-
-### reactant
-
-- ViewModule
-- createApp
-- useConnector
-- @injectable
-- @state
-- @action
-- @optional
-- @inject
-- @multiInject
-- @multiOptional
-- @module
-- createSelector
-- @defautlProps
-- dispatch
-- createState
-- batch
-- subscribe
-- watch
-- ModuleRef
-- forwardRef
-
 ## Usage
 
 ```sh
