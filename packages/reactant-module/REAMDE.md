@@ -1,15 +1,15 @@
-# reactant-di
+# reactant-module
 
 ![Node CI](https://github.com/unadlib/reactant/workflows/Node%20CI/badge.svg)
 
 ## Usage
 
 ```sh
-npm install reactant-di
+npm install reactant-module
 ```
 
 or
 
 ```sh
-yarn add reactant-di
+yarn add reactant-module
 ```

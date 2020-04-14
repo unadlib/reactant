@@ -1,3 +1,7 @@
+[reactant-module](README.md) › [Globals](globals.md)
+
+# reactant-module
+
 # reactant
 
 ![Node CI](https://github.com/unadlib/reactant/workflows/Node%20CI/badge.svg)
@@ -113,4 +117,3 @@ npm start
 * Concepts
 * Advanced Guides
 * [API Reference](docs/api/README.md)
-

@@ -1,4 +1,4 @@
-# reactant-di
+# reactant-model
 
 ![Node CI](https://github.com/unadlib/reactant/workflows/Node%20CI/badge.svg)
 

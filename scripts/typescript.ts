@@ -103,7 +103,7 @@ const compile = async (generate: Generate) => {
   if (Array.isArray(projects) && projects.length > 0) {
     for (const project of projects) {
       if (typeof project === 'string') {
-        await compileProject(generate, path.resolve(project));
+        await compileProject(generate, path.resolve(`packages/${project}`));
       }
     }
     return;

@@ -26,7 +26,7 @@
     "test:performance": "yarn test:performance:small && yarn test:performance:big && yarn test:performance:huge",
     "test:performance:custom": "yarn test:generateTestSource:custom && yarn test:run:performance",
     "performance": "yarn test:generateTestSource && yarn test:performance",
-    "build:docs": "typedoc --out packages/reactant-di/docs/api packages/reactant-di/src/ --plugin typedoc-plugin-markdown --target ES5 --module commonjs --readme packages/reactant-di/docs/api-readme",
+    "build:docs": "ts-node scripts/typedoc.ts",
     "commit": "yarn git-cz"
   },
   "repository": {
