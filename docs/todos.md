@@ -40,3 +40,11 @@
 - [ ] testing
 - [ ] SSR
 - [ ] Hook
+
+## Libraries
+
+- react
+- redux
+- inversify
+- immer
+- reselect
