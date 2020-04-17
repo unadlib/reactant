@@ -12,14 +12,15 @@
 
 ### `Const` getComposeEnhancers
 
-▸ **getComposeEnhancers**(`reduxDevTools`: boolean): *any*
+▸ **getComposeEnhancers**(`enableReduxDevTools`: boolean, `reduxDevToolsOptions?`: [ReduxDevToolsOptions](_interfaces_.md#reduxdevtoolsoptions)): *any*
 
-*Defined in [packages/reactant-module/src/utils/reduxDevToolsCompose.ts:3](https://github.com/unadlib/reactant/blob/2a94e2e/packages/reactant-module/src/utils/reduxDevToolsCompose.ts#L3)*
+*Defined in [packages/reactant-module/src/utils/reduxDevToolsCompose.ts:4](https://github.com/unadlib/reactant/blob/ecdc150/packages/reactant-module/src/utils/reduxDevToolsCompose.ts#L4)*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
-`reduxDevTools` | boolean |
+`enableReduxDevTools` | boolean |
+`reduxDevToolsOptions?` | [ReduxDevToolsOptions](_interfaces_.md#reduxdevtoolsoptions) |
 
 **Returns:** *any*

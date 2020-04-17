@@ -20,4 +20,4 @@
 
 • **name**? : *undefined | string*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:27](https://github.com/unadlib/reactant/blob/2a94e2e/packages/reactant-module/src/interfaces.ts#L27)*
+*Defined in [packages/reactant-module/src/interfaces.ts:34](https://github.com/unadlib/reactant/blob/ecdc150/packages/reactant-module/src/interfaces.ts#L34)*

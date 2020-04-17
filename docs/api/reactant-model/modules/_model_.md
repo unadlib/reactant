@@ -23,7 +23,7 @@
 
 Ƭ **Actions**: *object*
 
-*Defined in [model.ts:11](https://github.com/unadlib/reactant/blob/2a94e2e/packages/reactant-model/src/model.ts#L11)*
+*Defined in [model.ts:11](https://github.com/unadlib/reactant/blob/ecdc150/packages/reactant-model/src/model.ts#L11)*
 
 #### Type declaration:
 
@@ -33,7 +33,7 @@ ___
 
 Ƭ **SerivceName**: *Pick‹Service, "name"›*
 
-*Defined in [model.ts:4](https://github.com/unadlib/reactant/blob/2a94e2e/packages/reactant-model/src/model.ts#L4)*
+*Defined in [model.ts:4](https://github.com/unadlib/reactant/blob/ecdc150/packages/reactant-model/src/model.ts#L4)*
 
 ## Functions
 
@@ -41,7 +41,7 @@ ___
 
 ▸ **model**<**S**, **A**>(`scheme`: [Scheme](../interfaces/_model_.scheme.md)‹S, A›): *[Actions](_model_.md#actions)‹A› & Service‹S› & S*
 
-*Defined in [model.ts:15](https://github.com/unadlib/reactant/blob/2a94e2e/packages/reactant-model/src/model.ts#L15)*
+*Defined in [model.ts:15](https://github.com/unadlib/reactant/blob/ecdc150/packages/reactant-model/src/model.ts#L15)*
 
 **Type parameters:**
 

@@ -14,7 +14,7 @@
 
 ▸ **createSelector**<**S**, **R1**, **T**>(`selector1`: [Selector](_interfaces_.md#selector)‹S, R1›, `combiner`: function): *function*
 
-*Defined in [packages/reactant-module/src/core/createSelector.ts:6](https://github.com/unadlib/reactant/blob/2a94e2e/packages/reactant-module/src/core/createSelector.ts#L6)*
+*Defined in [packages/reactant-module/src/core/createSelector.ts:6](https://github.com/unadlib/reactant/blob/ecdc150/packages/reactant-module/src/core/createSelector.ts#L6)*
 
 **Type parameters:**
 
@@ -50,7 +50,7 @@ Name | Type |
 
 ▸ **createSelector**<**S**, **R1**, **R2**, **T**>(`selector1`: [Selector](_interfaces_.md#selector)‹S, R1›, `selector2`: [Selector](_interfaces_.md#selector)‹S, R2›, `combiner`: function): *function*
 
-*Defined in [packages/reactant-module/src/core/createSelector.ts:11](https://github.com/unadlib/reactant/blob/2a94e2e/packages/reactant-module/src/core/createSelector.ts#L11)*
+*Defined in [packages/reactant-module/src/core/createSelector.ts:11](https://github.com/unadlib/reactant/blob/ecdc150/packages/reactant-module/src/core/createSelector.ts#L11)*
 
 **Type parameters:**
 
@@ -91,7 +91,7 @@ Name | Type |
 
 ▸ **createSelector**<**S**, **R1**, **R2**, **R3**, **T**>(`selector1`: [Selector](_interfaces_.md#selector)‹S, R1›, `selector2`: [Selector](_interfaces_.md#selector)‹S, R2›, `selector3`: [Selector](_interfaces_.md#selector)‹S, R3›, `combiner`: function): *function*
 
-*Defined in [packages/reactant-module/src/core/createSelector.ts:17](https://github.com/unadlib/reactant/blob/2a94e2e/packages/reactant-module/src/core/createSelector.ts#L17)*
+*Defined in [packages/reactant-module/src/core/createSelector.ts:17](https://github.com/unadlib/reactant/blob/ecdc150/packages/reactant-module/src/core/createSelector.ts#L17)*
 
 **Type parameters:**
 
@@ -137,7 +137,7 @@ Name | Type |
 
 ▸ **createSelector**<**S**, **R1**, **R2**, **R3**, **R4**, **T**>(`selector1`: [Selector](_interfaces_.md#selector)‹S, R1›, `selector2`: [Selector](_interfaces_.md#selector)‹S, R2›, `selector3`: [Selector](_interfaces_.md#selector)‹S, R3›, `selector4`: [Selector](_interfaces_.md#selector)‹S, R4›, `combiner`: function): *function*
 
-*Defined in [packages/reactant-module/src/core/createSelector.ts:24](https://github.com/unadlib/reactant/blob/2a94e2e/packages/reactant-module/src/core/createSelector.ts#L24)*
+*Defined in [packages/reactant-module/src/core/createSelector.ts:24](https://github.com/unadlib/reactant/blob/ecdc150/packages/reactant-module/src/core/createSelector.ts#L24)*
 
 **Type parameters:**
 
@@ -188,7 +188,7 @@ Name | Type |
 
 ▸ **createSelector**<**S**, **R1**, **R2**, **R3**, **R4**, **R5**, **T**>(`selector1`: [Selector](_interfaces_.md#selector)‹S, R1›, `selector2`: [Selector](_interfaces_.md#selector)‹S, R2›, `selector3`: [Selector](_interfaces_.md#selector)‹S, R3›, `selector4`: [Selector](_interfaces_.md#selector)‹S, R4›, `selector5`: [Selector](_interfaces_.md#selector)‹S, R5›, `combiner`: function): *function*
 
-*Defined in [packages/reactant-module/src/core/createSelector.ts:32](https://github.com/unadlib/reactant/blob/2a94e2e/packages/reactant-module/src/core/createSelector.ts#L32)*
+*Defined in [packages/reactant-module/src/core/createSelector.ts:32](https://github.com/unadlib/reactant/blob/ecdc150/packages/reactant-module/src/core/createSelector.ts#L32)*
 
 **Type parameters:**
 
@@ -244,7 +244,7 @@ Name | Type |
 
 ▸ **createSelector**<**S**, **R1**, **R2**, **R3**, **R4**, **R5**, **R6**, **T**>(`selector1`: [Selector](_interfaces_.md#selector)‹S, R1›, `selector2`: [Selector](_interfaces_.md#selector)‹S, R2›, `selector3`: [Selector](_interfaces_.md#selector)‹S, R3›, `selector4`: [Selector](_interfaces_.md#selector)‹S, R4›, `selector5`: [Selector](_interfaces_.md#selector)‹S, R5›, `selector6`: [Selector](_interfaces_.md#selector)‹S, R6›, `combiner`: function): *function*
 
-*Defined in [packages/reactant-module/src/core/createSelector.ts:41](https://github.com/unadlib/reactant/blob/2a94e2e/packages/reactant-module/src/core/createSelector.ts#L41)*
+*Defined in [packages/reactant-module/src/core/createSelector.ts:41](https://github.com/unadlib/reactant/blob/ecdc150/packages/reactant-module/src/core/createSelector.ts#L41)*
 
 **Type parameters:**
 
@@ -305,7 +305,7 @@ Name | Type |
 
 ▸ **createSelector**<**S**, **R1**, **R2**, **R3**, **R4**, **R5**, **R6**, **R7**, **T**>(`selector1`: [Selector](_interfaces_.md#selector)‹S, R1›, `selector2`: [Selector](_interfaces_.md#selector)‹S, R2›, `selector3`: [Selector](_interfaces_.md#selector)‹S, R3›, `selector4`: [Selector](_interfaces_.md#selector)‹S, R4›, `selector5`: [Selector](_interfaces_.md#selector)‹S, R5›, `selector6`: [Selector](_interfaces_.md#selector)‹S, R6›, `selector7`: [Selector](_interfaces_.md#selector)‹S, R7›, `combiner`: function): *function*
 
-*Defined in [packages/reactant-module/src/core/createSelector.ts:51](https://github.com/unadlib/reactant/blob/2a94e2e/packages/reactant-module/src/core/createSelector.ts#L51)*
+*Defined in [packages/reactant-module/src/core/createSelector.ts:51](https://github.com/unadlib/reactant/blob/ecdc150/packages/reactant-module/src/core/createSelector.ts#L51)*
 
 **Type parameters:**
 
@@ -371,7 +371,7 @@ Name | Type |
 
 ▸ **createSelector**<**S**, **R1**, **R2**, **R3**, **R4**, **R5**, **R6**, **R7**, **R8**, **T**>(`selector1`: [Selector](_interfaces_.md#selector)‹S, R1›, `selector2`: [Selector](_interfaces_.md#selector)‹S, R2›, `selector3`: [Selector](_interfaces_.md#selector)‹S, R3›, `selector4`: [Selector](_interfaces_.md#selector)‹S, R4›, `selector5`: [Selector](_interfaces_.md#selector)‹S, R5›, `selector6`: [Selector](_interfaces_.md#selector)‹S, R6›, `selector7`: [Selector](_interfaces_.md#selector)‹S, R7›, `selector8`: [Selector](_interfaces_.md#selector)‹S, R8›, `combiner`: function): *function*
 
-*Defined in [packages/reactant-module/src/core/createSelector.ts:70](https://github.com/unadlib/reactant/blob/2a94e2e/packages/reactant-module/src/core/createSelector.ts#L70)*
+*Defined in [packages/reactant-module/src/core/createSelector.ts:70](https://github.com/unadlib/reactant/blob/ecdc150/packages/reactant-module/src/core/createSelector.ts#L70)*
 
 **Type parameters:**
 
@@ -442,7 +442,7 @@ Name | Type |
 
 ▸ **createSelector**<**S**, **R1**, **R2**, **R3**, **R4**, **R5**, **R6**, **R7**, **R8**, **R9**, **T**>(`selector1`: [Selector](_interfaces_.md#selector)‹S, R1›, `selector2`: [Selector](_interfaces_.md#selector)‹S, R2›, `selector3`: [Selector](_interfaces_.md#selector)‹S, R3›, `selector4`: [Selector](_interfaces_.md#selector)‹S, R4›, `selector5`: [Selector](_interfaces_.md#selector)‹S, R5›, `selector6`: [Selector](_interfaces_.md#selector)‹S, R6›, `selector7`: [Selector](_interfaces_.md#selector)‹S, R7›, `selector8`: [Selector](_interfaces_.md#selector)‹S, R8›, `selector9`: [Selector](_interfaces_.md#selector)‹S, R9›, `combiner`: function): *function*
 
-*Defined in [packages/reactant-module/src/core/createSelector.ts:91](https://github.com/unadlib/reactant/blob/2a94e2e/packages/reactant-module/src/core/createSelector.ts#L91)*
+*Defined in [packages/reactant-module/src/core/createSelector.ts:91](https://github.com/unadlib/reactant/blob/ecdc150/packages/reactant-module/src/core/createSelector.ts#L91)*
 
 **Type parameters:**
 
@@ -518,7 +518,7 @@ Name | Type |
 
 ▸ **createSelector**<**S**, **R1**, **R2**, **R3**, **R4**, **R5**, **R6**, **R7**, **R8**, **R9**, **R10**, **T**>(`selector1`: [Selector](_interfaces_.md#selector)‹S, R1›, `selector2`: [Selector](_interfaces_.md#selector)‹S, R2›, `selector3`: [Selector](_interfaces_.md#selector)‹S, R3›, `selector4`: [Selector](_interfaces_.md#selector)‹S, R4›, `selector5`: [Selector](_interfaces_.md#selector)‹S, R5›, `selector6`: [Selector](_interfaces_.md#selector)‹S, R6›, `selector7`: [Selector](_interfaces_.md#selector)‹S, R7›, `selector8`: [Selector](_interfaces_.md#selector)‹S, R8›, `selector9`: [Selector](_interfaces_.md#selector)‹S, R9›, `selector10`: [Selector](_interfaces_.md#selector)‹S, R10›, `combiner`: function): *function*
 
-*Defined in [packages/reactant-module/src/core/createSelector.ts:114](https://github.com/unadlib/reactant/blob/2a94e2e/packages/reactant-module/src/core/createSelector.ts#L114)*
+*Defined in [packages/reactant-module/src/core/createSelector.ts:114](https://github.com/unadlib/reactant/blob/ecdc150/packages/reactant-module/src/core/createSelector.ts#L114)*
 
 **Type parameters:**
 
@@ -599,7 +599,7 @@ Name | Type |
 
 ▸ **createSelector**<**S**, **R1**, **R2**, **R3**, **R4**, **R5**, **R6**, **R7**, **R8**, **R9**, **R10**, **R11**, **T**>(`selector1`: [Selector](_interfaces_.md#selector)‹S, R1›, `selector2`: [Selector](_interfaces_.md#selector)‹S, R2›, `selector3`: [Selector](_interfaces_.md#selector)‹S, R3›, `selector4`: [Selector](_interfaces_.md#selector)‹S, R4›, `selector5`: [Selector](_interfaces_.md#selector)‹S, R5›, `selector6`: [Selector](_interfaces_.md#selector)‹S, R6›, `selector7`: [Selector](_interfaces_.md#selector)‹S, R7›, `selector8`: [Selector](_interfaces_.md#selector)‹S, R8›, `selector9`: [Selector](_interfaces_.md#selector)‹S, R9›, `selector10`: [Selector](_interfaces_.md#selector)‹S, R10›, `selector11`: [Selector](_interfaces_.md#selector)‹S, R11›, `combiner`: function): *function*
 
-*Defined in [packages/reactant-module/src/core/createSelector.ts:139](https://github.com/unadlib/reactant/blob/2a94e2e/packages/reactant-module/src/core/createSelector.ts#L139)*
+*Defined in [packages/reactant-module/src/core/createSelector.ts:139](https://github.com/unadlib/reactant/blob/ecdc150/packages/reactant-module/src/core/createSelector.ts#L139)*
 
 **Type parameters:**
 
@@ -685,7 +685,7 @@ Name | Type |
 
 ▸ **createSelector**<**S**, **R1**, **R2**, **R3**, **R4**, **R5**, **R6**, **R7**, **R8**, **R9**, **R10**, **R11**, **R12**, **T**>(`selector1`: [Selector](_interfaces_.md#selector)‹S, R1›, `selector2`: [Selector](_interfaces_.md#selector)‹S, R2›, `selector3`: [Selector](_interfaces_.md#selector)‹S, R3›, `selector4`: [Selector](_interfaces_.md#selector)‹S, R4›, `selector5`: [Selector](_interfaces_.md#selector)‹S, R5›, `selector6`: [Selector](_interfaces_.md#selector)‹S, R6›, `selector7`: [Selector](_interfaces_.md#selector)‹S, R7›, `selector8`: [Selector](_interfaces_.md#selector)‹S, R8›, `selector9`: [Selector](_interfaces_.md#selector)‹S, R9›, `selector10`: [Selector](_interfaces_.md#selector)‹S, R10›, `selector11`: [Selector](_interfaces_.md#selector)‹S, R11›, `selector12`: [Selector](_interfaces_.md#selector)‹S, R12›, `combiner`: function): *function*
 
-*Defined in [packages/reactant-module/src/core/createSelector.ts:180](https://github.com/unadlib/reactant/blob/2a94e2e/packages/reactant-module/src/core/createSelector.ts#L180)*
+*Defined in [packages/reactant-module/src/core/createSelector.ts:180](https://github.com/unadlib/reactant/blob/ecdc150/packages/reactant-module/src/core/createSelector.ts#L180)*
 
 **Type parameters:**
 

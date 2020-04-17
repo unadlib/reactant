@@ -20,7 +20,7 @@
 
 • **multi**? : *undefined | false | true*
 
-*Defined in [packages/reactant-di/src/interfaces.ts:70](https://github.com/unadlib/reactant/blob/2a94e2e/packages/reactant-di/src/interfaces.ts#L70)*
+*Defined in [packages/reactant-di/src/interfaces.ts:70](https://github.com/unadlib/reactant/blob/ecdc150/packages/reactant-di/src/interfaces.ts#L70)*
 
 ___
 
@@ -28,7 +28,7 @@ ___
 
 • **optional**? : *undefined | false | true*
 
-*Defined in [packages/reactant-di/src/interfaces.ts:69](https://github.com/unadlib/reactant/blob/2a94e2e/packages/reactant-di/src/interfaces.ts#L69)*
+*Defined in [packages/reactant-di/src/interfaces.ts:69](https://github.com/unadlib/reactant/blob/ecdc150/packages/reactant-di/src/interfaces.ts#L69)*
 
 ___
 
@@ -36,4 +36,4 @@ ___
 
 • **provide**: *[ServiceIdentifier](../modules/_interfaces_.md#serviceidentifier)‹any› | [Module](_interfaces_.module.md)‹any›*
 
-*Defined in [packages/reactant-di/src/interfaces.ts:68](https://github.com/unadlib/reactant/blob/2a94e2e/packages/reactant-di/src/interfaces.ts#L68)*
+*Defined in [packages/reactant-di/src/interfaces.ts:68](https://github.com/unadlib/reactant/blob/ecdc150/packages/reactant-di/src/interfaces.ts#L68)*

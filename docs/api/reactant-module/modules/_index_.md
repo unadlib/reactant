@@ -18,6 +18,7 @@
 * [ReactantAction](_index_.md#reactantaction)
 * [ReactantMiddleware](_index_.md#reactantmiddleware)
 * [ReactantStore](_index_.md#reactantstore)
+* [ReduxDevToolsOptions](_index_.md#reduxdevtoolsoptions)
 * [Service](_index_.md#service)
 * [State](_index_.md#state)
 * [StateMapObject](_index_.md#statemapobject)
@@ -122,6 +123,12 @@ ___
 ###  ReactantStore
 
 • **ReactantStore**:
+
+___
+
+###  ReduxDevToolsOptions
+
+• **ReduxDevToolsOptions**:
 
 ___
 

@@ -12,6 +12,7 @@
 
 * [autoFreeze](_interfaces_.devoptions.md#optional-autofreeze)
 * [reduxDevTools](_interfaces_.devoptions.md#optional-reduxdevtools)
+* [reduxDevToolsOptions](_interfaces_.devoptions.md#optional-reduxdevtoolsoptions)
 
 ## Properties
 
@@ -19,7 +20,7 @@
 
 • **autoFreeze**? : *undefined | false | true*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:19](https://github.com/unadlib/reactant/blob/2a94e2e/packages/reactant-module/src/interfaces.ts#L19)*
+*Defined in [packages/reactant-module/src/interfaces.ts:20](https://github.com/unadlib/reactant/blob/ecdc150/packages/reactant-module/src/interfaces.ts#L20)*
 
 ___
 
@@ -27,4 +28,12 @@ ___
 
 • **reduxDevTools**? : *undefined | false | true*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:20](https://github.com/unadlib/reactant/blob/2a94e2e/packages/reactant-module/src/interfaces.ts#L20)*
+*Defined in [packages/reactant-module/src/interfaces.ts:21](https://github.com/unadlib/reactant/blob/ecdc150/packages/reactant-module/src/interfaces.ts#L21)*
+
+___
+
+### `Optional` reduxDevToolsOptions
+
+• **reduxDevToolsOptions**? : *[ReduxDevToolsOptions](../modules/_interfaces_.md#reduxdevtoolsoptions)*
+
+*Defined in [packages/reactant-module/src/interfaces.ts:22](https://github.com/unadlib/reactant/blob/ecdc150/packages/reactant-module/src/interfaces.ts#L22)*

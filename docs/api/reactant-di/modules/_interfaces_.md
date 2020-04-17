@@ -35,7 +35,7 @@
 
 Ƭ **Container**: *Container*
 
-*Defined in [packages/reactant-di/src/interfaces.ts:5](https://github.com/unadlib/reactant/blob/2a94e2e/packages/reactant-di/src/interfaces.ts#L5)*
+*Defined in [packages/reactant-di/src/interfaces.ts:5](https://github.com/unadlib/reactant/blob/ecdc150/packages/reactant-di/src/interfaces.ts#L5)*
 
 ___
 
@@ -43,7 +43,7 @@ ___
 
 Ƭ **ContainerOptions**: *ContainerOptions*
 
-*Defined in [packages/reactant-di/src/interfaces.ts:4](https://github.com/unadlib/reactant/blob/2a94e2e/packages/reactant-di/src/interfaces.ts#L4)*
+*Defined in [packages/reactant-di/src/interfaces.ts:4](https://github.com/unadlib/reactant/blob/ecdc150/packages/reactant-di/src/interfaces.ts#L4)*
 
 ___
 
@@ -51,7 +51,7 @@ ___
 
 Ƭ **DependenciesModule**: *[Module](../interfaces/_interfaces_.module.md)‹any› | [DependenciesProvider](../interfaces/_interfaces_.dependenciesprovider.md)*
 
-*Defined in [packages/reactant-di/src/interfaces.ts:73](https://github.com/unadlib/reactant/blob/2a94e2e/packages/reactant-di/src/interfaces.ts#L73)*
+*Defined in [packages/reactant-di/src/interfaces.ts:73](https://github.com/unadlib/reactant/blob/ecdc150/packages/reactant-di/src/interfaces.ts#L73)*
 
 ___
 
@@ -59,7 +59,7 @@ ___
 
 Ƭ **DependencyOption**: *[DependencyProviderOption](../interfaces/_interfaces_.dependencyprovideroption.md) | [ServiceIdentifier](_interfaces_.md#serviceidentifier)‹any›*
 
-*Defined in [packages/reactant-di/src/interfaces.ts:26](https://github.com/unadlib/reactant/blob/2a94e2e/packages/reactant-di/src/interfaces.ts#L26)*
+*Defined in [packages/reactant-di/src/interfaces.ts:26](https://github.com/unadlib/reactant/blob/ecdc150/packages/reactant-di/src/interfaces.ts#L26)*
 
 ___
 
@@ -67,7 +67,7 @@ ___
 
 Ƭ **MetaDataKey**: *[ValueType](_interfaces_.md#valuetype)‹typeof METADATA_KEY›*
 
-*Defined in [packages/reactant-di/src/interfaces.ts:65](https://github.com/unadlib/reactant/blob/2a94e2e/packages/reactant-di/src/interfaces.ts#L65)*
+*Defined in [packages/reactant-di/src/interfaces.ts:65](https://github.com/unadlib/reactant/blob/ecdc150/packages/reactant-di/src/interfaces.ts#L65)*
 
 ___
 
@@ -75,7 +75,7 @@ ___
 
 Ƭ **MetadataMap**: *Map‹[ServiceIdentifier](_interfaces_.md#serviceidentifier)‹any›, [Module](../interfaces/_interfaces_.module.md)‹any››*
 
-*Defined in [packages/reactant-di/src/interfaces.ts:15](https://github.com/unadlib/reactant/blob/2a94e2e/packages/reactant-di/src/interfaces.ts#L15)*
+*Defined in [packages/reactant-di/src/interfaces.ts:15](https://github.com/unadlib/reactant/blob/ecdc150/packages/reactant-di/src/interfaces.ts#L15)*
 
 ___
 
@@ -83,7 +83,7 @@ ___
 
 Ƭ **ModuleOptions**: *[ValueProvider](../interfaces/_interfaces_.valueprovider.md) | [ClassProvider](../interfaces/_interfaces_.classprovider.md) | [FactoryProvider](../interfaces/_interfaces_.factoryprovider.md) | [ModuleProvider](../interfaces/_interfaces_.moduleprovider.md) | [Module](../interfaces/_interfaces_.module.md)‹any›*
 
-*Defined in [packages/reactant-di/src/interfaces.ts:50](https://github.com/unadlib/reactant/blob/2a94e2e/packages/reactant-di/src/interfaces.ts#L50)*
+*Defined in [packages/reactant-di/src/interfaces.ts:50](https://github.com/unadlib/reactant/blob/ecdc150/packages/reactant-di/src/interfaces.ts#L50)*
 
 ___
 
@@ -91,7 +91,7 @@ ___
 
 Ƭ **ServiceIdentifier**: *interfaces.ServiceIdentifier‹T›*
 
-*Defined in [packages/reactant-di/src/interfaces.ts:6](https://github.com/unadlib/reactant/blob/2a94e2e/packages/reactant-di/src/interfaces.ts#L6)*
+*Defined in [packages/reactant-di/src/interfaces.ts:6](https://github.com/unadlib/reactant/blob/ecdc150/packages/reactant-di/src/interfaces.ts#L6)*
 
 ___
 
@@ -99,7 +99,7 @@ ___
 
 Ƭ **ServiceIdentifiersMap**: *Map‹[ServiceIdentifier](_interfaces_.md#serviceidentifier)‹T›, [ServiceIdentifier](_interfaces_.md#serviceidentifier)‹T›[]›*
 
-*Defined in [packages/reactant-di/src/interfaces.ts:10](https://github.com/unadlib/reactant/blob/2a94e2e/packages/reactant-di/src/interfaces.ts#L10)*
+*Defined in [packages/reactant-di/src/interfaces.ts:10](https://github.com/unadlib/reactant/blob/ecdc150/packages/reactant-di/src/interfaces.ts#L10)*
 
 token map
 
@@ -109,4 +109,4 @@ ___
 
 Ƭ **ValueType**: *T extends Record<number | string, infer R> ? R : never*
 
-*Defined in [packages/reactant-di/src/interfaces.ts:63](https://github.com/unadlib/reactant/blob/2a94e2e/packages/reactant-di/src/interfaces.ts#L63)*
+*Defined in [packages/reactant-di/src/interfaces.ts:63](https://github.com/unadlib/reactant/blob/ecdc150/packages/reactant-di/src/interfaces.ts#L63)*

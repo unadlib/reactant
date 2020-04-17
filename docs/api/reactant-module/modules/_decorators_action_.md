@@ -14,7 +14,7 @@
 
 ▸ **action**(`target`: object, `key`: string | symbol, `descriptor`: TypedPropertyDescriptor‹function›): *object*
 
-*Defined in [packages/reactant-module/src/decorators/action.ts:6](https://github.com/unadlib/reactant/blob/2a94e2e/packages/reactant-module/src/decorators/action.ts#L6)*
+*Defined in [packages/reactant-module/src/decorators/action.ts:6](https://github.com/unadlib/reactant/blob/ecdc150/packages/reactant-module/src/decorators/action.ts#L6)*
 
 **Parameters:**
 
