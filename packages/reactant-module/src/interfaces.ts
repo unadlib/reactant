@@ -6,6 +6,7 @@ import {
   Action,
   Unsubscribe,
 } from 'redux';
+import { EnhancerOptions } from 'redux-devtools-extension';
 import { ModuleOptions } from 'reactant-di';
 import {
   storeKey,
@@ -18,8 +19,14 @@ import { PluginModule } from './core';
 export interface DevOptions {
   autoFreeze?: boolean;
   reduxDevTools?: boolean;
+  reduxDevToolsOptions?: ReduxDevToolsOptions;
   // TODO: use `redux-immutable-state-invariant` for checking immutable?
 }
+
+export type ReduxDevToolsOptions = Pick<
+  EnhancerOptions,
+  Exclude<keyof EnhancerOptions, 'actionSanitizer' | 'serialize'>
+>;
 
 export type TypePreloadedState<T> = PreloadedState<T>;
 

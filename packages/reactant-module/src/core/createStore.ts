@@ -37,11 +37,11 @@ export function createStore<T = any>(
   providers: FunctionComponent[] = [],
   devOptions: DevOptions = {}
 ) {
-  const autoFreeze =
+  const enableAutoFreeze =
     devOptions.autoFreeze ?? process.env.NODE_ENV !== 'production';
-  const reduxDevTools =
+  const enableReduxDevTools =
     devOptions.reduxDevTools ?? process.env.NODE_ENV !== 'production';
-  setAutoFreeze(autoFreeze);
+  setAutoFreeze(enableAutoFreeze);
   let isExistReducer = false;
   let store: Store;
   const reducers: ReducersMapObject = {};
@@ -125,7 +125,7 @@ export function createStore<T = any>(
               };
             }
 
-            const initState = autoFreeze
+            const initState = enableAutoFreeze
               ? produce({ ...service[stateKey] }, () => {}) // freeze init state
               : service[stateKey];
             const serviceReducers = Object.entries(initState).reduce(
@@ -161,7 +161,7 @@ export function createStore<T = any>(
                 get() {
                   if (this[stagedStateKey]) return this[stagedStateKey];
                   const currentState = store.getState()[reducersIdentifier];
-                  if (autoFreeze && !Object.isFrozen(currentState)) {
+                  if (enableAutoFreeze && !Object.isFrozen(currentState)) {
                     return Object.freeze(currentState);
                   }
                   return currentState;
@@ -198,7 +198,10 @@ export function createStore<T = any>(
   const reducer = isExistReducer
     ? combineReducers(perform(pluginHooks.beforeCombineRootReducers, reducers))
     : () => null;
-  const composeEnhancers = getComposeEnhancers(reduxDevTools);
+  const composeEnhancers = getComposeEnhancers(
+    enableReduxDevTools,
+    devOptions.reduxDevToolsOptions
+  );
   store = createStoreWithRedux(
     perform(pluginHooks.afterCombineRootReducers, reducer),
     perform(pluginHooks.preloadedStateHandler, preloadedState),

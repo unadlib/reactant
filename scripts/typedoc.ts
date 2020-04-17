@@ -33,6 +33,7 @@ const projects = [
   'reactant-redux',
   'reactant-router',
   'reactant-storage',
+  'reactant',
 ];
 
 projects.forEach(generateDocs);
