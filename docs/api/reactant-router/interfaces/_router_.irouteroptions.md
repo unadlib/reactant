@@ -18,4 +18,4 @@
 
 • **autoProvide**? : *undefined | false | true*
 
-*Defined in [packages/reactant-router/src/router.tsx:19](https://github.com/unadlib/reactant/blob/ecdc150/packages/reactant-router/src/router.tsx#L19)*
+*Defined in [packages/reactant-router/src/router.tsx:19](https://github.com/unadlib/reactant/blob/aaa61ad/packages/reactant-router/src/router.tsx#L19)*

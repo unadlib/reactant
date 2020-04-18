@@ -14,7 +14,7 @@
 
 ▸ **defaultProps**<**P**>(`props`: P | [PickOptional](_interfaces_.md#pickoptional)‹P›): *(Anonymous function)*
 
-*Defined in [packages/reactant-module/src/decorators/defaultProps.ts:3](https://github.com/unadlib/reactant/blob/ecdc150/packages/reactant-module/src/decorators/defaultProps.ts#L3)*
+*Defined in [packages/reactant-module/src/decorators/defaultProps.ts:3](https://github.com/unadlib/reactant/blob/aaa61ad/packages/reactant-module/src/decorators/defaultProps.ts#L3)*
 
 **Type parameters:**
 

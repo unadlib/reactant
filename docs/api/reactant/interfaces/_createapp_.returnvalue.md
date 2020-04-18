@@ -27,7 +27,7 @@
 
 • **instance**: *T & ViewModule*
 
-*Defined in [createApp.tsx:29](https://github.com/unadlib/reactant/blob/ecdc150/packages/reactant/src/createApp.tsx#L29)*
+*Defined in [createApp.tsx:29](https://github.com/unadlib/reactant/blob/aaa61ad/packages/reactant/src/createApp.tsx#L29)*
 
 ___
 
@@ -35,7 +35,7 @@ ___
 
 • **store**: *ReactantStore | null*
 
-*Defined in [createApp.tsx:30](https://github.com/unadlib/reactant/blob/ecdc150/packages/reactant/src/createApp.tsx#L30)*
+*Defined in [createApp.tsx:30](https://github.com/unadlib/reactant/blob/aaa61ad/packages/reactant/src/createApp.tsx#L30)*
 
 ## Methods
 
@@ -43,7 +43,7 @@ ___
 
 ▸ **bootstrap**(...`args`: any[]): *void | Element*
 
-*Defined in [createApp.tsx:31](https://github.com/unadlib/reactant/blob/ecdc150/packages/reactant/src/createApp.tsx#L31)*
+*Defined in [createApp.tsx:31](https://github.com/unadlib/reactant/blob/aaa61ad/packages/reactant/src/createApp.tsx#L31)*
 
 **Parameters:**
 

@@ -14,7 +14,7 @@
 
 ▸ **inject**(`token?`: [ServiceIdentifier](_interfaces_.md#serviceidentifier)‹any›): *(Anonymous function)*
 
-*Defined in [packages/reactant-di/src/decorators/inject.ts:5](https://github.com/unadlib/reactant/blob/ecdc150/packages/reactant-di/src/decorators/inject.ts#L5)*
+*Defined in [packages/reactant-di/src/decorators/inject.ts:5](https://github.com/unadlib/reactant/blob/aaa61ad/packages/reactant-di/src/decorators/inject.ts#L5)*
 
 **Parameters:**
 

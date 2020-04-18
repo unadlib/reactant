@@ -19,7 +19,7 @@
 
 • **action**: *Action*
 
-*Defined in [packages/reactant-router/src/router.tsx:14](https://github.com/unadlib/reactant/blob/ecdc150/packages/reactant-router/src/router.tsx#L14)*
+*Defined in [packages/reactant-router/src/router.tsx:14](https://github.com/unadlib/reactant/blob/aaa61ad/packages/reactant-router/src/router.tsx#L14)*
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 • **location**: *Location‹LocationState›*
 
-*Defined in [packages/reactant-router/src/router.tsx:15](https://github.com/unadlib/reactant/blob/ecdc150/packages/reactant-router/src/router.tsx#L15)*
+*Defined in [packages/reactant-router/src/router.tsx:15](https://github.com/unadlib/reactant/blob/aaa61ad/packages/reactant-router/src/router.tsx#L15)*

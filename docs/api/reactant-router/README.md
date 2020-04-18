@@ -4,4 +4,4 @@
 
 ## API
 
-todo
+* [Router](modules/_router_.md)

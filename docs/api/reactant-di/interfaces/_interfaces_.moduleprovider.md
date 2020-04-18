@@ -18,4 +18,4 @@
 
 • **provide**: *[Module](_interfaces_.module.md)‹any›*
 
-*Defined in [packages/reactant-di/src/interfaces.ts:47](https://github.com/unadlib/reactant/blob/ecdc150/packages/reactant-di/src/interfaces.ts#L47)*
+*Defined in [packages/reactant-di/src/interfaces.ts:47](https://github.com/unadlib/reactant/blob/aaa61ad/packages/reactant-di/src/interfaces.ts#L47)*

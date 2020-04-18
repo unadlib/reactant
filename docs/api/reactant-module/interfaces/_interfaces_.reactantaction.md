@@ -25,7 +25,7 @@
 
 • **state**: *Record‹string, T›*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:56](https://github.com/unadlib/reactant/blob/ecdc150/packages/reactant-module/src/interfaces.ts#L56)*
+*Defined in [packages/reactant-module/src/interfaces.ts:56](https://github.com/unadlib/reactant/blob/aaa61ad/packages/reactant-module/src/interfaces.ts#L56)*
 
 ___
 

@@ -20,7 +20,7 @@
 
 • **deps**? : *[DependencyOption](../modules/_interfaces_.md#dependencyoption)[]*
 
-*Defined in [packages/reactant-di/src/interfaces.ts:41](https://github.com/unadlib/reactant/blob/ecdc150/packages/reactant-di/src/interfaces.ts#L41)*
+*Defined in [packages/reactant-di/src/interfaces.ts:41](https://github.com/unadlib/reactant/blob/aaa61ad/packages/reactant-di/src/interfaces.ts#L41)*
 
 ___
 
@@ -28,7 +28,7 @@ ___
 
 • **provide**: *[ServiceIdentifier](../modules/_interfaces_.md#serviceidentifier)‹any›*
 
-*Defined in [packages/reactant-di/src/interfaces.ts:42](https://github.com/unadlib/reactant/blob/ecdc150/packages/reactant-di/src/interfaces.ts#L42)*
+*Defined in [packages/reactant-di/src/interfaces.ts:42](https://github.com/unadlib/reactant/blob/aaa61ad/packages/reactant-di/src/interfaces.ts#L42)*
 
 ___
 
@@ -36,7 +36,7 @@ ___
 
 • **useFactory**: *function*
 
-*Defined in [packages/reactant-di/src/interfaces.ts:43](https://github.com/unadlib/reactant/blob/ecdc150/packages/reactant-di/src/interfaces.ts#L43)*
+*Defined in [packages/reactant-di/src/interfaces.ts:43](https://github.com/unadlib/reactant/blob/aaa61ad/packages/reactant-di/src/interfaces.ts#L43)*
 
 #### Type declaration:
 

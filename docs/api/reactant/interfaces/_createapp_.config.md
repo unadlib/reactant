@@ -28,7 +28,7 @@
 
 • **containerOptions**? : *ContainerOptions*
 
-*Defined in [createApp.tsx:22](https://github.com/unadlib/reactant/blob/ecdc150/packages/reactant/src/createApp.tsx#L22)*
+*Defined in [createApp.tsx:22](https://github.com/unadlib/reactant/blob/aaa61ad/packages/reactant/src/createApp.tsx#L22)*
 
 ___
 
@@ -36,7 +36,7 @@ ___
 
 • **devOptions**? : *DevOptions*
 
-*Defined in [createApp.tsx:25](https://github.com/unadlib/reactant/blob/ecdc150/packages/reactant/src/createApp.tsx#L25)*
+*Defined in [createApp.tsx:25](https://github.com/unadlib/reactant/blob/aaa61ad/packages/reactant/src/createApp.tsx#L25)*
 
 ___
 
@@ -44,7 +44,7 @@ ___
 
 • **main**: *ServiceIdentifier‹T›*
 
-*Defined in [createApp.tsx:19](https://github.com/unadlib/reactant/blob/ecdc150/packages/reactant/src/createApp.tsx#L19)*
+*Defined in [createApp.tsx:19](https://github.com/unadlib/reactant/blob/aaa61ad/packages/reactant/src/createApp.tsx#L19)*
 
 ___
 
@@ -52,7 +52,7 @@ ___
 
 • **middlewares**? : *ReactantMiddleware[]*
 
-*Defined in [createApp.tsx:23](https://github.com/unadlib/reactant/blob/ecdc150/packages/reactant/src/createApp.tsx#L23)*
+*Defined in [createApp.tsx:23](https://github.com/unadlib/reactant/blob/aaa61ad/packages/reactant/src/createApp.tsx#L23)*
 
 ___
 
@@ -60,7 +60,7 @@ ___
 
 • **modules**? : *ReactModuleOptions[]*
 
-*Defined in [createApp.tsx:21](https://github.com/unadlib/reactant/blob/ecdc150/packages/reactant/src/createApp.tsx#L21)*
+*Defined in [createApp.tsx:21](https://github.com/unadlib/reactant/blob/aaa61ad/packages/reactant/src/createApp.tsx#L21)*
 
 ___
 
@@ -68,7 +68,7 @@ ___
 
 • **preloadedState**? : *TypePreloadedState‹any›*
 
-*Defined in [createApp.tsx:24](https://github.com/unadlib/reactant/blob/ecdc150/packages/reactant/src/createApp.tsx#L24)*
+*Defined in [createApp.tsx:24](https://github.com/unadlib/reactant/blob/aaa61ad/packages/reactant/src/createApp.tsx#L24)*
 
 ___
 
@@ -76,7 +76,7 @@ ___
 
 • **render**: *function*
 
-*Defined in [createApp.tsx:20](https://github.com/unadlib/reactant/blob/ecdc150/packages/reactant/src/createApp.tsx#L20)*
+*Defined in [createApp.tsx:20](https://github.com/unadlib/reactant/blob/aaa61ad/packages/reactant/src/createApp.tsx#L20)*
 
 #### Type declaration:
 

@@ -19,7 +19,7 @@
 
 ▸ **createApp**<**T**>(`__namedParameters`: object): *[ReturnValue](../interfaces/_createapp_.returnvalue.md)‹T›*
 
-*Defined in [createApp.tsx:34](https://github.com/unadlib/reactant/blob/ecdc150/packages/reactant/src/createApp.tsx#L34)*
+*Defined in [createApp.tsx:34](https://github.com/unadlib/reactant/blob/aaa61ad/packages/reactant/src/createApp.tsx#L34)*
 
 **Type parameters:**
 

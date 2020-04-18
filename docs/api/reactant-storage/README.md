@@ -4,4 +4,4 @@
 
 ## API
 
-todo
+* [Storage](modules/_storage_.md)
