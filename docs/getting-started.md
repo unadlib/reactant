@@ -1,6 +1,4 @@
-# Getting Started
-
-## Create Project
+## Getting Started
 
 #### Create a new project
 
@@ -96,7 +94,7 @@ class AppView extends ViewModule {
 
 > The `useConnector` parameter also supports object maps, e.g. `useConnector(() => { count: this.counter.count })`, which works in most scenarios. When the state is updated, `useConnector` will automatically do the shallow comparison for it to determine if the component needs to be updated.
 
-### Bootstrap
+#### Bootstrap
 
 Finally, use `createApp` and `bootstrap` to run the project. Reactant configures different dependency injection configurations through `createApp`, which also supports other configurations such as **[middleware]()** and Reactant **[plugins]()**. See [more configuration]() about Reactant.
 
