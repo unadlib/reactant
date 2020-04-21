@@ -6,7 +6,7 @@ import {
   localStorage,
   IStorageOptions,
 } from 'reactant-storage';
-import { HomeView } from './views/home';
+import { HomeView } from './views';
 
 const app = createApp({
   modules: [

@@ -79,6 +79,32 @@ test('base di with @optional, and with setting options for config', () => {
   expect(fooBar.bar.foo instanceof Foo).toBeTruthy();
 });
 
+test('base di with @optional, and resolve other non-optional deps module', () => {
+  @injectable()
+  class Foo0 {}
+
+  @injectable()
+  class Foo {
+    constructor(public foo0: Foo0) {}
+  }
+
+  @injectable()
+  class Bar {
+    constructor(@optional() public foo: Foo) {}
+  }
+
+  @injectable()
+  class FooBar {
+    constructor(public bar: Bar) {}
+  }
+
+  const fooBar = createContainer({
+    ServiceIdentifiers: new Map(),
+    modules: [Foo],
+  }).get(FooBar);
+  expect(fooBar.bar.foo.foo0 instanceof Foo0).toBeTruthy();
+});
+
 test('base di with @optional, and resolve other module', () => {
   @injectable()
   class Foo {}
