@@ -7,6 +7,7 @@ export type Package = {
   workspaces: string[];
   private: boolean;
   name: string;
+  bin?: Record<string, string>;
 };
 
 export type Handler = (

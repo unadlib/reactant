@@ -16,6 +16,7 @@ type GenerateOption = {
   format: 'cjs' | 'es' | 'umd';
   name: string;
   production?: boolean;
+  banner?: string;
 };
 
 const isProduction = process.env.NODE_ENV === 'production';
@@ -26,6 +27,7 @@ const generateBundledModules = async ({
   format,
   name,
   production = true,
+  banner,
 }: GenerateOption) => {
   console.log(`Generating bundle:`);
   console.log(chalk.grey(`-> ${outputFile}`));
@@ -70,6 +72,7 @@ const generateBundledModules = async ({
       format,
       exports: 'named',
       name: isUmd ? name : undefined,
+      banner,
     });
     console.log(chalk.green(`Succeed to generate ${outputFile} bundle.\n`));
   } catch (e) {

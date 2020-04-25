@@ -1,3 +1,4 @@
+import { spawn } from 'child_process';
 import path from 'path';
 import loadJsonFile from 'load-json-file';
 import fs from 'fs-extra';
@@ -75,6 +76,7 @@ const getCamelCase = (name: string) => {
 type Generate = (option: {
   currentPath: string;
   name: string;
+  packageJson: Package;
 }) => Promise<void>;
 
 const compileProject = async (generate: Generate, packageChildPath: string) => {
@@ -91,6 +93,7 @@ const compileProject = async (generate: Generate, packageChildPath: string) => {
       await generate({
         currentPath: packageChildPath,
         name: getCamelCase(packageJson.name),
+        packageJson,
       });
     }
   } catch (e) {
@@ -99,18 +102,19 @@ const compileProject = async (generate: Generate, packageChildPath: string) => {
 };
 
 const compile = async (generate: Generate) => {
-  // TODO concurrency
   if (Array.isArray(projects) && projects.length > 0) {
     for (const project of projects) {
       if (typeof project === 'string') {
-        await compileProject(generate, path.resolve(`packages/${project}`));
+        await compileProject(generate, path.resolve(project));
       }
     }
     return;
   }
   await handleWorkspaces(async (packageParentDir, packageChildDir) => {
     const packageChildPath = path.resolve(packageParentDir, packageChildDir);
-    await compileProject(generate, packageChildPath);
+    const project = packageChildPath.replace(`${process.cwd()}/`, '');
+    spawn('yarn', ['build', '-p', project], { stdio: 'inherit' });
+    // await compileProject(generate, packageChildPath);
   });
 };
 
