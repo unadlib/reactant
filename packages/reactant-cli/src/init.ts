@@ -4,36 +4,28 @@ import chalk from 'chalk';
 import { generateProject } from 'installation';
 import { PackageJson } from './index';
 
+// TODO: copy yarn.lock?
 export const createInitCommand = (
   command: Command,
   packageJson: PackageJson
 ) => {
   command
     .command('init')
+    .alias('i')
     .arguments('<project-directory>')
     .usage('<project-directory> [options]')
+    .description('create a Reactant project')
     .option(
       '-l, --language <language>',
-      `specify a development of language for the created project`
+      'specify a development language(javascript/typescript)',
+      'typescript'
     )
-    .option(
-      '-t, --type <type>',
-      `specify a ${packageJson.name} project of type for the created project`
-    )
-    .option('-v, --verbose', 'print verbose logs')
-    .option('--use-npm')
-    .option('--use-pnp')
+    .option('-t, --type <type>', `specify a project type(web/native)`, 'web')
+    .option('-v, --verbose', 'print verbose logs', false)
+    .option('--use-npm', 'use npm for the package manager', false)
+    .option('--use-pnp', 'use yarn PnP feature', false)
     .action(
-      (
-        projectName,
-        {
-          verbose = false,
-          type = 'web',
-          language = 'typescript',
-          useNpm,
-          usePnp,
-        }: Command
-      ) => {
+      (projectName, { verbose, type, language, useNpm, usePnp }: Command) => {
         generateProject({
           name: projectName,
           verbose,
