@@ -14,6 +14,9 @@
   "author": "unadlib",
   "license": "MIT",
   "dependencies": {
-    "commander": "^5.1.0"
+    "chalk": "^4.0.0",
+    "commander": "^5.1.0",
+    "envinfo": "^7.5.1",
+    "installation": "^0.2.7"
   }
 }

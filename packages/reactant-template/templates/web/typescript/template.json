@@ -1,6 +1,4 @@
 {
-  "private": true,
-  "version": "0.0.0",
   "scripts": {
     "start": "webpack-dev-server",
     "build": "webpack"
@@ -14,6 +12,7 @@
     "webpack-dev-server": "^3.10.3"
   },
   "dependencies": {
-    "react": "^16.12.0"
+    "react": "*",
+    "react-dom": "*"
   }
 }
