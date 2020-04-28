@@ -32,7 +32,7 @@ Reactant provides dependency injection, modular models, immutable state manageme
 ```sh
 npx reactant init my-app
 cd my-app
-npm start
+yarn start
 ```
 
 ## Example
