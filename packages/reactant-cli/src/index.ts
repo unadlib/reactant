@@ -7,6 +7,7 @@ import { createGenerateCommand } from './generate';
 export interface PackageJson {
   name?: string;
   version?: string;
+  dependencies?: Record<string, string>;
 }
 
 // eslint-disable-next-line

@@ -3,6 +3,7 @@ import { Command } from 'commander';
 import path from 'path';
 import fs from 'fs-extra';
 import chalk from 'chalk';
+import { detectIsRootPath } from './utils';
 
 export const createGenerateCommand = (command: Command) => {
   command
@@ -18,6 +19,8 @@ export const createGenerateCommand = (command: Command) => {
       'typescript'
     )
     .action((templateType, { skipTests, language }, files) => {
+      // TODO: lookup root path.
+      const isRootPath = detectIsRootPath();
       if (typeof files === 'undefined') {
         console.error(chalk.red('The file name is required.'));
         process.exit(1);
@@ -48,7 +51,11 @@ export const createGenerateCommand = (command: Command) => {
           break;
         }
         const fileFullName = `${file}.${templateType}.${typeName}`;
-        const filePath = path.join(process.cwd(), fileFullName);
+        const filePath = path.join(
+          process.cwd(),
+          isRootPath ? 'src' : '',
+          fileFullName
+        );
         if (fs.existsSync(filePath)) {
           console.error(chalk.red(`'${filePath}' file already exists.`));
           process.exit(1);
