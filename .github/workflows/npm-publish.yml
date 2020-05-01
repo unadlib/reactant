@@ -16,7 +16,6 @@ jobs:
       - run: yarn
       - run: yarn build
       - run: yarn test
-      - run: npm whoami
       - run: npm run publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}

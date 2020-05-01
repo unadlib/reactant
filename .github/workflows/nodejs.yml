@@ -22,5 +22,6 @@ jobs:
         yarn install
         yarn build
         yarn test
+        npm whoami
       env:
         CI: true
