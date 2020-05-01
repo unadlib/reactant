@@ -1,8 +1,12 @@
-import { inject as injectWithInversify, decorate } from 'inversify';
+import {
+  inject as injectWithInversify,
+  decorate,
+  LazyServiceIdentifer,
+} from 'inversify';
 import { ServiceIdentifier } from '../interfaces';
 import { METADATA_KEY } from '../constants';
 
-export function inject(token?: ServiceIdentifier<any>) {
+export function inject(token?: ServiceIdentifier<any> | LazyServiceIdentifer) {
   return (target: object, targetKey: string, index?: number) => {
     const tokenSelf = Reflect.getMetadata(METADATA_KEY.paramtypes, target)[
       index!
