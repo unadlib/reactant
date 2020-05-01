@@ -1,9 +1,11 @@
-import { interfaces } from 'inversify';
+import { interfaces, LazyServiceIdentifer } from 'inversify';
 import { METADATA_KEY } from './constants';
 
 export type ContainerOptions = interfaces.ContainerOptions;
 export type Container = interfaces.Container;
-export type ServiceIdentifier<T> = interfaces.ServiceIdentifier<T>;
+export type ServiceIdentifier<T> =
+  | interfaces.ServiceIdentifier<T>
+  | LazyServiceIdentifer;
 /**
  * token map
  */
