@@ -44,9 +44,9 @@ function autoBindModules() {
       unbind: interfaces.Unbind,
       isBound: interfaces.IsBound
     ) => {
-      const providMeta = getMetadata(METADATA_KEY.provide);
+      const provideMeta = getMetadata(METADATA_KEY.provide);
       const optionalMeta = getMetadata(METADATA_KEY.optional);
-      for (const [token, provide] of providMeta) {
+      for (const [token, provide] of provideMeta) {
         // default injection without optional module.
         if (!optionalMeta.has(token) && !isBound(token)) {
           bind(token).to(provide);
