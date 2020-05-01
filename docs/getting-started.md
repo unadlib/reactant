@@ -1,8 +1,8 @@
-## Getting Started
+# Getting Started
 
-#### Create a new project
+### Create a new project
 
-We recommend using the Reactant CLI to quickly create a brand new Reactant project. See more information about [Reactant CLI]().
+We recommend using the Reactant CLI to quickly create a brand new Reactant project. See more information about [reactant-cli](api/reactant-cli/README.md).
 
 ```sh
 npx reactant init my-app # default use TypeScript
@@ -27,7 +27,7 @@ If using JavaScript, make sure you have `@babel/plugin-propose-decorators` and `
 
 If using TypeScript, make sure to enable `experimentalDecorators` and `emitDecoratorMetadata` in `tsconfig.json`.
 
-#### Service module
+### Service module
 
 Use `reactant-cli` to generate a new service file:
 
@@ -39,7 +39,7 @@ npx reactant generate service my-service
 
 `@injectable` is used to decorate a module that can be injected. While Reactant also supports modules that do not require `@injectable` decoration in advance, we recommend `@injectable` decoration for any module that requires dependency injection.
 
-> `@injectable` parameters in TypeScript and JavaScript are completely different, See [more details](/).
+> `@injectable` parameters in TypeScript and JavaScript are completely different, See [more details](api/reactant-di/README.md).
 
 For Example, `Counter` project set up with `TypeScript`.
 
@@ -67,9 +67,9 @@ class Counter {
 }
 ```
 
-> Reactant provides dependency injection features, see [dependency injection]().
+> Reactant provides dependency injection features, see [dependency injection](api/reactant-di/README.md).
 
-#### ViewModule
+### ViewModule
 
 Use `reactant-cli` to generate a new view module file:
 
@@ -77,7 +77,7 @@ Use `reactant-cli` to generate a new view module file:
 npx reactant generate view my-service
 ```
 
-`ViewModule` is a core concept of Reactant. It will be defined the dependencies and logic between non-view modules and UI components. It embodies the separation of attention, where the separation of UI logic and business logic is coalesced. See [more concepts]() of Reactant.
+`ViewModule` is a core concept of Reactant. It will be defined the dependencies and logic between non-view modules and UI components. It embodies the separation of attention, where the separation of UI logic and business logic is coalesced. See more [concepts](concepts.md) of Reactant.
 
 Dependency injection of service modules using `ViewModule` and connection injection of state in `component`.
 
@@ -104,9 +104,9 @@ class AppView extends ViewModule {
 
 > The `useConnector` parameter also supports object maps, e.g. `useConnector(() => { count: this.counter.count })`, which works in most scenarios. When the state is updated, `useConnector` will automatically do the shallow comparison for it to determine if the component needs to be updated.
 
-#### Bootstrap
+### Bootstrap
 
-Finally, use `createApp` and `bootstrap` to run the project. Reactant configures different dependency injection configurations through `createApp`, which also supports other configurations such as **[middleware]()** and Reactant **[plugins]()**. See [more configuration]() about Reactant.
+Finally, use `createApp` and `bootstrap` to run the project. Reactant configures different dependency injection configurations through `createApp`, which also supports other configurations such as **middleware** and Reactant **plugins**. See more [advanced guides](advanced-guides.md) about Reactant.
 
 ```ts
 import { render } from 'reactant-web';
@@ -121,4 +121,4 @@ const app = createApp({
 app.bootstrap(document.getElementById('app'));
 ```
 
-> Here is just a demo of web application, but Reactant also supports React-Native, see [more reactant-native documentation]().
+> Here is just a demo of web application, but Reactant also supports React-Native, see more [reactant-native](api/reactant-native/README.md) documentation.
