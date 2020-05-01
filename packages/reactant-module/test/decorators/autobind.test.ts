@@ -39,7 +39,7 @@ test('base `@autobind` decorate', () => {
     },
   });
   const counter = container.get(Counter);
-  const store = createStore(container, ServiceIdentifiers);
+  const store = createStore(modules, container, ServiceIdentifiers);
   const { increase, run, decrease } = counter;
   expect(counter.count).toBe(0);
   expect(() => {
@@ -99,7 +99,7 @@ test('`@autobind` decorate about inheritance', () => {
     },
   });
   const counter = container.get(Counter);
-  const store = createStore(container, ServiceIdentifiers);
+  const store = createStore(modules, container, ServiceIdentifiers);
   const { run, decrease } = counter;
   expect(counter.count).toBe(0);
   decrease();

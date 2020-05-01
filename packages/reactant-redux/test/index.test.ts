@@ -67,7 +67,7 @@ test('base redux with `useValue`', () => {
     },
   });
   const foo = container.get(Foo);
-  const store = createStore(container, ServiceIdentifiers);
+  const store = createStore(modules, container, ServiceIdentifiers);
   expect(Object.values(store.getState())).toEqual([{ todoList: [] }]);
   foo.add('test');
   expect(Object.values(store.getState())).toEqual([
@@ -148,7 +148,7 @@ test('base redux with `useFactory`', () => {
     },
   });
   const foo = container.get(Foo);
-  const store = createStore(container, ServiceIdentifiers);
+  const store = createStore(modules, container, ServiceIdentifiers);
   expect(store.getState()).toEqual({
     todos: { todoList: [{ text: 'bar', completed: false }] },
   });

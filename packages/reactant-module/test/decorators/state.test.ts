@@ -49,7 +49,7 @@ test('base `@state`', () => {
     },
   });
   const counter = container.get(Counter);
-  const store = createStore(container, ServiceIdentifiers);
+  const store = createStore(modules, container, ServiceIdentifiers);
   expect(counter.count).toBe(0);
   expect(Object.values(store.getState())).toEqual([
     { count: 0, count1: 0, others: { list: [] } },
@@ -102,7 +102,7 @@ test('`@state` about inheritance', () => {
     },
   });
   const counter = container.get(Counter);
-  const store = createStore(container, ServiceIdentifiers);
+  const store = createStore(modules, container, ServiceIdentifiers);
   expect(counter.count).toBe(10);
   counter.increase();
   expect(counter.count).toBe(11);
@@ -120,7 +120,7 @@ test('`@state` about inheritance', () => {
     },
   });
   const counter1 = container1.get(Counter);
-  const store1 = createStore(container1, ServiceIdentifiers1);
+  const store1 = createStore(modules, container1, ServiceIdentifiers1);
   expect(counter1.count).toBe(10);
   counter1.increase();
   expect(counter1.count).toBe(11);

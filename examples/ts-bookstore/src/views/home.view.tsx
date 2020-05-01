@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link, Switch, Route } from 'reactant-web';
 import { ViewModule, injectable } from 'reactant';
-import { Router } from 'reactant-router';
 import { Books } from '../modules/books.service';
 import { BookView } from './book.view';
 import { BookListView } from './bookList.view';
@@ -13,8 +12,7 @@ class HomeView extends ViewModule {
     private books: Books,
     private bookView: BookView,
     private bookListView: BookListView,
-    private shoppingCartView: ShoppingCartView,
-    private router: Router
+    private shoppingCartView: ShoppingCartView
   ) {
     super();
   }

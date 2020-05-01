@@ -32,7 +32,7 @@ test('`dispatch` without action type', () => {
     },
   });
   const counter = container.get(Counter);
-  const store = createStore(container, ServiceIdentifiers);
+  const store = createStore(modules, container, ServiceIdentifiers);
   counter.increase();
   expect(counter.count).toBe(1);
   expect(Object.values(store.getState())).toEqual([{ count: 1 }]);
@@ -70,7 +70,7 @@ test('`dispatch` with action type', () => {
     },
   });
   const counter = container.get(Counter);
-  const store = createStore(container, ServiceIdentifiers);
+  const store = createStore(modules, container, ServiceIdentifiers);
   counter.increase();
   expect(counter.count).toBe(1);
   expect(Object.values(store.getState())).toEqual([{ count: 1, sum: 0 }]);

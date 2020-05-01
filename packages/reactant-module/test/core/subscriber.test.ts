@@ -42,15 +42,16 @@ test('subscribe in constructor', () => {
   }
 
   const ServiceIdentifiers = new Map();
+  const modules = [Foo];
   const container = createContainer({
     ServiceIdentifiers,
-    modules: [Foo],
+    modules,
     options: {
       defaultScope: 'Singleton',
     },
   });
   const foo = container.get(Foo);
-  const store = createStore(container, ServiceIdentifiers);
+  const store = createStore(modules, container, ServiceIdentifiers);
   store.subscribe(() => {
     storeSubscribeFn();
   });
@@ -124,15 +125,15 @@ test('subscribe in non-constructor', () => {
   }
 
   const ServiceIdentifiers = new Map();
+  const modules = [Foo];
   const container = createContainer({
     ServiceIdentifiers,
-    modules: [Foo],
     options: {
       defaultScope: 'Singleton',
     },
   });
   const foo = container.get(Foo);
-  const store = createStore(container, ServiceIdentifiers);
+  const store = createStore(modules, container, ServiceIdentifiers);
   foo.init();
   store.subscribe(() => {
     storeSubscribeFn();

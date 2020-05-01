@@ -9,6 +9,12 @@ import {
 
 test('base module with @state and @action', () => {
   @injectable()
+  class Todos {
+    @state
+    list = [];
+  }
+
+  @injectable()
   class Counter {
     @state
     count = 0;
@@ -29,7 +35,7 @@ test('base module with @state and @action', () => {
     }
   }
   const ServiceIdentifiers = new Map();
-  const modules = [Counter];
+  const modules = [Counter, Todos];
   const container = createContainer({
     ServiceIdentifiers,
     modules,
@@ -38,10 +44,11 @@ test('base module with @state and @action', () => {
     },
   });
   const counter = container.get(Counter);
-  const store = createStore(container, ServiceIdentifiers);
+  const store = createStore(modules, container, ServiceIdentifiers);
   expect(counter.count).toBe(0);
   expect(Object.values(store.getState())).toEqual([
     { count: 0, others: { list: [] } },
+    { list: [] },
   ]);
   counter.increase();
   expect(counter.count).toBe(1);
@@ -49,6 +56,7 @@ test('base module with @state and @action', () => {
   expect(counter.others.list).toEqual([0]);
   expect(Object.values(store.getState())).toEqual([
     { count: 1, others: { list: [0] } },
+    { list: [] },
   ]);
 });
 
@@ -94,7 +102,7 @@ test('module with multiple module injection with same module or others', () => {
     },
   });
   const fooBar = container.get(FooBar);
-  const store = createStore(container, ServiceIdentifiers);
+  const store = createStore(modules, container, ServiceIdentifiers);
   expect(store.getState()).toEqual({
     FooToken: { count: 1 },
     FooToken1: { count: 1 },

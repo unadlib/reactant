@@ -6,10 +6,12 @@ import {
   localStorage,
   IStorageOptions,
 } from 'reactant-storage';
+import { Router } from 'reactant-router';
 import { HomeView } from './views';
 
 const app = createApp({
   modules: [
+    Router,
     {
       provide: StorageOptions,
       useValue: {

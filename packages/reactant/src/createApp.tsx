@@ -56,6 +56,7 @@ function createApp<T>({
   }
   const providers: FunctionComponent[] = [];
   const store = createStore(
+    modules,
     container,
     ServiceIdentifiers,
     preloadedState,

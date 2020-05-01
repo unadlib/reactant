@@ -31,7 +31,7 @@ test('`createSelector` with type', () => {
     },
   });
   const counter = container.get(Counter);
-  const store = createStore(container, ServiceIdentifiers);
+  const store = createStore(modules, container, ServiceIdentifiers);
   expect(counter.count).toBe(0);
   counter.increase();
   expect(counter.count).toBe(1);

@@ -21,7 +21,7 @@ test('base `@action` decorate', () => {
     },
   });
   const counter = container.get(Counter);
-  const store = createStore(container, ServiceIdentifiers);
+  const store = createStore(modules, container, ServiceIdentifiers);
   counter.increase();
   expect(counter.count).toBe(1);
   expect(Object.values(store.getState())).toEqual([{ count: 1 }]);
@@ -60,8 +60,9 @@ test('`@action` with base devOptions pararms', () => {
       defaultScope: 'Singleton',
     },
   });
-  const couter = container.get(Counter);
+  const counter = container.get(Counter);
   const store = createStore(
+    modules,
     container,
     ServiceIdentifiers,
     undefined,
@@ -72,13 +73,13 @@ test('`@action` with base devOptions pararms', () => {
   expect(() => {
     store.getState().counter.sum.count = 1;
   }).toThrowError(/Cannot assign to read only property/);
-  couter.increase();
+  counter.increase();
   for (const fn of [
     () => {
       store.getState().counter.sum.count = 1;
     },
-    () => couter.increase1(),
-    () => couter.increase2(),
+    () => counter.increase1(),
+    () => counter.increase2(),
   ]) {
     expect(fn).toThrowError(/Cannot assign to read only property/);
   }
@@ -153,15 +154,16 @@ test('`@action` in inherited module with stagedState about more effects', () => 
   }
 
   const ServiceIdentifiers = new Map();
+  const modules = [FooBar];
   const container = createContainer({
     ServiceIdentifiers,
-    modules: [FooBar],
+    modules,
     options: {
       defaultScope: 'Singleton',
     },
   });
   const fooBar = container.get(FooBar);
-  const store = createStore(container, ServiceIdentifiers);
+  const store = createStore(modules, container, ServiceIdentifiers);
   const subscribe = jest.fn();
   store.subscribe(subscribe);
   fooBar.foo.increase();

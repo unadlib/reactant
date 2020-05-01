@@ -5,13 +5,20 @@ test('forwardRef', () => {
   class Foo {}
 
   @injectable()
+  class FooBar {}
+
+  @injectable()
   class Bar {
     constructor(@inject(forwardRef(() => Foo)) public foo: Foo) {}
   }
 
-  const bar = createContainer({
-    ServiceIdentifiers: new Map(),
-  }).get(Bar);
+  const ServiceIdentifiers = new Map();
+  const container = createContainer({
+    ServiceIdentifiers,
+    modules: [FooBar],
+  });
+  const bar = container.get(Bar);
 
   expect(bar.foo instanceof Foo).toBeTruthy();
+  expect(container.isBound(FooBar)).toBeTruthy();
 });

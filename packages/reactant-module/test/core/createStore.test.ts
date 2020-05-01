@@ -24,7 +24,7 @@ test('`createStore` with base pararms', () => {
     },
   });
   container.get(Counter);
-  const store = createStore(container, ServiceIdentifiers);
+  const store = createStore(modules, container, ServiceIdentifiers);
   expect(Object.values(store.getState())).toEqual([{ count: 0 }]);
 });
 
@@ -46,7 +46,7 @@ test('`createStore` with base preloadedState pararms', () => {
     },
   });
   container.get(Counter);
-  const store = createStore(container, ServiceIdentifiers, {
+  const store = createStore(modules, container, ServiceIdentifiers, {
     counter: { count: 18 },
   });
   expect(Object.values(store.getState())).toEqual([{ count: 18 }]);
@@ -82,7 +82,7 @@ test('`createStore` with base middlewares pararms', () => {
     actionFn(store.getState());
     return result;
   };
-  const store = createStore(container, ServiceIdentifiers, undefined, [logger]);
+  const store = createStore(modules, container, ServiceIdentifiers, undefined, [logger]);
   couter.increase();
   expect(actionFn.mock.calls.length).toBe(2);
   expect(actionFn.mock.calls[0]).toEqual([
@@ -124,6 +124,7 @@ test('`createStore` with base providers pararms', () => {
   container.get(Counter);
   const providers: React.FunctionComponent[] = [];
   const store = createStore(
+    modules,
     container,
     ServiceIdentifiers,
     undefined,
@@ -167,8 +168,9 @@ test('`createStore` with base devOptions pararms', () => {
       defaultScope: 'Singleton',
     },
   });
-  const couter = container.get(Counter);
+  const counter = container.get(Counter);
   const store = createStore(
+    modules,
     container,
     ServiceIdentifiers,
     undefined,
@@ -179,13 +181,13 @@ test('`createStore` with base devOptions pararms', () => {
   expect(() => {
     store.getState().counter.sum.count = 1;
   }).toThrowError(/Cannot assign to read only property/);
-  couter.increase();
+  counter.increase();
   for (const fn of [
     () => {
       store.getState().counter.sum.count = 1;
     },
-    () => couter.increase1(),
-    () => couter.increase2(),
+    () => counter.increase1(),
+    () => counter.increase2(),
   ]) {
     expect(fn).toThrowError(/Cannot assign to read only property/);
   }

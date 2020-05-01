@@ -11,7 +11,7 @@ import {
   PreloadedState,
   applyMiddleware,
 } from 'redux';
-import { Container, ServiceIdentifiersMap } from 'reactant-di';
+import { Container, ServiceIdentifiersMap, ModuleOptions } from 'reactant-di';
 import {
   ReactantMiddleware,
   ReactantAction,
@@ -30,6 +30,7 @@ import { getStageName, perform, getComposeEnhancers } from '../utils';
 import { handlePlugin } from './handlePlugin';
 
 export function createStore<T = any>(
+  modules: ModuleOptions[],
   container: Container,
   ServiceIdentifiers: ServiceIdentifiersMap,
   preloadedState?: PreloadedState<T>,
@@ -55,6 +56,14 @@ export function createStore<T = any>(
     provider: providers,
   };
   const subscriptions: Subscriptions = [];
+  // add Non-dependent `modules` to ServiceIdentifiers token config.
+  for (const module of modules) {
+    const moduleToken = typeof module === 'function' ? module : module.provide;
+    if (!ServiceIdentifiers.has(moduleToken)) {
+      ServiceIdentifiers.set(moduleToken, []);
+    }
+  }
+
   for (const [Service] of ServiceIdentifiers) {
     // `Service` should be bound before `createStore`.
     if (container.isBound(Service)) {

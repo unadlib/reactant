@@ -55,7 +55,7 @@ test('`createSelector` without an external checked value or with an external che
     },
   });
   const counter = container.get(Counter);
-  createStore(container, ServiceIdentifiers);
+  createStore(modules, container, ServiceIdentifiers);
   expect(computeCount.mock.calls.length).toBe(0);
   expect(counter.getSum()).toBe(0);
   expect(computeCount.mock.calls.length).toBe(1);
