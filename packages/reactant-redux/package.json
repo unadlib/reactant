@@ -1,7 +1,7 @@
 {
   "name": "reactant-redux",
   "version": "0.0.1",
-  "description": "A redux suite for Reactant",
+  "description": "A redux lib for Reactant",
   "main": "dist/index.cjs.js",
   "unpkg": "dist/index.umd.js",
   "module": "dist/index.esm.js",

@@ -44,7 +44,7 @@ export const createInitCommand = (
           language,
           useNpm,
           usePnp,
-          appType: 'Reactant',
+          appType: chalk.cyan('Reactant'),
           checkAppNames: [
             'react',
             'react-dom',

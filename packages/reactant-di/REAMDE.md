@@ -2,6 +2,8 @@
 
 ![Node CI](https://github.com/unadlib/reactant/workflows/Node%20CI/badge.svg)
 
+A dependency injection lib for Reactant
+
 ## Usage
 
 ```sh

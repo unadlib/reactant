@@ -2,6 +2,8 @@
 
 ![Node CI](https://github.com/unadlib/reactant/workflows/Node%20CI/badge.svg)
 
+A module model for Reactant
+
 ## Usage
 
 ```sh
