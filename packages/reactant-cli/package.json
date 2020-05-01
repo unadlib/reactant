@@ -6,6 +6,7 @@
     "node": ">=8"
   },
   "bin": {
+    "reactant-cli": "./dist/index.cjs.js",
     "reactant": "./dist/index.cjs.js"
   },
   "repository": {

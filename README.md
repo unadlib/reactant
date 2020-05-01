@@ -30,7 +30,7 @@ Reactant provides dependency injection, modular models, immutable state manageme
 ## Usage
 
 ```sh
-npx reactant init my-app
+npx reactant-cli init my-app
 cd my-app
 yarn start
 ```

@@ -5,8 +5,8 @@
 We recommend using the Reactant CLI to quickly create a brand new Reactant project. See more information about [reactant-cli](api/reactant-cli/README.md).
 
 ```sh
-npx reactant init my-app # default use TypeScript
-# use `npx reactant init my-app --language javascript` for creating a Javascript project.
+npx reactant-cli init my-app # default use TypeScript
+# use `npx reactant-cli init my-app --language javascript` for creating a Javascript project.
 cd my-app
 yarn start
 ```
@@ -32,7 +32,7 @@ If using TypeScript, make sure to enable `experimentalDecorators` and `emitDecor
 Use `reactant-cli` to generate a new service file:
 
 ```sh
-npx reactant generate service my-service
+npx reactant-cli generate service my-service
 ```
 
 `@state` used to decorate a module immutable state, `@action` used to decorate a function to change the module state. Although the decorated state is an immutable state, you can actually update the state in this module using mutations in the method decorated by `@action`.
@@ -74,7 +74,7 @@ class Counter {
 Use `reactant-cli` to generate a new view module file:
 
 ```sh
-npx reactant generate view my-service
+npx reactant-cli generate view my-service
 ```
 
 `ViewModule` is a core concept of Reactant. It will be defined the dependencies and logic between non-view modules and UI components. It embodies the separation of attention, where the separation of UI logic and business logic is coalesced. See more [concepts](concepts.md) of Reactant.

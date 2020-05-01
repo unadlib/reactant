@@ -9,19 +9,19 @@ A command line interface for Reactant
 * Create a Reactant project:
 
 ```sh
-npx reactant init my-app
+npx reactant-cli init my-app
 ```
 
 * Generate a service file:
 
 ```sh
-npx reactant generate service Foo
+npx reactant-cli generate service Foo
 ```
 
 * Generate a view file:
 
 ```sh
-npx reactant generate view FooBarView
+npx reactant-cli generate view FooBarView
 ```
 
 ---
