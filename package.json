@@ -28,6 +28,7 @@
     "performance": "yarn test:generateTestSource && yarn test:performance",
     "build:docs": "ts-node scripts/typedoc.ts",
     "commit": "yarn git-cz",
+    "version": "lerna version --amend --no-git-tag-version",
     "publish": "lerna publish --no-git-tag-version --force-publish  --yes"
   },
   "repository": {
