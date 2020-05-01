@@ -4,6 +4,7 @@ import path from 'path';
 import fs from 'fs-extra';
 import chalk from 'chalk';
 import { lookupRoot } from './utils';
+import { supportLanguages, supportLanguageMap } from './init';
 
 const templateTypeMap = {
   s: 'service',
@@ -11,15 +12,6 @@ const templateTypeMap = {
   v: 'view',
   view: 'view',
 } as const;
-
-const supportLanguageMap = {
-  ts: 'typescript',
-  typescript: 'typescript',
-  js: 'javascript',
-  javascript: 'javascript',
-} as const;
-
-const supportLanguages = Array.from(new Set(Object.values(supportLanguageMap)));
 
 export const createGenerateCommand = (command: Command) => {
   command
@@ -32,7 +24,7 @@ export const createGenerateCommand = (command: Command) => {
     .option(
       '-l, --language <language>',
       `specify a file type(${supportLanguages.join('/')})`,
-      supportLanguages[0]
+      supportLanguageMap.typescript
     )
     .action(
       (

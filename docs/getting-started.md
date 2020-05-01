@@ -6,9 +6,9 @@ We recommend using the Reactant CLI to quickly create a brand new Reactant proje
 
 ```sh
 npx reactant init my-app # default use TypeScript
-# use `npx reactant init my-app --template javascript` for creating a Javascript project.
+# use `npx reactant init my-app --language javascript` for creating a Javascript project.
 cd my-app
-npm start
+yarn start
 ```
 
 If you need to customize to create Reactant project, then you can do the following steps:
@@ -27,9 +27,13 @@ If using JavaScript, make sure you have `@babel/plugin-propose-decorators` and `
 
 If using TypeScript, make sure to enable `experimentalDecorators` and `emitDecoratorMetadata` in `tsconfig.json`.
 
-> You can use the `create-react-app` to create a React project, and then run `npx reactant init ---template create-react-app` to create a Reactant project.
-
 #### Service module
+
+Use `reactant-cli` to generate a new service file:
+
+```sh
+npx reactant generate service my-service
+```
 
 `@state` used to decorate a module immutable state, `@action` used to decorate a function to change the module state. Although the decorated state is an immutable state, you can actually update the state in this module using mutations in the method decorated by `@action`.
 
@@ -67,6 +71,12 @@ class Counter {
 
 #### ViewModule
 
+Use `reactant-cli` to generate a new view module file:
+
+```sh
+npx reactant generate view my-service
+```
+
 `ViewModule` is a core concept of Reactant. It will be defined the dependencies and logic between non-view modules and UI components. It embodies the separation of attention, where the separation of UI logic and business logic is coalesced. See [more concepts]() of Reactant.
 
 Dependency injection of service modules using `ViewModule` and connection injection of state in `component`.
@@ -101,7 +111,7 @@ Finally, use `createApp` and `bootstrap` to run the project. Reactant configures
 ```ts
 import { render } from 'reactant-web';
 import { createApp } from 'reactant';
-// import `AppView`
+// need to import `AppView`
 
 const app = createApp({
   main: AppView,

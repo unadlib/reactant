@@ -4,6 +4,17 @@ import chalk from 'chalk';
 import { generateProject } from 'installation';
 import { PackageJson } from './index';
 
+export const supportLanguageMap = {
+  ts: 'typescript',
+  typescript: 'typescript',
+  js: 'javascript',
+  javascript: 'javascript',
+} as const;
+
+export const supportLanguages = Array.from(
+  new Set(Object.values(supportLanguageMap))
+);
+
 // TODO: copy yarn.lock?
 export const createInitCommand = (
   command: Command,
@@ -17,8 +28,8 @@ export const createInitCommand = (
     .description('create a Reactant project')
     .option(
       '-l, --language <language>',
-      'specify a development language(javascript/typescript)',
-      'typescript'
+      `specify a development language(${supportLanguages.join('/')})`,
+      supportLanguageMap.typescript
     )
     .option('-t, --type <type>', `specify a project type(web/native)`, 'web')
     .option('-v, --verbose', 'print verbose logs', false)
