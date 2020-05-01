@@ -8,6 +8,11 @@
   "bin": {
     "reactant": "./dist/index.cjs.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/unadlib/reactant.git",
+    "directory": "packages/reactant-cli"
+  },
   "keywords": [
     "reactant"
   ],
