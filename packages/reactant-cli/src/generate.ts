@@ -13,6 +13,12 @@ const templateTypeMap = {
   view: 'view',
 } as const;
 
+interface Options {
+  withTests: boolean;
+  language: keyof typeof supportLanguageMap;
+  src: string;
+}
+
 export const createGenerateCommand = (command: Command) => {
   command
     .command('generate')
@@ -20,7 +26,8 @@ export const createGenerateCommand = (command: Command) => {
     .description('generate the specified template file')
     .arguments('<template-type>')
     .usage('<template-type> [file-name] [options]')
-    .option('-s, --skipTests', 'skip creating test files', true)
+    .option('-w, --withTests', 'skip creating test files', false)
+    .option('-s, --src <src>', 'source files path', 'src')
     .option(
       '-l, --language <language>',
       `specify a file type(${supportLanguages.join('/')})`,
@@ -29,10 +36,7 @@ export const createGenerateCommand = (command: Command) => {
     .action(
       (
         type: keyof typeof templateTypeMap,
-        {
-          skipTests,
-          language,
-        }: { skipTests: boolean; language: keyof typeof supportLanguageMap },
+        { withTests, language, src }: Options,
         files: string[]
       ) => {
         const currentPath = process.cwd();
@@ -93,11 +97,7 @@ export const createGenerateCommand = (command: Command) => {
             break;
           }
           const fileFullName = `${file}.${templateType}.${suffix}`;
-          // TODO: customized default source path
-          const projectRootDefaultSourcePath = path.join(
-            projectRootPath,
-            'src'
-          );
+          const projectRootDefaultSourcePath = path.join(projectRootPath, src);
           const filePath = path.join(
             isRootPath ? projectRootDefaultSourcePath : currentPath,
             fileFullName

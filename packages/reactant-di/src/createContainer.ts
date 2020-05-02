@@ -69,39 +69,18 @@ export function createContainer({
   modules = [],
   options,
 }: ContainerConfig) {
-  const providMeta = getMetadata(METADATA_KEY.provide);
+  const provideMeta = getMetadata(METADATA_KEY.provide);
   const container = new Container(options);
   container.applyCustomMetadataReader(new CustomMetadataReader());
   for (const module of modules) {
     if (typeof module === 'function') {
       // auto decorate `@injectable` for module.
-      if (!providMeta.has(module)) decorate(injectable(), module);
+      if (!provideMeta.has(module)) decorate(injectable(), module);
       container.bind(module).toSelf();
     } else if (typeof module === 'object') {
-      if (typeof module.provide === 'function') {
-        if (
-          (module as FactoryProvider).useFactory ||
-          Object.hasOwnProperty.call(module, 'useValue')
-        ) {
-          const { name } = module.provide;
-          throw new Error(
-            `module '${name}' has been passed 'provide' for service, it should not pass 'useClass', 'useFactory' or 'useValue' property.`
-          );
-        } else if (isClassProvider(module)) {
-          // auto decorate `@injectable` for module.useClass
-          if (!providMeta.has(module.useClass))
-            decorate(injectable(), module.useClass);
-          container.bind(module.provide).to(module.useClass);
-        } else {
-          // auto decorate `@injectable` for module.provide
-          if (!providMeta.has(module.provide))
-            decorate(injectable(), module.provide);
-          container.bind(module.provide).toSelf();
-        }
-        // under -> token isn't function.
-      } else if (isClassProvider(module)) {
+      if (isClassProvider(module)) {
         // auto decorate `@injectable` for module.useClass
-        if (!providMeta.has(module.useClass))
+        if (!provideMeta.has(module.useClass))
           decorate(injectable(), module.useClass);
         container.bind(module.provide).to(module.useClass);
       } else if (Object.hasOwnProperty.call(module, 'useValue')) {
@@ -130,6 +109,11 @@ export function createContainer({
             });
             return module.useFactory(...depInstances);
           });
+      } else if (typeof module.provide === 'function') {
+        // auto decorate `@injectable` for module.provide
+        if (!provideMeta.has(module.provide))
+          decorate(injectable(), module.provide);
+        container.bind(module.provide).toSelf();
       } else {
         throw new Error(`${module} option error`);
       }

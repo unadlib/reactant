@@ -13,11 +13,12 @@ import {
   ReactantStore,
   ReactantMiddleware,
   DevOptions,
+  PartialRequired,
 } from 'reactant-module';
 
 interface Config<T> {
   main: ServiceIdentifier<T>;
-  render: (element: JSX.Element, ...args: any[]) => Element | void;
+  render?: (element: JSX.Element, ...args: any[]) => Element | void;
   modules?: ReactModuleOptions[];
   containerOptions?: ContainerOptions;
   middlewares?: ReactantMiddleware[];
@@ -26,7 +27,7 @@ interface Config<T> {
 }
 
 interface ReturnValue<T> {
-  instance: T & ViewModule;
+  instance: T;
   store: ReactantStore | null;
   bootstrap(...args: any[]): void | Element;
 }
@@ -39,7 +40,7 @@ function createApp<T>({
   middlewares,
   preloadedState,
   devOptions,
-}: Config<T>): ReturnValue<T> {
+}: PartialRequired<Config<T>, 'render'>): ReturnValue<T> {
   const ServiceIdentifiers: ServiceIdentifiersMap = new Map();
   const container = createContainer({
     ServiceIdentifiers,
@@ -51,9 +52,6 @@ function createApp<T>({
     },
   });
   const instance = container.get<T>(main);
-  if (!(instance instanceof ViewModule)) {
-    throw new Error(`Main module should be a 'ViewModule'.`);
-  }
   const providers: FunctionComponent[] = [];
   const store = createStore(
     modules,
@@ -69,6 +67,9 @@ function createApp<T>({
     instance,
     store: withoutReducers ? null : store,
     bootstrap(...args: any[]): Element | void {
+      if (!(instance instanceof ViewModule)) {
+        throw new Error(`Main module should be a 'ViewModule'.`);
+      }
       const InstanceElement = <instance.component />;
       const RootElement = withoutReducers
         ? InstanceElement
@@ -90,4 +91,15 @@ function createApp<T>({
   };
 }
 
-export { createApp };
+function testBed<T>(config: Config<T>) {
+  return createApp({
+    ...config,
+    render:
+      config.render ||
+      (() => {
+        console.log(`No render function is configured.`);
+      }),
+  });
+}
+
+export { createApp, testBed };
