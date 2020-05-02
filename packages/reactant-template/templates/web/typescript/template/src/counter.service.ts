@@ -1,7 +1,7 @@
 import { injectable, action, state } from 'reactant';
 
 @injectable()
-class Counter {
+class CounterService {
   @state
   count = 0;
 
@@ -16,4 +16,4 @@ class Counter {
   }
 }
 
-export { Counter };
+export { CounterService };

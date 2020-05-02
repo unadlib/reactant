@@ -1,10 +1,10 @@
 import React from 'react';
 import { ViewModule, injectable, useConnector } from 'reactant';
-import { Counter } from './counter.service';
+import { CounterService } from './counter.service';
 
 @injectable()
 class AppView extends ViewModule {
-  constructor(public counter: Counter) {
+  constructor(public counter: CounterService) {
     super();
   }
 
