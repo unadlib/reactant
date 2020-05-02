@@ -92,7 +92,7 @@ function createApp<T>({
 }
 
 function testBed<T>(config: Config<T>) {
-  return createApp({
+  return createApp<T>({
     ...config,
     render:
       config.render ||

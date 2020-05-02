@@ -754,7 +754,7 @@ describe('multiple reactant app', () => {
   });
 });
 
-test('testBed', () => {
+test.only('testBed', () => {
   @injectable()
   class Foo {
     getValue() {
