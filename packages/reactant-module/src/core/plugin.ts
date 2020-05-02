@@ -26,7 +26,7 @@ export abstract class PluginModule implements Service {
 
   afterCreateStore?(store: Store): void;
 
-  // TODO beforeCombineReducers & afterCombineReducers
+  // TODO: beforeCombineReducers & afterCombineReducers
 
   beforeCombineRootReducers?(reducers: ReducersMapObject): ReducersMapObject;
 

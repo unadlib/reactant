@@ -92,7 +92,6 @@ export const createGenerateCommand = (command: Command) => {
           __dirname,
           `../templates/${templateType}/${templateTestName}`
         );
-        // TODO: implement `skipTests`
         for (const file of files) {
           try {
             // eslint-disable-next-line no-eval
