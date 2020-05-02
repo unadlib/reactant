@@ -3,7 +3,7 @@ import { Command } from 'commander';
 import path from 'path';
 import fs from 'fs-extra';
 import chalk from 'chalk';
-import { lookupRoot } from './utils';
+import { lookupRoot, createFile } from './utils';
 import { supportLanguages, supportLanguageMap } from './init';
 
 const templateTypeMap = {
@@ -26,7 +26,7 @@ export const createGenerateCommand = (command: Command) => {
     .description('generate the specified template file')
     .arguments('<template-type>')
     .usage('<template-type> [file-name] [options]')
-    .option('-w, --withTests', 'skip creating test files', false)
+    .option('-w, --withTests', 'creating test files', false)
     .option('-s, --src <src>', 'source files path', 'src')
     .option(
       '-l, --language <language>',
@@ -87,6 +87,11 @@ export const createGenerateCommand = (command: Command) => {
           __dirname,
           `../templates/${templateType}/${templateName}`
         );
+        const templateTestName = `template.${templateType}.spec.${suffix}`;
+        const templateTestPath = path.resolve(
+          __dirname,
+          `../templates/${templateType}/${templateTestName}`
+        );
         // TODO: implement `skipTests`
         for (const file of files) {
           try {
@@ -102,32 +107,25 @@ export const createGenerateCommand = (command: Command) => {
             isRootPath ? projectRootDefaultSourcePath : currentPath,
             fileFullName
           );
-          if (fs.existsSync(filePath)) {
-            console.error(chalk.red(`'${filePath}' file already exists.`));
-            process.exit(1);
-          }
-          let templateString = fs.readFileSync(templatePath, {
-            encoding: 'utf8',
+          createFile({
+            filePath,
+            templatePath,
+            templateType,
+            file,
+            projectRootPath,
           });
-          if (templateType === 'service') {
-            templateString = templateString.replace(
-              /TemplateService/g,
-              `${file}Service`
-            );
-          }
-          if (templateType === 'view') {
-            templateString = templateString.replace(
-              /TemplateView/g,
-              `${file}View`
-            );
-          }
-          fs.writeFileSync(filePath, templateString);
-          const stats = fs.statSync(filePath);
-          const relativePath = path.relative(projectRootPath, filePath);
-          console.log(
-            chalk.cyan('Create'),
-            ` ${relativePath}  (${stats.size} bytes)`
+          const fileTestFullName = `${file}.${templateType}.spec.${suffix}`;
+          const fileTestPath = path.join(
+            isRootPath ? projectRootDefaultSourcePath : currentPath,
+            fileTestFullName
           );
+          createFile({
+            filePath: fileTestPath,
+            templatePath: templateTestPath,
+            templateType,
+            file,
+            projectRootPath,
+          });
         }
       }
     );
