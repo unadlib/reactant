@@ -29,7 +29,7 @@
     "build:docs": "ts-node scripts/typedoc.ts",
     "commit": "yarn git-cz",
     "version": "lerna version --amend --no-git-tag-version",
-    "publish": "cd packages/reactant-template && npm publish"
+    "publish": "lerna exec --no-private --no-bail -- npm publish"
   },
   "repository": {
     "type": "git",
