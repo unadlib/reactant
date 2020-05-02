@@ -3,7 +3,7 @@ import { storeKey, stateKey } from '../constants';
 
 // the api should not be implemented as a decorator
 // (because it should return new state should get a the current new state, low performance.)
-// support prue action with redux.
+// support redux actions.
 export const dispatch = (
   target: ThisService,
   action: Partial<ReactantAction>

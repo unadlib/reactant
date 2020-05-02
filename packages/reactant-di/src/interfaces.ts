@@ -1,7 +1,14 @@
 import { interfaces, LazyServiceIdentifer } from 'inversify';
 import { METADATA_KEY } from './constants';
 
-export type ContainerOptions = interfaces.ContainerOptions;
+type PickByKey<T, P extends keyof T> = {
+  [K in Exclude<keyof T, P>]: T[K];
+};
+
+export type ContainerOptions = PickByKey<
+  interfaces.ContainerOptions,
+  'skipBaseClassChecks'
+>;
 export type Container = interfaces.Container;
 export type ServiceIdentifier<T> = interfaces.ServiceIdentifier<T>;
 /**
@@ -57,7 +64,7 @@ export type ModuleOptions =
 export interface ContainerConfig {
   ServiceIdentifiers: ServiceIdentifiersMap;
   modules?: ModuleOptions[];
-  options?: ContainerOptions;
+  options?: interfaces.ContainerOptions;
 }
 
 type ValueType<T> = T extends Record<number | string, infer R> ? R : never;

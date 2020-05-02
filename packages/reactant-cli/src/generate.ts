@@ -35,7 +35,6 @@ export const createGenerateCommand = (command: Command) => {
         }: { skipTests: boolean; language: keyof typeof supportLanguageMap },
         files: string[]
       ) => {
-        // TODO: lookup root path.
         const currentPath = process.cwd();
         let projectRootPath = currentPath;
         try {
@@ -76,10 +75,10 @@ export const createGenerateCommand = (command: Command) => {
           process.exit(1);
         }
 
-        const typeName = `${
+        const suffix = `${
           templateLanguage === supportLanguageMap.javascript ? 'js' : 'ts'
         }${templateType === 'view' ? 'x' : ''}`;
-        const templateName = `template.${templateType}.${typeName}`;
+        const templateName = `template.${templateType}.${suffix}`;
         const templatePath = path.resolve(
           __dirname,
           `../templates/${templateType}/${templateName}`
@@ -93,7 +92,7 @@ export const createGenerateCommand = (command: Command) => {
             console.error(chalk.red(`${file} is not a valid name.`));
             break;
           }
-          const fileFullName = `${file}.${templateType}.${typeName}`;
+          const fileFullName = `${file}.${templateType}.${suffix}`;
           // TODO: customized default source path
           const projectRootDefaultSourcePath = path.join(
             projectRootPath,

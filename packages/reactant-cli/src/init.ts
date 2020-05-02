@@ -15,28 +15,33 @@ export const supportLanguages = Array.from(
   new Set(Object.values(supportLanguageMap))
 );
 
-// TODO: copy yarn.lock?
 export const createInitCommand = (
   command: Command,
   packageJson: PackageJson
 ) => {
+  const appType = packageJson.name?.replace(/^./, i => i.toUpperCase());
   command
     .command('init')
     .alias('i')
     .arguments('<project-directory>')
     .usage('<project-directory> [options]')
-    .description('create a Reactant project')
+    .description(`create a ${appType} project`)
     .option(
       '-l, --language <language>',
       `specify a development language(${supportLanguages.join('/')})`,
       supportLanguageMap.typescript
     )
-    .option('-t, --type <type>', `specify a project type(web/native)`, 'web')
+    .option(
+      '-n, --native',
+      `create a ${appType} project for react-native`,
+      false
+    )
     .option('-v, --verbose', 'print verbose logs', false)
     .option('--use-npm', 'use npm for the package manager', false)
     .option('--use-pnp', 'use yarn PnP feature', false)
     .action(
-      (projectName, { verbose, type, language, useNpm, usePnp }: Command) => {
+      (projectName, { verbose, native, language, useNpm, usePnp }: Command) => {
+        const type = native ? 'native' : 'web';
         generateProject({
           name: projectName,
           verbose,
@@ -44,7 +49,7 @@ export const createInitCommand = (
           language,
           useNpm,
           usePnp,
-          appType: chalk.cyan('Reactant'),
+          appType: chalk.cyan(appType),
           checkAppNames: [
             'react',
             'react-dom',
