@@ -9,5 +9,5 @@
       }
     }
   },
-  "testPathIgnorePatterns": ["examples"]
+  "testPathIgnorePatterns": ["examples", "packages/reactant-cli/templates"]
 }
