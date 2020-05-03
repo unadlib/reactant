@@ -2,7 +2,7 @@
   "name": "ts-counter",
   "private": true,
   "version": "1.0.0",
-  "description": "A counter example  for Reactant",
+  "description": "A counter example for Reactant",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server",

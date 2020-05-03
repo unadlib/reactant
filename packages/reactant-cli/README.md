@@ -24,16 +24,10 @@ npx reactant-cli generate service Foo
 npx reactant-cli generate view FooBarView
 ```
 
----
+## Global installation
 
-If you need to install `reactant-cli` globally, run the following command to install it.
+We recommend you install `reactant-cli` globally to use it.
 
 ```sh
 npm install -g reactant-cli
-```
-
-or
-
-```sh
-yarn global add reactant-cli
 ```
