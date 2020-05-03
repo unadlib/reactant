@@ -1,32 +1,9 @@
 import React from 'react';
-import { render } from 'reactant-web';
-import {
-  ViewModule,
-  createApp,
-  injectable,
-  useConnector,
-  action,
-  state,
-} from 'reactant';
-
-@injectable()
-class Counter {
-  @state
-  count = 0;
-
-  @action
-  increase() {
-    this.count += 1;
-  }
-
-  @action
-  decrease() {
-    this.count -= 1;
-  }
-}
+import { ViewModule, injectable, useConnector } from 'reactant';
+import { CounterService } from './counter.service';
 
 @injectable({
-  deps: [Counter],
+  deps: [CounterService],
 })
 class AppView extends ViewModule {
   constructor(counter) {
@@ -50,9 +27,4 @@ class AppView extends ViewModule {
   }
 }
 
-const app = createApp({
-  main: AppView,
-  render,
-});
-
-app.bootstrap(document.getElementById('app'));
+export { AppView };
