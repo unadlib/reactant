@@ -261,3 +261,55 @@ test('@inject(token) changing deps other module with config', () => {
 
   expect(fooBar.bar.foo instanceof Foo0).toBeTruthy();
 });
+
+test('No use @inject(token) changing deps other module with config', () => {
+  @injectable()
+  class Foo {}
+
+  @injectable()
+  class Foo0 {}
+
+  @injectable()
+  class Bar {
+    constructor(public foo: Foo) {}
+  }
+
+  const bar = createContainer({
+    ServiceIdentifiers: new Map(),
+    modules: [{ provide: Bar, useClass: Bar, deps: [Foo0] }],
+  }).get(Bar);
+
+  expect(bar.foo instanceof Foo0).toBeTruthy();
+});
+
+test('token is string, and not use @inject(token) changing deps other module with config', () => {
+  @injectable()
+  class Foo {}
+
+  @injectable()
+  class Foo0 {}
+
+  @injectable()
+  class Foo1 {}
+
+  @injectable()
+  class Bar {
+    constructor(public foo0: Foo0, public foo: Foo) {}
+  }
+
+  @injectable()
+  class FooBar {
+    constructor(public bar: Bar) {}
+  }
+
+  const fooBar = createContainer({
+    ServiceIdentifiers: new Map(),
+    modules: [
+      { provide: Bar, useClass: Bar, deps: ['foo1', Foo0] },
+      { provide: 'foo1', useClass: Foo1 },
+    ],
+  }).get(FooBar);
+
+  expect(fooBar.bar.foo0 instanceof Foo1).toBeTruthy();
+  expect(fooBar.bar.foo instanceof Foo0).toBeTruthy();
+});

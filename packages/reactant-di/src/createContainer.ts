@@ -19,7 +19,7 @@ import {
 import { getMetadata } from './util';
 import { createCollector } from './middlewares/collector';
 import { METADATA_KEY } from './constants';
-import { injectable } from './decorators';
+import { injectable, inject } from './decorators';
 
 const defaultUndefinedValue = Symbol('defaultUndefined');
 
@@ -124,6 +124,37 @@ function isFactoryProvider(module: ModuleOptions): module is FactoryProvider {
   return typeof (module as FactoryProvider).useFactory === 'function';
 }
 
+/**
+ * It ensures that the parameters of all modules from the configuration are decorated.
+ *
+ * class Foo {
+ *   constructor(bar: Bar) {}
+ * }
+ *
+ * Equate to:
+ *
+ * class Foo {
+ *   constructor(@inject() bar: Bar) {}
+ * }
+ *
+ * @param target {object} decorated target.
+ */
+function autoDecorateParams(target: object) {
+  const metadata: object[] = Reflect.getMetadata(
+    METADATA_KEY.inversifyParamtypes,
+    target
+  );
+
+  metadata.forEach((_, index) => {
+    if (
+      !Reflect.getMetadata(METADATA_KEY.inversifyTagged, target) ||
+      !Reflect.getMetadata(METADATA_KEY.inversifyTagged, target)[index]
+    ) {
+      inject()(target, undefined, index);
+    }
+  });
+}
+
 export function createContainer({
   ServiceIdentifiers,
   modules = [],
@@ -137,12 +168,14 @@ export function createContainer({
     if (typeof module === 'function') {
       // auto decorate `@injectable` for module.
       if (!provideMeta.has(module)) decorate(injectable(), module);
+      autoDecorateParams(module);
       container.bind(module).toSelf();
     } else if (typeof module === 'object') {
       if (isClassProvider(module)) {
         // auto decorate `@injectable` for module.useClass
         if (!provideMeta.has(module.useClass))
           decorate(injectable(), module.useClass);
+        autoDecorateParams(module.useClass);
         container.bind(module.provide).to(module.useClass);
       } else if (Object.hasOwnProperty.call(module, 'useValue')) {
         container
@@ -174,6 +207,7 @@ export function createContainer({
         // auto decorate `@injectable` for module.provide
         if (!provideMeta.has(module.provide))
           decorate(injectable(), module.provide);
+        autoDecorateParams(module.provide);
         container.bind(module.provide).toSelf();
       } else {
         throw new Error(`${module} option error`);

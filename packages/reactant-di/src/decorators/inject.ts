@@ -8,7 +8,7 @@ import { METADATA_KEY } from '../constants';
 import { forwardRef, lookupToken } from '../createContainer';
 
 export function inject(token?: ServiceIdentifierOrFunc<any>) {
-  return (target: object, targetKey: string, index?: number) => {
+  return (target: object, targetKey?: string, index?: number) => {
     const tokenSelf = Reflect.getMetadata(METADATA_KEY.paramtypes, target)[
       index!
     ];
