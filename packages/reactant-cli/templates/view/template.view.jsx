@@ -13,3 +13,5 @@ class TemplateView extends ViewModule {
     return null;
   }
 }
+
+export { TemplateView };

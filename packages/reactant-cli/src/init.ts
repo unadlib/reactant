@@ -15,6 +15,14 @@ export const supportLanguages = Array.from(
   new Set(Object.values(supportLanguageMap))
 );
 
+interface Options {
+  verbose: boolean;
+  native: boolean;
+  language: keyof typeof supportLanguageMap;
+  useNpm: boolean;
+  usePnp: boolean;
+}
+
 export const createInitCommand = (
   command: Command,
   packageJson: PackageJson
@@ -40,13 +48,23 @@ export const createInitCommand = (
     .option('--use-npm', 'use npm for the package manager', false)
     .option('--use-pnp', 'use yarn PnP feature', false)
     .action(
-      (projectName, { verbose, native, language, useNpm, usePnp }: Command) => {
+      (projectName, { verbose, native, language, useNpm, usePnp }: Options) => {
+        if (typeof supportLanguageMap[language] === 'undefined') {
+          console.log(
+            chalk.red(
+              `The language ${language} is invalid, '--language' or '-l' supports only ${Object.keys(
+                supportLanguageMap
+              ).join(', ')}.`
+            )
+          );
+          process.exit(1);
+        }
         const type = native ? 'native' : 'web';
         generateProject({
           name: projectName,
           verbose,
           type,
-          language,
+          language: supportLanguageMap[language],
           useNpm,
           usePnp,
           appType: chalk.cyan(appType),
