@@ -1,3 +1,9 @@
+# Start Up
+
+Make sure the root directory is running `yarn install` and `yarn build`.
+
+---
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
