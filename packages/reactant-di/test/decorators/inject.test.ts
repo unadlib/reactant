@@ -170,3 +170,94 @@ test('base di with `moduleRef` about resolve circular dependency', () => {
 
   expect(bar.foo.bar instanceof Bar).toBeTruthy();
 });
+
+test('@inject() changing deps other module with config', () => {
+  @injectable()
+  class Foo {}
+
+  @injectable()
+  class Foo0 {}
+
+  @injectable()
+  class Bar {
+    constructor(@inject() public foo: Foo) {}
+  }
+
+  const bar = createContainer({
+    ServiceIdentifiers: new Map(),
+    modules: [{ provide: Bar, deps: [Foo0] }],
+  }).get(Bar);
+
+  expect(bar.foo instanceof Foo0).toBeTruthy();
+});
+
+test('@inject(token) changing deps other module with config', () => {
+  @injectable()
+  class Foo {}
+
+  @injectable()
+  class Foo0 {}
+
+  @injectable()
+  class Bar {
+    constructor(@inject('foo') public foo: Foo) {}
+  }
+
+  const bar = createContainer({
+    ServiceIdentifiers: new Map(),
+    modules: [{ provide: Bar, deps: [Foo0] }],
+  }).get(Bar);
+
+  expect(bar.foo instanceof Foo0).toBeTruthy();
+});
+
+test('@inject(token) changing deps other module with config', () => {
+  @injectable()
+  class Foo {}
+
+  @injectable()
+  class Foo0 {}
+
+  @injectable()
+  class Bar {
+    constructor(@inject('foo') public foo: Foo) {}
+  }
+
+  const bar = createContainer({
+    ServiceIdentifiers: new Map(),
+    modules: [
+      { provide: Bar, deps: ['foo1'] },
+      { provide: 'foo1', useClass: Foo0 },
+    ],
+  }).get(Bar);
+
+  expect(bar.foo instanceof Foo0).toBeTruthy();
+});
+
+test('@inject(token) changing deps other module with config', () => {
+  @injectable()
+  class Foo {}
+
+  @injectable()
+  class Foo0 {}
+
+  @injectable()
+  class Bar {
+    constructor(@inject('foo') public foo: Foo) {}
+  }
+
+  @injectable()
+  class FooBar {
+    constructor(@inject('bar') public bar: Bar) {}
+  }
+
+  const fooBar = createContainer({
+    ServiceIdentifiers: new Map(),
+    modules: [
+      { provide: 'bar', useClass: Bar, deps: ['foo1'] },
+      { provide: 'foo1', useClass: Foo0 },
+    ],
+  }).get(FooBar);
+
+  expect(fooBar.bar.foo instanceof Foo0).toBeTruthy();
+});

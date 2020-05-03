@@ -14,6 +14,7 @@ import {
   ClassProvider,
   ServiceIdentifier,
   DependencyProviderOption,
+  ModuleProvider,
 } from './interfaces';
 import { getMetadata } from './util';
 import { createCollector } from './middlewares/collector';
@@ -64,11 +65,38 @@ function isFactoryProvider(module: ModuleOptions): module is FactoryProvider {
   return typeof (module as FactoryProvider).useFactory === 'function';
 }
 
+// NOTE: does not support Changing dependencies without `@inject`.
+
+let modulesDeps: ModuleOptions[];
+
+export const lookupToken = (
+  target: object,
+  original: ServiceIdentifier<any>,
+  index?: number
+) => {
+  if (typeof index === 'undefined') return original;
+  for (const modulesDep of modulesDeps) {
+    if (typeof modulesDep === 'object') {
+      const { deps } = modulesDep as ModuleProvider | ClassProvider;
+      if (
+        (modulesDep.provide === target ||
+          (modulesDep as ClassProvider).useClass === target) &&
+        Array.isArray(deps) &&
+        typeof deps[index] !== 'undefined'
+      ) {
+        return deps[index];
+      }
+    }
+  }
+  return original;
+};
+
 export function createContainer({
   ServiceIdentifiers,
   modules = [],
   options,
 }: ContainerConfig) {
+  modulesDeps = modules;
   const provideMeta = getMetadata(METADATA_KEY.provide);
   const container = new Container(options);
   container.applyCustomMetadataReader(new CustomMetadataReader());

@@ -11,6 +11,9 @@ export type ContainerOptions = PickByKey<
 >;
 export type Container = interfaces.Container;
 export type ServiceIdentifier<T> = interfaces.ServiceIdentifier<T>;
+export type ServiceIdentifierOrFunc<T> =
+  | ServiceIdentifier<T>
+  | LazyServiceIdentifer;
 /**
  * token map
  */
@@ -42,6 +45,12 @@ export interface ValueProvider {
 export interface ClassProvider {
   provide: ServiceIdentifier<any>;
   useClass: Module<any>;
+  deps?: ServiceIdentifier<any>[];
+}
+
+export interface ModuleProvider {
+  provide: Module<any>;
+  deps?: ServiceIdentifier<any>[];
 }
 
 export interface FactoryProvider {
@@ -50,14 +59,10 @@ export interface FactoryProvider {
   useFactory: (...args: any[]) => any;
 }
 
-export interface ModuleProvider {
-  provide: Module<any>;
-}
-
 export type ModuleOptions =
   | ValueProvider
-  | ClassProvider
   | FactoryProvider
+  | ClassProvider
   | ModuleProvider
   | Module<any>;
 
