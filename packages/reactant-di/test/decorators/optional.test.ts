@@ -5,6 +5,7 @@ import {
   optional,
   multiInject,
   multiOptional,
+  Optional,
 } from '../..';
 
 test('base di with @optional, and without setting options', () => {
@@ -216,26 +217,30 @@ test('injection with @optional, and resolve other module require', () => {
   expect(fooBar.bar.foo instanceof Foo).toBeTruthy();
 });
 
-// TODO: resolve optional and require mix
+test('@optional resolve optional and require mix', () => {
+  @injectable()
+  class Foo {}
 
-// test('@optional, and resolve other module require', () => {
-//   @injectable()
-//   class Foo {}
+  @injectable()
+  class Bar {
+    constructor(@optional() public foo: Foo) {}
+  }
 
-//   @injectable()
-//   class Bar {
-//     constructor(@optional() public foo: Foo) {}
-//   }
+  @injectable()
+  class Bar1 {
+    constructor(@optional() public foo: Foo) {}
+  }
 
-//   @injectable()
-//   class FooBar {
-//     constructor(public bar: Bar, public foo: Foo) {}
-//   }
+  @injectable()
+  class FooBar {
+    constructor(public bar: Bar, public bar1: Bar1, public foo: Foo) {}
+  }
 
-//   const fooBar = createContainer({
-//     ServiceIdentifiers: new Map(),
-//     modules: [],
-//   }).get(FooBar);
-//   expect(fooBar.bar.foo).toBeUndefined();
-//   expect(fooBar.foo instanceof Foo).toBeTruthy();
-// });
+  const fooBar = createContainer({
+    ServiceIdentifiers: new Map(),
+    modules: [{ provide: Bar, deps: [new Optional(Foo)] }],
+  }).get(FooBar);
+  expect(fooBar.bar.foo).toBeUndefined();
+  expect(fooBar.foo instanceof Foo).toBeTruthy();
+  expect(fooBar.bar1 instanceof Bar1).toBeTruthy();
+});

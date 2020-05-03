@@ -1,5 +1,6 @@
 import { interfaces, LazyServiceIdentifer } from 'inversify';
 import { METADATA_KEY } from './constants';
+import { Optional } from './createContainer';
 
 type PickByKey<T, P extends keyof T> = {
   [K in Exclude<keyof T, P>]: T[K];
@@ -45,12 +46,12 @@ export interface ValueProvider {
 export interface ClassProvider {
   provide: ServiceIdentifier<any>;
   useClass: Module<any>;
-  deps?: ServiceIdentifier<any>[];
+  deps?: (ServiceIdentifier<any> | Optional)[];
 }
 
 export interface ModuleProvider {
   provide: Module<any>;
-  deps?: ServiceIdentifier<any>[];
+  deps?: (ServiceIdentifier<any> | Optional)[];
 }
 
 export interface FactoryProvider {

@@ -21,6 +21,62 @@ import { createCollector } from './middlewares/collector';
 import { METADATA_KEY } from './constants';
 import { injectable } from './decorators';
 
+const defaultUndefinedValue = Symbol('defaultUndefined');
+
+export class Optional {
+  constructor(public token: ServiceIdentifier<any>) {}
+
+  get key() {
+    return defaultUndefinedValue;
+  }
+}
+
+// NOTE: does not support Changing dependencies without `@inject`.
+
+let modulesDeps: ModuleOptions[];
+
+export function lookupToken(
+  target: object,
+  original: ServiceIdentifier<any>,
+  index?: number
+) {
+  if (typeof index === 'undefined') return original;
+  for (const modulesDep of modulesDeps) {
+    if (typeof modulesDep === 'object') {
+      const { deps } = modulesDep as ModuleProvider | ClassProvider;
+      if (
+        (modulesDep.provide === target ||
+          (modulesDep as ClassProvider).useClass === target) &&
+        Array.isArray(deps) &&
+        typeof deps[index] !== 'undefined'
+      ) {
+        if (deps[index] instanceof Optional) {
+          return (deps[index] as Optional).key;
+        }
+        return deps[index] as ServiceIdentifier<any>;
+      }
+    }
+  }
+  return original;
+}
+
+export function lookupOptionalToken(token: ServiceIdentifier<any>) {
+  for (const modulesDep of modulesDeps) {
+    const { deps } = modulesDep as ModuleProvider | ClassProvider;
+    if (
+      typeof modulesDep === 'object' &&
+      Array.isArray(deps) &&
+      ((modulesDep as ClassProvider).useClass ||
+        Object.keys(modulesDep).length === 2)
+    ) {
+      return !!deps.filter(
+        dep => dep instanceof Optional && dep.token === token
+      ).length;
+    }
+  }
+  return false;
+}
+
 export const forwardRef = (callback: () => ServiceIdentifier<any>) =>
   new LazyServiceIdentifer(callback);
 
@@ -49,7 +105,10 @@ function autoBindModules() {
       const optionalMeta = getMetadata(METADATA_KEY.optional);
       for (const [token, provide] of provideMeta) {
         // default injection without optional module.
-        if (!optionalMeta.has(token) && !isBound(token)) {
+        if (
+          (!optionalMeta.has(token) || lookupOptionalToken(token)) &&
+          !isBound(token)
+        ) {
           bind(token).to(provide);
         }
       }
@@ -64,32 +123,6 @@ function isClassProvider(module: ModuleOptions): module is ClassProvider {
 function isFactoryProvider(module: ModuleOptions): module is FactoryProvider {
   return typeof (module as FactoryProvider).useFactory === 'function';
 }
-
-// NOTE: does not support Changing dependencies without `@inject`.
-
-let modulesDeps: ModuleOptions[];
-
-export const lookupToken = (
-  target: object,
-  original: ServiceIdentifier<any>,
-  index?: number
-) => {
-  if (typeof index === 'undefined') return original;
-  for (const modulesDep of modulesDeps) {
-    if (typeof modulesDep === 'object') {
-      const { deps } = modulesDep as ModuleProvider | ClassProvider;
-      if (
-        (modulesDep.provide === target ||
-          (modulesDep as ClassProvider).useClass === target) &&
-        Array.isArray(deps) &&
-        typeof deps[index] !== 'undefined'
-      ) {
-        return deps[index];
-      }
-    }
-  }
-  return original;
-};
 
 export function createContainer({
   ServiceIdentifiers,
@@ -156,5 +189,6 @@ export function createContainer({
     container.unbind(ModuleRef);
   }
   container.bind(ModuleRef).toConstantValue(container);
+  container.bind(defaultUndefinedValue).toConstantValue(undefined);
   return container;
 }
