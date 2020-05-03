@@ -5,6 +5,7 @@ import {
   optional,
   multiInject,
   multiOptional,
+  Optional,
 } from '../..';
 
 test('base di with @injectable', () => {
@@ -277,4 +278,92 @@ test('only base di with @injectable about multi-deps(import optional)', () => {
   expect(bar.foo2 instanceof Foo2).toBeTruthy();
   expect(bar.foos[0] instanceof Foo3).toBeTruthy();
   expect(bar.optionalFoos[0] instanceof Foo4).toBeTruthy();
+});
+
+test('@optional resolve optional and require mix', () => {
+  @injectable()
+  class Foo {}
+
+  @injectable({
+    deps: [{ provide: Foo, optional: true }],
+  })
+  class Bar {
+    constructor(public foo: any) {}
+  }
+
+  @injectable({
+    deps: [{ provide: Foo, optional: true }],
+  })
+  class Bar1 {
+    constructor(public foo: any) {}
+  }
+
+  @injectable({
+    deps: [Bar, Bar1, Foo],
+  })
+  class FooBar {
+    constructor(public bar: any, public bar1: any, public foo: any) {}
+  }
+
+  const fooBar = createContainer({
+    ServiceIdentifiers: new Map(),
+    modules: [{ provide: Bar, deps: [new Optional(Foo)] }],
+  }).get(FooBar);
+  expect(fooBar.bar.foo).toBeUndefined();
+  expect(fooBar.foo instanceof Foo).toBeTruthy();
+  expect(fooBar.bar1 instanceof Bar1).toBeTruthy();
+});
+
+test('@inject(token) changing deps other module with config', () => {
+  @injectable()
+  class Foo {}
+
+  @injectable()
+  class Foo0 {}
+
+  @injectable({
+    deps: [{ provide: 'foo' }],
+  })
+  class Bar {
+    constructor(public foo: any) {}
+  }
+
+  @injectable({
+    deps: [{ provide: 'bar' }],
+  })
+  class FooBar {
+    constructor(public bar: any) {}
+  }
+
+  const fooBar = createContainer({
+    ServiceIdentifiers: new Map(),
+    modules: [
+      { provide: 'bar', useClass: Bar, deps: ['foo1'] },
+      { provide: 'foo1', useClass: Foo0 },
+    ],
+  }).get(FooBar);
+
+  expect(fooBar.bar.foo instanceof Foo0).toBeTruthy();
+});
+
+test('No use @inject(token) changing deps other module with config', () => {
+  @injectable()
+  class Foo {}
+
+  @injectable()
+  class Foo0 {}
+
+  @injectable({
+    deps: [Foo],
+  })
+  class Bar {
+    constructor(public foo: any) {}
+  }
+
+  const bar = createContainer({
+    ServiceIdentifiers: new Map(),
+    modules: [{ provide: Bar, useClass: Bar, deps: [Foo0] }],
+  }).get(Bar);
+
+  expect(bar.foo instanceof Foo0).toBeTruthy();
 });
