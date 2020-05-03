@@ -183,19 +183,19 @@ describe('base API', () => {
       text?: string;
     }
 
+    const a = {
+      count: 1,
+      list: [{ count: 1 }],
+      list1: [{ count: 1 }],
+      test: 1,
+    };
+
     @injectable()
     class HomeView1 extends ViewModule {
       name = 'homeView1';
 
-      _state = {
-        count: 1,
-        list: [{ count: 1 }],
-        list1: [{ count: 1 }],
-        test: 1,
-      };
-
       @state
-      state = this._state;
+      state: typeof a = a;
 
       @action
       increase(num: number) {
@@ -265,8 +265,8 @@ describe('base API', () => {
       }
 
       @state
-      state = {
-        ...this._state,
+      state: typeof a & { e: number } = {
+        ...this.state,
         e: 1,
       };
 
