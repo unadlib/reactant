@@ -4,5 +4,9 @@
   "globals": {
     "__DEV__": true
   },
-  "testPathIgnorePatterns": ["examples", "packages/reactant-cli/templates"]
+  "testPathIgnorePatterns": [
+    "examples",
+    "packages/reactant-cli/templates",
+    "packages/reactant-template/templates"
+  ]
 }
