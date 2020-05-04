@@ -27,7 +27,9 @@ export const createInitCommand = (
   command: Command,
   packageJson: PackageJson
 ) => {
-  const appType = packageJson.name?.replace(/^./, i => i.toUpperCase());
+  const [appType] = packageJson.name
+    ?.replace(/^./, i => i.toUpperCase())
+    .split('-');
   command
     .command('init')
     .alias('i')
