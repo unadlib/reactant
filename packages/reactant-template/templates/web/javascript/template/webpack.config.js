@@ -26,7 +26,7 @@ module.exports = {
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
     compress: true,
-    port: 9000,
+    port: 7000,
   },
   plugins: [new CopyWebpackPlugin([path.join(__dirname, './src/index.html')])],
 };

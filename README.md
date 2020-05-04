@@ -37,6 +37,14 @@ yarn start
 
 ## Example
 
+Reactant is very easy to get Started.
+
+You can try Reactant by visiting the online project [reactant-example](https://codesandbox.io/s/github/unadlib/reactant-example).
+
+---
+
+Here is the counter example:
+
 ```tsx
 import React from 'react';
 import { ViewModule, createApp, injectable, useConnector, action, state } from 'reactant';

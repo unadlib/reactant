@@ -6,7 +6,7 @@ This project was created with [Reactant CLI](https://github.com/unadlib/reactant
 yarn start
 ```
 
-Runs the app in the development mode, and open [http://localhost:9000](http://localhost:9000) to view it in the browser.
+Runs the app in the development mode, and open [http://localhost:7000](http://localhost:7000) to view it in the browser.
 
 ### Build
 
