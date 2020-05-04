@@ -1,7 +1,7 @@
 {
   "name": "reactant-native",
   "private": true,
-  "version": "0.0.18",
+  "version": "0.0.19",
   "description": "A native apps with react-native for Reactant",
   "main": "index.js",
   "scripts": {

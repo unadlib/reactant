@@ -1,6 +1,6 @@
 {
   "name": "reactant-web",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "description": "A Web application with react-dom for Reactant",
   "main": "dist/index.cjs.js",
   "unpkg": "dist/index.umd.js",
@@ -17,6 +17,6 @@
   },
   "dependencies": {
     "react-dom": "^16.12.0",
-    "reactant-router-dom": "^0.0.18"
+    "reactant-router-dom": "^0.0.19"
   }
 }
