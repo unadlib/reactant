@@ -27,7 +27,7 @@
 
 • **actions**: *A*
 
-*Defined in [model.ts:8](https://github.com/unadlib/reactant/blob/0eb2298/packages/reactant-model/src/model.ts#L8)*
+*Defined in [model.ts:8](https://github.com/unadlib/reactant/blob/222a645/packages/reactant-model/src/model.ts#L8)*
 
 ___
 
@@ -35,4 +35,4 @@ ___
 
 • **state**: *S*
 
-*Defined in [model.ts:7](https://github.com/unadlib/reactant/blob/0eb2298/packages/reactant-model/src/model.ts#L7)*
+*Defined in [model.ts:7](https://github.com/unadlib/reactant/blob/222a645/packages/reactant-model/src/model.ts#L7)*

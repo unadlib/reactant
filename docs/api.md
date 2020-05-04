@@ -39,7 +39,7 @@ todo
 - Performance optimization
   - Selector from `createSelector`can be passed in immutable state.
   - `batch` can be used to optimize rendering performance.
-  - `dispatch` and `createState` support prue Redux action and reducer.
+  - `dispatch` and `createState` support Redux action and reducer.
 - Decorators
   - Default injection, no require `@inject` unless binding identifier.
   - All decorators support any identifier.

@@ -20,7 +20,7 @@
   inversifyTagged: 'inversify:tagged',
 } as const
 
-*Defined in [packages/reactant-di/src/constants.ts:1](https://github.com/unadlib/reactant/blob/0eb2298/packages/reactant-di/src/constants.ts#L1)*
+*Defined in [packages/reactant-di/src/constants.ts:1](https://github.com/unadlib/reactant/blob/222a645/packages/reactant-di/src/constants.ts#L1)*
 
 #### Type declaration:
 

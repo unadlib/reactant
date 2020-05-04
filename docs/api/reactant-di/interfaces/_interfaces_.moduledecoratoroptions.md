@@ -18,4 +18,4 @@
 
 • **deps**? : *[DependenciesModule](../modules/_interfaces_.md#dependenciesmodule)[]*
 
-*Defined in [packages/reactant-di/src/interfaces.ts:87](https://github.com/unadlib/reactant/blob/0eb2298/packages/reactant-di/src/interfaces.ts#L87)*
+*Defined in [packages/reactant-di/src/interfaces.ts:87](https://github.com/unadlib/reactant/blob/222a645/packages/reactant-di/src/interfaces.ts#L87)*

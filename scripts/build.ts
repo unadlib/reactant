@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import path from 'path';
 import { compile } from './typescript';
 import { generateBundledModules } from './rollup';

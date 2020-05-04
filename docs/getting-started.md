@@ -23,9 +23,96 @@ yarn add reactant reactant-web
 
 And set up the following related configuration.
 
-If using JavaScript, make sure you have `@babel/plugin-propose-decorators` and `@babel/plugin-propose-class-properties` installed and configured for Babel.
+>If using JavaScript, make sure you have `@babel/plugin-propose-decorators` and `@babel/plugin-propose-class-properties` installed and configured for Babel.
 
-If using TypeScript, make sure to enable `experimentalDecorators` and `emitDecoratorMetadata` in `tsconfig.json`.
+>If using TypeScript, make sure to enable `experimentalDecorators` and `emitDecoratorMetadata` in `tsconfig.json`.
+
+---
+
+** If you use the `create-react-app`, after completing it perform the following steps:**
+
+1. `yarn eject`
+2. `yarn add reactant reactant-web`
+3. Add babel config in `package.json`:
+
+```json
+{
+  "presets": [
+    "react-app"
+  ],
+  "plugins": [
+    ["@babel/plugin-proposal-decorators", { "legacy": true }],
+    ["@babel/plugin-proposal-class-properties", { "loose" : true }]
+  ]
+}
+```
+
+4. Change the code of the `src/index.js` file:
+<details>
+<summary> Here is the demo code</summary>
+
+```jsx
+import React from 'react';
+import { render } from 'reactant-web';
+import {
+  ViewModule,
+  createApp,
+  injectable,
+  useConnector,
+  action,
+  state,
+} from 'reactant';
+
+@injectable()
+class Counter {
+  @state
+  count = 0;
+
+  @action
+  increase() {
+    this.count += 1;
+  }
+
+  @action
+  decrease() {
+    this.count -= 1;
+  }
+}
+
+@injectable({
+  deps: [Counter],
+})
+class AppView extends ViewModule {
+  constructor(counter) {
+    super();
+    this.counter = counter;
+  }
+
+  component() {
+    const count = useConnector(() => this.counter.count);
+    return (
+      <>
+        <button type="button" onClick={() => this.counter.decrease()}>
+          -
+        </button>
+        <div>{count}</div>
+        <button type="button" onClick={() => this.counter.increase()}>
+          +
+        </button>
+      </>
+    );
+  }
+}
+
+const app = createApp({
+  main: AppView,
+  render,
+});
+
+app.bootstrap(document.getElementById('root'));
+```
+</details>
+
 
 ### Service module
 
@@ -118,7 +205,7 @@ const app = createApp({
   render,
 });
 
-app.bootstrap(document.getElementById('app'));
+app.bootstrap(document.getElementById('root'));
 ```
 
-> Here is just a demo of web application, but Reactant also supports React-Native, see more [reactant-native](api/reactant-native/README.md) documentation.
+> Here is just a demo of web application, but Reactant is going to support React-Native later.

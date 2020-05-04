@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { spawn } from 'child_process';
 import path from 'path';
 import loadJsonFile from 'load-json-file';

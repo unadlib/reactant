@@ -14,7 +14,7 @@
 
 ▸ **getComposeEnhancers**(`enableReduxDevTools`: boolean, `reduxDevToolsOptions?`: [ReduxDevToolsOptions](_interfaces_.md#reduxdevtoolsoptions)): *any*
 
-*Defined in [packages/reactant-module/src/utils/reduxDevToolsCompose.ts:4](https://github.com/unadlib/reactant/blob/0eb2298/packages/reactant-module/src/utils/reduxDevToolsCompose.ts#L4)*
+*Defined in [packages/reactant-module/src/utils/reduxDevToolsCompose.ts:4](https://github.com/unadlib/reactant/blob/222a645/packages/reactant-module/src/utils/reduxDevToolsCompose.ts#L4)*
 
 **Parameters:**
 

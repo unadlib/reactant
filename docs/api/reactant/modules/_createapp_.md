@@ -20,7 +20,7 @@
 
 ▸ **createApp**<**T**>(`__namedParameters`: object): *[ReturnValue](../interfaces/_createapp_.returnvalue.md)‹T›*
 
-*Defined in [createApp.tsx:35](https://github.com/unadlib/reactant/blob/0eb2298/packages/reactant/src/createApp.tsx#L35)*
+*Defined in [createApp.tsx:35](https://github.com/unadlib/reactant/blob/222a645/packages/reactant/src/createApp.tsx#L35)*
 
 **Type parameters:**
 
@@ -48,7 +48,7 @@ ___
 
 ▸ **testBed**<**T**>(`config`: [Config](../interfaces/_createapp_.config.md)‹T›): *[ReturnValue](../interfaces/_createapp_.returnvalue.md)‹T›*
 
-*Defined in [createApp.tsx:94](https://github.com/unadlib/reactant/blob/0eb2298/packages/reactant/src/createApp.tsx#L94)*
+*Defined in [createApp.tsx:94](https://github.com/unadlib/reactant/blob/222a645/packages/reactant/src/createApp.tsx#L94)*
 
 **Type parameters:**
 

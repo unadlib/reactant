@@ -15,7 +15,7 @@
 
 ▸ **createCollector**(`ServiceIdentifiers`: [ServiceIdentifiersMap](_interfaces_.md#serviceidentifiersmap)): *(Anonymous function)*
 
-*Defined in [packages/reactant-di/src/middlewares/collector.ts:20](https://github.com/unadlib/reactant/blob/0eb2298/packages/reactant-di/src/middlewares/collector.ts#L20)*
+*Defined in [packages/reactant-di/src/middlewares/collector.ts:20](https://github.com/unadlib/reactant/blob/222a645/packages/reactant-di/src/middlewares/collector.ts#L20)*
 
 **Parameters:**
 
@@ -31,7 +31,7 @@ ___
 
 ▸ **lookupServiceIdentifiers**(`request`: Request, `ServiceIdentifiers`: [ServiceIdentifiersMap](_interfaces_.md#serviceidentifiersmap)): *void*
 
-*Defined in [packages/reactant-di/src/middlewares/collector.ts:4](https://github.com/unadlib/reactant/blob/0eb2298/packages/reactant-di/src/middlewares/collector.ts#L4)*
+*Defined in [packages/reactant-di/src/middlewares/collector.ts:4](https://github.com/unadlib/reactant/blob/222a645/packages/reactant-di/src/middlewares/collector.ts#L4)*
 
 **Parameters:**
 
