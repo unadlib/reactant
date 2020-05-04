@@ -27,7 +27,7 @@ export const createGenerateCommand = (command: Command) => {
     .arguments('<template-type>')
     .usage('<template-type> [file-name] [options]')
     .option('-w, --withTests', 'creating test files', false)
-    .option('-s, --src <src>', 'source files path', 'src')
+    .option('-s, --src <src>', 'specify source files path', 'src')
     .option(
       '-l, --language <language>',
       `specify a file type(${supportLanguages.join('/')})`,
@@ -113,18 +113,20 @@ export const createGenerateCommand = (command: Command) => {
             file,
             projectRootPath,
           });
-          const fileTestFullName = `${file}.${templateType}.spec.${suffix}`;
-          const fileTestPath = path.join(
-            isRootPath ? projectRootDefaultSourcePath : currentPath,
-            fileTestFullName
-          );
-          createFile({
-            filePath: fileTestPath,
-            templatePath: templateTestPath,
-            templateType,
-            file,
-            projectRootPath,
-          });
+          if (withTests) {
+            const fileTestFullName = `${file}.${templateType}.spec.${suffix}`;
+            const fileTestPath = path.join(
+              isRootPath ? projectRootDefaultSourcePath : currentPath,
+              fileTestFullName
+            );
+            createFile({
+              filePath: fileTestPath,
+              templatePath: templateTestPath,
+              templateType,
+              file,
+              projectRootPath,
+            });
+          }
         }
       }
     );
