@@ -32,7 +32,7 @@ test('base di with @multiInject', () => {
   expect(bar.length).toBe(2);
 });
 
-test('base di with @multiInject for token', () => {
+test('base di with @multiInject for identifier', () => {
   @injectable()
   class Foo {
     public get test() {

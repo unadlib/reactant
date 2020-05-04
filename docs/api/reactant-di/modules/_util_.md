@@ -15,7 +15,7 @@
 
 ▸ **getMetadata**(`metaKey`: [MetaDataKey](_interfaces_.md#metadatakey)): *[MetadataMap](_interfaces_.md#metadatamap)*
 
-*Defined in [packages/reactant-di/src/util.ts:8](https://github.com/unadlib/reactant/blob/aaa61ad/packages/reactant-di/src/util.ts#L8)*
+*Defined in [packages/reactant-di/src/util.ts:8](https://github.com/unadlib/reactant/blob/0eb2298/packages/reactant-di/src/util.ts#L8)*
 
 **Parameters:**
 
@@ -29,9 +29,9 @@ ___
 
 ### `Const` setMetadata
 
-▸ **setMetadata**(`metaKey`: [MetaDataKey](_interfaces_.md#metadatakey), `target`: [Module](../interfaces/_interfaces_.module.md)‹any›, `token`: [ServiceIdentifier](_interfaces_.md#serviceidentifier)‹any›): *void*
+▸ **setMetadata**(`metaKey`: [MetaDataKey](_interfaces_.md#metadatakey), `target`: [Module](../interfaces/_interfaces_.module.md)‹any›, `serviceIdentifier`: [ServiceIdentifier](_interfaces_.md#serviceidentifier)‹any›): *void*
 
-*Defined in [packages/reactant-di/src/util.ts:11](https://github.com/unadlib/reactant/blob/aaa61ad/packages/reactant-di/src/util.ts#L11)*
+*Defined in [packages/reactant-di/src/util.ts:11](https://github.com/unadlib/reactant/blob/0eb2298/packages/reactant-di/src/util.ts#L11)*
 
 **Parameters:**
 
@@ -39,6 +39,6 @@ Name | Type | Default |
 ------ | ------ | ------ |
 `metaKey` | [MetaDataKey](_interfaces_.md#metadatakey) | - |
 `target` | [Module](../interfaces/_interfaces_.module.md)‹any› | - |
-`token` | [ServiceIdentifier](_interfaces_.md#serviceidentifier)‹any› | target |
+`serviceIdentifier` | [ServiceIdentifier](_interfaces_.md#serviceidentifier)‹any› | target |
 
 **Returns:** *void*

@@ -25,7 +25,9 @@
 * [MetaDataKey](_interfaces_.md#metadatakey)
 * [MetadataMap](_interfaces_.md#metadatamap)
 * [ModuleOptions](_interfaces_.md#moduleoptions)
+* [PickByKey](_interfaces_.md#pickbykey)
 * [ServiceIdentifier](_interfaces_.md#serviceidentifier)
+* [ServiceIdentifierOrFunc](_interfaces_.md#serviceidentifierorfunc)
 * [ServiceIdentifiersMap](_interfaces_.md#serviceidentifiersmap)
 * [ValueType](_interfaces_.md#valuetype)
 
@@ -35,15 +37,15 @@
 
 Ƭ **Container**: *Container*
 
-*Defined in [packages/reactant-di/src/interfaces.ts:5](https://github.com/unadlib/reactant/blob/aaa61ad/packages/reactant-di/src/interfaces.ts#L5)*
+*Defined in [packages/reactant-di/src/interfaces.ts:13](https://github.com/unadlib/reactant/blob/0eb2298/packages/reactant-di/src/interfaces.ts#L13)*
 
 ___
 
 ###  ContainerOptions
 
-Ƭ **ContainerOptions**: *ContainerOptions*
+Ƭ **ContainerOptions**: *[PickByKey](_interfaces_.md#pickbykey)‹ContainerOptions, "skipBaseClassChecks"›*
 
-*Defined in [packages/reactant-di/src/interfaces.ts:4](https://github.com/unadlib/reactant/blob/aaa61ad/packages/reactant-di/src/interfaces.ts#L4)*
+*Defined in [packages/reactant-di/src/interfaces.ts:9](https://github.com/unadlib/reactant/blob/0eb2298/packages/reactant-di/src/interfaces.ts#L9)*
 
 ___
 
@@ -51,7 +53,7 @@ ___
 
 Ƭ **DependenciesModule**: *[Module](../interfaces/_interfaces_.module.md)‹any› | [DependenciesProvider](../interfaces/_interfaces_.dependenciesprovider.md)*
 
-*Defined in [packages/reactant-di/src/interfaces.ts:73](https://github.com/unadlib/reactant/blob/aaa61ad/packages/reactant-di/src/interfaces.ts#L73)*
+*Defined in [packages/reactant-di/src/interfaces.ts:84](https://github.com/unadlib/reactant/blob/0eb2298/packages/reactant-di/src/interfaces.ts#L84)*
 
 ___
 
@@ -59,7 +61,7 @@ ___
 
 Ƭ **DependencyOption**: *[DependencyProviderOption](../interfaces/_interfaces_.dependencyprovideroption.md) | [ServiceIdentifier](_interfaces_.md#serviceidentifier)‹any›*
 
-*Defined in [packages/reactant-di/src/interfaces.ts:26](https://github.com/unadlib/reactant/blob/aaa61ad/packages/reactant-di/src/interfaces.ts#L26)*
+*Defined in [packages/reactant-di/src/interfaces.ts:35](https://github.com/unadlib/reactant/blob/0eb2298/packages/reactant-di/src/interfaces.ts#L35)*
 
 ___
 
@@ -67,7 +69,7 @@ ___
 
 Ƭ **MetaDataKey**: *[ValueType](_interfaces_.md#valuetype)‹typeof METADATA_KEY›*
 
-*Defined in [packages/reactant-di/src/interfaces.ts:65](https://github.com/unadlib/reactant/blob/aaa61ad/packages/reactant-di/src/interfaces.ts#L65)*
+*Defined in [packages/reactant-di/src/interfaces.ts:76](https://github.com/unadlib/reactant/blob/0eb2298/packages/reactant-di/src/interfaces.ts#L76)*
 
 ___
 
@@ -75,15 +77,25 @@ ___
 
 Ƭ **MetadataMap**: *Map‹[ServiceIdentifier](_interfaces_.md#serviceidentifier)‹any›, [Module](../interfaces/_interfaces_.module.md)‹any››*
 
-*Defined in [packages/reactant-di/src/interfaces.ts:15](https://github.com/unadlib/reactant/blob/aaa61ad/packages/reactant-di/src/interfaces.ts#L15)*
+*Defined in [packages/reactant-di/src/interfaces.ts:24](https://github.com/unadlib/reactant/blob/0eb2298/packages/reactant-di/src/interfaces.ts#L24)*
 
 ___
 
 ###  ModuleOptions
 
-Ƭ **ModuleOptions**: *[ValueProvider](../interfaces/_interfaces_.valueprovider.md) | [ClassProvider](../interfaces/_interfaces_.classprovider.md) | [FactoryProvider](../interfaces/_interfaces_.factoryprovider.md) | [ModuleProvider](../interfaces/_interfaces_.moduleprovider.md) | [Module](../interfaces/_interfaces_.module.md)‹any›*
+Ƭ **ModuleOptions**: *[ValueProvider](../interfaces/_interfaces_.valueprovider.md) | [FactoryProvider](../interfaces/_interfaces_.factoryprovider.md) | [ClassProvider](../interfaces/_interfaces_.classprovider.md) | [ModuleProvider](../interfaces/_interfaces_.moduleprovider.md) | [Module](../interfaces/_interfaces_.module.md)‹any›*
 
-*Defined in [packages/reactant-di/src/interfaces.ts:50](https://github.com/unadlib/reactant/blob/aaa61ad/packages/reactant-di/src/interfaces.ts#L50)*
+*Defined in [packages/reactant-di/src/interfaces.ts:61](https://github.com/unadlib/reactant/blob/0eb2298/packages/reactant-di/src/interfaces.ts#L61)*
+
+___
+
+###  PickByKey
+
+Ƭ **PickByKey**: *object*
+
+*Defined in [packages/reactant-di/src/interfaces.ts:5](https://github.com/unadlib/reactant/blob/0eb2298/packages/reactant-di/src/interfaces.ts#L5)*
+
+#### Type declaration:
 
 ___
 
@@ -91,7 +103,15 @@ ___
 
 Ƭ **ServiceIdentifier**: *interfaces.ServiceIdentifier‹T›*
 
-*Defined in [packages/reactant-di/src/interfaces.ts:6](https://github.com/unadlib/reactant/blob/aaa61ad/packages/reactant-di/src/interfaces.ts#L6)*
+*Defined in [packages/reactant-di/src/interfaces.ts:14](https://github.com/unadlib/reactant/blob/0eb2298/packages/reactant-di/src/interfaces.ts#L14)*
+
+___
+
+###  ServiceIdentifierOrFunc
+
+Ƭ **ServiceIdentifierOrFunc**: *[ServiceIdentifier](_interfaces_.md#serviceidentifier)‹T› | LazyServiceIdentifer*
+
+*Defined in [packages/reactant-di/src/interfaces.ts:15](https://github.com/unadlib/reactant/blob/0eb2298/packages/reactant-di/src/interfaces.ts#L15)*
 
 ___
 
@@ -99,9 +119,7 @@ ___
 
 Ƭ **ServiceIdentifiersMap**: *Map‹[ServiceIdentifier](_interfaces_.md#serviceidentifier)‹T›, [ServiceIdentifier](_interfaces_.md#serviceidentifier)‹T›[]›*
 
-*Defined in [packages/reactant-di/src/interfaces.ts:10](https://github.com/unadlib/reactant/blob/aaa61ad/packages/reactant-di/src/interfaces.ts#L10)*
-
-token map
+*Defined in [packages/reactant-di/src/interfaces.ts:19](https://github.com/unadlib/reactant/blob/0eb2298/packages/reactant-di/src/interfaces.ts#L19)*
 
 ___
 
@@ -109,4 +127,4 @@ ___
 
 Ƭ **ValueType**: *T extends Record<number | string, infer R> ? R : never*
 
-*Defined in [packages/reactant-di/src/interfaces.ts:63](https://github.com/unadlib/reactant/blob/aaa61ad/packages/reactant-di/src/interfaces.ts#L63)*
+*Defined in [packages/reactant-di/src/interfaces.ts:74](https://github.com/unadlib/reactant/blob/0eb2298/packages/reactant-di/src/interfaces.ts#L74)*

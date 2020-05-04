@@ -12,14 +12,14 @@
 
 ###  optional
 
-▸ **optional**(`token?`: [ServiceIdentifier](_interfaces_.md#serviceidentifier)‹any›): *(Anonymous function)*
+▸ **optional**(`serviceIdentifier?`: [ServiceIdentifier](_interfaces_.md#serviceidentifier)‹any›): *(Anonymous function)*
 
-*Defined in [packages/reactant-di/src/decorators/optional.ts:7](https://github.com/unadlib/reactant/blob/aaa61ad/packages/reactant-di/src/decorators/optional.ts#L7)*
+*Defined in [packages/reactant-di/src/decorators/optional.ts:7](https://github.com/unadlib/reactant/blob/0eb2298/packages/reactant-di/src/decorators/optional.ts#L7)*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
-`token?` | [ServiceIdentifier](_interfaces_.md#serviceidentifier)‹any› |
+`serviceIdentifier?` | [ServiceIdentifier](_interfaces_.md#serviceidentifier)‹any› |
 
 **Returns:** *(Anonymous function)*

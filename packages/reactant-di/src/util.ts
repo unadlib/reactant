@@ -11,9 +11,9 @@ export const getMetadata = (metaKey: MetaDataKey): MetadataMap =>
 export const setMetadata = (
   metaKey: MetaDataKey,
   target: Module<any>,
-  token: ServiceIdentifier<any> = target
+  serviceIdentifier: ServiceIdentifier<any> = target
 ) => {
   const providesMeta = getMetadata(metaKey);
-  providesMeta.set(token || target, target);
+  providesMeta.set(serviceIdentifier || target, target);
   Reflect.defineMetadata(metaKey, providesMeta, Reflect);
 };

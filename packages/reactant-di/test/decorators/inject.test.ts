@@ -48,7 +48,7 @@ test('base di with @inject with itself', () => {
   expect(bar.test).toBe('test');
 });
 
-test('base di with @inject with string token', () => {
+test('base di with @inject with string identifier', () => {
   @injectable()
   class Foo {
     public get test() {
@@ -73,7 +73,7 @@ test('base di with @inject with string token', () => {
   expect(bar.test).toBe('test');
 });
 
-test('base di with @inject with symbol token', () => {
+test('base di with @inject with symbol identifier', () => {
   @injectable()
   class Foo {
     public get test() {
@@ -81,11 +81,11 @@ test('base di with @inject with symbol token', () => {
     }
   }
 
-  const FooToken = Symbol('foo');
+  const FooIdentifier = Symbol('foo');
 
   @injectable()
   class Bar {
-    constructor(@inject(FooToken) public foo: Foo) {}
+    constructor(@inject(FooIdentifier) public foo: Foo) {}
 
     public get test() {
       return this.foo.test;
@@ -94,13 +94,13 @@ test('base di with @inject with symbol token', () => {
 
   const bar = createContainer({
     ServiceIdentifiers: new Map(),
-    modules: [{ provide: FooToken, useClass: Foo }],
+    modules: [{ provide: FooIdentifier, useClass: Foo }],
   }).get(Bar);
 
   expect(bar.test).toBe('test');
 });
 
-test('base di with @inject with multiple tokens', () => {
+test('base di with @inject with multiple identifiers', () => {
   @injectable()
   class Foo {
     public get test() {
@@ -191,7 +191,7 @@ test('@inject() changing deps other module with config', () => {
   expect(bar.foo instanceof Foo0).toBeTruthy();
 });
 
-test('@inject(token) changing deps other module with config', () => {
+test('@inject(identifier) changing deps other module with config', () => {
   @injectable()
   class Foo {}
 
@@ -211,7 +211,7 @@ test('@inject(token) changing deps other module with config', () => {
   expect(bar.foo instanceof Foo0).toBeTruthy();
 });
 
-test('@inject(token) changing deps other module with config', () => {
+test('@inject(identifier) changing deps other module with config', () => {
   @injectable()
   class Foo {}
 
@@ -234,7 +234,7 @@ test('@inject(token) changing deps other module with config', () => {
   expect(bar.foo instanceof Foo0).toBeTruthy();
 });
 
-test('@inject(token) changing deps other module with config', () => {
+test('@inject(identifier) changing deps other module with config', () => {
   @injectable()
   class Foo {}
 
@@ -262,7 +262,7 @@ test('@inject(token) changing deps other module with config', () => {
   expect(fooBar.bar.foo instanceof Foo0).toBeTruthy();
 });
 
-test('No use @inject(token) changing deps other module with config', () => {
+test('No use @inject(identifier) changing deps other module with config', () => {
   @injectable()
   class Foo {}
 
@@ -282,7 +282,7 @@ test('No use @inject(token) changing deps other module with config', () => {
   expect(bar.foo instanceof Foo0).toBeTruthy();
 });
 
-test('token is string, and not use @inject(token) changing deps other module with config', () => {
+test('identifier is string, and not use @inject(identifier) changing deps other module with config', () => {
   @injectable()
   class Foo {}
 

@@ -7,7 +7,7 @@ import {
   multiOptional,
 } from '../..';
 
-test('base di with @multiOptional for token', () => {
+test('base di with @multiOptional for identifier', () => {
   @injectable()
   class Foo {
     public get test() {

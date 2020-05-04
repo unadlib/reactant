@@ -56,7 +56,7 @@ test('base di with @injectable and @inject', () => {
   expect(bar.test).toBe('test');
 });
 
-test('base di without @injectable and @inject without token', () => {
+test('base di without @injectable and @inject without identifier', () => {
   class Foo {
     public get test() {
       return 'test';
@@ -314,7 +314,7 @@ test('@optional resolve optional and require mix', () => {
   expect(fooBar.bar1 instanceof Bar1).toBeTruthy();
 });
 
-test('@inject(token) changing deps other module with config', () => {
+test('@inject(identifier) changing deps other module with config', () => {
   @injectable()
   class Foo {}
 
@@ -346,7 +346,7 @@ test('@inject(token) changing deps other module with config', () => {
   expect(fooBar.bar.foo instanceof Foo0).toBeTruthy();
 });
 
-test('No use @inject(token) changing deps other module with config', () => {
+test('No use @inject(identifier) changing deps other module with config', () => {
   @injectable()
   class Foo {}
 

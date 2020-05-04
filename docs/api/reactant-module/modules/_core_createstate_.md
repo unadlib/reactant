@@ -14,7 +14,7 @@
 
 ▸ **createState**<**S**, **A**>(`reducer`: Reducer‹S, A›): *S*
 
-*Defined in [packages/reactant-module/src/core/createState.ts:3](https://github.com/unadlib/reactant/blob/aaa61ad/packages/reactant-module/src/core/createState.ts#L3)*
+*Defined in [packages/reactant-module/src/core/createState.ts:3](https://github.com/unadlib/reactant/blob/0eb2298/packages/reactant-module/src/core/createState.ts#L3)*
 
 **Type parameters:**
 

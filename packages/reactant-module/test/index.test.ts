@@ -84,15 +84,18 @@ test('module with multiple module injection with same module or others', () => {
 
   @injectable()
   class FooBar {
-    constructor(@multiInject('FooToken') public foos: Foo[], public foo: Foo) {}
+    constructor(
+      @multiInject('FooIdentifier') public foos: Foo[],
+      public foo: Foo
+    ) {}
   }
 
   const ServiceIdentifiers = new Map();
   const modules = [
     FooBar,
-    { provide: 'FooToken', useClass: Foo },
-    { provide: 'FooToken', useClass: Foo },
-    { provide: 'FooToken', useClass: FooTest },
+    { provide: 'FooIdentifier', useClass: Foo },
+    { provide: 'FooIdentifier', useClass: Foo },
+    { provide: 'FooIdentifier', useClass: FooTest },
   ];
   const container = createContainer({
     ServiceIdentifiers,
@@ -104,23 +107,23 @@ test('module with multiple module injection with same module or others', () => {
   const fooBar = container.get(FooBar);
   const store = createStore(modules, container, ServiceIdentifiers);
   expect(store.getState()).toEqual({
-    FooToken: { count: 1 },
-    FooToken1: { count: 1 },
-    FooToken2: { count: 1 },
+    FooIdentifier: { count: 1 },
+    FooIdentifier1: { count: 1 },
+    FooIdentifier2: { count: 1 },
     foo: { count: 1 },
   });
   fooBar.foos[0].increase();
   expect(store.getState()).toEqual({
-    FooToken: { count: 2 },
-    FooToken1: { count: 1 },
-    FooToken2: { count: 1 },
+    FooIdentifier: { count: 2 },
+    FooIdentifier1: { count: 1 },
+    FooIdentifier2: { count: 1 },
     foo: { count: 1 },
   });
   fooBar.foos[1].increase();
   expect(store.getState()).toEqual({
-    FooToken: { count: 2 },
-    FooToken1: { count: 2 },
-    FooToken2: { count: 1 },
+    FooIdentifier: { count: 2 },
+    FooIdentifier1: { count: 2 },
+    FooIdentifier2: { count: 1 },
     foo: { count: 1 },
   });
 });

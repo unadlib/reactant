@@ -14,7 +14,7 @@
 
 ▸ **injectable**(`options`: [ModuleDecoratorOptions](../interfaces/_interfaces_.moduledecoratoroptions.md)): *(Anonymous function)*
 
-*Defined in [packages/reactant-di/src/decorators/injectable.ts:12](https://github.com/unadlib/reactant/blob/aaa61ad/packages/reactant-di/src/decorators/injectable.ts#L12)*
+*Defined in [packages/reactant-di/src/decorators/injectable.ts:10](https://github.com/unadlib/reactant/blob/0eb2298/packages/reactant-di/src/decorators/injectable.ts#L10)*
 
 **Parameters:**
 

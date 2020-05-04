@@ -15,9 +15,7 @@ export type ServiceIdentifier<T> = interfaces.ServiceIdentifier<T>;
 export type ServiceIdentifierOrFunc<T> =
   | ServiceIdentifier<T>
   | LazyServiceIdentifer;
-/**
- * token map
- */
+
 export type ServiceIdentifiersMap<T = any> = Map<
   ServiceIdentifier<T>,
   ServiceIdentifier<T>[]

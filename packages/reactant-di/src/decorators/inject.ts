@@ -5,22 +5,22 @@ import {
 } from 'inversify';
 import { ServiceIdentifierOrFunc } from '../interfaces';
 import { METADATA_KEY } from '../constants';
-import { forwardRef, lookupToken } from '../createContainer';
+import { forwardRef, lookupServiceIdentifier } from '../createContainer';
 
-export function inject(token?: ServiceIdentifierOrFunc<any>) {
+export function inject(serviceIdentifierOrFunc?: ServiceIdentifierOrFunc<any>) {
   return (target: object, targetKey?: string, index?: number) => {
-    const tokenSelf = Reflect.getMetadata(METADATA_KEY.paramtypes, target)[
-      index!
-    ];
+    const self = Reflect.getMetadata(METADATA_KEY.paramtypes, target)[index!];
     let serviceIdentifier: ServiceIdentifierOrFunc<any>;
-    if (token instanceof LazyServiceIdentifer) {
-      serviceIdentifier = token;
-    } else if (typeof token === 'undefined') {
+    if (serviceIdentifierOrFunc instanceof LazyServiceIdentifer) {
+      serviceIdentifier = serviceIdentifierOrFunc;
+    } else if (typeof serviceIdentifierOrFunc === 'undefined') {
       serviceIdentifier = forwardRef(() =>
-        lookupToken(target, tokenSelf, index)
+        lookupServiceIdentifier(target, self, index)
       );
     } else {
-      serviceIdentifier = forwardRef(() => lookupToken(target, token, index));
+      serviceIdentifier = forwardRef(() =>
+        lookupServiceIdentifier(target, serviceIdentifierOrFunc, index)
+      );
     }
     decorate(
       injectWithInversify(serviceIdentifier) as ClassDecorator,

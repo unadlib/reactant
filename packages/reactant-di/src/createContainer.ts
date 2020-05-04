@@ -24,7 +24,7 @@ import { injectable, inject } from './decorators';
 const defaultUndefinedValue = Symbol('defaultUndefined');
 
 export class Optional {
-  constructor(public token: ServiceIdentifier<any>) {}
+  constructor(public identifier: ServiceIdentifier<any>) {}
 
   get key() {
     return defaultUndefinedValue;
@@ -35,7 +35,7 @@ export class Optional {
 
 let modulesDeps: ModuleOptions[];
 
-export function lookupToken(
+export function lookupServiceIdentifier(
   target: object,
   original: ServiceIdentifier<any>,
   index?: number
@@ -60,7 +60,9 @@ export function lookupToken(
   return original;
 }
 
-export function lookupOptionalToken(token: ServiceIdentifier<any>) {
+export function lookupOptionalIdentifier(
+  serviceIdentifier: ServiceIdentifier<any>
+) {
   for (const modulesDep of modulesDeps) {
     const { deps } = modulesDep as ModuleProvider | ClassProvider;
     if (
@@ -70,7 +72,7 @@ export function lookupOptionalToken(token: ServiceIdentifier<any>) {
         Object.keys(modulesDep).length === 2)
     ) {
       return !!deps.filter(
-        dep => dep instanceof Optional && dep.token === token
+        dep => dep instanceof Optional && dep.identifier === serviceIdentifier
       ).length;
     }
   }
@@ -103,13 +105,14 @@ function autoBindModules() {
     ) => {
       const provideMeta = getMetadata(METADATA_KEY.provide);
       const optionalMeta = getMetadata(METADATA_KEY.optional);
-      for (const [token, provide] of provideMeta) {
+      for (const [identifier, provide] of provideMeta) {
         // default injection without optional module.
         if (
-          (!optionalMeta.has(token) || lookupOptionalToken(token)) &&
-          !isBound(token)
+          (!optionalMeta.has(identifier) ||
+            lookupOptionalIdentifier(identifier)) &&
+          !isBound(identifier)
         ) {
-          bind(token).to(provide);
+          bind(identifier).to(provide);
         }
       }
     }
@@ -186,15 +189,15 @@ export function createContainer({
           .bind(module.provide)
           .toFactory((context: interfaces.Context) => {
             const deps = module.deps || [];
-            const depInstances = deps.map(token => {
+            const depInstances = deps.map(identifier => {
               // TODO: refactor with `is` assertion
               const provide =
-                (token as DependencyProviderOption).provide ||
-                (token as ServiceIdentifier<any>);
+                (identifier as DependencyProviderOption).provide ||
+                (identifier as ServiceIdentifier<any>);
               if (
-                (token as DependencyProviderOption).optional &&
+                (identifier as DependencyProviderOption).optional &&
                 !context.container.isBound(
-                  (token as DependencyProviderOption).provide
+                  (identifier as DependencyProviderOption).provide
                 )
               ) {
                 return undefined;

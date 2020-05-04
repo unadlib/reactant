@@ -33,4 +33,4 @@
 
 • **RouterOptions**: *unique symbol* = Symbol('RouterOptions')
 
-*Defined in [packages/reactant-router/src/router.tsx:11](https://github.com/unadlib/reactant/blob/aaa61ad/packages/reactant-router/src/router.tsx#L11)*
+*Defined in [packages/reactant-router/src/router.tsx:11](https://github.com/unadlib/reactant/blob/0eb2298/packages/reactant-router/src/router.tsx#L11)*

@@ -18,7 +18,7 @@
 
 Ƭ **ShallowEqual**: *function*
 
-*Defined in [hooks/useConnector.ts:4](https://github.com/unadlib/reactant/blob/aaa61ad/packages/reactant/src/hooks/useConnector.ts#L4)*
+*Defined in [hooks/useConnector.ts:4](https://github.com/unadlib/reactant/blob/0eb2298/packages/reactant/src/hooks/useConnector.ts#L4)*
 
 #### Type declaration:
 
@@ -37,7 +37,7 @@ Name | Type |
 
 ▸ **useConnector**<**T**>(`selector`: function, `shallowEqual?`: [ShallowEqual](_hooks_useconnector_.md#shallowequal)): *T*
 
-*Defined in [hooks/useConnector.ts:6](https://github.com/unadlib/reactant/blob/aaa61ad/packages/reactant/src/hooks/useConnector.ts#L6)*
+*Defined in [hooks/useConnector.ts:6](https://github.com/unadlib/reactant/blob/0eb2298/packages/reactant/src/hooks/useConnector.ts#L6)*
 
 **Type parameters:**
 

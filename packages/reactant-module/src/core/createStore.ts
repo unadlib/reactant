@@ -56,11 +56,12 @@ export function createStore<T = any>(
     provider: providers,
   };
   const subscriptions: Subscriptions = [];
-  // add Non-dependent `modules` to ServiceIdentifiers token config.
+  // add Non-dependent `modules` to ServiceIdentifiers config.
   for (const module of modules) {
-    const moduleToken = typeof module === 'function' ? module : module.provide;
-    if (!ServiceIdentifiers.has(moduleToken)) {
-      ServiceIdentifiers.set(moduleToken, []);
+    const moduleIdentifier =
+      typeof module === 'function' ? module : module.provide;
+    if (!ServiceIdentifiers.has(moduleIdentifier)) {
+      ServiceIdentifiers.set(moduleIdentifier, []);
     }
   }
 
@@ -75,7 +76,7 @@ export function createStore<T = any>(
         if (isPlainObject) {
           const className = (Service as Function).name;
           let reducersIdentifier: string = service.name;
-          // string token is defined primarily.
+          // string identifier is defined primarily.
           if (typeof Service === 'string') {
             reducersIdentifier = Service;
           }

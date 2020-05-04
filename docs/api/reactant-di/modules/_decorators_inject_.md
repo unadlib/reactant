@@ -12,14 +12,14 @@
 
 ###  inject
 
-▸ **inject**(`token?`: [ServiceIdentifier](_interfaces_.md#serviceidentifier)‹any›): *(Anonymous function)*
+▸ **inject**(`serviceIdentifierOrFunc?`: [ServiceIdentifierOrFunc](_interfaces_.md#serviceidentifierorfunc)‹any›): *(Anonymous function)*
 
-*Defined in [packages/reactant-di/src/decorators/inject.ts:5](https://github.com/unadlib/reactant/blob/aaa61ad/packages/reactant-di/src/decorators/inject.ts#L5)*
+*Defined in [packages/reactant-di/src/decorators/inject.ts:10](https://github.com/unadlib/reactant/blob/0eb2298/packages/reactant-di/src/decorators/inject.ts#L10)*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
-`token?` | [ServiceIdentifier](_interfaces_.md#serviceidentifier)‹any› |
+`serviceIdentifierOrFunc?` | [ServiceIdentifierOrFunc](_interfaces_.md#serviceidentifierorfunc)‹any› |
 
 **Returns:** *(Anonymous function)*

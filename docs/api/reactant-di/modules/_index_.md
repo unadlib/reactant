@@ -20,7 +20,9 @@
 * [ModuleOptions](_index_.md#moduleoptions)
 * [ModuleProvider](_index_.md#moduleprovider)
 * [ModuleRef](_index_.md#moduleref)
+* [Optional](_index_.md#optional)
 * [ServiceIdentifier](_index_.md#serviceidentifier)
+* [ServiceIdentifierOrFunc](_index_.md#serviceidentifierorfunc)
 * [ServiceIdentifiersMap](_index_.md#serviceidentifiersmap)
 * [ValueProvider](_index_.md#valueprovider)
 * [createContainer](_index_.md#createcontainer)
@@ -28,6 +30,8 @@
 * [getMetadata](_index_.md#getmetadata)
 * [inject](_index_.md#inject)
 * [injectable](_index_.md#injectable)
+* [lookupOptionalIdentifier](_index_.md#lookupoptionalidentifier)
+* [lookupServiceIdentifier](_index_.md#lookupserviceidentifier)
 * [multiInject](_index_.md#multiinject)
 * [multiOptional](_index_.md#multioptional)
 * [optional](_index_.md#optional)
@@ -119,9 +123,21 @@ ___
 
 ___
 
+###  Optional
+
+• **Optional**:
+
+___
+
 ###  ServiceIdentifier
 
 • **ServiceIdentifier**:
+
+___
+
+###  ServiceIdentifierOrFunc
+
+• **ServiceIdentifierOrFunc**:
 
 ___
 
@@ -164,6 +180,18 @@ ___
 ###  injectable
 
 • **injectable**:
+
+___
+
+###  lookupOptionalIdentifier
+
+• **lookupOptionalIdentifier**:
+
+___
+
+###  lookupServiceIdentifier
+
+• **lookupServiceIdentifier**:
 
 ___
 

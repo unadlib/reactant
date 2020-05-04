@@ -41,7 +41,7 @@ todo
   - `batch` can be used to optimize rendering performance.
   - `dispatch` and `createState` support prue Redux action and reducer.
 - Decorators
-  - Default injection, no require `@inject` unless binding token.
-  - All decorators support any token.
-  - `@multiInject` and `@multiOptional` require token parameter.
-- The module of property `name` will be changed, if the module of `token` is `string` or module is injected in multiple.
+  - Default injection, no require `@inject` unless binding identifier.
+  - All decorators support any identifier.
+  - `@multiInject` and `@multiOptional` require identifier parameter.
+- The module of property `name` will be changed, if the module of `identifier` is `string` or module is injected in multiple.
