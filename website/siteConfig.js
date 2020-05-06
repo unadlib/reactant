@@ -42,7 +42,7 @@ const siteConfig = {
     { doc: 'createApp', label: 'API' },
     { page: 'help', label: 'Help' },
     { blog: true, label: 'Blog' },
-    { href: 'https://github.com/immerjs/immer', label: 'GitHub' },
+    { href: 'https://github.com/unadlib/reactant', label: 'GitHub' },
   ],
 
   // If you have users set above, you add it here:
