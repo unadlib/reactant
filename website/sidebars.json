@@ -1,0 +1,40 @@
+{
+  "docs": {
+    "Getting Started": ["introduction", "installation", "concepts"],
+    "Basic Tutorial": ["component", "state-action", "view-module", "di", "hooks", "routing", "persistence"],
+    "Advanced Guides": ["di", "middleware", "pluggable", "dev-workflow"],
+    "Tooling": ["cli", "dev-tools"],
+    "Resources": ["examples", "faq", "performance"]
+  },
+  "docs-other": {
+    "Basics": ["createApp", "useConnector"],
+    "Module": [
+      "state",
+      "action",
+      "createSelector",
+      "defaultProps",
+      "createState",
+      "dispatch",
+      "subscribe",
+      "watch",
+      "ViewModule",
+      "PluginModule",
+      "autobind"
+    ],
+    "Dependency injection": [
+      "injectable",
+      "inject",
+      "optional",
+      "multiInject",
+      "multiOptional",
+      "ModuleRef",
+      "forwardRef"
+    ],
+    "Web": ["web"],
+    "Native": ["native"],
+    "Redux": ["redux"],
+    "Model": ["model"],
+    "Router": ["Router", "RouterOptions"],
+    "Storage": ["Storage", "StorageOptions"]
+  }
+}
