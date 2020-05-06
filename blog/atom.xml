@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://unadlib.github.io/reactant/blog</id>
+    <title>Reactant Blog</title>
+    <updated>2020-05-07T06:00:00.000Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://unadlib.github.io/reactant/blog"/>
+    <subtitle>The best place to stay up-to-date with the latest Reactant news and events.</subtitle>
+    <logo>https://unadlib.github.io/reactant/img/logo.svg</logo>
+    <rights>Copyright © 2020 unadlib</rights>
+    <entry>
+        <title type="html"><![CDATA[A framework for building React applications]]></title>
+        <id>https://unadlib.github.io/reactant/blog/2020/05/07/a-framework-for-building-react-applications.html</id>
+        <link href="https://unadlib.github.io/reactant/blog/2020/05/07/a-framework-for-building-react-applications.html"/>
+        <updated>2020-05-07T06:00:00.000Z</updated>
+        <summary type="html"><![CDATA[<p>todo</p> ]]></summary>
+        <author>
+            <name>Michael Lin</name>
+            <email/>
+            <uri>http://twitter.com/unadlib</uri>
+        </author>
+    </entry>
+</feed>
