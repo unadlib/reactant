@@ -2,21 +2,21 @@
 <rss version="2.0">
     <channel>
         <title>Reactant Blog</title>
-        <link>https://unadlib.github.io/reactant/blog</link>
+        <link>https://reactant.js.org//blog</link>
         <description>The best place to stay up-to-date with the latest Reactant news and events.</description>
         <lastBuildDate>Thu, 07 May 2020 06:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <image>
             <title>Reactant Blog</title>
-            <url>https://unadlib.github.io/reactant/img/logo.svg</url>
-            <link>https://unadlib.github.io/reactant/blog</link>
+            <url>https://reactant.js.org//img/logo.svg</url>
+            <link>https://reactant.js.org//blog</link>
         </image>
         <copyright>Copyright © 2020 unadlib</copyright>
         <item>
             <title><![CDATA[A framework for building React applications]]></title>
-            <link>https://unadlib.github.io/reactant/blog/2020/05/07/a-framework-for-building-react-applications.html</link>
-            <guid>https://unadlib.github.io/reactant/blog/2020/05/07/a-framework-for-building-react-applications.html</guid>
+            <link>https://reactant.js.org//blog/2020/05/07/a-framework-for-building-react-applications.html</link>
+            <guid>https://reactant.js.org//blog/2020/05/07/a-framework-for-building-react-applications.html</guid>
             <pubDate>Thu, 07 May 2020 06:00:00 GMT</pubDate>
             <description><![CDATA[<p>todo</p> ]]></description>
         </item>
