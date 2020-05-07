@@ -87,8 +87,8 @@ app.bootstrap(document.getElementById('app'));
 
 ## Documentation
 
-* [Getting Started](https://unadlib.github.io/reactant)
-* [Tutorial](https://unadlib.github.io/reactant)
-* [Concepts](https://unadlib.github.io/reactant)
-* [Advanced Guides](https://unadlib.github.io/reactant)
-* [API Reference](https://unadlib.github.io/reactant)
+* [Getting Started](https://reactant.js.org/)
+* [Tutorial](https://reactant.js.org/)
+* [Concepts](https://reactant.js.org/)
+* [Advanced Guides](https://reactant.js.org/)
+* [API Reference](https://reactant.js.org/)
