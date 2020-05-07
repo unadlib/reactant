@@ -23,8 +23,8 @@ const users = [
 const siteConfig = {
   title: 'Reactant', // Title for your website.
   tagline: 'A framework for building React applications',
-  url: 'https://unadlib.github.io', // Your website URL
-  baseUrl: '/reactant/', // Base URL for your project */
+  url: 'https://reactant.js.org/', // Your website URL
+  baseUrl: '/', // Base URL for your project */
   // For github.io type URLs, you would set the url and baseUrl like:
   //   url: 'https://facebook.github.io',
   //   baseUrl: '/test-site/',
@@ -58,6 +58,8 @@ const siteConfig = {
     primaryColor: '#282828',
     secondaryColor: '#3fa9f5',
   },
+
+  cname: 'reactant.js.org',
 
   /* Custom fonts for website */
   /*
