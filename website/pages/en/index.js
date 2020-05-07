@@ -1,5 +1,4 @@
 const React = require('react');
-
 const CompLibrary = require('../../core/CompLibrary.js');
 
 const MarkdownBlock = CompLibrary.MarkdownBlock; /* Used to read markdown */
@@ -19,7 +18,9 @@ class HomeSplash extends React.Component {
         <div className="homeSplashFade">
           <div className="wrapper homeWrapper">{props.children}</div>
         </div>
-        <div className="waveContainer"><div className="wave"></div></div>
+        <div className="waveContainer">
+          <div className="wave" />
+        </div>
       </div>
     );
 
@@ -102,8 +103,7 @@ class Index extends React.Component {
         {[
           {
             // support markdown.
-            content:
-              'todo',
+            content: 'todo',
             image: `${baseUrl}img/undraw_code_review.svg`,
             imageAlign: 'left',
             title: 'todo title',
@@ -116,8 +116,7 @@ class Index extends React.Component {
       <Block background="dark">
         {[
           {
-            content:
-              'todo',
+            content: 'todo',
             image: `${baseUrl}img/undraw_note_list.svg`,
             imageAlign: 'right',
             title: 'todo',
@@ -130,8 +129,7 @@ class Index extends React.Component {
       <Block background="light">
         {[
           {
-            content:
-              'TODO content',
+            content: 'TODO content',
             image: `${baseUrl}img/undraw_youtube_tutorial.svg`,
             imageAlign: 'right',
             title: 'TODO title',

@@ -1,0 +1,12 @@
+{
+  "extends": "../.eslintrc",
+  "rules": {
+    "react/prefer-stateless-function": 0,
+    "prefer-destructuring": 0,
+    "import/no-unresolved": 0,
+    "import/no-extraneous-dependencies": 0,
+    "@typescript-eslint/no-var-requires": 0,
+    "react/destructuring-assignment": 0,
+    "react/jsx-one-expression-per-line": 0
+  }
+}

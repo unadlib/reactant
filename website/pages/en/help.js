@@ -6,8 +6,8 @@ const Container = CompLibrary.Container;
 const GridBlock = CompLibrary.GridBlock;
 
 function Help(props) {
-  const {config: siteConfig, language = ''} = props;
-  const {baseUrl, docsUrl} = siteConfig;
+  const { config: siteConfig, language = '' } = props;
+  const { baseUrl, docsUrl } = siteConfig;
   const docsPart = `${docsUrl ? `${docsUrl}/` : ''}`;
   const langPart = `${language ? `${language}/` : ''}`;
   const docUrl = doc => `${baseUrl}${docsPart}${langPart}${doc}`;

@@ -1,5 +1,5 @@
 ---
-title: A framework for building React applications
+title: React Architecture
 author: Michael Lin
 authorURL: http://twitter.com/unadlib
 ---
