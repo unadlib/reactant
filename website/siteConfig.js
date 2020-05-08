@@ -75,6 +75,8 @@ const siteConfig = {
   },
   */
 
+  editUrl: 'https://github.com/unadlib/reactant/tree/master/docs/',
+
   // This copyright info is used in /core/Footer.js and blog RSS/Atom feeds.
   copyright: `Copyright © ${new Date().getFullYear()} unadlib`,
 

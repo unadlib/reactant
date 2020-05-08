@@ -11,8 +11,14 @@
       "component": {
         "title": "React Component"
       },
+      "concepts": {
+        "title": "Concepts"
+      },
       "createApp": {
         "title": "createApp"
+      },
+      "dev-tools": {
+        "title": "Dev Tools"
       },
       "di": {
         "title": "Dependency Injection"
@@ -20,9 +26,33 @@
       "examples": {
         "title": "Examples"
       },
+      "faq": {
+        "title": "FAQ"
+      },
+      "hooks": {
+        "title": "Reactant hooks"
+      },
+      "installation": {
+        "title": "Installation"
+      },
       "introduction": {
         "title": "Introduction",
         "sidebar_label": "What is Reactant?"
+      },
+      "performance": {
+        "title": "Performance"
+      },
+      "persistence": {
+        "title": "Persistence"
+      },
+      "routing": {
+        "title": "Routing"
+      },
+      "state-action": {
+        "title": "@state and @action"
+      },
+      "view-module": {
+        "title": "View Module"
       }
     },
     "links": {

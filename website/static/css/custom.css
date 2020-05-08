@@ -21,12 +21,8 @@
   max-width: 50%;
 }
 
-.mainContainer {
-  padding: 0;
-}
-
 .container.paddingTop {
-  padding-top: 60px;
+  padding-top: 20px;
 }
 
 .imageAlignTop .blockImage {
