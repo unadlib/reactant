@@ -151,7 +151,13 @@ class Index extends React.Component {
             content: 'todo',
             image: `${baseUrl}img/undraw_operating_system.svg`,
             imageAlign: 'top',
-            title: 'Easy',
+            title: 'High-Efficiency',
+          },
+          {
+            content: 'todo',
+            image: `${baseUrl}img/undraw_preferences_uuo2.svg`,
+            imageAlign: 'top',
+            title: 'Preferences',
           },
         ]}
       </Block>
