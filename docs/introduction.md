@@ -171,7 +171,7 @@ npx reactant-cli generate view my-service
 
 Dependency injection of service modules using `ViewModule` and connection injection of state in `component`.
 
-```ts
+```tsx
 import { injectable, ViewModule, useConnector } from 'reactant';
 // import `Counter`
 

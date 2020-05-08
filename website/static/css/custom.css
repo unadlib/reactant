@@ -13,11 +13,40 @@
 @media only screen and (min-width: 1500px) {
 }
 
-.gridBlock .twoByGridBlock img, .gridBlock .threeByGridBlock img, .gridBlock .fourByGridBlock img {
+.homeWrapper .projectTitle {
+  color: #20232a;
+}
+
+.homeWrapper .button {
+  border: 1px solid #282828;
+  color: #282828;
+}
+
+.homeWrapper .button:hover {
+  background-color: #282828;
+  color: #fff;
+}
+
+
+.fixedHeaderContainer {
+  background: #20232a;
+}
+
+.navigationSlider .slidingNav ul li > a:focus,
+.navigationSlider .slidingNav ul li > a:hover,
+.navigationSlider .slidingNav ul li.siteNavItemActive > a,
+.navigationSlider .slidingNav ul li.siteNavGroupActive > a {
+  background-color: #20232a;
+  color: #62baf9;
+}
+
+.gridBlock .twoByGridBlock img,
+.gridBlock .threeByGridBlock img,
+.gridBlock .fourByGridBlock img {
   max-width: 75%;
 }
 
-.gridBlock .twoByGridBlock img[src="/img/undraw_dev_productivity.svg"] {
+.gridBlock .twoByGridBlock img[src='/img/undraw_dev_productivity.svg'] {
   max-width: 50%;
 }
 

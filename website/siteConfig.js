@@ -55,8 +55,8 @@ const siteConfig = {
 
   /* Colors for website */
   colors: {
-    primaryColor: '#282828',
-    secondaryColor: '#3fa9f5',
+    primaryColor: '#3fa9f5',
+    secondaryColor: '#62baf9',
   },
 
   cname: 'reactant.js.org',
