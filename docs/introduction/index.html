@@ -194,19 +194,19 @@ app.bootstrap(<span class="hljs-built_in">document</span>.getElementById(<span c
 </code></pre>
 <p><code>ViewModule</code> is a core concept of Reactant. It will be defined the dependencies and logic between non-view modules and UI components. It embodies the separation of attention, where the separation of UI logic and business logic is coalesced. See more <a href="/docs/concepts">concepts</a> of Reactant.</p>
 <p>Dependency injection of service modules using <code>ViewModule</code> and connection injection of state in <code>component</code>.</p>
-<pre><code class="hljs css language-ts">import { injectable, ViewModule, useConnector } from 'reactant';
-// import `Counter`
+<pre><code class="hljs css language-tsx"><span class="hljs-keyword">import</span> { injectable, <span class="hljs-type">ViewModule</span>, useConnector } from <span class="hljs-symbol">'reactan</span>t';
+<span class="hljs-comment">// import `Counter`</span>
 
-@injectable()
-class AppView extends ViewModule {
-  constructor(public counter: Counter) {
-    super();
+<span class="hljs-meta">@injectable</span>()
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AppView</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ViewModule</span> </span>{
+  constructor(public counter: <span class="hljs-type">Counter</span>) {
+    <span class="hljs-keyword">super</span>();
   }
 
   component() {
-    const count = useConnector(() =&gt; this.counter.count);
-    return (
-      &lt;button type="button" onClick={() =&gt; this.counter.increase()}&gt;
+    const count = useConnector(() =&gt; <span class="hljs-keyword">this</span>.counter.count);
+    <span class="hljs-keyword">return</span> (
+      &lt;button <span class="hljs-class"><span class="hljs-keyword">type</span></span>=<span class="hljs-string">"button"</span> onClick={() =&gt; <span class="hljs-keyword">this</span>.counter.increase()}&gt;
         {count}
       &lt;/button&gt;
     );
