@@ -55,7 +55,7 @@ class HomeSplash extends React.Component {
 
     return (
       <SplashContainer>
-        <Logo img_src={`${baseUrl}img/undraw_monitor.svg`} />
+        {/* <Logo img_src={`${baseUrl}img/logo.svg`} /> */}
         <div className="inner">
           <ProjectTitle tagline={siteConfig.tagline} title={siteConfig.title} />
           <PromoSection>
@@ -86,6 +86,31 @@ class Index extends React.Component {
       </Container>
     );
 
+    const Features = () => (
+      <Block layout="fourColumn">
+        {[
+          {
+            content: `Lightweight framework, a quick read of the guide makes it easy to get started.`,
+            image: `${baseUrl}img/undraw_researching.svg`,
+            imageAlign: 'top',
+            title: 'Easy',
+          },
+          {
+            content: `Simple APIs and efficient CLI make developing applications so efficient.`,
+            image: `${baseUrl}img/undraw_operating_system.svg`,
+            imageAlign: 'top',
+            title: 'High-Efficiency',
+          },
+          {
+            content: `All of React's ecosystems can be plugged in and modularized to work together.`,
+            image: `${baseUrl}img/undraw_react.svg`,
+            imageAlign: 'top',
+            title: 'Flexible',
+          },
+        ]}
+      </Block>
+    );
+
     const FeatureCallout = () => (
       <div
         className="productShowcaseSection paddingBottom"
@@ -93,20 +118,33 @@ class Index extends React.Component {
       >
         <h2>Features</h2>
         <MarkdownBlock>
-          Modularization / Dependency Injection / State Management / CLI, etc.
+          Modularization, Dependency Injection, State Management & CLI, etc.
         </MarkdownBlock>
       </div>
     );
 
-    const TryOut = () => (
+    const CleanArchitecture = () => (
+      <Block background="light">
+        {[
+          {
+            content: `Reactant is a simple and clear architectural design with only a few new concepts. Reactant provides only a small number of core key APIs that you can use to build any testable, maintainable and complex application.`,
+            image: `${baseUrl}img/undraw_dev_productivity.svg`,
+            imageAlign: 'right',
+            title: 'Clean Architecture',
+          },
+        ]}
+      </Block>
+    );
+
+    const DevelopPlatform = () => (
       <Block id="try">
         {[
           {
-            // support markdown.
-            content: 'todo',
-            image: `${baseUrl}img/undraw_code_review.svg`,
+            content:
+              'Reactant supports React application development across multiple platforms, e.g. web, Native Mobile, to efficiently complete applications across platforms.',
+            image: `${baseUrl}img/undraw_progressive_app.svg`,
             imageAlign: 'left',
-            title: 'todo title',
+            title: 'Develop Web & Native Mobile Platform',
           },
         ]}
       </Block>
@@ -120,44 +158,6 @@ class Index extends React.Component {
             image: `${baseUrl}img/undraw_note_list.svg`,
             imageAlign: 'right',
             title: 'todo',
-          },
-        ]}
-      </Block>
-    );
-
-    const LearnHow = () => (
-      <Block background="light">
-        {[
-          {
-            content: 'TODO content',
-            image: `${baseUrl}img/undraw_youtube_tutorial.svg`,
-            imageAlign: 'right',
-            title: 'TODO title',
-          },
-        ]}
-      </Block>
-    );
-
-    const Features = () => (
-      <Block layout="fourColumn">
-        {[
-          {
-            content: 'todo',
-            image: `${baseUrl}img/undraw_react.svg`,
-            imageAlign: 'top',
-            title: 'Flexible',
-          },
-          {
-            content: 'todo',
-            image: `${baseUrl}img/undraw_operating_system.svg`,
-            imageAlign: 'top',
-            title: 'High-Efficiency',
-          },
-          {
-            content: 'todo',
-            image: `${baseUrl}img/undraw_preferences_uuo2.svg`,
-            imageAlign: 'top',
-            title: 'Preferences',
           },
         ]}
       </Block>
@@ -198,9 +198,9 @@ class Index extends React.Component {
         <div className="mainContainer">
           <Features />
           <FeatureCallout />
-          <LearnHow />
-          <TryOut />
-          <Description />
+          <CleanArchitecture />
+          <DevelopPlatform />
+          {/* <Description /> */}
           {/* <Showcase /> */}
         </div>
       </div>

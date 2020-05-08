@@ -13,6 +13,22 @@
 @media only screen and (min-width: 1500px) {
 }
 
+.gridBlock .twoByGridBlock img, .gridBlock .threeByGridBlock img, .gridBlock .fourByGridBlock img {
+  max-width: 75%;
+}
+
+.gridBlock .twoByGridBlock img[src="/img/undraw_dev_productivity.svg"] {
+  max-width: 50%;
+}
+
+.mainContainer {
+  padding: 0;
+}
+
+.container.paddingTop {
+  padding-top: 60px;
+}
+
 .imageAlignTop .blockImage {
   max-width: 130px;
 }
