@@ -2,12 +2,13 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
 import envInfo from 'envinfo';
-import { Command } from 'commander';
 import chalk from 'chalk';
+import commander from 'commander';
+
 import { PackageJson } from '.';
 
 export const createInfoCommand = (
-  command: Command,
+  command: commander.Command,
   packageJson: PackageJson
 ) => {
   command
