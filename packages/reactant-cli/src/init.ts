@@ -1,9 +1,8 @@
 /* eslint-disable no-console */
+import { Command } from 'commander';
 import chalk from 'chalk';
-import commander from 'commander';
 import { generateProject } from 'installation';
-
-import { PackageJson } from '.';
+import { PackageJson } from './index';
 
 export const supportLanguageMap = {
   ts: 'typescript',
@@ -25,7 +24,7 @@ interface Options {
 }
 
 export const createInitCommand = (
-  command: commander.Command,
+  command: Command,
   packageJson: PackageJson
 ) => {
   const [appType] = packageJson.name

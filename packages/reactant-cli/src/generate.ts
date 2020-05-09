@@ -1,10 +1,10 @@
 /* eslint-disable no-console */
-import chalk from 'chalk';
-import commander from 'commander';
+import { Command } from 'commander';
 import path from 'path';
-
-import { supportLanguageMap, supportLanguages } from './init';
-import { createFile, lookupRoot } from './utils';
+import fs from 'fs-extra';
+import chalk from 'chalk';
+import { lookupRoot, createFile } from './utils';
+import { supportLanguages, supportLanguageMap } from './init';
 
 const templateTypeMap = {
   s: 'service',
@@ -19,7 +19,7 @@ interface Options {
   src: string;
 }
 
-export const createGenerateCommand = (command: commander.Command) => {
+export const createGenerateCommand = (command: Command) => {
   command
     .command('generate')
     .alias('g')
@@ -85,12 +85,12 @@ export const createGenerateCommand = (command: commander.Command) => {
         const templateName = `template.${templateType}.${suffix}`;
         const templatePath = path.resolve(
           __dirname,
-          `./templates/${templateType}/${templateName}`
+          `../templates/${templateType}/${templateName}`
         );
         const templateTestName = `template.${templateType}.spec.${suffix}`;
         const templateTestPath = path.resolve(
           __dirname,
-          `./templates/${templateType}/${templateTestName}`
+          `../templates/${templateType}/${templateTestName}`
         );
         for (const file of files) {
           try {

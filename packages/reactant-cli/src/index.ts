@@ -1,9 +1,8 @@
 /* eslint-disable no-console */
 import { Command } from 'commander';
-
-import { createGenerateCommand } from './generate';
-import { createInfoCommand } from './info';
 import { createInitCommand } from './init';
+import { createInfoCommand } from './info';
+import { createGenerateCommand } from './generate';
 
 export interface PackageJson {
   name?: string;
@@ -16,10 +15,10 @@ const packageJson = require('../package.json');
 const command = new Command();
 command.usage('[command] [options]').version(packageJson.version);
 
-createInitCommand(command, packageJson);
+createInitCommand(command as Command, packageJson);
 
-createGenerateCommand(command);
+createGenerateCommand(command as Command);
 
-createInfoCommand(command, packageJson);
+createInfoCommand(command as Command, packageJson);
 
 command.parse(process.argv);

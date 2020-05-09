@@ -1,8 +1,7 @@
-import chalk from 'chalk';
-import fs from 'fs-extra';
 import path from 'path';
-
-import { PackageJson } from '.';
+import fs from 'fs-extra';
+import chalk from 'chalk';
+import { PackageJson } from './index';
 
 export const detectIsRootPath = (currentPath: string) => {
   const packageJsonPath = path.resolve(currentPath, 'package.json');
