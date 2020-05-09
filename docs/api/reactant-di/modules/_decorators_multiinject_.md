@@ -1,0 +1,27 @@
+---
+id: "_decorators_multiinject_"
+title: "decorators/multiInject"
+sidebar_label: "decorators/multiInject"
+---
+
+## Index
+
+### Functions
+
+* [multiInject](_decorators_multiinject_.md#multiinject)
+
+## Functions
+
+###  multiInject
+
+▸ **multiInject**(`serviceIdentifier`: [ServiceIdentifier](_interfaces_.md#serviceidentifier)‹any›): *(Anonymous function)*
+
+*Defined in [packages/reactant-di/src/decorators/multiInject.ts:4](https://github.com/unadlib/reactant/blob/8ae0877/packages/reactant-di/src/decorators/multiInject.ts#L4)*
+
+**Parameters:**
+
+Name | Type |
+------ | ------ |
+`serviceIdentifier` | [ServiceIdentifier](_interfaces_.md#serviceidentifier)‹any› |
+
+**Returns:** *(Anonymous function)*

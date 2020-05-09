@@ -1,40 +1,57 @@
 {
   "docs": {
     "Getting Started": ["introduction", "installation", "concepts"],
-    "Basic Tutorial": ["component", "state-action", "view-module", "di", "hooks", "routing", "persistence"],
+    "Basic Tutorial": [
+      "component",
+      "state-action",
+      "view-module",
+      "di",
+      "hooks",
+      "routing",
+      "persistence"
+    ],
     "Advanced Guides": ["di", "middleware", "pluggable", "dev-workflow"],
     "Tooling": ["cli", "dev-tools"],
     "Resources": ["examples", "faq", "performance"]
   },
   "docs-other": {
-    "Basics": ["createApp", "useConnector"],
+    "Basics": [
+      "api/reactant/modules/_createapp_",
+      "api/reactant/modules/_hooks_useconnector_"
+    ],
     "Module": [
-      "state",
-      "action",
-      "createSelector",
-      "defaultProps",
-      "createState",
-      "dispatch",
-      "subscribe",
+      "api/reactant-module/modules/_decorators_state_",
+      "api/reactant-module/modules/_decorators_action_",
+      "api/reactant-module/modules/_core_createselector_",
+      "api/reactant-module/modules/_decorators_defaultProps_",
+      "api/reactant-module/modules/_core_createstate_",
+      "api/reactant-module/modules/_core_dispatch_",
+      "api/reactant-module/modules/_core_subscriber_",
       "watch",
-      "ViewModule",
-      "PluginModule",
-      "autobind"
+      "api/reactant-module/modules/_core_view_",
+      "api/reactant-module/modules/_core_plugin_",
+      "api/reactant-module/modules/_decorators_autobind_"
     ],
     "Dependency injection": [
-      "injectable",
-      "inject",
-      "optional",
-      "multiInject",
-      "multiOptional",
+      "api/reactant-di/modules/_decorators_injectable_",
+      "api/reactant-di/modules/_decorators_inject_",
+      "api/reactant-di/modules/_decorators_optional_",
+      "api/reactant-di/modules/_decorators_multiinject_",
+      "api/reactant-di/modules/_decorators_multioptional_",
       "ModuleRef",
       "forwardRef"
     ],
     "Web": ["web"],
     "Native": ["native"],
-    "Redux": ["redux"],
-    "Model": ["model"],
-    "Router": ["Router", "RouterOptions"],
-    "Storage": ["Storage", "StorageOptions"]
+    "Redux": ["api/reactant-redux/modules/_redux_"],
+    "Model": ["api/reactant-model/modules/_model_"],
+    "Router": [
+      "api/reactant-router/modules/_router_.md",
+      "api/reactant-router/interfaces/_router_.irouteroptions"
+    ],
+    "Storage": [
+      "api/reactant-storage/modules/_storage_",
+      "api/reactant-storage/interfaces/_storage_.istorageoptions"
+    ]
   }
 }

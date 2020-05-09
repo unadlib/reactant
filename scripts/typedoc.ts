@@ -20,6 +20,10 @@ const generateDocs = (project: string) => {
     '--readme',
     `packages/${project}/api`,
     '--excludeExternals',
+    '--theme',
+    'docusaurus',
+    '--hideBreadcrumbs',
+    '--skipSidebar',
   ];
   spawn('typedoc', args, {
     stdio: 'inherit',
