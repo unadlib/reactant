@@ -1,6 +1,6 @@
 {
   "name": "reactant-router-dom",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A react router dom for Reactant",
   "main": "dist/index.cjs.js",
   "unpkg": "dist/index.umd.js",
