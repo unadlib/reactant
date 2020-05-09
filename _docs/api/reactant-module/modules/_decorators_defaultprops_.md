@@ -1,6 +1,6 @@
 [reactant-module](../README.md) › [Globals](../globals.md) › ["decorators/defaultProps"](_decorators_defaultprops_.md)
 
-# External module: "decorators/defaultProps"
+# Module: "decorators/defaultProps"
 
 ## Index
 
@@ -14,7 +14,7 @@
 
 ▸ **defaultProps**<**P**>(`props`: P | [PickOptional](_interfaces_.md#pickoptional)‹P›): *(Anonymous function)*
 
-*Defined in [packages/reactant-module/src/decorators/defaultProps.ts:3](https://github.com/unadlib/reactant/blob/222a645/packages/reactant-module/src/decorators/defaultProps.ts#L3)*
+*Defined in [packages/reactant-module/src/decorators/defaultProps.ts:3](https://github.com/unadlib/reactant/blob/1aae545/packages/reactant-module/src/decorators/defaultProps.ts#L3)*
 
 **Type parameters:**
 

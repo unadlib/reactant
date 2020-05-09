@@ -21,7 +21,7 @@
 ### Properties
 
 * [id](_createcontainer_.moduleref.md#id)
-* [options](_createcontainer_.moduleref.md#options)
+* [options](_createcontainer_.moduleref.md#readonly-options)
 * [parent](_createcontainer_.moduleref.md#parent)
 
 ### Methods
@@ -80,11 +80,11 @@ Defined in node_modules/inversify/dts/container/container.d.ts:3
 
 ___
 
-###  options
+### `Readonly` options
 
 • **options**: *ContainerOptions*
 
-*Inherited from [ModuleRef](_createcontainer_.moduleref.md).[options](_createcontainer_.moduleref.md#options)*
+*Inherited from [ModuleRef](_createcontainer_.moduleref.md).[options](_createcontainer_.moduleref.md#readonly-options)*
 
 Defined in node_modules/inversify/dts/container/container.d.ts:5
 

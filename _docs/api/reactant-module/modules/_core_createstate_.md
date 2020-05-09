@@ -1,6 +1,6 @@
 [reactant-module](../README.md) › [Globals](../globals.md) › ["core/createState"](_core_createstate_.md)
 
-# External module: "core/createState"
+# Module: "core/createState"
 
 ## Index
 
@@ -14,7 +14,7 @@
 
 ▸ **createState**<**S**, **A**>(`reducer`: Reducer‹S, A›): *S*
 
-*Defined in [packages/reactant-module/src/core/createState.ts:3](https://github.com/unadlib/reactant/blob/222a645/packages/reactant-module/src/core/createState.ts#L3)*
+*Defined in [packages/reactant-module/src/core/createState.ts:3](https://github.com/unadlib/reactant/blob/1aae545/packages/reactant-module/src/core/createState.ts#L3)*
 
 **Type parameters:**
 

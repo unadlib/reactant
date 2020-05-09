@@ -1,6 +1,6 @@
 [reactant-module](../README.md) › [Globals](../globals.md) › ["utils/assign"](_utils_assign_.md)
 
-# External module: "utils/assign"
+# Module: "utils/assign"
 
 ## Index
 
@@ -14,7 +14,7 @@
 
 ▸ **assign**(`target`: object, `key`: string | symbol, `value`: any, `options?`: undefined | object): *void*
 
-*Defined in [packages/reactant-module/src/utils/assign.ts:1](https://github.com/unadlib/reactant/blob/222a645/packages/reactant-module/src/utils/assign.ts#L1)*
+*Defined in [packages/reactant-module/src/utils/assign.ts:1](https://github.com/unadlib/reactant/blob/1aae545/packages/reactant-module/src/utils/assign.ts#L1)*
 
 **Parameters:**
 

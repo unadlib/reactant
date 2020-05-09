@@ -1,6 +1,6 @@
 [reactant-module](../README.md) › [Globals](../globals.md) › ["utils/getStageName"](_utils_getstagename_.md)
 
-# External module: "utils/getStageName"
+# Module: "utils/getStageName"
 
 ## Index
 
@@ -14,7 +14,7 @@
 
 ▸ **getStageName**(`className`: string): *string*
 
-*Defined in [packages/reactant-module/src/utils/getStageName.ts:1](https://github.com/unadlib/reactant/blob/222a645/packages/reactant-module/src/utils/getStageName.ts#L1)*
+*Defined in [packages/reactant-module/src/utils/getStageName.ts:1](https://github.com/unadlib/reactant/blob/1aae545/packages/reactant-module/src/utils/getStageName.ts#L1)*
 
 **Parameters:**
 

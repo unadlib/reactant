@@ -35,7 +35,7 @@
 
 *Inherited from [PropertyDescriptor](_interfaces_.propertydescriptor.md).[configurable](_interfaces_.propertydescriptor.md#optional-configurable)*
 
-Defined in node_modules/typedoc/node_modules/typescript/lib/lib.es5.d.ts:1389
+Defined in node_modules/typescript/lib/lib.es5.d.ts:1389
 
 ___
 
@@ -45,7 +45,7 @@ ___
 
 *Inherited from [PropertyDescriptor](_interfaces_.propertydescriptor.md).[enumerable](_interfaces_.propertydescriptor.md#optional-enumerable)*
 
-Defined in node_modules/typedoc/node_modules/typescript/lib/lib.es5.d.ts:1388
+Defined in node_modules/typescript/lib/lib.es5.d.ts:1388
 
 ___
 
@@ -55,7 +55,7 @@ ___
 
 *Inherited from [PropertyDescriptor](_interfaces_.propertydescriptor.md).[get](_interfaces_.propertydescriptor.md#optional-get)*
 
-Defined in node_modules/typedoc/node_modules/typescript/lib/lib.es5.d.ts:1392
+Defined in node_modules/typescript/lib/lib.es5.d.ts:1392
 
 ___
 
@@ -65,7 +65,7 @@ ___
 
 *Inherited from [PropertyDescriptor](_interfaces_.propertydescriptor.md).[set](_interfaces_.propertydescriptor.md#optional-set)*
 
-Defined in node_modules/typedoc/node_modules/typescript/lib/lib.es5.d.ts:1393
+Defined in node_modules/typescript/lib/lib.es5.d.ts:1393
 
 ___
 
@@ -75,7 +75,7 @@ ___
 
 *Inherited from [PropertyDescriptor](_interfaces_.propertydescriptor.md).[value](_interfaces_.propertydescriptor.md#optional-value)*
 
-Defined in node_modules/typedoc/node_modules/typescript/lib/lib.es5.d.ts:1391
+Defined in node_modules/typescript/lib/lib.es5.d.ts:1391
 
 ___
 
@@ -85,7 +85,7 @@ ___
 
 *Inherited from [PropertyDescriptor](_interfaces_.propertydescriptor.md).[writable](_interfaces_.propertydescriptor.md#optional-writable)*
 
-Defined in node_modules/typedoc/node_modules/typescript/lib/lib.es5.d.ts:1390
+Defined in node_modules/typescript/lib/lib.es5.d.ts:1390
 
 ## Methods
 
@@ -93,6 +93,6 @@ Defined in node_modules/typedoc/node_modules/typescript/lib/lib.es5.d.ts:1390
 
 ▸ **initializer**(): *T*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:101](https://github.com/unadlib/reactant/blob/222a645/packages/reactant-module/src/interfaces.ts#L101)*
+*Defined in [packages/reactant-module/src/interfaces.ts:101](https://github.com/unadlib/reactant/blob/1aae545/packages/reactant-module/src/interfaces.ts#L101)*
 
 **Returns:** *T*

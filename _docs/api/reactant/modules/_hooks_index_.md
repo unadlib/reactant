@@ -1,6 +1,6 @@
 [reactant](../README.md) › [Globals](../globals.md) › ["hooks/index"](_hooks_index_.md)
 
-# External module: "hooks/index"
+# Module: "hooks/index"
 
 ## Index
 

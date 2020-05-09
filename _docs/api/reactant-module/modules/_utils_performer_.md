@@ -1,6 +1,6 @@
 [reactant-module](../README.md) › [Globals](../globals.md) › ["utils/performer"](_utils_performer_.md)
 
-# External module: "utils/performer"
+# Module: "utils/performer"
 
 ## Index
 
@@ -14,7 +14,7 @@
 
 ▸ **perform**(`funs`: Function[], `parameter?`: any): *any*
 
-*Defined in [packages/reactant-module/src/utils/performer.ts:1](https://github.com/unadlib/reactant/blob/222a645/packages/reactant-module/src/utils/performer.ts#L1)*
+*Defined in [packages/reactant-module/src/utils/performer.ts:1](https://github.com/unadlib/reactant/blob/1aae545/packages/reactant-module/src/utils/performer.ts#L1)*
 
 **Parameters:**
 

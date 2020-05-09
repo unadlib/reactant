@@ -1,6 +1,6 @@
 [reactant-module](../README.md) › [Globals](../globals.md) › ["decorators/autobind"](_decorators_autobind_.md)
 
-# External module: "decorators/autobind"
+# Module: "decorators/autobind"
 
 ## Index
 
@@ -14,7 +14,7 @@
 
 ▸ **autobind**(`target`: object, `key`: string | symbol, `__namedParameters`: object): *object*
 
-*Defined in [packages/reactant-module/src/decorators/autobind.ts:3](https://github.com/unadlib/reactant/blob/222a645/packages/reactant-module/src/decorators/autobind.ts#L3)*
+*Defined in [packages/reactant-module/src/decorators/autobind.ts:3](https://github.com/unadlib/reactant/blob/1aae545/packages/reactant-module/src/decorators/autobind.ts#L3)*
 
 **Parameters:**
 

@@ -1,6 +1,6 @@
 [reactant-di](../README.md) › [Globals](../globals.md) › ["decorators/injectable"](_decorators_injectable_.md)
 
-# External module: "decorators/injectable"
+# Module: "decorators/injectable"
 
 ## Index
 
@@ -14,7 +14,7 @@
 
 ▸ **injectable**(`options`: [ModuleDecoratorOptions](../interfaces/_interfaces_.moduledecoratoroptions.md)): *(Anonymous function)*
 
-*Defined in [packages/reactant-di/src/decorators/injectable.ts:10](https://github.com/unadlib/reactant/blob/222a645/packages/reactant-di/src/decorators/injectable.ts#L10)*
+*Defined in [packages/reactant-di/src/decorators/injectable.ts:10](https://github.com/unadlib/reactant/blob/1aae545/packages/reactant-di/src/decorators/injectable.ts#L10)*
 
 **Parameters:**
 

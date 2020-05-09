@@ -4,7 +4,7 @@
 
 ## Index
 
-### External modules
+### Modules
 
 * ["constants/index"](modules/_constants_index_.md)
 * ["constants/reduxKeys"](modules/_constants_reduxkeys_.md)

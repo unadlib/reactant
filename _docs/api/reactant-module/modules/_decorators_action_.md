@@ -1,6 +1,6 @@
 [reactant-module](../README.md) › [Globals](../globals.md) › ["decorators/action"](_decorators_action_.md)
 
-# External module: "decorators/action"
+# Module: "decorators/action"
 
 ## Index
 
@@ -14,7 +14,7 @@
 
 ▸ **action**(`target`: object, `key`: string | symbol, `descriptor`: TypedPropertyDescriptor‹function›): *object*
 
-*Defined in [packages/reactant-module/src/decorators/action.ts:6](https://github.com/unadlib/reactant/blob/222a645/packages/reactant-module/src/decorators/action.ts#L6)*
+*Defined in [packages/reactant-module/src/decorators/action.ts:6](https://github.com/unadlib/reactant/blob/1aae545/packages/reactant-module/src/decorators/action.ts#L6)*
 
 **Parameters:**
 

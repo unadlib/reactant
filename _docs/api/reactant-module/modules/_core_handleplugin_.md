@@ -1,6 +1,6 @@
 [reactant-module](../README.md) › [Globals](../globals.md) › ["core/handlePlugin"](_core_handleplugin_.md)
 
-# External module: "core/handlePlugin"
+# Module: "core/handlePlugin"
 
 ## Index
 
@@ -14,7 +14,7 @@
 
 ▸ **handlePlugin**(`service`: any, `pluginHooks`: [PluginHooks](_interfaces_.md#pluginhooks)): *void*
 
-*Defined in [packages/reactant-module/src/core/handlePlugin.ts:5](https://github.com/unadlib/reactant/blob/222a645/packages/reactant-module/src/core/handlePlugin.ts#L5)*
+*Defined in [packages/reactant-module/src/core/handlePlugin.ts:5](https://github.com/unadlib/reactant/blob/1aae545/packages/reactant-module/src/core/handlePlugin.ts#L5)*
 
 **Parameters:**
 

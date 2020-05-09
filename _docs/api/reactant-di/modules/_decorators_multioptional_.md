@@ -1,6 +1,6 @@
 [reactant-di](../README.md) › [Globals](../globals.md) › ["decorators/multiOptional"](_decorators_multioptional_.md)
 
-# External module: "decorators/multiOptional"
+# Module: "decorators/multiOptional"
 
 ## Index
 
@@ -14,7 +14,7 @@
 
 ▸ **multiOptional**(`serviceIdentifier`: [ServiceIdentifier](_interfaces_.md#serviceidentifier)‹any›): *(Anonymous function)*
 
-*Defined in [packages/reactant-di/src/decorators/multiOptional.ts:7](https://github.com/unadlib/reactant/blob/222a645/packages/reactant-di/src/decorators/multiOptional.ts#L7)*
+*Defined in [packages/reactant-di/src/decorators/multiOptional.ts:7](https://github.com/unadlib/reactant/blob/1aae545/packages/reactant-di/src/decorators/multiOptional.ts#L7)*
 
 **Parameters:**
 

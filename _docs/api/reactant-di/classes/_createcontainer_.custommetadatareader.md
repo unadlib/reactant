@@ -27,7 +27,7 @@
 
 *Overrides void*
 
-*Defined in [packages/reactant-di/src/createContainer.ts:90](https://github.com/unadlib/reactant/blob/222a645/packages/reactant-di/src/createContainer.ts#L90)*
+*Defined in [packages/reactant-di/src/createContainer.ts:90](https://github.com/unadlib/reactant/blob/1aae545/packages/reactant-di/src/createContainer.ts#L90)*
 
 **Parameters:**
 

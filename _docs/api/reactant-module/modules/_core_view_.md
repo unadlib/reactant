@@ -1,6 +1,6 @@
 [reactant-module](../README.md) › [Globals](../globals.md) › ["core/view"](_core_view_.md)
 
-# External module: "core/view"
+# Module: "core/view"
 
 ## Index
 

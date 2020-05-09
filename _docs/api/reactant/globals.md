@@ -4,7 +4,7 @@
 
 ## Index
 
-### External modules
+### Modules
 
 * ["createApp"](modules/_createapp_.md)
 * ["hooks/index"](modules/_hooks_index_.md)

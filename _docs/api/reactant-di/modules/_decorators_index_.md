@@ -1,6 +1,6 @@
 [reactant-di](../README.md) › [Globals](../globals.md) › ["decorators/index"](_decorators_index_.md)
 
-# External module: "decorators/index"
+# Module: "decorators/index"
 
 ## Index
 

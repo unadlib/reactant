@@ -1,6 +1,6 @@
 [reactant-di](../README.md) › [Globals](../globals.md) › ["decorators/inject"](_decorators_inject_.md)
 
-# External module: "decorators/inject"
+# Module: "decorators/inject"
 
 ## Index
 
@@ -14,7 +14,7 @@
 
 ▸ **inject**(`serviceIdentifierOrFunc?`: [ServiceIdentifierOrFunc](_interfaces_.md#serviceidentifierorfunc)‹any›): *(Anonymous function)*
 
-*Defined in [packages/reactant-di/src/decorators/inject.ts:10](https://github.com/unadlib/reactant/blob/222a645/packages/reactant-di/src/decorators/inject.ts#L10)*
+*Defined in [packages/reactant-di/src/decorators/inject.ts:10](https://github.com/unadlib/reactant/blob/1aae545/packages/reactant-di/src/decorators/inject.ts#L10)*
 
 **Parameters:**
 

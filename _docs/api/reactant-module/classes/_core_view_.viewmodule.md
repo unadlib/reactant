@@ -18,7 +18,7 @@
 
 ### Properties
 
-* [[storeKey]](_core_view_.viewmodule.md#optional-[storekey])
+* [[storeKey]](_core_view_.viewmodule.md#optional-readonly-[storekey])
 * [name](_core_view_.viewmodule.md#optional-name)
 
 ### Methods
@@ -31,19 +31,19 @@
 
 \+ **new ViewModule**(): *[ViewModule](_core_view_.viewmodule.md)*
 
-*Defined in [packages/reactant-module/src/core/view.ts:10](https://github.com/unadlib/reactant/blob/222a645/packages/reactant-module/src/core/view.ts#L10)*
+*Defined in [packages/reactant-module/src/core/view.ts:10](https://github.com/unadlib/reactant/blob/1aae545/packages/reactant-module/src/core/view.ts#L10)*
 
 **Returns:** *[ViewModule](_core_view_.viewmodule.md)*
 
 ## Properties
 
-### `Optional` [storeKey]
+### `Optional` `Readonly` [storeKey]
 
 • **[storeKey]**? : *Store*
 
-*Implementation of [Service](../interfaces/_interfaces_.service.md).[[storeKey]](../interfaces/_interfaces_.service.md#optional-[storekey])*
+*Implementation of [Service](../interfaces/_interfaces_.service.md).[[storeKey]](../interfaces/_interfaces_.service.md#optional-readonly-[storekey])*
 
-*Defined in [packages/reactant-module/src/core/view.ts:8](https://github.com/unadlib/reactant/blob/222a645/packages/reactant-module/src/core/view.ts#L8)*
+*Defined in [packages/reactant-module/src/core/view.ts:8](https://github.com/unadlib/reactant/blob/1aae545/packages/reactant-module/src/core/view.ts#L8)*
 
 ___
 
@@ -53,7 +53,7 @@ ___
 
 *Implementation of [Service](../interfaces/_interfaces_.service.md).[name](../interfaces/_interfaces_.service.md#optional-name)*
 
-*Defined in [packages/reactant-module/src/core/view.ts:10](https://github.com/unadlib/reactant/blob/222a645/packages/reactant-module/src/core/view.ts#L10)*
+*Defined in [packages/reactant-module/src/core/view.ts:10](https://github.com/unadlib/reactant/blob/1aae545/packages/reactant-module/src/core/view.ts#L10)*
 
 ## Methods
 
@@ -61,7 +61,7 @@ ___
 
 ▸ **component**(`props`: Record‹string, any›): *ReactElement | null*
 
-*Defined in [packages/reactant-module/src/core/view.ts:29](https://github.com/unadlib/reactant/blob/222a645/packages/reactant-module/src/core/view.ts#L29)*
+*Defined in [packages/reactant-module/src/core/view.ts:29](https://github.com/unadlib/reactant/blob/1aae545/packages/reactant-module/src/core/view.ts#L29)*
 
 **Parameters:**
 

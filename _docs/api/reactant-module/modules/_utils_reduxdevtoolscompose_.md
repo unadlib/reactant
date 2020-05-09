@@ -1,6 +1,6 @@
 [reactant-module](../README.md) › [Globals](../globals.md) › ["utils/reduxDevToolsCompose"](_utils_reduxdevtoolscompose_.md)
 
-# External module: "utils/reduxDevToolsCompose"
+# Module: "utils/reduxDevToolsCompose"
 
 ## Index
 
@@ -14,7 +14,7 @@
 
 ▸ **getComposeEnhancers**(`enableReduxDevTools`: boolean, `reduxDevToolsOptions?`: [ReduxDevToolsOptions](_interfaces_.md#reduxdevtoolsoptions)): *any*
 
-*Defined in [packages/reactant-module/src/utils/reduxDevToolsCompose.ts:4](https://github.com/unadlib/reactant/blob/222a645/packages/reactant-module/src/utils/reduxDevToolsCompose.ts#L4)*
+*Defined in [packages/reactant-module/src/utils/reduxDevToolsCompose.ts:4](https://github.com/unadlib/reactant/blob/1aae545/packages/reactant-module/src/utils/reduxDevToolsCompose.ts#L4)*
 
 **Parameters:**
 

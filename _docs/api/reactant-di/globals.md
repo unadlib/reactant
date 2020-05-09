@@ -4,7 +4,7 @@
 
 ## Index
 
-### External modules
+### Modules
 
 * ["constants"](modules/_constants_.md)
 * ["createContainer"](modules/_createcontainer_.md)

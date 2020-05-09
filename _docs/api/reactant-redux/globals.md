@@ -4,7 +4,7 @@
 
 ## Index
 
-### External modules
+### Modules
 
 * ["index"](modules/_index_.md)
 * ["redux"](modules/_redux_.md)

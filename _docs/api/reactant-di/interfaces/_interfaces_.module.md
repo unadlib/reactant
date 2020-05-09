@@ -23,8 +23,8 @@
 * [Function](_interfaces_.module.md#function)
 * [arguments](_interfaces_.module.md#arguments)
 * [caller](_interfaces_.module.md#caller)
-* [length](_interfaces_.module.md#length)
-* [name](_interfaces_.module.md#name)
+* [length](_interfaces_.module.md#readonly-length)
+* [name](_interfaces_.module.md#readonly-name)
 * [prototype](_interfaces_.module.md#prototype)
 
 ### Methods
@@ -41,7 +41,7 @@
 
 \+ **new Module**(...`args`: any[]): *T*
 
-*Defined in [packages/reactant-di/src/interfaces.ts:26](https://github.com/unadlib/reactant/blob/222a645/packages/reactant-di/src/interfaces.ts#L26)*
+*Defined in [packages/reactant-di/src/interfaces.ts:26](https://github.com/unadlib/reactant/blob/1aae545/packages/reactant-di/src/interfaces.ts#L26)*
 
 **Parameters:**
 
@@ -57,7 +57,7 @@ Name | Type |
 
 • **Function**: *FunctionConstructor*
 
-Defined in node_modules/typedoc/node_modules/typescript/lib/lib.es5.d.ts:316
+Defined in node_modules/typescript/lib/lib.es5.d.ts:316
 
 ___
 
@@ -67,7 +67,7 @@ ___
 
 *Inherited from [Module](_interfaces_.module.md).[arguments](_interfaces_.module.md#arguments)*
 
-Defined in node_modules/typedoc/node_modules/typescript/lib/lib.es5.d.ts:302
+Defined in node_modules/typescript/lib/lib.es5.d.ts:302
 
 ___
 
@@ -77,27 +77,27 @@ ___
 
 *Inherited from [Module](_interfaces_.module.md).[caller](_interfaces_.module.md#caller)*
 
-Defined in node_modules/typedoc/node_modules/typescript/lib/lib.es5.d.ts:303
+Defined in node_modules/typescript/lib/lib.es5.d.ts:303
 
 ___
 
-###  length
+### `Readonly` length
 
 • **length**: *number*
 
-*Inherited from [Module](_interfaces_.module.md).[length](_interfaces_.module.md#length)*
+*Inherited from [Module](_interfaces_.module.md).[length](_interfaces_.module.md#readonly-length)*
 
-Defined in node_modules/typedoc/node_modules/typescript/lib/lib.es5.d.ts:299
+Defined in node_modules/typescript/lib/lib.es5.d.ts:299
 
 ___
 
-###  name
+### `Readonly` name
 
 • **name**: *string*
 
-*Inherited from [Module](_interfaces_.module.md).[name](_interfaces_.module.md#name)*
+*Inherited from [Module](_interfaces_.module.md).[name](_interfaces_.module.md#readonly-name)*
 
-Defined in node_modules/typedoc/node_modules/typescript/lib/lib.es2015.core.d.ts:97
+Defined in node_modules/typescript/lib/lib.es2015.core.d.ts:97
 
 Returns the name of the function. Function names are read-only and can not be changed.
 
@@ -109,7 +109,7 @@ ___
 
 *Inherited from [Module](_interfaces_.module.md).[prototype](_interfaces_.module.md#prototype)*
 
-Defined in node_modules/typedoc/node_modules/typescript/lib/lib.es5.d.ts:298
+Defined in node_modules/typescript/lib/lib.es5.d.ts:298
 
 ## Methods
 
@@ -119,7 +119,7 @@ Defined in node_modules/typedoc/node_modules/typescript/lib/lib.es5.d.ts:298
 
 *Inherited from [Module](_interfaces_.module.md).[[Symbol.hasInstance]](_interfaces_.module.md#[symbol.hasinstance])*
 
-Defined in node_modules/typedoc/node_modules/typescript/lib/lib.es2015.symbol.wellknown.d.ts:157
+Defined in node_modules/typescript/lib/lib.es2015.symbol.wellknown.d.ts:157
 
 Determines whether the given value inherits from this function if this function was used
 as a constructor function.
@@ -143,7 +143,7 @@ ___
 
 *Inherited from [Module](_interfaces_.module.md).[apply](_interfaces_.module.md#apply)*
 
-Defined in node_modules/typedoc/node_modules/typescript/lib/lib.es5.d.ts:278
+Defined in node_modules/typescript/lib/lib.es5.d.ts:278
 
 Calls the function, substituting the specified object for the this value of the function, and the specified array for the arguments of the function.
 
@@ -165,7 +165,7 @@ ___
 
 *Inherited from [Module](_interfaces_.module.md).[bind](_interfaces_.module.md#bind)*
 
-Defined in node_modules/typedoc/node_modules/typescript/lib/lib.es5.d.ts:293
+Defined in node_modules/typescript/lib/lib.es5.d.ts:293
 
 For a given function, creates a bound function that has the same body as the original function.
 The this object of the bound function is associated with the specified object, and has the specified initial parameters.
@@ -188,7 +188,7 @@ ___
 
 *Inherited from [Module](_interfaces_.module.md).[call](_interfaces_.module.md#call)*
 
-Defined in node_modules/typedoc/node_modules/typescript/lib/lib.es5.d.ts:285
+Defined in node_modules/typescript/lib/lib.es5.d.ts:285
 
 Calls a method of an object, substituting another object for the current object.
 
@@ -210,7 +210,7 @@ ___
 
 *Inherited from [Module](_interfaces_.module.md).[toString](_interfaces_.module.md#tostring)*
 
-Defined in node_modules/typedoc/node_modules/typescript/lib/lib.es5.d.ts:296
+Defined in node_modules/typescript/lib/lib.es5.d.ts:296
 
 Returns a string representation of a function.
 

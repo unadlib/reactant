@@ -1,6 +1,6 @@
 [reactant](../README.md) › [Globals](../globals.md) › ["hooks/useConnector"](_hooks_useconnector_.md)
 
-# External module: "hooks/useConnector"
+# Module: "hooks/useConnector"
 
 ## Index
 
@@ -18,7 +18,7 @@
 
 Ƭ **ShallowEqual**: *function*
 
-*Defined in [hooks/useConnector.ts:4](https://github.com/unadlib/reactant/blob/222a645/packages/reactant/src/hooks/useConnector.ts#L4)*
+*Defined in [hooks/useConnector.ts:4](https://github.com/unadlib/reactant/blob/1aae545/packages/reactant/src/hooks/useConnector.ts#L4)*
 
 #### Type declaration:
 
@@ -37,7 +37,7 @@ Name | Type |
 
 ▸ **useConnector**<**T**>(`selector`: function, `shallowEqual?`: [ShallowEqual](_hooks_useconnector_.md#shallowequal)): *T*
 
-*Defined in [hooks/useConnector.ts:6](https://github.com/unadlib/reactant/blob/222a645/packages/reactant/src/hooks/useConnector.ts#L6)*
+*Defined in [hooks/useConnector.ts:6](https://github.com/unadlib/reactant/blob/1aae545/packages/reactant/src/hooks/useConnector.ts#L6)*
 
 **Type parameters:**
 

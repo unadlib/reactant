@@ -21,7 +21,7 @@
 
 • **loading**? : *ReactNode*
 
-*Defined in [packages/reactant-storage/src/storage.tsx:25](https://github.com/unadlib/reactant/blob/222a645/packages/reactant-storage/src/storage.tsx#L25)*
+*Defined in [packages/reactant-storage/src/storage.tsx:25](https://github.com/unadlib/reactant/blob/1aae545/packages/reactant-storage/src/storage.tsx#L25)*
 
 ___
 
@@ -29,4 +29,4 @@ ___
 
 • **storage**: *Storage*
 
-*Defined in [packages/reactant-storage/src/storage.tsx:24](https://github.com/unadlib/reactant/blob/222a645/packages/reactant-storage/src/storage.tsx#L24)*
+*Defined in [packages/reactant-storage/src/storage.tsx:24](https://github.com/unadlib/reactant/blob/1aae545/packages/reactant-storage/src/storage.tsx#L24)*

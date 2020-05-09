@@ -1,6 +1,6 @@
 [reactant-router](../README.md) › [Globals](../globals.md) › ["router"](_router_.md)
 
-# External module: "router"
+# Module: "router"
 
 ## Index
 
@@ -33,4 +33,4 @@
 
 • **RouterOptions**: *unique symbol* = Symbol('RouterOptions')
 
-*Defined in [packages/reactant-router/src/router.tsx:11](https://github.com/unadlib/reactant/blob/222a645/packages/reactant-router/src/router.tsx#L11)*
+*Defined in [packages/reactant-router/src/router.tsx:11](https://github.com/unadlib/reactant/blob/1aae545/packages/reactant-router/src/router.tsx#L11)*

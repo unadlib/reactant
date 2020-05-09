@@ -1,6 +1,6 @@
 [reactant-module](../README.md) › [Globals](../globals.md) › ["core/index"](_core_index_.md)
 
-# External module: "core/index"
+# Module: "core/index"
 
 ## Index
 

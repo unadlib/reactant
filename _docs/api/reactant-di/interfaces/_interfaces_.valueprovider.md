@@ -19,7 +19,7 @@
 
 • **provide**: *[ServiceIdentifier](../modules/_interfaces_.md#serviceidentifier)‹any›*
 
-*Defined in [packages/reactant-di/src/interfaces.ts:40](https://github.com/unadlib/reactant/blob/222a645/packages/reactant-di/src/interfaces.ts#L40)*
+*Defined in [packages/reactant-di/src/interfaces.ts:40](https://github.com/unadlib/reactant/blob/1aae545/packages/reactant-di/src/interfaces.ts#L40)*
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 • **useValue**: *any*
 
-*Defined in [packages/reactant-di/src/interfaces.ts:41](https://github.com/unadlib/reactant/blob/222a645/packages/reactant-di/src/interfaces.ts#L41)*
+*Defined in [packages/reactant-di/src/interfaces.ts:41](https://github.com/unadlib/reactant/blob/1aae545/packages/reactant-di/src/interfaces.ts#L41)*

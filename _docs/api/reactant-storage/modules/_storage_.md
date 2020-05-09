@@ -1,6 +1,6 @@
 [reactant-storage](../README.md) › [Globals](../globals.md) › ["storage"](_storage_.md)
 
-# External module: "storage"
+# Module: "storage"
 
 ## Index
 
@@ -36,7 +36,7 @@
 
 Ƭ **SetStorageOptions**: *Pick‹Partial‹PersistConfig‹any››, Exclude‹keyof PersistConfig<any>, "key" | "blacklist" | "whitelist"›› & object*
 
-*Defined in [packages/reactant-storage/src/storage.tsx:28](https://github.com/unadlib/reactant/blob/222a645/packages/reactant-storage/src/storage.tsx#L28)*
+*Defined in [packages/reactant-storage/src/storage.tsx:28](https://github.com/unadlib/reactant/blob/1aae545/packages/reactant-storage/src/storage.tsx#L28)*
 
 ## Variables
 
@@ -44,4 +44,4 @@
 
 • **StorageOptions**: *unique symbol* = Symbol('StorageOptions')
 
-*Defined in [packages/reactant-storage/src/storage.tsx:21](https://github.com/unadlib/reactant/blob/222a645/packages/reactant-storage/src/storage.tsx#L21)*
+*Defined in [packages/reactant-storage/src/storage.tsx:21](https://github.com/unadlib/reactant/blob/1aae545/packages/reactant-storage/src/storage.tsx#L21)*
