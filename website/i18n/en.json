@@ -14,9 +14,6 @@
       "concepts": {
         "title": "Concepts"
       },
-      "createApp": {
-        "title": "createApp"
-      },
       "dev-tools": {
         "title": "Dev Tools"
       },
@@ -44,6 +41,93 @@
       },
       "persistence": {
         "title": "Persistence"
+      },
+      "reactant-di/forwardRef": {
+        "title": "forwardRef()"
+      },
+      "reactant-di/inject": {
+        "title": "@inject()"
+      },
+      "reactant-di/injectable": {
+        "title": "@injectable()"
+      },
+      "reactant-di/ModuleRef": {
+        "title": "ModuleRef"
+      },
+      "reactant-di/multiInject": {
+        "title": "@multiInject()"
+      },
+      "reactant-di/multiOptional": {
+        "title": "@multiOptional()"
+      },
+      "reactant-di/optional": {
+        "title": "@optional()"
+      },
+      "reactant-model/model": {
+        "title": "model()"
+      },
+      "reactant-module/action": {
+        "title": "@action"
+      },
+      "reactant-module/autobind": {
+        "title": "@autobind"
+      },
+      "reactant-module/createSelector": {
+        "title": "createSelector()"
+      },
+      "reactant-module/createState": {
+        "title": "createState()"
+      },
+      "reactant-module/defaultProps": {
+        "title": "@defaultProps()"
+      },
+      "reactant-module/dispatch": {
+        "title": "dispatch()"
+      },
+      "reactant-module/PluginModule": {
+        "title": "PluginModule"
+      },
+      "reactant-module/state": {
+        "title": "@state"
+      },
+      "reactant-module/subscribe": {
+        "title": "subscribe()"
+      },
+      "reactant-module/ViewModule": {
+        "title": "ViewModule"
+      },
+      "reactant-module/watch": {
+        "title": "watch()"
+      },
+      "reactant-native/render": {
+        "title": "render()"
+      },
+      "reactant-redux/redux": {
+        "title": "redux()"
+      },
+      "reactant-router/Router": {
+        "title": "Router"
+      },
+      "reactant-router/RouterOptions": {
+        "title": "RouterOptions"
+      },
+      "reactant-storage/Storage": {
+        "title": "Storage"
+      },
+      "reactant-storage/StorageOptions": {
+        "title": "StorageOptions"
+      },
+      "reactant-web/render": {
+        "title": "render()"
+      },
+      "reactant/createApp": {
+        "title": "createApp()"
+      },
+      "reactant/testBed": {
+        "title": "testBed()"
+      },
+      "reactant/useConnector": {
+        "title": "useConnector()"
       },
       "routing": {
         "title": "Routing"
