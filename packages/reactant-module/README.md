@@ -8,10 +8,8 @@ A module model for Reactant
 
 ```sh
 npm install reactant-module
-```
-
-or
-
-```sh
+# or
 yarn add reactant-module
 ```
+
+You can visit [reactant.js.org](https://reactant.js.org/) for more documentation.

@@ -1,6 +1,6 @@
 ---
 id: hooks
-title: Reactant hooks
+title: Reactant Hooks
 ---
 
 todo
