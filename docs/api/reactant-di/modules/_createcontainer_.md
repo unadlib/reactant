@@ -34,7 +34,7 @@ sidebar_label: "createContainer"
 
 • **defaultUndefinedValue**: *unique symbol* = Symbol('defaultUndefined')
 
-*Defined in [packages/reactant-di/src/createContainer.ts:24](https://github.com/unadlib/reactant/blob/b562240/packages/reactant-di/src/createContainer.ts#L24)*
+*Defined in [packages/reactant-di/src/createContainer.ts:24](https://github.com/unadlib/reactant/blob/5ec3851/packages/reactant-di/src/createContainer.ts#L24)*
 
 ___
 
@@ -42,7 +42,7 @@ ___
 
 • **modulesDeps**: *[ModuleOptions](_interfaces_.md#moduleoptions)[]*
 
-*Defined in [packages/reactant-di/src/createContainer.ts:36](https://github.com/unadlib/reactant/blob/b562240/packages/reactant-di/src/createContainer.ts#L36)*
+*Defined in [packages/reactant-di/src/createContainer.ts:36](https://github.com/unadlib/reactant/blob/5ec3851/packages/reactant-di/src/createContainer.ts#L36)*
 
 ## Functions
 
@@ -50,7 +50,7 @@ ___
 
 ▸ **autoBindModules**(): *ContainerModule‹›*
 
-*Defined in [packages/reactant-di/src/createContainer.ts:99](https://github.com/unadlib/reactant/blob/b562240/packages/reactant-di/src/createContainer.ts#L99)*
+*Defined in [packages/reactant-di/src/createContainer.ts:99](https://github.com/unadlib/reactant/blob/5ec3851/packages/reactant-di/src/createContainer.ts#L99)*
 
 **Returns:** *ContainerModule‹›*
 
@@ -60,7 +60,7 @@ ___
 
 ▸ **autoDecorateParams**(`target`: object): *void*
 
-*Defined in [packages/reactant-di/src/createContainer.ts:145](https://github.com/unadlib/reactant/blob/b562240/packages/reactant-di/src/createContainer.ts#L145)*
+*Defined in [packages/reactant-di/src/createContainer.ts:145](https://github.com/unadlib/reactant/blob/5ec3851/packages/reactant-di/src/createContainer.ts#L145)*
 
 It ensures that the parameters of all modules from the configuration are decorated.
 
@@ -88,7 +88,7 @@ ___
 
 ▸ **createContainer**(`__namedParameters`: object): *Container‹›*
 
-*Defined in [packages/reactant-di/src/createContainer.ts:161](https://github.com/unadlib/reactant/blob/b562240/packages/reactant-di/src/createContainer.ts#L161)*
+*Defined in [packages/reactant-di/src/createContainer.ts:161](https://github.com/unadlib/reactant/blob/5ec3851/packages/reactant-di/src/createContainer.ts#L161)*
 
 **Parameters:**
 
@@ -108,7 +108,7 @@ ___
 
 ▸ **forwardRef**(`callback`: function): *LazyServiceIdentifer‹any›*
 
-*Defined in [packages/reactant-di/src/createContainer.ts:82](https://github.com/unadlib/reactant/blob/b562240/packages/reactant-di/src/createContainer.ts#L82)*
+*Defined in [packages/reactant-di/src/createContainer.ts:82](https://github.com/unadlib/reactant/blob/5ec3851/packages/reactant-di/src/createContainer.ts#L82)*
 
 **Parameters:**
 
@@ -124,7 +124,7 @@ ___
 
 ▸ **isClassProvider**(`module`: [ModuleOptions](_interfaces_.md#moduleoptions)): *module is ClassProvider*
 
-*Defined in [packages/reactant-di/src/createContainer.ts:122](https://github.com/unadlib/reactant/blob/b562240/packages/reactant-di/src/createContainer.ts#L122)*
+*Defined in [packages/reactant-di/src/createContainer.ts:122](https://github.com/unadlib/reactant/blob/5ec3851/packages/reactant-di/src/createContainer.ts#L122)*
 
 **Parameters:**
 
@@ -140,7 +140,7 @@ ___
 
 ▸ **isFactoryProvider**(`module`: [ModuleOptions](_interfaces_.md#moduleoptions)): *module is FactoryProvider*
 
-*Defined in [packages/reactant-di/src/createContainer.ts:126](https://github.com/unadlib/reactant/blob/b562240/packages/reactant-di/src/createContainer.ts#L126)*
+*Defined in [packages/reactant-di/src/createContainer.ts:126](https://github.com/unadlib/reactant/blob/5ec3851/packages/reactant-di/src/createContainer.ts#L126)*
 
 **Parameters:**
 
@@ -156,7 +156,7 @@ ___
 
 ▸ **lookupOptionalIdentifier**(`serviceIdentifier`: [ServiceIdentifier](_interfaces_.md#serviceidentifier)‹any›): *boolean*
 
-*Defined in [packages/reactant-di/src/createContainer.ts:63](https://github.com/unadlib/reactant/blob/b562240/packages/reactant-di/src/createContainer.ts#L63)*
+*Defined in [packages/reactant-di/src/createContainer.ts:63](https://github.com/unadlib/reactant/blob/5ec3851/packages/reactant-di/src/createContainer.ts#L63)*
 
 **Parameters:**
 
@@ -172,7 +172,7 @@ ___
 
 ▸ **lookupServiceIdentifier**(`target`: object, `original`: [ServiceIdentifier](_interfaces_.md#serviceidentifier)‹any›, `index?`: undefined | number): *string | symbol | Abstract‹any›*
 
-*Defined in [packages/reactant-di/src/createContainer.ts:38](https://github.com/unadlib/reactant/blob/b562240/packages/reactant-di/src/createContainer.ts#L38)*
+*Defined in [packages/reactant-di/src/createContainer.ts:38](https://github.com/unadlib/reactant/blob/5ec3851/packages/reactant-di/src/createContainer.ts#L38)*
 
 **Parameters:**
 

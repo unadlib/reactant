@@ -4,6 +4,14 @@ title: "reactant-router"
 sidebar_label: "README"
 ---
 
-## API
+# reactant-router
 
-* [Router](modules/_router_.md)
+![Node CI](https://github.com/unadlib/reactant/workflows/Node%20CI/badge.svg)
+
+A router plugin module for Reactant
+
+## Usage
+
+```sh
+yarn add reactant-router
+```

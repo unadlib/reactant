@@ -4,6 +4,14 @@ title: "reactant-storage"
 sidebar_label: "README"
 ---
 
-## API
+# reactant-storage
 
-* [Storage](modules/_storage_.md)
+![Node CI](https://github.com/unadlib/reactant/workflows/Node%20CI/badge.svg)
+
+A persistence plugin module for Reactant
+
+## Usage
+
+```sh
+yarn add reactant-storage
+```

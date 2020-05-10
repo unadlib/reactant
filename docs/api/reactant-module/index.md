@@ -4,16 +4,20 @@ title: "reactant-module"
 sidebar_label: "README"
 ---
 
-## API
+# reactant-module
 
-* [createSelector](modules/_core_createselector_.md)
-* [createState](modules/_core_createstate_.md)
-* [dispatch](modules/_core_dispatch_.md)
-* [subscribe](modules/_core_subscriber_.md)
-* [watch](modules/_core_subscriber_.md)
-* [ViewModule](modules/_core_view_.md)
-* [PluginModule](modules/_core_plugin_.md)
-* [@state](modules/_decorators_state_.md)
-* [@action](modules/_decorators_action_.md)
-* [@defaultProps](modules/_decorators_defaultProps_.md)
-* [@autobind](modules/_decorators_autobind_.md)
+![Node CI](https://github.com/unadlib/reactant/workflows/Node%20CI/badge.svg)
+
+A module model for Reactant
+
+## Usage
+
+```sh
+npm install reactant-module
+```
+
+or
+
+```sh
+yarn add reactant-module
+```

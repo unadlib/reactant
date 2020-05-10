@@ -29,7 +29,7 @@ sidebar_label: "ReturnValue"
 
 • **instance**: *T*
 
-*Defined in [createApp.tsx:30](https://github.com/unadlib/reactant/blob/b562240/packages/reactant/src/createApp.tsx#L30)*
+*Defined in [createApp.tsx:30](https://github.com/unadlib/reactant/blob/5ec3851/packages/reactant/src/createApp.tsx#L30)*
 
 ___
 
@@ -37,7 +37,7 @@ ___
 
 • **store**: *ReactantStore | null*
 
-*Defined in [createApp.tsx:31](https://github.com/unadlib/reactant/blob/b562240/packages/reactant/src/createApp.tsx#L31)*
+*Defined in [createApp.tsx:31](https://github.com/unadlib/reactant/blob/5ec3851/packages/reactant/src/createApp.tsx#L31)*
 
 ## Methods
 
@@ -45,7 +45,7 @@ ___
 
 ▸ **bootstrap**(...`args`: any[]): *void | Element*
 
-*Defined in [createApp.tsx:32](https://github.com/unadlib/reactant/blob/b562240/packages/reactant/src/createApp.tsx#L32)*
+*Defined in [createApp.tsx:32](https://github.com/unadlib/reactant/blob/5ec3851/packages/reactant/src/createApp.tsx#L32)*
 
 **Parameters:**
 

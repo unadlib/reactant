@@ -11,3 +11,5 @@ npx reactant-cli init my-app
 cd my-app
 yarn start
 ```
+
+You can visit [reactant.js.org](https://reactant.js.org/) for more documentation.

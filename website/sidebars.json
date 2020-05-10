@@ -2,8 +2,8 @@
   "docs": {
     "Getting Started": ["introduction", "installation", "concepts"],
     "Basic Tutorial": [
-      "component",
       "state-action",
+      "component",
       "view-module",
       "di",
       "hooks",
@@ -17,7 +17,9 @@
   "docs-other": {
     "Basics": [
       "api/reactant/modules/_createapp_",
-      "api/reactant/modules/_hooks_useconnector_"
+      "api/reactant/modules/_hooks_useconnector_",
+      "testBed",
+      "batch"
     ],
     "Module": [
       "api/reactant-module/modules/_decorators_state_",

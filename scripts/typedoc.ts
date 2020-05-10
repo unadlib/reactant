@@ -18,7 +18,7 @@ const generateDocs = (project: string) => {
     '--module',
     'commonjs',
     '--readme',
-    `packages/${project}/api`,
+    `packages/${project}/README.md`,
     '--excludeExternals',
     '--theme',
     'docusaurus',

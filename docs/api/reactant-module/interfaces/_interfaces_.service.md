@@ -35,7 +35,7 @@ sidebar_label: "Service"
 
 • **[stagedStateKey]**? : *T*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:41](https://github.com/unadlib/reactant/blob/b562240/packages/reactant-module/src/interfaces.ts#L41)*
+*Defined in [packages/reactant-module/src/interfaces.ts:41](https://github.com/unadlib/reactant/blob/5ec3851/packages/reactant-module/src/interfaces.ts#L41)*
 
 ___
 
@@ -43,7 +43,7 @@ ___
 
 • **[stateKey]**? : *T*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:42](https://github.com/unadlib/reactant/blob/b562240/packages/reactant-module/src/interfaces.ts#L42)*
+*Defined in [packages/reactant-module/src/interfaces.ts:42](https://github.com/unadlib/reactant/blob/5ec3851/packages/reactant-module/src/interfaces.ts#L42)*
 
 ___
 
@@ -51,7 +51,7 @@ ___
 
 • **[storeKey]**? : *Store*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:43](https://github.com/unadlib/reactant/blob/b562240/packages/reactant-module/src/interfaces.ts#L43)*
+*Defined in [packages/reactant-module/src/interfaces.ts:43](https://github.com/unadlib/reactant/blob/5ec3851/packages/reactant-module/src/interfaces.ts#L43)*
 
 ___
 
@@ -59,7 +59,7 @@ ___
 
 • **[subscriptionsKey]**? : *[Subscriptions](../modules/_interfaces_.md#subscriptions)*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:44](https://github.com/unadlib/reactant/blob/b562240/packages/reactant-module/src/interfaces.ts#L44)*
+*Defined in [packages/reactant-module/src/interfaces.ts:44](https://github.com/unadlib/reactant/blob/5ec3851/packages/reactant-module/src/interfaces.ts#L44)*
 
 ___
 
@@ -69,4 +69,4 @@ ___
 
 *Inherited from [State](_interfaces_.state.md).[name](_interfaces_.state.md#optional-name)*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:34](https://github.com/unadlib/reactant/blob/b562240/packages/reactant-module/src/interfaces.ts#L34)*
+*Defined in [packages/reactant-module/src/interfaces.ts:34](https://github.com/unadlib/reactant/blob/5ec3851/packages/reactant-module/src/interfaces.ts#L34)*

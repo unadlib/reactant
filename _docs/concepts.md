@@ -1,6 +1,0 @@
-## Concepts
-
-todo
-
-### View Module
-
