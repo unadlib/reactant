@@ -5,7 +5,7 @@ import { spawn } from 'child_process';
 process.chdir(path.resolve(__dirname, '..'));
 
 const generateDocs = (project: string) => {
-  const projectApiPath = path.resolve(`_docs/api/${project}`);
+  const projectApiPath = path.resolve(`docs/api/${project}`);
   fs.removeSync(projectApiPath);
   const args = [
     '--out',
@@ -20,6 +20,10 @@ const generateDocs = (project: string) => {
     '--readme',
     `packages/${project}/api`,
     '--excludeExternals',
+    '--theme',
+    'docusaurus',
+    '--hideBreadcrumbs',
+    '--skipSidebar',
   ];
   spawn('typedoc', args, {
     stdio: 'inherit',

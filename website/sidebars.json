@@ -1,40 +1,57 @@
 {
   "docs": {
     "Getting Started": ["introduction", "installation", "concepts"],
-    "Basic Tutorial": ["component", "state-action", "view-module", "di", "hooks", "routing", "persistence"],
+    "Basic Tutorial": [
+      "component",
+      "state-action",
+      "view-module",
+      "di",
+      "hooks",
+      "routing",
+      "persistence"
+    ],
     "Advanced Guides": ["di", "middleware", "pluggable", "dev-workflow"],
     "Tooling": ["cli", "dev-tools"],
     "Resources": ["examples", "faq", "performance"]
   },
   "docs-other": {
-    "Basics": ["reactant/createApp", "reactant/useConnector", "reactant/testBed"],
+    "Basics": [
+      "api/reactant/modules/_createapp_",
+      "api/reactant/modules/_hooks_useconnector_"
+    ],
     "Module": [
-      "reactant-module/state",
-      "reactant-module/action",
-      "reactant-module/defaultProps",
-      "reactant-module/autobind",
-      "reactant-module/createSelector",
-      "reactant-module/createState",
-      "reactant-module/dispatch",
-      "reactant-module/subscribe",
-      "reactant-module/watch",
-      "reactant-module/ViewModule",
-      "reactant-module/PluginModule"
+      "api/reactant-module/modules/_decorators_state_",
+      "api/reactant-module/modules/_decorators_action_",
+      "api/reactant-module/modules/_core_createselector_",
+      "api/reactant-module/modules/_decorators_defaultProps_",
+      "api/reactant-module/modules/_core_createstate_",
+      "api/reactant-module/modules/_core_dispatch_",
+      "api/reactant-module/modules/_core_subscriber_",
+      "watch",
+      "api/reactant-module/modules/_core_view_",
+      "api/reactant-module/modules/_core_plugin_",
+      "api/reactant-module/modules/_decorators_autobind_"
     ],
     "Dependency injection": [
-      "reactant-di/injectable",
-      "reactant-di/inject",
-      "reactant-di/optional",
-      "reactant-di/multiInject",
-      "reactant-di/multiOptional",
-      "reactant-di/ModuleRef",
-      "reactant-di/forwardRef"
+      "api/reactant-di/modules/_decorators_injectable_",
+      "api/reactant-di/modules/_decorators_inject_",
+      "api/reactant-di/modules/_decorators_optional_",
+      "api/reactant-di/modules/_decorators_multiinject_",
+      "api/reactant-di/modules/_decorators_multioptional_",
+      "ModuleRef",
+      "forwardRef"
     ],
-    "Web": ["reactant-web/render"],
-    "Native": ["reactant-native/render"],
-    "Redux": ["reactant-redux/redux"],
-    "Model": ["reactant-model/model"],
-    "Router": ["reactant-router/Router", "reactant-router/RouterOptions"],
-    "Storage": ["reactant-storage/Storage", "reactant-storage/StorageOptions"]
+    "Web": ["web"],
+    "Native": ["native"],
+    "Redux": ["api/reactant-redux/modules/_redux_"],
+    "Model": ["api/reactant-model/modules/_model_"],
+    "Router": [
+      "api/reactant-router/modules/_router_.md",
+      "api/reactant-router/interfaces/_router_.irouteroptions"
+    ],
+    "Storage": [
+      "api/reactant-storage/modules/_storage_",
+      "api/reactant-storage/interfaces/_storage_.istorageoptions"
+    ]
   }
 }

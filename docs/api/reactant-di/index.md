@@ -1,0 +1,15 @@
+---
+id: "index"
+title: "reactant-di"
+sidebar_label: "README"
+---
+
+## API
+
+* [@injectable](modules/_decorators_injectable_.md)
+* [@inject](modules/_decorators_inject_.md)
+* [@optional](modules/_decorators_optional_.md)
+* [@multiInject](modules/_decorators_multiinject_.md)
+* [@multiOptional](modules/_decorators_multioptional_.md)
+* [ModuleRef](classes/_createcontainer_.moduleref.md)
+* [forwardRef](modules/_createcontainer_.md#const-forwardref)
