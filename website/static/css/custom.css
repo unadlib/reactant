@@ -13,6 +13,10 @@
 @media only screen and (min-width: 1500px) {
 }
 
+h2 {
+  color: #20232a;
+}
+
 .homeWrapper .projectTitle {
   color: #20232a;
 }
