@@ -16,7 +16,7 @@ sidebar_label: "decorators/action"
 
 ▸ **action**(`target`: object, `key`: string | symbol, `descriptor`: TypedPropertyDescriptor‹function›): *object*
 
-*Defined in [packages/reactant-module/src/decorators/action.ts:6](https://github.com/unadlib/reactant/blob/5ec3851/packages/reactant-module/src/decorators/action.ts#L6)*
+*Defined in [packages/reactant-module/src/decorators/action.ts:6](https://github.com/unadlib/reactant/blob/25feacb/packages/reactant-module/src/decorators/action.ts#L6)*
 
 **Parameters:**
 

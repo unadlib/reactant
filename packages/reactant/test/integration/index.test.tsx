@@ -28,7 +28,6 @@ import {
   optional,
   inject,
   autobind,
-  testBed,
 } from '../..';
 
 let container: Element;
@@ -752,31 +751,4 @@ describe('multiple reactant app', () => {
     });
     expect(container.querySelector('#increase')?.textContent).toBe('3');
   });
-});
-
-test('testBed', () => {
-  @injectable()
-  class Foo {
-    getValue() {
-      return 'foo';
-    }
-  }
-
-  @injectable()
-  class Bar {
-    constructor(public foo: Foo) {
-      //
-    }
-
-    getValue() {
-      return `${this.foo.getValue()}Bar`;
-    }
-  }
-
-  const bar = testBed({
-    main: Bar,
-    modules: [{ provide: Foo, useValue: { getValue: () => 'test' } }],
-  });
-
-  expect(bar.instance.getValue()).toBe('testBar');
 });

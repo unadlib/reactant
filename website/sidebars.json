@@ -18,41 +18,42 @@
     "Basics": [
       "api/reactant/modules/_createapp_",
       "api/reactant/modules/_hooks_useconnector_",
-      "testBed",
-      "batch"
+      "api/reactant/modules/_testbed_",
+      "api/reactant/modules/_batch_"
     ],
     "Module": [
       "api/reactant-module/modules/_decorators_state_",
       "api/reactant-module/modules/_decorators_action_",
       "api/reactant-module/modules/_core_createselector_",
       "api/reactant-module/modules/_decorators_defaultProps_",
+      "api/reactant-module/modules/_decorators_autobind_",
       "api/reactant-module/modules/_core_createstate_",
       "api/reactant-module/modules/_core_dispatch_",
-      "api/reactant-module/modules/_core_subscriber_",
-      "watch",
+      "api/reactant-module/modules/_core_subscribe_",
+      "api/reactant-module/modules/_core_watch_",
       "api/reactant-module/modules/_core_view_",
-      "api/reactant-module/modules/_core_plugin_",
-      "api/reactant-module/modules/_decorators_autobind_"
+      "api/reactant-module/modules/_core_plugin_"
     ],
-    "Dependency injection": [
+    "Dependency Injection": [
       "api/reactant-di/modules/_decorators_injectable_",
       "api/reactant-di/modules/_decorators_inject_",
       "api/reactant-di/modules/_decorators_optional_",
       "api/reactant-di/modules/_decorators_multiinject_",
       "api/reactant-di/modules/_decorators_multioptional_",
-      "ModuleRef",
-      "forwardRef"
+      "api/reactant-di/classes/_moduleref_.moduleref",
+      "api/reactant-di/modules/_forwardref_",
+      "api/reactant-di/classes/_optional_.optional"
     ],
     "Web": ["web"],
     "Native": ["native"],
     "Redux": ["api/reactant-redux/modules/_redux_"],
     "Model": ["api/reactant-model/modules/_model_"],
     "Router": [
-      "api/reactant-router/modules/_router_.md",
+      "api/reactant-router/classes/_router_.reactantrouter",
       "api/reactant-router/interfaces/_router_.irouteroptions"
     ],
     "Storage": [
-      "api/reactant-storage/modules/_storage_",
+      "api/reactant-storage/classes/_storage_.reactantstorage",
       "api/reactant-storage/interfaces/_storage_.istorageoptions"
     ]
   }

@@ -28,6 +28,7 @@ sidebar_label: "index"
 * [ServiceIdentifiersMap](_index_.md#serviceidentifiersmap)
 * [ValueProvider](_index_.md#valueprovider)
 * [createContainer](_index_.md#createcontainer)
+* [defaultUndefinedValue](_index_.md#defaultundefinedvalue)
 * [forwardRef](_index_.md#forwardref)
 * [getMetadata](_index_.md#getmetadata)
 * [inject](_index_.md#inject)
@@ -158,6 +159,12 @@ ___
 ###  createContainer
 
 • **createContainer**:
+
+___
+
+###  defaultUndefinedValue
+
+• **defaultUndefinedValue**:
 
 ___
 

@@ -9,11 +9,11 @@
         "title": "CustomMetadataReader",
         "sidebar_label": "CustomMetadataReader"
       },
-      "api/reactant-di/classes/_createcontainer_.moduleref": {
+      "api/reactant-di/classes/_moduleref_.moduleref": {
         "title": "ModuleRef",
         "sidebar_label": "ModuleRef"
       },
-      "api/reactant-di/classes/_createcontainer_.optional": {
+      "api/reactant-di/classes/_optional_.optional": {
         "title": "Optional",
         "sidebar_label": "Optional"
       },
@@ -93,6 +93,10 @@
         "title": "decorators/optional",
         "sidebar_label": "decorators/optional"
       },
+      "api/reactant-di/modules/_forwardref_": {
+        "title": "forwardRef",
+        "sidebar_label": "forwardRef"
+      },
       "api/reactant-di/modules/_index_": {
         "title": "index",
         "sidebar_label": "index"
@@ -108,6 +112,14 @@
       "api/reactant-di/modules/_middlewares_index_": {
         "title": "middlewares/index",
         "sidebar_label": "middlewares/index"
+      },
+      "api/reactant-di/modules/_moduleref_": {
+        "title": "moduleRef",
+        "sidebar_label": "moduleRef"
+      },
+      "api/reactant-di/modules/_optional_": {
+        "title": "optional",
+        "sidebar_label": "optional"
       },
       "api/reactant-di/modules/_util_": {
         "title": "util",
@@ -205,13 +217,17 @@
         "title": "core/plugin",
         "sidebar_label": "core/plugin"
       },
-      "api/reactant-module/modules/_core_subscriber_": {
-        "title": "core/subscriber",
-        "sidebar_label": "core/subscriber"
+      "api/reactant-module/modules/_core_subscribe_": {
+        "title": "core/subscribe",
+        "sidebar_label": "core/subscribe"
       },
       "api/reactant-module/modules/_core_view_": {
         "title": "core/view",
         "sidebar_label": "core/view"
+      },
+      "api/reactant-module/modules/_core_watch_": {
+        "title": "core/watch",
+        "sidebar_label": "core/watch"
       },
       "api/reactant-module/modules/_decorators_action_": {
         "title": "decorators/action",
@@ -353,6 +369,10 @@
         "title": "ReturnValue",
         "sidebar_label": "ReturnValue"
       },
+      "api/reactant/modules/_batch_": {
+        "title": "batch",
+        "sidebar_label": "batch"
+      },
       "api/reactant/modules/_createapp_": {
         "title": "createApp",
         "sidebar_label": "createApp"
@@ -368,6 +388,10 @@
       "api/reactant/modules/_index_": {
         "title": "index",
         "sidebar_label": "index"
+      },
+      "api/reactant/modules/_testbed_": {
+        "title": "testBed",
+        "sidebar_label": "testBed"
       },
       "cli": {
         "title": "Reactant CLI"
@@ -391,7 +415,7 @@
         "title": "FAQ"
       },
       "hooks": {
-        "title": "Reactant hooks"
+        "title": "Reactant Hooks"
       },
       "installation": {
         "title": "Installation"
@@ -431,7 +455,7 @@
       "Resources": "Resources",
       "Basics": "Basics",
       "Module": "Module",
-      "Dependency injection": "Dependency injection",
+      "Dependency Injection": "Dependency Injection",
       "Web": "Web",
       "Native": "Native",
       "Redux": "Redux",

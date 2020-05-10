@@ -20,18 +20,8 @@ import { getMetadata } from './util';
 import { createCollector } from './middlewares/collector';
 import { METADATA_KEY } from './constants';
 import { injectable, inject } from './decorators';
-
-const defaultUndefinedValue = Symbol('defaultUndefined');
-
-export class Optional {
-  constructor(public identifier: ServiceIdentifier<any>) {}
-
-  get key() {
-    return defaultUndefinedValue;
-  }
-}
-
-// NOTE: does not support Changing dependencies without `@inject`.
+import { Optional, defaultUndefinedValue } from './optional';
+import { ModuleRef } from './moduleRef';
 
 let modulesDeps: ModuleOptions[];
 
@@ -77,13 +67,6 @@ export function lookupOptionalIdentifier(
     }
   }
   return false;
-}
-
-export const forwardRef = (callback: () => ServiceIdentifier<any>) =>
-  new LazyServiceIdentifer(callback);
-
-export class ModuleRef extends Container {
-  //
 }
 
 class CustomMetadataReader extends MetadataReader {

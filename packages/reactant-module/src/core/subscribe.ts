@@ -1,9 +1,8 @@
 import { Unsubscribe } from 'redux';
-import { Subscribe, Watch } from '../interfaces';
+import { Subscribe } from '../interfaces';
 import { storeKey, subscriptionsKey } from '../constants';
-import { isEqual } from '../utils';
 
-export const subscribe: Subscribe = (service, listener) => {
+const subscribe: Subscribe = (service, listener) => {
   if (typeof listener !== 'function') {
     throw new Error(`The listener should be a function.`);
   }
@@ -25,13 +24,4 @@ export const subscribe: Subscribe = (service, listener) => {
   return unsubscribe!;
 };
 
-export const watch: Watch = (service, selector, watcher) => {
-  let oldValue = selector();
-  return subscribe(service, () => {
-    const newValue = selector();
-    if (!isEqual(newValue, oldValue)) {
-      watcher(newValue, oldValue);
-      oldValue = newValue;
-    }
-  });
-};
+export { subscribe };

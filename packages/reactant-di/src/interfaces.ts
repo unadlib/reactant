@@ -1,6 +1,6 @@
 import { interfaces, LazyServiceIdentifer } from 'inversify';
 import { METADATA_KEY } from './constants';
-import { Optional } from './createContainer';
+import { Optional } from './optional';
 
 type PickByKey<T, P extends keyof T> = {
   [K in Exclude<keyof T, P>]: T[K];

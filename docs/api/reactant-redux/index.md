@@ -14,15 +14,11 @@ A redux lib for Reactant
 
 ```sh
 npm install reactant-redux
-```
-
-or
-
-```sh
+# or
 yarn add reactant-redux
 ```
 
-## Base Example
+## Example
 
 ```js
 import { redux } from 'reactant-redux';
@@ -42,10 +38,4 @@ const counter = redux({
 });
 ```
 
-## Documentation
-
-* Getting Started
-* Tutorial
-* Concepts
-* Advanced Guides
-* [API Reference](docs/api/README.md)
+You can visit [reactant.js.org](https://reactant.js.org/) for more documentation.

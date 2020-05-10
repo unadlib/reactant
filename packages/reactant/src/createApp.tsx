@@ -16,7 +16,7 @@ import {
   PartialRequired,
 } from 'reactant-module';
 
-interface Config<T> {
+export interface Config<T> {
   main: ServiceIdentifier<T>;
   render?: (element: JSX.Element, ...args: any[]) => Element | void;
   modules?: ReactModuleOptions[];
@@ -26,7 +26,7 @@ interface Config<T> {
   devOptions?: DevOptions;
 }
 
-interface ReturnValue<T> {
+export interface ReturnValue<T> {
   instance: T;
   store: ReactantStore | null;
   bootstrap(...args: any[]): void | Element;
@@ -91,15 +91,4 @@ function createApp<T>({
   };
 }
 
-function testBed<T>(config: Config<T>) {
-  return createApp<T>({
-    ...config,
-    render:
-      config.render ||
-      (() => {
-        console.log(`No render function is configured.`);
-      }),
-  });
-}
-
-export { createApp, testBed };
+export { createApp };
