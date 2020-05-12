@@ -17,13 +17,9 @@
         "title": "Optional",
         "sidebar_label": "Optional"
       },
-      "api/reactant-di/globals": {
-        "title": "reactant-di",
-        "sidebar_label": "Globals"
-      },
       "api/reactant-di/index": {
         "title": "reactant-di",
-        "sidebar_label": "README"
+        "sidebar_label": "Globals"
       },
       "api/reactant-di/interfaces/_interfaces_.classprovider": {
         "title": "ClassProvider",
@@ -125,13 +121,9 @@
         "title": "util",
         "sidebar_label": "util"
       },
-      "api/reactant-model/globals": {
-        "title": "reactant-model",
-        "sidebar_label": "Globals"
-      },
       "api/reactant-model/index": {
         "title": "reactant-model",
-        "sidebar_label": "README"
+        "sidebar_label": "Globals"
       },
       "api/reactant-model/interfaces/_model_.scheme": {
         "title": "Scheme",
@@ -153,13 +145,9 @@
         "title": "ViewModule",
         "sidebar_label": "ViewModule"
       },
-      "api/reactant-module/globals": {
-        "title": "reactant-module",
-        "sidebar_label": "Globals"
-      },
       "api/reactant-module/index": {
         "title": "reactant-module",
-        "sidebar_label": "README"
+        "sidebar_label": "Globals"
       },
       "api/reactant-module/interfaces/_interfaces_.devoptions": {
         "title": "DevOptions",
@@ -281,13 +269,9 @@
         "title": "utils/reduxDevToolsCompose",
         "sidebar_label": "utils/reduxDevToolsCompose"
       },
-      "api/reactant-redux/globals": {
-        "title": "reactant-redux",
-        "sidebar_label": "Globals"
-      },
       "api/reactant-redux/index": {
         "title": "reactant-redux",
-        "sidebar_label": "README"
+        "sidebar_label": "Globals"
       },
       "api/reactant-redux/interfaces/_redux_.scheme": {
         "title": "Scheme",
@@ -305,13 +289,9 @@
         "title": "ReactantRouter",
         "sidebar_label": "ReactantRouter"
       },
-      "api/reactant-router/globals": {
-        "title": "reactant-router",
-        "sidebar_label": "Globals"
-      },
       "api/reactant-router/index": {
         "title": "reactant-router",
-        "sidebar_label": "README"
+        "sidebar_label": "Globals"
       },
       "api/reactant-router/interfaces/_router_.irouteroptions": {
         "title": "IRouterOptions",
@@ -333,13 +313,9 @@
         "title": "ReactantStorage",
         "sidebar_label": "ReactantStorage"
       },
-      "api/reactant-storage/globals": {
-        "title": "reactant-storage",
-        "sidebar_label": "Globals"
-      },
       "api/reactant-storage/index": {
         "title": "reactant-storage",
-        "sidebar_label": "README"
+        "sidebar_label": "Globals"
       },
       "api/reactant-storage/interfaces/_storage_.istorageoptions": {
         "title": "IStorageOptions",
@@ -353,13 +329,9 @@
         "title": "storage",
         "sidebar_label": "storage"
       },
-      "api/reactant/globals": {
-        "title": "reactant",
-        "sidebar_label": "Globals"
-      },
       "api/reactant/index": {
         "title": "reactant",
-        "sidebar_label": "README"
+        "sidebar_label": "Globals"
       },
       "api/reactant/interfaces/_createapp_.config": {
         "title": "Config",
@@ -453,15 +425,13 @@
       "Advanced Guides": "Advanced Guides",
       "Tooling": "Tooling",
       "Resources": "Resources",
-      "Basics": "Basics",
-      "Module": "Module",
-      "Dependency Injection": "Dependency Injection",
-      "Web": "Web",
-      "Native": "Native",
-      "Redux": "Redux",
-      "Model": "Model",
-      "Router": "Router",
-      "Storage": "Storage"
+      "reactant": "reactant",
+      "reactant-web": "reactant-web",
+      "reactant-native": "reactant-native",
+      "reactant-redux": "reactant-redux",
+      "reactant-model": "reactant-model",
+      "reactant-router": "reactant-router",
+      "reactant-storage": "reactant-storage"
     }
   },
   "pages-strings": {

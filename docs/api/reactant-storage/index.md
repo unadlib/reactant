@@ -1,21 +1,12 @@
 ---
 id: "index"
 title: "reactant-storage"
-sidebar_label: "README"
+sidebar_label: "Globals"
 ---
 
-# reactant-storage
+## Index
 
-![Node CI](https://github.com/unadlib/reactant/workflows/Node%20CI/badge.svg)
+### Modules
 
-A persistence storage plugin for Reactant
-
-## Usage
-
-```sh
-npm install reactant-storage
-# or
-yarn add reactant-storage
-```
-
-You can visit [reactant.js.org](https://reactant.js.org/) for more documentation.
+* ["index"](modules/_index_.md)
+* ["storage"](modules/_storage_.md)

@@ -21,7 +21,7 @@ sidebar_label: "createApp"
 
 ▸ **createApp**<**T**>(`__namedParameters`: object): *[ReturnValue](../interfaces/_createapp_.returnvalue.md)‹T›*
 
-*Defined in [createApp.tsx:35](https://github.com/unadlib/reactant/blob/93937ba/packages/reactant/src/createApp.tsx#L35)*
+*Defined in [createApp.tsx:35](https://github.com/unadlib/reactant/blob/31e722a/packages/reactant/src/createApp.tsx#L35)*
 
 **Type parameters:**
 

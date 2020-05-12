@@ -24,6 +24,8 @@ const generateDocs = (project: string) => {
     'docusaurus',
     '--hideBreadcrumbs',
     '--skipSidebar',
+    '--readme',
+    'none',
   ];
   spawn('typedoc', args, {
     stdio: 'inherit',
