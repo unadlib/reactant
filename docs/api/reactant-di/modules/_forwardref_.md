@@ -16,7 +16,7 @@ sidebar_label: "forwardRef"
 
 ▸ **forwardRef**(`callback`: function): *LazyServiceIdentifer‹any›*
 
-*Defined in [packages/reactant-di/src/forwardRef.ts:4](https://github.com/unadlib/reactant/blob/31e722a/packages/reactant-di/src/forwardRef.ts#L4)*
+*Defined in [packages/reactant-di/src/forwardRef.ts:4](https://github.com/unadlib/reactant/blob/8c9cd62/packages/reactant-di/src/forwardRef.ts#L4)*
 
 **Parameters:**
 
