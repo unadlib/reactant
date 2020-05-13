@@ -1,6 +1,6 @@
 {
   "docs": {
-    "Getting Started": ["introduction", "installation", "concepts"],
+    "Getting Started": ["introduction", "installation", "concepts", "using-create-react-app"],
     "Basic Tutorial": [
       "state-action",
       "component",

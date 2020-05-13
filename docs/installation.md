@@ -1,6 +1,36 @@
 ---
 id: installation
 title: Installation
+sidebar_label: Installation
 ---
 
-todo
+We recommend using the reactant-cli to quickly create a brand new Reactant project. See more information about [reactant-cli](cli.md).
+
+## Using reactant-cli
+
+```sh
+npx reactant-cli init my-app # default use TypeScript
+# use `npx reactant-cli init my-app --language javascript` for creating a Javascript project.
+cd my-app
+yarn start
+```
+
+## Customize the creation of an Reactant project
+
+> If you've already created your project using reactant-cli, then please skip this section.
+
+If you need to customize to create Reactant project, then you can do the following steps:
+
+First, build a React project, visit [here](https://reactjs.org/docs/create-a-new-react-app.html) for more information.
+
+Then, install Reactant dependencies:
+
+```sh
+yarn add reactant reactant-web
+```
+
+And set up the following related configuration.
+
+>If using JavaScript, make sure you have `@babel/plugin-propose-decorators` and `@babel/plugin-propose-class-properties` installed and configured for Babel.
+
+>If using TypeScript, make sure to enable `experimentalDecorators` and `emitDecoratorMetadata` in `tsconfig.json`.

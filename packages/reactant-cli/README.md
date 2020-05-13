@@ -36,4 +36,10 @@ We recommend you install `reactant-cli` globally to use it.
 npm install -g reactant-cli
 ```
 
+or you can install `reactant-cli` to your project.
+
+```sh
+yarn add -D reactant-cli
+```
+
 You can visit [reactant.js.org](https://reactant.js.org/) for more documentation.
