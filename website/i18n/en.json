@@ -333,13 +333,13 @@
         "title": "reactant",
         "sidebar_label": "Globals"
       },
-      "api/reactant/interfaces/_createapp_.config": {
+      "api/reactant/interfaces/_interfaces_.app": {
+        "title": "App",
+        "sidebar_label": "App"
+      },
+      "api/reactant/interfaces/_interfaces_.config": {
         "title": "Config",
         "sidebar_label": "Config"
-      },
-      "api/reactant/interfaces/_createapp_.returnvalue": {
-        "title": "ReturnValue",
-        "sidebar_label": "ReturnValue"
       },
       "api/reactant/modules/_batch_": {
         "title": "batch",
@@ -360,6 +360,10 @@
       "api/reactant/modules/_index_": {
         "title": "index",
         "sidebar_label": "index"
+      },
+      "api/reactant/modules/_interfaces_": {
+        "title": "interfaces",
+        "sidebar_label": "interfaces"
       },
       "api/reactant/modules/_testbed_": {
         "title": "testBed",

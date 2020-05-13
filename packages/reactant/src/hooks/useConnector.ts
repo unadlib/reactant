@@ -1,7 +1,6 @@
 import { useSelector } from 'react-redux';
 import { areStatePropsEqual } from 'reactant-module';
-
-type ShallowEqual = (a: Record<string, any>, b: Record<string, any>) => boolean;
+import { ShallowEqual } from '../interfaces';
 
 export function useConnector<T>(
   selector: () => T,

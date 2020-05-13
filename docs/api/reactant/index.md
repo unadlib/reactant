@@ -13,4 +13,5 @@ sidebar_label: "Globals"
 * ["hooks/index"](modules/_hooks_index_.md)
 * ["hooks/useConnector"](modules/_hooks_useconnector_.md)
 * ["index"](modules/_index_.md)
+* ["interfaces"](modules/_interfaces_.md)
 * ["testBed"](modules/_testbed_.md)

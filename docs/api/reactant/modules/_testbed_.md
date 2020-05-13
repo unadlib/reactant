@@ -14,9 +14,9 @@ sidebar_label: "testBed"
 
 ###  testBed
 
-▸ **testBed**<**T**>(`config`: [Config](../interfaces/_createapp_.config.md)‹T›): *[ReturnValue](../interfaces/_createapp_.returnvalue.md)‹T›*
+▸ **testBed**<**T**>(`config`: [Config](../interfaces/_interfaces_.config.md)‹T›): *[App](../interfaces/_interfaces_.app.md)‹T›*
 
-*Defined in [testBed.ts:3](https://github.com/unadlib/reactant/blob/8c9cd62/packages/reactant/src/testBed.ts#L3)*
+*Defined in [testBed.ts:4](https://github.com/unadlib/reactant/blob/72dc788/packages/reactant/src/testBed.ts#L4)*
 
 **Type parameters:**
 
@@ -26,6 +26,6 @@ sidebar_label: "testBed"
 
 Name | Type |
 ------ | ------ |
-`config` | [Config](../interfaces/_createapp_.config.md)‹T› |
+`config` | [Config](../interfaces/_interfaces_.config.md)‹T› |
 
-**Returns:** *[ReturnValue](../interfaces/_createapp_.returnvalue.md)‹T›*
+**Returns:** *[App](../interfaces/_interfaces_.app.md)‹T›*

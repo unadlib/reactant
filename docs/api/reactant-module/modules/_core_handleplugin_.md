@@ -16,7 +16,7 @@ sidebar_label: "core/handlePlugin"
 
 ▸ **handlePlugin**(`service`: any, `pluginHooks`: [PluginHooks](_interfaces_.md#pluginhooks)): *void*
 
-*Defined in [packages/reactant-module/src/core/handlePlugin.ts:5](https://github.com/unadlib/reactant/blob/8c9cd62/packages/reactant-module/src/core/handlePlugin.ts#L5)*
+*Defined in [packages/reactant-module/src/core/handlePlugin.ts:5](https://github.com/unadlib/reactant/blob/72dc788/packages/reactant-module/src/core/handlePlugin.ts#L5)*
 
 **Parameters:**
 

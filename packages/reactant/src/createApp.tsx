@@ -2,36 +2,35 @@ import React, { FunctionComponent } from 'react';
 import { Provider } from 'react-redux';
 import {
   createContainer,
-  ContainerOptions,
-  ServiceIdentifier,
   ViewModule,
   createStore,
   ServiceIdentifiersMap,
-  ReactModuleOptions,
   Module,
-  TypePreloadedState,
-  ReactantStore,
-  ReactantMiddleware,
-  DevOptions,
   PartialRequired,
 } from 'reactant-module';
+import { Config, App } from './interfaces';
 
-export interface Config<T> {
-  main: ServiceIdentifier<T>;
-  render?: (element: JSX.Element, ...args: any[]) => Element | void;
-  modules?: ReactModuleOptions[];
-  containerOptions?: ContainerOptions;
-  middlewares?: ReactantMiddleware[];
-  preloadedState?: TypePreloadedState<any>;
-  devOptions?: DevOptions;
-}
-
-export interface ReturnValue<T> {
-  instance: T;
-  store: ReactantStore | null;
-  bootstrap(...args: any[]): void | Element;
-}
-
+/**
+ * **Description:**
+ *
+ * You can create an app with `createApp()` passing app configuration,
+ * which will return an object including `instance`, `store`,
+ * and `bootstrap()` method(You can run `bootstrap` to start the app inject into the browser or mobile).
+ *
+ * **Example:**
+ * ```ts
+ * @injectable()
+ * class Foo {}
+ *
+ * const app = createApp({
+ *   modules: [],
+ *   main: Foo,
+ *   render: () => {},
+ * });
+ *
+ * expect(app.instance instanceof Foo).toBeTruthy();
+ * ```
+ */
 function createApp<T>({
   main,
   render,
@@ -40,7 +39,7 @@ function createApp<T>({
   middlewares,
   preloadedState,
   devOptions,
-}: PartialRequired<Config<T>, 'render'>): ReturnValue<T> {
+}: PartialRequired<Config<T>, 'render'>): App<T> {
   const ServiceIdentifiers: ServiceIdentifiersMap = new Map();
   const container = createContainer({
     ServiceIdentifiers,

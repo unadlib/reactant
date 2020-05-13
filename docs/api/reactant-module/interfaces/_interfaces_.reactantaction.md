@@ -27,7 +27,7 @@ sidebar_label: "ReactantAction"
 
 • **state**: *Record‹string, T›*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:56](https://github.com/unadlib/reactant/blob/8c9cd62/packages/reactant-module/src/interfaces.ts#L56)*
+*Defined in [packages/reactant-module/src/interfaces.ts:56](https://github.com/unadlib/reactant/blob/72dc788/packages/reactant-module/src/interfaces.ts#L56)*
 
 ___
 

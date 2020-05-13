@@ -6,11 +6,6 @@ sidebar_label: "createApp"
 
 ## Index
 
-### Interfaces
-
-* [Config](../interfaces/_createapp_.config.md)
-* [ReturnValue](../interfaces/_createapp_.returnvalue.md)
-
 ### Functions
 
 * [createApp](_createapp_.md#createapp)
@@ -19,9 +14,29 @@ sidebar_label: "createApp"
 
 ###  createApp
 
-▸ **createApp**<**T**>(`__namedParameters`: object): *[ReturnValue](../interfaces/_createapp_.returnvalue.md)‹T›*
+▸ **createApp**<**T**>(`__namedParameters`: object): *[App](../interfaces/_interfaces_.app.md)‹T›*
 
-*Defined in [createApp.tsx:35](https://github.com/unadlib/reactant/blob/8c9cd62/packages/reactant/src/createApp.tsx#L35)*
+*Defined in [createApp.tsx:34](https://github.com/unadlib/reactant/blob/72dc788/packages/reactant/src/createApp.tsx#L34)*
+
+**Description:**
+
+You can create an app with `createApp()` passing app configuration,
+which will return an object including `instance`, `store`,
+and `bootstrap()` method(You can run `bootstrap` to start the app inject into the browser or mobile).
+
+**Example:**
+```ts
+@injectable()
+class Foo {}
+
+const app = createApp({
+  modules: [],
+  main: Foo,
+  render: () => {},
+});
+
+expect(app.instance instanceof Foo).toBeTruthy();
+```
 
 **Type parameters:**
 
@@ -41,4 +56,4 @@ Name | Type | Default |
 `preloadedState` | undefined &#124; object | - |
 `render` | function | - |
 
-**Returns:** *[ReturnValue](../interfaces/_createapp_.returnvalue.md)‹T›*
+**Returns:** *[App](../interfaces/_interfaces_.app.md)‹T›*

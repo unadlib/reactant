@@ -6,40 +6,17 @@ sidebar_label: "hooks/useConnector"
 
 ## Index
 
-### Type aliases
-
-* [ShallowEqual](_hooks_useconnector_.md#shallowequal)
-
 ### Functions
 
 * [useConnector](_hooks_useconnector_.md#useconnector)
-
-## Type aliases
-
-###  ShallowEqual
-
-Ƭ **ShallowEqual**: *function*
-
-*Defined in [hooks/useConnector.ts:4](https://github.com/unadlib/reactant/blob/8c9cd62/packages/reactant/src/hooks/useConnector.ts#L4)*
-
-#### Type declaration:
-
-▸ (`a`: Record‹string, any›, `b`: Record‹string, any›): *boolean*
-
-**Parameters:**
-
-Name | Type |
------- | ------ |
-`a` | Record‹string, any› |
-`b` | Record‹string, any› |
 
 ## Functions
 
 ###  useConnector
 
-▸ **useConnector**<**T**>(`selector`: function, `shallowEqual?`: [ShallowEqual](_hooks_useconnector_.md#shallowequal)): *T*
+▸ **useConnector**<**T**>(`selector`: function, `shallowEqual?`: [ShallowEqual](_interfaces_.md#shallowequal)): *T*
 
-*Defined in [hooks/useConnector.ts:6](https://github.com/unadlib/reactant/blob/8c9cd62/packages/reactant/src/hooks/useConnector.ts#L6)*
+*Defined in [hooks/useConnector.ts:5](https://github.com/unadlib/reactant/blob/72dc788/packages/reactant/src/hooks/useConnector.ts#L5)*
 
 **Type parameters:**
 
@@ -51,6 +28,6 @@ Name | Type |
 
 ▸ (): *T*
 
-▪`Optional`  **shallowEqual**: *[ShallowEqual](_hooks_useconnector_.md#shallowequal)*
+▪`Optional`  **shallowEqual**: *[ShallowEqual](_interfaces_.md#shallowequal)*
 
 **Returns:** *T*

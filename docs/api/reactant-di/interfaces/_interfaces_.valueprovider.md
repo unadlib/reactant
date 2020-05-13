@@ -21,7 +21,7 @@ sidebar_label: "ValueProvider"
 
 • **provide**: *[ServiceIdentifier](../modules/_interfaces_.md#serviceidentifier)‹any›*
 
-*Defined in [packages/reactant-di/src/interfaces.ts:40](https://github.com/unadlib/reactant/blob/8c9cd62/packages/reactant-di/src/interfaces.ts#L40)*
+*Defined in [packages/reactant-di/src/interfaces.ts:40](https://github.com/unadlib/reactant/blob/72dc788/packages/reactant-di/src/interfaces.ts#L40)*
 
 ___
 
@@ -29,4 +29,4 @@ ___
 
 • **useValue**: *any*
 
-*Defined in [packages/reactant-di/src/interfaces.ts:41](https://github.com/unadlib/reactant/blob/8c9cd62/packages/reactant-di/src/interfaces.ts#L41)*
+*Defined in [packages/reactant-di/src/interfaces.ts:41](https://github.com/unadlib/reactant/blob/72dc788/packages/reactant-di/src/interfaces.ts#L41)*

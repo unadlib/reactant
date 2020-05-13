@@ -18,7 +18,7 @@ sidebar_label: "utils/isEqual"
 
 ▸ **areStatePropsEqual**(`objA`: any, `objB`: any): *boolean*
 
-*Defined in [packages/reactant-module/src/utils/isEqual.ts:14](https://github.com/unadlib/reactant/blob/8c9cd62/packages/reactant-module/src/utils/isEqual.ts#L14)*
+*Defined in [packages/reactant-module/src/utils/isEqual.ts:14](https://github.com/unadlib/reactant/blob/72dc788/packages/reactant-module/src/utils/isEqual.ts#L14)*
 
 **Parameters:**
 
@@ -35,7 +35,7 @@ ___
 
 ▸ **isEqual**(`x`: any, `y`: any): *boolean*
 
-*Defined in [packages/reactant-module/src/utils/isEqual.ts:1](https://github.com/unadlib/reactant/blob/8c9cd62/packages/reactant-module/src/utils/isEqual.ts#L1)*
+*Defined in [packages/reactant-module/src/utils/isEqual.ts:1](https://github.com/unadlib/reactant/blob/72dc788/packages/reactant-module/src/utils/isEqual.ts#L1)*
 
 **Parameters:**
 
@@ -52,7 +52,7 @@ ___
 
 ▸ **isEqualExceptFunction**(`x`: any, `y`: any): *boolean*
 
-*Defined in [packages/reactant-module/src/utils/isEqual.ts:9](https://github.com/unadlib/reactant/blob/8c9cd62/packages/reactant-module/src/utils/isEqual.ts#L9)*
+*Defined in [packages/reactant-module/src/utils/isEqual.ts:9](https://github.com/unadlib/reactant/blob/72dc788/packages/reactant-module/src/utils/isEqual.ts#L9)*
 
 **Parameters:**
 

@@ -16,7 +16,7 @@ sidebar_label: "utils/getStageName"
 
 ▸ **getStageName**(`className`: string): *string*
 
-*Defined in [packages/reactant-module/src/utils/getStageName.ts:1](https://github.com/unadlib/reactant/blob/8c9cd62/packages/reactant-module/src/utils/getStageName.ts#L1)*
+*Defined in [packages/reactant-module/src/utils/getStageName.ts:1](https://github.com/unadlib/reactant/blob/72dc788/packages/reactant-module/src/utils/getStageName.ts#L1)*
 
 **Parameters:**
 

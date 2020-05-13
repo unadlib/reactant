@@ -1,6 +1,7 @@
-import { createApp, Config, ReturnValue } from './createApp';
+import { createApp } from './createApp';
+import { Config, App } from './interfaces';
 
-function testBed<T>(config: Config<T>): ReturnValue<T> {
+function testBed<T>(config: Config<T>): App<T> {
   return createApp<T>({
     ...config,
     render:
