@@ -1,7 +1,7 @@
 ---
 id: "_decorators_injectable_"
-title: "decorators/injectable"
-sidebar_label: "decorators/injectable"
+title: "@injectable()"
+sidebar_label: "@injectable()"
 ---
 
 ## Index
@@ -16,7 +16,7 @@ sidebar_label: "decorators/injectable"
 
 ▸ **injectable**(`options`: [ModuleDecoratorOptions](../interfaces/_interfaces_.moduledecoratoroptions.md)): *(Anonymous function)*
 
-*Defined in [packages/reactant-di/src/decorators/injectable.ts:10](https://github.com/unadlib/reactant/blob/72dc788/packages/reactant-di/src/decorators/injectable.ts#L10)*
+*Defined in [packages/reactant-di/src/decorators/injectable.ts:10](https://github.com/unadlib/reactant/blob/33cbdb7/packages/reactant-di/src/decorators/injectable.ts#L10)*
 
 **Parameters:**
 

@@ -10,7 +10,7 @@
   "api/reactant-module/modules/_decorators_autobind_": "@autobind",
   "api/reactant-module/modules/_core_createstate_": "createState()",
   "api/reactant-module/modules/_core_dispatch_": "dispatch()",
-  "api/reactant-module/modules/_core_subscribe_": "subscribe",
+  "api/reactant-module/modules/_core_subscribe_": "subscribe()",
   "api/reactant-module/modules/_core_watch_": "watch()",
   "api/reactant-module/classes/_core_view_.viewmodule": "ViewModule",
   "api/reactant-module/classes/_core_plugin_.pluginmodule": "PluginModule",

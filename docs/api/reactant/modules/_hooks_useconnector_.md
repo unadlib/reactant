@@ -1,7 +1,7 @@
 ---
 id: "_hooks_useconnector_"
-title: "hooks/useConnector"
-sidebar_label: "hooks/useConnector"
+title: "useConnector()"
+sidebar_label: "useConnector()"
 ---
 
 ## Index
@@ -16,7 +16,7 @@ sidebar_label: "hooks/useConnector"
 
 ▸ **useConnector**<**T**>(`selector`: function, `shallowEqual?`: [ShallowEqual](_interfaces_.md#shallowequal)): *T*
 
-*Defined in [hooks/useConnector.ts:5](https://github.com/unadlib/reactant/blob/72dc788/packages/reactant/src/hooks/useConnector.ts#L5)*
+*Defined in [hooks/useConnector.ts:5](https://github.com/unadlib/reactant/blob/33cbdb7/packages/reactant/src/hooks/useConnector.ts#L5)*
 
 **Type parameters:**
 

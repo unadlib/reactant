@@ -1,7 +1,7 @@
 ---
 id: "_testbed_"
-title: "testBed"
-sidebar_label: "testBed"
+title: "testBed()"
+sidebar_label: "testBed()"
 ---
 
 ## Index
@@ -16,7 +16,7 @@ sidebar_label: "testBed"
 
 ▸ **testBed**<**T**>(`config`: [Config](../interfaces/_interfaces_.config.md)‹T›): *[App](../interfaces/_interfaces_.app.md)‹T›*
 
-*Defined in [testBed.ts:4](https://github.com/unadlib/reactant/blob/72dc788/packages/reactant/src/testBed.ts#L4)*
+*Defined in [testBed.ts:4](https://github.com/unadlib/reactant/blob/33cbdb7/packages/reactant/src/testBed.ts#L4)*
 
 **Type parameters:**
 

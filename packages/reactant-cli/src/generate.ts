@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
 import { Command } from 'commander';
 import path from 'path';
-import fs from 'fs-extra';
 import chalk from 'chalk';
 import { lookupRoot, createFile } from './utils';
 import { supportLanguages, supportLanguageMap } from './init';

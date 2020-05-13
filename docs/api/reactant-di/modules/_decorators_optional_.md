@@ -1,7 +1,7 @@
 ---
 id: "_decorators_optional_"
-title: "decorators/optional"
-sidebar_label: "decorators/optional"
+title: "@optional()"
+sidebar_label: "@optional()"
 ---
 
 ## Index
@@ -16,7 +16,7 @@ sidebar_label: "decorators/optional"
 
 ▸ **optional**(`serviceIdentifier?`: [ServiceIdentifier](_interfaces_.md#serviceidentifier)‹any›): *(Anonymous function)*
 
-*Defined in [packages/reactant-di/src/decorators/optional.ts:7](https://github.com/unadlib/reactant/blob/72dc788/packages/reactant-di/src/decorators/optional.ts#L7)*
+*Defined in [packages/reactant-di/src/decorators/optional.ts:7](https://github.com/unadlib/reactant/blob/33cbdb7/packages/reactant-di/src/decorators/optional.ts#L7)*
 
 **Parameters:**
 

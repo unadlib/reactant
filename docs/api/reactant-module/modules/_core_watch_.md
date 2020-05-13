@@ -1,7 +1,7 @@
 ---
 id: "_core_watch_"
-title: "core/watch"
-sidebar_label: "core/watch"
+title: "watch()"
+sidebar_label: "watch()"
 ---
 
 ## Index
@@ -16,7 +16,7 @@ sidebar_label: "core/watch"
 
 ▸ **watch**(`service`: [Service](../interfaces/_interfaces_.service.md)‹object› & object, `selector`: function, `watcher`: function): *Unsubscribe*
 
-*Defined in [packages/reactant-module/src/core/watch.ts:5](https://github.com/unadlib/reactant/blob/72dc788/packages/reactant-module/src/core/watch.ts#L5)*
+*Defined in [packages/reactant-module/src/core/watch.ts:5](https://github.com/unadlib/reactant/blob/33cbdb7/packages/reactant-module/src/core/watch.ts#L5)*
 
 **Parameters:**
 

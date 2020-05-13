@@ -1,7 +1,7 @@
 ---
 id: "_decorators_autobind_"
-title: "decorators/autobind"
-sidebar_label: "decorators/autobind"
+title: "@autobind"
+sidebar_label: "@autobind"
 ---
 
 ## Index
@@ -16,7 +16,7 @@ sidebar_label: "decorators/autobind"
 
 ▸ **autobind**(`target`: object, `key`: string | symbol, `__namedParameters`: object): *object*
 
-*Defined in [packages/reactant-module/src/decorators/autobind.ts:3](https://github.com/unadlib/reactant/blob/72dc788/packages/reactant-module/src/decorators/autobind.ts#L3)*
+*Defined in [packages/reactant-module/src/decorators/autobind.ts:3](https://github.com/unadlib/reactant/blob/33cbdb7/packages/reactant-module/src/decorators/autobind.ts#L3)*
 
 **Parameters:**
 

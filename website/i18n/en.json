@@ -14,8 +14,8 @@
         "sidebar_label": "ModuleRef"
       },
       "api/reactant-di/classes/_optional_.optional": {
-        "title": "Optional",
-        "sidebar_label": "Optional"
+        "title": "Optional()",
+        "sidebar_label": "Optional()"
       },
       "api/reactant-di/index": {
         "title": "reactant-di",
@@ -70,28 +70,28 @@
         "sidebar_label": "decorators/index"
       },
       "api/reactant-di/modules/_decorators_inject_": {
-        "title": "decorators/inject",
-        "sidebar_label": "decorators/inject"
+        "title": "@inject()",
+        "sidebar_label": "@inject()"
       },
       "api/reactant-di/modules/_decorators_injectable_": {
-        "title": "decorators/injectable",
-        "sidebar_label": "decorators/injectable"
+        "title": "@injectable()",
+        "sidebar_label": "@injectable()"
       },
       "api/reactant-di/modules/_decorators_multiinject_": {
-        "title": "decorators/multiInject",
-        "sidebar_label": "decorators/multiInject"
+        "title": "@multiInject()",
+        "sidebar_label": "@multiInject()"
       },
       "api/reactant-di/modules/_decorators_multioptional_": {
-        "title": "decorators/multiOptional",
-        "sidebar_label": "decorators/multiOptional"
+        "title": "@multiOptional()",
+        "sidebar_label": "@multiOptional()"
       },
       "api/reactant-di/modules/_decorators_optional_": {
-        "title": "decorators/optional",
-        "sidebar_label": "decorators/optional"
+        "title": "@optional()",
+        "sidebar_label": "@optional()"
       },
       "api/reactant-di/modules/_forwardref_": {
-        "title": "forwardRef",
-        "sidebar_label": "forwardRef"
+        "title": "forwardRef()",
+        "sidebar_label": "forwardRef()"
       },
       "api/reactant-di/modules/_index_": {
         "title": "index",
@@ -178,20 +178,20 @@
         "sidebar_label": "constants/reduxKeys"
       },
       "api/reactant-module/modules/_core_createselector_": {
-        "title": "core/createSelector",
-        "sidebar_label": "core/createSelector"
+        "title": "createSelector()",
+        "sidebar_label": "createSelector()"
       },
       "api/reactant-module/modules/_core_createstate_": {
-        "title": "core/createState",
-        "sidebar_label": "core/createState"
+        "title": "createState()",
+        "sidebar_label": "createState()"
       },
       "api/reactant-module/modules/_core_createstore_": {
         "title": "core/createStore",
         "sidebar_label": "core/createStore"
       },
       "api/reactant-module/modules/_core_dispatch_": {
-        "title": "core/dispatch",
-        "sidebar_label": "core/dispatch"
+        "title": "dispatch()",
+        "sidebar_label": "dispatch()"
       },
       "api/reactant-module/modules/_core_handleplugin_": {
         "title": "core/handlePlugin",
@@ -206,36 +206,36 @@
         "sidebar_label": "core/plugin"
       },
       "api/reactant-module/modules/_core_subscribe_": {
-        "title": "core/subscribe",
-        "sidebar_label": "core/subscribe"
+        "title": "subscribe()",
+        "sidebar_label": "subscribe()"
       },
       "api/reactant-module/modules/_core_view_": {
         "title": "core/view",
         "sidebar_label": "core/view"
       },
       "api/reactant-module/modules/_core_watch_": {
-        "title": "core/watch",
-        "sidebar_label": "core/watch"
+        "title": "watch()",
+        "sidebar_label": "watch()"
       },
       "api/reactant-module/modules/_decorators_action_": {
-        "title": "decorators/action",
-        "sidebar_label": "decorators/action"
+        "title": "@action",
+        "sidebar_label": "@action"
       },
       "api/reactant-module/modules/_decorators_autobind_": {
-        "title": "decorators/autobind",
-        "sidebar_label": "decorators/autobind"
+        "title": "@autobind",
+        "sidebar_label": "@autobind"
       },
       "api/reactant-module/modules/_decorators_defaultprops_": {
-        "title": "decorators/defaultProps",
-        "sidebar_label": "decorators/defaultProps"
+        "title": "@defaultProps()",
+        "sidebar_label": "@defaultProps()"
       },
       "api/reactant-module/modules/_decorators_index_": {
         "title": "decorators/index",
         "sidebar_label": "decorators/index"
       },
       "api/reactant-module/modules/_decorators_state_": {
-        "title": "decorators/state",
-        "sidebar_label": "decorators/state"
+        "title": "@state",
+        "sidebar_label": "@state"
       },
       "api/reactant-module/modules/_index_": {
         "title": "index",
@@ -342,20 +342,20 @@
         "sidebar_label": "Config"
       },
       "api/reactant/modules/_batch_": {
-        "title": "batch",
-        "sidebar_label": "batch"
+        "title": "batch()",
+        "sidebar_label": "batch()"
       },
       "api/reactant/modules/_createapp_": {
-        "title": "createApp",
-        "sidebar_label": "createApp"
+        "title": "createApp()",
+        "sidebar_label": "createApp()"
       },
       "api/reactant/modules/_hooks_index_": {
         "title": "hooks/index",
         "sidebar_label": "hooks/index"
       },
       "api/reactant/modules/_hooks_useconnector_": {
-        "title": "hooks/useConnector",
-        "sidebar_label": "hooks/useConnector"
+        "title": "useConnector()",
+        "sidebar_label": "useConnector()"
       },
       "api/reactant/modules/_index_": {
         "title": "index",
@@ -366,8 +366,8 @@
         "sidebar_label": "interfaces"
       },
       "api/reactant/modules/_testbed_": {
-        "title": "testBed",
-        "sidebar_label": "testBed"
+        "title": "testBed()",
+        "sidebar_label": "testBed()"
       },
       "cli": {
         "title": "Reactant CLI"

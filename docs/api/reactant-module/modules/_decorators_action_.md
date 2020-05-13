@@ -1,7 +1,7 @@
 ---
 id: "_decorators_action_"
-title: "decorators/action"
-sidebar_label: "decorators/action"
+title: "@action"
+sidebar_label: "@action"
 ---
 
 ## Index
@@ -16,7 +16,7 @@ sidebar_label: "decorators/action"
 
 ▸ **action**(`target`: object, `key`: string | symbol, `descriptor`: TypedPropertyDescriptor‹function›): *object*
 
-*Defined in [packages/reactant-module/src/decorators/action.ts:6](https://github.com/unadlib/reactant/blob/72dc788/packages/reactant-module/src/decorators/action.ts#L6)*
+*Defined in [packages/reactant-module/src/decorators/action.ts:6](https://github.com/unadlib/reactant/blob/33cbdb7/packages/reactant-module/src/decorators/action.ts#L6)*
 
 **Parameters:**
 

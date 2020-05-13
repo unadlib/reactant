@@ -1,7 +1,7 @@
 ---
 id: "_batch_"
-title: "batch"
-sidebar_label: "batch"
+title: "batch()"
+sidebar_label: "batch()"
 ---
 
 ## Index
@@ -16,4 +16,4 @@ sidebar_label: "batch"
 
 • **batch**: *batch* = batchUpdateWithReact
 
-*Defined in [batch.ts:3](https://github.com/unadlib/reactant/blob/72dc788/packages/reactant/src/batch.ts#L3)*
+*Defined in [batch.ts:3](https://github.com/unadlib/reactant/blob/33cbdb7/packages/reactant/src/batch.ts#L3)*

@@ -1,7 +1,7 @@
 ---
 id: "_core_subscribe_"
-title: "core/subscribe"
-sidebar_label: "core/subscribe"
+title: "subscribe()"
+sidebar_label: "subscribe()"
 ---
 
 ## Index
@@ -16,7 +16,7 @@ sidebar_label: "core/subscribe"
 
 ▸ **subscribe**(`service`: [Service](../interfaces/_interfaces_.service.md)‹object› & object, `listener`: function): *Unsubscribe*
 
-*Defined in [packages/reactant-module/src/core/subscribe.ts:5](https://github.com/unadlib/reactant/blob/72dc788/packages/reactant-module/src/core/subscribe.ts#L5)*
+*Defined in [packages/reactant-module/src/core/subscribe.ts:5](https://github.com/unadlib/reactant/blob/33cbdb7/packages/reactant-module/src/core/subscribe.ts#L5)*
 
 **Parameters:**
 
