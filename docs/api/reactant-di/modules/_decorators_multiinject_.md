@@ -16,7 +16,7 @@ sidebar_label: "@multiInject()"
 
 ▸ **multiInject**(`serviceIdentifier`: [ServiceIdentifier](_interfaces_.md#serviceidentifier)‹any›): *(Anonymous function)*
 
-*Defined in [packages/reactant-di/src/decorators/multiInject.ts:4](https://github.com/unadlib/reactant/blob/33cbdb7/packages/reactant-di/src/decorators/multiInject.ts#L4)*
+*Defined in [packages/reactant-di/src/decorators/multiInject.ts:4](https://github.com/unadlib/reactant/blob/d78fe4b/packages/reactant-di/src/decorators/multiInject.ts#L4)*
 
 **Parameters:**
 

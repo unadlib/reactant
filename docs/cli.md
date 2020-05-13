@@ -47,4 +47,4 @@ npx reactant-cli g v FooBarView
 * Use `-w` or `--withTests` for creating tests files, the default is not creating tests files.
 * Use `-s <src>` or `--src <src>` for specifying source files path in your project root path, the default is `src`.
 
-> It supports creating multiple service files in any directory in the project using this command
+> It supports creating multiple files in any directory in the project using this command

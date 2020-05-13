@@ -30,7 +30,7 @@ sidebar_label: "Config"
 
 • **containerOptions**? : *ContainerOptions*
 
-*Defined in [interfaces.ts:15](https://github.com/unadlib/reactant/blob/33cbdb7/packages/reactant/src/interfaces.ts#L15)*
+*Defined in [interfaces.ts:15](https://github.com/unadlib/reactant/blob/d78fe4b/packages/reactant/src/interfaces.ts#L15)*
 
 ___
 
@@ -38,7 +38,7 @@ ___
 
 • **devOptions**? : *DevOptions*
 
-*Defined in [interfaces.ts:18](https://github.com/unadlib/reactant/blob/33cbdb7/packages/reactant/src/interfaces.ts#L18)*
+*Defined in [interfaces.ts:18](https://github.com/unadlib/reactant/blob/d78fe4b/packages/reactant/src/interfaces.ts#L18)*
 
 ___
 
@@ -46,7 +46,7 @@ ___
 
 • **main**: *ServiceIdentifier‹T›*
 
-*Defined in [interfaces.ts:12](https://github.com/unadlib/reactant/blob/33cbdb7/packages/reactant/src/interfaces.ts#L12)*
+*Defined in [interfaces.ts:12](https://github.com/unadlib/reactant/blob/d78fe4b/packages/reactant/src/interfaces.ts#L12)*
 
 ___
 
@@ -54,7 +54,7 @@ ___
 
 • **middlewares**? : *ReactantMiddleware[]*
 
-*Defined in [interfaces.ts:16](https://github.com/unadlib/reactant/blob/33cbdb7/packages/reactant/src/interfaces.ts#L16)*
+*Defined in [interfaces.ts:16](https://github.com/unadlib/reactant/blob/d78fe4b/packages/reactant/src/interfaces.ts#L16)*
 
 ___
 
@@ -62,7 +62,7 @@ ___
 
 • **modules**? : *ReactModuleOptions[]*
 
-*Defined in [interfaces.ts:14](https://github.com/unadlib/reactant/blob/33cbdb7/packages/reactant/src/interfaces.ts#L14)*
+*Defined in [interfaces.ts:14](https://github.com/unadlib/reactant/blob/d78fe4b/packages/reactant/src/interfaces.ts#L14)*
 
 ___
 
@@ -70,7 +70,7 @@ ___
 
 • **preloadedState**? : *TypePreloadedState‹any›*
 
-*Defined in [interfaces.ts:17](https://github.com/unadlib/reactant/blob/33cbdb7/packages/reactant/src/interfaces.ts#L17)*
+*Defined in [interfaces.ts:17](https://github.com/unadlib/reactant/blob/d78fe4b/packages/reactant/src/interfaces.ts#L17)*
 
 ___
 
@@ -78,4 +78,4 @@ ___
 
 • **render**? : *undefined | function*
 
-*Defined in [interfaces.ts:13](https://github.com/unadlib/reactant/blob/33cbdb7/packages/reactant/src/interfaces.ts#L13)*
+*Defined in [interfaces.ts:13](https://github.com/unadlib/reactant/blob/d78fe4b/packages/reactant/src/interfaces.ts#L13)*
