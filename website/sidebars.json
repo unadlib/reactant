@@ -1,11 +1,17 @@
 {
   "docs": {
-    "Getting Started": ["introduction", "installation", "concepts", "using-create-react-app"],
+    "Getting Started": [
+      "introduction",
+      "installation",
+      "concepts",
+      "using-create-react-app",
+      "react-native-cli"
+    ],
     "Basic Tutorial": [
       "state-action",
       "component",
       "view-module",
-      "di",
+      "base-di",
       "hooks",
       "routing",
       "persistence"

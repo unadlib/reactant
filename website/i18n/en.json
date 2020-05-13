@@ -369,6 +369,9 @@
         "title": "testBed()",
         "sidebar_label": "testBed()"
       },
+      "base-di": {
+        "title": "Basic Dependency Injection"
+      },
       "cli": {
         "title": "Reactant CLI"
       },
@@ -380,6 +383,9 @@
       },
       "dev-tools": {
         "title": "Dev Tools"
+      },
+      "dev-workflow": {
+        "title": "Dev Workflow"
       },
       "di": {
         "title": "Dependency Injection"
@@ -401,11 +407,17 @@
         "title": "What is Reactant?",
         "sidebar_label": "What is Reactant?"
       },
+      "middleware": {
+        "title": "Middleware"
+      },
       "performance": {
         "title": "Performance"
       },
       "persistence": {
         "title": "Persistence"
+      },
+      "pluggable": {
+        "title": "Pluggable"
       },
       "routing": {
         "title": "Routing"
