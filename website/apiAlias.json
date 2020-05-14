@@ -19,6 +19,5 @@
   "api/reactant-di/modules/_decorators_optional_": "@optional()",
   "api/reactant-di/modules/_decorators_multiinject_": "@multiInject()",
   "api/reactant-di/modules/_decorators_multioptional_": "@multiOptional()",
-  "api/reactant-di/modules/_forwardref_": "forwardRef()",
-  "api/reactant-di/classes/_optional_.optional": "Optional()"
+  "api/reactant-di/modules/_forwardref_": "forwardRef()"
 }

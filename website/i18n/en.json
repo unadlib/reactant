@@ -419,6 +419,9 @@
       "pluggable": {
         "title": "Pluggable"
       },
+      "react-native-cli": {
+        "title": "Using react-native"
+      },
       "routing": {
         "title": "Routing"
       },

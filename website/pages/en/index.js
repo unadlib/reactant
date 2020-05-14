@@ -141,7 +141,7 @@ class Index extends React.Component {
         {[
           {
             content:
-              'Reactant supports React application development across multiple platforms, e.g. web, Native Mobile, to efficiently complete applications across platforms.',
+              'Reactant supports React application development across multiple platforms, e.g. Web, Native Mobile, to efficiently complete applications across platforms.',
             image: `${baseUrl}img/undraw_progressive_app.svg`,
             imageAlign: 'left',
             title: 'Develop Web & Native Mobile Platform',

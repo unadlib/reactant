@@ -12,11 +12,16 @@
       "component",
       "view-module",
       "base-di",
-      "hooks",
-      "routing",
-      "persistence"
+      "hooks"
     ],
-    "Advanced Guides": ["di", "middleware", "pluggable", "dev-workflow"],
+    "Advanced Guides": [
+      "di",
+      "middleware",
+      "pluggable",
+      "routing",
+      "persistence",
+      "dev-workflow"
+    ],
     "Tooling": ["cli", "dev-tools"],
     "Resources": ["examples", "faq", "performance"]
   },

@@ -17,13 +17,13 @@ yarn start
 
 ## Customize the creation of an Reactant project
 
-> If you've already created your project using reactant-cli, then please skip this section.
+> If you've already created your project using reactant-cli, please skip this section.
 
 If you need to customize to create Reactant project, then you can do the following steps:
 
-First, build a React project, visit [here](https://reactjs.org/docs/create-a-new-react-app.html) for more information.
+First, build a React project and you can visit [here](https://reactjs.org/docs/create-a-new-react-app.html) for more information.
 
-Then, install Reactant dependencies:
+then install Reactant dependencies:
 
 ```sh
 yarn add reactant reactant-web
