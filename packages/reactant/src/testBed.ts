@@ -1,5 +1,5 @@
 import { createApp } from './createApp';
-import { Config, App } from './interfaces';
+import { App, Config } from './interfaces';
 
 function testBed<T>(config: Config<T>): App<T> {
   return createApp<T>({

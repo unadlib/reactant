@@ -2,13 +2,14 @@ import React, { FunctionComponent } from 'react';
 import { Provider } from 'react-redux';
 import {
   createContainer,
-  ViewModule,
   createStore,
-  ServiceIdentifiersMap,
   Module,
   PartialRequired,
+  ServiceIdentifiersMap,
+  ViewModule,
 } from 'reactant-module';
-import { Config, App } from './interfaces';
+
+import { App, Config } from './interfaces';
 
 /**
  * **Description:**

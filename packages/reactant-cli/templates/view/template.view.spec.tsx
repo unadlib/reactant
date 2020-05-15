@@ -1,4 +1,5 @@
 import { testBed } from 'reactant';
+
 import { TemplateView } from './template.view';
 
 describe('TemplateView', () => {

@@ -1,10 +1,10 @@
 import {
   ContainerOptions,
-  ServiceIdentifier,
-  ReactModuleOptions,
-  TypePreloadedState,
-  ReactantStore,
   DevOptions,
+  ReactantStore,
+  ReactModuleOptions,
+  ServiceIdentifier,
+  TypePreloadedState,
 } from 'reactant-module';
 
 export interface Config<T> {

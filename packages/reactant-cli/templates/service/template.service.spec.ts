@@ -1,4 +1,5 @@
 import { testBed } from 'reactant';
+
 import { TemplateService } from './template.service';
 
 describe('TemplateService', () => {

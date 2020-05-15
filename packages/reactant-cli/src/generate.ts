@@ -1,9 +1,10 @@
 /* eslint-disable no-console */
+import chalk from 'chalk';
 import { Command } from 'commander';
 import path from 'path';
-import chalk from 'chalk';
-import { lookupRoot, createFile } from './utils';
-import { supportLanguages, supportLanguageMap } from './init';
+
+import { supportLanguageMap, supportLanguages } from './init';
+import { createFile, lookupRoot } from './utils';
 
 const templateTypeMap = {
   s: 'service',

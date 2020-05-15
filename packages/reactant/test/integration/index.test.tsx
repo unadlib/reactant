@@ -3,31 +3,32 @@
 /* eslint-disable @typescript-eslint/ban-ts-ignore */
 /* eslint-disable class-methods-use-this */
 import React, { FC } from 'react';
-import {
-  unmountComponentAtNode,
-  render,
-  Link,
-  Switch,
-  Route,
-  MemoryRouter,
-} from 'reactant-web';
 import { act } from 'react-dom/test-utils';
 import {
-  ViewModule,
-  createApp,
-  injectable,
+  Link,
+  MemoryRouter,
+  render,
+  Route,
+  Switch,
+  unmountComponentAtNode,
+} from 'reactant-web';
+
+import {
   action,
-  createState,
-  createSelector,
-  useConnector,
-  dispatch,
-  ReactantAction,
-  defaultProps,
-  batch,
-  state,
-  optional,
-  inject,
   autobind,
+  batch,
+  createApp,
+  createSelector,
+  createState,
+  defaultProps,
+  dispatch,
+  inject,
+  injectable,
+  optional,
+  ReactantAction,
+  state,
+  useConnector,
+  ViewModule,
 } from '../..';
 
 let container: Element;

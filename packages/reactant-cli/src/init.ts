@@ -1,8 +1,9 @@
 /* eslint-disable no-console */
-import { Command } from 'commander';
 import chalk from 'chalk';
+import { Command } from 'commander';
 import { generateProject } from 'installation';
-import { PackageJson } from './index';
+
+import { PackageJson } from '.';
 
 export const supportLanguageMap = {
   ts: 'typescript',
