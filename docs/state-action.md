@@ -44,7 +44,7 @@ class Foo {
 
 > Therefore, it is recommended to enable `autoFreeze` in development mode and disable `autoFreeze` in production mode (If it is NOT disabled, then it will likely bring some performance loss).
 
-### Tips
+## Tips
 
 * Both `@state` and `@action` support inheritance
 
