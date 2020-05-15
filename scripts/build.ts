@@ -1,7 +1,8 @@
 /* eslint-disable no-console */
 import path from 'path';
-import { compile } from './typescript';
+
 import { generateBundledModules } from './rollup';
+import { compile } from './typescript';
 
 process.chdir(path.resolve(__dirname, '..'));
 

@@ -1,6 +1,6 @@
-import loadJsonFile from 'load-json-file';
-import globParent from 'glob-parent';
 import fs from 'fs-extra';
+import globParent from 'glob-parent';
+import loadJsonFile from 'load-json-file';
 import path from 'path';
 
 export type Package = {

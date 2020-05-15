@@ -1,11 +1,12 @@
 /* eslint-disable no-console */
-import { spawn } from 'child_process';
-import path from 'path';
-import loadJsonFile from 'load-json-file';
-import fs from 'fs-extra';
-import ts from 'typescript';
 import chalk from 'chalk';
+import { spawn } from 'child_process';
+import fs from 'fs-extra';
+import loadJsonFile from 'load-json-file';
+import path from 'path';
+import ts from 'typescript';
 import { array } from 'yargs';
+
 import { handleWorkspaces, Package } from './workspaces';
 
 const projects = array('p').argv.p;

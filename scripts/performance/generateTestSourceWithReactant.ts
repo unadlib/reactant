@@ -10,29 +10,33 @@ const {
   oneClassReducerAmount = 10,
   computedTime = (50000 / classAmount) | 0, // 1000 -> Run out of memory
   allCheckedState = true,
-} = argv.mode ? {
-  small: {
-    classAmount: 100,
-    oneClassReducerAmount: 20,
-    computedTime: 1000,
-    allCheckedState: true,
-  },
-  big: {
-    classAmount: 200,
-    oneClassReducerAmount: 30,
-    computedTime: 1000,
-    allCheckedState: true,
-  },
-  huge: {
-    classAmount: 300,
-    oneClassReducerAmount: 100,
-    computedTime: 1000,
-    allCheckedState: true,
-  }
-  // @ts-ignore
-}[argv.mode] : (argv as any);
+} = argv.mode
+  ? {
+      small: {
+        classAmount: 100,
+        oneClassReducerAmount: 20,
+        computedTime: 1000,
+        allCheckedState: true,
+      },
+      big: {
+        classAmount: 200,
+        oneClassReducerAmount: 30,
+        computedTime: 1000,
+        allCheckedState: true,
+      },
+      huge: {
+        classAmount: 300,
+        oneClassReducerAmount: 100,
+        computedTime: 1000,
+        allCheckedState: true,
+      },
+      // @ts-ignore
+    }[argv.mode]
+  : (argv as any);
 
-const checkedState = allCheckedState ? '' : '(this as any)[storeKey].getState()';
+const checkedState = allCheckedState
+  ? ''
+  : '(this as any)[storeKey].getState()';
 const source = `
 // @ts-nocheck
 process.env.NODE_ENV = 'production';
@@ -92,7 +96,7 @@ class Service${i} {
 
   ${(() => {
     let stateStr = '';
-    for (let j = 0; j < oneClassReducerAmount; j+=1) {
+    for (let j = 0; j < oneClassReducerAmount; j += 1) {
       stateStr += `
         @state
         test${j} = ${j};
@@ -116,7 +120,7 @@ class Service${i} {
     () => this.service${i - 1}.props.sum,
     ${(() => {
       let stateStr = '';
-      for (let j = 0; j < oneClassReducerAmount; j+=1) {
+      for (let j = 0; j < oneClassReducerAmount; j += 1) {
         stateStr += `
           () => this.test${j},
         `;
@@ -126,7 +130,7 @@ class Service${i} {
     (service${i - 1}
       ${(() => {
         let stateStr = '';
-        for (let j = 0; j < oneClassReducerAmount; j+=1) {
+        for (let j = 0; j < oneClassReducerAmount; j += 1) {
           stateStr += `
             , test${j}
           `;
@@ -137,7 +141,7 @@ class Service${i} {
       return service${i - 1}
       ${(() => {
         let stateStr = '';
-        for (let j = 0; j < oneClassReducerAmount; j+=1) {
+        for (let j = 0; j < oneClassReducerAmount; j += 1) {
           stateStr += `
             + test${j}
           `;
@@ -184,7 +188,7 @@ const bootstrap = Date.now() - time;
 time = Date.now();
 ${(() => {
   let computedStr = '';
-  for (let i = 0; i < computedTime; i+=1) {
+  for (let i = 0; i < computedTime; i += 1) {
     computedStr += `
       app.instance.service0.decrease();
       app.instance.props.sum;
@@ -196,7 +200,7 @@ const computed = Date.now() - time;
 time = Date.now();
 ${(() => {
   let computedStr = '';
-  for (let i = 0; i < computedTime; i+=1) {
+  for (let i = 0; i < computedTime; i += 1) {
     computedStr += `
       app.instance.props.sum;
     `;

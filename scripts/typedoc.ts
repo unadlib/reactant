@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
+import { spawn } from 'child_process';
 import fs from 'fs-extra';
 import path from 'path';
-import { spawn } from 'child_process';
 
 const projects = [
   'reactant-module',

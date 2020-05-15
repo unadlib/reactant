@@ -3,13 +3,13 @@
 /* eslint-disable global-require */
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable import/no-extraneous-dependencies */
-import path from 'path';
-import { rollup } from 'rollup';
+import commonjsPlugin from '@rollup/plugin-commonjs';
 import resolvePlugin from '@rollup/plugin-node-resolve';
 import replacePlugin from '@rollup/plugin-replace';
-import commonjsPlugin from '@rollup/plugin-commonjs';
-import { terser as terserPlugin } from 'rollup-plugin-terser';
 import chalk from 'chalk';
+import path from 'path';
+import { rollup } from 'rollup';
+import { terser as terserPlugin } from 'rollup-plugin-terser';
 
 type GenerateOption = {
   inputFile: string;
