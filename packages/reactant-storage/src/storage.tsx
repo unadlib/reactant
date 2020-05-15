@@ -1,19 +1,19 @@
 import React, { PropsWithChildren, ReactNode } from 'react';
-import {
-  PluginModule,
-  injectable,
-  inject,
-  Service,
-  stateKey,
-  PartialRequired,
-} from 'reactant-module';
-import { Reducer, ReducersMapObject } from 'redux';
 import { useStore } from 'react-redux';
 import {
-  persistStore,
-  persistReducer,
-  Storage,
+  inject,
+  injectable,
+  PartialRequired,
+  PluginModule,
+  Service,
+  stateKey,
+} from 'reactant-module';
+import { Reducer, ReducersMapObject } from 'redux';
+import {
   PersistConfig,
+  persistReducer,
+  persistStore,
+  Storage,
 } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
 import storage from 'redux-persist/lib/storage';
