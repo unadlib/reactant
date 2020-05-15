@@ -1,8 +1,9 @@
-import { optional as optionalWithInversify, decorate } from 'inversify';
-import { multiInject } from './multiInject';
-import { ServiceIdentifier } from '../interfaces';
+import { decorate, optional as optionalWithInversify } from 'inversify';
+
 import { METADATA_KEY } from '../constants';
+import { ServiceIdentifier } from '../interfaces';
 import { setMetadata } from '../util';
+import { multiInject } from './multiInject';
 
 export function multiOptional(serviceIdentifier: ServiceIdentifier<any>) {
   return (target: object, targetKey?: string, index?: number) => {

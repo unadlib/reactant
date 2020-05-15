@@ -1,8 +1,8 @@
 import {
+  MetaDataKey,
   MetadataMap,
   Module,
   ServiceIdentifier,
-  MetaDataKey,
 } from './interfaces';
 
 export const getMetadata = (metaKey: MetaDataKey): MetadataMap =>

@@ -1,8 +1,9 @@
-import { optional as optionalWithInversify, decorate } from 'inversify';
-import { inject } from './inject';
-import { ServiceIdentifier } from '../interfaces';
+import { decorate, optional as optionalWithInversify } from 'inversify';
+
 import { METADATA_KEY } from '../constants';
+import { ServiceIdentifier } from '../interfaces';
 import { setMetadata } from '../util';
+import { inject } from './inject';
 
 export function optional(serviceIdentifier?: ServiceIdentifier<any>) {
   return (target: object, targetKey?: string, index?: number) => {

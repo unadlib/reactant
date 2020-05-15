@@ -1,4 +1,5 @@
-import { multiInject as multiInjectWithInversify, decorate } from 'inversify';
+import { decorate, multiInject as multiInjectWithInversify } from 'inversify';
+
 import { ServiceIdentifier } from '../interfaces';
 
 export function multiInject(serviceIdentifier: ServiceIdentifier<any>) {

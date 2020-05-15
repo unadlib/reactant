@@ -1,4 +1,5 @@
 import { interfaces, LazyServiceIdentifer } from 'inversify';
+
 import { METADATA_KEY } from './constants';
 import { Optional } from './optional';
 

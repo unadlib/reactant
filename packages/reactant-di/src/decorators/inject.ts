@@ -1,12 +1,13 @@
 import {
-  inject as injectWithInversify,
   decorate,
+  inject as injectWithInversify,
   LazyServiceIdentifer,
 } from 'inversify';
-import { ServiceIdentifierOrFunc } from '../interfaces';
+
 import { METADATA_KEY } from '../constants';
 import { lookupServiceIdentifier } from '../createContainer';
 import { forwardRef } from '../forwardRef';
+import { ServiceIdentifierOrFunc } from '../interfaces';
 
 export function inject(serviceIdentifierOrFunc?: ServiceIdentifierOrFunc<any>) {
   return (target: object, targetKey?: string, index?: number) => {

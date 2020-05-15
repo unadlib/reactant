@@ -1,27 +1,27 @@
 import {
   Container,
-  MetadataReader,
-  interfaces,
   ContainerModule,
   decorate,
-  LazyServiceIdentifer,
+  interfaces,
+  MetadataReader,
 } from 'inversify';
-import {
-  ContainerConfig,
-  ModuleOptions,
-  FactoryProvider,
-  ValueProvider,
-  ClassProvider,
-  ServiceIdentifier,
-  DependencyProviderOption,
-  ModuleProvider,
-} from './interfaces';
-import { getMetadata } from './util';
-import { createCollector } from './middlewares/collector';
+
 import { METADATA_KEY } from './constants';
-import { injectable, inject } from './decorators';
-import { Optional, defaultUndefinedValue } from './optional';
+import { inject, injectable } from './decorators';
+import {
+  ClassProvider,
+  ContainerConfig,
+  DependencyProviderOption,
+  FactoryProvider,
+  ModuleOptions,
+  ModuleProvider,
+  ServiceIdentifier,
+  ValueProvider,
+} from './interfaces';
+import { createCollector } from './middlewares/collector';
 import { ModuleRef } from './moduleRef';
+import { defaultUndefinedValue, Optional } from './optional';
+import { getMetadata } from './util';
 
 let modulesDeps: ModuleOptions[];
 

@@ -1,11 +1,12 @@
-import { injectable as injectify, decorate } from 'inversify';
+import { decorate, injectable as injectify } from 'inversify';
+
 import { METADATA_KEY } from '../constants';
-import { setMetadata } from '../util';
 import { ModuleDecoratorOptions } from '../interfaces';
+import { setMetadata } from '../util';
 import { inject } from './inject';
-import { optional } from './optional';
 import { multiInject } from './multiInject';
 import { multiOptional } from './multiOptional';
+import { optional } from './optional';
 
 export function injectable(options: ModuleDecoratorOptions = {}) {
   return (target: any) => {

@@ -1,4 +1,5 @@
 import { interfaces } from 'inversify';
+
 import { ServiceIdentifiersMap } from '../interfaces';
 
 function lookupServiceIdentifiers(
