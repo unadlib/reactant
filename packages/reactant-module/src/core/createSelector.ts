@@ -219,9 +219,9 @@ export function createSelector<
     res11: R11,
     res12: R12
   ) => T
-): (checkedState?: any) => T;
+): (checkedState?: unknown) => T;
 
-export function createSelector(...args: any[]) {
+export function createSelector(...args: unknown[]) {
   const selector = (createSelectorWithReselect as any)(...args);
-  return (checkedState?: any) => selector(checkedState || {});
+  return (checkedState?: unknown) => selector(checkedState || {});
 }
