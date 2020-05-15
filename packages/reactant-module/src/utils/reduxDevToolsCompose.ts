@@ -1,4 +1,5 @@
 import { compose } from 'redux';
+
 import { ReduxDevToolsOptions } from '../interfaces';
 
 export const getComposeEnhancers = (

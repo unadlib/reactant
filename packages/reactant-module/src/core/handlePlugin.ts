@@ -1,6 +1,7 @@
-import { ReducersMapObject, Reducer, PreloadedState } from 'redux';
+import { PreloadedState, Reducer, ReducersMapObject } from 'redux';
+
+import { HandlePlugin, PluginHooks } from '../interfaces';
 import { PluginModule } from './plugin';
-import { PluginHooks, HandlePlugin } from '../interfaces';
 
 export const handlePlugin: HandlePlugin = (
   service: any,

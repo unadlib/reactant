@@ -1,5 +1,6 @@
-import { Store } from 'redux';
 import { injectable } from 'reactant-di';
+import { Store } from 'redux';
+
 import { storeKey } from '../constants';
 import { Service } from '../interfaces';
 

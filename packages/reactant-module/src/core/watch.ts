@@ -1,6 +1,6 @@
 import { Watch } from '../interfaces';
-import { subscribe } from './subscribe';
 import { isEqual } from '../utils';
+import { subscribe } from './subscribe';
 
 const watch: Watch = (service, selector, watcher) => {
   let oldValue = selector();

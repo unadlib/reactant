@@ -1,6 +1,7 @@
 import { Unsubscribe } from 'redux';
-import { Subscribe } from '../interfaces';
+
 import { storeKey, subscriptionsKey } from '../constants';
+import { Subscribe } from '../interfaces';
 
 const subscribe: Subscribe = (service, listener) => {
   if (typeof listener !== 'function') {

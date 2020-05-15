@@ -1,12 +1,13 @@
 import { FunctionComponent } from 'react';
+import { injectable } from 'reactant-di';
 import {
-  ReducersMapObject,
   Middleware,
   PreloadedState,
   Reducer,
+  ReducersMapObject,
   Store,
 } from 'redux';
-import { injectable } from 'reactant-di';
+
 import { storeKey } from '../constants';
 import { Service } from '../interfaces';
 

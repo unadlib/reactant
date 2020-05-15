@@ -1,4 +1,4 @@
-import { Reducer, Action, AnyAction } from 'redux';
+import { Action, AnyAction, Reducer } from 'redux';
 
 export function createState<S = any, A extends Action = AnyAction>(
   reducer: Reducer<S, A>

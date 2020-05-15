@@ -1,5 +1,5 @@
-import { Service, PropertyDescriptor } from '../interfaces';
 import { stateKey } from '../constants';
+import { PropertyDescriptor, Service } from '../interfaces';
 
 export function state(
   target: object,

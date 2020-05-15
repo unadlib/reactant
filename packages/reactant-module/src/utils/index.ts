@@ -1,6 +1,6 @@
 export * from './assign';
-export * from './isEqual';
 export * from './getStageName';
+export * from './isEqual';
 export * from './performer';
 export * from './reduxDevToolsCompose';
 export * from './compose';

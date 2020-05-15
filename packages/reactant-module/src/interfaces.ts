@@ -1,18 +1,19 @@
+import { ModuleOptions } from 'reactant-di';
 import {
-  Store,
-  PreloadedState,
+  Action,
   AnyAction,
   Middleware,
-  Action,
+  PreloadedState,
+  Store,
   Unsubscribe,
 } from 'redux';
 import { EnhancerOptions } from 'redux-devtools-extension';
-import { ModuleOptions } from 'reactant-di';
+
 import {
-  storeKey,
-  subscriptionsKey,
   stagedStateKey,
   stateKey,
+  storeKey,
+  subscriptionsKey,
 } from './constants';
 import { PluginModule } from './core';
 

@@ -1,5 +1,5 @@
-import { ThisService, ReactantAction } from '../interfaces';
-import { storeKey, stateKey } from '../constants';
+import { stateKey, storeKey } from '../constants';
+import { ReactantAction, ThisService } from '../interfaces';
 
 // the api should not be implemented as a decorator
 // (because it should return new state should get a the current new state, low performance.)

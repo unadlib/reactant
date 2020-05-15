@@ -1,7 +1,5 @@
-export * from 'reactant-di';
-
-export * from './core/index';
-export * from './decorators/index';
-export * from './utils/index';
-export * from './constants/index';
+export * from './constants';
+export * from './core';
+export * from './decorators';
 export * from './interfaces';
+export * from './utils';

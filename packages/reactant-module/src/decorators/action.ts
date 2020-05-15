@@ -1,7 +1,8 @@
 /* eslint-disable func-names */
 import { produce } from 'immer';
+
+import { stagedStateKey, stateKey, storeKey } from '../constants';
 import { Service } from '../interfaces';
-import { storeKey, stagedStateKey, stateKey } from '../constants';
 
 export function action(
   target: object,
