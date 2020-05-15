@@ -1,12 +1,12 @@
-import React, { PropsWithChildren, FunctionComponent } from 'react';
-import { PluginModule, injectable, optional, storeKey } from 'reactant-module';
-import { ReducersMapObject, Store } from 'redux';
 import {
+  ConnectedRouter,
   connectRouter,
   routerMiddleware,
-  ConnectedRouter,
 } from 'connected-react-router';
-import { createBrowserHistory, Location, LocationState, Action } from 'history';
+import { Action, createBrowserHistory, Location, LocationState } from 'history';
+import React, { FunctionComponent, PropsWithChildren } from 'react';
+import { injectable, optional, PluginModule, storeKey } from 'reactant-module';
+import { ReducersMapObject, Store } from 'redux';
 
 const RouterOptions = Symbol('RouterOptions');
 
