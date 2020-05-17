@@ -1,7 +1,7 @@
 ---
 id: "_optional_.optional"
-title: "Optional()"
-sidebar_label: "Optional()"
+title: "Optional"
+sidebar_label: "Optional"
 ---
 
 > NOTE: does not support Changing dependencies without `@inject`.
@@ -30,7 +30,7 @@ sidebar_label: "Optional()"
 
 \+ **new Optional**(`identifier`: [ServiceIdentifier](../modules/_interfaces_.md#serviceidentifier)‹any›): *[Optional](_optional_.optional.md)*
 
-*Defined in [packages/reactant-di/src/optional.ts:8](https://github.com/unadlib/reactant/blob/d78fe4b/packages/reactant-di/src/optional.ts#L8)*
+*Defined in [packages/reactant-di/src/optional.ts:8](https://github.com/unadlib/reactant/blob/f5b92e0/packages/reactant-di/src/optional.ts#L8)*
 
 **Parameters:**
 
@@ -46,7 +46,7 @@ Name | Type |
 
 • **identifier**: *[ServiceIdentifier](../modules/_interfaces_.md#serviceidentifier)‹any›*
 
-*Defined in [packages/reactant-di/src/optional.ts:9](https://github.com/unadlib/reactant/blob/d78fe4b/packages/reactant-di/src/optional.ts#L9)*
+*Defined in [packages/reactant-di/src/optional.ts:9](https://github.com/unadlib/reactant/blob/f5b92e0/packages/reactant-di/src/optional.ts#L9)*
 
 ## Accessors
 
@@ -54,6 +54,6 @@ Name | Type |
 
 • **get key**(): *symbol*
 
-*Defined in [packages/reactant-di/src/optional.ts:11](https://github.com/unadlib/reactant/blob/d78fe4b/packages/reactant-di/src/optional.ts#L11)*
+*Defined in [packages/reactant-di/src/optional.ts:11](https://github.com/unadlib/reactant/blob/f5b92e0/packages/reactant-di/src/optional.ts#L11)*
 
 **Returns:** *symbol*

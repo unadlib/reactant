@@ -35,6 +35,7 @@ sidebar_label: "index"
 * [areStatePropsEqual](_index_.md#arestatepropsequal)
 * [assign](_index_.md#assign)
 * [autobind](_index_.md#autobind)
+* [compose](_index_.md#compose)
 * [createSelector](_index_.md#createselector)
 * [createState](_index_.md#createstate)
 * [createStore](_index_.md#createstore)
@@ -215,6 +216,12 @@ ___
 ###  autobind
 
 • **autobind**:
+
+___
+
+###  compose
+
+• **compose**:
 
 ___
 

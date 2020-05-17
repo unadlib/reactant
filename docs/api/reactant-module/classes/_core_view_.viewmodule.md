@@ -33,7 +33,7 @@ sidebar_label: "ViewModule"
 
 \+ **new ViewModule**(): *[ViewModule](_core_view_.viewmodule.md)*
 
-*Defined in [packages/reactant-module/src/core/view.ts:10](https://github.com/unadlib/reactant/blob/d78fe4b/packages/reactant-module/src/core/view.ts#L10)*
+*Defined in [packages/reactant-module/src/core/view.ts:10](https://github.com/unadlib/reactant/blob/f5b92e0/packages/reactant-module/src/core/view.ts#L10)*
 
 **Returns:** *[ViewModule](_core_view_.viewmodule.md)*
 
@@ -45,7 +45,7 @@ sidebar_label: "ViewModule"
 
 *Implementation of [Service](../interfaces/_interfaces_.service.md).[[storeKey]](../interfaces/_interfaces_.service.md#optional-readonly-[storekey])*
 
-*Defined in [packages/reactant-module/src/core/view.ts:8](https://github.com/unadlib/reactant/blob/d78fe4b/packages/reactant-module/src/core/view.ts#L8)*
+*Defined in [packages/reactant-module/src/core/view.ts:8](https://github.com/unadlib/reactant/blob/f5b92e0/packages/reactant-module/src/core/view.ts#L8)*
 
 ___
 
@@ -55,7 +55,7 @@ ___
 
 *Implementation of [Service](../interfaces/_interfaces_.service.md).[name](../interfaces/_interfaces_.service.md#optional-name)*
 
-*Defined in [packages/reactant-module/src/core/view.ts:10](https://github.com/unadlib/reactant/blob/d78fe4b/packages/reactant-module/src/core/view.ts#L10)*
+*Defined in [packages/reactant-module/src/core/view.ts:10](https://github.com/unadlib/reactant/blob/f5b92e0/packages/reactant-module/src/core/view.ts#L10)*
 
 ## Methods
 
@@ -63,7 +63,7 @@ ___
 
 ▸ **component**(`props`: Record‹string, any›): *ReactElement | null*
 
-*Defined in [packages/reactant-module/src/core/view.ts:29](https://github.com/unadlib/reactant/blob/d78fe4b/packages/reactant-module/src/core/view.ts#L29)*
+*Defined in [packages/reactant-module/src/core/view.ts:29](https://github.com/unadlib/reactant/blob/f5b92e0/packages/reactant-module/src/core/view.ts#L29)*
 
 **Parameters:**
 

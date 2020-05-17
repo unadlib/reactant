@@ -28,6 +28,7 @@ sidebar_label: "Globals"
 * ["index"](modules/_index_.md)
 * ["interfaces"](modules/_interfaces_.md)
 * ["utils/assign"](modules/_utils_assign_.md)
+* ["utils/compose"](modules/_utils_compose_.md)
 * ["utils/getStageName"](modules/_utils_getstagename_.md)
 * ["utils/index"](modules/_utils_index_.md)
 * ["utils/isEqual"](modules/_utils_isequal_.md)

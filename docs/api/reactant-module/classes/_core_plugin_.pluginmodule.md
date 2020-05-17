@@ -37,7 +37,7 @@ sidebar_label: "PluginModule"
 
 *Implementation of [Service](../interfaces/_interfaces_.service.md).[[storeKey]](../interfaces/_interfaces_.service.md#optional-readonly-[storekey])*
 
-*Defined in [packages/reactant-module/src/core/plugin.ts:15](https://github.com/unadlib/reactant/blob/d78fe4b/packages/reactant-module/src/core/plugin.ts#L15)*
+*Defined in [packages/reactant-module/src/core/plugin.ts:15](https://github.com/unadlib/reactant/blob/f5b92e0/packages/reactant-module/src/core/plugin.ts#L15)*
 
 ___
 
@@ -45,7 +45,7 @@ ___
 
 • **enhancer**? : *Function*
 
-*Defined in [packages/reactant-module/src/core/plugin.ts:25](https://github.com/unadlib/reactant/blob/d78fe4b/packages/reactant-module/src/core/plugin.ts#L25)*
+*Defined in [packages/reactant-module/src/core/plugin.ts:25](https://github.com/unadlib/reactant/blob/f5b92e0/packages/reactant-module/src/core/plugin.ts#L25)*
 
 ___
 
@@ -53,7 +53,7 @@ ___
 
 • **middleware**? : *Middleware*
 
-*Defined in [packages/reactant-module/src/core/plugin.ts:23](https://github.com/unadlib/reactant/blob/d78fe4b/packages/reactant-module/src/core/plugin.ts#L23)*
+*Defined in [packages/reactant-module/src/core/plugin.ts:23](https://github.com/unadlib/reactant/blob/f5b92e0/packages/reactant-module/src/core/plugin.ts#L23)*
 
 ___
 
@@ -63,7 +63,7 @@ ___
 
 *Implementation of [Service](../interfaces/_interfaces_.service.md).[name](../interfaces/_interfaces_.service.md#optional-name)*
 
-*Defined in [packages/reactant-module/src/core/plugin.ts:17](https://github.com/unadlib/reactant/blob/d78fe4b/packages/reactant-module/src/core/plugin.ts#L17)*
+*Defined in [packages/reactant-module/src/core/plugin.ts:17](https://github.com/unadlib/reactant/blob/f5b92e0/packages/reactant-module/src/core/plugin.ts#L17)*
 
 ___
 
@@ -71,7 +71,7 @@ ___
 
 • **provider**? : *FunctionComponent*
 
-*Defined in [packages/reactant-module/src/core/plugin.ts:35](https://github.com/unadlib/reactant/blob/d78fe4b/packages/reactant-module/src/core/plugin.ts#L35)*
+*Defined in [packages/reactant-module/src/core/plugin.ts:35](https://github.com/unadlib/reactant/blob/f5b92e0/packages/reactant-module/src/core/plugin.ts#L35)*
 
 ## Methods
 
@@ -79,7 +79,7 @@ ___
 
 ▸ **afterCombineRootReducers**(`rootReducer`: Reducer): *Reducer*
 
-*Defined in [packages/reactant-module/src/core/plugin.ts:33](https://github.com/unadlib/reactant/blob/d78fe4b/packages/reactant-module/src/core/plugin.ts#L33)*
+*Defined in [packages/reactant-module/src/core/plugin.ts:33](https://github.com/unadlib/reactant/blob/f5b92e0/packages/reactant-module/src/core/plugin.ts#L33)*
 
 **Parameters:**
 
@@ -95,7 +95,7 @@ ___
 
 ▸ **afterCreateStore**(`store`: Store): *void*
 
-*Defined in [packages/reactant-module/src/core/plugin.ts:27](https://github.com/unadlib/reactant/blob/d78fe4b/packages/reactant-module/src/core/plugin.ts#L27)*
+*Defined in [packages/reactant-module/src/core/plugin.ts:27](https://github.com/unadlib/reactant/blob/f5b92e0/packages/reactant-module/src/core/plugin.ts#L27)*
 
 **Parameters:**
 
@@ -111,7 +111,7 @@ ___
 
 ▸ **beforeCombineRootReducers**(`reducers`: ReducersMapObject): *ReducersMapObject*
 
-*Defined in [packages/reactant-module/src/core/plugin.ts:31](https://github.com/unadlib/reactant/blob/d78fe4b/packages/reactant-module/src/core/plugin.ts#L31)*
+*Defined in [packages/reactant-module/src/core/plugin.ts:31](https://github.com/unadlib/reactant/blob/f5b92e0/packages/reactant-module/src/core/plugin.ts#L31)*
 
 **Parameters:**
 
@@ -127,7 +127,7 @@ ___
 
 ▸ **preloadedStateHandler**(`preloadedState`: PreloadedState‹any›): *PreloadedState‹any›*
 
-*Defined in [packages/reactant-module/src/core/plugin.ts:19](https://github.com/unadlib/reactant/blob/d78fe4b/packages/reactant-module/src/core/plugin.ts#L19)*
+*Defined in [packages/reactant-module/src/core/plugin.ts:19](https://github.com/unadlib/reactant/blob/f5b92e0/packages/reactant-module/src/core/plugin.ts#L19)*
 
 **Parameters:**
 

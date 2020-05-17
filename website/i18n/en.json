@@ -14,8 +14,8 @@
         "sidebar_label": "ModuleRef"
       },
       "api/reactant-di/classes/_optional_.optional": {
-        "title": "Optional()",
-        "sidebar_label": "Optional()"
+        "title": "Optional",
+        "sidebar_label": "Optional"
       },
       "api/reactant-di/index": {
         "title": "reactant-di",
@@ -248,6 +248,10 @@
       "api/reactant-module/modules/_utils_assign_": {
         "title": "utils/assign",
         "sidebar_label": "utils/assign"
+      },
+      "api/reactant-module/modules/_utils_compose_": {
+        "title": "utils/compose",
+        "sidebar_label": "utils/compose"
       },
       "api/reactant-module/modules/_utils_getstagename_": {
         "title": "utils/getStageName",

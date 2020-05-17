@@ -10,6 +10,7 @@ sidebar_label: "utils/index"
 
 * [areStatePropsEqual](_utils_index_.md#arestatepropsequal)
 * [assign](_utils_index_.md#assign)
+* [compose](_utils_index_.md#compose)
 * [getComposeEnhancers](_utils_index_.md#getcomposeenhancers)
 * [getStageName](_utils_index_.md#getstagename)
 * [isEqual](_utils_index_.md#isequal)
@@ -27,6 +28,12 @@ ___
 ###  assign
 
 • **assign**:
+
+___
+
+###  compose
+
+• **compose**:
 
 ___
 

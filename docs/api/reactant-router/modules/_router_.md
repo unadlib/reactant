@@ -35,4 +35,4 @@ sidebar_label: "router"
 
 • **RouterOptions**: *unique symbol* = Symbol('RouterOptions')
 
-*Defined in [packages/reactant-router/src/router.tsx:11](https://github.com/unadlib/reactant/blob/d78fe4b/packages/reactant-router/src/router.tsx#L11)*
+*Defined in [packages/reactant-router/src/router.tsx:11](https://github.com/unadlib/reactant/blob/f5b92e0/packages/reactant-router/src/router.tsx#L11)*
