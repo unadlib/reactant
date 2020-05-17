@@ -36,7 +36,6 @@ function createApp<T>({
   render,
   modules = [],
   containerOptions,
-  middlewares,
   preloadedState,
   devOptions,
 }: PartialRequired<Config<T>, 'render'>): App<T> {
@@ -57,7 +56,6 @@ function createApp<T>({
     container,
     ServiceIdentifiers,
     preloadedState,
-    middlewares,
     providers,
     devOptions
   );

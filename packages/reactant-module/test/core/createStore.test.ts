@@ -65,8 +65,18 @@ test('`createStore` with base middlewares pararms', () => {
       this.count += 1;
     }
   }
+  const actionFn = jest.fn();
+  class Logger extends PluginModule {
+    middleware: Middleware = store => next => _action => {
+      actionFn(_action);
+      const result = next(_action);
+      actionFn(store.getState());
+      return result;
+    }
+  }
+
   const ServiceIdentifiers = new Map();
-  const modules = [Counter];
+  const modules = [Counter, Logger];
   const container = createContainer({
     ServiceIdentifiers,
     modules,
@@ -75,14 +85,7 @@ test('`createStore` with base middlewares pararms', () => {
     },
   });
   const couter = container.get(Counter);
-  const actionFn = jest.fn();
-  const logger: Middleware = store => next => _action => {
-    actionFn(_action);
-    const result = next(_action);
-    actionFn(store.getState());
-    return result;
-  };
-  const store = createStore(modules, container, ServiceIdentifiers, undefined, [logger]);
+  const store = createStore(modules, container, ServiceIdentifiers, undefined);
   couter.increase();
   expect(actionFn.mock.calls.length).toBe(2);
   expect(actionFn.mock.calls[0]).toEqual([
@@ -128,7 +131,6 @@ test('`createStore` with base providers pararms', () => {
     container,
     ServiceIdentifiers,
     undefined,
-    undefined,
     providers
   );
   expect(providers.length).toBe(1);
@@ -173,7 +175,6 @@ test('`createStore` with base devOptions pararms', () => {
     modules,
     container,
     ServiceIdentifiers,
-    undefined,
     undefined,
     undefined,
     { autoFreeze: true }

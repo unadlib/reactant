@@ -67,7 +67,6 @@ test('`@action` with base devOptions pararms', () => {
     ServiceIdentifiers,
     undefined,
     undefined,
-    undefined,
     { autoFreeze: true }
   );
   expect(() => {

@@ -4,7 +4,6 @@ import {
   ReactModuleOptions,
   TypePreloadedState,
   ReactantStore,
-  ReactantMiddleware,
   DevOptions,
 } from 'reactant-module';
 
@@ -13,7 +12,6 @@ export interface Config<T> {
   render?: (element: JSX.Element, ...args: any[]) => Element | void;
   modules?: ReactModuleOptions[];
   containerOptions?: ContainerOptions;
-  middlewares?: ReactantMiddleware[];
   preloadedState?: TypePreloadedState<any>;
   devOptions?: DevOptions;
 }

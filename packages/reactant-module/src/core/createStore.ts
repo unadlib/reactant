@@ -34,7 +34,6 @@ export function createStore<T = any>(
   container: Container,
   ServiceIdentifiers: ServiceIdentifiersMap,
   preloadedState?: PreloadedState<T>,
-  middlewares: ReactantMiddleware[] = [],
   providers: FunctionComponent[] = [],
   devOptions: DevOptions = {}
 ) {
@@ -47,7 +46,7 @@ export function createStore<T = any>(
   let store: Store;
   const reducers: ReducersMapObject = {};
   const pluginHooks: PluginHooks = {
-    middleware: middlewares,
+    middleware: [],
     beforeCombineRootReducers: [],
     afterCombineRootReducers: [],
     enhancer: [],
