@@ -26,13 +26,10 @@ export function action(
         }
       );
       this[stagedStateKey] = undefined;
-      this[storeKey]!.dispatch({
-        type: this.name,
-        method: key,
-        state,
-        _reactant: true,
-      });
       if (process.env.NODE_ENV !== 'production') {
+        if (this[stateKey] === state) {
+          console.warn(`There are no state updates to method ${fn.name}`);
+        }
         // performance checking
         const executionTime = Date.now() - time!;
         if (executionTime > 100)
@@ -41,6 +38,12 @@ export function action(
           );
         // performance detail: https://immerjs.github.io/immer/docs/performance
       }
+      this[storeKey]!.dispatch({
+        type: this.name,
+        method: key,
+        state,
+        _reactant: true,
+      });
     } else {
       // enable staged state mode.
       fn.call(this, ...args);
