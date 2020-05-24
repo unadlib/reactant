@@ -10,40 +10,24 @@ const {
   oneClassReducerAmount = 10,
   computedTime = (50000 / classAmount) | 0, // 1000 -> Run out of memory
   allCheckedState = true,
-  expectedResult,
 } = argv.mode ? {
   small: {
     classAmount: 100,
     oneClassReducerAmount: 20,
     computedTime: 1000,
     allCheckedState: true,
-    expectedResult: {
-      boostrap: 60,
-      computed: 1200,
-      cache: 500,
-    },
   },
   big: {
     classAmount: 200,
     oneClassReducerAmount: 30,
     computedTime: 1000,
     allCheckedState: true,
-    expectedResult: {
-      boostrap: 100,
-      computed: 3100,
-      cache: 1100,
-    },
   },
   huge: {
-    classAmount: 200,
+    classAmount: 300,
     oneClassReducerAmount: 100,
     computedTime: 1000,
     allCheckedState: true,
-    expectedResult: {
-      boostrap: 500,
-      computed: 32000,
-      cache: 13000,
-    },
   },
   // @ts-ignore
 }[argv.mode] : (argv as any);
@@ -59,7 +43,6 @@ console.log(${JSON.stringify({
   computedTime,
   allCheckedState,
 })});
-console.log('expectedResult:', ${JSON.stringify(expectedResult)});
 declare global {
   interface Window {
     __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: any;
@@ -72,7 +55,6 @@ import { observable, action, computed } from 'mobx';
 import { injectable, createApp, ViewModule, createSelector, storeKey } from '..';
 let time = Date.now();
 const computedTime = ${computedTime};
-const expectedResult = ${JSON.stringify(expectedResult)};
 @injectable()
 class Service0 {
   @observable
@@ -176,9 +158,7 @@ const app = createApp({
     reduxDevTools: false,
   },
 });
-const boostrapTime = Date.now() - time;
-console.log('boostrap time:', boostrapTime);
-if (expectedResult && boostrapTime > expectedResult.boostrap) console.log('boostrap performance reduction:', boostrapTime, expectedResult.boostrap);
+const bootstrap = Date.now() - time;
 time = Date.now();
 ${(() => {
   let computedStr = '';
@@ -190,10 +170,7 @@ ${(() => {
   }
   return computedStr;
 })()}
-const allComputedChangedTime = Date.now() - time;
-console.log('computed with changed time:', allComputedChangedTime);
-console.log('per computed changed Time:', allComputedChangedTime / computedTime);
-if (expectedResult && allComputedChangedTime > expectedResult.computed) console.log('computed with changed performance reduction:', allComputedChangedTime, expectedResult.computed);
+const computedTime = Date.now() - time;
 time = Date.now();
 ${(() => {
   let computedStr = '';
@@ -204,10 +181,8 @@ ${(() => {
   }
   return computedStr;
 })()}
-const allComputedNoChangedTime = Date.now() - time;
-console.log('computed without changed time:', allComputedNoChangedTime);
-console.log('per computed no changed time:', allComputedNoChangedTime / computedTime);
-if (expectedResult && allComputedNoChangedTime > expectedResult.cache) console.log('computed without changed performance reduction:', allComputedNoChangedTime, expectedResult.cache);
+const cache = Date.now() - time;
+console.log('Result:', { bootstrap, computed: computedTime, cache });
 `;
 
 writeFileSync('./packages/reactant/test/performance.tsx', source);
