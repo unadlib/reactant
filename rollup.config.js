@@ -87,6 +87,7 @@ export default {
       targets: [
         { src: path.join(sourceDir, 'README.md'), dest: targetDir },
         { src: path.join(sourceDir, 'package.json'), dest: targetDir },
+        { src: path.join(sourceDir, '../../LICENSE'), dest: targetDir },
       ],
     }),
   ],
