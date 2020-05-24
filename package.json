@@ -7,7 +7,6 @@
     "node": "8.x || 9.x || 10.x || 11.x || 12.x"
   },
   "description": "A framework for building React web applications",
-  "main": "index.js",
   "scripts": {
     "test:code:prod": "cross-env NODE_ENV=production jest --config ./scripts/jest/prod.config.json",
     "test:code:dev": "cross-env NODE_ENV=development jest --config ./scripts/jest/dev.config.json",
