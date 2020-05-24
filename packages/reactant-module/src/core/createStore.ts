@@ -23,7 +23,6 @@ import {
   DevOptions,
   PluginHooks,
   ReactantAction,
-  ReactantMiddleware,
   Subscriptions,
   ThisService,
 } from '../interfaces';
