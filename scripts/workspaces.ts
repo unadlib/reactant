@@ -2,11 +2,18 @@ import globParent from 'glob-parent';
 import fs from 'fs-extra';
 import path from 'path';
 
+export const buildTypes = {
+  es: 'esm',
+  cjs: 'cjs',
+  umd: 'umd',
+} as const;
+
 export type Package = {
   workspaces: string[];
   private: boolean;
   name: string;
   bin?: Record<string, string>;
+  build: (keyof typeof buildTypes)[];
 };
 
 export type Handler = (

@@ -3,6 +3,7 @@
   "version": "0.1.6",
   "description": "A templates collection for Reactant",
   "main": "index.js",
+  "build": [],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
