@@ -12,7 +12,7 @@ export interface PackageJson {
   dependencies?: Record<string, string>;
 }
 
-const packageJson = fs.readJsonSync(path.resolve('../package.json'));
+const packageJson = fs.readJsonSync(path.resolve(__dirname, '../package.json'));
 const command = new Command() as Command;
 command.usage('[command] [options]').version(packageJson.version);
 

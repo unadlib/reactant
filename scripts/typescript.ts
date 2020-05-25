@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
 import { spawn } from 'child_process';
 import path from 'path';
-import loadJsonFile from 'load-json-file';
 import fs from 'fs-extra';
 import ts from 'typescript';
 import chalk from 'chalk';
@@ -83,7 +82,7 @@ type Generate = (option: {
 const compileProject = async (generate: Generate, packageChildPath: string) => {
   const packageJsonPath = path.resolve(packageChildPath, 'package.json');
   try {
-    const packageJson = loadJsonFile.sync<Package>(packageJsonPath);
+    const packageJson: Package = fs.readJSONSync(packageJsonPath);
     if (!packageJson.private) {
       compileTypeScript({
         currentPath: packageChildPath,
