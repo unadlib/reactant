@@ -5,7 +5,7 @@ import {
 } from 'inversify';
 import { ServiceIdentifierOrFunc } from '../interfaces';
 import { METADATA_KEY } from '../constants';
-import { lookupServiceIdentifier } from '../createContainer';
+import { lookupServiceIdentifier } from '../util';
 import { forwardRef } from '../forwardRef';
 
 export function inject(serviceIdentifierOrFunc?: ServiceIdentifierOrFunc<any>) {

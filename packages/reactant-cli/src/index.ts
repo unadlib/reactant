@@ -1,5 +1,7 @@
 /* eslint-disable no-console */
 import { Command } from 'commander';
+import path from 'path';
+import fs from 'fs-extra';
 import { createInitCommand } from './init';
 import { createInfoCommand } from './info';
 import { createGenerateCommand } from './generate';
@@ -10,15 +12,14 @@ export interface PackageJson {
   dependencies?: Record<string, string>;
 }
 
-// eslint-disable-next-line
-const packageJson = require('../package.json');
-const command = new Command();
+const packageJson = fs.readJsonSync(path.resolve('../package.json'));
+const command = new Command() as Command;
 command.usage('[command] [options]').version(packageJson.version);
 
-createInitCommand(command as Command, packageJson);
+createInitCommand(command, packageJson);
 
-createGenerateCommand(command as Command);
+createGenerateCommand(command);
 
-createInfoCommand(command as Command, packageJson);
+createInfoCommand(command, packageJson);
 
 command.parse(process.argv);
