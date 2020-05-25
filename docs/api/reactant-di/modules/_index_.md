@@ -31,6 +31,7 @@ sidebar_label: "index"
 * [defaultUndefinedValue](_index_.md#defaultundefinedvalue)
 * [forwardRef](_index_.md#forwardref)
 * [getMetadata](_index_.md#getmetadata)
+* [getModulesDeps](_index_.md#getmodulesdeps)
 * [inject](_index_.md#inject)
 * [injectable](_index_.md#injectable)
 * [lookupOptionalIdentifier](_index_.md#lookupoptionalidentifier)
@@ -39,6 +40,7 @@ sidebar_label: "index"
 * [multiOptional](_index_.md#multioptional)
 * [optional](_index_.md#optional)
 * [setMetadata](_index_.md#setmetadata)
+* [setModulesDeps](_index_.md#setmodulesdeps)
 
 ## References
 
@@ -180,6 +182,12 @@ ___
 
 ___
 
+###  getModulesDeps
+
+• **getModulesDeps**:
+
+___
+
 ###  inject
 
 • **inject**:
@@ -225,3 +233,9 @@ ___
 ###  setMetadata
 
 • **setMetadata**:
+
+___
+
+###  setModulesDeps
+
+• **setModulesDeps**:

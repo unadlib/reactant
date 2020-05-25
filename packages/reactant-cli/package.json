@@ -1,6 +1,6 @@
 {
   "name": "reactant-cli",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "A command line interface for Reactant",
   "engines": {
     "node": ">=8"
@@ -9,7 +9,9 @@
     "reactant-cli": "./dist/index.cjs.js",
     "reactant": "./dist/index.cjs.js"
   },
-  "build": ["cjs"],
+  "build": [
+    "cjs"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/unadlib/reactant.git",

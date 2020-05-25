@@ -29,7 +29,7 @@ sidebar_label: "Config"
 
 • **containerOptions**? : *ContainerOptions*
 
-*Defined in [interfaces.ts:14](https://github.com/unadlib/reactant/blob/f5b92e0/packages/reactant/src/interfaces.ts#L14)*
+*Defined in [interfaces.ts:14](https://github.com/unadlib/reactant/blob/d83826e/packages/reactant/src/interfaces.ts#L14)*
 
 ___
 
@@ -37,7 +37,7 @@ ___
 
 • **devOptions**? : *DevOptions*
 
-*Defined in [interfaces.ts:16](https://github.com/unadlib/reactant/blob/f5b92e0/packages/reactant/src/interfaces.ts#L16)*
+*Defined in [interfaces.ts:16](https://github.com/unadlib/reactant/blob/d83826e/packages/reactant/src/interfaces.ts#L16)*
 
 ___
 
@@ -45,7 +45,7 @@ ___
 
 • **main**: *ServiceIdentifier‹T›*
 
-*Defined in [interfaces.ts:11](https://github.com/unadlib/reactant/blob/f5b92e0/packages/reactant/src/interfaces.ts#L11)*
+*Defined in [interfaces.ts:11](https://github.com/unadlib/reactant/blob/d83826e/packages/reactant/src/interfaces.ts#L11)*
 
 ___
 
@@ -53,7 +53,7 @@ ___
 
 • **modules**? : *ReactModuleOptions[]*
 
-*Defined in [interfaces.ts:13](https://github.com/unadlib/reactant/blob/f5b92e0/packages/reactant/src/interfaces.ts#L13)*
+*Defined in [interfaces.ts:13](https://github.com/unadlib/reactant/blob/d83826e/packages/reactant/src/interfaces.ts#L13)*
 
 ___
 
@@ -61,7 +61,7 @@ ___
 
 • **preloadedState**? : *TypePreloadedState‹any›*
 
-*Defined in [interfaces.ts:15](https://github.com/unadlib/reactant/blob/f5b92e0/packages/reactant/src/interfaces.ts#L15)*
+*Defined in [interfaces.ts:15](https://github.com/unadlib/reactant/blob/d83826e/packages/reactant/src/interfaces.ts#L15)*
 
 ___
 
@@ -69,4 +69,4 @@ ___
 
 • **render**? : *undefined | function*
 
-*Defined in [interfaces.ts:12](https://github.com/unadlib/reactant/blob/f5b92e0/packages/reactant/src/interfaces.ts#L12)*
+*Defined in [interfaces.ts:12](https://github.com/unadlib/reactant/blob/d83826e/packages/reactant/src/interfaces.ts#L12)*
