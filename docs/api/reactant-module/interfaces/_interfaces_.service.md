@@ -23,7 +23,6 @@ sidebar_label: "Service"
 
 ### Properties
 
-* [[stagedStateKey]](_interfaces_.service.md#optional-[stagedstatekey])
 * [[stateKey]](_interfaces_.service.md#optional-readonly-[statekey])
 * [[storeKey]](_interfaces_.service.md#optional-readonly-[storekey])
 * [[subscriptionsKey]](_interfaces_.service.md#optional-readonly-[subscriptionskey])
@@ -31,19 +30,11 @@ sidebar_label: "Service"
 
 ## Properties
 
-### `Optional` [stagedStateKey]
-
-• **[stagedStateKey]**? : *T*
-
-*Defined in [packages/reactant-module/src/interfaces.ts:41](https://github.com/unadlib/reactant/blob/d83826e/packages/reactant-module/src/interfaces.ts#L41)*
-
-___
-
 ### `Optional` `Readonly` [stateKey]
 
 • **[stateKey]**? : *T*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:42](https://github.com/unadlib/reactant/blob/d83826e/packages/reactant-module/src/interfaces.ts#L42)*
+*Defined in [packages/reactant-module/src/interfaces.ts:41](https://github.com/unadlib/reactant/blob/37c7818/packages/reactant-module/src/interfaces.ts#L41)*
 
 ___
 
@@ -51,7 +42,7 @@ ___
 
 • **[storeKey]**? : *Store*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:43](https://github.com/unadlib/reactant/blob/d83826e/packages/reactant-module/src/interfaces.ts#L43)*
+*Defined in [packages/reactant-module/src/interfaces.ts:42](https://github.com/unadlib/reactant/blob/37c7818/packages/reactant-module/src/interfaces.ts#L42)*
 
 ___
 
@@ -59,7 +50,7 @@ ___
 
 • **[subscriptionsKey]**? : *[Subscriptions](../modules/_interfaces_.md#subscriptions)*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:44](https://github.com/unadlib/reactant/blob/d83826e/packages/reactant-module/src/interfaces.ts#L44)*
+*Defined in [packages/reactant-module/src/interfaces.ts:43](https://github.com/unadlib/reactant/blob/37c7818/packages/reactant-module/src/interfaces.ts#L43)*
 
 ___
 
@@ -69,4 +60,4 @@ ___
 
 *Inherited from [State](_interfaces_.state.md).[name](_interfaces_.state.md#optional-name)*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:34](https://github.com/unadlib/reactant/blob/d83826e/packages/reactant-module/src/interfaces.ts#L34)*
+*Defined in [packages/reactant-module/src/interfaces.ts:34](https://github.com/unadlib/reactant/blob/37c7818/packages/reactant-module/src/interfaces.ts#L34)*

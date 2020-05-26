@@ -1,4 +1,11 @@
-import { injectable, createContainer, state, createStore, action, getStagedState } from '../..';
+import {
+  injectable,
+  createContainer,
+  state,
+  createStore,
+  action,
+  getStagedState,
+} from '../..';
 
 describe('@action', () => {
   test('base', () => {

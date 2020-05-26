@@ -8,16 +8,16 @@ sidebar_label: "constants/index"
 
 ### References
 
-* [stagedStateKey](_constants_index_.md#stagedstatekey)
+* [actionIdentifier](_constants_index_.md#actionidentifier)
 * [stateKey](_constants_index_.md#statekey)
 * [storeKey](_constants_index_.md#storekey)
 * [subscriptionsKey](_constants_index_.md#subscriptionskey)
 
 ## References
 
-###  stagedStateKey
+###  actionIdentifier
 
-• **stagedStateKey**:
+• **actionIdentifier**:
 
 ___
 

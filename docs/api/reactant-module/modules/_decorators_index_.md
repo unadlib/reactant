@@ -11,6 +11,7 @@ sidebar_label: "decorators/index"
 * [action](_decorators_index_.md#action)
 * [autobind](_decorators_index_.md#autobind)
 * [defaultProps](_decorators_index_.md#defaultprops)
+* [getStagedState](_decorators_index_.md#getstagedstate)
 * [state](_decorators_index_.md#state)
 
 ## References
@@ -30,6 +31,12 @@ ___
 ###  defaultProps
 
 • **defaultProps**:
+
+___
+
+###  getStagedState
+
+• **getStagedState**:
 
 ___
 

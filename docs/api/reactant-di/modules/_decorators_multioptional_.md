@@ -16,7 +16,7 @@ sidebar_label: "@multiOptional()"
 
 ▸ **multiOptional**(`serviceIdentifier`: [ServiceIdentifier](_interfaces_.md#serviceidentifier)‹any›): *(Anonymous function)*
 
-*Defined in [packages/reactant-di/src/decorators/multiOptional.ts:7](https://github.com/unadlib/reactant/blob/d83826e/packages/reactant-di/src/decorators/multiOptional.ts#L7)*
+*Defined in [packages/reactant-di/src/decorators/multiOptional.ts:7](https://github.com/unadlib/reactant/blob/37c7818/packages/reactant-di/src/decorators/multiOptional.ts#L7)*
 
 **Parameters:**
 

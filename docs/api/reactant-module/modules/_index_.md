@@ -32,6 +32,7 @@ sidebar_label: "index"
 * [ViewModule](_index_.md#viewmodule)
 * [Watch](_index_.md#watch)
 * [action](_index_.md#action)
+* [actionIdentifier](_index_.md#actionidentifier)
 * [areStatePropsEqual](_index_.md#arestatepropsequal)
 * [assign](_index_.md#assign)
 * [autobind](_index_.md#autobind)
@@ -43,11 +44,11 @@ sidebar_label: "index"
 * [dispatch](_index_.md#dispatch)
 * [getComposeEnhancers](_index_.md#getcomposeenhancers)
 * [getStageName](_index_.md#getstagename)
+* [getStagedState](_index_.md#getstagedstate)
 * [handlePlugin](_index_.md#handleplugin)
 * [isEqual](_index_.md#isequal)
 * [isEqualExceptFunction](_index_.md#isequalexceptfunction)
 * [perform](_index_.md#perform)
-* [stagedStateKey](_index_.md#stagedstatekey)
 * [state](_index_.md#state)
 * [stateKey](_index_.md#statekey)
 * [storeKey](_index_.md#storekey)
@@ -201,6 +202,12 @@ ___
 
 ___
 
+###  actionIdentifier
+
+• **actionIdentifier**:
+
+___
+
 ###  areStatePropsEqual
 
 • **areStatePropsEqual**:
@@ -267,6 +274,12 @@ ___
 
 ___
 
+###  getStagedState
+
+• **getStagedState**:
+
+___
+
 ###  handlePlugin
 
 • **handlePlugin**:
@@ -288,12 +301,6 @@ ___
 ###  perform
 
 • **perform**:
-
-___
-
-###  stagedStateKey
-
-• **stagedStateKey**:
 
 ___
 

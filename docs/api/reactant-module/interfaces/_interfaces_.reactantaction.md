@@ -18,16 +18,43 @@ sidebar_label: "ReactantAction"
 
 ### Properties
 
+* [_reactant](_interfaces_.reactantaction.md#_reactant)
+* [lastState](_interfaces_.reactantaction.md#laststate)
+* [method](_interfaces_.reactantaction.md#optional-method)
 * [state](_interfaces_.reactantaction.md#state)
 * [type](_interfaces_.reactantaction.md#type)
 
 ## Properties
 
+###  _reactant
+
+• **_reactant**: *typeof actionIdentifier*
+
+*Defined in [packages/reactant-module/src/interfaces.ts:58](https://github.com/unadlib/reactant/blob/37c7818/packages/reactant-module/src/interfaces.ts#L58)*
+
+___
+
+###  lastState
+
+• **lastState**: *Record‹string, T›*
+
+*Defined in [packages/reactant-module/src/interfaces.ts:57](https://github.com/unadlib/reactant/blob/37c7818/packages/reactant-module/src/interfaces.ts#L57)*
+
+___
+
+### `Optional` method
+
+• **method**? : *undefined | string*
+
+*Defined in [packages/reactant-module/src/interfaces.ts:55](https://github.com/unadlib/reactant/blob/37c7818/packages/reactant-module/src/interfaces.ts#L55)*
+
+___
+
 ###  state
 
 • **state**: *Record‹string, T›*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:56](https://github.com/unadlib/reactant/blob/d83826e/packages/reactant-module/src/interfaces.ts#L56)*
+*Defined in [packages/reactant-module/src/interfaces.ts:56](https://github.com/unadlib/reactant/blob/37c7818/packages/reactant-module/src/interfaces.ts#L56)*
 
 ___
 

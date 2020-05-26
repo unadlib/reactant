@@ -16,7 +16,7 @@ sidebar_label: "@injectable()"
 
 ▸ **injectable**(`options`: [ModuleDecoratorOptions](../interfaces/_interfaces_.moduledecoratoroptions.md)): *(Anonymous function)*
 
-*Defined in [packages/reactant-di/src/decorators/injectable.ts:10](https://github.com/unadlib/reactant/blob/d83826e/packages/reactant-di/src/decorators/injectable.ts#L10)*
+*Defined in [packages/reactant-di/src/decorators/injectable.ts:10](https://github.com/unadlib/reactant/blob/37c7818/packages/reactant-di/src/decorators/injectable.ts#L10)*
 
 **Parameters:**
 
