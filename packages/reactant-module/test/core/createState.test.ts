@@ -13,7 +13,9 @@ test('`createSelector` with type', () => {
   class Counter {
     @state
     count = createState<number, ReactantAction>((_state = 0, _action) =>
-      _action.type === (this as any).name ? _action.state.count : _state
+      _action.type === (this as any).name
+        ? _action.state[(this as any).name].count
+        : _state
     );
 
     @action

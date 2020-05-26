@@ -6,6 +6,7 @@ import {
   state,
   action,
   PluginModule,
+  actionIdentifier,
 } from '../..';
 
 describe('createStore', () => {
@@ -91,9 +92,14 @@ describe('createStore', () => {
     expect(actionFn.mock.calls.length).toBe(2);
     expect(actionFn.mock.calls[0]).toEqual([
       {
-        _reactant: true,
+        _reactant: actionIdentifier,
         method: 'increase',
-        state: { count: 1 },
+        lastState: {
+          counter: { count: 0 },
+        },
+        state: {
+          counter: { count: 1 },
+        },
         type: 'counter',
       },
     ]);

@@ -1,5 +1,6 @@
 import { compose } from 'redux';
 import { ReduxDevToolsOptions } from '../interfaces';
+import { actionIdentifier } from '../constants';
 
 export const getComposeEnhancers = (
   enableReduxDevTools: boolean,
@@ -12,7 +13,7 @@ export const getComposeEnhancers = (
     ? reduxDevToolsCompose({
         serialize: true,
         actionSanitizer: (action: any) =>
-          action._reactant
+          action._reactant === actionIdentifier
             ? {
                 ...action,
                 type: `@@reactant/${action.type}/${action.method}`,

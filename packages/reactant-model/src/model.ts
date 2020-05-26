@@ -1,5 +1,5 @@
 import { produce } from 'immer';
-import { storeKey, Service, stateKey } from 'reactant-module';
+import { storeKey, Service, stateKey, actionIdentifier } from 'reactant-module';
 
 type SerivceName = Pick<Service, 'name'>;
 
@@ -26,11 +26,16 @@ export const model = <
         const state = produce(module[stateKey], (draftState: S) => {
           fn(...args)(draftState);
         });
+        const lastState = module[storeKey]?.getState();
         module[storeKey]!.dispatch({
           type: module.name,
           method: key,
-          state,
-          _reactant: true,
+          state: {
+            ...lastState,
+            [module.name!]: state,
+          },
+          lastState,
+          _reactant: actionIdentifier,
         });
       },
     });

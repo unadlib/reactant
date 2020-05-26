@@ -1,4 +1,4 @@
-import { injectable, createContainer, state, createStore, action } from '../..';
+import { injectable, createContainer, state, createStore, action, getStagedState } from '../..';
 
 describe('@action', () => {
   test('base', () => {
@@ -177,5 +177,126 @@ describe('@action', () => {
     expect(fooBar.foo.count0).toBe(1);
     fooBar.foo.decrease1();
     expect(fooBar.foo.count0).toBe(0);
+  });
+
+  test('across module changing state', () => {
+    @injectable()
+    class Foo {
+      @state
+      textList: string[] = [];
+
+      @action
+      addText(text: string) {
+        this.textList.push(text);
+      }
+    }
+
+    @injectable()
+    class Counter {
+      constructor(public foo: Foo) {}
+
+      @state
+      count = 0;
+
+      @action
+      increase() {
+        this.foo.addText(`test${this.count}`);
+        this.count += 1;
+        this.foo.addText(`test${this.count}`);
+        this.count += 1;
+        this.foo.addText(`test${this.count}`);
+      }
+    }
+
+    const ServiceIdentifiers = new Map();
+    const modules = [Counter];
+    const container = createContainer({
+      ServiceIdentifiers,
+      modules,
+      options: {
+        defaultScope: 'Singleton',
+      },
+    });
+    const counter = container.get(Counter);
+    const store = createStore(modules, container, ServiceIdentifiers);
+    const subscribeFn = jest.fn();
+    store.subscribe(subscribeFn);
+    counter.increase();
+    expect(subscribeFn.mock.calls.length).toBe(1);
+    expect(counter.count).toEqual(2);
+    expect(counter.foo.textList).toEqual(['test0', 'test1', 'test2']);
+  });
+
+  test('across module changing state with error', () => {
+    @injectable()
+    class Foo {
+      name = 'foo';
+
+      @state
+      list: number[] = [];
+
+      @action
+      addItem(num: number) {
+        if (num === 1) {
+          // eslint-disable-next-line no-throw-literal
+          throw 'something error';
+        } else {
+          this.list.push(num);
+        }
+      }
+    }
+
+    @injectable()
+    class Counter {
+      name = 'counter';
+
+      constructor(public foo: Foo) {}
+
+      @state
+      count = 0;
+
+      @action
+      increase() {
+        this.foo.addItem(this.count);
+        this.count += 1;
+      }
+
+      @action
+      increase1() {
+        this.foo.addItem(this.count + 1);
+        this.count += 1;
+      }
+    }
+
+    const ServiceIdentifiers = new Map();
+    const modules = [Counter];
+    const container = createContainer({
+      ServiceIdentifiers,
+      modules,
+      options: {
+        defaultScope: 'Singleton',
+      },
+    });
+    const counter = container.get(Counter);
+    const store = createStore(modules, container, ServiceIdentifiers);
+    const subscribeFn = jest.fn();
+    store.subscribe(subscribeFn);
+    counter.increase();
+    expect(subscribeFn.mock.calls.length).toBe(1);
+
+    expect(() => {
+      counter.increase();
+    }).toThrowError('something error');
+    expect(getStagedState()).toBeUndefined();
+    expect(subscribeFn.mock.calls.length).toBe(1);
+
+    counter.increase1();
+    expect(subscribeFn.mock.calls.length).toBe(2);
+    expect(counter.count).toBe(2);
+    expect(counter.foo.list).toEqual([0, 2]);
+    expect(store.getState()).toEqual({
+      counter: { count: 2 },
+      foo: { list: [0, 2] },
+    });
   });
 });

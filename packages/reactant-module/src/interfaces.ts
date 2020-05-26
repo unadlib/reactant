@@ -11,8 +11,8 @@ import { ModuleOptions } from 'reactant-di';
 import {
   storeKey,
   subscriptionsKey,
-  stagedStateKey,
   stateKey,
+  actionIdentifier,
 } from './constants';
 import { PluginModule } from './core';
 
@@ -38,7 +38,6 @@ export type Subscriptions = (() => void)[];
 
 export interface Service<T extends Record<string, any> = Record<string, any>>
   extends State {
-  [stagedStateKey]?: T;
   readonly [stateKey]?: T;
   readonly [storeKey]?: Store;
   readonly [subscriptionsKey]?: Subscriptions;
@@ -53,7 +52,10 @@ export type ReactantStore = Store<any, AnyAction>;
 export type ReactantMiddleware = Middleware;
 
 export interface ReactantAction<T = any> extends Action<string | symbol> {
+  method?: string;
   state: Record<string, T>;
+  lastState: Record<string, T>;
+  _reactant: typeof actionIdentifier;
 }
 
 export type StateMapObject<T extends Record<string, Function>> = {

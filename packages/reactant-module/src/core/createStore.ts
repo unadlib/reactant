@@ -13,7 +13,6 @@ import {
 } from 'redux';
 import { Container, ServiceIdentifiersMap, ModuleOptions } from 'reactant-di';
 import {
-  ReactantMiddleware,
   ReactantAction,
   PluginHooks,
   DevOptions,
@@ -23,11 +22,12 @@ import {
 import {
   storeKey,
   subscriptionsKey,
-  stagedStateKey,
   stateKey,
+  actionIdentifier,
 } from '../constants';
 import { getStageName, perform, getComposeEnhancers } from '../utils';
 import { handlePlugin } from './handlePlugin';
+import { getStagedState } from '../decorators';
 
 export function createStore<T = any>(
   modules: ModuleOptions[],
@@ -128,7 +128,7 @@ export function createStore<T = any>(
                 get(this: ThisService) {
                   return this[stateKey]![key];
                 },
-                set(this: ThisService, value: any) {
+                set(this: ThisService, value: unknown) {
                   this[stateKey]![key] = value;
                 },
               };
@@ -146,8 +146,10 @@ export function createStore<T = any>(
                   });
                 }
                 const reducer = (state = value, action: ReactantAction) => {
-                  return action.type === reducersIdentifier
-                    ? action.state[key]
+                  return action._reactant === actionIdentifier &&
+                    action.lastState[reducersIdentifier] !==
+                      action.state[reducersIdentifier]
+                    ? action.state[reducersIdentifier][key]
                     : state;
                 };
                 return Object.assign(serviceReducersMapObject, {
@@ -168,7 +170,9 @@ export function createStore<T = any>(
                 enumerable: false,
                 configurable: false,
                 get() {
-                  if (this[stagedStateKey]) return this[stagedStateKey];
+                  const stagedState = getStagedState();
+                  if (stagedState) return stagedState[reducersIdentifier];
+
                   const currentState = store.getState()[reducersIdentifier];
                   if (enableAutoFreeze && !Object.isFrozen(currentState)) {
                     return Object.freeze(currentState);

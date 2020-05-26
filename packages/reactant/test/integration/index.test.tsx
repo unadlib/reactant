@@ -488,7 +488,7 @@ describe('base API', () => {
       list = createState<{ count: number }[], ReactantAction>(
         // eslint-disable-next-line no-shadow
         (_state = [{ count: 1 }], { type, state }) =>
-          type === (this as any).name ? state.list : _state
+          type === (this as any).name ? state[(this as any).name].list : _state
       );
 
       @state
@@ -566,9 +566,9 @@ describe('base API', () => {
     act(() => {
       app.bootstrap(container);
     });
-    const reduxEnvent = jest.fn();
+    const reduxEvent = jest.fn();
     app.store!.subscribe(() => {
-      reduxEnvent();
+      reduxEvent();
     });
     expect(container.textContent).toBe('1');
     act(() => {
@@ -584,7 +584,7 @@ describe('base API', () => {
       app.instance.add();
     });
     expect(renderFn.mock.calls.length).toEqual(2);
-    expect(reduxEnvent.mock.calls.length).toEqual(4);
+    expect(reduxEvent.mock.calls.length).toEqual(4);
     batch(() => {
       act(() => {
         app.instance.add1();
@@ -597,7 +597,7 @@ describe('base API', () => {
       });
     });
     expect(renderFn.mock.calls.length).toEqual(3);
-    expect(reduxEnvent.mock.calls.length).toEqual(7);
+    expect(reduxEvent.mock.calls.length).toEqual(7);
   });
 });
 

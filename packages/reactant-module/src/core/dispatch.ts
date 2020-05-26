@@ -1,5 +1,5 @@
 import { ThisService, ReactantAction } from '../interfaces';
-import { storeKey, stateKey } from '../constants';
+import { storeKey, stateKey, actionIdentifier } from '../constants';
 
 // the api should not be implemented as a decorator
 // (because it should return new state should get a the current new state, low performance.)
@@ -10,14 +10,20 @@ export const dispatch = (
 ) => {
   // TODO: type constraint.
   if (target[storeKey]) {
+    const lastState = target[storeKey]?.getState();
     target[storeKey]!.dispatch({
       type: target.name,
       method: '',
       ...action,
       state: {
-        ...target[stateKey],
-        ...action.state,
+        ...lastState,
+        [target.name!]: {
+          ...target[stateKey],
+          ...action.state,
+        },
       },
+      lastState,
+      _reactant: actionIdentifier,
     });
   } else {
     throw new Error(`${target} service should set 'state' property.`);
