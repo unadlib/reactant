@@ -60,9 +60,9 @@ describe('plugin', () => {
         }
       }
 
-      const app = createApp({
+      const app = createApp<any>({
         modules: [BarPlugin, FooBarPlugin],
-        main: (withoutState ? FooViewWithoutState : FooView) as any,
+        main: withoutState ? FooViewWithoutState : FooView,
         render,
       });
       act(() => {
