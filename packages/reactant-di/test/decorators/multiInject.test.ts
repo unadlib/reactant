@@ -1,11 +1,4 @@
-import {
-  injectable,
-  createContainer,
-  inject,
-  optional,
-  multiInject,
-  multiOptional,
-} from '../..';
+import { injectable, createContainer, multiInject } from '../..';
 
 describe('multiInject', () => {
   test('explicit identifier', () => {
