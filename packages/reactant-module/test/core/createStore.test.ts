@@ -144,6 +144,45 @@ describe('createStore', () => {
     expect(providers[0]({}) === null).toBeTruthy();
   });
 
+  test('providers - be depended on', () => {
+    const fooProvider = () => null;
+    const barProvider = () => null;
+
+    @injectable()
+    class FooPlugin extends PluginModule {
+      provider = fooProvider;
+    }
+
+    @injectable()
+    class BarPlugin extends PluginModule {
+      provider = barProvider;
+    }
+
+    @injectable()
+    class Counter {}
+    const ServiceIdentifiers = new Map();
+    const modules = [Counter, FooPlugin, BarPlugin];
+    const container = createContainer({
+      ServiceIdentifiers,
+      modules,
+      options: {
+        defaultScope: 'Singleton',
+      },
+    });
+    container.get(Counter);
+    const providers: React.FunctionComponent[] = [];
+    const store = createStore(
+      modules,
+      container,
+      ServiceIdentifiers,
+      undefined,
+      providers
+    );
+    expect(providers.map(({ name }) => name)).toEqual(
+      [fooProvider, barProvider].map(({ name }) => `bound ${name}`)
+    );
+  });
+
   test('devOptions', () => {
     @injectable()
     class Counter {

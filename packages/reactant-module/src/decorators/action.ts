@@ -50,9 +50,6 @@ const action = (
           lastState: this[storeKey]?.getState(),
           _reactant: actionIdentifier,
         });
-        // eslint-disable-next-line no-useless-catch
-      } catch (e) {
-        throw e;
       } finally {
         stagedState = undefined;
       }

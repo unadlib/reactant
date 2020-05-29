@@ -112,7 +112,7 @@ class ReactantStorage extends PluginModule {
     );
   }
 
-  provider = (props: PropsWithChildren<any>) => {
+  provider = (props: PropsWithChildren<{}>) => {
     const persistor = persistStore(useStore());
     return (
       <PersistGate loading={this.options.loading || null} persistor={persistor}>
