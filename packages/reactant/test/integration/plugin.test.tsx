@@ -21,59 +21,78 @@ afterEach(() => {
 });
 
 describe('plugin', () => {
-  test('providers', () => {
-    const testing = (withoutState: boolean) => {
-      @injectable()
-      class BarPlugin extends PluginModule {
-        provider = ({ children }: PropsWithChildren<{}>) => <p>{children}</p>;
-      }
+  test('providers - without redux', () => {
+    @injectable()
+    class BarPlugin extends PluginModule {
+      provider = ({ children }: PropsWithChildren<{}>) => <p>{children}</p>;
+    }
 
-      @injectable()
-      class FooBarPlugin extends PluginModule {
-        provider = ({ children }: PropsWithChildren<{}>) => (
-          <span>{children}</span>
-        );
-      }
-
-      @injectable()
-      class FooView extends ViewModule {
-        constructor() {
-          super();
-        }
-
-        @state
-        field = null;
-
-        component() {
-          return <i>foo</i>;
-        }
-      }
-
-      @injectable()
-      class FooViewWithoutState extends ViewModule {
-        constructor() {
-          super();
-        }
-
-        component() {
-          return <i>foo</i>;
-        }
-      }
-
-      const app = createApp<any>({
-        modules: [BarPlugin, FooBarPlugin],
-        main: withoutState ? FooViewWithoutState : FooView,
-        render,
-      });
-      act(() => {
-        app.bootstrap(container);
-      });
-
-      expect(container.innerHTML).toBe(
-        withoutState ? '<i>foo</i>' : '<p><span><i>foo</i></span></p>'
+    @injectable()
+    class FooBarPlugin extends PluginModule {
+      provider = ({ children }: PropsWithChildren<{}>) => (
+        <span>{children}</span>
       );
-    };
-    testing(true);
-    testing(false);
+    }
+
+    @injectable()
+    class FooViewWithoutState extends ViewModule {
+      constructor() {
+        super();
+      }
+
+      component() {
+        return <i>foo</i>;
+      }
+    }
+
+    const app = createApp({
+      modules: [BarPlugin, FooBarPlugin],
+      main: FooViewWithoutState,
+      render,
+    });
+    act(() => {
+      app.bootstrap(container);
+    });
+
+    expect(container.innerHTML).toBe('<i>foo</i>');
+  });
+
+  test('providers - with redux', () => {
+    @injectable()
+    class BarPlugin extends PluginModule {
+      provider = ({ children }: PropsWithChildren<{}>) => <p>{children}</p>;
+    }
+
+    @injectable()
+    class FooBarPlugin extends PluginModule {
+      provider = ({ children }: PropsWithChildren<{}>) => (
+        <span>{children}</span>
+      );
+    }
+
+    @injectable()
+    class FooView extends ViewModule {
+      constructor() {
+        super();
+      }
+
+      @state
+      field = null;
+
+      component() {
+        return <i>foo</i>;
+      }
+    }
+
+    const app = createApp({
+      modules: [BarPlugin, FooBarPlugin],
+      main: FooView,
+      render,
+    });
+    act(() => {
+      app.bootstrap(container);
+    });
+
+    expect(container.innerHTML).toBe('<p><span><i>foo</i></span></p>');
   });
 });
