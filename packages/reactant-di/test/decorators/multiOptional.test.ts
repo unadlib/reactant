@@ -1,13 +1,6 @@
-import {
-  injectable,
-  createContainer,
-  inject,
-  optional,
-  multiInject,
-  multiOptional,
-} from '../..';
+import { injectable, createContainer, multiOptional } from '../..';
 
-test('base di with @multiOptional for identifier', () => {
+test('@multiOptional for identifier', () => {
   @injectable()
   class Foo {
     public get test() {

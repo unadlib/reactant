@@ -1,246 +1,214 @@
-import {
-  injectable,
-  createContainer,
-  inject,
-  optional,
-  multiInject,
-  multiOptional,
-  Optional,
-} from '../..';
+import { injectable, createContainer, optional, Optional } from '../..';
 
-test('base di with @optional, and without setting options', () => {
-  @injectable()
-  class Foo {
-    public get test() {
-      return 'test';
+describe('@optional', () => {
+  test('implicit identifier by default', () => {
+    @injectable()
+    class Foo {
+      public get test() {
+        return 'test';
+      }
     }
-  }
 
-  @injectable()
-  class Bar {
-    constructor(@optional() public foo: Foo) {}
-  }
-
-  @injectable()
-  class FooBar {
-    constructor(public bar: Bar) {}
-  }
-
-  const fooBar = createContainer({
-    ServiceIdentifiers: new Map(),
-  }).get(FooBar);
-  expect(fooBar.bar instanceof Bar).toBeTruthy();
-  expect(fooBar.bar.foo).toBeUndefined();
-});
-
-test('base di with @optional, and with setting options', () => {
-  @injectable()
-  class Foo {
-    public get test() {
-      return 'test';
+    @injectable()
+    class Bar {
+      constructor(@optional() public foo: Foo) {}
     }
-  }
 
-  @injectable()
-  class Bar {
-    constructor(@optional() public foo: Foo) {}
-  }
-
-  @injectable()
-  class FooBar {
-    constructor(public bar: Bar) {}
-  }
-
-  const fooBar = createContainer({
-    ServiceIdentifiers: new Map(),
-    modules: [Foo],
-  }).get(FooBar);
-  expect(fooBar.bar instanceof Bar).toBeTruthy();
-});
-
-test('base di with @optional, and with setting options for config', () => {
-  @injectable()
-  class Foo {}
-
-  @injectable()
-  class Bar {
-    constructor(@optional() public foo: Foo) {}
-  }
-
-  @injectable()
-  class FooBar {
-    constructor(public bar: Bar) {}
-  }
-
-  const fooBar = createContainer({
-    ServiceIdentifiers: new Map(),
-    modules: [{ provide: Foo }],
-  }).get(FooBar);
-
-  expect(fooBar.bar.foo instanceof Foo).toBeTruthy();
-});
-
-test('base di with @optional, and resolve other non-optional deps module', () => {
-  @injectable()
-  class Foo0 {}
-
-  @injectable()
-  class Foo {
-    constructor(public foo0: Foo0) {}
-  }
-
-  @injectable()
-  class Bar {
-    constructor(@optional() public foo: Foo) {}
-  }
-
-  @injectable()
-  class FooBar {
-    constructor(public bar: Bar) {}
-  }
-
-  const fooBar = createContainer({
-    ServiceIdentifiers: new Map(),
-    modules: [Foo],
-  }).get(FooBar);
-  expect(fooBar.bar.foo.foo0 instanceof Foo0).toBeTruthy();
-});
-
-test('base di with @optional, and resolve other module', () => {
-  @injectable()
-  class Foo {}
-
-  class Foo1 {}
-
-  @injectable()
-  class Bar {
-    constructor(@optional() public foo: Foo) {}
-  }
-
-  @injectable()
-  class FooBar {
-    constructor(public bar: Bar) {}
-  }
-
-  const fooBar = createContainer({
-    ServiceIdentifiers: new Map(),
-    modules: [{ provide: Foo, useClass: Foo1 }],
-  }).get(FooBar);
-  expect(fooBar.bar.foo instanceof Foo1).toBeTruthy();
-});
-
-test('base di with @optional about inheritance', () => {
-  @injectable()
-  class Foo {}
-
-  @injectable()
-  class Foo1 {}
-
-  @injectable()
-  class Bar {
-    constructor(@optional() public foo: Foo) {}
-  }
-
-  @injectable()
-  class Bar1 extends Bar {
-    constructor(@optional() public foo: Foo, @optional() public foo1: Foo1) {
-      super(foo);
+    @injectable()
+    class FooBar {
+      constructor(public bar: Bar) {}
     }
-  }
-  let bar1: Bar1;
-  bar1 = createContainer({
-    ServiceIdentifiers: new Map(),
-  }).get(Bar1);
 
-  expect(bar1.foo).toBeUndefined();
-  expect(bar1.foo1).toBeUndefined();
+    const fooBar = createContainer({
+      ServiceIdentifiers: new Map(),
+    }).get(FooBar);
+    expect(fooBar.bar instanceof Bar).toBeTruthy();
+    expect(fooBar.bar.foo).toBeUndefined();
+  });
 
-  bar1 = createContainer({
-    ServiceIdentifiers: new Map(),
-    modules: [Foo],
-  }).get(Bar1);
+  test('implicit identifier and inject', () => {
+    @injectable()
+    class Foo {}
 
-  expect(bar1.foo instanceof Foo).toBeTruthy();
-  expect(bar1.foo1).toBeUndefined();
+    @injectable()
+    class Bar {
+      constructor(@optional() public foo: Foo) {}
+    }
 
-  bar1 = createContainer({
-    ServiceIdentifiers: new Map(),
-    modules: [Foo, Foo1],
-  }).get(Bar1);
+    @injectable()
+    class FooBar {
+      constructor(public bar: Bar) {}
+    }
 
-  expect(bar1.foo instanceof Foo).toBeTruthy();
-  expect(bar1.foo1 instanceof Foo1).toBeTruthy();
-});
+    const fooBar = createContainer({
+      ServiceIdentifiers: new Map(),
+      modules: [Foo],
+    }).get(FooBar);
+    expect(fooBar.bar instanceof Bar).toBeTruthy();
+  });
 
-test('@optional, and resolve other module require', () => {
-  @injectable()
-  class Foo {}
+  test('mix - resolve other non-optional, auto inject for optional', () => {
+    @injectable()
+    class Foo0 {}
 
-  @injectable()
-  class Bar {
-    constructor(@optional('foo') public foo?: Foo) {}
-  }
+    @injectable()
+    class Foo {
+      constructor(public foo0: Foo0) {}
+    }
 
-  @injectable()
-  class FooBar {
-    constructor(public bar: Bar, public foo: Foo) {}
-  }
+    @injectable()
+    class Bar {
+      constructor(@optional() public foo: Foo) {}
+    }
 
-  const fooBar = createContainer({
-    ServiceIdentifiers: new Map(),
-    modules: [],
-  }).get(FooBar);
-  expect(fooBar.bar.foo instanceof Foo).toBeFalsy();
-  expect(fooBar.foo instanceof Foo).toBeTruthy();
-});
+    @injectable()
+    class FooBar {
+      constructor(public bar: Bar) {}
+    }
 
-test('injection with @optional, and resolve other module require', () => {
-  @injectable()
-  class Foo {}
+    const fooBar = createContainer({
+      ServiceIdentifiers: new Map(),
+      modules: [Foo],
+    }).get(FooBar);
+    expect(fooBar.bar.foo.foo0 instanceof Foo0).toBeTruthy();
+  });
 
-  @injectable()
-  class Bar {
-    constructor(@optional('foo') public foo?: Foo) {}
-  }
+  test('mix - without injectable decorator', () => {
+    @injectable()
+    class Foo {}
 
-  @injectable()
-  class FooBar {
-    constructor(public bar: Bar, public foo: Foo) {}
-  }
+    class Foo1 {}
 
-  const fooBar = createContainer({
-    ServiceIdentifiers: new Map(),
-    modules: [{ provide: 'foo', useClass: Foo }],
-  }).get(FooBar);
-  expect(fooBar.bar.foo === fooBar.foo).toBeFalsy();
-  expect(fooBar.foo instanceof Foo).toBeTruthy();
-  expect(fooBar.bar.foo instanceof Foo).toBeTruthy();
-});
+    @injectable()
+    class Bar {
+      constructor(@optional() public foo: Foo) {}
+    }
 
-test('@optional resolve optional and require mix', () => {
-  @injectable()
-  class Foo {}
+    @injectable()
+    class FooBar {
+      constructor(public bar: Bar) {}
+    }
 
-  @injectable()
-  class Bar {
-    constructor(@optional() public foo: Foo) {}
-  }
+    const fooBar = createContainer({
+      ServiceIdentifiers: new Map(),
+      modules: [{ provide: Foo, useClass: Foo1 }],
+    }).get(FooBar);
+    expect(fooBar.bar.foo instanceof Foo1).toBeTruthy();
+  });
 
-  @injectable()
-  class Bar1 {
-    constructor(@optional() public foo: Foo) {}
-  }
+  test('inheritance', () => {
+    @injectable()
+    class Foo {}
 
-  @injectable()
-  class FooBar {
-    constructor(public bar: Bar, public bar1: Bar1, public foo: Foo) {}
-  }
+    @injectable()
+    class Foo1 {}
 
-  const fooBar = createContainer({
-    ServiceIdentifiers: new Map(),
-    modules: [{ provide: Bar, deps: [new Optional(Foo)] }],
-  }).get(FooBar);
-  expect(fooBar.bar.foo).toBeUndefined();
-  expect(fooBar.foo instanceof Foo).toBeTruthy();
-  expect(fooBar.bar1 instanceof Bar1).toBeTruthy();
+    @injectable()
+    class Bar {
+      constructor(@optional() public foo: Foo) {}
+    }
+
+    @injectable()
+    class Bar1 extends Bar {
+      constructor(@optional() public foo: Foo, @optional() public foo1: Foo1) {
+        super(foo);
+      }
+    }
+    let bar1: Bar1;
+    bar1 = createContainer({
+      ServiceIdentifiers: new Map(),
+    }).get(Bar1);
+
+    expect(bar1.foo).toBeUndefined();
+    expect(bar1.foo1).toBeUndefined();
+
+    bar1 = createContainer({
+      ServiceIdentifiers: new Map(),
+      modules: [Foo],
+    }).get(Bar1);
+
+    expect(bar1.foo instanceof Foo).toBeTruthy();
+    expect(bar1.foo1).toBeUndefined();
+
+    bar1 = createContainer({
+      ServiceIdentifiers: new Map(),
+      modules: [Foo, Foo1],
+    }).get(Bar1);
+
+    expect(bar1.foo instanceof Foo).toBeTruthy();
+    expect(bar1.foo1 instanceof Foo1).toBeTruthy();
+  });
+
+  test('resolve other module require', () => {
+    @injectable()
+    class Foo {}
+
+    @injectable()
+    class Bar {
+      constructor(@optional('foo') public foo?: Foo) {}
+    }
+
+    @injectable()
+    class FooBar {
+      constructor(public bar: Bar, public foo: Foo) {}
+    }
+
+    const fooBar = createContainer({
+      ServiceIdentifiers: new Map(),
+      modules: [],
+    }).get(FooBar);
+    expect(fooBar.bar.foo instanceof Foo).toBeFalsy();
+    expect(fooBar.foo instanceof Foo).toBeTruthy();
+  });
+
+  test('string identifier and resolve other module require', () => {
+    @injectable()
+    class Foo {}
+
+    @injectable()
+    class Bar {
+      constructor(@optional('foo') public foo?: Foo) {}
+    }
+
+    @injectable()
+    class FooBar {
+      constructor(public bar: Bar, public foo: Foo) {}
+    }
+
+    const fooBar = createContainer({
+      ServiceIdentifiers: new Map(),
+      modules: [{ provide: 'foo', useClass: Foo }],
+    }).get(FooBar);
+    expect(fooBar.bar.foo === fooBar.foo).toBeFalsy();
+    expect(fooBar.foo instanceof Foo).toBeTruthy();
+    expect(fooBar.bar.foo instanceof Foo).toBeTruthy();
+  });
+
+  test('mix - resolve optional and require ', () => {
+    @injectable()
+    class Foo {}
+
+    @injectable()
+    class Bar {
+      constructor(@optional() public foo: Foo) {}
+    }
+
+    @injectable()
+    class Bar1 {
+      constructor(@optional() public foo: Foo) {}
+    }
+
+    @injectable()
+    class FooBar {
+      constructor(public bar: Bar, public bar1: Bar1, public foo: Foo) {}
+    }
+
+    const fooBar = createContainer({
+      ServiceIdentifiers: new Map(),
+      modules: [{ provide: Bar, deps: [new Optional(Foo)] }],
+    }).get(FooBar);
+    expect(fooBar.bar.foo).toBeUndefined();
+    expect(fooBar.foo instanceof Foo).toBeTruthy();
+    expect(fooBar.bar1 instanceof Bar1).toBeTruthy();
+  });
 });

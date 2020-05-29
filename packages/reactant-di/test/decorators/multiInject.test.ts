@@ -7,56 +7,58 @@ import {
   multiOptional,
 } from '../..';
 
-test('base di with @multiInject', () => {
-  @injectable()
-  class Foo {
-    public get test() {
-      return 'test';
+describe('multiInject', () => {
+  test('explicit identifier', () => {
+    @injectable()
+    class Foo {
+      public get test() {
+        return 'test';
+      }
     }
-  }
 
-  @injectable()
-  class Bar {
-    constructor(@multiInject(Foo) public foos: Foo[]) {}
+    @injectable()
+    class Bar {
+      constructor(@multiInject(Foo) public foos: Foo[]) {}
 
-    public get length() {
-      return this.foos.length;
+      public get length() {
+        return this.foos.length;
+      }
     }
-  }
 
-  const bar = createContainer({
-    ServiceIdentifiers: new Map(),
-    modules: [Foo, Foo],
-  }).get(Bar);
+    const bar = createContainer({
+      ServiceIdentifiers: new Map(),
+      modules: [Foo, Foo],
+    }).get(Bar);
 
-  expect(bar.length).toBe(2);
-});
+    expect(bar.length).toBe(2);
+  });
 
-test('base di with @multiInject for identifier', () => {
-  @injectable()
-  class Foo {
-    public get test() {
-      return 'test';
+  test('string identifier', () => {
+    @injectable()
+    class Foo {
+      public get test() {
+        return 'test';
+      }
     }
-  }
 
-  @injectable()
-  class Bar {
-    constructor(@multiInject('Foo') public foos: Foo[]) {}
+    @injectable()
+    class Bar {
+      constructor(@multiInject('Foo') public foos: Foo[]) {}
 
-    public get length() {
-      return this.foos.length;
+      public get length() {
+        return this.foos.length;
+      }
     }
-  }
 
-  const bar = createContainer({
-    ServiceIdentifiers: new Map(),
-    modules: [
-      { provide: 'Foo', useClass: Foo },
-      { provide: 'Foo', useValue: 'test' },
-    ],
-  }).get(Bar);
+    const bar = createContainer({
+      ServiceIdentifiers: new Map(),
+      modules: [
+        { provide: 'Foo', useClass: Foo },
+        { provide: 'Foo', useValue: 'test' },
+      ],
+    }).get(Bar);
 
-  expect(bar.length).toBe(2);
-  expect(bar.foos[1]).toBe('test');
+    expect(bar.length).toBe(2);
+    expect(bar.foos[1]).toBe('test');
+  });
 });

@@ -1,13 +1,6 @@
-import {
-  injectable,
-  createContainer,
-  inject,
-  optional,
-  multiInject,
-  multiOptional,
-} from '..';
+import { injectable, createContainer, inject, optional } from '..';
 
-test('base di with decoration for interface', () => {
+test('decoration for interface', () => {
   interface FooInterface {
     readonly test: string;
   }
@@ -70,7 +63,7 @@ test('base di with decoration for interface', () => {
   expect(fooBar.value).toEqual('bar');
 });
 
-test('base di with useValue and useFactory config', () => {
+test('with useValue and useFactory config', () => {
   interface FooInterface {
     readonly test: string;
   }
@@ -119,7 +112,7 @@ test('base di with useValue and useFactory config', () => {
   expect(bar.foo2).toEqual(['test', undefined]);
 });
 
-test('base di with @inject about inheritance', () => {
+test('inheritance', () => {
   @injectable()
   class Foo {}
 
@@ -142,7 +135,7 @@ test('base di with @inject about inheritance', () => {
   expect(bar.foo).toBeUndefined();
 });
 
-test('base di with @optional/@inject about inheritance', () => {
+test('mix @optional/@inject about inheritance', () => {
   @injectable()
   class Foo {}
 
