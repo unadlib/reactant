@@ -68,16 +68,14 @@ function createApp<T>({
         throw new Error(`Main module should be a 'ViewModule'.`);
       }
       const InstanceElement = <instance.component />;
-      const RootElement = withoutReducers
-        ? InstanceElement
-        : providers
-            .reverse()
-            .reduce(
-              (WrappedComponent, ProviderComponent) => (
-                <ProviderComponent>{WrappedComponent}</ProviderComponent>
-              ),
-              InstanceElement
-            );
+      const RootElement = providers
+        .reverse()
+        .reduce(
+          (WrappedComponent, ProviderComponent) => (
+            <ProviderComponent>{WrappedComponent}</ProviderComponent>
+          ),
+          InstanceElement
+        );
       const element = withoutReducers ? (
         RootElement
       ) : (

@@ -50,10 +50,6 @@ describe('plugin', () => {
 
       @injectable()
       class FooViewWithoutState extends ViewModule {
-        constructor() {
-          super();
-        }
-
         component() {
           return <i>foo</i>;
         }
@@ -68,9 +64,7 @@ describe('plugin', () => {
         app.bootstrap(container);
       });
 
-      expect(container.innerHTML).toBe(
-        withoutState ? '<i>foo</i>' : '<p><span><i>foo</i></span></p>'
-      );
+      expect(container.innerHTML).toBe('<p><span><i>foo</i></span></p>');
     };
     testing(true);
     testing(false);
