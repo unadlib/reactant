@@ -55,7 +55,6 @@
               }
             });
         </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><a class="edit-page-link button" href="https://github.com/unadlib/reactant/tree/master/docs/view-module.md" target="_blank" rel="noreferrer noopener">Edit</a><h1 id="__docusaurus" class="postHeaderTitle">View Module</h1></header><article><div><span><p>We can be used to implement a module with a View by inheriting the <code>ViewModule</code> and defining the <code>component</code> method (a React function component).</p>
-<p>它的<code>component</code>中可以注入当前ViewModule的任何方法，同时也可以使用<a href="/docs/api/reactant/modules/_hooks_useconnector_">useConnector</a>进行注入当前共享模块状态或者其他依赖模块状态：</p>
 <p>It is possible to inject any method of the current <code>ViewModule</code> in its <code>component</code>, and also to inject the current shared module state or other dependent module state using <a href="/docs/api/reactant/modules/_hooks_useconnector_">useConnector</a>:</p>
 <pre><code class="hljs css language-tsx">interface Todo {
   <span class="hljs-built_in">text</span>: <span class="hljs-built_in">string</span>;
