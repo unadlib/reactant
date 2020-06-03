@@ -36,10 +36,6 @@ describe('plugin', () => {
 
       @injectable()
       class FooView extends ViewModule {
-        constructor() {
-          super();
-        }
-
         @state
         field = null;
 

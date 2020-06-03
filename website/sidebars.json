@@ -16,7 +16,6 @@
     ],
     "Advanced Guides": [
       "di",
-      "middleware",
       "pluggable",
       "routing",
       "persistence",

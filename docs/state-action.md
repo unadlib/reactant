@@ -3,7 +3,7 @@ id: state-action
 title: @state and @action
 ---
 
-Reactant provides `@state` for decorating the React shared state and `@action` for decorating the state updates.
+Reactant provides `@state` for decorating the immutable shared state of React and `@action` for decorating the state mutation updates.
 
 ## `@state`
 
