@@ -3,7 +3,7 @@ id: state-action
 title: @state and @action
 ---
 
-Reactant provides `@state` for decorating the immutable shared state of React and `@action` for decorating the state mutation updates.
+Reactant provides `@state` for decorating the immutable shared state of React and `@action` for decorating the state mutation updates, It's based on [Redux](https://github.com/reduxjs/redux) and [Immer](https://github.com/immerjs/immer).
 
 ## `@state`
 
@@ -23,7 +23,7 @@ class Foo {
 
 `@action` decorates the method for updating the current module's state, and the following example `increase` is a method that can be used to update the current module's state.
 
-Reactant module state management is based on Redux, which is identical to the mutation update operation we generally use because it uses [immer](https://github.com/immerjs/immer).
+Reactant module state management is based on Redux, which is identical to the mutation update operation we generally use because it uses [Immer](https://github.com/immerjs/immer).
 
 ```ts
 @injectable()

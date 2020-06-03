@@ -411,9 +411,6 @@
         "title": "What is Reactant?",
         "sidebar_label": "What is Reactant?"
       },
-      "middleware": {
-        "title": "Middleware"
-      },
       "performance": {
         "title": "Performance"
       },
