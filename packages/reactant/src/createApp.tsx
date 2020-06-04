@@ -18,6 +18,7 @@ import { Config, App } from './interfaces';
  * and `bootstrap()` method(You can run `bootstrap` to start the app inject into the browser or mobile).
  *
  * **Example:**
+ *
  * ```ts
  * @injectable()
  * class Foo {}

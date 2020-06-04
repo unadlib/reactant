@@ -11,10 +11,10 @@
       "state-action",
       "component",
       "view-module",
-      "base-di",
-      "hooks"
+      "base-di"
     ],
     "Advanced Guides": [
+      "hooks",
       "di",
       "pluggable",
       "routing",
