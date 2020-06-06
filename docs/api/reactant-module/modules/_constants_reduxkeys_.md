@@ -19,7 +19,7 @@ sidebar_label: "constants/reduxKeys"
 
 • **actionIdentifier**: *keyof symbol* = Symbol('action')
 
-*Defined in [packages/reactant-module/src/constants/reduxKeys.ts:3](https://github.com/unadlib/reactant/blob/37c7818/packages/reactant-module/src/constants/reduxKeys.ts#L3)*
+*Defined in [packages/reactant-module/src/constants/reduxKeys.ts:3](https://github.com/unadlib/reactant/blob/1cc97a2/packages/reactant-module/src/constants/reduxKeys.ts#L3)*
 
 ___
 
@@ -27,7 +27,7 @@ ___
 
 • **stateKey**: *keyof symbol* = Symbol('state')
 
-*Defined in [packages/reactant-module/src/constants/reduxKeys.ts:4](https://github.com/unadlib/reactant/blob/37c7818/packages/reactant-module/src/constants/reduxKeys.ts#L4)*
+*Defined in [packages/reactant-module/src/constants/reduxKeys.ts:4](https://github.com/unadlib/reactant/blob/1cc97a2/packages/reactant-module/src/constants/reduxKeys.ts#L4)*
 
 ___
 
@@ -35,7 +35,7 @@ ___
 
 • **storeKey**: *keyof symbol* = Symbol('store')
 
-*Defined in [packages/reactant-module/src/constants/reduxKeys.ts:1](https://github.com/unadlib/reactant/blob/37c7818/packages/reactant-module/src/constants/reduxKeys.ts#L1)*
+*Defined in [packages/reactant-module/src/constants/reduxKeys.ts:1](https://github.com/unadlib/reactant/blob/1cc97a2/packages/reactant-module/src/constants/reduxKeys.ts#L1)*
 
 ___
 
@@ -43,4 +43,4 @@ ___
 
 • **subscriptionsKey**: *keyof symbol* = Symbol('subscriptions')
 
-*Defined in [packages/reactant-module/src/constants/reduxKeys.ts:2](https://github.com/unadlib/reactant/blob/37c7818/packages/reactant-module/src/constants/reduxKeys.ts#L2)*
+*Defined in [packages/reactant-module/src/constants/reduxKeys.ts:2](https://github.com/unadlib/reactant/blob/1cc97a2/packages/reactant-module/src/constants/reduxKeys.ts#L2)*

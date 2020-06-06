@@ -20,4 +20,4 @@ sidebar_label: "ModuleDecoratorOptions"
 
 • **deps**? : *[DependenciesModule](../modules/_interfaces_.md#dependenciesmodule)[]*
 
-*Defined in [packages/reactant-di/src/interfaces.ts:87](https://github.com/unadlib/reactant/blob/37c7818/packages/reactant-di/src/interfaces.ts#L87)*
+*Defined in [packages/reactant-di/src/interfaces.ts:87](https://github.com/unadlib/reactant/blob/1cc97a2/packages/reactant-di/src/interfaces.ts#L87)*

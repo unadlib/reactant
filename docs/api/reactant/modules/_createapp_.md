@@ -16,7 +16,7 @@ sidebar_label: "createApp()"
 
 ▸ **createApp**<**T**>(`__namedParameters`: object): *[App](../interfaces/_interfaces_.app.md)‹T›*
 
-*Defined in [createApp.tsx:34](https://github.com/unadlib/reactant/blob/37c7818/packages/reactant/src/createApp.tsx#L34)*
+*Defined in [createApp.tsx:35](https://github.com/unadlib/reactant/blob/1cc97a2/packages/reactant/src/createApp.tsx#L35)*
 
 **Description:**
 
@@ -25,6 +25,7 @@ which will return an object including `instance`, `store`,
 and `bootstrap()` method(You can run `bootstrap` to start the app inject into the browser or mobile).
 
 **Example:**
+
 ```ts
 @injectable()
 class Foo {}

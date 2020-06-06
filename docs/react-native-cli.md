@@ -5,6 +5,8 @@ title: Using react-native
 
 ## Create app with React Native CLI
 
+You can use `react-native-cli` or `@react-native-community/cli`.
+
 ```sh
 npx react-native init MyApp
 cd MyApp
