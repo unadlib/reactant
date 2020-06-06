@@ -33,7 +33,7 @@ yarn add reactant reactant-web
 
 ## Add the babel configuration
 
-Reactant development need `@babel/plugin-proposal-decorators` and `@babel/plugin-proposal-class-properties`, `create-react-app` has already installed them by default. If you find that they are not installed, run `yarn add -D @babel/plugin-proposal-decorators @babel/plugin-proposal-class-properties` to install them.
+Reactant development need `@babel/plugin-proposal-decorators` and `@babel/plugin-proposal-class-properties`. If you find that they are not installed, run `yarn add -D @babel/plugin-proposal-decorators @babel/plugin-proposal-class-properties` to install them.
 
 And then add babel config in `package.json`:
 
@@ -49,7 +49,9 @@ And then add babel config in `package.json`:
 }
 ```
 
-## Add the example code
+> If using `create-react-app` with TypeScript template, you can install `babel-plugin-transform-typescript-metadata` for supporting TypeScript metadata with dependency injection, and set the babel configuration about it.
+
+## Add the example code with JavaScript
 
 Change the code of the `src/index.js` file:
 

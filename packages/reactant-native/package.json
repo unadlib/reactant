@@ -1,13 +1,36 @@
 {
   "name": "reactant-native",
-  "private": true,
   "version": "0.1.8",
-  "description": "A native apps with react-native for Reactant",
-  "main": "index.js",
+  "description": "A mobile apps with react-native for Reactant",
+  "main": "dist/index.cjs.js",
+  "unpkg": "dist/index.umd.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "bugs": {
+    "url": "https://github.com/unadlib/reactant/issues"
+  },
+  "homepage": "https://github.com/unadlib/reactant#readme",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "MIT"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/unadlib/reactant.git",
+    "directory": "packages/reactant"
+  },
+  "engines": {
+    "node": ">=0.8.0"
+  },
+  "keywords": [
+    "React",
+    "Reactant"
+  ],
+  "author": "unadlib",
+  "license": "MIT",
+  "peerDependencies": {
+    "react-native": "^0.62.2"
+  },
+  "dependencies": {
+    "react-native": "^0.62.2"
+  }
 }
