@@ -1,6 +1,6 @@
 {
   "name": "reactant-model",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "A model lib for Reactant",
   "main": "dist/index.cjs.js",
   "unpkg": "dist/index.umd.js",
@@ -14,10 +14,10 @@
   "license": "MIT",
   "peerDependencies": {
     "immer": "^5.3.6",
-    "reactant-module": "^0.0.1"
+    "reactant-module": "^0.1.10"
   },
   "devDependencies": {
     "immer": "^5.3.6",
-    "reactant-module": "^0.1.9"
+    "reactant-module": "^0.1.10"
   }
 }
