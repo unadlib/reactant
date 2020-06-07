@@ -137,7 +137,7 @@ class Index extends React.Component {
     );
 
     const DevelopPlatform = () => (
-      <Block id="try">
+      <Block>
         {[
           {
             content:
@@ -150,17 +150,126 @@ class Index extends React.Component {
       </Block>
     );
 
-    const Description = () => (
-      <Block background="dark">
-        {[
-          {
-            content: 'todo',
-            image: `${baseUrl}img/undraw_note_list.svg`,
-            imageAlign: 'right',
-            title: 'todo',
-          },
-        ]}
-      </Block>
+    const QuicklyGetStarted = () => (
+      <div
+        className="productShowcaseSection paddingBottom darkBackground"
+        style={{ textAlign: 'center', padding: '10px 0' }}
+      >
+        <h2>Quickstart</h2>
+        <MarkdownBlock>
+          Quickly get started with service module, view module and bootstrap
+          app.
+        </MarkdownBlock>
+      </div>
+    );
+
+    const ServiceModuleCodePen = () => (
+      <div className="container lightBackground paddingBottom paddingTop">
+        <div className="wrapper">
+          <div className="gridBlock">
+            <div className="blockElement alignCenter imageAlignSide imageAlignRight twoByGridBlock">
+              <div className="blockContent">
+                <h2>
+                  <div>
+                    <span>
+                      <p>1. Create Service Module</p>
+                    </span>
+                  </div>
+                </h2>
+                <div>
+                  <span>
+                    <p>
+                      The module definition is very simple and you don't need
+                      anything other than decorators that dependency injection
+                      and state management.
+                    </p>
+                  </span>
+                </div>
+              </div>
+              <div className="blockImage">
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html:
+                      "<iframe width='319' height='364' src='https://carbon.now.sh/embed?bg=rgba(171%2C184%2C195%2C0)&t=seti&wt=none&l=application%2Ftypescript&ds=false&dsyoff=0px&dsblur=12px&wc=true&wa=true&pv=56px&ph=56px&ln=false&fl=1&fm=Hack&fs=14px&lh=133%25&si=false&es=2x&wm=false&code=%2540injectable()%250Aclass%2520Counter%2520%257B%250A%2520%2520%2540state%250A%2520%2520count%2520%253D%25200%253B%250A%250A%2520%2520%2540action%250A%2520%2520increase()%2520%257B%250A%2520%2520%2520%2520this.count%2520%252B%253D%25201%253B%250A%2520%2520%257D%250A%257D'></iframe>",
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+
+    const ViewModuleCodePen = () => (
+      <div className="container paddingBottom paddingTop">
+        <div className="wrapper">
+          <div className="gridBlock">
+            <div className="blockElement alignCenter imageAlignSide imageAlignLeft twoByGridBlock">
+              <div className="blockImage1">
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html:
+                      "<iframe width='631' height='491' src='https://carbon.now.sh/embed?bg=rgba(171%2C184%2C195%2C0)&t=seti&wt=none&l=application%2Ftypescript&ds=false&dsyoff=0px&dsblur=12px&wc=true&wa=true&pv=56px&ph=56px&ln=false&fl=1&fm=Hack&fs=14px&lh=133%25&si=false&es=2x&wm=false&code=%2540injectable()%250Aclass%2520AppView%2520extends%2520ViewModule%2520%257B%250A%2520%2520constructor(public%2520counter%253A%2520Counter)%2520%257B%250A%2520%2520%2520%2520super()%253B%250A%2520%2520%257D%250A%250A%2520%2520component()%2520%257B%250A%2520%2520%2520%2520const%2520count%2520%253D%2520useConnector(()%2520%253D%253E%2520this.counter.count)%253B%250A%2520%2520%2520%2520return%2520(%250A%2520%2520%2520%2520%2520%2520%253Cbutton%250A%2520%2520%2520%2520%2520%2520%2509type%253D%2522button%2522%250A%2520%2520%2520%2520%2520%2520%2509onClick%253D%257B()%2520%253D%253E%2520this.counter.increase()%257D%253E%250A%2520%2520%2520%2520%2520%2520%2520%2520%257Bcount%257D%250A%2520%2520%2520%2520%2520%2520%253C%252Fbutton%253E%250A%2520%2520%2520%2520)%253B%250A%2520%2520%257D%250A%257D'></iframe>",
+                  }}
+                />
+              </div>
+              <div className="blockContent">
+                <h2>
+                  <div>
+                    <span>
+                      <p>2. Create View Module</p>
+                    </span>
+                  </div>
+                </h2>
+                <div>
+                  <span>
+                    <p>
+                      You just need to extend the "ViewModule", and define the
+                      methods and data to be injected into the view function
+                      component.
+                    </p>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+
+    const AppBootstrapCodePen = () => (
+      <div className="container lightBackground paddingBottom paddingTop">
+        <div className="wrapper">
+          <div className="gridBlock">
+            <div className="blockElement alignCenter imageAlignSide imageAlignRight twoByGridBlock">
+              <div className="blockContent">
+                <h2>
+                  <div>
+                    <span>
+                      <p>3. Bootstrap app</p>
+                    </span>
+                  </div>
+                </h2>
+                <div>
+                  <span>
+                    <p>
+                      Use "createApp" to pass in the view module and render function, you're ready to bootstrap the app.
+                    </p>
+                  </span>
+                </div>
+              </div>
+              <div className="blockImage">
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html:
+                      "<iframe width='538' height='310' src='https://carbon.now.sh/embed?bg=rgba(171%2C184%2C195%2C0)&t=seti&wt=none&l=application%2Ftypescript&ds=false&dsyoff=0px&dsblur=12px&wc=true&wa=true&pv=56px&ph=56px&ln=false&fl=1&fm=Hack&fs=14px&lh=133%25&si=false&es=2x&wm=false&code=const%2520app%2520%253D%2520createApp(%257B%250A%2520%2520main%253A%2520AppView%252C%250A%2520%2520modules%253A%2520%255B%255D%252C%250A%2520%2520render%252C%250A%257D)%253B%250A%250Aapp.bootstrap(document.getElementById(%27app%27))%253B'></iframe>",
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     );
 
     const Showcase = () => {
@@ -200,7 +309,10 @@ class Index extends React.Component {
           <FeatureCallout />
           <CleanArchitecture />
           <DevelopPlatform />
-          {/* <Description /> */}
+          <QuicklyGetStarted />
+          <ServiceModuleCodePen />
+          <ViewModuleCodePen />
+          <AppBootstrapCodePen />
           {/* <Showcase /> */}
         </div>
       </div>
