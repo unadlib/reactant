@@ -33,7 +33,11 @@ yarn add reactant reactant-web
 
 ## Add the babel configuration
 
-Reactant development need `@babel/plugin-proposal-decorators` and `@babel/plugin-proposal-class-properties`. If you find that they are not installed, run `yarn add -D @babel/plugin-proposal-decorators @babel/plugin-proposal-class-properties` to install them.
+Reactant development need `@babel/plugin-proposal-decorators` and `@babel/plugin-proposal-class-properties`. If you find that they are not installed, you need to install them:
+
+```sh
+yarn add -D @babel/plugin-proposal-decorators @babel/plugin-proposal-class-properties
+```
 
 And then add babel config in `package.json`:
 
