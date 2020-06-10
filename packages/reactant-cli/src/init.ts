@@ -51,6 +51,14 @@ export const createInitCommand = (
     .option('--use-pnp', 'use yarn PnP feature', false)
     .action(
       (projectName, { verbose, native, language, useNpm, usePnp }: Options) => {
+        if (native) {
+          console.log(
+            chalk.red(
+              `Currently, reactant-cli does not support initializing a react-native project.`
+            )
+          );
+          process.exit(1);
+        }
         if (typeof supportLanguageMap[language] === 'undefined') {
           console.log(
             chalk.red(
