@@ -6,7 +6,6 @@ import {
   createStore,
   ServiceIdentifiersMap,
   Module,
-  PartialRequired,
 } from 'reactant-module';
 import { Config, App } from './interfaces';
 
@@ -39,7 +38,7 @@ function createApp<T>({
   containerOptions,
   preloadedState,
   devOptions,
-}: PartialRequired<Config<T>, 'render'>): App<T> {
+}: Config<T>): App<T> {
   const ServiceIdentifiers: ServiceIdentifiersMap = new Map();
   const container = createContainer({
     ServiceIdentifiers,

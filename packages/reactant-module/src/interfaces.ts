@@ -118,3 +118,6 @@ type ExcludeRequired<T> = {
 };
 
 export type PickOptional<T> = Pick<ExcludeRequired<T>, OptionalKeyOf<T>>;
+
+export type PartialKeys<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>> &
+  Partial<Pick<T, K>>;

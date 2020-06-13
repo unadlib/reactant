@@ -1,7 +1,8 @@
+import { PartialKeys } from 'reactant-module';
 import { createApp } from './createApp';
 import { Config, App } from './interfaces';
 
-function testBed<T>(config: Config<T>): App<T> {
+function testBed<T>(config: PartialKeys<Config<T>, 'render'>): App<T> {
   return createApp<T>({
     ...config,
     render:

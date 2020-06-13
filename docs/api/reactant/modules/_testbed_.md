@@ -14,9 +14,9 @@ sidebar_label: "testBed()"
 
 ###  testBed
 
-▸ **testBed**<**T**>(`config`: [Config](../interfaces/_interfaces_.config.md)‹T›): *[App](../interfaces/_interfaces_.app.md)‹T›*
+▸ **testBed**<**T**>(`config`: PartialKeys‹[Config](../interfaces/_interfaces_.config.md)‹T›, "render"›): *[App](../interfaces/_interfaces_.app.md)‹T›*
 
-*Defined in [testBed.ts:4](https://github.com/unadlib/reactant/blob/1cc97a2/packages/reactant/src/testBed.ts#L4)*
+*Defined in [testBed.ts:5](https://github.com/unadlib/reactant/blob/1e7fe87/packages/reactant/src/testBed.ts#L5)*
 
 **Type parameters:**
 
@@ -26,6 +26,6 @@ sidebar_label: "testBed()"
 
 Name | Type |
 ------ | ------ |
-`config` | [Config](../interfaces/_interfaces_.config.md)‹T› |
+`config` | PartialKeys‹[Config](../interfaces/_interfaces_.config.md)‹T›, "render"› |
 
 **Returns:** *[App](../interfaces/_interfaces_.app.md)‹T›*

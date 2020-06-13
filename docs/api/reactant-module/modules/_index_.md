@@ -11,6 +11,7 @@ sidebar_label: "index"
 * [DevOptions](_index_.md#devoptions)
 * [FirstParameter](_index_.md#firstparameter)
 * [HandlePlugin](_index_.md#handleplugin)
+* [PartialKeys](_index_.md#partialkeys)
 * [PartialRequired](_index_.md#partialrequired)
 * [PickOptional](_index_.md#pickoptional)
 * [PluginHooks](_index_.md#pluginhooks)
@@ -73,6 +74,12 @@ ___
 ###  HandlePlugin
 
 • **HandlePlugin**:
+
+___
+
+###  PartialKeys
+
+• **PartialKeys**:
 
 ___
 
