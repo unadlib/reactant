@@ -17,11 +17,11 @@ export interface Config<T> {
    */
   render: (element: JSX.Element, ...args: any[]) => Element | void;
   /**
-   * Importing the injected dependency module.
+   * Importing the injected dependency modules.
    */
   modules?: ReactModuleOptions[];
   /**
-   * Dependent injection container options
+   * Dependent injection container options.
    */
   containerOptions?: ContainerOptions;
   /**
@@ -29,7 +29,7 @@ export interface Config<T> {
    */
   preloadedState?: TypePreloadedState<any>;
   /**
-   * Reactant's development setting options
+   * Reactant's development setting options.
    */
   devOptions?: DevOptions;
 }

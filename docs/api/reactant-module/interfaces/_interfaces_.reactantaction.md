@@ -30,7 +30,7 @@ sidebar_label: "ReactantAction"
 
 • **_reactant**: *typeof actionIdentifier*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:58](https://github.com/unadlib/reactant/blob/1e7fe87/packages/reactant-module/src/interfaces.ts#L58)*
+*Defined in [packages/reactant-module/src/interfaces.ts:58](https://github.com/unadlib/reactant/blob/990bad3/packages/reactant-module/src/interfaces.ts#L58)*
 
 ___
 
@@ -38,7 +38,7 @@ ___
 
 • **lastState**: *Record‹string, T›*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:57](https://github.com/unadlib/reactant/blob/1e7fe87/packages/reactant-module/src/interfaces.ts#L57)*
+*Defined in [packages/reactant-module/src/interfaces.ts:57](https://github.com/unadlib/reactant/blob/990bad3/packages/reactant-module/src/interfaces.ts#L57)*
 
 ___
 
@@ -46,7 +46,7 @@ ___
 
 • **method**? : *undefined | string*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:55](https://github.com/unadlib/reactant/blob/1e7fe87/packages/reactant-module/src/interfaces.ts#L55)*
+*Defined in [packages/reactant-module/src/interfaces.ts:55](https://github.com/unadlib/reactant/blob/990bad3/packages/reactant-module/src/interfaces.ts#L55)*
 
 ___
 
@@ -54,7 +54,7 @@ ___
 
 • **state**: *Record‹string, T›*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:56](https://github.com/unadlib/reactant/blob/1e7fe87/packages/reactant-module/src/interfaces.ts#L56)*
+*Defined in [packages/reactant-module/src/interfaces.ts:56](https://github.com/unadlib/reactant/blob/990bad3/packages/reactant-module/src/interfaces.ts#L56)*
 
 ___
 
