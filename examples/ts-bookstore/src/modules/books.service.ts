@@ -28,12 +28,14 @@ class Books {
   list: IBookList = [];
 
   @action
-  updateBooksList(books: IBooks, list: IBookList) {
+  updateBooksList({ books, comments, users }: IEntities, list: IBookList) {
     this.list.push(...list);
     this.books = {
       ...this.books,
       ...books,
     };
+    this.comments.updateComments(comments);
+    this.comments.addCommentUsers(users);
   }
 
   getBooksList = createSelector(
@@ -58,15 +60,11 @@ class Books {
         price: 15.2,
       },
     ];
-    const { result, entities } = normalize<IBook[], IEntities, IBookList>(
+    const { entities, result } = normalize<IBook[], IEntities, IBookList>(
       mockData,
       this.schema
     );
-    batch(() => {
-      this.updateBooksList(entities.books, result);
-      this.comments.updateComments(entities.comments);
-      this.comments.addCommentUsers(entities.users);
-    });
+    this.updateBooksList(entities, result);
   }
 }
 
