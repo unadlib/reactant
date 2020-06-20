@@ -16,7 +16,7 @@ sidebar_label: "core/createStore"
 
 ▸ **createStore**<**T**>(`modules`: ModuleOptions[], `container`: Container, `ServiceIdentifiers`: ServiceIdentifiersMap, `preloadedState?`: PreloadedState‹T›, `providers`: FunctionComponent[], `devOptions`: [DevOptions](../interfaces/_interfaces_.devoptions.md)): *Store‹any, AnyAction‹››*
 
-*Defined in [packages/reactant-module/src/core/createStore.ts:32](https://github.com/unadlib/reactant/blob/990bad3/packages/reactant-module/src/core/createStore.ts#L32)*
+*Defined in [packages/reactant-module/src/core/createStore.ts:32](https://github.com/unadlib/reactant/blob/3c42723/packages/reactant-module/src/core/createStore.ts#L32)*
 
 **Type parameters:**
 

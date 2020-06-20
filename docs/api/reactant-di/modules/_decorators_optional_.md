@@ -16,7 +16,7 @@ sidebar_label: "@optional()"
 
 ▸ **optional**(`serviceIdentifier?`: [ServiceIdentifier](_interfaces_.md#serviceidentifier)‹any›): *(Anonymous function)*
 
-*Defined in [packages/reactant-di/src/decorators/optional.ts:7](https://github.com/unadlib/reactant/blob/990bad3/packages/reactant-di/src/decorators/optional.ts#L7)*
+*Defined in [packages/reactant-di/src/decorators/optional.ts:7](https://github.com/unadlib/reactant/blob/3c42723/packages/reactant-di/src/decorators/optional.ts#L7)*
 
 **Parameters:**
 
