@@ -1,17 +1,17 @@
-export function isEqual(x: any, y: any) {
+export const isEqual = (x: unknown, y: unknown) => {
   if (x === y) {
     return x !== 0 || y !== 0 || 1 / x === 1 / y;
   }
   // eslint-disable-next-line no-self-compare
   return x !== x && y !== y;
-}
+};
 
-export function isEqualExceptFunction(x: any, y: any) {
+export const isEqualExceptFunction = (x: unknown, y: unknown) => {
   if (typeof x === 'function' && typeof y === 'function') return true;
   return isEqual(x, y);
-}
+};
 
-export function areStatePropsEqual(objA: any, objB: any) {
+export const areShallowEqualWithObject = (objA: any, objB: any) => {
   if (isEqualExceptFunction(objA, objB)) return true;
 
   if (
@@ -37,5 +37,21 @@ export function areStatePropsEqual(objA: any, objB: any) {
     }
   }
 
+  return true;
+};
+
+export function areShallowEqualWithArray(
+  prev: any[] | null | IArguments,
+  next: any[] | null | IArguments
+) {
+  if (prev === null || next === null || prev.length !== next.length) {
+    return false;
+  }
+  const { length } = prev;
+  for (let i = 0; i < length; i += 1) {
+    if (!isEqual(prev[i], next[i])) {
+      return false;
+    }
+  }
   return true;
 }
