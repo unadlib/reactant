@@ -14,7 +14,7 @@ export function defaultMemoize(func: Function) {
   };
 }
 
-const createSelectorCreatorWithArray = (memoize: Function = defaultMemoize) => {
+const createSelectorCreator = (memoize: Function = defaultMemoize) => {
   return (dependenciesFunc: Function, resultFunc: Function) => {
     const memoizedResultFunc = memoize(function(this: ThisType<unknown>) {
       return resultFunc.apply(this, arguments);
@@ -28,4 +28,4 @@ const createSelectorCreatorWithArray = (memoize: Function = defaultMemoize) => {
   };
 };
 
-export const createSelectorWithArray = createSelectorCreatorWithArray();
+export const createSelector = createSelectorCreator();

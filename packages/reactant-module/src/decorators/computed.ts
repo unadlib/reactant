@@ -1,4 +1,4 @@
-import { createSelectorWithArray } from '../utils';
+import { createSelector } from '../utils';
 /**
  * ### Example
  *
@@ -32,7 +32,7 @@ export const computed = (depsCallback: (instance: any) => any[]) => (
       );
     }
   }
-  const selector = createSelectorWithArray(depsCallback, descriptor.get!);
+  const selector = createSelector(depsCallback, descriptor.get!);
   return {
     ...descriptor,
     get() {

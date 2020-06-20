@@ -11,7 +11,7 @@ import {
   optional,
   useConnector,
   action,
-  computed,
+  createSelector,
   autobind,
   state,
 } from 'reactant';
@@ -75,13 +75,13 @@ describe('base API', () => {
         super();
       }
 
-      @computed((that: DashboardView) => [that.count.num])
-      get sum() {
-        return this.count.num + 1;
-      }
+      getSum = createSelector(
+        () => this.count.num,
+        num => num + 1
+      );
 
       getData = () => ({
-        num: this.sum,
+        num: this.getSum(),
         increase: this.count.increase,
       });
 
