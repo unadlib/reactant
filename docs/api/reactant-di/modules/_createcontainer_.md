@@ -24,7 +24,7 @@ sidebar_label: "createContainer"
 
 ▸ **autoBindModules**(): *ContainerModule‹›*
 
-*Defined in [packages/reactant-di/src/createContainer.ts:34](https://github.com/unadlib/reactant/blob/3c42723/packages/reactant-di/src/createContainer.ts#L34)*
+*Defined in [packages/reactant-di/src/createContainer.ts:34](https://github.com/unadlib/reactant/blob/a4942f1/packages/reactant-di/src/createContainer.ts#L34)*
 
 **Returns:** *ContainerModule‹›*
 
@@ -34,7 +34,7 @@ ___
 
 ▸ **autoDecorateParams**(`target`: object): *void*
 
-*Defined in [packages/reactant-di/src/createContainer.ts:80](https://github.com/unadlib/reactant/blob/3c42723/packages/reactant-di/src/createContainer.ts#L80)*
+*Defined in [packages/reactant-di/src/createContainer.ts:80](https://github.com/unadlib/reactant/blob/a4942f1/packages/reactant-di/src/createContainer.ts#L80)*
 
 It ensures that the parameters of all modules from the configuration are decorated.
 
@@ -62,7 +62,7 @@ ___
 
 ▸ **createContainer**(`__namedParameters`: object): *Container‹›*
 
-*Defined in [packages/reactant-di/src/createContainer.ts:96](https://github.com/unadlib/reactant/blob/3c42723/packages/reactant-di/src/createContainer.ts#L96)*
+*Defined in [packages/reactant-di/src/createContainer.ts:96](https://github.com/unadlib/reactant/blob/a4942f1/packages/reactant-di/src/createContainer.ts#L96)*
 
 **Parameters:**
 
@@ -82,7 +82,7 @@ ___
 
 ▸ **isClassProvider**(`module`: [ModuleOptions](_interfaces_.md#moduleoptions)): *module is ClassProvider*
 
-*Defined in [packages/reactant-di/src/createContainer.ts:57](https://github.com/unadlib/reactant/blob/3c42723/packages/reactant-di/src/createContainer.ts#L57)*
+*Defined in [packages/reactant-di/src/createContainer.ts:57](https://github.com/unadlib/reactant/blob/a4942f1/packages/reactant-di/src/createContainer.ts#L57)*
 
 **Parameters:**
 
@@ -98,7 +98,7 @@ ___
 
 ▸ **isFactoryProvider**(`module`: [ModuleOptions](_interfaces_.md#moduleoptions)): *module is FactoryProvider*
 
-*Defined in [packages/reactant-di/src/createContainer.ts:61](https://github.com/unadlib/reactant/blob/3c42723/packages/reactant-di/src/createContainer.ts#L61)*
+*Defined in [packages/reactant-di/src/createContainer.ts:61](https://github.com/unadlib/reactant/blob/a4942f1/packages/reactant-di/src/createContainer.ts#L61)*
 
 **Parameters:**
 

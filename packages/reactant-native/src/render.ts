@@ -1,3 +1,4 @@
+// TODO: wait for `@type/react-native` issue about `typedoc` building docs
 // @ts-ignore
 import { AppRegistry } from 'react-native';
 
