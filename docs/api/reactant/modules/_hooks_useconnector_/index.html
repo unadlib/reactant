@@ -67,27 +67,27 @@
 <p><code>useConnector</code> is a React Hooks, which you can use to inject any shared state and derived data that you want to render using.
 And it supports both <code>useConnector(() =&gt; this.renderPropsValue)</code> and <code>useConnector(() =&gt; this.getMapStateToProps())</code> uses.</p>
 <p><strong>Example:</strong></p>
-<pre><code class="hljs css language-ts">@injectable()
-class FooView extends ViewModule {
+<pre><code class="hljs css language-tsx">@injectable()
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FooView</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ViewModule</span> {</span>
   @state
-  key = 'str';
+  key = <span class="hljs-string">'str'</span>;
 
   @action
   setValue(value: any) {
-    this.key = value;
+    <span class="hljs-keyword">this</span>.key = value;
   }
 
   component() {
-    const { key } = useConnector(() =&gt; ({ key: this.key }));
-    // or `const key = useConnector(() =&gt; this.key);`
-    return &lt;span&gt;{key}&lt;/span&gt;;
+    const { key } = useConnector(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> ({ key: <span class="hljs-keyword">this</span>.key }));
+    <span class="hljs-regexp">//</span> <span class="hljs-keyword">or</span> `<span class="javascript"><span class="hljs-keyword">const</span> key = useConnector(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-keyword">this</span>.key);</span>`
+    <span class="hljs-keyword">return</span> &lt;span&gt;{key}&lt;/span&gt;;
   }
 }
 
-const container = document.createElement('div');
-document.body.appendChild(container);
+const container = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">'div'</span>);
+<span class="hljs-built_in">document</span>.body.appendChild(container);
 
-act(() =&gt; {
+act(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
   createApp({
     modules: [],
     main: FooView,
@@ -95,7 +95,7 @@ act(() =&gt; {
   }).bootstrap(container);
 });
 
-expect(container.querySelector('span')?.textContent).toBe('str');
+expect(container.querySelector(<span class="hljs-string">'span'</span>)?.textContent).toBe(<span class="hljs-string">'str'</span>);
 </code></pre>
 <p><strong>Type parameters:</strong></p>
 <p>▪ <strong>T</strong></p>
