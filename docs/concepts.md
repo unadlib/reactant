@@ -72,7 +72,7 @@ class AppView extends ViewModule {
 
 > The `useConnector` parameter also supports object maps, e.g. `useConnector(() => { count: this.counter.count })`, which works in most scenarios. When the state is updated, `useConnector` will automatically do the shallow comparison for it to determine if the component needs to be updated.
 
-> `ViewModule`can also use `@state` and `@action`, and generally it will use `createSelector()` for computing derived data.
+> `ViewModule`can also use `@state` and `@action`, and generally it will use `@computed` for computing derived data.
 
 See [`ViewModule`](api/reactant-module/classes/_core_view_.viewmodule.md) for more information.
 

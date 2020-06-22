@@ -28,7 +28,7 @@ If `@state` is not used at all, then Reactant will not run `Redux`, so you can u
 - `ViewModule` class `component` support inheritance, and it does not support call `super.component` for JSX Element but support call function.
 - `@action` support inheritance and call `super`. And if it is a cross-module call to another `@action` decorated function within an `@action` decorated function, it will automatically merge the dispatch updates.
 - Performance optimization
-  - Selector from `createSelector`can be passed in immutable state.
+  - Using `@computed` for derived data.
   - `batch` can be used to optimize rendering performance.
   - `dispatch` and `createState` support Redux action and reducer.
 - Decorators
