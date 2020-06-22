@@ -27,7 +27,7 @@ const action = (
           this[storeKey]?.getState(),
           (draftState: Record<string, unknown>) => {
             stagedState = draftState;
-            fn.call(this, ...args);
+            fn.apply(this, args);
           }
         );
         stagedState = undefined;
@@ -55,7 +55,7 @@ const action = (
       }
     } else {
       // enable staged state mode.
-      fn.call(this, ...args);
+      fn.apply(this, args);
     }
   };
   return {

@@ -8,7 +8,7 @@ import {
   ReactantAction,
 } from '../..';
 
-test('`createSelector` with type', () => {
+test('`createState` with type', () => {
   @injectable()
   class Counter {
     @state

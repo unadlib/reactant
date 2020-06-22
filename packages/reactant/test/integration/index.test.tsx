@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/ban-ts-ignore */
 /* eslint-disable class-methods-use-this */
-import React, { FC } from 'react';
+import React from 'react';
 import {
   unmountComponentAtNode,
   render,
@@ -18,7 +18,7 @@ import {
   injectable,
   action,
   createState,
-  createSelector,
+  computed,
   useConnector,
   dispatch,
   ReactantAction,
@@ -215,28 +215,17 @@ describe('base API', () => {
         };
       }
 
-      getSum = createSelector(
-        () => this.state.list,
-        items => {
-          sumComputedFn();
-          return items.reduce((sum, item) => sum + item.count, 0);
-        }
-      );
-
+      @computed((that: HomeView1) => [that.state.list])
       get sum() {
-        return this.getSum();
+        sumComputedFn();
+        return this.state.list.reduce((sum, item) => sum + item.count, 0);
       }
 
-      getSum1 = createSelector(
-        () => this.state.list1,
-        items => {
-          sum1ComputedFn();
-          return items.reduce((sum, item) => sum + item.count, 0);
-        }
-      );
-
+      @computed((that: HomeView1) => [that.state.list1])
       get sum1() {
-        return this.getSum1();
+        sum1ComputedFn();
+        // console.log('====');
+        return this.state.list1.reduce((sum, item) => sum + item.count, 0);
       }
 
       component(props: HomeView1Props) {
@@ -263,6 +252,11 @@ describe('base API', () => {
         this.state.list[0].count += num;
       }
 
+      @action
+      increase1() {
+        this.state.list1[0].count += 1;
+      }
+
       @state
       state: typeof a & { e: number } = {
         ...this.state,
@@ -273,18 +267,16 @@ describe('base API', () => {
         return {
           text: `${this.state.count}`,
           increase: () => this.increase(1),
-          sum: this._getSum(),
+          sum: this._sum,
           sum1: this.sum1,
           e: this.state.e,
         };
       }
 
-      _getSum = createSelector(
-        () => this.sum,
-        r => {
-          return r + 1;
-        }
-      );
+      @computed(({ sum }: HomeView) => [sum])
+      get _sum() {
+        return this.sum + 1;
+      }
 
       component(props: HomeViewProps) {
         return super.component(props);
@@ -429,6 +421,10 @@ describe('base API', () => {
     expect(container.querySelector('span')?.textContent).toBe('2');
     expect(renderFn.mock.calls.length).toBe(6);
     expect(sumComputedFn.mock.calls.length).toBe(6);
+    expect(app1.instance.sum1).toBe(1);
+    expect(sum1ComputedFn.mock.calls.length).toBe(1);
+    app1.instance.increase1();
+    expect(app1.instance.sum1).toBe(2);
     expect(sum1ComputedFn.mock.calls.length).toBe(2);
     expect(app1.instance.props.sum).toBe(3);
     expect(app1.instance.state.count).toEqual(2);
@@ -475,6 +471,12 @@ describe('base API', () => {
     expect(container.querySelector('span')?.textContent).toBe('2');
     expect(app2.store!.getState().homeView.state.count).toBe(3);
     expect(sumComputedFn.mock.calls.length).toBe(10);
+    expect(app2.instance.homeView.sum1).toBe(1);
+    expect(sum1ComputedFn.mock.calls.length).toBe(3);
+    expect(app2.instance.homeView.sum1).toBe(1);
+    expect(sum1ComputedFn.mock.calls.length).toBe(3);
+    app2.instance.homeView.increase1();
+    expect(app2.instance.homeView.sum1).toBe(2);
     expect(sum1ComputedFn.mock.calls.length).toBe(4);
   });
 
@@ -640,13 +642,13 @@ describe('multiple reactant app', () => {
         super();
       }
 
-      getSum = createSelector(
-        () => this.count.state.num,
-        num => num + 1
-      );
+      @computed(({ count }: DashboardView) => [count.state.num])
+      get sum() {
+        return this.count.state.num + 1;
+      }
 
       getData = () => ({
-        num: this.getSum(),
+        num: this.sum,
         increase: this.count.increase,
       });
 
