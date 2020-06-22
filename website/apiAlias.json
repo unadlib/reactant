@@ -5,7 +5,7 @@
   "api/reactant/modules/_batch_": "batch()",
   "api/reactant-module/modules/_decorators_state_": "@state",
   "api/reactant-module/modules/_decorators_action_": "@action",
-  "api/reactant-module/modules/_decorators_computed_": "@computed",
+  "api/reactant-module/modules/_decorators_computed_": "@computed()",
   "api/reactant-module/modules/_decorators_defaultprops_": "@defaultProps()",
   "api/reactant-module/modules/_decorators_autobind_": "@autobind",
   "api/reactant-module/modules/_core_createstate_": "createState()",
