@@ -50,7 +50,7 @@ export const computed = (depsCallback: (instance: any) => any[]) => (
   );
   return {
     ...descriptor,
-    get() {
+    get(this: Service) {
       return selector.call(this);
     },
   };

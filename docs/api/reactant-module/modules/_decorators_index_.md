@@ -10,6 +10,7 @@ sidebar_label: "decorators/index"
 
 * [action](_decorators_index_.md#action)
 * [autobind](_decorators_index_.md#autobind)
+* [computed](_decorators_index_.md#computed)
 * [defaultProps](_decorators_index_.md#defaultprops)
 * [getStagedState](_decorators_index_.md#getstagedstate)
 * [state](_decorators_index_.md#state)
@@ -25,6 +26,12 @@ ___
 ###  autobind
 
 • **autobind**:
+
+___
+
+###  computed
+
+• **computed**:
 
 ___
 

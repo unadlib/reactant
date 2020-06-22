@@ -8,17 +8,35 @@ sidebar_label: "utils/isEqual"
 
 ### Functions
 
-* [areStatePropsEqual](_utils_isequal_.md#arestatepropsequal)
-* [isEqual](_utils_isequal_.md#isequal)
-* [isEqualExceptFunction](_utils_isequal_.md#isequalexceptfunction)
+* [areShallowEqualWithArray](_utils_isequal_.md#areshallowequalwitharray)
+* [areShallowEqualWithObject](_utils_isequal_.md#const-areshallowequalwithobject)
+* [isEqual](_utils_isequal_.md#const-isequal)
+* [isEqualExceptFunction](_utils_isequal_.md#const-isequalexceptfunction)
 
 ## Functions
 
-###  areStatePropsEqual
+###  areShallowEqualWithArray
 
-▸ **areStatePropsEqual**(`objA`: any, `objB`: any): *boolean*
+▸ **areShallowEqualWithArray**(`prev`: any[] | null | IArguments, `next`: any[] | null | IArguments): *boolean*
 
-*Defined in [packages/reactant-module/src/utils/isEqual.ts:14](https://github.com/unadlib/reactant/blob/a4942f1/packages/reactant-module/src/utils/isEqual.ts#L14)*
+*Defined in [packages/reactant-module/src/utils/isEqual.ts:43](https://github.com/unadlib/reactant/blob/7dec51d/packages/reactant-module/src/utils/isEqual.ts#L43)*
+
+**Parameters:**
+
+Name | Type |
+------ | ------ |
+`prev` | any[] &#124; null &#124; IArguments |
+`next` | any[] &#124; null &#124; IArguments |
+
+**Returns:** *boolean*
+
+___
+
+### `Const` areShallowEqualWithObject
+
+▸ **areShallowEqualWithObject**(`objA`: any, `objB`: any): *boolean*
+
+*Defined in [packages/reactant-module/src/utils/isEqual.ts:14](https://github.com/unadlib/reactant/blob/7dec51d/packages/reactant-module/src/utils/isEqual.ts#L14)*
 
 **Parameters:**
 
@@ -31,34 +49,34 @@ Name | Type |
 
 ___
 
-###  isEqual
+### `Const` isEqual
 
-▸ **isEqual**(`x`: any, `y`: any): *boolean*
+▸ **isEqual**(`x`: unknown, `y`: unknown): *boolean*
 
-*Defined in [packages/reactant-module/src/utils/isEqual.ts:1](https://github.com/unadlib/reactant/blob/a4942f1/packages/reactant-module/src/utils/isEqual.ts#L1)*
+*Defined in [packages/reactant-module/src/utils/isEqual.ts:1](https://github.com/unadlib/reactant/blob/7dec51d/packages/reactant-module/src/utils/isEqual.ts#L1)*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
-`x` | any |
-`y` | any |
+`x` | unknown |
+`y` | unknown |
 
 **Returns:** *boolean*
 
 ___
 
-###  isEqualExceptFunction
+### `Const` isEqualExceptFunction
 
-▸ **isEqualExceptFunction**(`x`: any, `y`: any): *boolean*
+▸ **isEqualExceptFunction**(`x`: unknown, `y`: unknown): *boolean*
 
-*Defined in [packages/reactant-module/src/utils/isEqual.ts:9](https://github.com/unadlib/reactant/blob/a4942f1/packages/reactant-module/src/utils/isEqual.ts#L9)*
+*Defined in [packages/reactant-module/src/utils/isEqual.ts:9](https://github.com/unadlib/reactant/blob/7dec51d/packages/reactant-module/src/utils/isEqual.ts#L9)*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
-`x` | any |
-`y` | any |
+`x` | unknown |
+`y` | unknown |
 
 **Returns:** *boolean*

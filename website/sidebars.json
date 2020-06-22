@@ -32,7 +32,7 @@
       "api/reactant/modules/_batch_",
       "api/reactant-module/modules/_decorators_state_",
       "api/reactant-module/modules/_decorators_action_",
-      "api/reactant-module/modules/_core_createselector_",
+      "api/reactant-module/modules/_decorators_computed_",
       "api/reactant-module/modules/_decorators_defaultprops_",
       "api/reactant-module/modules/_decorators_autobind_",
       "api/reactant-module/modules/_core_createstate_",

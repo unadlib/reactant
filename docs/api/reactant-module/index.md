@@ -10,7 +10,6 @@ sidebar_label: "Globals"
 
 * ["constants/index"](modules/_constants_index_.md)
 * ["constants/reduxKeys"](modules/_constants_reduxkeys_.md)
-* ["core/createSelector"](modules/_core_createselector_.md)
 * ["core/createState"](modules/_core_createstate_.md)
 * ["core/createStore"](modules/_core_createstore_.md)
 * ["core/dispatch"](modules/_core_dispatch_.md)
@@ -22,6 +21,7 @@ sidebar_label: "Globals"
 * ["core/watch"](modules/_core_watch_.md)
 * ["decorators/action"](modules/_decorators_action_.md)
 * ["decorators/autobind"](modules/_decorators_autobind_.md)
+* ["decorators/computed"](modules/_decorators_computed_.md)
 * ["decorators/defaultProps"](modules/_decorators_defaultprops_.md)
 * ["decorators/index"](modules/_decorators_index_.md)
 * ["decorators/state"](modules/_decorators_state_.md)
@@ -34,3 +34,4 @@ sidebar_label: "Globals"
 * ["utils/isEqual"](modules/_utils_isequal_.md)
 * ["utils/performer"](modules/_utils_performer_.md)
 * ["utils/reduxDevToolsCompose"](modules/_utils_reduxdevtoolscompose_.md)
+* ["utils/selector"](modules/_utils_selector_.md)

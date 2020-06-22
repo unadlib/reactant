@@ -8,9 +8,12 @@ sidebar_label: "utils/index"
 
 ### References
 
-* [areStatePropsEqual](_utils_index_.md#arestatepropsequal)
+* [areShallowEqualWithArray](_utils_index_.md#areshallowequalwitharray)
+* [areShallowEqualWithObject](_utils_index_.md#areshallowequalwithobject)
 * [assign](_utils_index_.md#assign)
 * [compose](_utils_index_.md#compose)
+* [createSelectorWithArray](_utils_index_.md#createselectorwitharray)
+* [defaultMemoize](_utils_index_.md#defaultmemoize)
 * [getComposeEnhancers](_utils_index_.md#getcomposeenhancers)
 * [getStageName](_utils_index_.md#getstagename)
 * [isEqual](_utils_index_.md#isequal)
@@ -19,9 +22,15 @@ sidebar_label: "utils/index"
 
 ## References
 
-###  areStatePropsEqual
+###  areShallowEqualWithArray
 
-• **areStatePropsEqual**:
+• **areShallowEqualWithArray**:
+
+___
+
+###  areShallowEqualWithObject
+
+• **areShallowEqualWithObject**:
 
 ___
 
@@ -34,6 +43,18 @@ ___
 ###  compose
 
 • **compose**:
+
+___
+
+###  createSelectorWithArray
+
+• **createSelectorWithArray**:
+
+___
+
+###  defaultMemoize
+
+• **defaultMemoize**:
 
 ___
 

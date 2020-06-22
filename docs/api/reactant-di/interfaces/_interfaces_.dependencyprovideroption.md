@@ -21,7 +21,7 @@ sidebar_label: "DependencyProviderOption"
 
 • **optional**: *boolean*
 
-*Defined in [packages/reactant-di/src/interfaces.ts:32](https://github.com/unadlib/reactant/blob/a4942f1/packages/reactant-di/src/interfaces.ts#L32)*
+*Defined in [packages/reactant-di/src/interfaces.ts:32](https://github.com/unadlib/reactant/blob/7dec51d/packages/reactant-di/src/interfaces.ts#L32)*
 
 ___
 
@@ -29,4 +29,4 @@ ___
 
 • **provide**: *[ServiceIdentifier](../modules/_interfaces_.md#serviceidentifier)‹any›*
 
-*Defined in [packages/reactant-di/src/interfaces.ts:31](https://github.com/unadlib/reactant/blob/a4942f1/packages/reactant-di/src/interfaces.ts#L31)*
+*Defined in [packages/reactant-di/src/interfaces.ts:31](https://github.com/unadlib/reactant/blob/7dec51d/packages/reactant-di/src/interfaces.ts#L31)*

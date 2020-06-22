@@ -34,13 +34,16 @@ sidebar_label: "index"
 * [Watch](_index_.md#watch)
 * [action](_index_.md#action)
 * [actionIdentifier](_index_.md#actionidentifier)
-* [areStatePropsEqual](_index_.md#arestatepropsequal)
+* [areShallowEqualWithArray](_index_.md#areshallowequalwitharray)
+* [areShallowEqualWithObject](_index_.md#areshallowequalwithobject)
 * [assign](_index_.md#assign)
 * [autobind](_index_.md#autobind)
 * [compose](_index_.md#compose)
-* [createSelector](_index_.md#createselector)
+* [computed](_index_.md#computed)
+* [createSelectorWithArray](_index_.md#createselectorwitharray)
 * [createState](_index_.md#createstate)
 * [createStore](_index_.md#createstore)
+* [defaultMemoize](_index_.md#defaultmemoize)
 * [defaultProps](_index_.md#defaultprops)
 * [dispatch](_index_.md#dispatch)
 * [getComposeEnhancers](_index_.md#getcomposeenhancers)
@@ -215,9 +218,15 @@ ___
 
 ___
 
-###  areStatePropsEqual
+###  areShallowEqualWithArray
 
-• **areStatePropsEqual**:
+• **areShallowEqualWithArray**:
+
+___
+
+###  areShallowEqualWithObject
+
+• **areShallowEqualWithObject**:
 
 ___
 
@@ -239,9 +248,15 @@ ___
 
 ___
 
-###  createSelector
+###  computed
 
-• **createSelector**:
+• **computed**:
+
+___
+
+###  createSelectorWithArray
+
+• **createSelectorWithArray**:
 
 ___
 
@@ -254,6 +269,12 @@ ___
 ###  createStore
 
 • **createStore**:
+
+___
+
+###  defaultMemoize
+
+• **defaultMemoize**:
 
 ___
 

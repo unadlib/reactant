@@ -10,7 +10,6 @@ sidebar_label: "core/index"
 
 * [PluginModule](_core_index_.md#pluginmodule)
 * [ViewModule](_core_index_.md#viewmodule)
-* [createSelector](_core_index_.md#createselector)
 * [createState](_core_index_.md#createstate)
 * [createStore](_core_index_.md#createstore)
 * [dispatch](_core_index_.md#dispatch)
@@ -29,12 +28,6 @@ ___
 ###  ViewModule
 
 • **ViewModule**:
-
-___
-
-###  createSelector
-
-• **createSelector**:
 
 ___
 

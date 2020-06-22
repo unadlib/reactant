@@ -177,10 +177,6 @@
         "title": "constants/reduxKeys",
         "sidebar_label": "constants/reduxKeys"
       },
-      "api/reactant-module/modules/_core_createselector_": {
-        "title": "createSelector()",
-        "sidebar_label": "createSelector()"
-      },
       "api/reactant-module/modules/_core_createstate_": {
         "title": "createState()",
         "sidebar_label": "createState()"
@@ -224,6 +220,10 @@
       "api/reactant-module/modules/_decorators_autobind_": {
         "title": "@autobind",
         "sidebar_label": "@autobind"
+      },
+      "api/reactant-module/modules/_decorators_computed_": {
+        "title": "@computed",
+        "sidebar_label": "@computed"
       },
       "api/reactant-module/modules/_decorators_defaultprops_": {
         "title": "@defaultProps()",
@@ -272,6 +272,10 @@
       "api/reactant-module/modules/_utils_reduxdevtoolscompose_": {
         "title": "utils/reduxDevToolsCompose",
         "sidebar_label": "utils/reduxDevToolsCompose"
+      },
+      "api/reactant-module/modules/_utils_selector_": {
+        "title": "utils/selector",
+        "sidebar_label": "utils/selector"
       },
       "api/reactant-redux/index": {
         "title": "reactant-redux",
