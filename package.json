@@ -10,8 +10,9 @@
   "scripts": {
     "test:code:prod": "cross-env NODE_ENV=production jest --config ./scripts/jest/prod.config.json",
     "test:code:dev": "cross-env NODE_ENV=development jest --config ./scripts/jest/dev.config.json",
-    "test": "yarn test:code:dev",
+    "test": "yarn test:code:dev && yarn test-code:useES2015",
     "test:code:useDefineForClassFields": "cross-env NODE_ENV=development jest --config ./scripts/jest/useDefineForClassFields.config.json",
+    "test-code:useES2015": "cross-env NODE_ENV=development jest --config ./scripts/jest/useES2015.config.json",
     "build": "cross-env NODE_ENV=production ts-node scripts/build.ts",
     "clean": "lerna exec rimraf ./dist ./build",
     "test:generateTestSource:huge": "ts-node scripts/performance/generateTestSourceWithReactant.ts --mode=huge",

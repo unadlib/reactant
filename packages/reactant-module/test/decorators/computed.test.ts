@@ -171,4 +171,60 @@ describe('@computed', () => {
       expect(computedFn.mock.calls.length).toBe(2);
     }
   });
+  test('inheritance', () => {
+    const computedFn = jest.fn();
+
+    @injectable()
+    class BaseCounter {
+      @state
+      count = 0;
+
+      @action
+      increase() {
+        this.count += 1;
+      }
+
+      @computed(({ count }: BaseCounter) => [count])
+      get num() {
+        computedFn();
+        return this.count + 1;
+      }
+    }
+
+    @injectable()
+    class Counter extends BaseCounter {}
+
+    @injectable()
+    class Foo {
+      constructor(public counter: Counter, public baseCounter: BaseCounter) {}
+    }
+
+    const ServiceIdentifiers = new Map();
+    const modules = [Foo];
+    const container = createContainer({
+      ServiceIdentifiers,
+      modules,
+      options: {
+        defaultScope: 'Singleton',
+      },
+    });
+    const foo = container.get(Foo);
+    const store = createStore(modules, container, ServiceIdentifiers);
+    expect(computedFn.mock.calls.length).toBe(0);
+    expect(foo.counter.num).toBe(1);
+    expect(foo.baseCounter.num).toBe(1);
+    expect(computedFn.mock.calls.length).toBe(1);
+    foo.counter.increase();
+    expect(foo.counter.num).toBe(2);
+    expect(foo.baseCounter.num).toBe(1);
+    expect(computedFn.mock.calls.length).toBe(3);
+    foo.counter.increase();
+    expect(foo.counter.num).toBe(3);
+    expect(foo.baseCounter.num).toBe(1);
+    expect(computedFn.mock.calls.length).toBe(5);
+    foo.baseCounter.increase();
+    expect(foo.counter.num).toBe(3);
+    expect(foo.baseCounter.num).toBe(2);
+    expect(computedFn.mock.calls.length).toBe(7);
+  });
 });
