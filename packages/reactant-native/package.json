@@ -1,6 +1,6 @@
 {
   "name": "reactant-native",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "A mobile application with react-native for Reactant",
   "main": "dist/index.cjs.js",
   "unpkg": "dist/index.umd.js",
