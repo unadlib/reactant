@@ -11,7 +11,7 @@ class BookListView extends ViewModule {
   }
 
   component() {
-    const data = useConnector(() => this.books.getBooksList());
+    const data = useConnector(() => this.books.booksList);
     return (
       <ul>
         {data.map(book => (

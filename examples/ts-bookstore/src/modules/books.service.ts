@@ -1,4 +1,4 @@
-import { injectable, action, batch, state, createSelector } from 'reactant';
+import { injectable, action, batch, state, computed } from 'reactant';
 import { schema, normalize } from 'normalizr';
 import { IComments, IComment, IUsers, IUser, IBooks, IBook } from '../model';
 import { Comments } from './comments.service';
@@ -38,11 +38,10 @@ class Books {
     this.comments.addCommentUsers(users);
   }
 
-  getBooksList = createSelector(
-    () => this.list,
-    () => this.books,
-    (list, books) => list.map(id => books[id])
-  );
+  @computed(({ list, books }: Books) => [books, list])
+  get booksList() {
+    return this.list.map(id => this.books[id]);
+  }
 
   async fetchBooksList() {
     const mockData: IBook<IComment<IUser>>[] = [

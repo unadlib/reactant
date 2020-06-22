@@ -1,5 +1,5 @@
 import React from 'react';
-import { ViewModule, injectable, useConnector, createSelector } from 'reactant';
+import { ViewModule, injectable, useConnector, computed } from 'reactant';
 import { Books, ShoppingCart } from '../modules';
 import { BookItem } from '../components';
 import { BookView } from './book.view';
@@ -18,14 +18,19 @@ class ShoppingCartView extends ViewModule {
 
   path = '/shoppingCart';
 
-  getData = createSelector(
-    () => this.shoppingCart.list,
-    () => this.books.books,
-    (list, books) => list.map(({ count, id }) => ({ ...books[id], count }))
-  );
+  @computed(({ shoppingCart, books }: ShoppingCartView) => [
+    shoppingCart.list,
+    books.books,
+  ])
+  get data() {
+    return this.shoppingCart.list.map(({ count, id }) => ({
+      ...this.books.books[id],
+      count,
+    }));
+  }
 
   component() {
-    const data = useConnector(this.getData);
+    const data = useConnector(() => this.data);
     return (
       <ul>
         {this.routerName}

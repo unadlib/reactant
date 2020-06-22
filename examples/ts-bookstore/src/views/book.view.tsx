@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams, useHistory } from 'reactant-web';
-import { ViewModule, injectable, useConnector, createSelector } from 'reactant';
+import { ViewModule, injectable, useConnector, computed } from 'reactant';
 import { Books, Comments, Users, ShoppingCart } from '../modules';
 import { BookItem } from '../components';
 
@@ -21,22 +21,22 @@ class BookView extends ViewModule {
     super();
   }
 
-  getData = createSelector(
-    () => this.id!,
-    () => this.books.books,
-    () => this.comments.comments,
-    () => this.users.users,
-    (id, books, comments, users) => {
-      return {
-        ...books[id],
-        // other way: it can use `denormalize` in `normalizr`.
-        comments: books[id].comments.map(commentId => ({
-          ...comments[commentId],
-          user: users[comments[commentId].user],
-        })),
-      };
-    }
-  );
+  @computed(({ id, books, comments, users }: BookView) => [
+    id,
+    books.books,
+    comments.comments,
+    users.users,
+  ])
+  get data() {
+    return {
+      ...this.books.books[this.id!],
+      // other way: it can use `denormalize` in `normalizr`.
+      comments: this.books.books[this.id!].comments.map(commentId => ({
+        ...this.comments.comments[commentId],
+        user: this.users.users[this.comments.comments[commentId].user],
+      })),
+    };
+  }
 
   path = `/book/:${indexKey}`;
 
@@ -48,7 +48,7 @@ class BookView extends ViewModule {
     const params = useParams<Params>();
     if (typeof params.id === 'undefined') return null;
     this.id = params.id;
-    const data = useConnector(this.getData);
+    const data = useConnector(() => this.data);
     const history = useHistory();
     return (
       <div>
