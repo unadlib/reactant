@@ -51,7 +51,7 @@ declare global {
 global.window = {};
 import React from 'react';
 import { render } from 'reactant-web';
-import { injectable, action, computed, selector, createApp, ViewModule, createSelector, storeKey, state } from '..';
+import { injectable, action, selector, createApp, ViewModule, computed, storeKey, state, stateKey } from '..';
 let time = Date.now();
 const computedTime = ${computedTime};
 @injectable()
@@ -63,7 +63,7 @@ class Service0 {
 
   get props() {
     return {
-      sum: this.getSum(${checkedState}),
+      sum: this.sum,
     };
   }
 
@@ -72,12 +72,10 @@ class Service0 {
     this.test0 -= 1;
   }
 
-  getSum = createSelector(
-    () => this.test0,
-    test0 => {
-      return test0;
-    }
-  );
+  @computed((that: any) => [that.test0])
+  get sum() {
+    return this.test0;
+  }
 }
 
 ${(() => {
@@ -103,7 +101,7 @@ class Service${i} {
 
   get props() {
     return {
-      sum: this.getSum(${checkedState}),
+      sum: this.sum,
     };
   }
 
@@ -112,41 +110,31 @@ class Service${i} {
     this.test0 -= 1;
   }
 
-  getSum = createSelector(
-    () => this.service${i - 1}.props.sum,
+  @computed((that: any) => [
+    that.service${i - 1}.props.sum,
     ${(() => {
       let stateStr = '';
       for (let j = 0; j < oneClassReducerAmount; j+=1) {
         stateStr += `
-          () => this.test${j},
+          that[stateKey].test${j},
         `;
       }
       return stateStr;
     })()}
-    (service${i - 1}
-      ${(() => {
+  ])
+  get sum() {
+    return this.service${i - 1}.props.sum
+    ${(() => {
         let stateStr = '';
         for (let j = 0; j < oneClassReducerAmount; j+=1) {
           stateStr += `
-            , test${j}
-          `;
-        }
-        return stateStr;
-      })()}
-    ) => {
-      return service${i - 1}
-      ${(() => {
-        let stateStr = '';
-        for (let j = 0; j < oneClassReducerAmount; j+=1) {
-          stateStr += `
-            + test${j}
+            + this.test${j}
           `;
         }
         return stateStr;
       })()}
       ;
-    }
-  );
+  }
 }
     `;
   }
@@ -192,7 +180,7 @@ ${(() => {
   }
   return computedStr;
 })()}
-const computed = Date.now() - time;
+const computed1 = Date.now() - time;
 time = Date.now();
 ${(() => {
   let computedStr = '';
@@ -204,7 +192,8 @@ ${(() => {
   return computedStr;
 })()}
 const cache = Date.now() - time;
-console.log('Result:', { bootstrap, computed, cache });
+console.log('Result:', { bootstrap, computed1, cache });
+console.log((global as any).a)
 `;
 
 writeFileSync('./packages/reactant/test/performance.tsx', source);
