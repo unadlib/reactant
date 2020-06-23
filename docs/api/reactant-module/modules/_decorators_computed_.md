@@ -16,7 +16,7 @@ sidebar_label: "@computed()"
 
 ▸ **computed**(`depsCallback`: function): *(Anonymous function)*
 
-*Defined in [packages/reactant-module/src/decorators/computed.ts:27](https://github.com/unadlib/reactant/blob/9b7ec31/packages/reactant-module/src/decorators/computed.ts#L27)*
+*Defined in [packages/reactant-module/src/decorators/computed.ts:27](https://github.com/unadlib/reactant/blob/5d0567b/packages/reactant-module/src/decorators/computed.ts#L27)*
 
 **Description:**
 
@@ -33,7 +33,7 @@ class Shop {
   @state
   vegetables = [];
 
-  @computed(({ fruits, vegetables }: Foo) => [fruits, fruits])
+  @computed(({ fruits, vegetables }: Shop) => [fruits, fruits])
   get sum() {
     return this.fruits.length + this.vegetables.length;
   }
