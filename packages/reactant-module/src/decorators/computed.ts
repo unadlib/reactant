@@ -17,7 +17,7 @@ import { Service } from '../interfaces';
  *   @state
  *   vegetables = [];
  *
- *   @computed(({ fruits, vegetables }: Foo) => [fruits, fruits])
+ *   @computed(({ fruits, vegetables }: Shop) => [fruits, fruits])
  *   get sum() {
  *     return this.fruits.length + this.vegetables.length;
  *   }
