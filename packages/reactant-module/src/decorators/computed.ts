@@ -4,20 +4,22 @@ import { Service } from '../interfaces';
 /**
  * **Description:**
  *
+ * You can use `@computed` to decorate a getter function for derived data,
+ * which quickly solves performance problems for computing Derived Data..
  *
  * **Example:**
  *
  * ```ts
- * class Foo {
+ * class Shop {
  *   @state
- *   count = 0;
+ *   fruits = [];
  *
  *   @state
- *   list = [];
+ *   vegetables = [];
  *
- *   @computed(({ count, list }: Foo) => [count, list])
- *   get number() {
- *     return this.count + this.list.length;
+ *   @computed(({ fruits, vegetables }: Foo) => [fruits, fruits])
+ *   get sum() {
+ *     return this.fruits.length + this.vegetables.length;
  *   }
  * }
  * ```

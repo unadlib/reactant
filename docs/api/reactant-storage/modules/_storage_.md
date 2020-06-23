@@ -38,7 +38,7 @@ sidebar_label: "storage"
 
 Ƭ **SetStorageOptions**: *Pick‹Partial‹PersistConfig‹any››, Exclude‹keyof PersistConfig<any>, "key" | "blacklist" | "whitelist"›› & object*
 
-*Defined in [packages/reactant-storage/src/storage.tsx:28](https://github.com/unadlib/reactant/blob/7dec51d/packages/reactant-storage/src/storage.tsx#L28)*
+*Defined in [packages/reactant-storage/src/storage.tsx:28](https://github.com/unadlib/reactant/blob/9b7ec31/packages/reactant-storage/src/storage.tsx#L28)*
 
 ## Variables
 
@@ -46,4 +46,4 @@ sidebar_label: "storage"
 
 • **StorageOptions**: *unique symbol* = Symbol('StorageOptions')
 
-*Defined in [packages/reactant-storage/src/storage.tsx:21](https://github.com/unadlib/reactant/blob/7dec51d/packages/reactant-storage/src/storage.tsx#L21)*
+*Defined in [packages/reactant-storage/src/storage.tsx:21](https://github.com/unadlib/reactant/blob/9b7ec31/packages/reactant-storage/src/storage.tsx#L21)*

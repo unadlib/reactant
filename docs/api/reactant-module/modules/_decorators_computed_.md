@@ -1,7 +1,7 @@
 ---
 id: "_decorators_computed_"
-title: "@computed"
-sidebar_label: "@computed"
+title: "@computed()"
+sidebar_label: "@computed()"
 ---
 
 ## Index
@@ -16,23 +16,26 @@ sidebar_label: "@computed"
 
 ▸ **computed**(`depsCallback`: function): *(Anonymous function)*
 
-*Defined in [packages/reactant-module/src/decorators/computed.ts:25](https://github.com/unadlib/reactant/blob/7dec51d/packages/reactant-module/src/decorators/computed.ts#L25)*
+*Defined in [packages/reactant-module/src/decorators/computed.ts:27](https://github.com/unadlib/reactant/blob/9b7ec31/packages/reactant-module/src/decorators/computed.ts#L27)*
 
 **Description:**
+
+You can use `@computed` to decorate a getter function for derived data,
+which quickly solves performance problems for computing Derived Data..
 
 **Example:**
 
 ```ts
-class Foo {
+class Shop {
   @state
-  count = 0;
+  fruits = [];
 
   @state
-  list = [];
+  vegetables = [];
 
-  @computed(({ count, list }: Foo) => [count, list])
-  get number() {
-    return this.count + this.list.length;
+  @computed(({ fruits, vegetables }: Foo) => [fruits, fruits])
+  get sum() {
+    return this.fruits.length + this.vegetables.length;
   }
 }
 ```

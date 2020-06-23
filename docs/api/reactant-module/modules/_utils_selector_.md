@@ -21,7 +21,7 @@ sidebar_label: "utils/selector"
 
 • **createSelectorWithArray**: *(Anonymous function)* = createSelectorCreatorWithArray()
 
-*Defined in [packages/reactant-module/src/utils/selector.ts:31](https://github.com/unadlib/reactant/blob/7dec51d/packages/reactant-module/src/utils/selector.ts#L31)*
+*Defined in [packages/reactant-module/src/utils/selector.ts:31](https://github.com/unadlib/reactant/blob/9b7ec31/packages/reactant-module/src/utils/selector.ts#L31)*
 
 ## Functions
 
@@ -29,7 +29,7 @@ sidebar_label: "utils/selector"
 
 ▸ **createSelectorCreatorWithArray**(`memoize`: Function): *(Anonymous function)*
 
-*Defined in [packages/reactant-module/src/utils/selector.ts:17](https://github.com/unadlib/reactant/blob/7dec51d/packages/reactant-module/src/utils/selector.ts#L17)*
+*Defined in [packages/reactant-module/src/utils/selector.ts:17](https://github.com/unadlib/reactant/blob/9b7ec31/packages/reactant-module/src/utils/selector.ts#L17)*
 
 **Parameters:**
 
@@ -45,7 +45,7 @@ ___
 
 ▸ **defaultMemoize**(`func`: Function): *(Anonymous function)*
 
-*Defined in [packages/reactant-module/src/utils/selector.ts:5](https://github.com/unadlib/reactant/blob/7dec51d/packages/reactant-module/src/utils/selector.ts#L5)*
+*Defined in [packages/reactant-module/src/utils/selector.ts:5](https://github.com/unadlib/reactant/blob/9b7ec31/packages/reactant-module/src/utils/selector.ts#L5)*
 
 **Parameters:**
 
