@@ -95,6 +95,6 @@ Defined in node_modules/typescript/lib/lib.es5.d.ts:1390
 
 ▸ **initializer**(): *T*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:103](https://github.com/unadlib/reactant/blob/5d0567b/packages/reactant-module/src/interfaces.ts#L103)*
+*Defined in [packages/reactant-module/src/interfaces.ts:103](https://github.com/unadlib/reactant/blob/eb2792e/packages/reactant-module/src/interfaces.ts#L103)*
 
 **Returns:** *T*

@@ -16,7 +16,7 @@ sidebar_label: "@computed()"
 
 ▸ **computed**(`depsCallback`: function): *(Anonymous function)*
 
-*Defined in [packages/reactant-module/src/decorators/computed.ts:27](https://github.com/unadlib/reactant/blob/5d0567b/packages/reactant-module/src/decorators/computed.ts#L27)*
+*Defined in [packages/reactant-module/src/decorators/computed.ts:27](https://github.com/unadlib/reactant/blob/eb2792e/packages/reactant-module/src/decorators/computed.ts#L27)*
 
 **Description:**
 
