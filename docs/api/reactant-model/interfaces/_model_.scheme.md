@@ -29,7 +29,7 @@ sidebar_label: "Scheme"
 
 • **actions**: *A*
 
-*Defined in [model.ts:8](https://github.com/unadlib/reactant/blob/5d0567b/packages/reactant-model/src/model.ts#L8)*
+*Defined in [model.ts:8](https://github.com/unadlib/reactant/blob/eb2792e/packages/reactant-model/src/model.ts#L8)*
 
 ___
 
@@ -37,4 +37,4 @@ ___
 
 • **state**: *S*
 
-*Defined in [model.ts:7](https://github.com/unadlib/reactant/blob/5d0567b/packages/reactant-model/src/model.ts#L7)*
+*Defined in [model.ts:7](https://github.com/unadlib/reactant/blob/eb2792e/packages/reactant-model/src/model.ts#L7)*

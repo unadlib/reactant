@@ -16,7 +16,7 @@ sidebar_label: "utils/reduxDevToolsCompose"
 
 ▸ **getComposeEnhancers**(`enableReduxDevTools`: boolean, `reduxDevToolsOptions?`: [ReduxDevToolsOptions](_interfaces_.md#reduxdevtoolsoptions)): *any*
 
-*Defined in [packages/reactant-module/src/utils/reduxDevToolsCompose.ts:5](https://github.com/unadlib/reactant/blob/5d0567b/packages/reactant-module/src/utils/reduxDevToolsCompose.ts#L5)*
+*Defined in [packages/reactant-module/src/utils/reduxDevToolsCompose.ts:5](https://github.com/unadlib/reactant/blob/eb2792e/packages/reactant-module/src/utils/reduxDevToolsCompose.ts#L5)*
 
 **Parameters:**
 
