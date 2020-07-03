@@ -1,4 +1,4 @@
-import { injectable, action, batch, state, computed } from 'reactant';
+import { injectable, action, state, computed } from 'reactant';
 import { schema, normalize } from 'normalizr';
 import { IComments, IComment, IUsers, IUser, IBooks, IBook } from '../model';
 import { Comments } from './comments.service';

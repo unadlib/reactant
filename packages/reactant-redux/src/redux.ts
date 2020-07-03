@@ -1,4 +1,4 @@
-import { storeKey, Service, StateService, stateKey } from 'reactant-module';
+import { storeKey, Service, stateKey } from 'reactant-module';
 import { Dispatch } from 'redux';
 
 type SerivceName = Pick<Service, 'name'>;

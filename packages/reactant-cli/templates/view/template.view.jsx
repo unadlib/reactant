@@ -1,5 +1,5 @@
 import React from 'react';
-import { injectable, ViewModule, useConnector } from 'reactant';
+import { injectable, ViewModule } from 'reactant';
 
 @injectable({
   deps: [],
@@ -10,7 +10,7 @@ class TemplateView extends ViewModule {
   }
 
   component() {
-    return null;
+    return <></>;
   }
 }
 

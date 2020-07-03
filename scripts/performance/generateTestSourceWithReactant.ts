@@ -32,7 +32,7 @@ const {
   // @ts-ignore
 }[argv.mode] : (argv as any);
 
-const checkedState = allCheckedState ? '' : '(this as any)[storeKey].getState()';
+// const checkedState = allCheckedState ? '' : '(this as any)[storeKey].getState()';
 const source = `
 // @ts-nocheck
 process.env.NODE_ENV = 'production';
