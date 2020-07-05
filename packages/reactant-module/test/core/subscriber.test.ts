@@ -51,7 +51,22 @@ test('subscribe in constructor', () => {
     },
   });
   const foo = container.get(Foo);
-  const store = createStore(modules, container, ServiceIdentifiers);
+  const store = createStore(
+    modules,
+    container,
+    ServiceIdentifiers,
+    new Set(),
+    (...args: any[]) => {},
+    {
+      middleware: [],
+      beforeCombineRootReducers: [],
+      afterCombineRootReducers: [],
+      enhancer: [],
+      preloadedStateHandler: [],
+      afterCreateStore: [],
+      provider: [],
+    }
+  );
   store.subscribe(() => {
     storeSubscribeFn();
   });
@@ -133,7 +148,22 @@ test('subscribe in non-constructor', () => {
     },
   });
   const foo = container.get(Foo);
-  const store = createStore(modules, container, ServiceIdentifiers);
+  const store = createStore(
+    modules,
+    container,
+    ServiceIdentifiers,
+    new Set(),
+    (...args: any[]) => {},
+    {
+      middleware: [],
+      beforeCombineRootReducers: [],
+      afterCombineRootReducers: [],
+      enhancer: [],
+      preloadedStateHandler: [],
+      afterCreateStore: [],
+      provider: [],
+    }
+  );
   foo.init();
   store.subscribe(() => {
     storeSubscribeFn();

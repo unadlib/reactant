@@ -37,7 +37,22 @@ describe('@computed', () => {
       },
     });
     const counter = container.get(Counter);
-    const store = createStore(modules, container, ServiceIdentifiers);
+    const store = createStore(
+      modules,
+      container,
+      ServiceIdentifiers,
+      new Set(),
+      (...args: any[]) => {},
+      {
+        middleware: [],
+        beforeCombineRootReducers: [],
+        afterCombineRootReducers: [],
+        enhancer: [],
+        preloadedStateHandler: [],
+        afterCreateStore: [],
+        provider: [],
+      }
+    );
     expect(computedFn.mock.calls.length).toBe(0);
     counter.increase();
     expect(Object.values(store.getState())).toEqual([{ count: 1 }]);
@@ -105,7 +120,22 @@ describe('@computed', () => {
       },
     });
     const counter = container.get(Counter);
-    createStore(modules, container, ServiceIdentifiers);
+    createStore(
+      modules,
+      container,
+      ServiceIdentifiers,
+      new Set(),
+      (...args: any[]) => {},
+      {
+        middleware: [],
+        beforeCombineRootReducers: [],
+        afterCombineRootReducers: [],
+        enhancer: [],
+        preloadedStateHandler: [],
+        afterCreateStore: [],
+        provider: [],
+      }
+    );
     expect(computedCountFn.mock.calls.length).toBe(0);
     expect(counter.sum).toBe(0);
     expect(computedCountFn.mock.calls.length).toBe(1);
@@ -161,7 +191,22 @@ describe('@computed', () => {
         },
       });
       const counter = container.get(Counter);
-      const store = createStore(modules, container, ServiceIdentifiers);
+      const store = createStore(
+        modules,
+        container,
+        ServiceIdentifiers,
+        new Set(),
+        (...args: any[]) => {},
+        {
+          middleware: [],
+          beforeCombineRootReducers: [],
+          afterCombineRootReducers: [],
+          enhancer: [],
+          preloadedStateHandler: [],
+          afterCreateStore: [],
+          provider: [],
+        }
+      );
       expect(computedFn.mock.calls.length).toBe(0);
       counter.increase1();
       expect(counter.num).toBe(1);
@@ -209,7 +254,22 @@ describe('@computed', () => {
       },
     });
     const foo = container.get(Foo);
-    const store = createStore(modules, container, ServiceIdentifiers);
+    const store = createStore(
+      modules,
+      container,
+      ServiceIdentifiers,
+      new Set(),
+      (...args: any[]) => {},
+      {
+        middleware: [],
+        beforeCombineRootReducers: [],
+        afterCombineRootReducers: [],
+        enhancer: [],
+        preloadedStateHandler: [],
+        afterCreateStore: [],
+        provider: [],
+      }
+    );
     expect(computedFn.mock.calls.length).toBe(0);
     expect(foo.counter.num).toBe(1);
     expect(foo.baseCounter.num).toBe(1);

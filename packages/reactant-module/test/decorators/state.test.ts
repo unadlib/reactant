@@ -22,7 +22,22 @@ describe('@state', () => {
       },
     });
     const counter = container.get(Counter);
-    const store = createStore(modules, container, ServiceIdentifiers);
+    const store = createStore(
+      modules,
+      container,
+      ServiceIdentifiers,
+      new Set(),
+      (...args: any[]) => {},
+      {
+        middleware: [],
+        beforeCombineRootReducers: [],
+        afterCombineRootReducers: [],
+        enhancer: [],
+        preloadedStateHandler: [],
+        afterCreateStore: [],
+        provider: [],
+      }
+    );
     expect(counter.count).toBe(0);
     expect(Object.values(store.getState())).toEqual([{ count: 0 }]);
     counter.increase();
@@ -56,7 +71,22 @@ describe('@state', () => {
       },
     });
     const counter = container.get(Counter);
-    createStore(modules, container, ServiceIdentifiers);
+    createStore(
+      modules,
+      container,
+      ServiceIdentifiers,
+      new Set(),
+      (...args: any[]) => {},
+      {
+        middleware: [],
+        beforeCombineRootReducers: [],
+        afterCombineRootReducers: [],
+        enhancer: [],
+        preloadedStateHandler: [],
+        afterCreateStore: [],
+        provider: [],
+      }
+    );
     expect(counter.count).toBe(10);
     counter.increase();
     expect(counter.count).toBe(11);

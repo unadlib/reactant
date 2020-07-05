@@ -44,7 +44,22 @@ test('base module with @state and @action', () => {
     },
   });
   const counter = container.get(Counter);
-  const store = createStore(modules, container, ServiceIdentifiers);
+  const store = createStore(
+    modules,
+    container,
+    ServiceIdentifiers,
+    new Set(),
+    (...args: any[]) => {},
+    {
+      middleware: [],
+      beforeCombineRootReducers: [],
+      afterCombineRootReducers: [],
+      enhancer: [],
+      preloadedStateHandler: [],
+      afterCreateStore: [],
+      provider: [],
+    }
+  );
   expect(counter.count).toBe(0);
   expect(Object.values(store.getState())).toEqual([
     { count: 0, others: { list: [] } },
@@ -105,7 +120,22 @@ test('module with multiple module injection with same module or others', () => {
     },
   });
   const fooBar = container.get(FooBar);
-  const store = createStore(modules, container, ServiceIdentifiers);
+  const store = createStore(
+    modules,
+    container,
+    ServiceIdentifiers,
+    new Set(),
+    (...args: any[]) => {},
+    {
+      middleware: [],
+      beforeCombineRootReducers: [],
+      afterCombineRootReducers: [],
+      enhancer: [],
+      preloadedStateHandler: [],
+      afterCreateStore: [],
+      provider: [],
+    }
+  );
   expect(store.getState()).toEqual({
     FooIdentifier: { count: 1 },
     FooIdentifier1: { count: 1 },

@@ -26,7 +26,22 @@ describe('createStore', () => {
       },
     });
     container.get(Counter);
-    const store = createStore(modules, container, ServiceIdentifiers);
+    const store = createStore(
+      modules,
+      container,
+      ServiceIdentifiers,
+      new Set(),
+      (...args: any[]) => {},
+      {
+        middleware: [],
+        beforeCombineRootReducers: [],
+        afterCombineRootReducers: [],
+        enhancer: [],
+        preloadedStateHandler: [],
+        afterCreateStore: [],
+        provider: [],
+      }
+    );
     expect(Object.values(store.getState())).toEqual([{ count: 0 }]);
   });
 
@@ -48,9 +63,25 @@ describe('createStore', () => {
       },
     });
     container.get(Counter);
-    const store = createStore(modules, container, ServiceIdentifiers, {
-      counter: { count: 18 },
-    });
+    const store = createStore(
+      modules,
+      container,
+      ServiceIdentifiers,
+      new Set(),
+      (...args: any[]) => {},
+      {
+        middleware: [],
+        beforeCombineRootReducers: [],
+        afterCombineRootReducers: [],
+        enhancer: [],
+        preloadedStateHandler: [],
+        afterCreateStore: [],
+        provider: [],
+      },
+      {
+        counter: { count: 18 },
+      }
+    );
     expect(Object.values(store.getState())).toEqual([{ count: 18 }]);
   });
 
@@ -87,7 +118,22 @@ describe('createStore', () => {
       },
     });
     const counter = container.get(Counter);
-    createStore(modules, container, ServiceIdentifiers);
+    createStore(
+      modules,
+      container,
+      ServiceIdentifiers,
+      new Set(),
+      (...args: any[]) => {},
+      {
+        middleware: [],
+        beforeCombineRootReducers: [],
+        afterCombineRootReducers: [],
+        enhancer: [],
+        preloadedStateHandler: [],
+        afterCreateStore: [],
+        provider: [],
+      }
+    );
     counter.increase();
     expect(actionFn.mock.calls.length).toBe(2);
     expect(actionFn.mock.calls[0]).toEqual([
@@ -137,8 +183,17 @@ describe('createStore', () => {
       modules,
       container,
       ServiceIdentifiers,
-      undefined,
-      providers
+      new Set(),
+      (...args: any[]) => {},
+      {
+        middleware: [],
+        beforeCombineRootReducers: [],
+        afterCombineRootReducers: [],
+        enhancer: [],
+        preloadedStateHandler: [],
+        afterCreateStore: [],
+        provider: providers,
+      }
     );
     expect(providers.length).toBe(1);
     expect(providers[0]({}) === null).toBeTruthy();
@@ -175,8 +230,17 @@ describe('createStore', () => {
       modules,
       container,
       ServiceIdentifiers,
-      undefined,
-      providers
+      new Set(),
+      (...args: any[]) => {},
+      {
+        middleware: [],
+        beforeCombineRootReducers: [],
+        afterCombineRootReducers: [],
+        enhancer: [],
+        preloadedStateHandler: [],
+        afterCreateStore: [],
+        provider: providers,
+      }
     );
     expect(providers.map(({ name }) => name)).toEqual(
       [fooProvider, barProvider].map(({ name }) => `bound ${name}`)
@@ -221,7 +285,17 @@ describe('createStore', () => {
       modules,
       container,
       ServiceIdentifiers,
-      undefined,
+      new Set(),
+      (...args: any[]) => {},
+      {
+        middleware: [],
+        beforeCombineRootReducers: [],
+        afterCombineRootReducers: [],
+        enhancer: [],
+        preloadedStateHandler: [],
+        afterCreateStore: [],
+        provider: [],
+      },
       undefined,
       { autoFreeze: true }
     );

@@ -29,7 +29,22 @@ describe('@action', () => {
       },
     });
     const counter = container.get(Counter);
-    const store = createStore(modules, container, ServiceIdentifiers);
+    const store = createStore(
+      modules,
+      container,
+      ServiceIdentifiers,
+      new Set(),
+      (...args: any[]) => {},
+      {
+        middleware: [],
+        beforeCombineRootReducers: [],
+        afterCombineRootReducers: [],
+        enhancer: [],
+        preloadedStateHandler: [],
+        afterCreateStore: [],
+        provider: [],
+      }
+    );
     counter.increase();
     expect(counter.count).toBe(1);
     expect(Object.values(store.getState())).toEqual([{ count: 1 }]);
@@ -73,7 +88,17 @@ describe('@action', () => {
       modules,
       container,
       ServiceIdentifiers,
-      undefined,
+      new Set(),
+      (...args: any[]) => {},
+      {
+        middleware: [],
+        beforeCombineRootReducers: [],
+        afterCombineRootReducers: [],
+        enhancer: [],
+        preloadedStateHandler: [],
+        afterCreateStore: [],
+        provider: [],
+      },
       undefined,
       { autoFreeze: true }
     );
@@ -170,7 +195,22 @@ describe('@action', () => {
       },
     });
     const fooBar = container.get(FooBar);
-    const store = createStore(modules, container, ServiceIdentifiers);
+    const store = createStore(
+      modules,
+      container,
+      ServiceIdentifiers,
+      new Set(),
+      (...args: any[]) => {},
+      {
+        middleware: [],
+        beforeCombineRootReducers: [],
+        afterCombineRootReducers: [],
+        enhancer: [],
+        preloadedStateHandler: [],
+        afterCreateStore: [],
+        provider: [],
+      }
+    );
     const subscribe = jest.fn();
     store.subscribe(subscribe);
     fooBar.foo.increase();
@@ -225,7 +265,22 @@ describe('@action', () => {
       },
     });
     const counter = container.get(Counter);
-    const store = createStore(modules, container, ServiceIdentifiers);
+    const store = createStore(
+      modules,
+      container,
+      ServiceIdentifiers,
+      new Set(),
+      (...args: any[]) => {},
+      {
+        middleware: [],
+        beforeCombineRootReducers: [],
+        afterCombineRootReducers: [],
+        enhancer: [],
+        preloadedStateHandler: [],
+        afterCreateStore: [],
+        provider: [],
+      }
+    );
     const subscribeFn = jest.fn();
     store.subscribe(subscribeFn);
     counter.increase();
@@ -285,7 +340,22 @@ describe('@action', () => {
       },
     });
     const counter = container.get(Counter);
-    const store = createStore(modules, container, ServiceIdentifiers);
+    const store = createStore(
+      modules,
+      container,
+      ServiceIdentifiers,
+      new Set(),
+      (...args: any[]) => {},
+      {
+        middleware: [],
+        beforeCombineRootReducers: [],
+        afterCombineRootReducers: [],
+        enhancer: [],
+        preloadedStateHandler: [],
+        afterCreateStore: [],
+        provider: [],
+      }
+    );
     const subscribeFn = jest.fn();
     store.subscribe(subscribeFn);
     counter.increase();
