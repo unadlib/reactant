@@ -37,7 +37,7 @@ export interface Config<T> {
 export interface App<T> {
   instance: T;
   store: ReactantStore | null;
-  bootstrap(...args: any[]): void | Element;
+  bootstrap(...args: unknown[]): void | Element;
 }
 
 export type ShallowEqual = (

@@ -7,7 +7,6 @@ import {
   combineReducers,
   ReducersMapObject,
   createStore as createStoreWithRedux,
-  Store,
   PreloadedState,
   applyMiddleware,
 } from 'redux';
@@ -18,42 +17,42 @@ import {
   DevOptions,
   Subscriptions,
   ThisService,
+  ReactantStore,
 } from '../interfaces';
 import {
   storeKey,
   subscriptionsKey,
   stateKey,
   actionIdentifier,
+  loaderKey,
 } from '../constants';
 import { getStageName, perform, getComposeEnhancers } from '../utils';
 import { handlePlugin } from './handlePlugin';
 import { getStagedState } from '../decorators';
 
+// TODO: refactor
 export function createStore<T = any>(
   modules: ModuleOptions[],
   container: Container,
   ServiceIdentifiers: ServiceIdentifiersMap,
+  loadedModules: Set<any>,
+  load: (...args: any[]) => void,
+  pluginHooks: PluginHooks,
+  // optional
   preloadedState?: PreloadedState<T>,
-  providers: FunctionComponent[] = [],
-  devOptions: DevOptions = {}
+  devOptions: DevOptions = {},
+  originalStore?: ReactantStore,
+  beforeReplaceReducer?: () => void
 ) {
   const enableAutoFreeze =
     devOptions.autoFreeze ?? process.env.NODE_ENV !== 'production';
   const enableReduxDevTools =
     devOptions.reduxDevTools ?? process.env.NODE_ENV !== 'production';
   setAutoFreeze(enableAutoFreeze);
+
   let isExistReducer = false;
-  let store: Store;
-  const reducers: ReducersMapObject = {};
-  const pluginHooks: PluginHooks = {
-    middleware: [],
-    beforeCombineRootReducers: [],
-    afterCombineRootReducers: [],
-    enhancer: [],
-    preloadedStateHandler: [],
-    afterCreateStore: [],
-    provider: providers,
-  };
+  let store: ReactantStore | undefined = originalStore;
+  let reducers: ReducersMapObject = {};
   const subscriptions: Subscriptions = [];
   // add Non-dependent `modules` to ServiceIdentifiers config.
   for (const module of modules) {
@@ -66,8 +65,9 @@ export function createStore<T = any>(
 
   for (const [Service] of ServiceIdentifiers) {
     // `Service` should be bound before `createStore`.
-    if (container.isBound(Service)) {
+    if (container.isBound(Service) && !loadedModules.has(Service)) {
       const services = container.getAll(Service);
+      loadedModules.add(Service);
       services.forEach((service, index) => {
         handlePlugin(service, pluginHooks);
         const isPlainObject =
@@ -173,7 +173,7 @@ export function createStore<T = any>(
                   const stagedState = getStagedState();
                   if (stagedState) return stagedState[reducersIdentifier];
 
-                  const currentState = store.getState()[reducersIdentifier];
+                  const currentState = store!.getState()[reducersIdentifier];
                   if (enableAutoFreeze && !Object.isFrozen(currentState)) {
                     return Object.freeze(currentState);
                   }
@@ -204,26 +204,56 @@ export function createStore<T = any>(
               return store;
             },
           },
+          // loader for dynamic modules.
+          [loaderKey]: {
+            enumerable: false,
+            configurable: false,
+            value(...args: any[]) {
+              load(...args);
+            },
+          },
         });
       });
     }
   }
-  const reducer = isExistReducer
-    ? combineReducers(perform(pluginHooks.beforeCombineRootReducers, reducers))
-    : () => null;
-  const composeEnhancers = getComposeEnhancers(
-    enableReduxDevTools,
-    devOptions.reduxDevToolsOptions
-  );
-  store = createStoreWithRedux(
-    perform(pluginHooks.afterCombineRootReducers, reducer),
-    perform(pluginHooks.preloadedStateHandler, preloadedState),
-    composeEnhancers(
-      applyMiddleware(...pluginHooks.middleware),
-      ...pluginHooks.enhancer
-    )
-  );
-  perform(pluginHooks.afterCreateStore, store);
+  if (typeof store === 'undefined') {
+    // load reducers and create store for Redux
+    const reducer = isExistReducer
+      ? combineReducers(
+          (reducers = perform(pluginHooks.beforeCombineRootReducers, reducers))
+        )
+      : () => null;
+    const composeEnhancers = getComposeEnhancers(
+      enableReduxDevTools,
+      devOptions.reduxDevToolsOptions
+    );
+    store = createStoreWithRedux(
+      perform(pluginHooks.afterCombineRootReducers, reducer),
+      perform(pluginHooks.preloadedStateHandler, preloadedState),
+      composeEnhancers(
+        applyMiddleware(...pluginHooks.middleware),
+        ...pluginHooks.enhancer
+      )
+    );
+    if (isExistReducer) {
+      Object.assign(store, {
+        reducers,
+      });
+    }
+    perform(pluginHooks.afterCreateStore, store);
+  } else if (isExistReducer) {
+    // just load reducers
+    store.reducers = {
+      ...store.reducers,
+      ...perform(pluginHooks.beforeCombineRootReducers, reducers),
+    };
+    const reducer = combineReducers(store.reducers!);
+    const rootReducer = perform(pluginHooks.afterCombineRootReducers, reducer);
+    if (typeof beforeReplaceReducer === 'function') {
+      beforeReplaceReducer();
+    }
+    store.replaceReducer(rootReducer);
+  }
   perform(subscriptions);
   return store;
 }

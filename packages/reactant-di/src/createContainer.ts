@@ -93,15 +93,8 @@ function autoDecorateParams(target: object) {
   });
 }
 
-export function createContainer({
-  ServiceIdentifiers,
-  modules = [],
-  options,
-}: ContainerConfig) {
-  setModulesDeps(modules);
+export function bindModules(container: Container, modules: ModuleOptions[]) {
   const provideMeta = getMetadata(METADATA_KEY.provide);
-  const container = new Container(options);
-  container.applyCustomMetadataReader(new CustomMetadataReader());
   for (const module of modules) {
     if (typeof module === 'function') {
       // auto decorate `@injectable` for module.
@@ -156,6 +149,17 @@ export function createContainer({
   }
   // load modules with `@injectable` decoration, but without `@optional` decoration.
   container.load(autoBindModules());
+}
+
+export function createContainer({
+  ServiceIdentifiers,
+  modules = [],
+  options,
+}: ContainerConfig) {
+  setModulesDeps(modules);
+  const container = new Container(options);
+  container.applyCustomMetadataReader(new CustomMetadataReader());
+  bindModules(container, modules);
   container.applyMiddleware(createCollector(ServiceIdentifiers));
   if (container.isBound(ModuleRef)) {
     container.unbind(ModuleRef);

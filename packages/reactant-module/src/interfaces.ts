@@ -5,14 +5,16 @@ import {
   Middleware,
   Action,
   Unsubscribe,
+  ReducersMapObject,
 } from 'redux';
 import { EnhancerOptions } from 'redux-devtools-extension';
-import { ModuleOptions } from 'reactant-di';
+import { ModuleOptions, ServiceIdentifier } from 'reactant-di';
 import {
   storeKey,
   subscriptionsKey,
   stateKey,
   actionIdentifier,
+  loaderKey,
 } from './constants';
 import { PluginModule } from './core';
 
@@ -40,6 +42,7 @@ export interface Service<T extends Record<string, any> = Record<string, any>>
   extends State {
   readonly [stateKey]?: T;
   readonly [storeKey]?: Store;
+  readonly [loaderKey]?: Loader;
   readonly [subscriptionsKey]?: Subscriptions;
 }
 
@@ -47,7 +50,9 @@ export type ThisService = Service & { [P: string]: any };
 
 export type ReactModuleOptions = ModuleOptions;
 
-export type ReactantStore = Store<any, AnyAction>;
+export type ReactantStore = Store<any, AnyAction> & {
+  reducers?: ReducersMapObject;
+};
 
 export type ReactantMiddleware = Middleware;
 
@@ -96,6 +101,22 @@ export type Watch = <T>(
   selector: Selector<T>,
   watcher: Watcher<T>
 ) => Unsubscribe;
+
+export interface LoadOptions<T> {
+  modules?: ReactModuleOptions[];
+  main: ServiceIdentifier<T>;
+}
+
+export type Loader = <P>(
+  loadOptions: LoadOptions<P>,
+  beforeReplaceReducer: (instance: P) => void
+) => void;
+
+export type Load = <P>(
+  service: ThisService,
+  loadOptions: LoadOptions<P>,
+  beforeReplaceReducer: (instance: P) => void
+) => void;
 
 export type StateService<T> = Service<T>;
 

@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 import React, { FunctionComponent } from 'react';
 import { Provider } from 'react-redux';
 import {
@@ -6,6 +7,9 @@ import {
   createStore,
   ServiceIdentifiersMap,
   Module,
+  bindModules,
+  Loader,
+  PluginHooks,
 } from 'reactant-module';
 import { Config, App } from './interfaces';
 
@@ -57,10 +61,11 @@ function createApp<T>({
    */
   devOptions,
 }: Config<T>): App<T> {
+  let loader: Loader;
   const ServiceIdentifiers: ServiceIdentifiersMap = new Map();
   const container = createContainer({
     ServiceIdentifiers,
-    modules: [main as Module<any>, ...modules],
+    modules: [main as Module<T>, ...modules],
     options: {
       defaultScope: 'Singleton',
       ...containerOptions,
@@ -68,25 +73,71 @@ function createApp<T>({
     },
   });
   const instance = container.get<T>(main);
-  const providers: FunctionComponent[] = [];
+  const pluginHooks: PluginHooks = {
+    middleware: [],
+    beforeCombineRootReducers: [],
+    afterCombineRootReducers: [],
+    enhancer: [],
+    preloadedStateHandler: [],
+    afterCreateStore: [],
+    provider: [] as FunctionComponent[],
+  };
+  const loadedModules = new Set();
   const store = createStore(
     modules,
     container,
     ServiceIdentifiers,
+    loadedModules,
+    (...args: any[]) => {
+      (loader as any)(...args);
+    },
+    pluginHooks,
     preloadedState,
-    providers,
     devOptions
   );
   const withoutReducers = store.getState() === null;
+  loader = (loadOptions, beforeReplaceReducer) => {
+    // TODO:  check `loadOptions.modules` does not allow loading of type `PluginModule` modules.
+    if (typeof loadOptions.main !== 'function') {
+      throw new Error(
+        `The property 'main' of the argument of function 'load' should be a function.`
+      );
+    }
+    const loadModules = [loadOptions.main, ...(loadOptions.modules || [])];
+    bindModules(container, loadModules);
+    createStore(
+      loadModules,
+      container,
+      ServiceIdentifiers,
+      loadedModules,
+      loader,
+      pluginHooks,
+      undefined,
+      devOptions,
+      store,
+      () => {
+        beforeReplaceReducer(container.get<any>(loadOptions.main));
+      }
+    );
+  };
   return {
+    /**
+     * App's main module instance.
+     */
     instance,
+    /**
+     * Redux store.
+     */
     store: withoutReducers ? null : store,
-    bootstrap(...args: any[]): Element | void {
+    /**
+     * bootstrap app with renderer.
+     */
+    bootstrap(...args: unknown[]): Element | void {
       if (!(instance instanceof ViewModule)) {
         throw new Error(`Main module should be a 'ViewModule'.`);
       }
       const InstanceElement = <instance.component />;
-      const RootElement = providers
+      const RootElement = pluginHooks.provider
         .reverse()
         .reduce(
           (WrappedComponent, ProviderComponent) => (

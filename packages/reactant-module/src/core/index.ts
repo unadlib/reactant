@@ -6,3 +6,4 @@ export * from './plugin';
 export * from './handlePlugin';
 export * from './subscribe';
 export * from './watch';
+export * from './load';

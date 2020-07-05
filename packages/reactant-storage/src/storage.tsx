@@ -7,7 +7,7 @@ import {
   stateKey,
   PartialRequired,
 } from 'reactant-module';
-import { Reducer, ReducersMapObject } from 'redux';
+import { Reducer, ReducersMapObject, Store } from 'redux';
 import { useStore } from 'react-redux';
 import {
   persistStore,
@@ -110,6 +110,15 @@ class ReactantStorage extends PluginModule {
       },
       rootReducer
     );
+  }
+
+  afterCreateStore(store: Store) {
+    const { replaceReducer } = store;
+    // eslint-disable-next-line no-param-reassign
+    store.replaceReducer = (reducer: Reducer) => {
+      replaceReducer(reducer);
+      persistStore(store);
+    };
   }
 
   provider = (props: PropsWithChildren<{}>) => {

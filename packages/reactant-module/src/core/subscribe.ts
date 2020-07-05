@@ -4,7 +4,7 @@ import { storeKey, subscriptionsKey } from '../constants';
 
 const subscribe: Subscribe = (service, listener) => {
   if (typeof listener !== 'function') {
-    throw new Error(`The listener should be a function.`);
+    throw new Error(`The 'listener' should be a function.`);
   }
   let unsubscribe: Unsubscribe;
   if (service[storeKey]) {
