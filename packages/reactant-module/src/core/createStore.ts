@@ -18,6 +18,7 @@ import {
   Subscriptions,
   ThisService,
   ReactantStore,
+  Loader,
 } from '../interfaces';
 import {
   storeKey,
@@ -36,7 +37,7 @@ export function createStore<T = any>(
   container: Container,
   ServiceIdentifiers: ServiceIdentifiersMap,
   loadedModules: Set<any>,
-  load: (...args: any[]) => void,
+  load: (...args: Parameters<Loader>) => void,
   pluginHooks: PluginHooks,
   // optional
   preloadedState?: PreloadedState<T>,
@@ -208,7 +209,7 @@ export function createStore<T = any>(
           [loaderKey]: {
             enumerable: false,
             configurable: false,
-            value(...args: any[]) {
+            value(...args: Parameters<Loader>) {
               load(...args);
             },
           },

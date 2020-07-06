@@ -88,8 +88,8 @@ function createApp<T>({
     container,
     ServiceIdentifiers,
     loadedModules,
-    (...args: any[]) => {
-      (loader as any)(...args);
+    (...args: Parameters<Loader>) => {
+      loader(...args);
     },
     pluginHooks,
     preloadedState,
@@ -116,7 +116,7 @@ function createApp<T>({
       devOptions,
       store,
       () => {
-        beforeReplaceReducer(container.get<any>(loadOptions.main));
+        beforeReplaceReducer(container.get(loadOptions.main));
       }
     );
   };
