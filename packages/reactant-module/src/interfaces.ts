@@ -142,3 +142,27 @@ export type PickOptional<T> = Pick<ExcludeRequired<T>, OptionalKeyOf<T>>;
 
 export type PartialKeys<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>> &
   Partial<Pick<T, K>>;
+
+/**
+ * It's used to infer the type of `import()` type
+ *
+ * @example
+ * // counter.ts: `export const list = [''];`
+ * type List = ImportType<typeof import('./counter'), 'list'>;
+ */
+export type ImportType<T, K extends keyof T> = T extends Record<K, infer R>
+  ? R
+  : never;
+
+/**
+ * It's used to infer the type of `import()` class type
+ *
+ * @example
+ * // counter.ts: `export class Counter {}`
+ * type Counter = ImportClass<typeof import('./counter'), 'Counter'>;
+ */
+export type ImportClass<T, K extends keyof T> = T extends Record<K, infer S>
+  ? S extends new (...args: any[]) => infer R
+    ? R
+    : never
+  : never;
