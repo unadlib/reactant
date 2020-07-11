@@ -11,7 +11,7 @@ import { storeKey } from '../constants';
 import { Service } from '../interfaces';
 
 @injectable()
-export abstract class PluginModule implements Service {
+abstract class PluginModule implements Service {
   readonly [storeKey]?: Store;
 
   name?: string;
@@ -34,3 +34,5 @@ export abstract class PluginModule implements Service {
 
   provider?: FunctionComponent;
 }
+
+export { PluginModule };

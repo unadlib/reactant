@@ -4,7 +4,7 @@ import { storeKey } from '../constants';
 import { Service } from '../interfaces';
 
 @injectable()
-export abstract class ViewModule implements Service {
+abstract class ViewModule implements Service {
   readonly [storeKey]?: Store;
 
   name?: string;
@@ -28,3 +28,5 @@ export abstract class ViewModule implements Service {
 
   abstract component(props: Record<string, any>): React.ReactElement | null;
 }
+
+export { ViewModule };

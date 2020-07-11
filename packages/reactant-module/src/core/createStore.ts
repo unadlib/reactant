@@ -1,7 +1,6 @@
 /* eslint-disable guard-for-in */
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable no-loop-func */
-import { FunctionComponent } from 'react';
 import { setAutoFreeze, produce } from 'immer';
 import {
   combineReducers,
