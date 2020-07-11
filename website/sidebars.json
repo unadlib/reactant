@@ -19,6 +19,7 @@
       "pluggable",
       "routing",
       "persistence",
+      "dynamic-modules",
       "dev-workflow"
     ],
     "Tooling": ["cli", "dev-tools"],
