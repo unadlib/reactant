@@ -118,7 +118,8 @@ class Index extends React.Component {
       >
         <h2>Features</h2>
         <MarkdownBlock>
-          Modularization, Dependency Injection, State Management & CLI, etc.
+          Modularization, Dependency Injection, State Management, Dynamic Module
+          & CLI, etc.
         </MarkdownBlock>
       </div>
     );
@@ -253,7 +254,8 @@ class Index extends React.Component {
                 <div>
                   <span>
                     <p>
-                      Use "createApp" to pass in the view module and render function, you're ready to bootstrap the app.
+                      Use "createApp" to pass in the view module and render
+                      function, you're ready to bootstrap the app.
                     </p>
                   </span>
                 </div>

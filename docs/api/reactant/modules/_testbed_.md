@@ -4,25 +4,15 @@ title: "testBed()"
 sidebar_label: "testBed()"
 ---
 
-## Index
-
-### Functions
-
-* [testBed](_testbed_.md#testbed)
-
-## Functions
-
-###  testBed
-
 ▸ **testBed**<**T**>(`config`: PartialKeys‹[Config](../interfaces/_interfaces_.config.md)‹T›, "render"›): *[App](../interfaces/_interfaces_.app.md)‹T›*
 
-*Defined in [testBed.ts:33](https://github.com/unadlib/reactant/blob/eb2792e/packages/reactant/src/testBed.ts#L33)*
+*Defined in [testBed.ts:33](https://github.com/unadlib/reactant/blob/d9c42d1/packages/reactant/src/testBed.ts#L33)*
 
-**Description:**
+## Description
 
 You can use `testBed` to build your test code without `render`(`render` function is optional.).
 
-**Example:**
+## Example
 
 ```ts
 @injectable()

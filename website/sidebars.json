@@ -40,6 +40,8 @@
       "api/reactant-module/modules/_core_dispatch_",
       "api/reactant-module/modules/_core_subscribe_",
       "api/reactant-module/modules/_core_watch_",
+      "api/reactant-module/modules/_core_load_",
+      "api/reactant-module/modules/_core_spawnmiddlewares_",
       "api/reactant-module/classes/_core_view_.viewmodule",
       "api/reactant-module/classes/_core_plugin_.pluginmodule",
       "api/reactant-di/modules/_decorators_injectable_",

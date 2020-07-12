@@ -14,6 +14,8 @@ sidebar_label: "core/index"
 * [createStore](_core_index_.md#createstore)
 * [dispatch](_core_index_.md#dispatch)
 * [handlePlugin](_core_index_.md#handleplugin)
+* [load](_core_index_.md#load)
+* [spawnMiddlewares](_core_index_.md#spawnmiddlewares)
 * [subscribe](_core_index_.md#subscribe)
 * [watch](_core_index_.md#watch)
 
@@ -52,6 +54,18 @@ ___
 ###  handlePlugin
 
 • **handlePlugin**:
+
+___
+
+###  load
+
+• **load**:
+
+___
+
+###  spawnMiddlewares
+
+• **spawnMiddlewares**:
 
 ___
 

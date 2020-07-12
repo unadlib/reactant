@@ -14,13 +14,13 @@ import {
 import { Config, App } from './interfaces';
 
 /**
- * **Description:**
+ * ## Description
  *
  * You can create an app with `createApp()` passing app configuration,
  * which will return an object including `instance`, `store`,
  * and `bootstrap()` method(You can run `bootstrap` to start the app inject into the browser or mobile).
  *
- * **Example:**
+ * ## Example
  *
  * ```ts
  * @injectable()

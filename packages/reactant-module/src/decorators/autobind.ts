@@ -1,5 +1,44 @@
 import { assign } from '../utils';
 
+/**
+ * ## Description
+ *
+ * You can use `@autobind` and decorate any class method that binds the instance of the current class as its `this`,
+ * it can also be used with `@action`.
+ *
+ * ## Example
+ *
+ * ```ts
+ * class Shop {
+ *   @state
+ *   count = 0;
+ *
+ *   list: string[] = [];
+ *
+ *   @autobind
+ *   @action
+ *   increase() {
+ *     this.count += 0;
+ *   }
+ *
+ *   @autobind
+ *   addGood(text) {
+ *     this.list.push(text);
+ *   }
+ * }
+ *
+ * const app = testBed({
+ *   modules: [],
+ *   main: Shop,
+ * });
+ *
+ * const { increase, addGood } = app.instance;
+ * increase();
+ * addGood('apple');
+ * expect(app.instance.count).toBe(1);
+ * expect(app.instance.list).toEqual(['apple']);
+ * ```
+ */
 export function autobind(
   target: object,
   key: string | symbol,

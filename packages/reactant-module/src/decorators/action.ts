@@ -7,6 +7,34 @@ let stagedState: Record<string, unknown> | undefined;
 
 const getStagedState = () => stagedState;
 
+/**
+ * ## Description
+ *
+ * `@action` is used to decorate a class method as a action method.
+ *
+ * ## Example
+ *
+ * ```ts
+ * @injectable()
+ * class Counter {
+ *   @state
+ *   count = 0;
+ *
+ *   @action
+ *   increase() {
+ *     this.count += 1;
+ *   }
+ * }
+ *
+ * const app = testBed({
+ *   modules: [],
+ *   main: Counter,
+ * });
+ *
+ * app.instance.increase();
+ * expect(app.instance.count).toBe(1);
+ * ```
+ */
 const action = (
   target: object,
   key: string | symbol,

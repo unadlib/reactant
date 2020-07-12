@@ -29,7 +29,7 @@ sidebar_label: "App"
 
 • **instance**: *T*
 
-*Defined in [interfaces.ts:38](https://github.com/unadlib/reactant/blob/eb2792e/packages/reactant/src/interfaces.ts#L38)*
+*Defined in [interfaces.ts:38](https://github.com/unadlib/reactant/blob/d9c42d1/packages/reactant/src/interfaces.ts#L38)*
 
 ___
 
@@ -37,20 +37,20 @@ ___
 
 • **store**: *ReactantStore | null*
 
-*Defined in [interfaces.ts:39](https://github.com/unadlib/reactant/blob/eb2792e/packages/reactant/src/interfaces.ts#L39)*
+*Defined in [interfaces.ts:39](https://github.com/unadlib/reactant/blob/d9c42d1/packages/reactant/src/interfaces.ts#L39)*
 
 ## Methods
 
 ###  bootstrap
 
-▸ **bootstrap**(...`args`: any[]): *void | Element*
+▸ **bootstrap**(...`args`: unknown[]): *void | Element*
 
-*Defined in [interfaces.ts:40](https://github.com/unadlib/reactant/blob/eb2792e/packages/reactant/src/interfaces.ts#L40)*
+*Defined in [interfaces.ts:40](https://github.com/unadlib/reactant/blob/d9c42d1/packages/reactant/src/interfaces.ts#L40)*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
-`...args` | any[] |
+`...args` | unknown[] |
 
 **Returns:** *void | Element*

@@ -7,6 +7,11 @@ import { Service } from '../interfaces';
 abstract class ViewModule implements Service {
   readonly [storeKey]?: Store;
 
+  /**
+   * The name field will be used as a key to define the state of this module in the reducers object map in the store.
+   * If it is not defined, then it defaults to a random string.
+   * So in cases where persistence is required, etc., it must be defined, otherwise the issue will appear
+   */
   name?: string;
 
   constructor() {
@@ -26,6 +31,7 @@ abstract class ViewModule implements Service {
     this.component = component;
   }
 
+  /** React function component defined by the current ViewModule */
   abstract component(props: Record<string, any>): React.ReactElement | null;
 }
 

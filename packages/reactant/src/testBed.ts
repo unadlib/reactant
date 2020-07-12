@@ -3,11 +3,11 @@ import { createApp } from './createApp';
 import { Config, App } from './interfaces';
 
 /**
- * **Description:**
+ * ## Description
  *
  * You can use `testBed` to build your test code without `render`(`render` function is optional.).
  *
- * **Example:**
+ * ## Example
  *
  * ```ts
  * @injectable()

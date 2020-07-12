@@ -60,7 +60,13 @@ const changeAlias = () => {
         });
         apiDoc = apiDoc
           .replace(/title:\s"[\w/]+"/, `title: "${alias}"`)
-          .replace(/sidebar_label:\s"[\w/]+"/, `sidebar_label: "${alias}"`);
+          .replace(/sidebar_label:\s"[\w/]+"/, `sidebar_label: "${alias}"`)
+          .replace(
+            new RegExp(
+              '##\\sIndex\\n\\n###\\sFunctions\\n\\n.+\\n\\n##\\sFunctions\\n\\n###\\s\\s[a-zA-Z]+\\n\\n'
+            ),
+            ''
+          );
         fs.writeFileSync(apiDocPath, apiDoc);
       }
     });

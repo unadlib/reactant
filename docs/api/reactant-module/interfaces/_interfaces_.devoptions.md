@@ -22,7 +22,7 @@ sidebar_label: "DevOptions"
 
 • **autoFreeze**? : *undefined | false | true*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:20](https://github.com/unadlib/reactant/blob/eb2792e/packages/reactant-module/src/interfaces.ts#L20)*
+*Defined in [packages/reactant-module/src/interfaces.ts:22](https://github.com/unadlib/reactant/blob/d9c42d1/packages/reactant-module/src/interfaces.ts#L22)*
 
 ___
 
@@ -30,7 +30,7 @@ ___
 
 • **reduxDevTools**? : *undefined | false | true*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:21](https://github.com/unadlib/reactant/blob/eb2792e/packages/reactant-module/src/interfaces.ts#L21)*
+*Defined in [packages/reactant-module/src/interfaces.ts:23](https://github.com/unadlib/reactant/blob/d9c42d1/packages/reactant-module/src/interfaces.ts#L23)*
 
 ___
 
@@ -38,4 +38,4 @@ ___
 
 • **reduxDevToolsOptions**? : *[ReduxDevToolsOptions](../modules/_interfaces_.md#reduxdevtoolsoptions)*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:22](https://github.com/unadlib/reactant/blob/eb2792e/packages/reactant-module/src/interfaces.ts#L22)*
+*Defined in [packages/reactant-module/src/interfaces.ts:24](https://github.com/unadlib/reactant/blob/d9c42d1/packages/reactant-module/src/interfaces.ts#L24)*

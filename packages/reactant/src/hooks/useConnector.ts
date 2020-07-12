@@ -3,12 +3,12 @@ import { areShallowEqualWithObject } from 'reactant-module';
 import { ShallowEqual } from '../interfaces';
 
 /**
- * **Description:**
+ * ## Description
  *
  * `useConnector` is a React Hooks, which you can use to inject any shared state and derived data that you want to render using.
  * And it supports both `useConnector(() => this.renderPropsValue)` and `useConnector(() => this.getMapStateToProps())` uses.
  *
- * **Example:**
+ * ## Example
  *
  * ```tsx
  * @injectable()

@@ -11,6 +11,11 @@ sidebar_label: "index"
 * [DevOptions](_index_.md#devoptions)
 * [FirstParameter](_index_.md#firstparameter)
 * [HandlePlugin](_index_.md#handleplugin)
+* [ImportClass](_index_.md#importclass)
+* [ImportType](_index_.md#importtype)
+* [Load](_index_.md#load)
+* [LoadOptions](_index_.md#loadoptions)
+* [Loader](_index_.md#loader)
 * [PartialKeys](_index_.md#partialkeys)
 * [PartialRequired](_index_.md#partialrequired)
 * [PickOptional](_index_.md#pickoptional)
@@ -52,7 +57,10 @@ sidebar_label: "index"
 * [handlePlugin](_index_.md#handleplugin)
 * [isEqual](_index_.md#isequal)
 * [isEqualExceptFunction](_index_.md#isequalexceptfunction)
+* [load](_index_.md#load)
+* [loaderKey](_index_.md#loaderkey)
 * [perform](_index_.md#perform)
+* [spawnMiddlewares](_index_.md#spawnmiddlewares)
 * [state](_index_.md#state)
 * [stateKey](_index_.md#statekey)
 * [storeKey](_index_.md#storekey)
@@ -77,6 +85,36 @@ ___
 ###  HandlePlugin
 
 • **HandlePlugin**:
+
+___
+
+###  ImportClass
+
+• **ImportClass**:
+
+___
+
+###  ImportType
+
+• **ImportType**:
+
+___
+
+###  Load
+
+• **Load**:
+
+___
+
+###  LoadOptions
+
+• **LoadOptions**:
+
+___
+
+###  Loader
+
+• **Loader**:
 
 ___
 
@@ -326,9 +364,27 @@ ___
 
 ___
 
+###  load
+
+• **load**:
+
+___
+
+###  loaderKey
+
+• **loaderKey**:
+
+___
+
 ###  perform
 
 • **perform**:
+
+___
+
+###  spawnMiddlewares
+
+• **spawnMiddlewares**:
 
 ___
 

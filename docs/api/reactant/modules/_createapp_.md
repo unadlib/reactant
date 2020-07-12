@@ -4,27 +4,17 @@ title: "createApp()"
 sidebar_label: "createApp()"
 ---
 
-## Index
-
-### Functions
-
-* [createApp](_createapp_.md#createapp)
-
-## Functions
-
-###  createApp
-
 ▸ **createApp**<**T**>(`__namedParameters`: object): *[App](../interfaces/_interfaces_.app.md)‹T›*
 
-*Defined in [createApp.tsx:34](https://github.com/unadlib/reactant/blob/eb2792e/packages/reactant/src/createApp.tsx#L34)*
+*Defined in [createApp.tsx:38](https://github.com/unadlib/reactant/blob/d9c42d1/packages/reactant/src/createApp.tsx#L38)*
 
-**Description:**
+## Description
 
 You can create an app with `createApp()` passing app configuration,
 which will return an object including `instance`, `store`,
 and `bootstrap()` method(You can run `bootstrap` to start the app inject into the browser or mobile).
 
-**Example:**
+## Example
 
 ```ts
 @injectable()

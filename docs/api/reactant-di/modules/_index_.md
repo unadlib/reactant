@@ -27,6 +27,7 @@ sidebar_label: "index"
 * [ServiceIdentifierOrFunc](_index_.md#serviceidentifierorfunc)
 * [ServiceIdentifiersMap](_index_.md#serviceidentifiersmap)
 * [ValueProvider](_index_.md#valueprovider)
+* [bindModules](_index_.md#bindmodules)
 * [createContainer](_index_.md#createcontainer)
 * [defaultUndefinedValue](_index_.md#defaultundefinedvalue)
 * [forwardRef](_index_.md#forwardref)
@@ -155,6 +156,12 @@ ___
 ###  ValueProvider
 
 • **ValueProvider**:
+
+___
+
+###  bindModules
+
+• **bindModules**:
 
 ___
 

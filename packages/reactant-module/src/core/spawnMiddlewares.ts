@@ -3,9 +3,10 @@ import { PluginModule } from './plugin';
 import { storeKey } from '../constants';
 
 /**
+ * ## Description
  * Compose and spawn middlewares for Redux.
  *
- * **Example:**
+ * ## Example
  *
  * ```ts
  * import logger from 'redux-logger';

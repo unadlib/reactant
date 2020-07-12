@@ -4,26 +4,16 @@ title: "useConnector()"
 sidebar_label: "useConnector()"
 ---
 
-## Index
-
-### Functions
-
-* [useConnector](_hooks_useconnector_.md#useconnector)
-
-## Functions
-
-###  useConnector
-
 ▸ **useConnector**<**T**>(`selector`: function, `shallowEqual?`: [ShallowEqual](_interfaces_.md#shallowequal)): *T*
 
-*Defined in [hooks/useConnector.ts:45](https://github.com/unadlib/reactant/blob/eb2792e/packages/reactant/src/hooks/useConnector.ts#L45)*
+*Defined in [hooks/useConnector.ts:45](https://github.com/unadlib/reactant/blob/d9c42d1/packages/reactant/src/hooks/useConnector.ts#L45)*
 
-**Description:**
+## Description
 
 `useConnector` is a React Hooks, which you can use to inject any shared state and derived data that you want to render using.
 And it supports both `useConnector(() => this.renderPropsValue)` and `useConnector(() => this.getMapStateToProps())` uses.
 
-**Example:**
+## Example
 
 ```tsx
 @injectable()

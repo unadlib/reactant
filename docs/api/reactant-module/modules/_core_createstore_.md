@@ -14,9 +14,9 @@ sidebar_label: "core/createStore"
 
 ###  createStore
 
-▸ **createStore**<**T**>(`modules`: ModuleOptions[], `container`: Container, `ServiceIdentifiers`: ServiceIdentifiersMap, `preloadedState?`: PreloadedState‹T›, `providers`: FunctionComponent[], `devOptions`: [DevOptions](../interfaces/_interfaces_.devoptions.md)): *Store‹any, AnyAction‹››*
+▸ **createStore**<**T**>(`modules`: ModuleOptions[], `container`: Container, `ServiceIdentifiers`: ServiceIdentifiersMap, `loadedModules`: Set‹any›, `load`: function, `pluginHooks`: [PluginHooks](_interfaces_.md#pluginhooks), `preloadedState?`: PreloadedState‹T›, `devOptions`: [DevOptions](../interfaces/_interfaces_.devoptions.md), `originalStore?`: [ReactantStore](_interfaces_.md#reactantstore), `beforeReplaceReducer?`: undefined | function): *Store‹any, AnyAction‹›› & object*
 
-*Defined in [packages/reactant-module/src/core/createStore.ts:32](https://github.com/unadlib/reactant/blob/eb2792e/packages/reactant-module/src/core/createStore.ts#L32)*
+*Defined in [packages/reactant-module/src/core/createStore.ts:34](https://github.com/unadlib/reactant/blob/d9c42d1/packages/reactant-module/src/core/createStore.ts#L34)*
 
 **Type parameters:**
 
@@ -24,13 +24,32 @@ sidebar_label: "core/createStore"
 
 **Parameters:**
 
-Name | Type | Default |
------- | ------ | ------ |
-`modules` | ModuleOptions[] | - |
-`container` | Container | - |
-`ServiceIdentifiers` | ServiceIdentifiersMap | - |
-`preloadedState?` | PreloadedState‹T› | - |
-`providers` | FunctionComponent[] | [] |
-`devOptions` | [DevOptions](../interfaces/_interfaces_.devoptions.md) | {} |
+▪ **modules**: *ModuleOptions[]*
 
-**Returns:** *Store‹any, AnyAction‹››*
+▪ **container**: *Container*
+
+▪ **ServiceIdentifiers**: *ServiceIdentifiersMap*
+
+▪ **loadedModules**: *Set‹any›*
+
+▪ **load**: *function*
+
+▸ (...`args`: Parameters‹[Loader](_interfaces_.md#loader)›): *void*
+
+**Parameters:**
+
+Name | Type |
+------ | ------ |
+`...args` | Parameters‹[Loader](_interfaces_.md#loader)› |
+
+▪ **pluginHooks**: *[PluginHooks](_interfaces_.md#pluginhooks)*
+
+▪`Optional`  **preloadedState**: *PreloadedState‹T›*
+
+▪`Default value`  **devOptions**: *[DevOptions](../interfaces/_interfaces_.devoptions.md)*= {}
+
+▪`Optional`  **originalStore**: *[ReactantStore](_interfaces_.md#reactantstore)*
+
+▪`Optional`  **beforeReplaceReducer**: *undefined | function*
+
+**Returns:** *Store‹any, AnyAction‹›› & object*

@@ -9,6 +9,7 @@ sidebar_label: "constants/index"
 ### References
 
 * [actionIdentifier](_constants_index_.md#actionidentifier)
+* [loaderKey](_constants_index_.md#loaderkey)
 * [stateKey](_constants_index_.md#statekey)
 * [storeKey](_constants_index_.md#storekey)
 * [subscriptionsKey](_constants_index_.md#subscriptionskey)
@@ -18,6 +19,12 @@ sidebar_label: "constants/index"
 ###  actionIdentifier
 
 • **actionIdentifier**:
+
+___
+
+###  loaderKey
+
+• **loaderKey**:
 
 ___
 

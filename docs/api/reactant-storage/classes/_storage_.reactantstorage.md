@@ -32,7 +32,7 @@ sidebar_label: "ReactantStorage"
 ### Methods
 
 * [afterCombineRootReducers](_storage_.reactantstorage.md#aftercombinerootreducers)
-* [afterCreateStore](_storage_.reactantstorage.md#optional-aftercreatestore)
+* [afterCreateStore](_storage_.reactantstorage.md#aftercreatestore)
 * [beforeCombineRootReducers](_storage_.reactantstorage.md#beforecombinerootreducers)
 * [preloadedStateHandler](_storage_.reactantstorage.md#optional-preloadedstatehandler)
 * [provider](_storage_.reactantstorage.md#provider)
@@ -48,7 +48,7 @@ sidebar_label: "ReactantStorage"
 
 \+ **new ReactantStorage**(`options`: [IStorageOptions](../interfaces/_storage_.istorageoptions.md)): *[ReactantStorage](_storage_.reactantstorage.md)*
 
-*Defined in [packages/reactant-storage/src/storage.tsx:37](https://github.com/unadlib/reactant/blob/eb2792e/packages/reactant-storage/src/storage.tsx#L37)*
+*Defined in [packages/reactant-storage/src/storage.tsx:37](https://github.com/unadlib/reactant/blob/d9c42d1/packages/reactant-storage/src/storage.tsx#L37)*
 
 **Parameters:**
 
@@ -66,7 +66,7 @@ Name | Type |
 
 *Inherited from [ReactantStorage](_storage_.reactantstorage.md).[[storeKey]](_storage_.reactantstorage.md#optional-readonly-[storekey])*
 
-*Defined in [packages/reactant-module/src/core/plugin.ts:15](https://github.com/unadlib/reactant/blob/eb2792e/packages/reactant-module/src/core/plugin.ts#L15)*
+*Defined in [packages/reactant-module/src/core/plugin.ts:15](https://github.com/unadlib/reactant/blob/d9c42d1/packages/reactant-module/src/core/plugin.ts#L15)*
 
 ___
 
@@ -76,7 +76,7 @@ ___
 
 *Inherited from [ReactantStorage](_storage_.reactantstorage.md).[enhancer](_storage_.reactantstorage.md#optional-enhancer)*
 
-*Defined in [packages/reactant-module/src/core/plugin.ts:25](https://github.com/unadlib/reactant/blob/eb2792e/packages/reactant-module/src/core/plugin.ts#L25)*
+*Defined in [packages/reactant-module/src/core/plugin.ts:25](https://github.com/unadlib/reactant/blob/d9c42d1/packages/reactant-module/src/core/plugin.ts#L25)*
 
 ___
 
@@ -86,7 +86,7 @@ ___
 
 *Inherited from [ReactantStorage](_storage_.reactantstorage.md).[middleware](_storage_.reactantstorage.md#optional-middleware)*
 
-*Defined in [packages/reactant-module/src/core/plugin.ts:23](https://github.com/unadlib/reactant/blob/eb2792e/packages/reactant-module/src/core/plugin.ts#L23)*
+*Defined in [packages/reactant-module/src/core/plugin.ts:23](https://github.com/unadlib/reactant/blob/d9c42d1/packages/reactant-module/src/core/plugin.ts#L23)*
 
 ___
 
@@ -96,7 +96,7 @@ ___
 
 *Inherited from [ReactantStorage](_storage_.reactantstorage.md).[name](_storage_.reactantstorage.md#optional-name)*
 
-*Defined in [packages/reactant-module/src/core/plugin.ts:17](https://github.com/unadlib/reactant/blob/eb2792e/packages/reactant-module/src/core/plugin.ts#L17)*
+*Defined in [packages/reactant-module/src/core/plugin.ts:17](https://github.com/unadlib/reactant/blob/d9c42d1/packages/reactant-module/src/core/plugin.ts#L17)*
 
 ___
 
@@ -104,7 +104,7 @@ ___
 
 • **options**: *[IStorageOptions](../interfaces/_storage_.istorageoptions.md)*
 
-*Defined in [packages/reactant-storage/src/storage.tsx:38](https://github.com/unadlib/reactant/blob/eb2792e/packages/reactant-storage/src/storage.tsx#L38)*
+*Defined in [packages/reactant-storage/src/storage.tsx:38](https://github.com/unadlib/reactant/blob/d9c42d1/packages/reactant-storage/src/storage.tsx#L38)*
 
 ___
 
@@ -112,7 +112,7 @@ ___
 
 • **persistConfig**: *Record‹string, PersistConfig‹any››*
 
-*Defined in [packages/reactant-storage/src/storage.tsx:60](https://github.com/unadlib/reactant/blob/eb2792e/packages/reactant-storage/src/storage.tsx#L60)*
+*Defined in [packages/reactant-storage/src/storage.tsx:60](https://github.com/unadlib/reactant/blob/d9c42d1/packages/reactant-storage/src/storage.tsx#L60)*
 
 ## Methods
 
@@ -122,7 +122,7 @@ ___
 
 *Overrides void*
 
-*Defined in [packages/reactant-storage/src/storage.tsx:105](https://github.com/unadlib/reactant/blob/eb2792e/packages/reactant-storage/src/storage.tsx#L105)*
+*Defined in [packages/reactant-storage/src/storage.tsx:105](https://github.com/unadlib/reactant/blob/d9c42d1/packages/reactant-storage/src/storage.tsx#L105)*
 
 **Parameters:**
 
@@ -143,13 +143,13 @@ Name | Type |
 
 ___
 
-### `Optional` afterCreateStore
+###  afterCreateStore
 
 ▸ **afterCreateStore**(`store`: Store): *void*
 
-*Inherited from [ReactantStorage](_storage_.reactantstorage.md).[afterCreateStore](_storage_.reactantstorage.md#optional-aftercreatestore)*
+*Overrides void*
 
-*Defined in [packages/reactant-module/src/core/plugin.ts:27](https://github.com/unadlib/reactant/blob/eb2792e/packages/reactant-module/src/core/plugin.ts#L27)*
+*Defined in [packages/reactant-storage/src/storage.tsx:115](https://github.com/unadlib/reactant/blob/d9c42d1/packages/reactant-storage/src/storage.tsx#L115)*
 
 **Parameters:**
 
@@ -167,7 +167,7 @@ ___
 
 *Overrides void*
 
-*Defined in [packages/reactant-storage/src/storage.tsx:92](https://github.com/unadlib/reactant/blob/eb2792e/packages/reactant-storage/src/storage.tsx#L92)*
+*Defined in [packages/reactant-storage/src/storage.tsx:92](https://github.com/unadlib/reactant/blob/d9c42d1/packages/reactant-storage/src/storage.tsx#L92)*
 
 **Parameters:**
 
@@ -185,7 +185,7 @@ ___
 
 *Inherited from [ReactantStorage](_storage_.reactantstorage.md).[preloadedStateHandler](_storage_.reactantstorage.md#optional-preloadedstatehandler)*
 
-*Defined in [packages/reactant-module/src/core/plugin.ts:19](https://github.com/unadlib/reactant/blob/eb2792e/packages/reactant-module/src/core/plugin.ts#L19)*
+*Defined in [packages/reactant-module/src/core/plugin.ts:19](https://github.com/unadlib/reactant/blob/d9c42d1/packages/reactant-module/src/core/plugin.ts#L19)*
 
 **Parameters:**
 
@@ -203,7 +203,7 @@ ___
 
 *Overrides void*
 
-*Defined in [packages/reactant-storage/src/storage.tsx:115](https://github.com/unadlib/reactant/blob/eb2792e/packages/reactant-storage/src/storage.tsx#L115)*
+*Defined in [packages/reactant-storage/src/storage.tsx:124](https://github.com/unadlib/reactant/blob/d9c42d1/packages/reactant-storage/src/storage.tsx#L124)*
 
 **Parameters:**
 
@@ -219,7 +219,7 @@ ___
 
 ▸ **setStorage**<**T**>(`target`: T, `options`: [SetStorageOptions](../modules/_storage_.md#setstorageoptions)‹T›): *void*
 
-*Defined in [packages/reactant-storage/src/storage.tsx:67](https://github.com/unadlib/reactant/blob/eb2792e/packages/reactant-storage/src/storage.tsx#L67)*
+*Defined in [packages/reactant-storage/src/storage.tsx:67](https://github.com/unadlib/reactant/blob/d9c42d1/packages/reactant-storage/src/storage.tsx#L67)*
 
 **Type parameters:**
 
@@ -240,10 +240,10 @@ Name | Type |
 
 ### ▪ **persistRootConfig**: *object*
 
-*Defined in [packages/reactant-storage/src/storage.tsx:62](https://github.com/unadlib/reactant/blob/eb2792e/packages/reactant-storage/src/storage.tsx#L62)*
+*Defined in [packages/reactant-storage/src/storage.tsx:62](https://github.com/unadlib/reactant/blob/d9c42d1/packages/reactant-storage/src/storage.tsx#L62)*
 
 ###  key
 
 • **key**: *string* = "root"
 
-*Defined in [packages/reactant-storage/src/storage.tsx:63](https://github.com/unadlib/reactant/blob/eb2792e/packages/reactant-storage/src/storage.tsx#L63)*
+*Defined in [packages/reactant-storage/src/storage.tsx:63](https://github.com/unadlib/reactant/blob/d9c42d1/packages/reactant-storage/src/storage.tsx#L63)*

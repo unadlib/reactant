@@ -12,6 +12,8 @@
   "api/reactant-module/modules/_core_dispatch_": "dispatch()",
   "api/reactant-module/modules/_core_subscribe_": "subscribe()",
   "api/reactant-module/modules/_core_watch_": "watch()",
+  "api/reactant-module/modules/_core_load_": "load()",
+  "api/reactant-module/modules/_core_spawnmiddlewares_": "spawnMiddlewares()",
   "api/reactant-module/classes/_core_view_.viewmodule": "ViewModule",
   "api/reactant-module/classes/_core_plugin_.pluginmodule": "PluginModule",
   "api/reactant-di/modules/_decorators_injectable_": "@injectable()",

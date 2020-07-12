@@ -153,6 +153,10 @@
         "title": "DevOptions",
         "sidebar_label": "DevOptions"
       },
+      "api/reactant-module/interfaces/_interfaces_.loadoptions": {
+        "title": "LoadOptions",
+        "sidebar_label": "LoadOptions"
+      },
       "api/reactant-module/interfaces/_interfaces_.propertydescriptor": {
         "title": "PropertyDescriptor",
         "sidebar_label": "PropertyDescriptor"
@@ -197,9 +201,17 @@
         "title": "core/index",
         "sidebar_label": "core/index"
       },
+      "api/reactant-module/modules/_core_load_": {
+        "title": "load()",
+        "sidebar_label": "load()"
+      },
       "api/reactant-module/modules/_core_plugin_": {
         "title": "core/plugin",
         "sidebar_label": "core/plugin"
+      },
+      "api/reactant-module/modules/_core_spawnmiddlewares_": {
+        "title": "spawnMiddlewares()",
+        "sidebar_label": "spawnMiddlewares()"
       },
       "api/reactant-module/modules/_core_subscribe_": {
         "title": "subscribe()",
@@ -397,6 +409,9 @@
       },
       "di": {
         "title": "Dependency Injection"
+      },
+      "dynamic-modules": {
+        "title": "Dynamic Modules"
       },
       "examples": {
         "title": "Examples"

@@ -1,13 +1,14 @@
 import { createSelectorWithArray } from '../utils';
 import { storeKey, stateKey } from '../constants';
 import { Service } from '../interfaces';
+
 /**
- * **Description:**
+ * ## Description
  *
  * You can use `@computed` to decorate a getter function for derived data,
- * which quickly solves performance problems for computing Derived Data..
+ * which quickly solves performance problems for computing Derived Data.
  *
- * **Example:**
+ * ## Example
  *
  * ```ts
  * class Shop {

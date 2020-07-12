@@ -4,19 +4,9 @@ title: "@defaultProps()"
 sidebar_label: "@defaultProps()"
 ---
 
-## Index
-
-### Functions
-
-* [defaultProps](_decorators_defaultprops_.md#defaultprops)
-
-## Functions
-
-###  defaultProps
-
 ▸ **defaultProps**<**P**>(`props`: P | [PickOptional](_interfaces_.md#pickoptional)‹P›): *(Anonymous function)*
 
-*Defined in [packages/reactant-module/src/decorators/defaultProps.ts:3](https://github.com/unadlib/reactant/blob/eb2792e/packages/reactant-module/src/decorators/defaultProps.ts#L3)*
+*Defined in [packages/reactant-module/src/decorators/defaultProps.ts:3](https://github.com/unadlib/reactant/blob/d9c42d1/packages/reactant-module/src/decorators/defaultProps.ts#L3)*
 
 **Type parameters:**
 
