@@ -16,7 +16,39 @@ sidebar_label: "subscribe()"
 
 ▸ **subscribe**(`service`: [Service](../interfaces/_interfaces_.service.md)‹object› & object, `listener`: function): *Unsubscribe*
 
-*Defined in [packages/reactant-module/src/core/subscribe.ts:5](https://github.com/unadlib/reactant/blob/d9c42d1/packages/reactant-module/src/core/subscribe.ts#L5)*
+*Defined in [packages/reactant-module/src/core/subscribe.ts:38](https://github.com/unadlib/reactant/blob/1668a29/packages/reactant-module/src/core/subscribe.ts#L38)*
+
+## Description
+
+You can use `subscribe` to subscribe to state changes in any class module.
+
+## Example
+
+```ts
+@injectable()
+class Counter {
+  constructor() {
+    subscribe(this, () => {
+      if (this.count === 3) {
+        console.log(`new value: ${newValue}`);
+      }
+    });
+  }
+
+  @state
+  count = 0;
+
+  @action
+  increase() {
+    this.count += 0;
+  }
+}
+
+const app = testBed({
+  modules: [],
+  main: Counter,
+});
+```
 
 **Parameters:**
 

@@ -6,7 +6,45 @@ sidebar_label: "@autobind"
 
 ▸ **autobind**(`target`: object, `key`: string | symbol, `__namedParameters`: object): *object*
 
-*Defined in [packages/reactant-module/src/decorators/autobind.ts:3](https://github.com/unadlib/reactant/blob/d9c42d1/packages/reactant-module/src/decorators/autobind.ts#L3)*
+*Defined in [packages/reactant-module/src/decorators/autobind.ts:42](https://github.com/unadlib/reactant/blob/1668a29/packages/reactant-module/src/decorators/autobind.ts#L42)*
+
+## Description
+
+You can use `@autobind` and decorate any class method that binds the instance of the current class as its `this`,
+it can also be used with `@action`.
+
+## Example
+
+```ts
+class Shop {
+  @state
+  count = 0;
+
+  list: string[] = [];
+
+  @autobind
+  @action
+  increase() {
+    this.count += 0;
+  }
+
+  @autobind
+  addGood(text) {
+    this.list.push(text);
+  }
+}
+
+const app = testBed({
+  modules: [],
+  main: Shop,
+});
+
+const { increase, addGood } = app.instance;
+increase();
+addGood('apple');
+expect(app.instance.count).toBe(1);
+expect(app.instance.list).toEqual(['apple']);
+```
 
 **Parameters:**
 

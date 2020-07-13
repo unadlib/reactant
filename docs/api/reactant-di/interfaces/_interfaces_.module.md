@@ -43,7 +43,7 @@ sidebar_label: "Module"
 
 \+ **new Module**(...`args`: any[]): *T*
 
-*Defined in [packages/reactant-di/src/interfaces.ts:26](https://github.com/unadlib/reactant/blob/d9c42d1/packages/reactant-di/src/interfaces.ts#L26)*
+*Defined in [packages/reactant-di/src/interfaces.ts:26](https://github.com/unadlib/reactant/blob/1668a29/packages/reactant-di/src/interfaces.ts#L26)*
 
 **Parameters:**
 

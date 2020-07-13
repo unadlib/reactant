@@ -6,7 +6,28 @@ sidebar_label: "@state"
 
 ▸ **state**(`target`: object, `key`: string | symbol, `descriptor?`: [PropertyDescriptor](../interfaces/_interfaces_.propertydescriptor.md)‹any›): *void*
 
-*Defined in [packages/reactant-module/src/decorators/state.ts:4](https://github.com/unadlib/reactant/blob/d9c42d1/packages/reactant-module/src/decorators/state.ts#L4)*
+*Defined in [packages/reactant-module/src/decorators/state.ts:26](https://github.com/unadlib/reactant/blob/1668a29/packages/reactant-module/src/decorators/state.ts#L26)*
+
+## Description
+
+`@state` is used to decorate a class property as a state field.
+
+## Example
+
+```ts
+@injectable()
+class Counter {
+  @state
+  count = 0;
+}
+
+const app = testBed({
+  modules: [],
+  main: Counter,
+});
+
+expect(app.instance.count).toBe(0);
+```
 
 **Parameters:**
 

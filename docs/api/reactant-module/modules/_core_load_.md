@@ -16,7 +16,7 @@ sidebar_label: "load()"
 
 ▸ **load**(`service`: [Service](../interfaces/_interfaces_.service.md)‹object› & object, `options`: [LoadOptions](../interfaces/_interfaces_.loadoptions.md)‹P›, `beforeReplaceReducer`: function): *void*
 
-*Defined in [packages/reactant-module/src/core/load.ts:4](https://github.com/unadlib/reactant/blob/d9c42d1/packages/reactant-module/src/core/load.ts#L4)*
+*Defined in [packages/reactant-module/src/core/load.ts:4](https://github.com/unadlib/reactant/blob/1668a29/packages/reactant-module/src/core/load.ts#L4)*
 
 **Parameters:**
 

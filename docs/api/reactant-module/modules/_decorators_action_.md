@@ -21,7 +21,7 @@ sidebar_label: "@action"
 
 • **stagedState**: *Record‹string, unknown› | undefined*
 
-*Defined in [packages/reactant-module/src/decorators/action.ts:6](https://github.com/unadlib/reactant/blob/d9c42d1/packages/reactant-module/src/decorators/action.ts#L6)*
+*Defined in [packages/reactant-module/src/decorators/action.ts:6](https://github.com/unadlib/reactant/blob/1668a29/packages/reactant-module/src/decorators/action.ts#L6)*
 
 ## Functions
 
@@ -29,7 +29,34 @@ sidebar_label: "@action"
 
 ▸ **action**(`target`: object, `key`: string | symbol, `descriptor`: TypedPropertyDescriptor‹function›): *object*
 
-*Defined in [packages/reactant-module/src/decorators/action.ts:10](https://github.com/unadlib/reactant/blob/d9c42d1/packages/reactant-module/src/decorators/action.ts#L10)*
+*Defined in [packages/reactant-module/src/decorators/action.ts:38](https://github.com/unadlib/reactant/blob/1668a29/packages/reactant-module/src/decorators/action.ts#L38)*
+
+## Description
+
+`@action` is used to decorate a class method as a action method.
+
+## Example
+
+```ts
+@injectable()
+class Counter {
+  @state
+  count = 0;
+
+  @action
+  increase() {
+    this.count += 1;
+  }
+}
+
+const app = testBed({
+  modules: [],
+  main: Counter,
+});
+
+app.instance.increase();
+expect(app.instance.count).toBe(1);
+```
 
 **Parameters:**
 
@@ -49,6 +76,6 @@ ___
 
 ▸ **getStagedState**(): *undefined | object*
 
-*Defined in [packages/reactant-module/src/decorators/action.ts:8](https://github.com/unadlib/reactant/blob/d9c42d1/packages/reactant-module/src/decorators/action.ts#L8)*
+*Defined in [packages/reactant-module/src/decorators/action.ts:8](https://github.com/unadlib/reactant/blob/1668a29/packages/reactant-module/src/decorators/action.ts#L8)*
 
 **Returns:** *undefined | object*

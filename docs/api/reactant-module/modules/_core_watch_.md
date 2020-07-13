@@ -16,7 +16,39 @@ sidebar_label: "watch()"
 
 ▸ **watch**(`service`: [Service](../interfaces/_interfaces_.service.md)‹object› & object, `selector`: function, `watcher`: function): *Unsubscribe*
 
-*Defined in [packages/reactant-module/src/core/watch.ts:5](https://github.com/unadlib/reactant/blob/d9c42d1/packages/reactant-module/src/core/watch.ts#L5)*
+*Defined in [packages/reactant-module/src/core/watch.ts:38](https://github.com/unadlib/reactant/blob/1668a29/packages/reactant-module/src/core/watch.ts#L38)*
+
+## Description
+
+You can use `watch` to observe a specific state changes in any class module.
+
+## Example
+
+```ts
+@injectable()
+class Counter {
+  constructor() {
+    watch(this, () => this.count, (newValue) => {
+      if (newValue === 3) {
+        console.log(`new value: ${newValue}`);
+      }
+    });
+  }
+
+  @state
+  count = 0;
+
+  @action
+  increase() {
+    this.count += 0;
+  }
+}
+
+const app = testBed({
+  modules: [],
+  main: Counter,
+});
+```
 
 **Parameters:**
 
