@@ -3,6 +3,10 @@ id: dynamic-modules
 title: Dynamic Modules
 ---
 
+Code-splitting is important for many large projects, and Reactant supports dynamic loading of split code by modules.
+
+## Configuration
+
 Reactant supports dynamic module imports, make sure you set:
 * `comments: true` in `.babalrc` (this is the default).
 * `chunkFilename: '[name].bundle.js'` in your webpack config.
@@ -10,6 +14,8 @@ Reactant supports dynamic module imports, make sure you set:
 If you are using Typescript, also make sure:
 * `removeComments: false` under compilerOptions in `tsconfig.json`(this is the default).
 * `module: "esnext"` in `tsconfig.json`.
+
+## Usage
 
 1. Define a module file for dynamic imports `count.ts`:
 
@@ -23,7 +29,7 @@ class Counter {
 export { Counter };
 ```
 
-2. We can use utility type `ImportClass`  for definition as an interface type, and then using the standard dynamic import of API `import()`, and the `load()` provided by Reactant, this will allow us to fully implement the Reactant dynamic module imports.
+2. We can use utility type `ImportClass`  for definition as an interface type, and then using the standard dynamic import of API `import()`, and the [`load()`](api/reactant-module/modules/_core_load_.md) provided by Reactant, this will allow us to fully implement the Reactant dynamic module imports.
 
 ```tsx
 @injectable()
@@ -72,4 +78,4 @@ const app = createApp({
 app.bootstrap(document.getElementById('app'));
 ```
 
-In brief, we can split the code and build a minimally modular App that dynamically loads modules via the `load()` API so we can run the app more efficiently and lightly.
+In brief, we can split the code and build a minimally modular App that dynamically loads modules via the [`load()`](api/reactant-module/modules/_core_load_.md) API so we can run the app more efficiently and lightly. It usually works with `Suspense` as well. You visit [here](https://reactjs.org/docs/code-splitting.html) for more information on the component code-splitting.
