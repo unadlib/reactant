@@ -4,7 +4,7 @@
     "packages/*"
   ],
   "devEngines": {
-    "node": "8.x || 9.x || 10.x || 11.x || 12.x"
+    "node": "10.x || 11.x || 12.x || 13.x || 14.x"
   },
   "description": "A framework for building React web applications",
   "scripts": {
