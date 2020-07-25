@@ -32,6 +32,7 @@ const generateBundledModules = async ({
 }: GenerateOption) => {
   console.log(`Generating bundle:`);
   console.log(chalk.grey(`-> ${outputFile}`));
+  const isUmd = format === 'umd';
   const plugins = [
     resolvePlugin(),
     commonjsPlugin({
@@ -49,8 +50,14 @@ const generateBundledModules = async ({
   if (production) {
     plugins.push(
       replacePlugin({
-        'process.env.NODE_ENV': isProduction ? "'production'" : "'development'",
         __DEV__: isProduction ? 'false' : 'true',
+        ...(isUmd
+          ? {
+              'process.env.NODE_ENV': isProduction
+                ? "'production'"
+                : "'development'",
+            }
+          : {}),
       }),
       terserPlugin()
     );
@@ -66,7 +73,6 @@ const generateBundledModules = async ({
       external,
       plugins,
     });
-    const isUmd = format === 'umd';
     await bundle.write({
       file: outputFile,
       format,
