@@ -21,7 +21,7 @@ sidebar_label: "RouterState"
 
 • **action**: *Action*
 
-*Defined in [packages/reactant-router/src/router.tsx:14](https://github.com/unadlib/reactant/blob/a4e402c/packages/reactant-router/src/router.tsx#L14)*
+*Defined in [packages/reactant-router/src/router.tsx:14](https://github.com/unadlib/reactant/blob/9277266/packages/reactant-router/src/router.tsx#L14)*
 
 ___
 
@@ -29,4 +29,4 @@ ___
 
 • **location**: *Location‹LocationState›*
 
-*Defined in [packages/reactant-router/src/router.tsx:15](https://github.com/unadlib/reactant/blob/a4e402c/packages/reactant-router/src/router.tsx#L15)*
+*Defined in [packages/reactant-router/src/router.tsx:15](https://github.com/unadlib/reactant/blob/9277266/packages/reactant-router/src/router.tsx#L15)*
