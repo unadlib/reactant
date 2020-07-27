@@ -1,6 +1,6 @@
 {
   "name": "reactant-template",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A templates collection for Reactant",
   "main": "index.js",
   "build": [],
