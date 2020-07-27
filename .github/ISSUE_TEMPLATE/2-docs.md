@@ -1,5 +1,5 @@
 ---
-name: Documentation
+name: 📜 Documentation
 about: Report an issue in Reactant's documentation or https://reactant.js.org/, submit the PR instead.
 labels: documentation
 ---
