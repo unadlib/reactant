@@ -120,7 +120,7 @@ describe('@action', () => {
   test('inherited module with stagedState about more effects', () => {
     @injectable()
     class Foo0 {
-      name = 'foo';
+      name = 'foo0';
 
       @state
       count0 = 1;
@@ -146,6 +146,8 @@ describe('@action', () => {
 
     @injectable()
     class Foo extends Foo0 {
+      name = 'foo';
+
       count = 1;
 
       add(count: number) {
@@ -182,7 +184,7 @@ describe('@action', () => {
 
     @injectable()
     class FooBar {
-      constructor(public foo: Foo) {}
+      constructor(public foo: Foo, public foo0: Foo0) {}
     }
 
     const ServiceIdentifiers = new Map();
@@ -217,8 +219,12 @@ describe('@action', () => {
     expect(fooBar.foo.count0).toBe(3);
     expect(fooBar.foo.count1).toBe(2);
     expect(fooBar.foo.count).toBe(2);
+    fooBar.foo0.increase();
+    expect(fooBar.foo.count0).toBe(3);
+    expect(fooBar.foo.count1).toBe(2);
+    expect(fooBar.foo.count).toBe(2);
     // merge the multi-actions changed states as one redux dispatch.
-    expect(subscribe.mock.calls.length).toBe(1);
+    expect(subscribe.mock.calls.length).toBe(2);
     // inheritance
     fooBar.foo.decrease();
     expect(fooBar.foo.count0).toBe(1);
