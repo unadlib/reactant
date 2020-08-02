@@ -217,10 +217,23 @@ describe('@computed', () => {
     }
   });
   test('inheritance', () => {
-    const computedFn = jest.fn();
+    @injectable()
+    class Counter0 {
+      @state
+      count = 0;
+
+      @action
+      increase() {
+        this.count += 1;
+      }
+    }
 
     @injectable()
     class BaseCounter {
+      computedFn = jest.fn();
+
+      constructor(public counter0: Counter0) {}
+
       @state
       count = 0;
 
@@ -229,15 +242,19 @@ describe('@computed', () => {
         this.count += 1;
       }
 
-      @computed(({ count }: BaseCounter) => [count])
+      @computed(({ count, counter0 }: BaseCounter) => [count, counter0.count])
       get num() {
-        computedFn();
-        return this.count + 1;
+        this.computedFn();
+        return this.count + 1 + this.counter0.count;
       }
     }
 
     @injectable()
-    class Counter extends BaseCounter {}
+    class Counter extends BaseCounter {
+      constructor(public counter0: Counter0) {
+        super(counter0);
+      }
+    }
 
     @injectable()
     class Foo {
@@ -270,21 +287,45 @@ describe('@computed', () => {
         provider: [],
       }
     );
-    expect(computedFn.mock.calls.length).toBe(0);
+    expect(foo.counter.computedFn.mock.calls.length).toBe(0);
+    expect(foo.baseCounter.computedFn.mock.calls.length).toBe(0);
     expect(foo.counter.num).toBe(1);
     expect(foo.baseCounter.num).toBe(1);
-    expect(computedFn.mock.calls.length).toBe(1);
+    expect(foo.counter.computedFn.mock.calls.length).toBe(1);
+    expect(foo.baseCounter.computedFn.mock.calls.length).toBe(1);
     foo.counter.increase();
     expect(foo.counter.num).toBe(2);
     expect(foo.baseCounter.num).toBe(1);
-    expect(computedFn.mock.calls.length).toBe(3);
+    expect(foo.counter.computedFn.mock.calls.length).toBe(2);
+    expect(foo.baseCounter.computedFn.mock.calls.length).toBe(1);
     foo.counter.increase();
     expect(foo.counter.num).toBe(3);
+    expect(foo.counter.num).toBe(3);
     expect(foo.baseCounter.num).toBe(1);
-    expect(computedFn.mock.calls.length).toBe(5);
+    expect(foo.baseCounter.num).toBe(1);
+    expect(foo.counter.computedFn.mock.calls.length).toBe(3);
+    expect(foo.baseCounter.computedFn.mock.calls.length).toBe(1);
+    expect(foo.counter.num).toBe(3);
+    expect(foo.baseCounter.num).toBe(1);
+    expect(foo.counter.computedFn.mock.calls.length).toBe(3);
+    expect(foo.baseCounter.computedFn.mock.calls.length).toBe(1);
     foo.baseCounter.increase();
     expect(foo.counter.num).toBe(3);
+    expect(foo.counter.num).toBe(3);
     expect(foo.baseCounter.num).toBe(2);
-    expect(computedFn.mock.calls.length).toBe(7);
+    expect(foo.baseCounter.num).toBe(2);
+    expect(foo.counter.computedFn.mock.calls.length).toBe(3);
+    expect(foo.baseCounter.computedFn.mock.calls.length).toBe(2);
+    foo.baseCounter.counter0.increase();
+    expect(foo.counter.num).toBe(4);
+    expect(foo.counter.num).toBe(4);
+    expect(foo.baseCounter.num).toBe(3);
+    expect(foo.baseCounter.num).toBe(3);
+    expect(foo.counter.computedFn.mock.calls.length).toBe(4);
+    expect(foo.baseCounter.computedFn.mock.calls.length).toBe(3);
+    expect(foo.counter.num).toBe(4);
+    expect(foo.baseCounter.num).toBe(3);
+    expect(foo.counter.computedFn.mock.calls.length).toBe(4);
+    expect(foo.baseCounter.computedFn.mock.calls.length).toBe(3);
   });
 });

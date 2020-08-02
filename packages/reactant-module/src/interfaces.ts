@@ -15,6 +15,7 @@ import {
   stateKey,
   actionIdentifier,
   loaderKey,
+  computedKey,
 } from './constants';
 import { PluginModule } from './core';
 
@@ -41,6 +42,7 @@ export type Subscriptions = (() => void)[];
 export interface Service<T extends Record<string, any> = Record<string, any>>
   extends State {
   readonly [stateKey]?: T;
+  readonly [computedKey]?: Record<string, () => TypedPropertyDescriptor<any>>;
   readonly [storeKey]?: Store;
   readonly [loaderKey]?: Loader;
   readonly [subscriptionsKey]?: Subscriptions;
