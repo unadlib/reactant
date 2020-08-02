@@ -43,8 +43,9 @@ const watch: Watch = (service, selector, watcher) => {
   return subscribe(service, () => {
     const newValue = selector();
     if (!isEqual(newValue, oldValue)) {
-      watcher(newValue, oldValue);
+      const lastValue = oldValue;
       oldValue = newValue;
+      watcher(newValue, lastValue);
     }
   });
 };
