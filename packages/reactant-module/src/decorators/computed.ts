@@ -51,9 +51,7 @@ export const computed = (depsCallback: (instance: any) => any[]) => (
     );
     const selector = createSelectorWithArray(
       (that: Service) => depsCallbackSelector.call(that),
-      function(this: Service) {
-        return descriptor.get!.call(this);
-      }
+      descriptor.get!
     );
     const wrappedComputedDescriptor = {
       ...descriptor,
