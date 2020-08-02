@@ -3,14 +3,14 @@
 import { areShallowEqualWithArray } from './isEqual';
 
 export function defaultMemoize(func: Function) {
-  let lastArgs: IArguments | null = null;
-  let lastResult: unknown = null;
+  const lastArgs: Map<any, IArguments | null> = new Map();
+  const lastResult: Map<any, unknown> = new Map();
   return function(this: ThisType<unknown>) {
-    if (!areShallowEqualWithArray(lastArgs, arguments)) {
-      lastResult = func.apply(this, arguments);
+    if (!areShallowEqualWithArray(lastArgs.get(this) ?? [], arguments)) {
+      lastResult.set(this, func.apply(this, arguments));
     }
-    lastArgs = arguments;
-    return lastResult;
+    lastArgs.set(this, arguments);
+    return lastResult.get(this);
   };
 }
 

@@ -25,7 +25,6 @@ import {
   stateKey,
   actionIdentifier,
   loaderKey,
-  computedKey,
 } from '../constants';
 import { getStageName, perform, getComposeEnhancers } from '../utils';
 import { handlePlugin } from './handlePlugin';
@@ -196,22 +195,7 @@ export function createStore<T = any>(
         if (Array.isArray(service[subscriptionsKey])) {
           subscriptions.push(...service[subscriptionsKey]);
         }
-        let wrappedComputedDescriptors = {};
-        if (typeof service[computedKey] === 'object') {
-          wrappedComputedDescriptors = Object.entries<
-            () => TypedPropertyDescriptor<any>
-          >(service[computedKey]).reduce<
-            Record<string, TypedPropertyDescriptor<any>>
-          >(
-            (descriptors, [key, getDescriptor]) =>
-              Object.assign(descriptors, {
-                [key]: getDescriptor(),
-              }),
-            wrappedComputedDescriptors
-          );
-        }
         Object.defineProperties(service, {
-          ...wrappedComputedDescriptors,
           // in order to support multiple instances for stores.
           [storeKey]: {
             enumerable: false,

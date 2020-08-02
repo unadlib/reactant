@@ -9,10 +9,11 @@ import {
 
 describe('@computed', () => {
   test('inheritance', () => {
+    const computedFn = jest.fn();
+    const computedFn1 = jest.fn();
+
     @injectable()
     class BaseCounter {
-      computedFn = jest.fn();
-
       @state
       count = 0;
 
@@ -23,15 +24,13 @@ describe('@computed', () => {
 
       @computed(({ count }: BaseCounter) => [count])
       get num() {
-        this.computedFn();
+        computedFn();
         return this.count + 1;
       }
     }
 
     @injectable()
     class Counter extends BaseCounter {
-      computedFn1 = jest.fn();
-
       @state
       count1 = 0;
 
@@ -42,7 +41,7 @@ describe('@computed', () => {
 
       @computed(({ count, count1 }: Counter) => [count, count1])
       get num() {
-        this.computedFn1();
+        computedFn1();
         // @ts-ignore
         return this.count1 + super.num;
       }
@@ -73,18 +72,15 @@ describe('@computed', () => {
         provider: [],
       }
     );
-    expect(counter.computedFn.mock.calls.length).toBe(0);
-    expect(counter.computedFn1.mock.calls.length).toBe(0);
+    expect(computedFn.mock.calls.length).toBe(0);
+    expect(computedFn1.mock.calls.length).toBe(0);
     counter.increase();
     expect(counter.num).toBe(2);
-    expect(counter.computedFn.mock.calls.length).toBe(1);
-    expect(counter.computedFn1.mock.calls.length).toBe(1);
+    expect(computedFn.mock.calls.length).toBe(1);
+    expect(computedFn1.mock.calls.length).toBe(1);
     counter.increase1();
     expect(counter.num).toBe(3);
-    expect(counter.computedFn.mock.calls.length).toBe(2); // TODO: check deps cover from subclass
-    expect(counter.computedFn1.mock.calls.length).toBe(2);
-    expect(counter.num).toBe(3);
-    expect(counter.computedFn.mock.calls.length).toBe(2);
-    expect(counter.computedFn1.mock.calls.length).toBe(2);
+    expect(computedFn.mock.calls.length).toBe(1);
+    expect(computedFn1.mock.calls.length).toBe(2);
   });
 });

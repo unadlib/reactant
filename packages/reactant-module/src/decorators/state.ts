@@ -37,12 +37,13 @@ export function state(
     );
   }
   if (typeof service[stateKey] === 'undefined') {
-    Object.assign(service, {
+    Object.assign(target, {
       [stateKey]: {
         [key]: undefined,
       },
     });
   } else {
+    // eslint-disable-next-line no-param-reassign
     service[stateKey]![key] = undefined;
   }
 }
