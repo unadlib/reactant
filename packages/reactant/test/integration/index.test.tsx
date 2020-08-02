@@ -224,7 +224,6 @@ describe('base API', () => {
       @computed((that: HomeView1) => [that.state.list1])
       get sum1() {
         sum1ComputedFn();
-        // console.log('====');
         return this.state.list1.reduce((sum, item) => sum + item.count, 0);
       }
 
@@ -422,10 +421,12 @@ describe('base API', () => {
     expect(renderFn.mock.calls.length).toBe(6);
     expect(sumComputedFn.mock.calls.length).toBe(6);
     expect(app1.instance.sum1).toBe(1);
-    expect(sum1ComputedFn.mock.calls.length).toBe(1);
+    expect(sum1ComputedFn.mock.calls.length).toBe(2);
     app1.instance.increase1();
     expect(app1.instance.sum1).toBe(2);
-    expect(sum1ComputedFn.mock.calls.length).toBe(2);
+    expect(sum1ComputedFn.mock.calls.length).toBe(3);
+    expect(app1.instance.sum1).toBe(2);
+    expect(sum1ComputedFn.mock.calls.length).toBe(3);
     expect(app1.instance.props.sum).toBe(3);
     expect(app1.instance.state.count).toEqual(2);
     expect(app1.instance.state.list).toEqual([{ count: 2 }]);
@@ -472,12 +473,12 @@ describe('base API', () => {
     expect(app2.store!.getState().homeView.state.count).toBe(3);
     expect(sumComputedFn.mock.calls.length).toBe(10);
     expect(app2.instance.homeView.sum1).toBe(1);
-    expect(sum1ComputedFn.mock.calls.length).toBe(3);
+    expect(sum1ComputedFn.mock.calls.length).toBe(5);
     expect(app2.instance.homeView.sum1).toBe(1);
-    expect(sum1ComputedFn.mock.calls.length).toBe(3);
+    expect(sum1ComputedFn.mock.calls.length).toBe(5);
     app2.instance.homeView.increase1();
     expect(app2.instance.homeView.sum1).toBe(2);
-    expect(sum1ComputedFn.mock.calls.length).toBe(4);
+    expect(sum1ComputedFn.mock.calls.length).toBe(6);
   });
 
   test('ViewModule dispatch when subclassing', () => {
