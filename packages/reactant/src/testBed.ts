@@ -23,11 +23,11 @@ import { Config, App } from './interfaces';
  * }
  *
  * const foo = testBed({
- *   modules: [{ provide: Foo, useValue: { getValue: () => 'test' } }],
+ *   modules: [{ provide: Bar, useValue: { getValue: () => 'test' } }],
  *   main: Foo,
  * });
  *
- * expect(foo.instance.bar.getValue).toBe('test');
+ * expect(foo.instance.bar.getValue()).toBe('test');
  * ```
  */
 function testBed<T>(config: PartialKeys<Config<T>, 'render'>): App<T> {

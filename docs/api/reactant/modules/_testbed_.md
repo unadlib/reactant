@@ -6,7 +6,7 @@ sidebar_label: "testBed()"
 
 ▸ **testBed**<**T**>(`config`: PartialKeys‹[Config](../interfaces/_interfaces_.config.md)‹T›, "render"›): *[App](../interfaces/_interfaces_.app.md)‹T›*
 
-*Defined in [testBed.ts:33](https://github.com/unadlib/reactant/blob/9277266/packages/reactant/src/testBed.ts#L33)*
+*Defined in [testBed.ts:33](https://github.com/unadlib/reactant/blob/9a189fb/packages/reactant/src/testBed.ts#L33)*
 
 ## Description
 
@@ -28,11 +28,11 @@ class Foo {
 }
 
 const foo = testBed({
-  modules: [{ provide: Foo, useValue: { getValue: () => 'test' } }],
+  modules: [{ provide: Bar, useValue: { getValue: () => 'test' } }],
   main: Foo,
 });
 
-expect(foo.instance.bar.getValue).toBe('test');
+expect(foo.instance.bar.getValue()).toBe('test');
 ```
 
 **Type parameters:**
