@@ -1,4 +1,5 @@
-import { useSelector } from 'react-redux';
+/* eslint-disable no-console */
+import { useSelector, useStore } from 'react-redux';
 import { areShallowEqualWithObject } from 'reactant-module';
 import { ShallowEqual } from '../interfaces';
 
@@ -46,5 +47,18 @@ export function useConnector<T>(
   selector: () => T,
   shallowEqual?: ShallowEqual
 ) {
-  return useSelector(selector, shallowEqual || areShallowEqualWithObject) as T;
+  try {
+    return useSelector(
+      selector,
+      shallowEqual || areShallowEqualWithObject
+    ) as T;
+  } catch (e) {
+    try {
+      useStore();
+    } catch (error) {
+      console.error(`No class with a field decorated by '@state' is injected.`);
+      throw e;
+    }
+    throw e;
+  }
 }

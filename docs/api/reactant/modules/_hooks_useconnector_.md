@@ -6,7 +6,7 @@ sidebar_label: "useConnector()"
 
 ▸ **useConnector**<**T**>(`selector`: function, `shallowEqual?`: [ShallowEqual](_interfaces_.md#shallowequal)): *T*
 
-*Defined in [hooks/useConnector.ts:45](https://github.com/unadlib/reactant/blob/9a189fb/packages/reactant/src/hooks/useConnector.ts#L45)*
+*Defined in [hooks/useConnector.ts:46](https://github.com/unadlib/reactant/blob/3ec6ab3/packages/reactant/src/hooks/useConnector.ts#L46)*
 
 ## Description
 

@@ -16,7 +16,7 @@ sidebar_label: "watch()"
 
 ▸ **watch**(`service`: [Service](../interfaces/_interfaces_.service.md)‹object› & object, `selector`: function, `watcher`: function): *Unsubscribe*
 
-*Defined in [packages/reactant-module/src/core/watch.ts:38](https://github.com/unadlib/reactant/blob/9a189fb/packages/reactant-module/src/core/watch.ts#L38)*
+*Defined in [packages/reactant-module/src/core/watch.ts:38](https://github.com/unadlib/reactant/blob/3ec6ab3/packages/reactant-module/src/core/watch.ts#L38)*
 
 ## Description
 
