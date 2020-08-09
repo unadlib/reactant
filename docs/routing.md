@@ -13,7 +13,7 @@ Reactant provides a plugin for routing: reactant-router.
 ## Installation
 
 ```sh
-yarn install reactant-router
+yarn add reactant-router
 ```
 
 ## Example

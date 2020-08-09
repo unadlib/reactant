@@ -13,7 +13,7 @@ Reactant provides a plugin for persistence: `reactant-storage`.
 ## Installation
 
 ```sh
-yarn install reactant-storage
+yarn add reactant-storage
 ```
 
 ## Example
