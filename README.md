@@ -19,7 +19,16 @@ And for the structured design of the application's business logic, separation of
 
 **In order to solve these problems, Reactant was created. It's a framework for React.**
 
-Reactant provides `dependency injection`, `modular models`, `immutable state management`, `dynamic module` and more. It's `pluggable` and `testable`. Not only is it able to quickly build a React application (Web and Native Mobile), it also brings some new React development experiences.
+## Features
+
+* Dependency injection
+* Immutable state management
+* View module
+* Redux plug-in module
+* Test bed for unit testing and integration testing
+* Routing module
+* Persistence module
+* Dynamic module
 
 ## Usage
 
