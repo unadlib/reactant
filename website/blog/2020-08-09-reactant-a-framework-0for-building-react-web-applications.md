@@ -1,5 +1,5 @@
 ---
-title: Do we need a React framework?
+title: Reactant - A framework for building React web applications
 author: Michael Lin
 authorURL: http://twitter.com/unadlib
 ---
