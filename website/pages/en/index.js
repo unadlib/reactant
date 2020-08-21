@@ -311,10 +311,10 @@ class Index extends React.Component {
           <FeatureCallout />
           <CleanArchitecture />
           <DevelopPlatform />
-          <QuicklyGetStarted />
+          {/* <QuicklyGetStarted />
           <ServiceModuleCodePen />
           <ViewModuleCodePen />
-          <AppBootstrapCodePen />
+          <AppBootstrapCodePen /> */}
           {/* <Showcase /> */}
         </div>
       </div>
