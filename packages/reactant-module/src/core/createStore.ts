@@ -43,7 +43,7 @@ export function createStore<T = any>(
   devOptions: DevOptions = {},
   originalStore?: ReactantStore,
   beforeReplaceReducer?: () => void
-) {
+): ReactantStore {
   const enableAutoFreeze =
     devOptions.autoFreeze ?? process.env.NODE_ENV !== 'production';
   const enableReduxDevTools =
@@ -73,6 +73,7 @@ export function createStore<T = any>(
         const isPlainObject =
           toString.call(service[stateKey]) === '[object Object]';
         if (isPlainObject) {
+          // eslint-disable-next-line @typescript-eslint/ban-types
           const className = (Service as Function).name;
           let reducersIdentifier: string = service.name;
           // string identifier is defined primarily.
@@ -87,7 +88,7 @@ export function createStore<T = any>(
             // this solution replaces the `combineReducers` need `Object.keys` get keys without `symbol` keys.
             reducersIdentifier = getStageName(className);
           }
-          if (typeof reducersIdentifier !== 'string' || !reducersIdentifier) {
+          if (typeof reducersIdentifier !== 'string') {
             if (process.env.NODE_ENV !== 'production') {
               console.error(`
                 Since '${className}' module has set the module state, '${className}' module must set a unique and valid class property 'name' to be used as the module index.
@@ -98,10 +99,11 @@ export function createStore<T = any>(
                     state = { foo: 'bar' };
                   }
               `);
+            } else {
+              throw new Error(
+                `'${className}' module 'name' property should be defined as a valid 'string'.`
+              );
             }
-            throw new Error(
-              `'${className}' module 'name' property should be defined as a valid 'string'.`
-            );
           }
           if (typeof reducers[reducersIdentifier] === 'function') {
             if (services.length === 1) {
@@ -110,7 +112,7 @@ export function createStore<T = any>(
               );
             } else {
               // injection about multi-instances
-              reducersIdentifier = `${reducersIdentifier}${index}`;
+              reducersIdentifier += `${index}`;
             }
           }
           const isEmptyObject = Object.keys(service[stateKey]).length === 0;
@@ -118,7 +120,8 @@ export function createStore<T = any>(
             const descriptors: Record<string, PropertyDescriptor> = {};
             for (const key in service[stateKey]) {
               const descriptor = Object.getOwnPropertyDescriptor(service, key);
-              if (typeof descriptor === 'undefined') break;
+              // eslint-disable-next-line no-continue
+              if (typeof descriptor === 'undefined') continue;
               Object.assign(service[stateKey], {
                 [key]: descriptor.value,
               });
@@ -183,6 +186,7 @@ export function createStore<T = any>(
               name: {
                 enumerable: false,
                 configurable: false,
+                writable: false,
                 value: reducersIdentifier,
               },
             });

@@ -41,8 +41,10 @@ const action = (
   descriptor: TypedPropertyDescriptor<(...args: any[]) => void>
 ) => {
   const fn = descriptor.value;
-  if (typeof fn === 'undefined') {
-    throw new Error(`${String(key)} decorate error with '@action'.`);
+  if (typeof fn !== 'function') {
+    throw new Error(
+      `${String(key)} can only be decorated by '@action' as a class method.`
+    );
   }
   const value = function(this: Service, ...args: unknown[]) {
     let time: number;

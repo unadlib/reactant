@@ -162,5 +162,5 @@ test('`@autobind` decorate error', () => {
       },
     });
     const counter = container.get(Counter);
-  }).toThrowError(/decorate error with '@action'/);
+  }).toThrowError(/only be decorated by '@action' as a class method/);
 });

@@ -37,11 +37,11 @@ type SetStorageOptions<T> = Pick<
 class ReactantStorage extends PluginModule {
   constructor(@inject(StorageOptions) public options: IStorageOptions) {
     super();
-    if (
-      typeof this.options.storage === 'undefined' ||
-      this.options.storage === null
-    ) {
-      if (process.env.NODE_ENV !== 'production') {
+    if (process.env.NODE_ENV !== 'production') {
+      if (
+        typeof this.options.storage === 'undefined' ||
+        this.options.storage === null
+      ) {
         console.warn(
           `Module 'Storage' must depend on the 'StorageOptions', and 'StorageOptions' should set 'storage' property.
             example:
