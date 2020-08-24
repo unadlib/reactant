@@ -41,9 +41,9 @@ export const computed = (depsCallback: (instance: any) => any[]) => (
     }
   }
   const depsCallbackSelector = createSelectorWithArray(
-    (that: Service) => [that[storeKey]!.getState(), that[stateKey]],
+    (that: Service) => [that[storeKey]!.getState()],
     // eslint-disable-next-line func-names
-    function(this: Service) {
+    function (this: Service) {
       return depsCallback(this);
     }
   );
