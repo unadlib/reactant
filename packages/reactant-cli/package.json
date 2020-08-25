@@ -25,7 +25,7 @@
   "dependencies": {
     "chalk": "3.0.0",
     "commander": "^5.1.0",
-    "envinfo": "^7.7.2",
+    "envinfo": "^7.7.3",
     "fs-extra": "8.1.0",
     "installation": "^0.2.18"
   }
