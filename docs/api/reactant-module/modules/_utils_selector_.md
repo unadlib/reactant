@@ -21,21 +21,35 @@ sidebar_label: "utils/selector"
 
 • **createSelectorWithArray**: *(Anonymous function)* = createSelectorCreatorWithArray()
 
-*Defined in [packages/reactant-module/src/utils/selector.ts:31](https://github.com/unadlib/reactant/blob/3ec6ab3/packages/reactant-module/src/utils/selector.ts#L31)*
+*Defined in [packages/reactant-module/src/utils/selector.ts:38](https://github.com/unadlib/reactant/blob/42b8a69/packages/reactant-module/src/utils/selector.ts#L38)*
 
 ## Functions
 
 ### `Const` createSelectorCreatorWithArray
 
-▸ **createSelectorCreatorWithArray**(`memoize`: Function): *(Anonymous function)*
+▸ **createSelectorCreatorWithArray**(`memoize`: function): *(Anonymous function)*
 
-*Defined in [packages/reactant-module/src/utils/selector.ts:17](https://github.com/unadlib/reactant/blob/3ec6ab3/packages/reactant-module/src/utils/selector.ts#L17)*
+*Defined in [packages/reactant-module/src/utils/selector.ts:18](https://github.com/unadlib/reactant/blob/42b8a69/packages/reactant-module/src/utils/selector.ts#L18)*
 
 **Parameters:**
 
-Name | Type | Default |
------- | ------ | ------ |
-`memoize` | Function | defaultMemoize |
+▪`Default value`  **memoize**: *function*= defaultMemoize
+
+▸ (...`args`: any): *function*
+
+**Parameters:**
+
+Name | Type |
+------ | ------ |
+`...args` | any |
+
+▸ (...`args`: any): *any*
+
+**Parameters:**
+
+Name | Type |
+------ | ------ |
+`...args` | any |
 
 **Returns:** *(Anonymous function)*
 
@@ -43,14 +57,20 @@ ___
 
 ###  defaultMemoize
 
-▸ **defaultMemoize**(`func`: Function): *(Anonymous function)*
+▸ **defaultMemoize**(`func`: function): *(Anonymous function)*
 
-*Defined in [packages/reactant-module/src/utils/selector.ts:5](https://github.com/unadlib/reactant/blob/3ec6ab3/packages/reactant-module/src/utils/selector.ts#L5)*
+*Defined in [packages/reactant-module/src/utils/selector.ts:5](https://github.com/unadlib/reactant/blob/42b8a69/packages/reactant-module/src/utils/selector.ts#L5)*
+
+**Parameters:**
+
+▪ **func**: *function*
+
+▸ (...`args`: any): *any*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
-`func` | Function |
+`...args` | any |
 
 **Returns:** *(Anonymous function)*

@@ -22,7 +22,7 @@ sidebar_label: "DependenciesProvider"
 
 • **multi**? : *undefined | false | true*
 
-*Defined in [packages/reactant-di/src/interfaces.ts:81](https://github.com/unadlib/reactant/blob/3ec6ab3/packages/reactant-di/src/interfaces.ts#L81)*
+*Defined in [packages/reactant-di/src/interfaces.ts:81](https://github.com/unadlib/reactant/blob/42b8a69/packages/reactant-di/src/interfaces.ts#L81)*
 
 ___
 
@@ -30,7 +30,7 @@ ___
 
 • **optional**? : *undefined | false | true*
 
-*Defined in [packages/reactant-di/src/interfaces.ts:80](https://github.com/unadlib/reactant/blob/3ec6ab3/packages/reactant-di/src/interfaces.ts#L80)*
+*Defined in [packages/reactant-di/src/interfaces.ts:80](https://github.com/unadlib/reactant/blob/42b8a69/packages/reactant-di/src/interfaces.ts#L80)*
 
 ___
 
@@ -38,4 +38,4 @@ ___
 
 • **provide**: *[ServiceIdentifier](../modules/_interfaces_.md#serviceidentifier)‹any› | [Module](_interfaces_.module.md)‹any›*
 
-*Defined in [packages/reactant-di/src/interfaces.ts:79](https://github.com/unadlib/reactant/blob/3ec6ab3/packages/reactant-di/src/interfaces.ts#L79)*
+*Defined in [packages/reactant-di/src/interfaces.ts:79](https://github.com/unadlib/reactant/blob/42b8a69/packages/reactant-di/src/interfaces.ts#L79)*

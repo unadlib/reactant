@@ -20,4 +20,4 @@ sidebar_label: "IRouterOptions"
 
 • **autoProvide**? : *undefined | false | true*
 
-*Defined in [packages/reactant-router/src/router.tsx:19](https://github.com/unadlib/reactant/blob/3ec6ab3/packages/reactant-router/src/router.tsx#L19)*
+*Defined in [packages/reactant-router/src/router.tsx:19](https://github.com/unadlib/reactant/blob/42b8a69/packages/reactant-router/src/router.tsx#L19)*

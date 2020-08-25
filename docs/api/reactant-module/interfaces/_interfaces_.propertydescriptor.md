@@ -37,7 +37,7 @@ sidebar_label: "PropertyDescriptor"
 
 *Inherited from [PropertyDescriptor](_interfaces_.propertydescriptor.md).[configurable](_interfaces_.propertydescriptor.md#optional-configurable)*
 
-Defined in node_modules/typescript/lib/lib.es5.d.ts:1389
+Defined in node_modules/typescript/lib/lib.es5.d.ts:1407
 
 ___
 
@@ -47,7 +47,7 @@ ___
 
 *Inherited from [PropertyDescriptor](_interfaces_.propertydescriptor.md).[enumerable](_interfaces_.propertydescriptor.md#optional-enumerable)*
 
-Defined in node_modules/typescript/lib/lib.es5.d.ts:1388
+Defined in node_modules/typescript/lib/lib.es5.d.ts:1406
 
 ___
 
@@ -57,7 +57,7 @@ ___
 
 *Inherited from [PropertyDescriptor](_interfaces_.propertydescriptor.md).[get](_interfaces_.propertydescriptor.md#optional-get)*
 
-Defined in node_modules/typescript/lib/lib.es5.d.ts:1392
+Defined in node_modules/typescript/lib/lib.es5.d.ts:1410
 
 ___
 
@@ -67,7 +67,7 @@ ___
 
 *Inherited from [PropertyDescriptor](_interfaces_.propertydescriptor.md).[set](_interfaces_.propertydescriptor.md#optional-set)*
 
-Defined in node_modules/typescript/lib/lib.es5.d.ts:1393
+Defined in node_modules/typescript/lib/lib.es5.d.ts:1411
 
 ___
 
@@ -77,7 +77,7 @@ ___
 
 *Inherited from [PropertyDescriptor](_interfaces_.propertydescriptor.md).[value](_interfaces_.propertydescriptor.md#optional-value)*
 
-Defined in node_modules/typescript/lib/lib.es5.d.ts:1391
+Defined in node_modules/typescript/lib/lib.es5.d.ts:1409
 
 ___
 
@@ -87,7 +87,7 @@ ___
 
 *Inherited from [PropertyDescriptor](_interfaces_.propertydescriptor.md).[writable](_interfaces_.propertydescriptor.md#optional-writable)*
 
-Defined in node_modules/typescript/lib/lib.es5.d.ts:1390
+Defined in node_modules/typescript/lib/lib.es5.d.ts:1408
 
 ## Methods
 
@@ -95,6 +95,6 @@ Defined in node_modules/typescript/lib/lib.es5.d.ts:1390
 
 ▸ **initializer**(): *T*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:124](https://github.com/unadlib/reactant/blob/3ec6ab3/packages/reactant-module/src/interfaces.ts#L124)*
+*Defined in [packages/reactant-module/src/interfaces.ts:124](https://github.com/unadlib/reactant/blob/42b8a69/packages/reactant-module/src/interfaces.ts#L124)*
 
 **Returns:** *T*
