@@ -80,14 +80,9 @@ export function createStore<T = any>(
           if (typeof Service === 'string') {
             reducersIdentifier = Service;
           }
-          if (
-            typeof reducersIdentifier === 'undefined' ||
-            reducersIdentifier === null
-          ) {
-            // `service.name` is to be defined and define stage name, but persist or merge state should be defined.
-            // this solution replaces the `combineReducers` need `Object.keys` get keys without `symbol` keys.
-            reducersIdentifier = getStageName(className);
-          }
+          // `service.name` is to be defined and define stage name, but persist or merge state should be defined.
+          // this solution replaces the `combineReducers` need `Object.keys` get keys without `symbol` keys.
+          reducersIdentifier ??= getStageName(className);
           if (typeof reducersIdentifier !== 'string') {
             if (process.env.NODE_ENV !== 'production') {
               console.error(`
