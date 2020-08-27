@@ -1,4 +1,3 @@
-import { computed } from 'reactant/src';
 import {
   injectable,
   multiInject,
@@ -6,6 +5,7 @@ import {
   createStore,
   action,
   state,
+  computed,
 } from '..';
 
 test('base module with @state and @action', () => {
@@ -164,11 +164,11 @@ test('module with multiple module injection with same module or others', () => {
     FooIdentifier2: { count: 1 },
     foo: { count: 1 },
   });
-  // expect(fooBar.foos[1].num).toBe(3);
-  // expect(fooBar.foos[0].num).toBe(3);
-  // expect(computedFn.mock.calls.length).toBe(2);
-  // fooBar.foos[1].increase();
-  // expect(fooBar.foos[1].num).toBe(4);
-  // expect(fooBar.foos[0].num).toBe(3);
-  // expect(computedFn.mock.calls.length).toBe(3);
+  expect(fooBar.foos[1].num).toBe(3);
+  expect(fooBar.foos[0].num).toBe(3);
+  expect(computedFn.mock.calls.length).toBe(2);
+  fooBar.foos[1].increase();
+  expect(fooBar.foos[1].num).toBe(4);
+  expect(fooBar.foos[0].num).toBe(3);
+  expect(computedFn.mock.calls.length).toBe(3);
 });
