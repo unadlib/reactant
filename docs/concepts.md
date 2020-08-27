@@ -3,7 +3,7 @@ id: concepts
 title: Concepts
 ---
 
-Reactant only needs to learn a few APIs(`ViewModule`, `injectable`, `useConnector`, `injectable`, `action`, `state`, and `createApp`) for efficient react development.
+Reactant only needs to learn a few APIs(`ViewModule`, `injectable`, `useConnector`, `action`, `state`, and `createApp`) for efficient react development.
 
 In addition to the basics of React, Reactant introduces two new concepts, [`ViewModule`](#view-module) and [`PluginModule`](#plugin-module).
 
