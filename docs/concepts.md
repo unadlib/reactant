@@ -97,6 +97,49 @@ app.bootstrap(document.getElementById('root'));
 
 ## Plugin Module
 
-todo
+Plugin Module is based on Redux middleware and React Context, so the Plugin Module can be encapsulated in a simple API that makes middleware and Context incredibly easy to use.
+
+For example, this is a persistence plugin module that requires only simple configuration to achieve persistence.
+
+```ts
+import {
+  StorageOptions,
+  localStorage,
+  IStorageOptions,
+} from 'reactant-storage';
+
+@injectable()
+class HomeView extends ViewModule {
+  constructor(public storage: Storage) {
+    super();
+    this.storage.setStorage(this, {
+      whitelist: ['test'],
+    });
+  }
+
+  name = 'bar';
+
+  @state
+  test = 'test';
+}
+
+const app = createApp({
+  modules: [
+    {
+      provide: StorageOptions,
+      useValue: {
+        whitelist: [],
+        storage: localStorage,
+        loading: <div>loading</div>,
+      } as IStorageOptions,
+    },
+  ],
+  main: HomeView,
+  render,
+  devOptions: {
+    reduxDevTools: true,
+  },
+});
+```
 
 See [`PluginModule`](api/reactant-module/classes/_core_plugin_.pluginmodule.md) for more information.
