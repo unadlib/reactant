@@ -46,7 +46,7 @@ const action = (
       `${String(key)} can only be decorated by '@action' as a class method.`
     );
   }
-  const value = function(this: Service, ...args: unknown[]) {
+  const value = function (this: Service, ...args: unknown[]) {
     let time: number;
     if (process.env.NODE_ENV !== 'production') {
       time = Date.now();

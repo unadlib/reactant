@@ -3,7 +3,7 @@ id: concepts
 title: Concepts
 ---
 
-Reactant only needs to learn a few APIs(`ViewModule`, `injectable`, `useConnector`, `action`, `state`, and `createApp`) for efficient react development.
+Reactant only needs to learn a few APIs(ViewModule, injectable, useConnector, action, state, and createApp) for efficient react development.
 
 In addition to the basics of React, Reactant introduces two new concepts, [`ViewModule`](#view-module) and [`PluginModule`](#plugin-module).
 
@@ -101,7 +101,7 @@ Plugin Module is based on Redux middleware and React Context, so the Plugin Modu
 
 For example, this is a persistence plugin module that requires only simple configuration to achieve persistence.
 
-```ts
+```tsx
 import {
   StorageOptions,
   localStorage,
