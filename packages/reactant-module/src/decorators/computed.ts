@@ -1,5 +1,5 @@
 import { createSelectorWithArray } from '../utils';
-import { storeKey, stateKey } from '../constants';
+import { storeKey } from '../constants';
 import { Service } from '../interfaces';
 
 /**

@@ -11,9 +11,9 @@ class HomeSplash extends React.Component {
     const { baseUrl, docsUrl } = siteConfig;
     const docsPart = `${docsUrl ? `${docsUrl}/` : ''}`;
     const langPart = `${language ? `${language}/` : ''}`;
-    const docUrl = doc => `${baseUrl}${docsPart}${langPart}${doc}`;
+    const docUrl = (doc) => `${baseUrl}${docsPart}${langPart}${doc}`;
 
-    const SplashContainer = props => (
+    const SplashContainer = (props) => (
       <div className="homeContainer">
         <div className="homeSplashFade">
           <div className="wrapper homeWrapper">{props.children}</div>
@@ -30,14 +30,14 @@ class HomeSplash extends React.Component {
     //   </div>
     // );
 
-    const ProjectTitle = props => (
+    const ProjectTitle = (props) => (
       <h2 className="projectTitle">
         {props.title}
         <small>{props.tagline}</small>
       </h2>
     );
 
-    const PromoSection = props => (
+    const PromoSection = (props) => (
       <div className="section promoSection">
         <div className="promoRow">
           <div className="pluginRowBlock">{props.children}</div>
@@ -45,7 +45,7 @@ class HomeSplash extends React.Component {
       </div>
     );
 
-    const Button = props => (
+    const Button = (props) => (
       <div className="pluginWrapper buttonWrapper">
         <a className="button" href={props.href} target={props.target}>
           {props.children}
@@ -72,7 +72,7 @@ class Index extends React.Component {
     const { config: siteConfig, language = '' } = this.props;
     const { baseUrl } = siteConfig;
 
-    const Block = props => (
+    const Block = (props) => (
       <Container
         padding={['bottom', 'top']}
         id={props.id}
@@ -151,128 +151,128 @@ class Index extends React.Component {
       </Block>
     );
 
-    const QuicklyGetStarted = () => (
-      <div
-        className="productShowcaseSection paddingBottom darkBackground"
-        style={{ textAlign: 'center', padding: '10px 0' }}
-      >
-        <h2>Quickstart</h2>
-        <MarkdownBlock>
-          Quickly get started with service module, view module and bootstrap
-          app.
-        </MarkdownBlock>
-      </div>
-    );
+    // const QuicklyGetStarted = () => (
+    //   <div
+    //     className="productShowcaseSection paddingBottom darkBackground"
+    //     style={{ textAlign: 'center', padding: '10px 0' }}
+    //   >
+    //     <h2>Quickstart</h2>
+    //     <MarkdownBlock>
+    //       Quickly get started with service module, view module and bootstrap
+    //       app.
+    //     </MarkdownBlock>
+    //   </div>
+    // );
 
-    const ServiceModuleCodePen = () => (
-      <div className="container lightBackground paddingBottom paddingTop">
-        <div className="wrapper">
-          <div className="gridBlock">
-            <div className="blockElement alignCenter imageAlignSide imageAlignRight twoByGridBlock">
-              <div className="blockContent">
-                <h2>
-                  <div>
-                    <span>
-                      <p>1. Create Service Module</p>
-                    </span>
-                  </div>
-                </h2>
-                <div>
-                  <span>
-                    <p>
-                      The module definition is very simple and you don't need
-                      anything other than decorators that dependency injection
-                      and state management.
-                    </p>
-                  </span>
-                </div>
-              </div>
-              <div className="blockImage">
-                <div
-                  dangerouslySetInnerHTML={{
-                    __html:
-                      "<iframe width='319' height='364' src='https://carbon.now.sh/embed?bg=rgba(171%2C184%2C195%2C0)&t=seti&wt=none&l=application%2Ftypescript&ds=false&dsyoff=0px&dsblur=12px&wc=true&wa=true&pv=56px&ph=56px&ln=false&fl=1&fm=Hack&fs=14px&lh=133%25&si=false&es=2x&wm=false&code=%2540injectable()%250Aclass%2520Counter%2520%257B%250A%2520%2520%2540state%250A%2520%2520count%2520%253D%25200%253B%250A%250A%2520%2520%2540action%250A%2520%2520increase()%2520%257B%250A%2520%2520%2520%2520this.count%2520%252B%253D%25201%253B%250A%2520%2520%257D%250A%257D'></iframe>",
-                  }}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
+    // const ServiceModuleCodePen = () => (
+    //   <div className="container lightBackground paddingBottom paddingTop">
+    //     <div className="wrapper">
+    //       <div className="gridBlock">
+    //         <div className="blockElement alignCenter imageAlignSide imageAlignRight twoByGridBlock">
+    //           <div className="blockContent">
+    //             <h2>
+    //               <div>
+    //                 <span>
+    //                   <p>1. Create Service Module</p>
+    //                 </span>
+    //               </div>
+    //             </h2>
+    //             <div>
+    //               <span>
+    //                 <p>
+    //                   The module definition is very simple and you don't need
+    //                   anything other than decorators that dependency injection
+    //                   and state management.
+    //                 </p>
+    //               </span>
+    //             </div>
+    //           </div>
+    //           <div className="blockImage">
+    //             <div
+    //               dangerouslySetInnerHTML={{
+    //                 __html:
+    //                   "<iframe width='319' height='364' src='https://carbon.now.sh/embed?bg=rgba(171%2C184%2C195%2C0)&t=seti&wt=none&l=application%2Ftypescript&ds=false&dsyoff=0px&dsblur=12px&wc=true&wa=true&pv=56px&ph=56px&ln=false&fl=1&fm=Hack&fs=14px&lh=133%25&si=false&es=2x&wm=false&code=%2540injectable()%250Aclass%2520Counter%2520%257B%250A%2520%2520%2540state%250A%2520%2520count%2520%253D%25200%253B%250A%250A%2520%2520%2540action%250A%2520%2520increase()%2520%257B%250A%2520%2520%2520%2520this.count%2520%252B%253D%25201%253B%250A%2520%2520%257D%250A%257D'></iframe>",
+    //               }}
+    //             />
+    //           </div>
+    //         </div>
+    //       </div>
+    //     </div>
+    //   </div>
+    // );
 
-    const ViewModuleCodePen = () => (
-      <div className="container paddingBottom paddingTop">
-        <div className="wrapper">
-          <div className="gridBlock">
-            <div className="blockElement alignCenter imageAlignSide imageAlignLeft twoByGridBlock">
-              <div className="blockImage1">
-                <div
-                  dangerouslySetInnerHTML={{
-                    __html:
-                      "<iframe width='631' height='491' src='https://carbon.now.sh/embed?bg=rgba(171%2C184%2C195%2C0)&t=seti&wt=none&l=application%2Ftypescript&ds=false&dsyoff=0px&dsblur=12px&wc=true&wa=true&pv=56px&ph=56px&ln=false&fl=1&fm=Hack&fs=14px&lh=133%25&si=false&es=2x&wm=false&code=%2540injectable()%250Aclass%2520AppView%2520extends%2520ViewModule%2520%257B%250A%2520%2520constructor(public%2520counter%253A%2520Counter)%2520%257B%250A%2520%2520%2520%2520super()%253B%250A%2520%2520%257D%250A%250A%2520%2520component()%2520%257B%250A%2520%2520%2520%2520const%2520count%2520%253D%2520useConnector(()%2520%253D%253E%2520this.counter.count)%253B%250A%2520%2520%2520%2520return%2520(%250A%2520%2520%2520%2520%2520%2520%253Cbutton%250A%2520%2520%2520%2520%2520%2520%2509type%253D%2522button%2522%250A%2520%2520%2520%2520%2520%2520%2509onClick%253D%257B()%2520%253D%253E%2520this.counter.increase()%257D%253E%250A%2520%2520%2520%2520%2520%2520%2520%2520%257Bcount%257D%250A%2520%2520%2520%2520%2520%2520%253C%252Fbutton%253E%250A%2520%2520%2520%2520)%253B%250A%2520%2520%257D%250A%257D'></iframe>",
-                  }}
-                />
-              </div>
-              <div className="blockContent">
-                <h2>
-                  <div>
-                    <span>
-                      <p>2. Create View Module</p>
-                    </span>
-                  </div>
-                </h2>
-                <div>
-                  <span>
-                    <p>
-                      You just need to extend the "ViewModule", and define the
-                      methods and data to be injected into the view function
-                      component.
-                    </p>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
+    // const ViewModuleCodePen = () => (
+    //   <div className="container paddingBottom paddingTop">
+    //     <div className="wrapper">
+    //       <div className="gridBlock">
+    //         <div className="blockElement alignCenter imageAlignSide imageAlignLeft twoByGridBlock">
+    //           <div className="blockImage1">
+    //             <div
+    //               dangerouslySetInnerHTML={{
+    //                 __html:
+    //                   "<iframe width='631' height='491' src='https://carbon.now.sh/embed?bg=rgba(171%2C184%2C195%2C0)&t=seti&wt=none&l=application%2Ftypescript&ds=false&dsyoff=0px&dsblur=12px&wc=true&wa=true&pv=56px&ph=56px&ln=false&fl=1&fm=Hack&fs=14px&lh=133%25&si=false&es=2x&wm=false&code=%2540injectable()%250Aclass%2520AppView%2520extends%2520ViewModule%2520%257B%250A%2520%2520constructor(public%2520counter%253A%2520Counter)%2520%257B%250A%2520%2520%2520%2520super()%253B%250A%2520%2520%257D%250A%250A%2520%2520component()%2520%257B%250A%2520%2520%2520%2520const%2520count%2520%253D%2520useConnector(()%2520%253D%253E%2520this.counter.count)%253B%250A%2520%2520%2520%2520return%2520(%250A%2520%2520%2520%2520%2520%2520%253Cbutton%250A%2520%2520%2520%2520%2520%2520%2509type%253D%2522button%2522%250A%2520%2520%2520%2520%2520%2520%2509onClick%253D%257B()%2520%253D%253E%2520this.counter.increase()%257D%253E%250A%2520%2520%2520%2520%2520%2520%2520%2520%257Bcount%257D%250A%2520%2520%2520%2520%2520%2520%253C%252Fbutton%253E%250A%2520%2520%2520%2520)%253B%250A%2520%2520%257D%250A%257D'></iframe>",
+    //               }}
+    //             />
+    //           </div>
+    //           <div className="blockContent">
+    //             <h2>
+    //               <div>
+    //                 <span>
+    //                   <p>2. Create View Module</p>
+    //                 </span>
+    //               </div>
+    //             </h2>
+    //             <div>
+    //               <span>
+    //                 <p>
+    //                   You just need to extend the "ViewModule", and define the
+    //                   methods and data to be injected into the view function
+    //                   component.
+    //                 </p>
+    //               </span>
+    //             </div>
+    //           </div>
+    //         </div>
+    //       </div>
+    //     </div>
+    //   </div>
+    // );
 
-    const AppBootstrapCodePen = () => (
-      <div className="container lightBackground paddingBottom paddingTop">
-        <div className="wrapper">
-          <div className="gridBlock">
-            <div className="blockElement alignCenter imageAlignSide imageAlignRight twoByGridBlock">
-              <div className="blockContent">
-                <h2>
-                  <div>
-                    <span>
-                      <p>3. Bootstrap app</p>
-                    </span>
-                  </div>
-                </h2>
-                <div>
-                  <span>
-                    <p>
-                      Use "createApp" to pass in the view module and render
-                      function, you're ready to bootstrap the app.
-                    </p>
-                  </span>
-                </div>
-              </div>
-              <div className="blockImage">
-                <div
-                  dangerouslySetInnerHTML={{
-                    __html:
-                      "<iframe width='538' height='310' src='https://carbon.now.sh/embed?bg=rgba(171%2C184%2C195%2C0)&t=seti&wt=none&l=application%2Ftypescript&ds=false&dsyoff=0px&dsblur=12px&wc=true&wa=true&pv=56px&ph=56px&ln=false&fl=1&fm=Hack&fs=14px&lh=133%25&si=false&es=2x&wm=false&code=const%2520app%2520%253D%2520createApp(%257B%250A%2520%2520main%253A%2520AppView%252C%250A%2520%2520modules%253A%2520%255B%255D%252C%250A%2520%2520render%252C%250A%257D)%253B%250A%250Aapp.bootstrap(document.getElementById(%27app%27))%253B'></iframe>",
-                  }}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
+    // const AppBootstrapCodePen = () => (
+    //   <div className="container lightBackground paddingBottom paddingTop">
+    //     <div className="wrapper">
+    //       <div className="gridBlock">
+    //         <div className="blockElement alignCenter imageAlignSide imageAlignRight twoByGridBlock">
+    //           <div className="blockContent">
+    //             <h2>
+    //               <div>
+    //                 <span>
+    //                   <p>3. Bootstrap app</p>
+    //                 </span>
+    //               </div>
+    //             </h2>
+    //             <div>
+    //               <span>
+    //                 <p>
+    //                   Use "createApp" to pass in the view module and render
+    //                   function, you're ready to bootstrap the app.
+    //                 </p>
+    //               </span>
+    //             </div>
+    //           </div>
+    //           <div className="blockImage">
+    //             <div
+    //               dangerouslySetInnerHTML={{
+    //                 __html:
+    //                   "<iframe width='538' height='310' src='https://carbon.now.sh/embed?bg=rgba(171%2C184%2C195%2C0)&t=seti&wt=none&l=application%2Ftypescript&ds=false&dsyoff=0px&dsblur=12px&wc=true&wa=true&pv=56px&ph=56px&ln=false&fl=1&fm=Hack&fs=14px&lh=133%25&si=false&es=2x&wm=false&code=const%2520app%2520%253D%2520createApp(%257B%250A%2520%2520main%253A%2520AppView%252C%250A%2520%2520modules%253A%2520%255B%255D%252C%250A%2520%2520render%252C%250A%257D)%253B%250A%250Aapp.bootstrap(document.getElementById(%27app%27))%253B'></iframe>",
+    //               }}
+    //             />
+    //           </div>
+    //         </div>
+    //       </div>
+    //     </div>
+    //   </div>
+    // );
 
     // const Showcase = () => {
     //   if ((siteConfig.users || []).length === 0) {
