@@ -1,6 +1,9 @@
 {
   "preset": "ts-jest",
   "rootDir": "../../",
+  "globals": {
+    "__DEV__": false
+  },
   "testPathIgnorePatterns": [
     "examples",
     "packages/reactant-cli/templates",

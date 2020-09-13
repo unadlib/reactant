@@ -15,7 +15,7 @@ test('base model with `useValue`', () => {
       todoList,
     },
     actions: {
-      add: (todo: string) => state => {
+      add: (todo: string) => (state) => {
         state.todoList.push(todo);
       },
     },
@@ -49,7 +49,9 @@ test('base model with `useValue`', () => {
     container,
     ServiceIdentifiers,
     new Set(),
-    (...args: any[]) => {},
+    (...args: any[]) => {
+      //
+    },
     {
       middleware: [],
       beforeCombineRootReducers: [],
@@ -81,7 +83,7 @@ test('base model with `useFactory`', () => {
         todoList,
       },
       actions: {
-        add: (todo: string) => state => {
+        add: (todo: string) => (state) => {
           state.todoList.push(todo);
         },
       },
