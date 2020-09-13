@@ -9,6 +9,7 @@ sidebar_label: "constants/index"
 ### References
 
 * [actionIdentifier](_constants_index_.md#actionidentifier)
+* [enablePatchesKey](_constants_index_.md#enablepatcheskey)
 * [loaderKey](_constants_index_.md#loaderkey)
 * [stateKey](_constants_index_.md#statekey)
 * [storeKey](_constants_index_.md#storekey)
@@ -19,6 +20,12 @@ sidebar_label: "constants/index"
 ###  actionIdentifier
 
 • **actionIdentifier**:
+
+___
+
+###  enablePatchesKey
+
+• **enablePatchesKey**:
 
 ___
 

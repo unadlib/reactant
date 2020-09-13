@@ -16,7 +16,7 @@ const projects = [
 process.chdir(path.resolve(__dirname, '..'));
 
 const generateDocs = (project: string) => {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     const projectApiPath = path.resolve(`docs/api/${project}`);
     fs.removeSync(projectApiPath);
     const args = [
@@ -38,11 +38,12 @@ const generateDocs = (project: string) => {
       '--skipSidebar',
       '--readme',
       'none',
+      '--ignoreCompilerErrors', // TODO: fix `Cannot find name '__DEV__'` error.
     ];
     const subprocess = spawn('typedoc', args, {
       stdio: 'inherit',
     });
-    subprocess.on('close', code => {
+    subprocess.on('close', (code) => {
       resolve();
     });
   });

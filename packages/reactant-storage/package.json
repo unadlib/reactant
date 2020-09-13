@@ -1,6 +1,6 @@
 {
   "name": "reactant-storage",
-  "version": "0.3.3",
+  "version": "0.4.0",
   "description": "A persistence storage plugin for Reactant",
   "main": "dist/index.cjs.js",
   "unpkg": "dist/index.umd.js",
@@ -21,7 +21,7 @@
   "dependencies": {
     "react": "^16.12.0",
     "react-redux": "^7.2.0",
-    "reactant-module": "^0.3.3",
+    "reactant-module": "^0.4.0",
     "redux": "^4.0.5",
     "redux-persist": "^6.0.0"
   }

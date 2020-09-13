@@ -51,6 +51,7 @@ sidebar_label: "index"
 * [defaultMemoize](_index_.md#defaultmemoize)
 * [defaultProps](_index_.md#defaultprops)
 * [dispatch](_index_.md#dispatch)
+* [enablePatchesKey](_index_.md#enablepatcheskey)
 * [getComposeEnhancers](_index_.md#getcomposeenhancers)
 * [getStageName](_index_.md#getstagename)
 * [getStagedState](_index_.md#getstagedstate)
@@ -325,6 +326,12 @@ ___
 ###  dispatch
 
 • **dispatch**:
+
+___
+
+###  enablePatchesKey
+
+• **enablePatchesKey**:
 
 ___
 

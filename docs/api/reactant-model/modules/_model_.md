@@ -13,7 +13,7 @@ sidebar_label: "model"
 ### Type aliases
 
 * [Actions](_model_.md#actions)
-* [SerivceName](_model_.md#serivcename)
+* [ServiceName](_model_.md#servicename)
 
 ### Functions
 
@@ -25,17 +25,17 @@ sidebar_label: "model"
 
 Ƭ **Actions**: *object*
 
-*Defined in [model.ts:11](https://github.com/unadlib/reactant/blob/42b8a69/packages/reactant-model/src/model.ts#L11)*
+*Defined in [model.ts:17](https://github.com/unadlib/reactant/blob/40f38c4/packages/reactant-model/src/model.ts#L17)*
 
 #### Type declaration:
 
 ___
 
-###  SerivceName
+###  ServiceName
 
-Ƭ **SerivceName**: *Pick‹Service, "name"›*
+Ƭ **ServiceName**: *Pick‹Service, "name"›*
 
-*Defined in [model.ts:4](https://github.com/unadlib/reactant/blob/42b8a69/packages/reactant-model/src/model.ts#L4)*
+*Defined in [model.ts:10](https://github.com/unadlib/reactant/blob/40f38c4/packages/reactant-model/src/model.ts#L10)*
 
 ## Functions
 
@@ -43,7 +43,7 @@ ___
 
 ▸ **model**<**S**, **A**>(`scheme`: [Scheme](../interfaces/_model_.scheme.md)‹S, A›): *[Actions](_model_.md#actions)‹A› & Service‹S› & S*
 
-*Defined in [model.ts:15](https://github.com/unadlib/reactant/blob/42b8a69/packages/reactant-model/src/model.ts#L15)*
+*Defined in [model.ts:21](https://github.com/unadlib/reactant/blob/40f38c4/packages/reactant-model/src/model.ts#L21)*
 
 **Type parameters:**
 

@@ -21,15 +21,15 @@ sidebar_label: "@action"
 
 • **stagedState**: *Record‹string, unknown› | undefined*
 
-*Defined in [packages/reactant-module/src/decorators/action.ts:6](https://github.com/unadlib/reactant/blob/42b8a69/packages/reactant-module/src/decorators/action.ts#L6)*
+*Defined in [packages/reactant-module/src/decorators/action.ts:11](https://github.com/unadlib/reactant/blob/40f38c4/packages/reactant-module/src/decorators/action.ts#L11)*
 
 ## Functions
 
 ### `Const` action
 
-▸ **action**(`target`: object, `key`: string | symbol, `descriptor`: TypedPropertyDescriptor‹function›): *object*
+▸ **action**(`target`: object, `key`: string, `descriptor`: TypedPropertyDescriptor‹function›): *object*
 
-*Defined in [packages/reactant-module/src/decorators/action.ts:38](https://github.com/unadlib/reactant/blob/42b8a69/packages/reactant-module/src/decorators/action.ts#L38)*
+*Defined in [packages/reactant-module/src/decorators/action.ts:43](https://github.com/unadlib/reactant/blob/40f38c4/packages/reactant-module/src/decorators/action.ts#L43)*
 
 ## Description
 
@@ -63,7 +63,7 @@ expect(app.instance.count).toBe(1);
 Name | Type |
 ------ | ------ |
 `target` | object |
-`key` | string &#124; symbol |
+`key` | string |
 `descriptor` | TypedPropertyDescriptor‹function› |
 
 **Returns:** *object*
@@ -76,6 +76,6 @@ ___
 
 ▸ **getStagedState**(): *undefined | object*
 
-*Defined in [packages/reactant-module/src/decorators/action.ts:8](https://github.com/unadlib/reactant/blob/42b8a69/packages/reactant-module/src/decorators/action.ts#L8)*
+*Defined in [packages/reactant-module/src/decorators/action.ts:13](https://github.com/unadlib/reactant/blob/40f38c4/packages/reactant-module/src/decorators/action.ts#L13)*
 
 **Returns:** *undefined | object*

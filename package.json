@@ -25,7 +25,7 @@
     "test:performance": "yarn test:performance:small && yarn test:performance:big && yarn test:performance:huge",
     "build:api": "yarn clean && ts-node scripts/typedoc.ts",
     "commit": "yarn git-cz",
-    "version": "lerna version --amend --no-git-tag-version",
+    "update:version": "lerna version --amend --no-git-tag-version",
     "publish": "lerna exec --no-private --no-bail -- npm publish",
     "publish:docs": "cd website && GIT_USER=unadlib USE_SSH=true yarn run publish-gh-pages"
   },
