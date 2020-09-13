@@ -28,5 +28,9 @@ module.exports = {
     compress: true,
     port: 7000,
   },
-  plugins: [new CopyWebpackPlugin([path.join(__dirname, './src/index.html')])],
+  plugins: [
+    new CopyWebpackPlugin({
+      patterns: [path.join(__dirname, './src/index.html')],
+    }),
+  ],
 };
