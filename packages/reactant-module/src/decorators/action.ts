@@ -48,7 +48,7 @@ const action = (
   }
   const value = function (this: Service, ...args: unknown[]) {
     let time: number;
-    if (process.env.NODE_ENV !== 'production') {
+    if (__DEV__) {
       time = Date.now();
     }
     if (typeof stagedState === 'undefined') {
@@ -61,7 +61,7 @@ const action = (
           }
         );
         stagedState = undefined;
-        if (process.env.NODE_ENV !== 'production') {
+        if (__DEV__) {
           if (this[stateKey] === state) {
             console.warn(`There are no state updates to method ${fn.name}`);
           }

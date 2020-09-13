@@ -45,9 +45,9 @@ export function createStore<T = any>(
   beforeReplaceReducer?: () => void
 ): ReactantStore {
   const enableAutoFreeze =
-    devOptions.autoFreeze ?? process.env.NODE_ENV !== 'production';
+    devOptions.autoFreeze ?? __DEV__;
   const enableReduxDevTools =
-    devOptions.reduxDevTools ?? process.env.NODE_ENV !== 'production';
+    devOptions.reduxDevTools ?? __DEV__;
   setAutoFreeze(enableAutoFreeze);
 
   let isExistReducer = false;
@@ -84,7 +84,7 @@ export function createStore<T = any>(
           // this solution replaces the `combineReducers` need `Object.keys` get keys without `symbol` keys.
           reducersIdentifier ??= getStageName(className);
           if (typeof reducersIdentifier !== 'string') {
-            if (process.env.NODE_ENV !== 'production') {
+            if (__DEV__) {
               console.error(`
                 Since '${className}' module has set the module state, '${className}' module must set a unique and valid class property 'name' to be used as the module index.
                 Example:

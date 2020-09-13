@@ -37,7 +37,7 @@ type SetStorageOptions<T> = Pick<
 class ReactantStorage extends PluginModule {
   constructor(@inject(StorageOptions) public options: IStorageOptions) {
     super();
-    if (process.env.NODE_ENV !== 'production') {
+    if (__DEV__) {
       if (
         typeof this.options.storage === 'undefined' ||
         this.options.storage === null
@@ -72,7 +72,7 @@ class ReactantStorage extends PluginModule {
       typeof target[stateKey] !== 'object' ||
       typeof target.name !== 'string'
     ) {
-      if (process.env.NODE_ENV !== 'production') {
+      if (__DEV__) {
         console.warn(
           `Module '${target}' is invalid for using 'setStorage', it should set 'name' and  '@state' decorated properties in module '${target}'.`
         );

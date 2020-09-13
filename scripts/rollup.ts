@@ -16,18 +16,14 @@ type GenerateOption = {
   outputFile: string;
   format: 'cjs' | 'es' | 'umd';
   name: string;
-  production?: boolean;
   banner?: string;
 };
-
-const isProduction = process.env.NODE_ENV === 'production';
 
 const generateBundledModules = async ({
   inputFile,
   outputFile,
   format,
   name,
-  production = true,
   banner,
 }: GenerateOption) => {
   console.log(`Generating bundle:`);
@@ -47,21 +43,12 @@ const generateBundledModules = async ({
       },
     }),
   ];
-  if (production) {
-    plugins.push(
-      replacePlugin({
-        __DEV__: isProduction ? 'false' : 'true',
-        ...(isUmd
-          ? {
-              'process.env.NODE_ENV': isProduction
-                ? "'production'"
-                : "'development'",
-            }
-          : {}),
-      }),
-      terserPlugin()
-    );
-  }
+  plugins.push(
+    replacePlugin({
+      __DEV__: isUmd ? 'false' : "process.env.NODE_ENV !== 'production'",
+    }),
+    terserPlugin()
+  );
   try {
     const { dependencies = {}, devDependencies = {} } = require(path.resolve(
       outputFile,

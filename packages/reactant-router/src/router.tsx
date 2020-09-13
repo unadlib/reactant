@@ -37,7 +37,7 @@ class ReactantRouter extends PluginModule {
 
   beforeCombineRootReducers(reducers: ReducersMapObject): ReducersMapObject {
     if (reducers.router) {
-      if (process.env.NODE_ENV !== 'production') {
+      if (__DEV__) {
         console.error(
           `'reactant-router' reducer name must be 'router', A module with the property name 'router' already exists, please modify the module 'name'.`
         );
