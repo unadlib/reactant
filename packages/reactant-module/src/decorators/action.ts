@@ -1,7 +1,12 @@
 /* eslint-disable func-names */
-import { produce } from 'immer';
-import { Service } from '../interfaces';
-import { storeKey, stateKey, actionIdentifier } from '../constants';
+import { produce, produceWithPatches, Patch } from 'immer';
+import { ReactantAction, Service } from '../interfaces';
+import {
+  storeKey,
+  stateKey,
+  actionIdentifier,
+  enablePatchesKey,
+} from '../constants';
 
 let stagedState: Record<string, unknown> | undefined;
 
@@ -37,7 +42,7 @@ const getStagedState = () => stagedState;
  */
 const action = (
   target: object,
-  key: string | symbol,
+  key: string,
   descriptor: TypedPropertyDescriptor<(...args: any[]) => void>
 ) => {
   const fn = descriptor.value;
@@ -53,13 +58,23 @@ const action = (
     }
     if (typeof stagedState === 'undefined') {
       try {
-        const state = produce(
-          this[storeKey]?.getState(),
-          (draftState: Record<string, unknown>) => {
+        const lastState = this[storeKey]?.getState();
+        let state: Record<string, unknown>;
+        let patches: Patch[] | undefined;
+        let inversePatches: Patch[] | undefined;
+        if (this[enablePatchesKey]) {
+          [state, patches, inversePatches] = produceWithPatches<
+            Record<string, unknown>
+          >(lastState, (draftState) => {
             stagedState = draftState;
             fn.apply(this, args);
-          }
-        );
+          });
+        } else {
+          state = produce<Record<string, unknown>>(lastState, (draftState) => {
+            stagedState = draftState;
+            fn.apply(this, args);
+          });
+        }
         stagedState = undefined;
         if (__DEV__) {
           if (this[stateKey] === state) {
@@ -73,12 +88,18 @@ const action = (
             );
           // performance detail: https://immerjs.github.io/immer/docs/performance
         }
-        this[storeKey]!.dispatch({
-          type: this.name,
+        this[storeKey]!.dispatch<ReactantAction>({
+          type: this.name!,
           method: key,
           state,
-          lastState: this[storeKey]?.getState(),
+          lastState,
           _reactant: actionIdentifier,
+          ...(this[enablePatchesKey]
+            ? {
+                _patches: patches,
+                _inversePatches: inversePatches,
+              }
+            : {}),
         });
       } finally {
         stagedState = undefined;

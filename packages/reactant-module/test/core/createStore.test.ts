@@ -100,7 +100,7 @@ describe('createStore', () => {
     }
     const actionFn = jest.fn();
     class Logger extends PluginModule {
-      middleware: Middleware = store => next => _action => {
+      middleware: Middleware = (store) => (next) => (_action) => {
         actionFn(_action);
         const result = next(_action);
         actionFn(store.getState());

@@ -5,6 +5,7 @@ import {
   inject,
   Service,
   stateKey,
+  storeKey,
   PartialRequired,
 } from 'reactant-module';
 import { Reducer, ReducersMapObject, Store } from 'redux';
@@ -90,7 +91,7 @@ class ReactantStorage extends PluginModule {
   }
 
   beforeCombineRootReducers(reducers: ReducersMapObject): ReducersMapObject {
-    Object.keys(reducers).forEach(key => {
+    Object.keys(reducers).forEach((key) => {
       const persistConfig = this.persistConfig[key];
       if (persistConfig) {
         const reducer = persistReducer(persistConfig, reducers[key]);

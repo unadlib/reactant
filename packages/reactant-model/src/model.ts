@@ -1,9 +1,15 @@
-import { produce } from 'immer';
-import { storeKey, Service, stateKey, actionIdentifier } from 'reactant-module';
+import { produce, produceWithPatches, Patch } from 'immer';
+import {
+  storeKey,
+  Service,
+  stateKey,
+  actionIdentifier,
+  enablePatchesKey,
+} from 'reactant-module';
 
-type SerivceName = Pick<Service, 'name'>;
+type ServiceName = Pick<Service, 'name'>;
 
-interface Scheme<S, A> extends SerivceName {
+interface Scheme<S, A> extends ServiceName {
   state: S;
   actions: A;
 }
@@ -19,13 +25,25 @@ export const model = <
   scheme: Scheme<S, A>
 ): Actions<A> & Service<S> & S => {
   let module: Service<S>;
-  Object.keys(scheme.actions).forEach(key => {
+  Object.keys(scheme.actions).forEach((key) => {
     const fn = scheme.actions[key];
     Object.assign(scheme.actions, {
       [key]: (...args: any[]) => {
-        const state = produce(module[stateKey], (draftState: S) => {
-          fn(...args)(draftState);
-        });
+        let state: S | undefined;
+        let patches: Patch[] | undefined;
+        let inversePatches: Patch[] | undefined;
+        if (module[enablePatchesKey]) {
+          [state, patches, inversePatches] = produceWithPatches(
+            module[stateKey],
+            (draftState: S) => {
+              fn(...args)(draftState);
+            }
+          );
+        } else {
+          state = produce(module[stateKey], (draftState: S) => {
+            fn(...args)(draftState);
+          });
+        }
         const lastState = module[storeKey]?.getState();
         module[storeKey]!.dispatch({
           type: module.name,
@@ -36,6 +54,12 @@ export const model = <
           },
           lastState,
           _reactant: actionIdentifier,
+          ...(module[enablePatchesKey]
+            ? {
+                _patches: patches,
+                _inversePatches: inversePatches,
+              }
+            : {}),
         });
       },
     });

@@ -1,3 +1,4 @@
+import { applyPatches } from 'immer';
 import {
   injectable,
   createContainer,
@@ -5,6 +6,9 @@ import {
   createStore,
   action,
   getStagedState,
+  ReactantMiddleware,
+  PluginModule,
+  enablePatchesKey,
 } from '../..';
 
 describe('@action', () => {
@@ -47,6 +51,7 @@ describe('@action', () => {
     );
     counter.increase();
     expect(counter.count).toBe(1);
+    expect(counter[enablePatchesKey]).toBe(false);
     expect(Object.values(store.getState())).toEqual([{ count: 1 }]);
   });
 
@@ -89,7 +94,9 @@ describe('@action', () => {
       container,
       ServiceIdentifiers,
       new Set(),
-      (...args: any[]) => {},
+      (...args: any[]) => {
+        //
+      },
       {
         middleware: [],
         beforeCombineRootReducers: [],
@@ -202,7 +209,9 @@ describe('@action', () => {
       container,
       ServiceIdentifiers,
       new Set(),
-      (...args: any[]) => {},
+      (...args: any[]) => {
+        //
+      },
       {
         middleware: [],
         beforeCombineRootReducers: [],
@@ -276,7 +285,9 @@ describe('@action', () => {
       container,
       ServiceIdentifiers,
       new Set(),
-      (...args: any[]) => {},
+      (...args: any[]) => {
+        //
+      },
       {
         middleware: [],
         beforeCombineRootReducers: [],
@@ -351,7 +362,9 @@ describe('@action', () => {
       container,
       ServiceIdentifiers,
       new Set(),
-      (...args: any[]) => {},
+      (...args: any[]) => {
+        //
+      },
       {
         middleware: [],
         beforeCombineRootReducers: [],
@@ -381,5 +394,116 @@ describe('@action', () => {
       counter: { count: 2 },
       foo: { list: [0, 2] },
     });
+  });
+
+  test('base with `enablePatches`', () => {
+    interface Todo {
+      text: string;
+    }
+    @injectable()
+    class TodoList {
+      name = 'todo';
+
+      @state
+      list: Todo[] = [
+        {
+          text: 'foo',
+        },
+      ];
+
+      @action
+      add(text: string) {
+        this.list.slice(-1)[0].text = text;
+        this.list.push({ text });
+      }
+    }
+
+    const actionFn = jest.fn();
+
+    class Logger extends PluginModule {
+      middleware: ReactantMiddleware = (store) => (next) => (_action) => {
+        actionFn(_action);
+        return next(_action);
+      };
+    }
+
+    const ServiceIdentifiers = new Map();
+    const modules = [TodoList, Logger];
+    const container = createContainer({
+      ServiceIdentifiers,
+      modules,
+      options: {
+        defaultScope: 'Singleton',
+      },
+    });
+    const todoList = container.get(TodoList);
+    const store = createStore(
+      modules,
+      container,
+      ServiceIdentifiers,
+      new Set(),
+      (...args: any[]) => {
+        //
+      },
+      {
+        middleware: [],
+        beforeCombineRootReducers: [],
+        afterCombineRootReducers: [],
+        enhancer: [],
+        preloadedStateHandler: [],
+        afterCreateStore: [],
+        provider: [],
+      },
+      undefined,
+      {
+        enablePatches: true,
+      }
+    );
+    const originalTodoState = store.getState();
+    expect(Object.values(store.getState())).toEqual([
+      { list: [{ text: 'foo' }] },
+    ]);
+    expect(actionFn.mock.calls.length).toBe(0);
+    todoList.add('test');
+    expect(Object.values(store.getState())).toEqual([
+      { list: [{ text: 'test' }, { text: 'test' }] },
+    ]);
+    expect(actionFn.mock.calls.length).toBe(1);
+    expect(actionFn.mock.calls[0][0]._patches).toEqual([
+      {
+        op: 'replace',
+        path: ['todo', 'list', 0, 'text'],
+        value: 'test',
+      },
+      {
+        op: 'add',
+        path: ['todo', 'list', 1],
+        value: {
+          text: 'test',
+        },
+      },
+    ]);
+    expect(actionFn.mock.calls[0][0]._inversePatches).toEqual([
+      {
+        op: 'replace',
+        path: ['todo', 'list', 0, 'text'],
+        value: 'foo',
+      },
+      {
+        op: 'replace',
+        path: ['todo', 'list', 'length'],
+        value: 1,
+      },
+    ]);
+    expect(
+      applyPatches(originalTodoState, actionFn.mock.calls[0][0]._patches)
+    ).toEqual(store.getState());
+    expect(
+      applyPatches(originalTodoState, actionFn.mock.calls[0][0]._patches) ===
+        store.getState()
+    ).toBe(false);
+    expect(
+      applyPatches(store.getState(), actionFn.mock.calls[0][0]._inversePatches)
+    ).toEqual(originalTodoState);
   });
 });

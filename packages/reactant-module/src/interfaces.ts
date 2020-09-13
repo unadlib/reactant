@@ -7,6 +7,7 @@ import {
   Unsubscribe,
   ReducersMapObject,
 } from 'redux';
+import { Patch } from 'immer';
 import { EnhancerOptions } from 'redux-devtools-extension';
 import { ModuleOptions, ServiceIdentifier } from 'reactant-di';
 import {
@@ -15,10 +16,12 @@ import {
   stateKey,
   actionIdentifier,
   loaderKey,
+  enablePatchesKey,
 } from './constants';
 import { PluginModule } from './core';
 
 export interface DevOptions {
+  enablePatches?: boolean;
   autoFreeze?: boolean;
   reduxDevTools?: boolean;
   reduxDevToolsOptions?: ReduxDevToolsOptions;
@@ -43,6 +46,7 @@ export interface Service<T extends Record<string, any> = Record<string, any>>
   readonly [stateKey]?: T;
   readonly [storeKey]?: Store;
   readonly [loaderKey]?: Loader;
+  readonly [enablePatchesKey]?: boolean;
   readonly [subscriptionsKey]?: Subscriptions;
 }
 
@@ -61,6 +65,8 @@ export interface ReactantAction<T = any> extends Action<string | symbol> {
   state: Record<string, T>;
   lastState: Record<string, T>;
   _reactant: typeof actionIdentifier;
+  _patches?: Patch[];
+  _inversePatches?: Patch[];
 }
 
 export type StateMapObject<T extends Record<string, Function>> = {

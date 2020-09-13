@@ -48,7 +48,7 @@ class ReactantRouter extends PluginModule {
     });
   }
 
-  ConnectedRouter: FunctionComponent = props => (
+  ConnectedRouter: FunctionComponent = (props) => (
     <ConnectedRouter history={this.history}>{props.children}</ConnectedRouter>
   );
 

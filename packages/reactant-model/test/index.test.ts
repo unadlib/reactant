@@ -4,7 +4,11 @@ import {
   inject,
   createContainer,
   createStore,
+  ReactantMiddleware,
+  PluginModule,
+  stateKey,
 } from 'reactant-module';
+import { applyPatches } from 'immer';
 import { model } from '..';
 
 test('base model with `useValue`', () => {
@@ -139,4 +143,104 @@ test('base model with `useFactory`', () => {
   expect(store.getState()).toEqual({
     todos: { todoList: ['bar', 'test'] },
   });
+});
+
+test('base model with `useValue` and `enablePatches`', () => {
+  const todoList: string[] = [];
+
+  const todoModel = model({
+    state: {
+      todoList,
+    },
+    actions: {
+      add: (todo: string) => (state) => {
+        state.todoList.push(todo);
+      },
+    },
+  });
+
+  @injectable()
+  class Foo {
+    constructor(@inject('todo') public todo: typeof todoModel) {}
+
+    add(todo: string) {
+      this.todo.add(todo);
+    }
+
+    get todoList() {
+      return this.todo.todoList;
+    }
+  }
+
+  const actionFn = jest.fn();
+
+  class Logger extends PluginModule {
+    middleware: ReactantMiddleware = (store) => (next) => (_action) => {
+      actionFn(_action);
+      return next(_action);
+    };
+  }
+
+  const ServiceIdentifiers = new Map();
+  const modules = [Foo, { provide: 'todo', useValue: todoModel }, Logger];
+  const container = createContainer({
+    ServiceIdentifiers,
+    modules,
+    options: {
+      defaultScope: 'Singleton',
+    },
+  });
+  const foo = container.get(Foo);
+  const store = createStore(
+    modules,
+    container,
+    ServiceIdentifiers,
+    new Set(),
+    (...args: any[]) => {
+      //
+    },
+    {
+      middleware: [],
+      beforeCombineRootReducers: [],
+      afterCombineRootReducers: [],
+      enhancer: [],
+      preloadedStateHandler: [],
+      afterCreateStore: [],
+      provider: [],
+    },
+    undefined,
+    {
+      enablePatches: true,
+    }
+  );
+  const originalTodoState = foo.todo[stateKey]!;
+  expect(Object.values(store.getState())).toEqual([{ todoList: [] }]);
+  expect(actionFn.mock.calls.length).toBe(0);
+  foo.add('test');
+  expect(Object.values(store.getState())).toEqual([{ todoList: ['test'] }]);
+  expect(actionFn.mock.calls.length).toBe(1);
+  expect(actionFn.mock.calls[0][0]._patches).toEqual([
+    {
+      op: 'add',
+      path: ['todoList', 0],
+      value: 'test',
+    },
+  ]);
+  expect(actionFn.mock.calls[0][0]._inversePatches).toEqual([
+    {
+      op: 'replace',
+      path: ['todoList', 'length'],
+      value: 0,
+    },
+  ]);
+  expect(
+    applyPatches(originalTodoState, actionFn.mock.calls[0][0]._patches)
+  ).toEqual(foo.todo[stateKey]);
+  expect(
+    applyPatches(originalTodoState, actionFn.mock.calls[0][0]._patches) ===
+      foo.todo[stateKey]
+  ).toBe(false);
+  expect(
+    applyPatches(foo.todo[stateKey]!, actionFn.mock.calls[0][0]._inversePatches)
+  ).toEqual(originalTodoState);
 });

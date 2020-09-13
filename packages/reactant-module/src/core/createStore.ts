@@ -1,7 +1,11 @@
 /* eslint-disable guard-for-in */
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable no-loop-func */
-import { setAutoFreeze, produce } from 'immer';
+import {
+  setAutoFreeze,
+  produce,
+  enablePatches as enablePatchesWithImmer,
+} from 'immer';
 import {
   combineReducers,
   ReducersMapObject,
@@ -25,6 +29,7 @@ import {
   stateKey,
   actionIdentifier,
   loaderKey,
+  enablePatchesKey,
 } from '../constants';
 import { getStageName, perform, getComposeEnhancers } from '../utils';
 import { handlePlugin } from './handlePlugin';
@@ -44,16 +49,21 @@ export function createStore<T = any>(
   originalStore?: ReactantStore,
   beforeReplaceReducer?: () => void
 ): ReactantStore {
-  const enableAutoFreeze =
-    devOptions.autoFreeze ?? __DEV__;
-  const enableReduxDevTools =
-    devOptions.reduxDevTools ?? __DEV__;
-  setAutoFreeze(enableAutoFreeze);
-
   let isExistReducer = false;
   let store: ReactantStore | undefined = originalStore;
   let reducers: ReducersMapObject = {};
   const subscriptions: Subscriptions = [];
+
+  const enableAutoFreeze = devOptions.autoFreeze ?? __DEV__;
+  const enableReduxDevTools = devOptions.reduxDevTools ?? __DEV__;
+  const enablePatches = devOptions.enablePatches ?? false;
+  if (typeof store === 'undefined') {
+    setAutoFreeze(enableAutoFreeze);
+    if (enablePatches) {
+      enablePatchesWithImmer();
+    }
+  }
+
   // add Non-dependent `modules` to ServiceIdentifiers config.
   for (const module of modules) {
     const moduleIdentifier =
@@ -210,6 +220,12 @@ export function createStore<T = any>(
             value(...args: Parameters<Loader>) {
               load(...args);
             },
+          },
+          // enablePatches options for immer
+          [enablePatchesKey]: {
+            enumerable: false,
+            configurable: false,
+            value: enablePatches,
           },
         });
       });
