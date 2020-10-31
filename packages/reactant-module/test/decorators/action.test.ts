@@ -51,7 +51,7 @@ describe('@action', () => {
     );
     counter.increase();
     expect(counter.count).toBe(1);
-    expect(counter[enablePatchesKey]).toBe(false);
+    expect((counter as any)[enablePatchesKey]).toBe(false);
     expect(Object.values(store.getState())).toEqual([{ count: 1 }]);
   });
 

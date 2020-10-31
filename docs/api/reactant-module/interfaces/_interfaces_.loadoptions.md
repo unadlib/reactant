@@ -25,7 +25,7 @@ sidebar_label: "LoadOptions"
 
 • **main**: *ServiceIdentifier‹T›*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:113](https://github.com/unadlib/reactant/blob/40f38c4/packages/reactant-module/src/interfaces.ts#L113)*
+*Defined in [packages/reactant-module/src/interfaces.ts:112](https://github.com/unadlib/reactant/blob/8437ba9b/packages/reactant-module/src/interfaces.ts#L112)*
 
 ___
 
@@ -33,4 +33,4 @@ ___
 
 • **modules**? : *[ReactModuleOptions](../modules/_interfaces_.md#reactmoduleoptions)[]*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:112](https://github.com/unadlib/reactant/blob/40f38c4/packages/reactant-module/src/interfaces.ts#L112)*
+*Defined in [packages/reactant-module/src/interfaces.ts:111](https://github.com/unadlib/reactant/blob/8437ba9b/packages/reactant-module/src/interfaces.ts#L111)*

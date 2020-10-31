@@ -92,7 +92,6 @@ const action = (
           type: this.name!,
           method: key,
           state,
-          lastState,
           _reactant: actionIdentifier,
           ...(this[enablePatchesKey]
             ? {

@@ -62,7 +62,6 @@ export const dispatch = (
           ...action.state,
         },
       },
-      lastState,
       _reactant: actionIdentifier,
     });
   } else {

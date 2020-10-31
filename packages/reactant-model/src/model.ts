@@ -52,7 +52,6 @@ export const model = <
             ...lastState,
             [module.name!]: state,
           },
-          lastState,
           _reactant: actionIdentifier,
           ...(module[enablePatchesKey]
             ? {
