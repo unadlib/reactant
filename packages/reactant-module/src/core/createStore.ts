@@ -100,8 +100,6 @@ export function createStore<T = any>(
                 Example:
                   class FooBar {
                     name = 'FooBar'; // <- add the 'name' property.
-
-                    state = { foo: 'bar' };
                   }
               `);
             } else {
