@@ -184,6 +184,7 @@ export function createStore<T = any>(
                   return currentState;
                 },
               },
+              // TODO: consider using `identifierKey` symbol.
               name: {
                 enumerable: false,
                 configurable: false,

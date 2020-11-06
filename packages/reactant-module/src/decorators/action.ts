@@ -77,8 +77,8 @@ const action = (
         }
         stagedState = undefined;
         if (__DEV__) {
-          if (this[stateKey] === state) {
-            console.warn(`There are no state updates to method ${fn.name}`);
+          if (lastState === state) {
+            console.warn(`There are no state updates to method '${fn.name}'`);
           }
           // performance checking
           const executionTime = Date.now() - time!;
