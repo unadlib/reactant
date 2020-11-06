@@ -52,6 +52,7 @@ export function createStore<T = any>(
   let isExistReducer = false;
   let store: ReactantStore | undefined = originalStore;
   let reducers: ReducersMapObject = {};
+  const identifiers = new Set<string>();
   const subscriptions: Subscriptions = [];
 
   const enableAutoFreeze = devOptions.autoFreeze ?? __DEV__;
@@ -82,42 +83,44 @@ export function createStore<T = any>(
         handlePlugin(service, pluginHooks);
         const isPlainObject =
           toString.call(service[stateKey]) === '[object Object]';
-        if (isPlainObject) {
-          // eslint-disable-next-line @typescript-eslint/ban-types
-          const className = (Service as Function).name;
-          let reducersIdentifier: string = service.name;
-          // string identifier is defined primarily.
-          if (typeof Service === 'string') {
-            reducersIdentifier = Service;
-          }
-          // `service.name` is to be defined and define stage name, but persist or merge state should be defined.
-          // this solution replaces the `combineReducers` need `Object.keys` get keys without `symbol` keys.
-          reducersIdentifier ??= getStageName(className);
-          if (typeof reducersIdentifier !== 'string') {
-            if (__DEV__) {
-              console.error(`
+
+        // eslint-disable-next-line @typescript-eslint/ban-types
+        const className = (Service as Function).name;
+        let identifier: string = service.name;
+        // string identifier is defined primarily.
+        if (typeof Service === 'string') {
+          identifier = Service;
+        }
+        // `service.name` is to be defined and define stage name, but persist or merge state should be defined.
+        // this solution replaces the `combineReducers` need `Object.keys` get keys without `symbol` keys.
+        identifier ??= getStageName(className);
+        if (typeof identifier !== 'string') {
+          if (__DEV__) {
+            console.error(`
                 Since '${className}' module has set the module state, '${className}' module must set a unique and valid class property 'name' to be used as the module index.
                 Example:
                   class FooBar {
                     name = 'FooBar'; // <- add the 'name' property.
                   }
               `);
-            } else {
-              throw new Error(
-                `'${className}' module 'name' property should be defined as a valid 'string'.`
-              );
-            }
+          } else {
+            throw new Error(
+              `'${className}' module 'name' property should be defined as a valid 'string'.`
+            );
           }
-          if (typeof reducers[reducersIdentifier] === 'function') {
-            if (services.length === 1) {
-              throw new Error(
-                `'${className}' module name '${reducersIdentifier}' property and other module conflicts.`
-              );
-            } else {
-              // injection about multi-instances
-              reducersIdentifier += `${index}`;
-            }
+        }
+        if (identifiers.has(identifier)) {
+          if (services.length === 1) {
+            throw new Error(
+              `'${className}' module name '${identifier}' property and other module conflicts.`
+            );
+          } else {
+            // injection about multi-instances
+            identifier += `${index}`;
           }
+        }
+        identifiers.add(identifier);
+        if (isPlainObject) {
           const isEmptyObject = Object.keys(service[stateKey]).length === 0;
           if (!isEmptyObject) {
             const descriptors: Record<string, PropertyDescriptor> = {};
@@ -153,7 +156,7 @@ export function createStore<T = any>(
                 }
                 const reducer = (state = value, action: ReactantAction) => {
                   return action._reactant === actionIdentifier
-                    ? action.state[reducersIdentifier][key]
+                    ? action.state[identifier][key]
                     : state;
                 };
                 return Object.assign(serviceReducersMapObject, {
@@ -165,7 +168,7 @@ export function createStore<T = any>(
             isExistReducer = true;
             const reducer = combineReducers(serviceReducers);
             Object.assign(reducers, {
-              [reducersIdentifier]: reducer,
+              [identifier]: reducer,
             });
             Object.defineProperties(service, descriptors);
             // redefine get service state from store state.
@@ -175,21 +178,14 @@ export function createStore<T = any>(
                 configurable: false,
                 get() {
                   const stagedState = getStagedState();
-                  if (stagedState) return stagedState[reducersIdentifier];
+                  if (stagedState) return stagedState[identifier];
 
-                  const currentState = store!.getState()[reducersIdentifier];
+                  const currentState = store!.getState()[identifier];
                   if (enableAutoFreeze && !Object.isFrozen(currentState)) {
                     return Object.freeze(currentState);
                   }
                   return currentState;
                 },
-              },
-              // TODO: consider using `identifierKey` symbol.
-              name: {
-                enumerable: false,
-                configurable: false,
-                writable: false,
-                value: reducersIdentifier,
               },
             });
           } else {
@@ -202,6 +198,13 @@ export function createStore<T = any>(
           subscriptions.push(...service[subscriptionsKey]);
         }
         Object.defineProperties(service, {
+          // TODO: consider using `identifierKey` symbol.
+          name: {
+            enumerable: false,
+            configurable: false,
+            writable: false,
+            value: identifier,
+          },
           // in order to support multiple instances for stores.
           [storeKey]: {
             enumerable: false,
