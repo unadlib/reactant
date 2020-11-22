@@ -6,7 +6,7 @@ sidebar_label: "createApp()"
 
 ▸ **createApp**<**T**>(`__namedParameters`: object): *[App](../interfaces/_interfaces_.app.md)‹T›*
 
-*Defined in [createApp.tsx:38](https://github.com/unadlib/reactant/blob/8437ba9b/packages/reactant/src/createApp.tsx#L38)*
+*Defined in [createApp.tsx:40](https://github.com/unadlib/reactant/blob/026b5f7/packages/reactant/src/createApp.tsx#L40)*
 
 ## Description
 
@@ -17,6 +17,8 @@ and `bootstrap()` method(You can run `bootstrap` to start the app inject into th
 ## Example
 
 ```ts
+import { createApp, injectable } from 'reactant';
+
 @injectable()
 class Foo {}
 

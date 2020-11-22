@@ -6,7 +6,7 @@ import { Service } from '../interfaces';
  * ## Description
  *
  * You can use `@computed` to decorate a getter function for derived data,
- * which quickly solves performance problems for computing Derived Data.
+ * which quickly solves performance problems for computing derived data.
  *
  * ## Example
  *

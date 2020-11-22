@@ -23,6 +23,8 @@ import { Config, App } from './interfaces';
  * ## Example
  *
  * ```ts
+ * import { createApp, injectable } from 'reactant';
+ *
  * @injectable()
  * class Foo {}
  *

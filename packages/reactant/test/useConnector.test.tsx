@@ -75,7 +75,7 @@ describe('useConnector', () => {
       app.instance.setValue(list[i]);
       expect(subscribeFn.mock.calls.length).toBe(i + 1);
       expect(renderFn.mock.calls).toEqual(
-        expectedRenderCallList.map(item => [item])
+        expectedRenderCallList.map((item) => [item])
       );
     }
   });
@@ -116,7 +116,9 @@ describe('useConnector', () => {
       app.instance.setValue(list[i]);
       expect(subscribeFn.mock.calls.length).toBe(i + 1);
       expect(renderFn.mock.calls).toEqual(
-        [null, ...list].map(item => [item]).filter((_, index) => index < i + 2)
+        [null, ...list]
+          .map((item) => [item])
+          .filter((_, index) => index < i + 2)
       );
     }
   });

@@ -16,12 +16,12 @@ sidebar_label: "@computed()"
 
 ▸ **computed**(`depsCallback`: function): *(Anonymous function)*
 
-*Defined in [packages/reactant-module/src/decorators/computed.ts:28](https://github.com/unadlib/reactant/blob/8437ba9b/packages/reactant-module/src/decorators/computed.ts#L28)*
+*Defined in [packages/reactant-module/src/decorators/computed.ts:28](https://github.com/unadlib/reactant/blob/026b5f7/packages/reactant-module/src/decorators/computed.ts#L28)*
 
 ## Description
 
 You can use `@computed` to decorate a getter function for derived data,
-which quickly solves performance problems for computing Derived Data.
+which quickly solves performance problems for computing derived data.
 
 ## Example
 
