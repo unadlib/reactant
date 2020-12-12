@@ -155,7 +155,8 @@ export function createStore<T = any>(
                   });
                 }
                 const reducer = (state = value, action: ReactantAction) => {
-                  return action._reactant === actionIdentifier
+                  return action._reactant === actionIdentifier &&
+                    action.state[identifier]
                     ? action.state[identifier][key]
                     : state;
                 };
