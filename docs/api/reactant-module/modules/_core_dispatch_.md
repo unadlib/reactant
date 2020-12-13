@@ -16,7 +16,7 @@ sidebar_label: "dispatch()"
 
 ▸ **dispatch**(`target`: [ThisService](_interfaces_.md#thisservice), `action`: Partial‹[ReactantAction](../interfaces/_interfaces_.reactantaction.md)›): *void*
 
-*Defined in [packages/reactant-module/src/core/dispatch.ts:45](https://github.com/unadlib/reactant/blob/026b5f7/packages/reactant-module/src/core/dispatch.ts#L45)*
+*Defined in [packages/reactant-module/src/core/dispatch.ts:45](https://github.com/unadlib/reactant/blob/2a75524/packages/reactant-module/src/core/dispatch.ts#L45)*
 
 ## Description
 

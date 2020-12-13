@@ -4,6 +4,10 @@ title: "FactoryProvider"
 sidebar_label: "FactoryProvider"
 ---
 
+## Type parameters
+
+▪ **T**
+
 ## Hierarchy
 
 * **FactoryProvider**
@@ -22,7 +26,7 @@ sidebar_label: "FactoryProvider"
 
 • **deps**? : *[DependencyOption](../modules/_interfaces_.md#dependencyoption)[]*
 
-*Defined in [packages/reactant-di/src/interfaces.ts:56](https://github.com/unadlib/reactant/blob/026b5f7/packages/reactant-di/src/interfaces.ts#L56)*
+*Defined in [packages/reactant-di/src/interfaces.ts:56](https://github.com/unadlib/reactant/blob/2a75524/packages/reactant-di/src/interfaces.ts#L56)*
 
 ___
 
@@ -30,7 +34,7 @@ ___
 
 • **provide**: *[ServiceIdentifier](../modules/_interfaces_.md#serviceidentifier)‹any›*
 
-*Defined in [packages/reactant-di/src/interfaces.ts:57](https://github.com/unadlib/reactant/blob/026b5f7/packages/reactant-di/src/interfaces.ts#L57)*
+*Defined in [packages/reactant-di/src/interfaces.ts:57](https://github.com/unadlib/reactant/blob/2a75524/packages/reactant-di/src/interfaces.ts#L57)*
 
 ___
 
@@ -38,11 +42,11 @@ ___
 
 • **useFactory**: *function*
 
-*Defined in [packages/reactant-di/src/interfaces.ts:58](https://github.com/unadlib/reactant/blob/026b5f7/packages/reactant-di/src/interfaces.ts#L58)*
+*Defined in [packages/reactant-di/src/interfaces.ts:58](https://github.com/unadlib/reactant/blob/2a75524/packages/reactant-di/src/interfaces.ts#L58)*
 
 #### Type declaration:
 
-▸ (...`args`: any[]): *any*
+▸ (...`args`: any[]): *T*
 
 **Parameters:**
 

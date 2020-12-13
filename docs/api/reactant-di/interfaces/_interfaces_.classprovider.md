@@ -4,6 +4,10 @@ title: "ClassProvider"
 sidebar_label: "ClassProvider"
 ---
 
+## Type parameters
+
+▪ **T**
+
 ## Hierarchy
 
 * **ClassProvider**
@@ -22,7 +26,7 @@ sidebar_label: "ClassProvider"
 
 • **deps**? : *string | symbol | Newable‹any› | Abstract‹any› | [Optional](../classes/_optional_.optional.md)‹›[]*
 
-*Defined in [packages/reactant-di/src/interfaces.ts:47](https://github.com/unadlib/reactant/blob/026b5f7/packages/reactant-di/src/interfaces.ts#L47)*
+*Defined in [packages/reactant-di/src/interfaces.ts:47](https://github.com/unadlib/reactant/blob/2a75524/packages/reactant-di/src/interfaces.ts#L47)*
 
 ___
 
@@ -30,12 +34,12 @@ ___
 
 • **provide**: *[ServiceIdentifier](../modules/_interfaces_.md#serviceidentifier)‹any›*
 
-*Defined in [packages/reactant-di/src/interfaces.ts:45](https://github.com/unadlib/reactant/blob/026b5f7/packages/reactant-di/src/interfaces.ts#L45)*
+*Defined in [packages/reactant-di/src/interfaces.ts:45](https://github.com/unadlib/reactant/blob/2a75524/packages/reactant-di/src/interfaces.ts#L45)*
 
 ___
 
 ###  useClass
 
-• **useClass**: *[Module](_interfaces_.module.md)‹any›*
+• **useClass**: *[Module](_interfaces_.module.md)‹T›*
 
-*Defined in [packages/reactant-di/src/interfaces.ts:46](https://github.com/unadlib/reactant/blob/026b5f7/packages/reactant-di/src/interfaces.ts#L46)*
+*Defined in [packages/reactant-di/src/interfaces.ts:46](https://github.com/unadlib/reactant/blob/2a75524/packages/reactant-di/src/interfaces.ts#L46)*

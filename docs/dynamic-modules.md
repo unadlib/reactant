@@ -17,23 +17,33 @@ If you are using Typescript, also make sure:
 
 ## Usage
 
-1. Define a module file for dynamic imports `count.ts`:
+1. Define a module file for dynamic imports `Counter.service.ts`:
 
 ```ts
 @injectable()
-class Counter {
+class CounterService {
   @state
   count = 0;
+
+  @action
+  increase() {
+    this.count += 1;
+  }
+
+  @action
+  decrease() {
+    this.count -= 1;
+  }
 }
 
-export { Counter };
+export { CounterService };
 ```
 
 2. We can use utility type `ImportClass`  for definition as an interface type, and then using the standard dynamic import of API `import()`, and the [`load()`](api/reactant-module/modules/_core_load_.md) provided by Reactant, this will allow us to fully implement the Reactant dynamic module imports.
 
 ```tsx
 @injectable()
-class Todo {
+class TodoService {
   @state
   list: string[] = [];
 
@@ -46,26 +56,62 @@ class Todo {
 @injectable()
 class AppView extends ViewModule {
   constructor(
-    public todo: Todo, 
-    @optional() public counter?: ImportClass<typeof import('./counter'), 'Counter'>
-  ) {}
-
-  loadCounter = () => {
-    const { Counter } = await import(/* webpackChunkName: "count" */ './count');
-    load(this, { main: Counter }, module => {
-      this.counter = module;
-    });
+    public todo: TodoService,
+    @optional("counter")
+    public counter?: ImportClass<
+      typeof import("./Counter.service"),
+      "CounterService"
+    >
+  ) {
+    super();
   }
 
+  loadCounter = async () => {
+    const { CounterService } = await import(
+      /* webpackChunkName: "Counter.service" */ "./Counter.service"
+    );
+    load(
+      this,
+      { main: { provide: "counter", useClass: CounterService } },
+      (module) => {
+        this.counter = module;
+      }
+    );
+  };
+
   component() {
-    const { list, count } = useConnector(() => ({ list: this.todo.list, count: this.counter?.count }))
-    return <>
-      <ul>
-        {this.todo.list.map((text, key) => <li key={key}>{text}</li>)}
-      </ul>
-      <button type="button" onClick={() => this.loadCounter()}>load</button>
-      {count ?? 'none'}
-    </>;
+    const { list, count } = useConnector(() => ({
+      list: this.todo.list,
+      count: this.counter?.count,
+    }));
+    const [value, setValue] = useState("");
+    return (
+      <>
+        <input onChange={(e) => setValue(e.target.value)} value={value} />
+        <button
+          type={"button"}
+          onClick={() => {
+            this.todo.add(value);
+            setValue("");
+          }}
+        >
+          Add Todo
+        </button>
+        <ul>
+          {list.map((text, key) => (
+            <li key={key}>{text}</li>
+          ))}
+        </ul>
+        <button type="button" onClick={() => this.loadCounter()}>
+          load counter
+        </button>
+        {this.counter ? (
+          <button onClick={() => this.counter?.increase()}>{count}</button>
+        ) : (
+          "none"
+        )}
+      </>
+    );
   }
 }
 
@@ -77,5 +123,7 @@ const app = createApp({
 
 app.bootstrap(document.getElementById('app'));
 ```
+
+[Visit here to see the example source code.]((https://github.com/unadlib/reactant-examples/tree/master/web/dynamic-module))
 
 In brief, we can split the code and build a minimally modular App that dynamically loads modules via the [`load()`](api/reactant-module/modules/_core_load_.md) API so we can run the app more efficiently and lightly. It usually works with `Suspense` as well. You visit [here](https://reactjs.org/docs/code-splitting.html) for more information on the component code-splitting.

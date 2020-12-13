@@ -36,7 +36,7 @@ sidebar_label: "Service"
 
 • **[enablePatchesKey]**? : *undefined | false | true*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:49](https://github.com/unadlib/reactant/blob/026b5f7/packages/reactant-module/src/interfaces.ts#L49)*
+*Defined in [packages/reactant-module/src/interfaces.ts:49](https://github.com/unadlib/reactant/blob/2a75524/packages/reactant-module/src/interfaces.ts#L49)*
 
 ___
 
@@ -44,7 +44,7 @@ ___
 
 • **[loaderKey]**? : *[Loader](../modules/_interfaces_.md#loader)*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:48](https://github.com/unadlib/reactant/blob/026b5f7/packages/reactant-module/src/interfaces.ts#L48)*
+*Defined in [packages/reactant-module/src/interfaces.ts:48](https://github.com/unadlib/reactant/blob/2a75524/packages/reactant-module/src/interfaces.ts#L48)*
 
 ___
 
@@ -52,7 +52,7 @@ ___
 
 • **[stateKey]**? : *T*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:46](https://github.com/unadlib/reactant/blob/026b5f7/packages/reactant-module/src/interfaces.ts#L46)*
+*Defined in [packages/reactant-module/src/interfaces.ts:46](https://github.com/unadlib/reactant/blob/2a75524/packages/reactant-module/src/interfaces.ts#L46)*
 
 ___
 
@@ -60,7 +60,7 @@ ___
 
 • **[storeKey]**? : *Store*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:47](https://github.com/unadlib/reactant/blob/026b5f7/packages/reactant-module/src/interfaces.ts#L47)*
+*Defined in [packages/reactant-module/src/interfaces.ts:47](https://github.com/unadlib/reactant/blob/2a75524/packages/reactant-module/src/interfaces.ts#L47)*
 
 ___
 
@@ -68,7 +68,7 @@ ___
 
 • **[subscriptionsKey]**? : *[Subscriptions](../modules/_interfaces_.md#subscriptions)*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:50](https://github.com/unadlib/reactant/blob/026b5f7/packages/reactant-module/src/interfaces.ts#L50)*
+*Defined in [packages/reactant-module/src/interfaces.ts:50](https://github.com/unadlib/reactant/blob/2a75524/packages/reactant-module/src/interfaces.ts#L50)*
 
 ___
 
@@ -78,4 +78,4 @@ ___
 
 *Inherited from [State](_interfaces_.state.md).[name](_interfaces_.state.md#optional-name)*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:39](https://github.com/unadlib/reactant/blob/026b5f7/packages/reactant-module/src/interfaces.ts#L39)*
+*Defined in [packages/reactant-module/src/interfaces.ts:39](https://github.com/unadlib/reactant/blob/2a75524/packages/reactant-module/src/interfaces.ts#L39)*
