@@ -36,34 +36,34 @@ export type DependencyOption =
   | DependencyProviderOption
   | ServiceIdentifier<any>;
 
-export interface ValueProvider {
+export interface ValueProvider<T = any> {
   provide: ServiceIdentifier<any>;
-  useValue: any;
+  useValue: T;
 }
 
-export interface ClassProvider {
+export interface ClassProvider<T = any> {
   provide: ServiceIdentifier<any>;
-  useClass: Module<any>;
+  useClass: Module<T>;
   deps?: (ServiceIdentifier<any> | Optional)[];
 }
 
-export interface ModuleProvider {
-  provide: Module<any>;
+export interface ModuleProvider<T = any> {
+  provide: Module<T>;
   deps?: (ServiceIdentifier<any> | Optional)[];
 }
 
-export interface FactoryProvider {
+export interface FactoryProvider<T = any> {
   deps?: DependencyOption[];
   provide: ServiceIdentifier<any>;
-  useFactory: (...args: any[]) => any;
+  useFactory: (...args: any[]) => T;
 }
 
-export type ModuleOptions =
-  | ValueProvider
-  | FactoryProvider
-  | ClassProvider
-  | ModuleProvider
-  | Module<any>;
+export type ModuleOptions<T = any> =
+  | ValueProvider<T>
+  | FactoryProvider<T>
+  | ClassProvider<T>
+  | ModuleProvider<T>
+  | Module<T>;
 
 export interface ContainerConfig {
   ServiceIdentifiers: ServiceIdentifiersMap;

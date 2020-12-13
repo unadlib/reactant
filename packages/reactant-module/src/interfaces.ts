@@ -52,7 +52,7 @@ export interface Service<T extends Record<string, any> = Record<string, any>>
 
 export type ThisService = Service & { [P: string]: any };
 
-export type ReactModuleOptions = ModuleOptions;
+export type ReactModuleOptions<T = any> = ModuleOptions<T>;
 
 export type ReactantStore = Store<any, AnyAction> & {
   reducers?: ReducersMapObject;
@@ -109,18 +109,18 @@ export type Watch = <T>(
 
 export interface LoadOptions<T> {
   modules?: ReactModuleOptions[];
-  main: ServiceIdentifier<T>;
+  main: ReactModuleOptions<T>;
 }
 
 export type Loader = <P>(
   loadOptions: LoadOptions<P>,
-  beforeReplaceReducer: (instance: P) => void
+  beforeReplaceReducer?: (instance: P) => void
 ) => void;
 
 export type Load = <P>(
   service: ThisService,
   loadOptions: LoadOptions<P>,
-  beforeReplaceReducer: (instance: P) => void
+  beforeReplaceReducer?: (instance: P) => void
 ) => void;
 
 export type StateService<T> = Service<T>;

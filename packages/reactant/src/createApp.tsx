@@ -100,11 +100,6 @@ function createApp<T>({
   const withoutReducers = store.getState() === null;
   loader = (loadOptions, beforeReplaceReducer) => {
     // TODO:  check `loadOptions.modules` does not allow loading of type `PluginModule` modules.
-    if (typeof loadOptions.main !== 'function') {
-      throw new Error(
-        `The property 'main' of the argument of function 'load' should be a function.`
-      );
-    }
     const loadModules = [loadOptions.main, ...(loadOptions.modules || [])];
     bindModules(container, loadModules);
     createStore(
@@ -118,7 +113,11 @@ function createApp<T>({
       devOptions,
       store,
       () => {
-        beforeReplaceReducer(container.get(loadOptions.main));
+        const identifier =
+          typeof loadOptions.main === 'object'
+            ? loadOptions.main.provide
+            : loadOptions.main;
+        beforeReplaceReducer?.(container.get(identifier));
       }
     );
   };
