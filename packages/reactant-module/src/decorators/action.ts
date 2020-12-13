@@ -52,6 +52,13 @@ const action = (
     );
   }
   const value = function (this: Service, ...args: unknown[]) {
+    if (typeof this[storeKey] === 'undefined') {
+      throw new Error(
+        `'this' in method '${key.toString()}' of class '${
+          target.constructor.name
+        }' decorated by '@action' must be bound to the current class instance.`
+      );
+    }
     let time: number;
     if (__DEV__) {
       time = Date.now();
