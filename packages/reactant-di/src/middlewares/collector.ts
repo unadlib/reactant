@@ -5,16 +5,18 @@ function lookupServiceIdentifiers(
   request: interfaces.Request,
   ServiceIdentifiers: ServiceIdentifiersMap
 ) {
+  // It is used to perform the required dependency collection when dynamically importing modules.
   if (!ServiceIdentifiers.has(request.serviceIdentifier)) {
-    const depServiceIdentifier = request.childRequests.map(
-      childRequest => childRequest.serviceIdentifier
-    );
-    ServiceIdentifiers.set(request.serviceIdentifier, depServiceIdentifier);
-    if (request.childRequests.length === 0) return;
-    request.childRequests.forEach(childRequest => {
-      lookupServiceIdentifiers(childRequest, ServiceIdentifiers);
-    });
+    ServiceIdentifiers.set(request.serviceIdentifier, []);
   }
+  const depServiceIdentifier = request.childRequests.map(
+    (childRequest) => childRequest.serviceIdentifier
+  );
+  ServiceIdentifiers.set(request.serviceIdentifier, depServiceIdentifier);
+  if (request.childRequests.length === 0) return;
+  request.childRequests.forEach((childRequest) => {
+    lookupServiceIdentifiers(childRequest, ServiceIdentifiers);
+  });
 }
 
 export function createCollector(ServiceIdentifiers: ServiceIdentifiersMap) {
