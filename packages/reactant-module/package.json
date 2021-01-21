@@ -21,7 +21,7 @@
   "author": "unadlib",
   "license": "MIT",
   "dependencies": {
-    "immer": "^7.0.8",
+    "immer": "^8.0.1",
     "reactant-di": "^0.5.1",
     "redux": "^4.0.5"
   },
