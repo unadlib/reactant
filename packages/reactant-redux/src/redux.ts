@@ -1,9 +1,9 @@
 import { storeKey, Service, stateKey } from 'reactant-module';
 import { Dispatch } from 'redux';
 
-type SerivceName = Pick<Service, 'name'>;
+type ServiceName = Pick<Service, 'name'>;
 
-interface Scheme<S, A> extends SerivceName {
+interface Scheme<S, A> extends ServiceName {
   reducers: S;
   actions: A;
 }
@@ -23,7 +23,7 @@ export const redux = <
   scheme: Scheme<S, A>
 ): Actions<A> & Service<State<S>> & State<S> => {
   let module: Service<State<S>>;
-  Object.keys(scheme.actions).forEach(key => {
+  Object.keys(scheme.actions).forEach((key) => {
     const fn = scheme.actions[key];
     Object.assign(scheme.actions, {
       [key]: (...args: any[]) => {
