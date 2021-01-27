@@ -31,6 +31,7 @@ sidebar_label: "index"
 * [createContainer](_index_.md#createcontainer)
 * [defaultUndefinedValue](_index_.md#defaultundefinedvalue)
 * [forwardRef](_index_.md#forwardref)
+* [getLazyDecorator](_index_.md#getlazydecorator)
 * [getMetadata](_index_.md#getmetadata)
 * [getModulesDeps](_index_.md#getmodulesdeps)
 * [inject](_index_.md#inject)
@@ -180,6 +181,12 @@ ___
 ###  forwardRef
 
 • **forwardRef**:
+
+___
+
+###  getLazyDecorator
+
+• **getLazyDecorator**:
 
 ___
 

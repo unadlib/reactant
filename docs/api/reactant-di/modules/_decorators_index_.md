@@ -8,6 +8,7 @@ sidebar_label: "decorators/index"
 
 ### References
 
+* [getLazyDecorator](_decorators_index_.md#getlazydecorator)
 * [inject](_decorators_index_.md#inject)
 * [injectable](_decorators_index_.md#injectable)
 * [multiInject](_decorators_index_.md#multiinject)
@@ -15,6 +16,12 @@ sidebar_label: "decorators/index"
 * [optional](_decorators_index_.md#optional)
 
 ## References
+
+###  getLazyDecorator
+
+• **getLazyDecorator**:
+
+___
 
 ###  inject
 

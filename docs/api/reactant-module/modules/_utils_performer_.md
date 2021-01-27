@@ -16,7 +16,7 @@ sidebar_label: "utils/performer"
 
 ▸ **perform**(`funs`: Function[], `parameter?`: any): *any*
 
-*Defined in [packages/reactant-module/src/utils/performer.ts:1](https://github.com/unadlib/reactant/blob/2a75524/packages/reactant-module/src/utils/performer.ts#L1)*
+*Defined in [packages/reactant-module/src/utils/performer.ts:1](https://github.com/unadlib/reactant/blob/fbc06fd/packages/reactant-module/src/utils/performer.ts#L1)*
 
 **Parameters:**
 

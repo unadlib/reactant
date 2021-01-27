@@ -17,18 +17,21 @@ sidebar_label: "constants"
 • **METADATA_KEY**: *object* = {
   optional: 'reactant:optional',
   provide: 'reactant:provide',
+  lazy: 'reactant:lazy',
   paramtypes: 'design:paramtypes',
   inversifyParamtypes: 'inversify:paramtypes',
   inversifyTagged: 'inversify:tagged',
 } as const
 
-*Defined in [packages/reactant-di/src/constants.ts:1](https://github.com/unadlib/reactant/blob/2a75524/packages/reactant-di/src/constants.ts#L1)*
+*Defined in [packages/reactant-di/src/constants.ts:1](https://github.com/unadlib/reactant/blob/fbc06fd/packages/reactant-di/src/constants.ts#L1)*
 
 #### Type declaration:
 
 * **inversifyParamtypes**: *"inversify:paramtypes"* = "inversify:paramtypes"
 
 * **inversifyTagged**: *"inversify:tagged"* = "inversify:tagged"
+
+* **lazy**: *"reactant:lazy"* = "reactant:lazy"
 
 * **optional**: *"reactant:optional"* = "reactant:optional"
 

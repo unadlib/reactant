@@ -21,7 +21,7 @@ sidebar_label: "@action"
 
 • **stagedState**: *Record‹string, unknown› | undefined*
 
-*Defined in [packages/reactant-module/src/decorators/action.ts:11](https://github.com/unadlib/reactant/blob/2a75524/packages/reactant-module/src/decorators/action.ts#L11)*
+*Defined in [packages/reactant-module/src/decorators/action.ts:6](https://github.com/unadlib/reactant/blob/fbc06fd/packages/reactant-module/src/decorators/action.ts#L6)*
 
 ## Functions
 
@@ -29,7 +29,7 @@ sidebar_label: "@action"
 
 ▸ **action**(`target`: object, `key`: string, `descriptor`: TypedPropertyDescriptor‹function›): *object*
 
-*Defined in [packages/reactant-module/src/decorators/action.ts:43](https://github.com/unadlib/reactant/blob/2a75524/packages/reactant-module/src/decorators/action.ts#L43)*
+*Defined in [packages/reactant-module/src/decorators/action.ts:38](https://github.com/unadlib/reactant/blob/fbc06fd/packages/reactant-module/src/decorators/action.ts#L38)*
 
 ## Description
 
@@ -76,6 +76,6 @@ ___
 
 ▸ **getStagedState**(): *undefined | object*
 
-*Defined in [packages/reactant-module/src/decorators/action.ts:13](https://github.com/unadlib/reactant/blob/2a75524/packages/reactant-module/src/decorators/action.ts#L13)*
+*Defined in [packages/reactant-module/src/decorators/action.ts:8](https://github.com/unadlib/reactant/blob/fbc06fd/packages/reactant-module/src/decorators/action.ts#L8)*
 
 **Returns:** *undefined | object*

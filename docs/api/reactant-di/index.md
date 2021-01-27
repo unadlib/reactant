@@ -13,6 +13,7 @@ sidebar_label: "Globals"
 * ["decorators/index"](modules/_decorators_index_.md)
 * ["decorators/inject"](modules/_decorators_inject_.md)
 * ["decorators/injectable"](modules/_decorators_injectable_.md)
+* ["decorators/lazy"](modules/_decorators_lazy_.md)
 * ["decorators/multiInject"](modules/_decorators_multiinject_.md)
 * ["decorators/multiOptional"](modules/_decorators_multioptional_.md)
 * ["decorators/optional"](modules/_decorators_optional_.md)

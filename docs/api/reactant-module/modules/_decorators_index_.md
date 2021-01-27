@@ -13,6 +13,7 @@ sidebar_label: "decorators/index"
 * [computed](_decorators_index_.md#computed)
 * [defaultProps](_decorators_index_.md#defaultprops)
 * [getStagedState](_decorators_index_.md#getstagedstate)
+* [lazy](_decorators_index_.md#lazy)
 * [state](_decorators_index_.md#state)
 
 ## References
@@ -44,6 +45,12 @@ ___
 ###  getStagedState
 
 • **getStagedState**:
+
+___
+
+###  lazy
+
+• **lazy**:
 
 ___
 

@@ -77,6 +77,10 @@
         "title": "@injectable()",
         "sidebar_label": "@injectable()"
       },
+      "api/reactant-di/modules/_decorators_lazy_": {
+        "title": "decorators/lazy",
+        "sidebar_label": "decorators/lazy"
+      },
       "api/reactant-di/modules/_decorators_multiinject_": {
         "title": "@multiInject()",
         "sidebar_label": "@multiInject()"
@@ -244,6 +248,10 @@
       "api/reactant-module/modules/_decorators_index_": {
         "title": "decorators/index",
         "sidebar_label": "decorators/index"
+      },
+      "api/reactant-module/modules/_decorators_lazy_": {
+        "title": "decorators/lazy",
+        "sidebar_label": "decorators/lazy"
       },
       "api/reactant-module/modules/_decorators_state_": {
         "title": "@state",

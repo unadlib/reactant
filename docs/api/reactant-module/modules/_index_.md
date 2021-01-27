@@ -45,6 +45,7 @@ sidebar_label: "index"
 * [autobind](_index_.md#autobind)
 * [compose](_index_.md#compose)
 * [computed](_index_.md#computed)
+* [containerKey](_index_.md#containerkey)
 * [createSelectorWithArray](_index_.md#createselectorwitharray)
 * [createState](_index_.md#createstate)
 * [createStore](_index_.md#createstore)
@@ -58,6 +59,7 @@ sidebar_label: "index"
 * [handlePlugin](_index_.md#handleplugin)
 * [isEqual](_index_.md#isequal)
 * [isEqualExceptFunction](_index_.md#isequalexceptfunction)
+* [lazy](_index_.md#lazy)
 * [load](_index_.md#load)
 * [loaderKey](_index_.md#loaderkey)
 * [perform](_index_.md#perform)
@@ -293,6 +295,12 @@ ___
 
 ___
 
+###  containerKey
+
+• **containerKey**:
+
+___
+
 ###  createSelectorWithArray
 
 • **createSelectorWithArray**:
@@ -368,6 +376,12 @@ ___
 ###  isEqualExceptFunction
 
 • **isEqualExceptFunction**:
+
+___
+
+###  lazy
+
+• **lazy**:
 
 ___
 

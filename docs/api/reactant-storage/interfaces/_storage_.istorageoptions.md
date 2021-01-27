@@ -23,7 +23,7 @@ sidebar_label: "IStorageOptions"
 
 • **loading**? : *ReactNode*
 
-*Defined in [packages/reactant-storage/src/storage.tsx:26](https://github.com/unadlib/reactant/blob/2a75524/packages/reactant-storage/src/storage.tsx#L26)*
+*Defined in [packages/reactant-storage/src/storage.tsx:26](https://github.com/unadlib/reactant/blob/fbc06fd/packages/reactant-storage/src/storage.tsx#L26)*
 
 ___
 
@@ -31,4 +31,4 @@ ___
 
 • **storage**: *Storage*
 
-*Defined in [packages/reactant-storage/src/storage.tsx:25](https://github.com/unadlib/reactant/blob/2a75524/packages/reactant-storage/src/storage.tsx#L25)*
+*Defined in [packages/reactant-storage/src/storage.tsx:25](https://github.com/unadlib/reactant/blob/fbc06fd/packages/reactant-storage/src/storage.tsx#L25)*

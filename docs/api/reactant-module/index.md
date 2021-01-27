@@ -26,6 +26,7 @@ sidebar_label: "Globals"
 * ["decorators/computed"](modules/_decorators_computed_.md)
 * ["decorators/defaultProps"](modules/_decorators_defaultprops_.md)
 * ["decorators/index"](modules/_decorators_index_.md)
+* ["decorators/lazy"](modules/_decorators_lazy_.md)
 * ["decorators/state"](modules/_decorators_state_.md)
 * ["index"](modules/_index_.md)
 * ["interfaces"](modules/_interfaces_.md)
