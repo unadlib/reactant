@@ -1,13 +1,24 @@
-import { getLazyDecorator } from 'reactant-di';
+import { getLazyDecorator, ServiceIdentifier } from 'reactant-di';
 import { containerKey } from '../constants';
-import { Service } from '../interfaces';
+import { Service, PropertyDescriptor } from '../interfaces';
 
-export const lazy = getLazyDecorator((serviceIdentifier, target?: Service) => {
-  try {
-    const services = target![containerKey]!.getAll(serviceIdentifier);
-    return services.length === 1 ? services[0] : services;
-  } catch (e) {
-    console.warn(e);
+type Lazy = (
+  serviceIdentifier: ServiceIdentifier<unknown>,
+  enableCache?: boolean
+) => (
+  target: object,
+  key: string | symbol,
+  descriptor?: PropertyDescriptor<any>
+) => void;
+
+export const lazy: Lazy = getLazyDecorator(
+  (serviceIdentifier, target?: Service) => {
+    try {
+      const services = target![containerKey]!.getAll(serviceIdentifier);
+      return services.length === 1 ? services[0] : services;
+    } catch (e) {
+      // TODO: handle error
+    }
+    return null;
   }
-  return null;
-});
+);
