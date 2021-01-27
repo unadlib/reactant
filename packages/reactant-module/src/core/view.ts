@@ -15,7 +15,8 @@ abstract class ViewModule implements Service {
   name?: string;
 
   constructor() {
-    // TODO: think about without `super()` in subclass.
+    // It needs to ensure that the default props of the component in the current instance can be assigned values,
+    // and have the correct 'this' binding.
     if (typeof this.component !== 'function') {
       throw new Error(
         `'${
@@ -31,7 +32,9 @@ abstract class ViewModule implements Service {
     this.component = component;
   }
 
-  /** React function component defined by the current ViewModule */
+  /**
+   * React function component defined by the current ViewModule
+   */
   abstract component(props: Record<string, any>): React.ReactElement | null;
 }
 

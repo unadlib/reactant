@@ -1,12 +1,7 @@
 /* eslint-disable func-names */
 import { produce, produceWithPatches, Patch } from 'immer';
 import { ReactantAction, Service } from '../interfaces';
-import {
-  storeKey,
-  stateKey,
-  actionIdentifier,
-  enablePatchesKey,
-} from '../constants';
+import { storeKey, actionIdentifier, enablePatchesKey } from '../constants';
 
 let stagedState: Record<string, unknown> | undefined;
 

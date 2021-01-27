@@ -9,7 +9,7 @@ import {
 } from 'redux';
 import { Patch } from 'immer';
 import { EnhancerOptions } from 'redux-devtools-extension';
-import { ModuleOptions, ServiceIdentifier } from 'reactant-di';
+import { ModuleOptions } from 'reactant-di';
 import {
   storeKey,
   subscriptionsKey,

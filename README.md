@@ -28,7 +28,7 @@ And for the structured design of the application's business logic, separation of
 * Test bed for unit testing and integration testing
 * Routing module
 * Persistence module
-* Dynamic module
+* Module dynamics
 
 ## Usage
 

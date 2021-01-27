@@ -117,7 +117,7 @@ export function bindModules(container: Container, modules: ModuleOptions[]) {
           .bind(module.provide)
           .toFactory((context: interfaces.Context) => {
             const deps = module.deps || [];
-            const depInstances = deps.map(identifier => {
+            const depInstances = deps.map((identifier) => {
               // TODO: refactor with `is` assertion
               const provide =
                 (identifier as DependencyProviderOption).provide ||
