@@ -100,13 +100,16 @@ describe('@injectable', () => {
     @injectable()
     class Foo {}
 
+    @injectable()
+    class FooBar {}
+
     @injectable({
       deps: [{ provide: 'Foo', optional: true }],
     })
     class Bar {
       public foo: Foo;
 
-      constructor(foo: any) {
+      constructor(foo: any, public fooBar: FooBar) {
         this.foo = foo;
       }
     }
@@ -117,6 +120,7 @@ describe('@injectable', () => {
     }).get(Bar);
 
     expect(bar.foo instanceof Foo).toBeTruthy();
+    expect(bar.fooBar instanceof FooBar).toBeTruthy();
   });
 
   test('multi-deps', () => {

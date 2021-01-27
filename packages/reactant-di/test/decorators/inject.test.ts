@@ -155,7 +155,7 @@ describe('@inject', () => {
       constructor(public moduleRef: ModuleRef) {}
 
       get bar() {
-        // eslint-disable-next-line @typescript-eslint/no-use-before-define
+        // eslint-disable-next-line no-use-before-define
         return this.moduleRef.get(Bar);
       }
     }
