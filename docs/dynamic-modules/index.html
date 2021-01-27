@@ -89,84 +89,74 @@
 <span class="hljs-keyword">export</span> { CounterService };
 </code></pre>
 <ol start="2">
-<li>We can use utility type <code>ImportClass</code>  for definition as an interface type, and then using the standard dynamic import of API <code>import()</code>, and the <a href="/docs/api/reactant-module/modules/_core_load_"><code>load()</code></a> provided by Reactant, this will allow us to fully implement the Reactant dynamic module imports.</li>
+<li>We can use utility type <code>ImportClass</code> for definition as an interface type, and then using the standard dynamic import of API <code>import()</code> and <code>@lazy()</code>, and the <a href="/docs/api/reactant-module/modules/_core_load_"><code>load()</code></a> provided by Reactant, this will allow us to fully implement the Reactant dynamic module imports.</li>
 </ol>
 <pre><code class="hljs css language-tsx">@injectable()
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TodoService</span> {</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TodoService</span> </span>{
   @state
-  list: string[] = [];
+  <span class="hljs-attr">list</span>: string[] = [];
 
   @action
   add(text: string) {
-    <span class="hljs-keyword">this</span>.<span class="hljs-keyword">list</span>.push(text);
+    <span class="hljs-keyword">this</span>.list.push(text);
   }
 }
 
 @injectable()
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AppView</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ViewModule</span> {</span>
-  constructor(
-    public todo: TodoService,
-    @optional(<span class="hljs-string">"counter"</span>)
-    public counter?: ImportClass&lt;
-      <span class="hljs-keyword">typeof</span> <span class="hljs-keyword">import</span>(<span class="hljs-string">"./Counter.service"</span>),
-      <span class="hljs-string">"CounterService"</span>
-    &gt;
-  ) {
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AppView</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ViewModule</span> </span>{
+  <span class="hljs-keyword">constructor</span>(public todo: TodoService) {
     <span class="hljs-keyword">super</span>();
   }
 
-  loadCounter = async () =&gt; {
-    <span class="hljs-keyword">const</span> { CounterService } = await <span class="hljs-keyword">import</span>(
-      <span class="hljs-comment">/* webpackChunkName: "Counter.service" */</span> <span class="hljs-string">"./Counter.service"</span>
+  loadCounter = <span class="hljs-keyword">async</span> () =&gt; {
+    <span class="hljs-keyword">const</span> { CounterService } = <span class="hljs-keyword">await</span> <span class="hljs-keyword">import</span>(
+      <span class="hljs-comment">/* webpackChunkName: "Counter.service" */</span> <span class="hljs-string">'./Counter.service'</span>
     );
-    load(
-      <span class="hljs-keyword">this</span>,
-      { main: { provide: <span class="hljs-string">"counter"</span>, useClass: CounterService } },
-      (<span class="hljs-built_in">module</span>) =&gt; {
-        <span class="hljs-keyword">this</span>.counter = <span class="hljs-built_in">module</span>;
-      }
-    );
+    load(<span class="hljs-keyword">this</span>, { <span class="hljs-attr">main</span>: { <span class="hljs-attr">provide</span>: <span class="hljs-string">'counter'</span>, <span class="hljs-attr">useClass</span>: CounterService } });
   };
 
+  @lazy(<span class="hljs-string">'counter'</span>)
+  counter?: ImportClass&lt;<span class="hljs-keyword">typeof</span> <span class="hljs-keyword">import</span>(<span class="hljs-string">'./Counter.service'</span>), <span class="hljs-string">'CounterService'</span>&gt;;
+
   component() {
-    <span class="hljs-keyword">const</span> { <span class="hljs-keyword">list</span>, count } = useConnector(() =&gt; ({
-      list: <span class="hljs-keyword">this</span>.todo.<span class="hljs-keyword">list</span>,
-      count: <span class="hljs-keyword">this</span>.counter?.count,
+    <span class="hljs-keyword">const</span> { list, count } = useConnector(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> ({
+      <span class="hljs-attr">list</span>: <span class="hljs-keyword">this</span>.todo.list,
+      <span class="hljs-attr">count</span>: <span class="hljs-keyword">this</span>.counter?.count,
     }));
-    <span class="hljs-keyword">const</span> [value, setValue] = useState(<span class="hljs-string">""</span>);
+    <span class="hljs-keyword">const</span> [value, setValue] = useState(<span class="hljs-string">''</span>);
     <span class="hljs-keyword">return</span> (
-      &lt;&gt;
-        &lt;input onChange={(e) =&gt; setValue(e.target.value)} value={value} /&gt;
-        &lt;button
-          type={<span class="hljs-string">"button"</span>}
-          onClick={() =&gt; {
-            <span class="hljs-keyword">this</span>.todo.add(value);
-            setValue(<span class="hljs-string">""</span>);
+      <span class="xml"><span class="hljs-tag">&lt;&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">onChange</span>=<span class="hljs-string">{(e)</span> =&gt;</span> setValue(e.target.value)} value={value} /&gt;
+        <span class="hljs-tag">&lt;<span class="hljs-name">button</span>
+          <span class="hljs-attr">type</span>=<span class="hljs-string">{</span>'<span class="hljs-attr">button</span>'}
+          <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> {
+            this.todo.add(value);
+            setValue('');
           }}
         &gt;
           Add Todo
-        &lt;/button&gt;
-        &lt;ul&gt;
-          {<span class="hljs-keyword">list</span>.<span class="hljs-keyword">map</span>((text, key) =&gt; (
-            &lt;li key={key}&gt;{text}&lt;/li&gt;
+        <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+          {list.map((text, key) =&gt; (
+            <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">key</span>=<span class="hljs-string">{key}</span>&gt;</span>{text}<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
           ))}
-        &lt;/ul&gt;
-        &lt;button type=<span class="hljs-string">"button"</span> onClick={() =&gt; <span class="hljs-keyword">this</span>.loadCounter()}&gt;
+        <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"button"</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> this.loadCounter()}&gt;
           load counter
-        &lt;/button&gt;
-        {<span class="hljs-keyword">this</span>.counter ? (
-          &lt;button onClick={() =&gt; <span class="hljs-keyword">this</span>.counter?.increase()}&gt;{count}&lt;/button&gt;
+        <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+        {this.counter ? (
+          <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> this.counter?.increase()}&gt;{count}<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
         ) : (
-          <span class="hljs-string">"none"</span>
+          'none'
         )}
-      &lt;/&gt;
+      <span class="hljs-tag">&lt;/&gt;</span></span>
     );
   }
 }
 
 <span class="hljs-keyword">const</span> app = createApp({
-  main: AppView,
-  modules: [],
+  <span class="hljs-attr">main</span>: AppView,
+  <span class="hljs-attr">modules</span>: [],
   render,
 });
 
@@ -174,4 +164,4 @@ app.bootstrap(<span class="hljs-built_in">document</span>.getElementById(<span c
 </code></pre>
 <p><a href="(https://github.com/unadlib/reactant-examples/tree/master/web/dynamic-module)">Visit here to see the example source code.</a></p>
 <p>In brief, we can split the code and build a minimally modular App that dynamically loads modules via the <a href="/docs/api/reactant-module/modules/_core_load_"><code>load()</code></a> API so we can run the app more efficiently and lightly. It usually works with <code>Suspense</code> as well. You visit <a href="https://reactjs.org/docs/code-splitting.html">here</a> for more information on the component code-splitting.</p>
-</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/persistence"><span class="arrow-prev">← </span><span>Persistence</span></a><a class="docs-next button" href="/docs/dev-workflow"><span>Dev Workflow</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#configuration">Configuration</a></li><li><a href="#usage">Usage</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/favicon.ico" alt="Reactant" width="66"/></a><div><h5>Docs</h5><a href="/docs/introduction.html">Getting Started</a><a href="/docs/di.html">Advanced Guides</a><a href="/docs/createApp.html">API Reference</a></div><div><h5>Community</h5><a href="/en/users.html">User Showcase</a><a href="https://stackoverflow.com/questions/tagged/" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discordapp.com/">Project Chat</a><a href="https://twitter.com/" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="/blog">Blog</a><a class="github-button" href="https://github.com/unadlib/reactant" data-icon="octicon-star" data-count-href="/unadlib/reactant/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2020 unadlib</section></footer></div></body></html>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/persistence"><span class="arrow-prev">← </span><span>Persistence</span></a><a class="docs-next button" href="/docs/dev-workflow"><span>Dev Workflow</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#configuration">Configuration</a></li><li><a href="#usage">Usage</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/favicon.ico" alt="Reactant" width="66"/></a><div><h5>Docs</h5><a href="/docs/introduction.html">Getting Started</a><a href="/docs/di.html">Advanced Guides</a><a href="/docs/createApp.html">API Reference</a></div><div><h5>Community</h5><a href="/en/users.html">User Showcase</a><a href="https://stackoverflow.com/questions/tagged/" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discordapp.com/">Project Chat</a><a href="https://twitter.com/" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="/blog">Blog</a><a class="github-button" href="https://github.com/unadlib/reactant" data-icon="octicon-star" data-count-href="/unadlib/reactant/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2021 unadlib</section></footer></div></body></html>
