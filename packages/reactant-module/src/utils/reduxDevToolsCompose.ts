@@ -6,9 +6,7 @@ export const getComposeEnhancers = (
   enableReduxDevTools: boolean,
   reduxDevToolsOptions?: ReduxDevToolsOptions
 ) => {
-  // TODO: fix typedoc type error.
-  const reduxDevToolsCompose = (window as any)
-    .__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
+  const reduxDevToolsCompose = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
   return typeof reduxDevToolsCompose === 'function' && enableReduxDevTools
     ? reduxDevToolsCompose({
         serialize: true,
