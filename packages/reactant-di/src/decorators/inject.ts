@@ -49,7 +49,7 @@ import { forwardRef } from '../forwardRef';
  * ```
  */
 export function inject(serviceIdentifierOrFunc?: ServiceIdentifierOrFunc<any>) {
-  return (target: object, targetKey?: string, index?: number) => {
+  return (target: object, key?: string, index?: number) => {
     const self = Reflect.getMetadata(METADATA_KEY.paramtypes, target)[index!];
     let serviceIdentifier: ServiceIdentifierOrFunc<any>;
     if (serviceIdentifierOrFunc instanceof LazyServiceIdentifer) {

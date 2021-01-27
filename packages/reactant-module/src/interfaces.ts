@@ -9,7 +9,7 @@ import {
 } from 'redux';
 import { Patch } from 'immer';
 import { EnhancerOptions } from 'redux-devtools-extension';
-import { ModuleOptions } from 'reactant-di';
+import { Container, ModuleOptions } from 'reactant-di';
 import {
   storeKey,
   subscriptionsKey,
@@ -17,6 +17,7 @@ import {
   actionIdentifier,
   loaderKey,
   enablePatchesKey,
+  containerKey,
 } from './constants';
 import { PluginModule } from './core';
 
@@ -48,6 +49,7 @@ export interface Service<T extends Record<string, any> = Record<string, any>>
   readonly [loaderKey]?: Loader;
   readonly [enablePatchesKey]?: boolean;
   readonly [subscriptionsKey]?: Subscriptions;
+  readonly [containerKey]?: Container;
 }
 
 export type ThisService = Service & { [P: string]: any };

@@ -30,6 +30,7 @@ import {
   actionIdentifier,
   loaderKey,
   enablePatchesKey,
+  containerKey,
 } from '../constants';
 import { getStageName, perform, getComposeEnhancers } from '../utils';
 import { handlePlugin } from './handlePlugin';
@@ -212,6 +213,13 @@ export function createStore<T = any>(
             configurable: false,
             get() {
               return store;
+            },
+          },
+          [containerKey]: {
+            enumerable: false,
+            configurable: false,
+            get() {
+              return container;
             },
           },
           // loader for dynamic modules.
