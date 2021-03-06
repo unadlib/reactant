@@ -8,6 +8,7 @@
   "api/reactant-module/modules/_decorators_computed_": "@computed()",
   "api/reactant-module/modules/_decorators_defaultprops_": "@defaultProps()",
   "api/reactant-module/modules/_decorators_autobind_": "@autobind",
+  "api/reactant-module/modules/_decorators_lazy_": "@lazy()",
   "api/reactant-module/modules/_core_createstate_": "createState()",
   "api/reactant-module/modules/_core_dispatch_": "dispatch()",
   "api/reactant-module/modules/_core_subscribe_": "subscribe()",

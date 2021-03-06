@@ -93,7 +93,21 @@ const app = createApp({
 app.bootstrap(document.getElementById('root'));
 ```
 
-> Here is just a demo of web application, but Reactant is going to support React-Native later.
+This is the demo about `reactant-native` for native apps.
+
+```ts
+import { createApp } from 'reactant';
+import { render } from 'reactant-native';
+import { name as appName } from './app.json';
+// need to import `AppView`
+
+const app = createApp({
+  main: AppView,
+  render,
+});
+
+app.bootstrap(appName);
+```
 
 ## Plugin Module
 

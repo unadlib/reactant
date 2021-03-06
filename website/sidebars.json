@@ -36,6 +36,7 @@
       "api/reactant-module/modules/_decorators_computed_",
       "api/reactant-module/modules/_decorators_defaultprops_",
       "api/reactant-module/modules/_decorators_autobind_",
+      "api/reactant-module/modules/_decorators_lazy_",
       "api/reactant-module/modules/_core_createstate_",
       "api/reactant-module/modules/_core_dispatch_",
       "api/reactant-module/modules/_core_subscribe_",

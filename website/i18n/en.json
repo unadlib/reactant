@@ -250,8 +250,8 @@
         "sidebar_label": "decorators/index"
       },
       "api/reactant-module/modules/_decorators_lazy_": {
-        "title": "decorators/lazy",
-        "sidebar_label": "decorators/lazy"
+        "title": "@lazy()",
+        "sidebar_label": "@lazy()"
       },
       "api/reactant-module/modules/_decorators_state_": {
         "title": "@state",
