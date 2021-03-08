@@ -277,6 +277,9 @@ export function createStore<T = any>(
       beforeReplaceReducer();
     }
     store.replaceReducer(rootReducer);
+  } else if (typeof beforeReplaceReducer === 'function') {
+    // TODO: refactor hook
+    beforeReplaceReducer();
   }
   perform(subscriptions);
   return store;

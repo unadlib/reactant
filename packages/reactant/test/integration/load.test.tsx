@@ -18,10 +18,8 @@ test('base `load`', async () => {
       public moduleRef: ModuleRef
     ) {}
 
-    loadTodoModule<T extends ITodo>(main: ModuleOptions<T>) {
-      load(this, { main }, (todo) => {
-        this.todo = todo;
-      });
+    async loadTodoModule<T extends ITodo>(main: ModuleOptions<T>) {
+      this.todo = await load(this, { main });
     }
 
     get todoModule() {
@@ -61,7 +59,7 @@ test('base `load`', async () => {
   }
   expect(Object.values(app.store?.getState())).toEqual([{ count: 0 }]);
   expect(app.instance.todo).toBeUndefined();
-  app.instance.loadTodoModule({ provide: 'todo', useClass: Todo });
+  await app.instance.loadTodoModule({ provide: 'todo', useClass: Todo });
   expect(app.instance.todo).toBeInstanceOf(Todo);
   expect(app.instance.todoModule).toBe(app.instance.todo);
   expect(Object.values(app.store?.getState())).toEqual([
@@ -88,13 +86,11 @@ test('base `load` with multi-modules', async () => {
       public moduleRef: ModuleRef
     ) {}
 
-    loadTodoModule<T extends ITodo>(
+    async loadTodoModule<T extends ITodo>(
       main: ModuleOptions<T>,
       modules: ModuleOptions[] = []
     ) {
-      load(this, { main, modules }, (todo) => {
-        this.todo = todo;
-      });
+      this.todo = await load(this, { main, modules });
     }
 
     get todoModule() {
@@ -163,7 +159,7 @@ test('base `load` with multi-modules', async () => {
     { count0: 0 },
   ]);
   expect(app.instance.todo).toBeUndefined();
-  app.instance.loadTodoModule({ provide: 'todo', useClass: Todo }, [
+  await app.instance.loadTodoModule({ provide: 'todo', useClass: Todo }, [
     { provide: 'counter2token', useClass: Counter2 },
   ]);
   expect(app.instance.todo).toBeInstanceOf(Todo);

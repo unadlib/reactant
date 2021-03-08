@@ -17,7 +17,11 @@ export const lazy: Lazy = getLazyDecorator(
       const services = target![containerKey]!.getAll(serviceIdentifier);
       return services.length === 1 ? services[0] : services;
     } catch (e) {
-      // TODO: handle error
+      if (__DEV__) {
+        console.warn(
+          `Failed to get instance of lazy loading module ${serviceIdentifier.toString()}.`
+        );
+      }
     }
     return null;
   }

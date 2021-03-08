@@ -121,9 +121,8 @@ export type Loader = <P>(
 
 export type Load = <P>(
   service: ThisService,
-  loadOptions: LoadOptions<P>,
-  beforeReplaceReducer?: (instance: P) => void
-) => void;
+  loadOptions: LoadOptions<P>
+) => Promise<P>;
 
 export type StateService<T> = Service<T>;
 

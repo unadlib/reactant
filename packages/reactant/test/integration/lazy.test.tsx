@@ -12,7 +12,7 @@ test('base `lazy`', async () => {
   @injectable()
   class Counter {
     loadTodoModule<T extends ITodo>(main: ModuleOptions<T>) {
-      load(this, { main });
+      return load(this, { main });
     }
 
     @lazy('todo')
@@ -52,7 +52,7 @@ test('base `lazy`', async () => {
 
   expect(Object.values(app.store?.getState())).toEqual([{ count: 0 }]);
   expect(app.instance.todo).toBeNull();
-  app.instance.loadTodoModule({ provide: 'todo', useClass: Todo });
+  await app.instance.loadTodoModule({ provide: 'todo', useClass: Todo });
   expect(app.instance.todo).toBeInstanceOf(Todo);
   expect(app.instance.todo).toBe(app.instance.todo);
   expect(Object.values(app.store?.getState())).toEqual([
@@ -67,7 +67,7 @@ test('base `lazy` with cache', async () => {
   @injectable()
   class Counter {
     loadTodoModule<T extends Todo>(main: ModuleOptions<T>) {
-      load(this, { main });
+      return load(this, { main });
     }
 
     @lazy('todo')
@@ -92,7 +92,7 @@ test('base `lazy` with cache', async () => {
   @injectable()
   class Todo {}
 
-  app.instance.loadTodoModule({ provide: 'todo', useClass: Todo });
+  await app.instance.loadTodoModule({ provide: 'todo', useClass: Todo });
   expect(app.instance.todo).toBeInstanceOf(Todo);
   const todo = new Todo();
   app.instance.todo = todo;
@@ -103,7 +103,7 @@ test('base `lazy` without cache', async () => {
   @injectable()
   class Counter {
     loadTodoModule<T extends Todo>(main: ModuleOptions<T>) {
-      load(this, { main });
+      return load(this, { main });
     }
 
     @lazy('todo', false)
@@ -128,7 +128,7 @@ test('base `lazy` without cache', async () => {
   @injectable()
   class Todo {}
 
-  app.instance.loadTodoModule({ provide: 'todo', useClass: Todo });
+  await app.instance.loadTodoModule({ provide: 'todo', useClass: Todo });
   expect(app.instance.todo).toBeInstanceOf(Todo);
   const todo = new Todo();
   const oldTodo = app.instance.todo;
