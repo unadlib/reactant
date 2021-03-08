@@ -16,4 +16,4 @@ sidebar_label: "batch()"
 
 • **batch**: *batch* = batchUpdateWithReact
 
-*Defined in [batch.ts:3](https://github.com/unadlib/reactant/blob/52f575c/packages/reactant/src/batch.ts#L3)*
+*Defined in [batch.ts:3](https://github.com/unadlib/reactant/blob/823b9da/packages/reactant/src/batch.ts#L3)*

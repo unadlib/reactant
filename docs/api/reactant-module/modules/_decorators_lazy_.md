@@ -20,7 +20,7 @@ sidebar_label: "@lazy()"
 
 Ƭ **Lazy**: *function*
 
-*Defined in [packages/reactant-module/src/decorators/lazy.ts:5](https://github.com/unadlib/reactant/blob/52f575c/packages/reactant-module/src/decorators/lazy.ts#L5)*
+*Defined in [packages/reactant-module/src/decorators/lazy.ts:5](https://github.com/unadlib/reactant/blob/823b9da/packages/reactant-module/src/decorators/lazy.ts#L5)*
 
 #### Type declaration:
 
@@ -53,10 +53,14 @@ Name | Type |
       const services = target![containerKey]!.getAll(serviceIdentifier);
       return services.length === 1 ? services[0] : services;
     } catch (e) {
-      // TODO: handle error
+      if (__DEV__) {
+        console.warn(
+          `Failed to get instance of lazy loading module ${serviceIdentifier.toString()}.`
+        );
+      }
     }
     return null;
   }
 )
 
-*Defined in [packages/reactant-module/src/decorators/lazy.ts:14](https://github.com/unadlib/reactant/blob/52f575c/packages/reactant-module/src/decorators/lazy.ts#L14)*
+*Defined in [packages/reactant-module/src/decorators/lazy.ts:14](https://github.com/unadlib/reactant/blob/823b9da/packages/reactant-module/src/decorators/lazy.ts#L14)*

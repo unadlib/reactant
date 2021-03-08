@@ -22,4 +22,4 @@ sidebar_label: "State"
 
 • **name**? : *undefined | string*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:40](https://github.com/unadlib/reactant/blob/52f575c/packages/reactant-module/src/interfaces.ts#L40)*
+*Defined in [packages/reactant-module/src/interfaces.ts:40](https://github.com/unadlib/reactant/blob/823b9da/packages/reactant-module/src/interfaces.ts#L40)*
