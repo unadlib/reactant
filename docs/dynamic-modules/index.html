@@ -112,7 +112,7 @@
     <span class="hljs-keyword">const</span> { CounterService } = <span class="hljs-keyword">await</span> <span class="hljs-keyword">import</span>(
       <span class="hljs-comment">/* webpackChunkName: "Counter.service" */</span> <span class="hljs-string">'./Counter.service'</span>
     );
-    load(<span class="hljs-keyword">this</span>, { <span class="hljs-attr">main</span>: { <span class="hljs-attr">provide</span>: <span class="hljs-string">'counter'</span>, <span class="hljs-attr">useClass</span>: CounterService } });
+    <span class="hljs-keyword">await</span> load(<span class="hljs-keyword">this</span>, { <span class="hljs-attr">main</span>: { <span class="hljs-attr">provide</span>: <span class="hljs-string">'counter'</span>, <span class="hljs-attr">useClass</span>: CounterService } });
   };
 
   @lazy(<span class="hljs-string">'counter'</span>)
