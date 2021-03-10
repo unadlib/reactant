@@ -182,7 +182,7 @@ ${(() => {
   return computedStr;
 })()}
 const cache = Date.now() - time;
-console.log('Result:', { bootstrap, computed: computedTime, cache });
+console.log('Result:', { bootstrap, update: computedTime, computedGetter: cache });
 `;
 
 writeFileSync('./packages/reactant/test/performance.tsx', source);
