@@ -23,7 +23,7 @@ sidebar_label: "constants"
   inversifyTagged: 'inversify:tagged',
 } as const
 
-*Defined in [packages/reactant-di/src/constants.ts:1](https://github.com/unadlib/reactant/blob/823b9da/packages/reactant-di/src/constants.ts#L1)*
+*Defined in [packages/reactant-di/src/constants.ts:1](https://github.com/unadlib/reactant/blob/84acaf3/packages/reactant-di/src/constants.ts#L1)*
 
 #### Type declaration:
 
