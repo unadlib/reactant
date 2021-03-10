@@ -117,6 +117,7 @@
 
   @lazy(<span class="hljs-string">'counter'</span>)
   counter?: ImportClass&lt;<span class="hljs-keyword">typeof</span> <span class="hljs-keyword">import</span>(<span class="hljs-string">'./Counter.service'</span>), <span class="hljs-string">'CounterService'</span>&gt;;
+  <span class="hljs-comment">// or use `import type { CounterService } from './Counter.service';` in TypeScript 3.8+</span>
 
   component() {
     <span class="hljs-keyword">const</span> { list, count } = useConnector(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> ({
