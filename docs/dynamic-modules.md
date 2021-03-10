@@ -70,6 +70,7 @@ class AppView extends ViewModule {
 
   @lazy('counter')
   counter?: ImportClass<typeof import('./Counter.service'), 'CounterService'>;
+  // or use `import type { CounterService } from './Counter.service';` in TypeScript 3.8+
 
   component() {
     const { list, count } = useConnector(() => ({

@@ -162,6 +162,7 @@ export type ImportType<T, K extends keyof T> = T extends Record<K, infer R>
 
 /**
  * It's used to infer the type of `import()` class type
+ * or use `import type` in TypeScript 3.8+
  *
  * @example
  * // counter.ts: `export class Counter {}`
