@@ -31,7 +31,7 @@ class BookView extends ViewModule {
     return {
       ...this.books.books[this.id!],
       // other way: it can use `denormalize` in `normalizr`.
-      comments: this.books.books[this.id!].comments.map(commentId => ({
+      comments: this.books.books[this.id!].comments.map((commentId) => ({
         ...this.comments.comments[commentId],
         user: this.users.users[this.comments.comments[commentId].user],
       })),
@@ -64,7 +64,7 @@ class BookView extends ViewModule {
         </button>
         <p>Comments:</p>
         <ul>
-          {data.comments.map(comment => {
+          {data.comments.map((comment) => {
             return (
               <li key={comment.id}>
                 <p>{comment.content}</p>

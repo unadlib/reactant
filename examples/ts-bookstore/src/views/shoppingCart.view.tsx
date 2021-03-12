@@ -34,7 +34,7 @@ class ShoppingCartView extends ViewModule {
     return (
       <ul>
         {this.routerName}
-        {data.map(item => (
+        {data.map((item) => (
           <li key={item.id}>
             <BookItem link={this.bookView.getLink(item.id)} {...item} />
           </li>

@@ -2,10 +2,9 @@ import React, { FunctionComponent } from 'react';
 import { Link } from 'reactant-web';
 import { IBook } from '../model';
 
-export const BookItem: FunctionComponent<Pick<
-  IBook,
-  'price' | 'count' | 'name'
-> & { link?: string }> = ({ name, price, count, link }) => {
+export const BookItem: FunctionComponent<
+  Pick<IBook, 'price' | 'count' | 'name'> & { link?: string }
+> = ({ name, price, count, link }) => {
   const bookName = link ? (
     <Link to={link}>
       Book:

@@ -40,7 +40,7 @@ class Books {
 
   @computed(({ list, books }: Books) => [books, list])
   get booksList() {
-    return this.list.map(id => this.books[id]);
+    return this.list.map((id) => this.books[id]);
   }
 
   async fetchBooksList() {
