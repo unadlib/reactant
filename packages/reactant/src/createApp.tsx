@@ -99,7 +99,6 @@ function createApp<T>({
   );
   const withoutReducers = store.getState() === null;
   loader = (loadModules, beforeReplaceReducer) => {
-    // TODO:  check `loadOptions.modules` does not allow loading of type `PluginModule` modules.
     bindModules(container, loadModules);
     createStore(
       loadModules,
