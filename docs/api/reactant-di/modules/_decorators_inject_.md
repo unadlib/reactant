@@ -6,7 +6,7 @@ sidebar_label: "@inject()"
 
 ▸ **inject**(`serviceIdentifierOrFunc?`: [ServiceIdentifierOrFunc](_interfaces_.md#serviceidentifierorfunc)‹any›): *(Anonymous function)*
 
-*Defined in [packages/reactant-di/src/decorators/inject.ts:51](https://github.com/unadlib/reactant/blob/84acaf3/packages/reactant-di/src/decorators/inject.ts#L51)*
+*Defined in [packages/reactant-di/src/decorators/inject.ts:51](https://github.com/unadlib/reactant/blob/ecf98d3/packages/reactant-di/src/decorators/inject.ts#L51)*
 
 ## Description
 

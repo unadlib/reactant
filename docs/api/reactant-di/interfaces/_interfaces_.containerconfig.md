@@ -22,7 +22,7 @@ sidebar_label: "ContainerConfig"
 
 • **ServiceIdentifiers**: *[ServiceIdentifiersMap](../modules/_interfaces_.md#serviceidentifiersmap)*
 
-*Defined in [packages/reactant-di/src/interfaces.ts:69](https://github.com/unadlib/reactant/blob/84acaf3/packages/reactant-di/src/interfaces.ts#L69)*
+*Defined in [packages/reactant-di/src/interfaces.ts:69](https://github.com/unadlib/reactant/blob/ecf98d3/packages/reactant-di/src/interfaces.ts#L69)*
 
 ___
 
@@ -30,7 +30,7 @@ ___
 
 • **modules**? : *[ModuleOptions](../modules/_interfaces_.md#moduleoptions)[]*
 
-*Defined in [packages/reactant-di/src/interfaces.ts:70](https://github.com/unadlib/reactant/blob/84acaf3/packages/reactant-di/src/interfaces.ts#L70)*
+*Defined in [packages/reactant-di/src/interfaces.ts:70](https://github.com/unadlib/reactant/blob/ecf98d3/packages/reactant-di/src/interfaces.ts#L70)*
 
 ___
 
@@ -38,4 +38,4 @@ ___
 
 • **options**? : *interfaces.ContainerOptions*
 
-*Defined in [packages/reactant-di/src/interfaces.ts:71](https://github.com/unadlib/reactant/blob/84acaf3/packages/reactant-di/src/interfaces.ts#L71)*
+*Defined in [packages/reactant-di/src/interfaces.ts:71](https://github.com/unadlib/reactant/blob/ecf98d3/packages/reactant-di/src/interfaces.ts#L71)*

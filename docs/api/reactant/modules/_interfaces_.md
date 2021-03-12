@@ -21,7 +21,7 @@ sidebar_label: "interfaces"
 
 Ƭ **ShallowEqual**: *function*
 
-*Defined in [interfaces.ts:43](https://github.com/unadlib/reactant/blob/84acaf3/packages/reactant/src/interfaces.ts#L43)*
+*Defined in [interfaces.ts:43](https://github.com/unadlib/reactant/blob/ecf98d3/packages/reactant/src/interfaces.ts#L43)*
 
 #### Type declaration:
 
