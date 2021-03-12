@@ -114,15 +114,15 @@ export interface LoadOptions<T> {
   main: ReactModuleOptions<T>;
 }
 
-export type Loader = <P>(
-  loadOptions: LoadOptions<P>,
-  beforeReplaceReducer?: (instance: P) => void
+export type Loader = (
+  loadModules: ReactModuleOptions[],
+  beforeReplaceReducer?: (container: Container) => void
 ) => void;
 
-export type Load = <P>(
+export type Load = (
   service: ThisService,
-  loadOptions: LoadOptions<P>
-) => Promise<P>;
+  loadModules: ReactModuleOptions[]
+) => Promise<Container>;
 
 export type StateService<T> = Service<T>;
 

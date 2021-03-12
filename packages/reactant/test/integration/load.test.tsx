@@ -8,6 +8,7 @@ import {
   optional,
   ModuleOptions,
   inject,
+  ClassProvider,
 } from '../..';
 
 test('base `load`', async () => {
@@ -18,8 +19,9 @@ test('base `load`', async () => {
       public moduleRef: ModuleRef
     ) {}
 
-    async loadTodoModule<T extends ITodo>(main: ModuleOptions<T>) {
-      this.todo = await load(this, { main });
+    async loadTodoModule<T extends ITodo>(module: ClassProvider<T>) {
+      const container = await load(this, [module]);
+      this.todo = container.get(module.provide);
     }
 
     get todoModule() {
@@ -60,14 +62,12 @@ test('base `load`', async () => {
   expect(Object.values(app.store?.getState())).toEqual([{ count: 0 }]);
   expect(app.instance.todo).toBeUndefined();
   await app.instance.loadTodoModule({ provide: 'todo', useClass: Todo });
-  expect(app.instance.todo).toBeInstanceOf(Todo);
-  expect(app.instance.todoModule).toBe(app.instance.todo);
   expect(Object.values(app.store?.getState())).toEqual([
     { count: 0 },
-    {
-      list: [],
-    },
+    { list: [] },
   ]);
+  expect(app.instance.todo).toBeInstanceOf(Todo);
+  expect(app.instance.todoModule).toBe(app.instance.todo);
 });
 
 test('base `load` with multi-modules', async () => {
@@ -86,11 +86,9 @@ test('base `load` with multi-modules', async () => {
       public moduleRef: ModuleRef
     ) {}
 
-    async loadTodoModule<T extends ITodo>(
-      main: ModuleOptions<T>,
-      modules: ModuleOptions[] = []
-    ) {
-      this.todo = await load(this, { main, modules });
+    async loadTodoModule(modules: ModuleOptions[] = []) {
+      const container = await load(this, modules);
+      this.todo = container.get('todo');
     }
 
     get todoModule() {
@@ -159,7 +157,8 @@ test('base `load` with multi-modules', async () => {
     { count0: 0 },
   ]);
   expect(app.instance.todo).toBeUndefined();
-  await app.instance.loadTodoModule({ provide: 'todo', useClass: Todo }, [
+  await app.instance.loadTodoModule([
+    { provide: 'todo', useClass: Todo },
     { provide: 'counter2token', useClass: Counter2 },
   ]);
   expect(app.instance.todo).toBeInstanceOf(Todo);

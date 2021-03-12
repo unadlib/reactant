@@ -98,9 +98,8 @@ function createApp<T>({
     devOptions
   );
   const withoutReducers = store.getState() === null;
-  loader = (loadOptions, beforeReplaceReducer) => {
+  loader = (loadModules, beforeReplaceReducer) => {
     // TODO:  check `loadOptions.modules` does not allow loading of type `PluginModule` modules.
-    const loadModules = [loadOptions.main, ...(loadOptions.modules || [])];
     bindModules(container, loadModules);
     createStore(
       loadModules,
@@ -113,11 +112,7 @@ function createApp<T>({
       devOptions,
       store,
       () => {
-        const identifier =
-          typeof loadOptions.main === 'object'
-            ? loadOptions.main.provide
-            : loadOptions.main;
-        beforeReplaceReducer?.(container.get(identifier));
+        beforeReplaceReducer?.(container);
       }
     );
   };

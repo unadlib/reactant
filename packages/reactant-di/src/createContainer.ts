@@ -157,7 +157,6 @@ export function createContainer({
   options,
 }: ContainerConfig) {
   setModulesDeps(modules);
-  // TODO: dynamic get nonexistent instance will return null
   const container = new Container(options);
   container.applyCustomMetadataReader(new CustomMetadataReader());
   bindModules(container, modules);

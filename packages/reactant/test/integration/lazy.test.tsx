@@ -11,8 +11,8 @@ import {
 test('base `lazy`', async () => {
   @injectable()
   class Counter {
-    loadTodoModule<T extends ITodo>(main: ModuleOptions<T>) {
-      return load(this, { main });
+    loadTodoModule<T extends ITodo>(module: ModuleOptions<T>) {
+      return load(this, [module]);
     }
 
     @lazy('todo')
@@ -66,8 +66,8 @@ test('base `lazy`', async () => {
 test('base `lazy` with cache', async () => {
   @injectable()
   class Counter {
-    loadTodoModule<T extends Todo>(main: ModuleOptions<T>) {
-      return load(this, { main });
+    loadTodoModule<T extends Todo>(module: ModuleOptions<T>) {
+      return load(this, [module]);
     }
 
     @lazy('todo')
@@ -101,13 +101,18 @@ test('base `lazy` with cache', async () => {
 
 test('base `lazy` without cache', async () => {
   @injectable()
+  class Foobar {}
+  @injectable()
   class Counter {
-    loadTodoModule<T extends Todo>(main: ModuleOptions<T>) {
-      return load(this, { main });
+    loadTodoModule<T extends Todo>(module: ModuleOptions<T>) {
+      return load(this, [module]);
     }
 
     @lazy('todo', false)
     todo?: Todo;
+
+    @lazy(Foobar)
+    fooBar?: Foobar;
 
     @state
     count = 0;
@@ -119,11 +124,14 @@ test('base `lazy` without cache', async () => {
   }
 
   const app = createApp({
+    modules: [Foobar],
     main: Counter,
     render: () => {
       //
     },
   });
+
+  expect(app.instance.fooBar).toBeInstanceOf(Foobar);
 
   @injectable()
   class Todo {}
