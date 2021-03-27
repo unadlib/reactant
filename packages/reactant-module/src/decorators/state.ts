@@ -36,14 +36,10 @@ export function state(
       } class, it only supports class properties that decorate keys for string types.`
     );
   }
-  if (typeof service[stateKey] === 'undefined') {
-    Object.assign(target, {
-      [stateKey]: {
-        [key]: undefined,
-      },
-    });
-  } else {
-    // eslint-disable-next-line no-param-reassign
-    service[stateKey]![key] = undefined;
-  }
+  Object.assign(target, {
+    [stateKey]: {
+      ...service[stateKey],
+      [key]: undefined,
+    },
+  });
 }
