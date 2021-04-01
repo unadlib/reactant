@@ -16,7 +16,7 @@ sidebar_label: "utils/assign"
 
 ▸ **assign**(`target`: object, `key`: string | symbol, `value`: any, `options?`: undefined | object): *void*
 
-*Defined in [packages/reactant-module/src/utils/assign.ts:1](https://github.com/unadlib/reactant/blob/ecf98d3/packages/reactant-module/src/utils/assign.ts#L1)*
+*Defined in [packages/reactant-module/src/utils/assign.ts:1](https://github.com/unadlib/reactant/blob/d788abc9/packages/reactant-module/src/utils/assign.ts#L1)*
 
 **Parameters:**
 

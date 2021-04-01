@@ -33,7 +33,7 @@ sidebar_label: "ViewModule"
 
 \+ **new ViewModule**(): *[ViewModule](_core_view_.viewmodule.md)*
 
-*Defined in [packages/reactant-module/src/core/view.ts:15](https://github.com/unadlib/reactant/blob/ecf98d3/packages/reactant-module/src/core/view.ts#L15)*
+*Defined in [packages/reactant-module/src/core/view.ts:15](https://github.com/unadlib/reactant/blob/d788abc9/packages/reactant-module/src/core/view.ts#L15)*
 
 **Returns:** *[ViewModule](_core_view_.viewmodule.md)*
 
@@ -45,7 +45,7 @@ sidebar_label: "ViewModule"
 
 *Implementation of [Service](../interfaces/_interfaces_.service.md).[[storeKey]](../interfaces/_interfaces_.service.md#optional-readonly-[storekey])*
 
-*Defined in [packages/reactant-module/src/core/view.ts:8](https://github.com/unadlib/reactant/blob/ecf98d3/packages/reactant-module/src/core/view.ts#L8)*
+*Defined in [packages/reactant-module/src/core/view.ts:8](https://github.com/unadlib/reactant/blob/d788abc9/packages/reactant-module/src/core/view.ts#L8)*
 
 ___
 
@@ -55,7 +55,7 @@ ___
 
 *Implementation of [Service](../interfaces/_interfaces_.service.md).[name](../interfaces/_interfaces_.service.md#optional-name)*
 
-*Defined in [packages/reactant-module/src/core/view.ts:15](https://github.com/unadlib/reactant/blob/ecf98d3/packages/reactant-module/src/core/view.ts#L15)*
+*Defined in [packages/reactant-module/src/core/view.ts:15](https://github.com/unadlib/reactant/blob/d788abc9/packages/reactant-module/src/core/view.ts#L15)*
 
 The name field will be used as a key to define the state of this module in the reducers object map in the store.
 If it is not defined, then it defaults to a random string.
@@ -67,7 +67,7 @@ So in cases where persistence is required, etc., it must be defined, otherwise t
 
 ▸ **component**(`props`: Record‹string, any›): *ReactElement | null*
 
-*Defined in [packages/reactant-module/src/core/view.ts:38](https://github.com/unadlib/reactant/blob/ecf98d3/packages/reactant-module/src/core/view.ts#L38)*
+*Defined in [packages/reactant-module/src/core/view.ts:38](https://github.com/unadlib/reactant/blob/d788abc9/packages/reactant-module/src/core/view.ts#L38)*
 
 React function component defined by the current ViewModule
 
