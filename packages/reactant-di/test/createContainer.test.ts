@@ -15,7 +15,14 @@ test('forwardRef', () => {
   const ServiceIdentifiers = new Map();
   const container = createContainer({
     ServiceIdentifiers,
-    modules: [FooBar],
+    modules: [
+      FooBar,
+      { provide: 'string', useValue: 'test' },
+      { provide: 'number', useValue: 42 },
+      { provide: 'symbol', useValue: Symbol('test') },
+      { provide: 'null', useValue: null },
+      { provide: 'undefined', useValue: undefined },
+    ],
   });
   const bar = container.get(Bar);
 

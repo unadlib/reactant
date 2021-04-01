@@ -6,6 +6,7 @@ import {
   action,
   state,
   computed,
+  inject,
 } from '..';
 
 test('base module with @state and @action', () => {
@@ -17,6 +18,8 @@ test('base module with @state and @action', () => {
 
   @injectable()
   class Counter {
+    constructor(@inject('string') public string: string) {}
+
     @state
     count = 0;
 
@@ -36,7 +39,15 @@ test('base module with @state and @action', () => {
     }
   }
   const ServiceIdentifiers = new Map();
-  const modules = [Counter, Todos];
+  const modules = [
+    Counter,
+    Todos,
+    { provide: 'string', useValue: 'test' },
+    { provide: 'number', useValue: 42 },
+    { provide: 'symbol', useValue: Symbol('test') },
+    { provide: 'null', useValue: null },
+    { provide: 'undefined', useValue: undefined },
+  ];
   const container = createContainer({
     ServiceIdentifiers,
     modules,
@@ -62,6 +73,7 @@ test('base module with @state and @action', () => {
     }
   );
   expect(counter.count).toBe(0);
+  expect(counter.string).toBe('test');
   expect(Object.values(store.getState())).toEqual([
     { count: 0, others: { list: [] } },
     { list: [] },

@@ -81,6 +81,7 @@ export function createStore<T = any>(
       const services = container.getAll(Service);
       loadedModules.add(Service);
       services.forEach((service, index) => {
+        if (typeof service !== 'object' || service === null) return;
         handlePlugin(service, pluginHooks);
         const isPlainObject =
           toString.call(service[stateKey]) === '[object Object]';
