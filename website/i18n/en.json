@@ -181,6 +181,10 @@
         "title": "constants/index",
         "sidebar_label": "constants/index"
       },
+      "api/reactant-module/modules/_constants_modulekeys_": {
+        "title": "constants/moduleKeys",
+        "sidebar_label": "constants/moduleKeys"
+      },
       "api/reactant-module/modules/_constants_reduxkeys_": {
         "title": "constants/reduxKeys",
         "sidebar_label": "constants/reduxKeys"
