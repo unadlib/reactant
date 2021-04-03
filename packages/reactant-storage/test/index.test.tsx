@@ -108,18 +108,18 @@ describe('base API', () => {
     const storage = {
       data: {} as Record<string, any>,
       getItem(key: string): Promise<string> {
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
           resolve(this.data[key]);
         });
       },
       setItem(key: string, item: string): Promise<void> {
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
           this.data[key] = item;
           resolve();
         });
       },
       removeItem(key: string): Promise<void> {
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
           delete this.data[key];
           resolve();
         });
@@ -140,7 +140,7 @@ describe('base API', () => {
     act(() => {
       app.bootstrap(container);
     });
-    await new Promise(resolve => {
+    await new Promise((resolve) => {
       setTimeout(resolve);
     });
     expect(container.querySelector('#increase')?.textContent).toBe('1');
@@ -150,7 +150,7 @@ describe('base API', () => {
         .dispatchEvent(new MouseEvent('click', { bubbles: true }));
     });
     expect(container.querySelector('#increase')?.textContent).toBe('2');
-    await new Promise(resolve => {
+    await new Promise((resolve) => {
       setTimeout(resolve, 100);
     });
     expect(app.store?.getState()).toEqual({

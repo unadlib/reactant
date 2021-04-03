@@ -9,6 +9,7 @@ sidebar_label: "Globals"
 ### Modules
 
 * ["constants/index"](modules/_constants_index_.md)
+* ["constants/moduleKeys"](modules/_constants_modulekeys_.md)
 * ["constants/reduxKeys"](modules/_constants_reduxkeys_.md)
 * ["core/createState"](modules/_core_createstate_.md)
 * ["core/createStore"](modules/_core_createstore_.md)

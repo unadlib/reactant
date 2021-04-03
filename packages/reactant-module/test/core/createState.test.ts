@@ -6,6 +6,8 @@ import {
   action,
   state,
   ReactantAction,
+  identifierKey,
+  Service,
 } from '../..';
 
 test('`createState` with type', () => {
@@ -13,8 +15,8 @@ test('`createState` with type', () => {
   class Counter {
     @state
     count = createState<number, ReactantAction>((_state = 0, _action) =>
-      _action.type === (this as any).name
-        ? _action.state[(this as any).name].count
+      _action.type === (this as Service)[identifierKey]
+        ? _action.state[(this as Service)[identifierKey]!].count
         : _state
     );
 

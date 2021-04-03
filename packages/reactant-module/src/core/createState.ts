@@ -17,7 +17,7 @@ import { Reducer, Action, AnyAction } from 'redux';
  *   @state
  *   count = createState<number, ReactantAction>((state = 0, action) =>
  *     action.type === type
- *       ? action.state[this.name].count
+ *       ? action.state[this[identifierKey]].count
  *       : state
  *   );
  *

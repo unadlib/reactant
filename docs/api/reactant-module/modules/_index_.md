@@ -57,6 +57,7 @@ sidebar_label: "index"
 * [getStageName](_index_.md#getstagename)
 * [getStagedState](_index_.md#getstagedstate)
 * [handlePlugin](_index_.md#handleplugin)
+* [identifierKey](_index_.md#identifierkey)
 * [isEqual](_index_.md#isequal)
 * [isEqualExceptFunction](_index_.md#isequalexceptfunction)
 * [lazy](_index_.md#lazy)
@@ -364,6 +365,12 @@ ___
 ###  handlePlugin
 
 • **handlePlugin**:
+
+___
+
+###  identifierKey
+
+• **identifierKey**:
 
 ___
 

@@ -1,5 +1,10 @@
 import { ThisService, ReactantAction } from '../interfaces';
-import { storeKey, stateKey, actionIdentifier } from '../constants';
+import {
+  storeKey,
+  stateKey,
+  actionIdentifier,
+  identifierKey,
+} from '../constants';
 
 /**
  * ## Description
@@ -18,7 +23,7 @@ import { storeKey, stateKey, actionIdentifier } from '../constants';
  *   @state
  *   count = createState<number, ReactantAction>((state = 0, action) =>
  *     action.type === type
- *       ? action.state[this.name].count
+ *       ? action.state[this[identifierKey]].count
  *       : state
  *   );
  *
@@ -52,12 +57,12 @@ export const dispatch = (
   if (target[storeKey]) {
     const lastState = target[storeKey]?.getState();
     target[storeKey]!.dispatch({
-      type: target.name,
+      type: target[identifierKey],
       method: '',
       ...action,
       state: {
         ...lastState,
-        [target.name!]: {
+        [target[identifierKey]!]: {
           ...target[stateKey],
           ...action.state,
         },

@@ -28,6 +28,7 @@ import {
   optional,
   inject,
   autobind,
+  identifierKey,
 } from '../..';
 
 let container: Element;
@@ -491,7 +492,9 @@ describe('base API', () => {
       list = createState<{ count: number }[], ReactantAction>(
         // eslint-disable-next-line no-shadow
         (_state = [{ count: 1 }], { type, state }) =>
-          type === (this as any).name ? state[(this as any).name].list : _state
+          type === this[identifierKey]
+            ? state[this[identifierKey]!].list
+            : _state
       );
 
       @state

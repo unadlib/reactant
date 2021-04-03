@@ -5,6 +5,7 @@ import {
   stateKey,
   actionIdentifier,
   enablePatchesKey,
+  identifierKey,
 } from 'reactant-module';
 
 type ServiceName = Pick<Service, 'name'>;
@@ -46,11 +47,11 @@ export const model = <
         }
         const lastState = module[storeKey]?.getState();
         module[storeKey]!.dispatch({
-          type: module.name,
+          type: module[identifierKey],
           method: key,
           state: {
             ...lastState,
-            [module.name!]: state,
+            [module[identifierKey]!]: state,
           },
           _reactant: actionIdentifier,
           ...(module[enablePatchesKey]

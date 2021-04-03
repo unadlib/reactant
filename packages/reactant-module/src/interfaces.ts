@@ -18,6 +18,7 @@ import {
   loaderKey,
   enablePatchesKey,
   containerKey,
+  identifierKey,
 } from './constants';
 import { PluginModule } from './core';
 
@@ -50,6 +51,7 @@ export interface Service<T extends Record<string, any> = Record<string, any>>
   readonly [enablePatchesKey]?: boolean;
   readonly [subscriptionsKey]?: Subscriptions;
   readonly [containerKey]?: Container;
+  [identifierKey]?: string;
 }
 
 export type ThisService = Service & { [P: string]: any };

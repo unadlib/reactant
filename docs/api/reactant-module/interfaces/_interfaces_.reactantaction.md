@@ -31,7 +31,7 @@ sidebar_label: "ReactantAction"
 
 • **_inversePatches**? : *Patch[]*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:70](https://github.com/unadlib/reactant/blob/d788abc9/packages/reactant-module/src/interfaces.ts#L70)*
+*Defined in [packages/reactant-module/src/interfaces.ts:72](https://github.com/unadlib/reactant/blob/f8f02435/packages/reactant-module/src/interfaces.ts#L72)*
 
 ___
 
@@ -39,7 +39,7 @@ ___
 
 • **_patches**? : *Patch[]*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:69](https://github.com/unadlib/reactant/blob/d788abc9/packages/reactant-module/src/interfaces.ts#L69)*
+*Defined in [packages/reactant-module/src/interfaces.ts:71](https://github.com/unadlib/reactant/blob/f8f02435/packages/reactant-module/src/interfaces.ts#L71)*
 
 ___
 
@@ -47,7 +47,7 @@ ___
 
 • **_reactant**: *typeof actionIdentifier*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:68](https://github.com/unadlib/reactant/blob/d788abc9/packages/reactant-module/src/interfaces.ts#L68)*
+*Defined in [packages/reactant-module/src/interfaces.ts:70](https://github.com/unadlib/reactant/blob/f8f02435/packages/reactant-module/src/interfaces.ts#L70)*
 
 ___
 
@@ -55,7 +55,7 @@ ___
 
 • **method**? : *undefined | string*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:66](https://github.com/unadlib/reactant/blob/d788abc9/packages/reactant-module/src/interfaces.ts#L66)*
+*Defined in [packages/reactant-module/src/interfaces.ts:68](https://github.com/unadlib/reactant/blob/f8f02435/packages/reactant-module/src/interfaces.ts#L68)*
 
 ___
 
@@ -63,7 +63,7 @@ ___
 
 • **state**: *Record‹string, T›*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:67](https://github.com/unadlib/reactant/blob/d788abc9/packages/reactant-module/src/interfaces.ts#L67)*
+*Defined in [packages/reactant-module/src/interfaces.ts:69](https://github.com/unadlib/reactant/blob/f8f02435/packages/reactant-module/src/interfaces.ts#L69)*
 
 ___
 

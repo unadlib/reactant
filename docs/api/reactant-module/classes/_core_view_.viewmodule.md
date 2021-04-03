@@ -20,6 +20,7 @@ sidebar_label: "ViewModule"
 
 ### Properties
 
+* [[identifierKey]](_core_view_.viewmodule.md#optional-readonly-[identifierkey])
 * [[storeKey]](_core_view_.viewmodule.md#optional-readonly-[storekey])
 * [name](_core_view_.viewmodule.md#optional-name)
 
@@ -33,11 +34,21 @@ sidebar_label: "ViewModule"
 
 \+ **new ViewModule**(): *[ViewModule](_core_view_.viewmodule.md)*
 
-*Defined in [packages/reactant-module/src/core/view.ts:15](https://github.com/unadlib/reactant/blob/d788abc9/packages/reactant-module/src/core/view.ts#L15)*
+*Defined in [packages/reactant-module/src/core/view.ts:17](https://github.com/unadlib/reactant/blob/f8f02435/packages/reactant-module/src/core/view.ts#L17)*
 
 **Returns:** *[ViewModule](_core_view_.viewmodule.md)*
 
 ## Properties
+
+### `Optional` `Readonly` [identifierKey]
+
+• **[identifierKey]**? : *undefined | string*
+
+*Implementation of [Service](../interfaces/_interfaces_.service.md).[[identifierKey]](../interfaces/_interfaces_.service.md#optional-[identifierkey])*
+
+*Defined in [packages/reactant-module/src/core/view.ts:8](https://github.com/unadlib/reactant/blob/f8f02435/packages/reactant-module/src/core/view.ts#L8)*
+
+___
 
 ### `Optional` `Readonly` [storeKey]
 
@@ -45,7 +56,7 @@ sidebar_label: "ViewModule"
 
 *Implementation of [Service](../interfaces/_interfaces_.service.md).[[storeKey]](../interfaces/_interfaces_.service.md#optional-readonly-[storekey])*
 
-*Defined in [packages/reactant-module/src/core/view.ts:8](https://github.com/unadlib/reactant/blob/d788abc9/packages/reactant-module/src/core/view.ts#L8)*
+*Defined in [packages/reactant-module/src/core/view.ts:10](https://github.com/unadlib/reactant/blob/f8f02435/packages/reactant-module/src/core/view.ts#L10)*
 
 ___
 
@@ -55,7 +66,7 @@ ___
 
 *Implementation of [Service](../interfaces/_interfaces_.service.md).[name](../interfaces/_interfaces_.service.md#optional-name)*
 
-*Defined in [packages/reactant-module/src/core/view.ts:15](https://github.com/unadlib/reactant/blob/d788abc9/packages/reactant-module/src/core/view.ts#L15)*
+*Defined in [packages/reactant-module/src/core/view.ts:17](https://github.com/unadlib/reactant/blob/f8f02435/packages/reactant-module/src/core/view.ts#L17)*
 
 The name field will be used as a key to define the state of this module in the reducers object map in the store.
 If it is not defined, then it defaults to a random string.
@@ -67,7 +78,7 @@ So in cases where persistence is required, etc., it must be defined, otherwise t
 
 ▸ **component**(`props`: Record‹string, any›): *ReactElement | null*
 
-*Defined in [packages/reactant-module/src/core/view.ts:38](https://github.com/unadlib/reactant/blob/d788abc9/packages/reactant-module/src/core/view.ts#L38)*
+*Defined in [packages/reactant-module/src/core/view.ts:40](https://github.com/unadlib/reactant/blob/f8f02435/packages/reactant-module/src/core/view.ts#L40)*
 
 React function component defined by the current ViewModule
 

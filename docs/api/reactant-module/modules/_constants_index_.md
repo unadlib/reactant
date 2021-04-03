@@ -11,6 +11,7 @@ sidebar_label: "constants/index"
 * [actionIdentifier](_constants_index_.md#actionidentifier)
 * [containerKey](_constants_index_.md#containerkey)
 * [enablePatchesKey](_constants_index_.md#enablepatcheskey)
+* [identifierKey](_constants_index_.md#identifierkey)
 * [loaderKey](_constants_index_.md#loaderkey)
 * [stateKey](_constants_index_.md#statekey)
 * [storeKey](_constants_index_.md#storekey)
@@ -33,6 +34,12 @@ ___
 ###  enablePatchesKey
 
 • **enablePatchesKey**:
+
+___
+
+###  identifierKey
+
+• **identifierKey**:
 
 ___
 

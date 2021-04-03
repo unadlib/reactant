@@ -5,8 +5,8 @@ import {
   inject,
   Service,
   stateKey,
-  storeKey,
   PartialRequired,
+  identifierKey,
 } from 'reactant-module';
 import { Reducer, ReducersMapObject, Store } from 'redux';
 import { useStore } from 'react-redux';
@@ -65,6 +65,8 @@ class ReactantStorage extends PluginModule {
     ...this.options,
   };
 
+  private storageSettingMap = new Map<object, Function>();
+
   setStorage<T extends PartialRequired<Service, 'name'>>(
     target: T,
     options: SetStorageOptions<T>
@@ -80,17 +82,30 @@ class ReactantStorage extends PluginModule {
       }
       return;
     }
-    const persistConfig = {
-      storage: this.options.storage,
-      ...options,
-      key: target.name,
-    };
-    Object.assign(this.persistConfig, {
-      [target.name]: persistConfig,
+    if (this.storageSettingMap.has(target)) {
+      if (__DEV__) {
+        console.warn(
+          `Module '${target}' has already been set up with Storage.`
+        );
+      }
+      return;
+    }
+    this.storageSettingMap.set(target, () => {
+      const persistConfig = {
+        storage: this.options.storage,
+        ...options,
+        key: target[identifierKey],
+      };
+      Object.assign(this.persistConfig, {
+        [target[identifierKey]!]: persistConfig,
+      });
     });
   }
 
   beforeCombineRootReducers(reducers: ReducersMapObject): ReducersMapObject {
+    for (const [_, set] of this.storageSettingMap) {
+      set();
+    }
     Object.keys(reducers).forEach((key) => {
       const persistConfig = this.persistConfig[key];
       if (persistConfig) {

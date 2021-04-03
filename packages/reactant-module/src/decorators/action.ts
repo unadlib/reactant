@@ -1,7 +1,12 @@
 /* eslint-disable func-names */
 import { produce, produceWithPatches, Patch } from 'immer';
 import { ReactantAction, Service } from '../interfaces';
-import { storeKey, actionIdentifier, enablePatchesKey } from '../constants';
+import {
+  storeKey,
+  actionIdentifier,
+  enablePatchesKey,
+  identifierKey,
+} from '../constants';
 
 let stagedState: Record<string, unknown> | undefined;
 
@@ -91,7 +96,7 @@ const action = (
           // performance detail: https://immerjs.github.io/immer/docs/performance
         }
         this[storeKey]!.dispatch<ReactantAction>({
-          type: this.name!,
+          type: this[identifierKey]!,
           method: key,
           state,
           _reactant: actionIdentifier,

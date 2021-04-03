@@ -16,7 +16,7 @@ sidebar_label: "dispatch()"
 
 ▸ **dispatch**(`target`: [ThisService](_interfaces_.md#thisservice), `action`: Partial‹[ReactantAction](../interfaces/_interfaces_.reactantaction.md)›): *void*
 
-*Defined in [packages/reactant-module/src/core/dispatch.ts:45](https://github.com/unadlib/reactant/blob/d788abc9/packages/reactant-module/src/core/dispatch.ts#L45)*
+*Defined in [packages/reactant-module/src/core/dispatch.ts:50](https://github.com/unadlib/reactant/blob/f8f02435/packages/reactant-module/src/core/dispatch.ts#L50)*
 
 ## Description
 
@@ -34,7 +34,7 @@ class Counter {
   @state
   count = createState<number, ReactantAction>((state = 0, action) =>
     action.type === type
-      ? action.state[this.name].count
+      ? action.state[this[identifierKey]].count
       : state
   );
 

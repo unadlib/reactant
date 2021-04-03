@@ -4,4 +4,3 @@ export const subscriptionsKey: unique symbol = Symbol('subscriptions');
 export const actionIdentifier: unique symbol = Symbol('action');
 export const stateKey: unique symbol = Symbol('state');
 export const enablePatchesKey: unique symbol = Symbol('enablePatches');
-export const containerKey: unique symbol = Symbol('container');

@@ -1,10 +1,12 @@
 import { Store } from 'redux';
 import { injectable } from 'reactant-di';
-import { storeKey } from '../constants';
+import { identifierKey, storeKey } from '../constants';
 import { Service } from '../interfaces';
 
 @injectable()
 abstract class ViewModule implements Service {
+  readonly [identifierKey]?: string;
+
   readonly [storeKey]?: Store;
 
   /**

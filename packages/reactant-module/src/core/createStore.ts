@@ -22,6 +22,7 @@ import {
   ThisService,
   ReactantStore,
   Loader,
+  Service as IService,
 } from '../interfaces';
 import {
   storeKey,
@@ -31,6 +32,7 @@ import {
   loaderKey,
   enablePatchesKey,
   containerKey,
+  identifierKey,
 } from '../constants';
 import { getStageName, perform, getComposeEnhancers } from '../utils';
 import { handlePlugin } from './handlePlugin';
@@ -78,7 +80,7 @@ export function createStore<T = any>(
   for (const [Service] of ServiceIdentifiers) {
     // `Service` should be bound before `createStore`.
     if (container.isBound(Service) && !loadedModules.has(Service)) {
-      const services = container.getAll(Service);
+      const services: IService[] = container.getAll(Service);
       loadedModules.add(Service);
       services.forEach((service, index) => {
         if (typeof service !== 'object' || service === null) return;
@@ -88,7 +90,8 @@ export function createStore<T = any>(
 
         // eslint-disable-next-line @typescript-eslint/ban-types
         const className = (Service as Function).name;
-        let identifier: string = service.name;
+        let identifier: string | undefined =
+          service[identifierKey] ?? service.name;
         // string identifier is defined primarily.
         if (typeof Service === 'string') {
           identifier = Service;
@@ -123,7 +126,7 @@ export function createStore<T = any>(
         }
         identifiers.add(identifier);
         if (isPlainObject) {
-          const isEmptyObject = Object.keys(service[stateKey]).length === 0;
+          const isEmptyObject = Object.keys(service[stateKey]!).length === 0;
           if (!isEmptyObject) {
             const descriptors: Record<string, PropertyDescriptor> = {};
             for (const key in service[stateKey]) {
@@ -147,7 +150,7 @@ export function createStore<T = any>(
 
             const initState = enableAutoFreeze
               ? produce({ ...service[stateKey] }, () => {}) // freeze init state
-              : service[stateKey];
+              : service[stateKey]!;
             const serviceReducers = Object.entries(initState).reduce(
               (serviceReducersMapObject: ReducersMapObject, [key, value]) => {
                 // support pure reducer
@@ -158,8 +161,8 @@ export function createStore<T = any>(
                 }
                 const reducer = (state = value, action: ReactantAction) => {
                   return action._reactant === actionIdentifier &&
-                    action.state[identifier]
-                    ? action.state[identifier][key]
+                    action.state[identifier!]
+                    ? action.state[identifier!][key]
                     : state;
                 };
                 return Object.assign(serviceReducersMapObject, {
@@ -181,9 +184,9 @@ export function createStore<T = any>(
                 configurable: false,
                 get() {
                   const stagedState = getStagedState();
-                  if (stagedState) return stagedState[identifier];
+                  if (stagedState) return stagedState[identifier!];
 
-                  const currentState = store!.getState()[identifier];
+                  const currentState = store!.getState()[identifier!];
                   if (enableAutoFreeze && !Object.isFrozen(currentState)) {
                     return Object.freeze(currentState);
                   }
@@ -198,11 +201,10 @@ export function createStore<T = any>(
           }
         }
         if (Array.isArray(service[subscriptionsKey])) {
-          subscriptions.push(...service[subscriptionsKey]);
+          subscriptions.push(...service[subscriptionsKey]!);
         }
         Object.defineProperties(service, {
-          // TODO: consider using `identifierKey` symbol.
-          name: {
+          [identifierKey]: {
             enumerable: false,
             configurable: false,
             writable: false,
