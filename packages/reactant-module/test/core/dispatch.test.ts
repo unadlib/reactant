@@ -66,7 +66,7 @@ test('`dispatch` with action type', () => {
     @state
     count = createState<number, ReactantAction>((_state = 0, _action) =>
       _action.type === type
-        ? _action.state[(this as Service)[identifierKey]!].count
+        ? _action.state[(this as any)[identifierKey]!].count
         : _state
     );
 

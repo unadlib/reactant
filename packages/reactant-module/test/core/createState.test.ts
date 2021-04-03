@@ -15,8 +15,8 @@ test('`createState` with type', () => {
   class Counter {
     @state
     count = createState<number, ReactantAction>((_state = 0, _action) =>
-      _action.type === (this as Service)[identifierKey]
-        ? _action.state[(this as Service)[identifierKey]!].count
+      _action.type === (this as any)[identifierKey]
+        ? _action.state[(this as any)[identifierKey]!].count
         : _state
     );
 

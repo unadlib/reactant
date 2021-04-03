@@ -492,8 +492,8 @@ describe('base API', () => {
       list = createState<{ count: number }[], ReactantAction>(
         // eslint-disable-next-line no-shadow
         (_state = [{ count: 1 }], { type, state }) =>
-          type === this[identifierKey]
-            ? state[this[identifierKey]!].list
+          type === (this as any)[identifierKey]
+            ? state[(this as any)[identifierKey]!].list
             : _state
       );
 
