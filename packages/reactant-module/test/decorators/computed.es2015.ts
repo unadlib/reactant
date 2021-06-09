@@ -40,10 +40,9 @@ describe('@computed', () => {
       }
 
       @computed(({ count, count1 }: Counter) => [count, count1])
-      get num() {
+      get num1() {
         computedFn1();
-        // @ts-ignore
-        return this.count1 + super.num;
+        return this.count1 + this.num;
       }
     }
     const ServiceIdentifiers = new Map();
@@ -76,10 +75,11 @@ describe('@computed', () => {
     expect(computedFn1.mock.calls.length).toBe(0);
     counter.increase();
     expect(counter.num).toBe(2);
+    expect(counter.num1).toBe(2);
     expect(computedFn.mock.calls.length).toBe(1);
     expect(computedFn1.mock.calls.length).toBe(1);
     counter.increase1();
-    expect(counter.num).toBe(3);
+    expect(counter.num1).toBe(3);
     expect(computedFn.mock.calls.length).toBe(1);
     expect(computedFn1.mock.calls.length).toBe(2);
   });

@@ -1,5 +1,6 @@
 {
   "preset": "ts-jest",
+  "testEnvironment": "jsdom",
   "rootDir": "../../",
   "globals": {
     "__DEV__": false

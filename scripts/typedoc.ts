@@ -44,7 +44,7 @@ const generateDocs = (project: string) => {
       stdio: 'inherit',
     });
     subprocess.on('close', (code) => {
-      resolve();
+      resolve(undefined);
     });
   });
 };

@@ -58,3 +58,5 @@ export const computed = (depsCallback: (instance: any) => any[]) => (
     },
   };
 };
+
+// https://github.com/microsoft/TypeScript/issues/338
