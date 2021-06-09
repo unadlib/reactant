@@ -43,7 +43,7 @@ sidebar_label: "Module"
 
 \+ **new Module**(...`args`: any[]): *T*
 
-*Defined in [packages/reactant-di/src/interfaces.ts:26](https://github.com/unadlib/reactant/blob/f8f02435/packages/reactant-di/src/interfaces.ts#L26)*
+*Defined in [packages/reactant-di/src/interfaces.ts:26](https://github.com/unadlib/reactant/blob/067ec7c4/packages/reactant-di/src/interfaces.ts#L26)*
 
 **Parameters:**
 
@@ -121,7 +121,7 @@ Defined in node_modules/typescript/lib/lib.es5.d.ts:298
 
 *Inherited from [Module](_interfaces_.module.md).[[Symbol.hasInstance]](_interfaces_.module.md#[symbol.hasinstance])*
 
-Defined in node_modules/typescript/lib/lib.es2015.symbol.wellknown.d.ts:157
+Defined in node_modules/typescript/lib/lib.es2015.symbol.wellknown.d.ts:162
 
 Determines whether the given value inherits from this function if this function was used
 as a constructor function.

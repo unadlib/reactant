@@ -25,7 +25,7 @@ sidebar_label: "model"
 
 Ƭ **Actions**: *object*
 
-*Defined in [model.ts:18](https://github.com/unadlib/reactant/blob/f8f02435/packages/reactant-model/src/model.ts#L18)*
+*Defined in [model.ts:18](https://github.com/unadlib/reactant/blob/067ec7c4/packages/reactant-model/src/model.ts#L18)*
 
 #### Type declaration:
 
@@ -35,7 +35,7 @@ ___
 
 Ƭ **ServiceName**: *Pick‹Service, "name"›*
 
-*Defined in [model.ts:11](https://github.com/unadlib/reactant/blob/f8f02435/packages/reactant-model/src/model.ts#L11)*
+*Defined in [model.ts:11](https://github.com/unadlib/reactant/blob/067ec7c4/packages/reactant-model/src/model.ts#L11)*
 
 ## Functions
 
@@ -43,7 +43,7 @@ ___
 
 ▸ **model**<**S**, **A**>(`scheme`: [Scheme](../interfaces/_model_.scheme.md)‹S, A›): *[Actions](_model_.md#actions)‹A› & Service‹S› & S*
 
-*Defined in [model.ts:22](https://github.com/unadlib/reactant/blob/f8f02435/packages/reactant-model/src/model.ts#L22)*
+*Defined in [model.ts:22](https://github.com/unadlib/reactant/blob/067ec7c4/packages/reactant-model/src/model.ts#L22)*
 
 **Type parameters:**
 
