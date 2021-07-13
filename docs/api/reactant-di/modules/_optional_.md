@@ -20,4 +20,4 @@ sidebar_label: "optional"
 
 • **defaultUndefinedValue**: *unique symbol* = Symbol('defaultUndefined')
 
-*Defined in [packages/reactant-di/src/optional.ts:3](https://github.com/unadlib/reactant/blob/067ec7c4/packages/reactant-di/src/optional.ts#L3)*
+*Defined in [packages/reactant-di/src/optional.ts:3](https://github.com/unadlib/reactant/blob/64ece1ec/packages/reactant-di/src/optional.ts#L3)*

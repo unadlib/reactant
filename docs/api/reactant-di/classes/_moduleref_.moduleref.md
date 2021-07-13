@@ -62,7 +62,7 @@ sidebar_label: "ModuleRef"
 
 *Inherited from [ModuleRef](_moduleref_.moduleref.md).[constructor](_moduleref_.moduleref.md#constructor)*
 
-Defined in node_modules/inversify/dts/container/container.d.ts:10
+Defined in node_modules/inversify/lib/container/container.d.ts:11
 
 **Parameters:**
 
@@ -80,7 +80,7 @@ Name | Type |
 
 *Inherited from [ModuleRef](_moduleref_.moduleref.md).[id](_moduleref_.moduleref.md#id)*
 
-Defined in node_modules/inversify/dts/container/container.d.ts:3
+Defined in node_modules/inversify/lib/container/container.d.ts:3
 
 ___
 
@@ -90,7 +90,7 @@ ___
 
 *Inherited from [ModuleRef](_moduleref_.moduleref.md).[options](_moduleref_.moduleref.md#readonly-options)*
 
-Defined in node_modules/inversify/dts/container/container.d.ts:5
+Defined in node_modules/inversify/lib/container/container.d.ts:5
 
 ___
 
@@ -100,7 +100,7 @@ ___
 
 *Inherited from [ModuleRef](_moduleref_.moduleref.md).[parent](_moduleref_.moduleref.md#parent)*
 
-Defined in node_modules/inversify/dts/container/container.d.ts:4
+Defined in node_modules/inversify/lib/container/container.d.ts:4
 
 ## Methods
 
@@ -110,7 +110,7 @@ Defined in node_modules/inversify/dts/container/container.d.ts:4
 
 *Inherited from [ModuleRef](_moduleref_.moduleref.md).[applyCustomMetadataReader](_moduleref_.moduleref.md#applycustommetadatareader)*
 
-Defined in node_modules/inversify/dts/container/container.d.ts:26
+Defined in node_modules/inversify/lib/container/container.d.ts:27
 
 **Parameters:**
 
@@ -128,7 +128,7 @@ ___
 
 *Inherited from [ModuleRef](_moduleref_.moduleref.md).[applyMiddleware](_moduleref_.moduleref.md#applymiddleware)*
 
-Defined in node_modules/inversify/dts/container/container.d.ts:25
+Defined in node_modules/inversify/lib/container/container.d.ts:26
 
 **Parameters:**
 
@@ -146,7 +146,7 @@ ___
 
 *Inherited from [ModuleRef](_moduleref_.moduleref.md).[bind](_moduleref_.moduleref.md#bind)*
 
-Defined in node_modules/inversify/dts/container/container.d.ts:15
+Defined in node_modules/inversify/lib/container/container.d.ts:16
 
 **Type parameters:**
 
@@ -168,7 +168,7 @@ ___
 
 *Inherited from [ModuleRef](_moduleref_.moduleref.md).[createChild](_moduleref_.moduleref.md#createchild)*
 
-Defined in node_modules/inversify/dts/container/container.d.ts:24
+Defined in node_modules/inversify/lib/container/container.d.ts:25
 
 **Parameters:**
 
@@ -186,7 +186,7 @@ ___
 
 *Inherited from [ModuleRef](_moduleref_.moduleref.md).[get](_moduleref_.moduleref.md#get)*
 
-Defined in node_modules/inversify/dts/container/container.d.ts:27
+Defined in node_modules/inversify/lib/container/container.d.ts:28
 
 **Type parameters:**
 
@@ -208,7 +208,7 @@ ___
 
 *Inherited from [ModuleRef](_moduleref_.moduleref.md).[getAll](_moduleref_.moduleref.md#getall)*
 
-Defined in node_modules/inversify/dts/container/container.d.ts:30
+Defined in node_modules/inversify/lib/container/container.d.ts:31
 
 **Type parameters:**
 
@@ -230,7 +230,7 @@ ___
 
 *Inherited from [ModuleRef](_moduleref_.moduleref.md).[getAllNamed](_moduleref_.moduleref.md#getallnamed)*
 
-Defined in node_modules/inversify/dts/container/container.d.ts:32
+Defined in node_modules/inversify/lib/container/container.d.ts:33
 
 **Type parameters:**
 
@@ -253,7 +253,7 @@ ___
 
 *Inherited from [ModuleRef](_moduleref_.moduleref.md).[getAllTagged](_moduleref_.moduleref.md#getalltagged)*
 
-Defined in node_modules/inversify/dts/container/container.d.ts:31
+Defined in node_modules/inversify/lib/container/container.d.ts:32
 
 **Type parameters:**
 
@@ -277,7 +277,7 @@ ___
 
 *Inherited from [ModuleRef](_moduleref_.moduleref.md).[getNamed](_moduleref_.moduleref.md#getnamed)*
 
-Defined in node_modules/inversify/dts/container/container.d.ts:29
+Defined in node_modules/inversify/lib/container/container.d.ts:30
 
 **Type parameters:**
 
@@ -300,7 +300,7 @@ ___
 
 *Inherited from [ModuleRef](_moduleref_.moduleref.md).[getTagged](_moduleref_.moduleref.md#gettagged)*
 
-Defined in node_modules/inversify/dts/container/container.d.ts:28
+Defined in node_modules/inversify/lib/container/container.d.ts:29
 
 **Type parameters:**
 
@@ -324,7 +324,7 @@ ___
 
 *Inherited from [ModuleRef](_moduleref_.moduleref.md).[isBound](_moduleref_.moduleref.md#isbound)*
 
-Defined in node_modules/inversify/dts/container/container.d.ts:19
+Defined in node_modules/inversify/lib/container/container.d.ts:20
 
 **Parameters:**
 
@@ -342,7 +342,7 @@ ___
 
 *Inherited from [ModuleRef](_moduleref_.moduleref.md).[isBoundNamed](_moduleref_.moduleref.md#isboundnamed)*
 
-Defined in node_modules/inversify/dts/container/container.d.ts:20
+Defined in node_modules/inversify/lib/container/container.d.ts:21
 
 **Parameters:**
 
@@ -361,7 +361,7 @@ ___
 
 *Inherited from [ModuleRef](_moduleref_.moduleref.md).[isBoundTagged](_moduleref_.moduleref.md#isboundtagged)*
 
-Defined in node_modules/inversify/dts/container/container.d.ts:21
+Defined in node_modules/inversify/lib/container/container.d.ts:22
 
 **Parameters:**
 
@@ -381,7 +381,7 @@ ___
 
 *Inherited from [ModuleRef](_moduleref_.moduleref.md).[load](_moduleref_.moduleref.md#load)*
 
-Defined in node_modules/inversify/dts/container/container.d.ts:12
+Defined in node_modules/inversify/lib/container/container.d.ts:13
 
 **Parameters:**
 
@@ -399,7 +399,7 @@ ___
 
 *Inherited from [ModuleRef](_moduleref_.moduleref.md).[loadAsync](_moduleref_.moduleref.md#loadasync)*
 
-Defined in node_modules/inversify/dts/container/container.d.ts:13
+Defined in node_modules/inversify/lib/container/container.d.ts:14
 
 **Parameters:**
 
@@ -417,7 +417,7 @@ ___
 
 *Inherited from [ModuleRef](_moduleref_.moduleref.md).[rebind](_moduleref_.moduleref.md#rebind)*
 
-Defined in node_modules/inversify/dts/container/container.d.ts:16
+Defined in node_modules/inversify/lib/container/container.d.ts:17
 
 **Type parameters:**
 
@@ -435,11 +435,11 @@ ___
 
 ###  resolve
 
-▸ **resolve**<**T**>(`constructorFunction`: Newable‹T›): *T*
+▸ **resolve**<**T**>(`constructorFunction`: interfaces.Newable‹T›): *T*
 
 *Inherited from [ModuleRef](_moduleref_.moduleref.md).[resolve](_moduleref_.moduleref.md#resolve)*
 
-Defined in node_modules/inversify/dts/container/container.d.ts:33
+Defined in node_modules/inversify/lib/container/container.d.ts:34
 
 **Type parameters:**
 
@@ -449,7 +449,7 @@ Defined in node_modules/inversify/dts/container/container.d.ts:33
 
 Name | Type |
 ------ | ------ |
-`constructorFunction` | Newable‹T› |
+`constructorFunction` | interfaces.Newable‹T› |
 
 **Returns:** *T*
 
@@ -461,7 +461,7 @@ ___
 
 *Inherited from [ModuleRef](_moduleref_.moduleref.md).[restore](_moduleref_.moduleref.md#restore)*
 
-Defined in node_modules/inversify/dts/container/container.d.ts:23
+Defined in node_modules/inversify/lib/container/container.d.ts:24
 
 **Returns:** *void*
 
@@ -473,7 +473,7 @@ ___
 
 *Inherited from [ModuleRef](_moduleref_.moduleref.md).[snapshot](_moduleref_.moduleref.md#snapshot)*
 
-Defined in node_modules/inversify/dts/container/container.d.ts:22
+Defined in node_modules/inversify/lib/container/container.d.ts:23
 
 **Returns:** *void*
 
@@ -485,7 +485,7 @@ ___
 
 *Inherited from [ModuleRef](_moduleref_.moduleref.md).[unbind](_moduleref_.moduleref.md#unbind)*
 
-Defined in node_modules/inversify/dts/container/container.d.ts:17
+Defined in node_modules/inversify/lib/container/container.d.ts:18
 
 **Parameters:**
 
@@ -503,7 +503,7 @@ ___
 
 *Inherited from [ModuleRef](_moduleref_.moduleref.md).[unbindAll](_moduleref_.moduleref.md#unbindall)*
 
-Defined in node_modules/inversify/dts/container/container.d.ts:18
+Defined in node_modules/inversify/lib/container/container.d.ts:19
 
 **Returns:** *void*
 
@@ -515,7 +515,7 @@ ___
 
 *Inherited from [ModuleRef](_moduleref_.moduleref.md).[unload](_moduleref_.moduleref.md#unload)*
 
-Defined in node_modules/inversify/dts/container/container.d.ts:14
+Defined in node_modules/inversify/lib/container/container.d.ts:15
 
 **Parameters:**
 
@@ -529,11 +529,11 @@ ___
 
 ### `Static` merge
 
-▸ **merge**(`container1`: Container, `container2`: Container): *Container*
+▸ **merge**(`container1`: Container, `container2`: Container, ...`container3`: Container[]): *Container*
 
 *Inherited from [ModuleRef](_moduleref_.moduleref.md).[merge](_moduleref_.moduleref.md#static-merge)*
 
-Defined in node_modules/inversify/dts/container/container.d.ts:10
+Defined in node_modules/inversify/lib/container/container.d.ts:11
 
 **Parameters:**
 
@@ -541,5 +541,6 @@ Name | Type |
 ------ | ------ |
 `container1` | Container |
 `container2` | Container |
+`...container3` | Container[] |
 
 **Returns:** *Container*

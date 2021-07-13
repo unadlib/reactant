@@ -29,7 +29,7 @@ sidebar_label: "CustomMetadataReader"
 
 *Overrides void*
 
-*Defined in [packages/reactant-di/src/createContainer.ts:25](https://github.com/unadlib/reactant/blob/067ec7c4/packages/reactant-di/src/createContainer.ts#L25)*
+*Defined in [packages/reactant-di/src/createContainer.ts:25](https://github.com/unadlib/reactant/blob/64ece1ec/packages/reactant-di/src/createContainer.ts#L25)*
 
 **Parameters:**
 
@@ -47,7 +47,7 @@ ___
 
 *Inherited from [CustomMetadataReader](_createcontainer_.custommetadatareader.md).[getPropertiesMetadata](_createcontainer_.custommetadatareader.md#getpropertiesmetadata)*
 
-Defined in node_modules/inversify/dts/planning/metadata_reader.d.ts:4
+Defined in node_modules/inversify/lib/planning/metadata_reader.d.ts:4
 
 **Parameters:**
 

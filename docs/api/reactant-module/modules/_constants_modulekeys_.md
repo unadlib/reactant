@@ -17,7 +17,7 @@ sidebar_label: "constants/moduleKeys"
 
 • **containerKey**: *keyof symbol* = Symbol('container')
 
-*Defined in [packages/reactant-module/src/constants/moduleKeys.ts:1](https://github.com/unadlib/reactant/blob/067ec7c4/packages/reactant-module/src/constants/moduleKeys.ts#L1)*
+*Defined in [packages/reactant-module/src/constants/moduleKeys.ts:1](https://github.com/unadlib/reactant/blob/64ece1ec/packages/reactant-module/src/constants/moduleKeys.ts#L1)*
 
 ___
 
@@ -25,4 +25,4 @@ ___
 
 • **identifierKey**: *keyof symbol* = Symbol('identifier')
 
-*Defined in [packages/reactant-module/src/constants/moduleKeys.ts:2](https://github.com/unadlib/reactant/blob/067ec7c4/packages/reactant-module/src/constants/moduleKeys.ts#L2)*
+*Defined in [packages/reactant-module/src/constants/moduleKeys.ts:2](https://github.com/unadlib/reactant/blob/64ece1ec/packages/reactant-module/src/constants/moduleKeys.ts#L2)*
