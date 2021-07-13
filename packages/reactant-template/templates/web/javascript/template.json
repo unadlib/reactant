@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "webpack-dev-server",
+    "start": "webpack-cli serve --open",
     "build": "webpack",
     "test": "jest --config jest.json"
   },
