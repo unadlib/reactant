@@ -12,17 +12,18 @@
   "keywords": [],
   "author": "",
   "peerDependencies": {
-    "history": "^4.10.1",
-    "react": "^16.12.0",
-    "reactant-module": "^0.1.10",
-    "redux": "^4.0.5"
+    "react": "^16.12.0 || ^17",
+    "reactant-module": "*",
+    "redux": "^4.1.0"
   },
   "dependencies": {
-    "connected-react-router": "^6.7.0",
-    "history": "^4.10.1",
+    "connected-react-router": "^6.9.1",
+    "history": "^4.10.1"
+  },
+  "devDependencies": {
     "react": "^16.12.0",
     "reactant-module": "^0.6.6",
-    "redux": "^4.0.5"
+    "redux": "^4.1.0"
   },
   "license": "MIT"
 }

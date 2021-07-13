@@ -13,11 +13,11 @@
   "author": "",
   "license": "MIT",
   "peerDependencies": {
-    "reactant-module": "^0.1.10",
-    "redux": "^4.0.5"
+    "reactant-module": "*",
+    "redux": "^4.1.0"
   },
   "devDependencies": {
     "reactant-module": "^0.6.6",
-    "redux": "^4.0.5"
+    "redux": "^4.1.0"
   }
 }

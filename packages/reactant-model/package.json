@@ -13,11 +13,11 @@
   "author": "",
   "license": "MIT",
   "peerDependencies": {
-    "immer": "^8.0.1",
-    "reactant-module": "^0.3.3"
+    "immer": "^9.0.5",
+    "reactant-module": "*"
   },
   "devDependencies": {
-    "immer": "^8.0.1",
+    "immer": "^9.0.5",
     "reactant-module": "^0.6.6"
   }
 }

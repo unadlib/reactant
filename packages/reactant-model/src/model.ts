@@ -1,4 +1,4 @@
-import { produce, produceWithPatches, Patch } from 'immer';
+import { produce, produceWithPatches, Patch, Immutable } from 'immer';
 import {
   storeKey,
   Service,
@@ -30,7 +30,7 @@ export const model = <
     const fn = scheme.actions[key];
     Object.assign(scheme.actions, {
       [key]: (...args: any[]) => {
-        let state: S | undefined;
+        let state: Immutable<S> | S | undefined;
         let patches: Patch[] | undefined;
         let inversePatches: Patch[] | undefined;
         if (module[enablePatchesKey]) {

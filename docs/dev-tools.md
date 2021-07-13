@@ -9,3 +9,4 @@ title: Dev Tools
 * VS Code dev extensions
 * C4 model tools
 * Bundler
+* SSR

@@ -13,10 +13,12 @@
   "author": "",
   "license": "MIT",
   "peerDependencies": {
-    "react-dom": "^16.12.0"
+    "react-dom": "^16.14.0 || ^17"
   },
   "dependencies": {
-    "react-dom": "^16.12.0",
     "reactant-router-dom": "^0.6.6"
+  },
+  "devDependencies": {
+    "react-dom": "^16.14.0"
   }
 }

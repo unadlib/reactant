@@ -13,7 +13,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "inversify": "^5.0.1",
+    "inversify": "^5.1.1",
     "reflect-metadata": "^0.1.13"
   }
 }

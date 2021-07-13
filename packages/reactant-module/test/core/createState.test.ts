@@ -7,7 +7,6 @@ import {
   state,
   ReactantAction,
   identifierKey,
-  Service,
 } from '../..';
 
 test('`createState` with type', () => {

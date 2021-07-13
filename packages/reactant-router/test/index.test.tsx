@@ -1,6 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/ban-ts-ignore */
 /* eslint-disable class-methods-use-this */
 import React, { FC } from 'react';
 import { act } from 'react-dom/test-utils';
