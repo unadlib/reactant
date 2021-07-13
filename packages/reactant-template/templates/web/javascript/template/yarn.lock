@@ -3376,10 +3376,10 @@ ignore@^5.1.4:
   resolved "https://registry.yarnpkg.com/ignore/-/ignore-5.1.8.tgz#f150a8b50a34289b33e22f5889abd4d8016f0e57"
   integrity sha512-BMpfD7PpiETpBl/A6S498BaIJ6Y/ABT93ETbby2fP00v4EbvPBXWEoaR1UBPKs3iR53pJY7EtZk5KACI57i1Uw==
 
-immer@^8.0.1:
-  version "8.0.4"
-  resolved "https://registry.yarnpkg.com/immer/-/immer-8.0.4.tgz#3a21605a4e2dded852fb2afd208ad50969737b7a"
-  integrity sha512-jMfL18P+/6P6epANRvRk6q8t+3gGhqsJ9EuJ25AXE+9bNTYtssvzeYbEd0mXRYWCmmXSIbnlpz6vd6iJlmGGGQ==
+immer@^9.0.5:
+  version "9.0.5"
+  resolved "https://registry.yarnpkg.com/immer/-/immer-9.0.5.tgz#a7154f34fe7064f15f00554cc94c66cc0bf453ec"
+  integrity sha512-2WuIehr2y4lmYz9gaQzetPR2ECniCifk4ORaQbU3g5EalLt+0IVTosEPJ5BoYl/75ky2mivzdRzV8wWgQGOSYQ==
 
 import-local@^2.0.0:
   version "2.0.0"
@@ -3438,7 +3438,7 @@ interpret@^2.2.0:
   resolved "https://registry.yarnpkg.com/interpret/-/interpret-2.2.0.tgz#1a78a0b5965c40a5416d007ad6f50ad27c417df9"
   integrity sha512-Ju0Bz/cEia55xDwUWEa8+olFpCiQoypjnQySseKtmjNrnps3P+xfpUmGr90T7yjlVJmOtybRvPXhKMbHr+fWnw==
 
-inversify@^5.0.1:
+inversify@^5.1.1:
   version "5.1.1"
   resolved "https://registry.yarnpkg.com/inversify/-/inversify-5.1.1.tgz#6fbd668c591337404e005a1946bfe0d802c08730"
   integrity sha512-j8grHGDzv1v+8T1sAQ+3boTCntFPfvxLCkNcxB1J8qA0lUN+fAlSyYd+RXKvaPRL4AGyPxViutBEJHNXOyUdFQ==
@@ -5099,7 +5099,7 @@ react-is@^17.0.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-17.0.2.tgz#e691d4a8e9c789365655539ab372762b0efb54f0"
   integrity sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
 
-react-redux@^7.2.0:
+react-redux@^7.2.4:
   version "7.2.4"
   resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-7.2.4.tgz#1ebb474032b72d806de2e0519cd07761e222e225"
   integrity sha512-hOQ5eOSkEJEXdpIKbnRyl04LhaWabkDPV+Ix97wqQX3T3d2NQ8DUblNXXtNMavc7DpswyQM6xfaN4HQDKNY2JA==
@@ -5111,7 +5111,7 @@ react-redux@^7.2.0:
     prop-types "^15.7.2"
     react-is "^16.13.1"
 
-react-router-dom@^5.1.2:
+react-router-dom@^5.2.0:
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-5.2.0.tgz#9e65a4d0c45e13289e66c7b17c7e175d0ea15662"
   integrity sha512-gxAmfylo2QUjcwxI63RhQ5G85Qqt4voZpUXSEqCwykV0baaOTQDR1f0PmY8AELqIyVc0NEZUj0Gov5lNGcXgsA==
@@ -5140,45 +5140,44 @@ react-router@5.2.0:
     tiny-invariant "^1.0.2"
     tiny-warning "^1.0.0"
 
-reactant-di@^0.6.6:
-  version "0.6.6"
-  resolved "https://registry.yarnpkg.com/reactant-di/-/reactant-di-0.6.6.tgz#ad3a9a5a9b84c9c0ea0ac77807ce9971b2da99d6"
-  integrity sha512-87ItY/yjH96PFAte13QEJXiKAZutnoDI6UzhNwC+iOB+TuIpiOF7/kOBe7wwtX7H1F4I6iFQCE5Nj4F58uC8AQ==
+reactant-di@^0.7.0:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/reactant-di/-/reactant-di-0.7.0.tgz#ca616187d62dc9f1e4b0d8814da86c231fa872f7"
+  integrity sha512-vtlSkv+f5u/cL2C5isyKvCai7GJcXomr8eiknjKXJRgj8wMAxQ1vzGmK7LnVVp2qiCN6xbUNZKPXD9881058fQ==
   dependencies:
-    inversify "^5.0.1"
+    inversify "^5.1.1"
     reflect-metadata "^0.1.13"
 
-reactant-module@^0.6.6:
-  version "0.6.6"
-  resolved "https://registry.yarnpkg.com/reactant-module/-/reactant-module-0.6.6.tgz#c06269cace030e38264bbebb664abfd085cbed96"
-  integrity sha512-FAXTYMROdkjEaurhTUiZz8INOTypyP+tvFtPjiQSbesbcOsoJPh3yn6H4txPvNZ96L+vnWHehz2nqL7sHJO6JQ==
+reactant-module@^0.7.0:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/reactant-module/-/reactant-module-0.7.0.tgz#364f7b77b7d92ab07d0cfc39da61cf8c2fcb00c7"
+  integrity sha512-rqAgctppu3KmFXqHsuP+C4/YPUGlZX30UgawcoUGglye7lp1ahi8VMK4KlSy6VKhoqRMFLQijbZHF4cGDQW30w==
   dependencies:
-    immer "^8.0.1"
-    reactant-di "^0.6.6"
-    redux "^4.0.5"
+    immer "^9.0.5"
+    reactant-di "^0.7.0"
+    redux "^4.1.0"
 
-reactant-router-dom@^0.6.6:
-  version "0.6.6"
-  resolved "https://registry.yarnpkg.com/reactant-router-dom/-/reactant-router-dom-0.6.6.tgz#594443ad95cb64f4b59fbad5ce442df35ade47b9"
-  integrity sha512-S3iZFQC5sH2jkztYFoK/Z6GYKBv6am96pUjeK+ajggaAzQ0S/SMex8H8MyZswWmT9luUVeKouhw1xFE/BD/Ctg==
+reactant-router-dom@^0.7.0:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/reactant-router-dom/-/reactant-router-dom-0.7.0.tgz#3c9d05cfec0d848d5036d0ea4af201a626d67b28"
+  integrity sha512-VGS0qKu7QU4X5sSHiNu9mJw2afOvdgi9zaMGVUskJ6QxNmqaDPp4gucQbfaxFTuZs1VV4ZJ3VnUK+NcwiRFm9w==
   dependencies:
-    react-router-dom "^5.1.2"
+    react-router-dom "^5.2.0"
 
-reactant-web@0.6.6:
-  version "0.6.6"
-  resolved "https://registry.yarnpkg.com/reactant-web/-/reactant-web-0.6.6.tgz#05dfa32f21c2632221beee38f0a245e7b53966b3"
-  integrity sha512-Q/d/PCdx+YVIe4ahVQ+OT0Lb77MSOyyHinX3TXvxvsYREnjuMrzNysTnohnq0dmsjzpXh5aduNSs6bHX+irihg==
+reactant-web@0.7.0:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/reactant-web/-/reactant-web-0.7.0.tgz#e72ed110f643cc82797c09093d73fee6e39764a3"
+  integrity sha512-/durWZuPdwfsrg0qP97+DT0/4P/67Y+h3STxX9iyyZidrAaSWT35PeC8KP6S1oM4dRuA75s27SFP6LTYDTQBOQ==
   dependencies:
-    react-dom "^16.12.0"
-    reactant-router-dom "^0.6.6"
+    reactant-router-dom "^0.7.0"
 
-reactant@0.6.6:
-  version "0.6.6"
-  resolved "https://registry.yarnpkg.com/reactant/-/reactant-0.6.6.tgz#2b6b336604a0cf944fdbf5409680f9c59b3e177f"
-  integrity sha512-YRv3CpV0v7kBTpLRRI+y6SVElBK199s1MKQTDW8M/6xRmgUW/jRFyAY787s1aOCvfZv2EgbpcyuESxrP1pRp8Q==
+reactant@0.7.0:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/reactant/-/reactant-0.7.0.tgz#46f3f48a8df846fc5771ffa48b6a8b09beaa1525"
+  integrity sha512-V63OC0x/CVgU44glZnrVCF2GeHqLC8+1h2Xc2Ocs+CG0j14gUvyqKkCJ3a8flVVHc/NP/pPsnFgU4bfEgpQinA==
   dependencies:
-    react-redux "^7.2.0"
-    reactant-module "^0.6.6"
+    react-redux "^7.2.4"
+    reactant-module "^0.7.0"
 
 readable-stream@^2.0.1, readable-stream@^2.0.2:
   version "2.3.7"
@@ -5218,7 +5217,7 @@ rechoir@^0.7.0:
   dependencies:
     resolve "^1.9.0"
 
-redux@^4.0.0, redux@^4.0.5:
+redux@^4.0.0, redux@^4.1.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/redux/-/redux-4.1.0.tgz#eb049679f2f523c379f1aff345c8612f294c88d4"
   integrity sha512-uI2dQN43zqLWCt6B/BMGRMY6db7TTY4qeHHfGeKb3EOhmOKjU3KdWvNLJyqaHRksv/ErdNH7cFZWg9jXtewy4g==
@@ -5445,14 +5444,6 @@ saxes@^5.0.1:
   integrity sha512-5LBh1Tls8c9xgGjw3QrMwETmTMVk0oFgvrFSvWx62llR2hcEInrKNZ2GZCCuuy2lvWrdl5jhbpeqc5hRYKFOcw==
   dependencies:
     xmlchars "^2.2.0"
-
-scheduler@^0.19.1:
-  version "0.19.1"
-  resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.19.1.tgz#4f3e2ed2c1a7d65681f4c854fa8c5a1ccb40f196"
-  integrity sha512-n/zwRWRYSUj0/3g/otKDRPMh6qv2SYMWNq85IEa8iZyAv8od9zDYpGSnpBEjNgcMNq6Scbu5KfIPxNF72R/2EA==
-  dependencies:
-    loose-envify "^1.1.0"
-    object-assign "^4.1.1"
 
 scheduler@^0.20.2:
   version "0.20.2"
