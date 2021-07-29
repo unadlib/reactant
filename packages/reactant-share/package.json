@@ -16,10 +16,17 @@
   },
   "keywords": [
     "Reactant",
-    "Reactant Module"
+    "Reactant Shared Application"
   ],
   "author": "unadlib",
   "license": "MIT",
-  "dependencies": {},
-  "devDependencies": {}
+  "peerDependencies": {
+    "react": "^16.12.0 || ^17"
+  },
+  "dependencies": {
+    "reactant": "^0.7.1"
+  },
+  "devDependencies": {
+    "react": "^16.12.0"
+  }
 }
