@@ -100,6 +100,7 @@ const action = (
         this[storeKey]!.dispatch<ReactantAction>({
           type: this[identifierKey]!,
           method: key,
+          params: args,
           state,
           _reactant: actionIdentifier,
           ...(this[enablePatchesKey]

@@ -67,6 +67,7 @@ export type ReactantMiddleware = Middleware;
 export interface ReactantAction<T = any> extends Action<string | symbol> {
   method?: string;
   state: Record<string, T>;
+  params: any[];
   _reactant: typeof actionIdentifier;
   _patches?: Patch[];
   _inversePatches?: Patch[];
