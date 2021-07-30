@@ -1,0 +1,27 @@
+{
+  "name": "reactant-last-action",
+  "version": "0.7.1",
+  "description": "A Reactant plugin for staging last action",
+  "main": "dist/index.cjs.js",
+  "unpkg": "dist/index.umd.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Reactant",
+    "Reactant Last Action"
+  ],
+  "author": "unadlib",
+  "license": "MIT",
+  "peerDependencies": {
+    "reactant-module": "*",
+    "redux": "^4.1.0"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "reactant-module": "^0.7.1",
+    "redux": "^4.1.0"
+  }
+}
