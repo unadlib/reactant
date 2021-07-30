@@ -140,6 +140,7 @@ describe('createStore', () => {
       {
         _reactant: actionIdentifier,
         method: 'increase',
+        params: [],
         state: {
           counter: { count: 1 },
         },
