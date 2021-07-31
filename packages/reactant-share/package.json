@@ -26,7 +26,8 @@
   "dependencies": {
     "broadcast-channel": "^4.0.0",
     "data-transport": "^2.1.0",
-    "reactant": "^0.7.1"
+    "reactant": "^0.7.1",
+    "reactant-last-action": "^0.7.1"
   },
   "devDependencies": {
     "react": "^16.12.0"
