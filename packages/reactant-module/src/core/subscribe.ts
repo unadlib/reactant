@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 import { Unsubscribe } from 'redux';
 import { Subscribe } from '../interfaces';
 import { storeKey, subscriptionsKey } from '../constants';

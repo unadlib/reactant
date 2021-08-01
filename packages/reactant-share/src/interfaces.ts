@@ -6,3 +6,5 @@ export interface Config<T> extends BaseConfig<T> {
    */
   name: string;
 }
+
+export type Callback = () => void | Promise<void>;

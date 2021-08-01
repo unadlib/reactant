@@ -6,11 +6,33 @@ import {
   LastActionOptions,
   ILastActionOptions,
 } from 'reactant-last-action';
-import { createTransport } from 'data-transport';
+import { createTransport, Transport } from 'data-transport';
 import { BroadcastChannel } from 'broadcast-channel';
 import { Config } from './interfaces';
+import { getIsMain, setIsMain } from './tabChecker';
 
-export function createApp<T>({ name, ...options }: Config<T>) {
+const handleServer = (app: App<any>, transport: Transport) => {
+  const container = app.instance[containerKey];
+  transport.listen('isClient', () => true);
+  transport.listen('preloadedState', () => app.store?.getState());
+  transport.listen(
+    'proxyFunction',
+    async (options: { module: string; method: string; args: any[] }) => {
+      const module = container.get(options.module);
+      const method = module[options.method];
+      const result = await method.apply(module, options.args);
+      return result;
+    }
+  );
+  app.store?.subscribe(() => {
+    const { lastAction }: LastAction = container.get(LastAction);
+    if (lastAction) {
+      transport.emit({ name: 'lastAction', respond: false }, lastAction);
+    }
+  });
+};
+
+export const createApp = <T>({ name, ...options }: Config<T>) => {
   return new Promise(async (resolve) => {
     const broadcastChannel = new BroadcastChannel('broadcastChannel');
     const transport = createTransport('Base', {
@@ -22,22 +44,37 @@ export function createApp<T>({ name, ...options }: Config<T>) {
       sender: (message) => broadcastChannel.postMessage(message),
       prefix: `reactant-shared-app:${name}`,
     });
-
-    const isMain = await Promise.race([
+    let app: App<any>;
+    let disposeLastAction: (() => void) | undefined;
+    const isMainTab = await Promise.race([
       new Promise<boolean>((resolve) => {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        navigator.locks.request(name, (lock) => {
-          if (lock) resolve(true);
+        navigator.locks.request(name, () => {
+          resolve(true);
+          if (getIsMain() === false) {
+            // client becomes server
+            const shareCallback = setIsMain(true);
+            shareCallback();
+            disposeLastAction?.();
+            handleServer(app, transport);
+          } else {
+            //
+          }
+          return new Promise(() => {
+            // Main JS container lock
+          });
         });
       }),
       new Promise<boolean>(async (resolve) => {
-        const result = await transport.emit('client');
+        const result = await transport.emit('isClient');
         if (result) {
           resolve(false);
         }
       }),
     ]);
+
+    const shareCallback = setIsMain(isMainTab);
 
     options.modules?.push(LastAction, {
       provide: LastActionOptions,
@@ -46,42 +83,21 @@ export function createApp<T>({ name, ...options }: Config<T>) {
       } as ILastActionOptions,
     });
 
-    let app: App<any>;
-
-    if (isMain) {
-      // main page
+    if (getIsMain()) {
+      // server
       app = createReactantApp(options);
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      const container = app.instance[containerKey];
-      transport.listen('preloadedState', () => app.store?.getState());
-      transport.listen(
-        'proxyFunction',
-        async (options: { module: string; method: string; args: any[] }) => {
-          const module = container.get(options.module);
-          const method = module[options.method];
-          const result = await method.apply(module, options.args);
-          return result;
-        }
-      );
-      app.store?.subscribe(() => {
-        const { lastAction }: LastAction = container.get(LastAction);
-        if (lastAction) {
-          transport.emit({ name: 'lastAction', respond: false }, lastAction);
-        }
-      });
+      shareCallback();
+      handleServer(app, transport);
       resolve(app);
       return;
     }
-
-    // other tab
-    // remove subscriptions
-
+    // client
     transport.emit('preloadedState').then((preloadedState: any) => {
       app = createReactantApp({ ...options, preloadedState });
+      shareCallback();
       resolve(app);
     });
-    transport.listen('lastAction', (lastAction: any) => {
+    disposeLastAction = transport.listen('lastAction', (lastAction: any) => {
       app?.store?.dispatch(lastAction);
     });
     // proxy function
@@ -93,6 +109,10 @@ export function createApp<T>({ name, ...options }: Config<T>) {
       module: string;
       method: string;
       args: any[];
-    }) => transport.emit('proxyFunction', { module, method, args });
+    }) => {
+      if (!getIsMain()) {
+        transport.emit('proxyFunction', { module, method, args });
+      }
+    };
   });
-}
+};
