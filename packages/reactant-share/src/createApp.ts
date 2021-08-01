@@ -6,10 +6,10 @@ import {
   LastActionOptions,
   ILastActionOptions,
 } from 'reactant-last-action';
-import { createTransport, Transport } from 'data-transport';
-import { BroadcastChannel } from 'broadcast-channel';
+import { Transport } from 'data-transport';
 import { Config } from './interfaces';
 import { getIsMain, setIsMain } from './tabChecker';
+import { createBroadcastTransport } from './createTransport';
 
 const handleServer = (app: App<any>, transport: Transport) => {
   const container = app.instance[containerKey];
@@ -32,18 +32,16 @@ const handleServer = (app: App<any>, transport: Transport) => {
   });
 };
 
-export const createApp = <T>({ name, ...options }: Config<T>) => {
+export const createApp = <T>({
+  name,
+  transports = {},
+  ...options
+}: Config<T>) => {
   return new Promise(async (resolve) => {
-    const broadcastChannel = new BroadcastChannel('broadcastChannel');
-    const transport = createTransport('Base', {
-      listener: (callback) => {
-        broadcastChannel.onmessage = (data) => {
-          callback(data);
-        };
-      },
-      sender: (message) => broadcastChannel.postMessage(message),
-      prefix: `reactant-shared-app:${name}`,
-    });
+    const {
+      server: serverTransport = createBroadcastTransport(name),
+      client: clientTransport = createBroadcastTransport(name),
+    } = transports;
     let app: App<any>;
     let disposeLastAction: (() => void) | undefined;
     const isMainTab = await Promise.race([
@@ -57,7 +55,7 @@ export const createApp = <T>({ name, ...options }: Config<T>) => {
             const shareCallback = setIsMain(true);
             shareCallback();
             disposeLastAction?.();
-            handleServer(app, transport);
+            handleServer(app, serverTransport);
           } else {
             //
           }
@@ -67,7 +65,7 @@ export const createApp = <T>({ name, ...options }: Config<T>) => {
         });
       }),
       new Promise<boolean>(async (resolve) => {
-        const result = await transport.emit('isClient');
+        const result = await clientTransport.emit('isClient');
         if (result) {
           resolve(false);
         }
@@ -87,19 +85,22 @@ export const createApp = <T>({ name, ...options }: Config<T>) => {
       // server
       app = createReactantApp(options);
       shareCallback();
-      handleServer(app, transport);
+      handleServer(app, serverTransport);
       resolve(app);
       return;
     }
     // client
-    transport.emit('preloadedState').then((preloadedState: any) => {
+    clientTransport.emit('preloadedState').then((preloadedState: any) => {
       app = createReactantApp({ ...options, preloadedState });
       shareCallback();
       resolve(app);
     });
-    disposeLastAction = transport.listen('lastAction', (lastAction: any) => {
-      app?.store?.dispatch(lastAction);
-    });
+    disposeLastAction = clientTransport.listen(
+      'lastAction',
+      (lastAction: any) => {
+        app?.store?.dispatch(lastAction);
+      }
+    );
     // proxy function
     const proxy = ({
       module,
@@ -111,7 +112,7 @@ export const createApp = <T>({ name, ...options }: Config<T>) => {
       args: any[];
     }) => {
       if (!getIsMain()) {
-        transport.emit('proxyFunction', { module, method, args });
+        clientTransport.emit('proxyFunction', { module, method, args });
       }
     };
   });
