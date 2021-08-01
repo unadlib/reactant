@@ -1,14 +1,14 @@
 /* eslint-disable consistent-return */
 import { serverCallbacks } from './share';
 
-let isMain: boolean | undefined;
+let isServer: boolean | undefined;
 
-export const getIsMain = () => isMain;
+export const getIsServer = () => isServer;
 
-export const setIsMain = (state: boolean) => {
-  isMain = state;
+export const setIsServer = (state: boolean) => {
+  isServer = state;
   return () => {
-    if (!getIsMain()) return;
+    if (!getIsServer()) return;
     for (const callback of serverCallbacks) {
       try {
         callback();

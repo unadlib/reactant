@@ -1,5 +1,13 @@
 import { BroadcastChannel } from 'broadcast-channel';
-import { createTransport } from 'data-transport';
+import { createTransport, Transport } from 'data-transport';
+
+let clientTransport: Transport | undefined;
+
+export const getClientTransport = () => clientTransport;
+
+export const setClientTransport = (transport: Transport) => {
+  clientTransport = transport;
+};
 
 export const createBroadcastTransport = (name: string) => {
   const broadcastChannel = new BroadcastChannel(
