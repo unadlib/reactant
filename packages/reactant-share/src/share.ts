@@ -1,10 +1,20 @@
+import { ThisService } from 'reactant';
 import { Callback } from './interfaces';
 
-export const serverCallbacks = new Set<Callback>();
+export const serverCallbacks = new Map<ThisService, Set<Callback>>();
 
-export const share = (callback: Callback) => {
-  serverCallbacks.add(callback);
+/**
+ * Multiple renders share a common execution process.
+ */
+export const share = (service: ThisService, callback: Callback) => {
+  try {
+    callback();
+  } catch (e) {
+    //
+  }
+  const callbacks = serverCallbacks.get(service) ?? new Set<Callback>();
+  callbacks.add(callback);
   return () => {
-    serverCallbacks.delete(callback);
+    callbacks.delete(callback);
   };
 };

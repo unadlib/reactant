@@ -9,11 +9,13 @@ export const setIsServer = (state: boolean) => {
   isServer = state;
   return () => {
     if (!getIsServer()) return;
-    for (const callback of serverCallbacks) {
-      try {
-        callback();
-      } catch (e) {
-        //
+    for (const [_, callbacks] of serverCallbacks) {
+      for (const callback of callbacks) {
+        try {
+          callback();
+        } catch (e) {
+          //
+        }
       }
     }
   };
