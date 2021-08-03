@@ -64,20 +64,24 @@ const createWebApp = async <T>(options: Config<T>) => {
   let app: App<any>;
   const server = await Promise.race([
     new Promise<App<any>>((resolve) => {
-      navigator.locks.request(options.name, async () => {
-        if (!app) {
-          app = await createBaseApp({
-            ...options,
-            port: 'server',
+      // @ts-ignore
+      navigator.locks.request(
+        `reactant-share-app-lock:${options.name}`,
+        async () => {
+          if (!app) {
+            app = await createBaseApp({
+              ...options,
+              port: 'server',
+            });
+          } else {
+            app.transform('server');
+          }
+          resolve(app);
+          return new Promise(() => {
+            //
           });
-        } else {
-          app.transform('server');
         }
-        resolve(app);
-        return new Promise(() => {
-          //
-        });
-      });
+      );
     }),
     new Promise<void>((resolve) => setTimeout(resolve)),
   ]);

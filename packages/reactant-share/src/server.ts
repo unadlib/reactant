@@ -2,7 +2,7 @@
 import { App as BaseApp, containerKey } from 'reactant';
 import { LastAction } from 'reactant-last-action';
 import { Transport } from 'data-transport';
-import { serverCallbacks } from './share';
+import { serverCallbacks } from './serve';
 
 let server: BaseApp<any> | undefined;
 
@@ -37,7 +37,7 @@ export const handleServer = (
   );
   disposeListeners.push(
     transport.listen(
-      'proxyFunction',
+      'proxyClient',
       async (options: { module: string; method: string; args: any[] }) => {
         const module = container.get(options.module);
         const method = module[options.method];

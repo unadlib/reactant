@@ -15,7 +15,7 @@ export const proxyClient = ({
   if (!getServer()) {
     const clientTransport = getClientTransport();
     if (clientTransport) {
-      return clientTransport.emit('proxyFunction', { module, method, args });
+      return clientTransport.emit('proxyClient', { module, method, args });
     }
   }
   return Promise.reject(new Error(`error`));
