@@ -1,5 +1,5 @@
 import { Transport } from 'data-transport';
-import { Config as BaseConfig } from 'reactant';
+import { Config as BaseConfig, App as BaseApp } from 'reactant';
 
 type Port = 'server' | 'client';
 export interface Config<T> extends BaseConfig<T> {
@@ -17,11 +17,11 @@ export interface Config<T> extends BaseConfig<T> {
   /**
    *
    */
-  port: Port;
-  /**
-   *
-   */
-  transform?: (callback: (port: Port) => void) => void;
+  port?: Port;
+}
+
+export interface App<T> extends BaseApp<T> {
+  transform: (changedPort: Port) => void;
 }
 
 export type Callback = () => void | Promise<void>;

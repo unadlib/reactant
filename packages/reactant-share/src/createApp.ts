@@ -1,86 +1,26 @@
 /* eslint-disable no-shadow */
 /* eslint-disable no-async-promise-executor */
-import { App, containerKey, createApp as createReactantApp } from 'reactant';
+import { App as BaseApp, createApp as createReactantApp } from 'reactant';
 import {
   LastAction,
   LastActionOptions,
   ILastActionOptions,
 } from 'reactant-last-action';
 import { Transport } from 'data-transport';
-import { Config } from './interfaces';
-import { setServer } from './server';
+import { Config, App } from './interfaces';
+import { handleServer } from './server';
+import { handleClient } from './client';
 import {
   createBroadcastTransport,
   setClientTransport,
 } from './createTransport';
 
-const handleServer = (
-  getApp: () => App<any>,
-  transport: Transport,
-  disposeClient?: () => void
-) => {
-  disposeClient?.();
-  const app = getApp();
-  setServer(app);
-  const container = app.instance[containerKey];
-  const disposeListeners: ((() => void) | undefined)[] = [];
-  disposeListeners.push(
-    transport.listen('preloadedState', () => app.store?.getState())
-  );
-  disposeListeners.push(
-    transport.listen(
-      'proxyFunction',
-      async (options: { module: string; method: string; args: any[] }) => {
-        const module = container.get(options.module);
-        const method = module[options.method];
-        const result = await method.apply(module, options.args);
-        return result;
-      }
-    )
-  );
-  disposeListeners.push(() => transport.dispose());
-  disposeListeners.push(
-    app.store?.subscribe(() => {
-      const { lastAction }: LastAction = container.get(LastAction);
-      if (lastAction) {
-        transport.emit({ name: 'lastAction', respond: false }, lastAction);
-      }
-    })
-  );
-  return () => {
-    for (const dispose of disposeListeners) {
-      dispose?.();
-    }
-  };
-};
-
-const handleClient = (
-  getApp: () => App<any>,
-  transport: Transport,
-  disposeServer?: () => void
-) => {
-  disposeServer?.();
-  const disposeListeners: ((() => void) | undefined)[] = [];
-  disposeListeners.push(
-    transport.listen('lastAction', (lastAction: any) => {
-      getApp()?.store?.dispatch(lastAction);
-    })
-  );
-  disposeListeners.push(() => transport.dispose());
-  return () => {
-    for (const dispose of disposeListeners) {
-      dispose?.();
-    }
-  };
-};
-
-export const createApp = <T>({
+const createBaseApp = <T>({
   name,
   transports = {},
   port,
-  transform,
   ...options
-}: Config<T>) => {
+}: Config<T>): Promise<App<any>> => {
   options.modules?.push(LastAction, {
     provide: LastActionOptions,
     useValue: {
@@ -88,39 +28,102 @@ export const createApp = <T>({
     } as ILastActionOptions,
   });
   return new Promise(async (resolve) => {
-    let app: App<any>;
+    let app: BaseApp<any>;
     let disposeServer: (() => void) | undefined;
     let disposeClient: (() => void) | undefined;
     let serverTransport: Transport<any, any> | undefined;
     let clientTransport: Transport<any, any> | undefined;
     const isServer = port === 'server';
+    const transform = (changedPort: 'server' | 'client') => {
+      if (changedPort === 'server') {
+        serverTransport ??= transports.server ?? createBroadcastTransport(name);
+        handleServer(() => app, serverTransport!, disposeClient);
+      } else {
+        clientTransport ??= transports.client ?? createBroadcastTransport(name);
+        handleClient(() => app, clientTransport!, disposeServer);
+      }
+    };
     if (isServer) {
       serverTransport = transports.server ?? createBroadcastTransport(name);
       app = createReactantApp(options);
       disposeServer = handleServer(() => app, serverTransport);
-      resolve(app);
+      resolve({ ...app, transform });
     } else {
       clientTransport = transports.client ?? createBroadcastTransport(name);
       setClientTransport(clientTransport);
       clientTransport.emit('preloadedState').then((preloadedState: any) => {
         app = createReactantApp({ ...options, preloadedState });
-        resolve(app);
+        resolve({ ...app, transform });
       });
       disposeClient = handleClient(() => app, clientTransport);
     }
-
-    if (typeof transform === 'function') {
-      transform((changedPort) => {
-        if (changedPort === 'server') {
-          serverTransport ??=
-            transports.server ?? createBroadcastTransport(name);
-          handleServer(() => app, serverTransport!, disposeClient);
-        } else {
-          clientTransport ??=
-            transports.client ?? createBroadcastTransport(name);
-          handleClient(() => app, clientTransport!, disposeServer);
-        }
-      });
-    }
   });
+};
+
+const createWebApp = async <T>(options: Config<T>) => {
+  let app: App<any>;
+  const server = await Promise.race([
+    new Promise<App<any>>((resolve) => {
+      navigator.locks.request(options.name, async () => {
+        if (!app) {
+          app = await createBaseApp({
+            ...options,
+            port: 'server',
+          });
+        } else {
+          app.transform('server');
+        }
+        resolve(app);
+        return new Promise(() => {
+          //
+        });
+      });
+    }),
+    new Promise<void>((resolve) => setTimeout(resolve)),
+  ]);
+  app =
+    server ??
+    (await createBaseApp({
+      ...options,
+      port: 'client',
+    }));
+  return app;
+};
+
+export const createApp = async <T>({
+  type,
+  transports: originalTransports,
+  ...options
+}: Config<T> & {
+  type?: 'Extension' | 'ShareWorker';
+}) => {
+  let app: App<any>;
+  let transports = originalTransports;
+  switch (type) {
+    case 'Extension':
+      // TODO: add Extension default transport
+      transports = {
+        server: originalTransports?.server,
+        client: originalTransports?.client,
+      };
+      app = await createBaseApp({
+        ...options,
+        transports,
+      });
+      break;
+    case 'ShareWorker':
+      // TODO: add ShareWorker default transport
+      transports = {
+        server: originalTransports?.server,
+        client: originalTransports?.client,
+      };
+      app = await createBaseApp({
+        ...options,
+        transports,
+      });
+      break;
+    default:
+      app = await createWebApp(options);
+  }
+  return app;
 };

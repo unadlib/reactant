@@ -6,7 +6,7 @@ export const serverCallbacks = new Map<ThisService, Set<Callback>>();
 /**
  * Multiple renders share a common execution process.
  */
-export const share = (service: ThisService, callback: Callback) => {
+export const serve = (service: ThisService, callback: Callback) => {
   try {
     callback();
   } catch (e) {
