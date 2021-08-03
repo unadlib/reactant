@@ -1,5 +1,5 @@
 import { getClientTransport } from './createTransport';
-import { getIsServer } from './serverChecker';
+import { getServer } from './server';
 
 export const proxyAction = ({
   module,
@@ -10,7 +10,7 @@ export const proxyAction = ({
   method: string;
   args: any[];
 }) => {
-  if (!getIsServer()) {
+  if (!getServer()) {
     const clientTransport = getClientTransport();
     if (clientTransport) {
       return clientTransport.emit('proxyFunction', { module, method, args });

@@ -4,11 +4,11 @@ import {
   Subscribe,
   subscribe as subscribeWithReactant,
 } from 'reactant';
-import { getIsServer } from './serverChecker';
+import { getServer } from './server';
 
 export const watch: Watch = (service, selector, watcher) => {
   return watchWithReactant(service, selector, (newValue, oldValue) => {
-    if (getIsServer()) {
+    if (getServer()) {
       watcher(newValue, oldValue);
     }
   });
@@ -16,7 +16,7 @@ export const watch: Watch = (service, selector, watcher) => {
 
 export const subscribe: Subscribe = (service, listener) => {
   return subscribeWithReactant(service, () => {
-    if (getIsServer()) {
+    if (getServer()) {
       listener();
     }
   });

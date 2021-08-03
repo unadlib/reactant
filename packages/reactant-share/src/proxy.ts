@@ -1,16 +1,16 @@
-import { Service } from 'reactant';
+import { Service as Module } from 'reactant';
 import { proxyAction } from './proxyAction';
-import { getIsServer } from './serverChecker';
+import { getServer } from './server';
 
 export const proxy = (
-  module: Service,
+  module: Module,
   actions: Record<string, (...args: any) => any>
 ) =>
   Object.entries(actions).reduce(
     (proxiedActions, [method, action]) =>
       Object.assign(proxiedActions, {
         [method]: (...args: any) =>
-          getIsServer()
+          getServer()
             ? action(...args)
             : proxyAction({ module: module.name!, method, args }),
       }),
