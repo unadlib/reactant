@@ -11,7 +11,7 @@ export const setClientTransport = (transport: Transport) => {
 
 export const createBroadcastTransport = (name: string) => {
   const broadcastChannel = new BroadcastChannel(
-    `reactant-shared-app-channel:${name}`
+    `reactant-share-channel:${name}`
   );
   const transport = createTransport('Base', {
     listener: (callback) => {
@@ -20,7 +20,7 @@ export const createBroadcastTransport = (name: string) => {
       };
     },
     sender: (message) => broadcastChannel.postMessage(message),
-    prefix: `reactant-shared-app:${name}`,
+    prefix: `reactant-share:${name}`,
   });
   return transport;
 };

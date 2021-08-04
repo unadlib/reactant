@@ -7,13 +7,14 @@ import {
   ILastActionOptions,
 } from 'reactant-last-action';
 import { Transport } from 'data-transport';
-import { Config, App } from './interfaces';
+import { Config, App, Port } from './interfaces';
 import { handleServer } from './server';
 import { handleClient } from './client';
 import {
   createBroadcastTransport,
   setClientTransport,
 } from './createTransport';
+import { preloadedStateActionName } from './constants';
 
 const createBaseApp = <T>({
   name,
@@ -34,7 +35,7 @@ const createBaseApp = <T>({
     let serverTransport: Transport<any, any> | undefined;
     let clientTransport: Transport<any, any> | undefined;
     const isServer = port === 'server';
-    const transform = (changedPort: 'server' | 'client') => {
+    const transform = (changedPort: Port) => {
       if (changedPort === 'server') {
         serverTransport ??= transports.server ?? createBroadcastTransport(name);
         handleServer(() => app, serverTransport!, disposeClient);
@@ -51,10 +52,12 @@ const createBaseApp = <T>({
     } else {
       clientTransport = transports.client ?? createBroadcastTransport(name);
       setClientTransport(clientTransport);
-      clientTransport.emit('preloadedState').then((preloadedState: any) => {
-        app = createReactantApp({ ...options, preloadedState });
-        resolve({ ...app, transform });
-      });
+      clientTransport
+        .emit(preloadedStateActionName)
+        .then((preloadedState: any) => {
+          app = createReactantApp({ ...options, preloadedState });
+          resolve({ ...app, transform });
+        });
       disposeClient = handleClient(() => app, clientTransport);
     }
   });
@@ -64,6 +67,7 @@ const createWebApp = async <T>(options: Config<T>) => {
   let app: App<any>;
   const server = await Promise.race([
     new Promise<App<any>>((resolve) => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       navigator.locks.request(
         `reactant-share-app-lock:${options.name}`,

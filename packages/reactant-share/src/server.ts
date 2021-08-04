@@ -2,24 +2,26 @@
 import { App as BaseApp, containerKey } from 'reactant';
 import { LastAction } from 'reactant-last-action';
 import { Transport } from 'data-transport';
-import { serverCallbacks } from './serve';
+import { CallbackWithHook } from './interfaces';
+import {
+  lastActionName,
+  preloadedStateActionName,
+  proxyClientActionName,
+} from './constants';
+import { setPort } from './port';
 
-let server: BaseApp<any> | undefined;
+export const serverCallbacks = new Set<CallbackWithHook>();
 
-export const getServer = () => server;
-
-export const setServer = (app: BaseApp<any> | undefined) => {
-  server = app;
-  if (!app) return;
-  for (const [_, callbacks] of serverCallbacks) {
-    for (const callback of callbacks) {
-      try {
-        callback();
-      } catch (e) {
-        //
-      }
-    }
+export const onServer = (callback: CallbackWithHook) => {
+  try {
+    callback();
+  } catch (e) {
+    console.error(e);
   }
+  serverCallbacks.add(callback);
+  return () => {
+    serverCallbacks.delete(callback);
+  };
 };
 
 export const handleServer = (
@@ -29,15 +31,15 @@ export const handleServer = (
 ) => {
   disposeClient?.();
   const app = getApp();
-  setServer(app);
+  setPort({ server: app }, serverCallbacks);
   const container = app.instance[containerKey];
   const disposeListeners: ((() => void) | undefined)[] = [];
   disposeListeners.push(
-    transport.listen('preloadedState', () => app.store?.getState())
+    transport.listen(preloadedStateActionName, () => app.store?.getState())
   );
   disposeListeners.push(
     transport.listen(
-      'proxyClient',
+      proxyClientActionName,
       async (options: { module: string; method: string; args: any[] }) => {
         const module = container.get(options.module);
         const method = module[options.method];
@@ -51,7 +53,7 @@ export const handleServer = (
     app.store?.subscribe(() => {
       const { lastAction }: LastAction = container.get(LastAction);
       if (lastAction) {
-        transport.emit({ name: 'lastAction', respond: false }, lastAction);
+        transport.emit({ name: lastActionName, respond: false }, lastAction);
       }
     })
   );

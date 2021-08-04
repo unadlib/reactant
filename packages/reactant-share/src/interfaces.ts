@@ -1,7 +1,7 @@
 import { Transport } from 'data-transport';
 import { Config as BaseConfig, App as BaseApp } from 'reactant';
 
-type Port = 'server' | 'client';
+export type Port = 'server' | 'client';
 export interface Config<T> extends BaseConfig<T> {
   /**
    *
@@ -25,3 +25,7 @@ export interface App<T> extends BaseApp<T> {
 }
 
 export type Callback = () => void | Promise<void>;
+
+export type CallbackWithHook = () => void | (() => void);
+
+export type PortApp = Partial<Record<Port, BaseApp<any>>>;
