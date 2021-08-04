@@ -1,6 +1,6 @@
 import { Service as Module } from 'reactant';
 import { proxyClient } from './client';
-import { getServer } from './server';
+import { checkPort } from './port';
 
 export const proxy = (
   module: Module,
@@ -11,7 +11,7 @@ export const proxy = (
     (proxiedActions, [method, action]) =>
       Object.assign(proxiedActions, {
         [method]: (...args: any) =>
-          getServer()
+          checkPort('server')
             ? action(...args)
             : proxyClient({ module: module.name!, method, args }),
       }),
