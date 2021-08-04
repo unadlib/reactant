@@ -30,6 +30,6 @@
     "reactant-last-action": "^0.7.1"
   },
   "devDependencies": {
-    "react": "^16.12.0"
+    "react": "^16.12.0 || ^17"
   }
 }

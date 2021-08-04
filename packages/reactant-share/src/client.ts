@@ -42,17 +42,16 @@ export const proxyClient = ({
 };
 
 export const handleClient = (
-  getApp: () => BaseApp<any>,
+  app: BaseApp<any>,
   transport: Transport,
   disposeServer?: () => void
 ) => {
   disposeServer?.();
-  const app = getApp();
   setPort({ client: app }, clientCallbacks);
   const disposeListeners: ((() => void) | undefined)[] = [];
   disposeListeners.push(
     transport.listen(lastActionName, (lastAction: any) => {
-      getApp()?.store?.dispatch(lastAction);
+      app.store?.dispatch(lastAction);
     })
   );
   disposeListeners.push(() => transport.dispose());

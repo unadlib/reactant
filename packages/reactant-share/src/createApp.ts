@@ -38,16 +38,16 @@ const createBaseApp = <T>({
     const transform = (changedPort: Port) => {
       if (changedPort === 'server') {
         serverTransport ??= transports.server ?? createBroadcastTransport(name);
-        handleServer(() => app, serverTransport!, disposeClient);
+        handleServer(app, serverTransport!, disposeClient);
       } else {
         clientTransport ??= transports.client ?? createBroadcastTransport(name);
-        handleClient(() => app, clientTransport!, disposeServer);
+        handleClient(app, clientTransport!, disposeServer);
       }
     };
     if (isServer) {
       serverTransport = transports.server ?? createBroadcastTransport(name);
       app = createReactantApp(options);
-      disposeServer = handleServer(() => app, serverTransport);
+      disposeServer = handleServer(app, serverTransport);
       resolve({ ...app, transform });
     } else {
       clientTransport = transports.client ?? createBroadcastTransport(name);
@@ -56,9 +56,9 @@ const createBaseApp = <T>({
         .emit(preloadedStateActionName)
         .then((preloadedState: any) => {
           app = createReactantApp({ ...options, preloadedState });
+          disposeClient = handleClient(app, clientTransport!);
           resolve({ ...app, transform });
         });
-      disposeClient = handleClient(() => app, clientTransport);
     }
   });
 };

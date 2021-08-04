@@ -25,12 +25,11 @@ export const onServer = (callback: CallbackWithHook) => {
 };
 
 export const handleServer = (
-  getApp: () => BaseApp<any>,
+  app: BaseApp<any>,
   transport: Transport,
   disposeClient?: () => void
 ) => {
   disposeClient?.();
-  const app = getApp();
   setPort({ server: app }, serverCallbacks);
   const container = app.instance[containerKey];
   const disposeListeners: ((() => void) | undefined)[] = [];
