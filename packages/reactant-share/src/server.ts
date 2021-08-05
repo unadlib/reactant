@@ -4,6 +4,7 @@ import { LastAction } from 'reactant-last-action';
 import { Transport } from 'data-transport';
 import { CallbackWithHook } from './interfaces';
 import {
+  isClientName,
   lastActionName,
   preloadedStateActionName,
   proxyClientActionName,
@@ -13,10 +14,8 @@ import { setPort } from './port';
 export const serverCallbacks = new Set<CallbackWithHook>();
 
 export const onServer = (callback: CallbackWithHook) => {
-  try {
-    callback();
-  } catch (e) {
-    console.error(e);
+  if (typeof callback !== 'function') {
+    throw new Error(`'onServer' argument should be a function.`);
   }
   serverCallbacks.add(callback);
   return () => {
@@ -33,6 +32,7 @@ export const handleServer = (
   setPort({ server: app }, serverCallbacks);
   const container = app.instance[containerKey];
   const disposeListeners: ((() => void) | undefined)[] = [];
+  disposeListeners.push(transport.listen(isClientName, () => true));
   disposeListeners.push(
     transport.listen(preloadedStateActionName, () => app.store?.getState())
   );

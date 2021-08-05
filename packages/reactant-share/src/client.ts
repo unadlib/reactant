@@ -1,17 +1,15 @@
-import { App as BaseApp } from 'reactant';
+import { App as BaseApp, applyPatches } from 'reactant';
 import { Transport } from 'data-transport';
 import { getClientTransport } from './createTransport';
 import { CallbackWithHook } from './interfaces';
 import { lastActionName, proxyClientActionName } from './constants';
-import { checkPort, setPort } from './port';
+import { detectPort, setPort } from './port';
 
 export const clientCallbacks = new Set<CallbackWithHook>();
 
 export const onClient = (callback: CallbackWithHook) => {
-  try {
-    callback();
-  } catch (e) {
-    console.error(e);
+  if (typeof callback !== 'function') {
+    throw new Error(`'onServer' argument should be a function.`);
   }
   clientCallbacks.add(callback);
   return () => {
@@ -28,7 +26,7 @@ export const proxyClient = ({
   method: string;
   args: any[];
 }) => {
-  if (checkPort('client')) {
+  if (detectPort('client')) {
     const clientTransport = getClientTransport();
     if (clientTransport) {
       return clientTransport.emit(proxyClientActionName, {
@@ -51,7 +49,8 @@ export const handleClient = (
   const disposeListeners: ((() => void) | undefined)[] = [];
   disposeListeners.push(
     transport.listen(lastActionName, (lastAction: any) => {
-      app.store?.dispatch(lastAction);
+      const state = applyPatches(app.store?.getState(), lastAction._patches);
+      app.store?.dispatch({ ...lastAction, state });
     })
   );
   disposeListeners.push(() => transport.dispose());

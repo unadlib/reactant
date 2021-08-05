@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable no-shadow */
 /* eslint-disable no-async-promise-executor */
 import { App as BaseApp, createApp as createReactantApp } from 'reactant';
@@ -6,7 +7,6 @@ import {
   LastActionOptions,
   ILastActionOptions,
 } from 'reactant-last-action';
-import { Transport } from 'data-transport';
 import { Config, App, Port } from './interfaces';
 import { handleServer } from './server';
 import { handleClient } from './client';
@@ -14,7 +14,7 @@ import {
   createBroadcastTransport,
   setClientTransport,
 } from './createTransport';
-import { preloadedStateActionName } from './constants';
+import { isClientName, preloadedStateActionName } from './constants';
 
 const createBaseApp = <T>({
   name,
@@ -22,35 +22,46 @@ const createBaseApp = <T>({
   port,
   ...options
 }: Config<T>): Promise<App<any>> => {
+  options.devOptions ??= {};
+  options.devOptions.enablePatches = true;
   options.modules?.push(LastAction, {
     provide: LastActionOptions,
     useValue: {
       stateKey: `lastAction-${name}`,
     } as ILastActionOptions,
   });
+  console.log('----', port);
   return new Promise(async (resolve) => {
     let app: BaseApp<any>;
     let disposeServer: (() => void) | undefined;
     let disposeClient: (() => void) | undefined;
-    let serverTransport: Transport<any, any> | undefined;
-    let clientTransport: Transport<any, any> | undefined;
+    const serverTransport = transports.server;
+    const clientTransport = transports.client;
     const isServer = port === 'server';
     const transform = (changedPort: Port) => {
       if (changedPort === 'server') {
-        serverTransport ??= transports.server ?? createBroadcastTransport(name);
-        handleServer(app, serverTransport!, disposeClient);
+        if (!serverTransport) {
+          throw new Error(`'transports.server' does not exist.`);
+        }
+        handleServer(app, serverTransport, disposeClient);
       } else {
-        clientTransport ??= transports.client ?? createBroadcastTransport(name);
-        handleClient(app, clientTransport!, disposeServer);
+        if (!clientTransport) {
+          throw new Error(`'transports.client' does not exist.`);
+        }
+        handleClient(app, clientTransport, disposeServer);
       }
     };
     if (isServer) {
-      serverTransport = transports.server ?? createBroadcastTransport(name);
+      if (!serverTransport) {
+        throw new Error(`'transports.server' does not exist.`);
+      }
       app = createReactantApp(options);
       disposeServer = handleServer(app, serverTransport);
       resolve({ ...app, transform });
     } else {
-      clientTransport = transports.client ?? createBroadcastTransport(name);
+      if (!clientTransport) {
+        throw new Error(`'transports.client' does not exist.`);
+      }
       setClientTransport(clientTransport);
       clientTransport
         .emit(preloadedStateActionName)
@@ -64,8 +75,11 @@ const createBaseApp = <T>({
 };
 
 const createWebApp = async <T>(options: Config<T>) => {
+  options.transports ??= {};
+  options.transports.client ??= createBroadcastTransport(options.name);
+  options.transports.server ??= createBroadcastTransport(options.name);
   let app: App<any>;
-  const server = await Promise.race([
+  app = await Promise.race([
     new Promise<App<any>>((resolve) => {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
@@ -87,14 +101,21 @@ const createWebApp = async <T>(options: Config<T>) => {
         }
       );
     }),
-    new Promise<void>((resolve) => setTimeout(resolve)),
+    new Promise<App<any>>(async (resolve) => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      const isClient: boolean = await options.transports?.client?.emit(
+        isClientName
+      );
+      if (isClient) {
+        const app = await createBaseApp({
+          ...options,
+          port: 'client',
+        });
+        resolve(app);
+      }
+    }),
   ]);
-  app =
-    server ??
-    (await createBaseApp({
-      ...options,
-      port: 'client',
-    }));
   return app;
 };
 

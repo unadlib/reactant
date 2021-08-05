@@ -1,3 +1,4 @@
+export { applyPatches } from 'immer';
 export * from 'reactant-di';
 
 export * from './core/index';

@@ -1,6 +1,6 @@
-import { Service as Module } from 'reactant';
+import { identifierKey, Service as Module } from 'reactant';
 import { proxyClient } from './client';
-import { checkPort } from './port';
+import { detectPort } from './port';
 
 export const proxy = (
   module: Module,
@@ -11,9 +11,10 @@ export const proxy = (
     (proxiedActions, [method, action]) =>
       Object.assign(proxiedActions, {
         [method]: (...args: any) =>
-          checkPort('server')
+          detectPort('server')
             ? action(...args)
-            : proxyClient({ module: module.name!, method, args }),
+            : // @ts-ignore
+              proxyClient({ module: module[identifierKey], method, args }),
       }),
     {} as Record<string, (...args: any) => Promise<any>>
   );

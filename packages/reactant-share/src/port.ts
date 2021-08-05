@@ -4,7 +4,7 @@ let portApp: PortApp;
 
 let lastHooks: Set<ReturnType<CallbackWithHook>>;
 
-export const checkPort = (port: Port) => !!portApp?.[port];
+export const detectPort = (port: Port) => !!portApp?.[port];
 
 export const setPort = (
   currentPortApp: PortApp,
