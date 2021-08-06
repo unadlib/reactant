@@ -67,14 +67,16 @@ function createApp<T>({
   const ServiceIdentifiers: ServiceIdentifiersMap = new Map();
   const container = createContainer({
     ServiceIdentifiers,
-    modules: [main as Module<T>, ...modules],
+    modules: [main, ...modules],
     options: {
       defaultScope: 'Singleton',
       ...containerOptions,
       skipBaseClassChecks: true,
     },
   });
-  const instance = container.get<T>(main);
+  const instance = container.get<T>(
+    typeof main === 'object' ? main.provide : main
+  );
   const pluginHooks: PluginHooks = {
     middleware: [],
     beforeCombineRootReducers: [],

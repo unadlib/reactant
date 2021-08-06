@@ -11,7 +11,7 @@ export interface Config<T> {
   /**
    * As the main start-up module.
    */
-  main: ServiceIdentifier<T>;
+  main: ReactModuleOptions<T>;
   /**
    * As a rendering function for any React renderer.
    */

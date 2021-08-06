@@ -1,5 +1,5 @@
 /* eslint-disable consistent-return */
-import { App as BaseApp, containerKey } from 'reactant';
+import { App as BaseApp, containerKey, ThisService, Container } from 'reactant';
 import { LastAction } from 'reactant-last-action';
 import { Transport } from 'data-transport';
 import { CallbackWithHook } from './interfaces';
@@ -30,7 +30,7 @@ export const handleServer = (
 ) => {
   disposeClient?.();
   setPort({ server: app }, serverCallbacks);
-  const container = app.instance[containerKey];
+  const container: Container = app.instance[containerKey];
   const disposeListeners: ((() => void) | undefined)[] = [];
   disposeListeners.push(transport.listen(isClientName, () => true));
   disposeListeners.push(
@@ -40,7 +40,20 @@ export const handleServer = (
     transport.listen(
       proxyClientActionName,
       async (options: { module: string; method: string; args: any[] }) => {
-        const module = container.get(options.module);
+        let module: ThisService | undefined = container.get(options.module);
+        if (!module) {
+          const matches = options.module.match(/\d+$/g);
+          if (!matches) {
+            throw new Error(``);
+          }
+          const [index] = matches;
+          const name = options.module.replace(new RegExp(`${index}$`), '');
+          const modules = container.getAll(name);
+          if (!Array.isArray(modules) || modules.length) {
+            throw new Error(``);
+          }
+          module = modules[Number(index)] as ThisService;
+        }
         const method = module[options.method];
         const result = await method.apply(module, options.args);
         return result;
@@ -50,7 +63,9 @@ export const handleServer = (
   disposeListeners.push(() => transport.dispose());
   disposeListeners.push(
     app.store?.subscribe(() => {
-      const { lastAction }: LastAction = container.get(LastAction);
+      const {
+        lastAction: { _inversePatches: _, ...lastAction },
+      }: LastAction = container.get(LastAction);
       if (lastAction) {
         transport.emit({ name: lastActionName, respond: false }, lastAction);
       }

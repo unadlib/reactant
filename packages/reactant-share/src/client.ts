@@ -3,7 +3,7 @@ import { Transport } from 'data-transport';
 import { getClientTransport } from './createTransport';
 import { CallbackWithHook } from './interfaces';
 import { lastActionName, proxyClientActionName } from './constants';
-import { detectPort, setPort } from './port';
+import { detectClient, setPort } from './port';
 
 export const clientCallbacks = new Set<CallbackWithHook>();
 
@@ -26,7 +26,7 @@ export const proxyClient = ({
   method: string;
   args: any[];
 }) => {
-  if (detectPort('client')) {
+  if (detectClient()) {
     const clientTransport = getClientTransport();
     if (clientTransport) {
       return clientTransport.emit(proxyClientActionName, {
