@@ -6,18 +6,22 @@ export const getComposeEnhancers = (
   enableReduxDevTools: boolean,
   reduxDevToolsOptions?: ReduxDevToolsOptions
 ) => {
-  const reduxDevToolsCompose = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
-  return typeof reduxDevToolsCompose === 'function' && enableReduxDevTools
-    ? reduxDevToolsCompose({
-        serialize: true,
-        actionSanitizer: (action: any) =>
-          action._reactant === actionIdentifier
-            ? {
-                ...action,
-                type: `@@reactant/${action.type}/${action.method}`,
-              }
-            : action,
-        ...reduxDevToolsOptions,
-      })
-    : compose;
+  try {
+    const reduxDevToolsCompose = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
+    return typeof reduxDevToolsCompose === 'function' && enableReduxDevTools
+      ? reduxDevToolsCompose({
+          serialize: true,
+          actionSanitizer: (action: any) =>
+            action._reactant === actionIdentifier
+              ? {
+                  ...action,
+                  type: `@@reactant/${action.type}/${action.method}`,
+                }
+              : action,
+          ...reduxDevToolsOptions,
+        })
+      : compose;
+  } catch (e) {
+    return compose;
+  }
 };

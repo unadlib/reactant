@@ -2,6 +2,7 @@
 /* eslint-disable no-shadow */
 /* eslint-disable no-async-promise-executor */
 import { App as BaseApp, createApp as createReactantApp } from 'reactant';
+import { createTransport } from 'data-transport';
 import {
   LastAction,
   LastActionOptions,
@@ -122,9 +123,13 @@ const createWebApp = async <T>(options: Config<T>) => {
 export const createApp = async <T>({
   type,
   transports: originalTransports,
+  typeOptions = {},
   ...options
 }: Config<T> & {
   type?: 'Extension' | 'ShareWorker';
+  typeOptions?: {
+    worker?: string;
+  };
 }) => {
   let app: App<any>;
   let transports = originalTransports;
@@ -141,11 +146,20 @@ export const createApp = async <T>({
       });
       break;
     case 'ShareWorker':
-      // TODO: add ShareWorker default transport
       transports = {
         server: originalTransports?.server,
         client: originalTransports?.client,
       };
+      if (options.port === 'server') {
+        transports.server ??= createTransport('SharedWorkerInternal', {});
+      } else if (options.port === 'client' && !transports.client) {
+        if (typeof typeOptions.worker !== 'string') {
+          throw new Error(``);
+        }
+        transports.client = createTransport('SharedWorkerMain', {
+          worker: new SharedWorker(typeOptions.worker),
+        });
+      }
       app = await createBaseApp({
         ...options,
         transports,
