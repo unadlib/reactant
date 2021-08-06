@@ -15,6 +15,7 @@ export const proxify = (
   }
   function value(this: ThisService, ...args: any) {
     if (detectClient()) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       return proxyClient({ module: this[identifierKey], method: key, args });
     }
