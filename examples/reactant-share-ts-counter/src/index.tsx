@@ -19,16 +19,18 @@ class Counter {
   actions: any;
 
   constructor() {
-    onClient(() =>
-      subscribe(this, () => {
+    onClient(() => {
+      console.log('client ====');
+      return subscribe(this, () => {
         console.log('client ====');
-      })
-    );
-    onServer(() =>
-      subscribe(this, () => {
+      });
+    });
+    onServer(() => {
+      console.log('server ====');
+      return subscribe(this, () => {
         console.log('server ====');
-      })
-    );
+      });
+    });
   }
 
   @state
@@ -79,9 +81,12 @@ class AppView extends ViewModule {
 
 createApp({
   modules: [{ provide: 'counter', useClass: Counter }],
-  name: 'counter',
   main: { provide: 'appView', useClass: AppView },
   render,
+  share: {
+    name: 'counter',
+    type: 'SharedTab',
+  },
 }).then((app) => {
   console.log(app, '====');
   window.app = app;

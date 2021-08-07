@@ -18,9 +18,7 @@ import {
 import { isClientName, preloadedStateActionName } from './constants';
 
 const createBaseApp = <T>({
-  name,
-  transports = {},
-  port,
+  share,
   ...options
 }: Config<T>): Promise<App<any>> => {
   options.devOptions ??= {};
@@ -28,17 +26,17 @@ const createBaseApp = <T>({
   options.modules?.push(LastAction, {
     provide: LastActionOptions,
     useValue: {
-      stateKey: `lastAction-${name}`,
+      stateKey: `lastAction-${share.name}`,
     } as ILastActionOptions,
   });
-  console.log('----', port);
+  console.log('----', share.port);
   return new Promise(async (resolve) => {
     let app: BaseApp<any>;
     let disposeServer: (() => void) | undefined;
     let disposeClient: (() => void) | undefined;
-    const serverTransport = transports.server;
-    const clientTransport = transports.client;
-    const isServer = port === 'server';
+    const serverTransport = share.transports?.server;
+    const clientTransport = share.transports?.client;
+    const isServer = share.port === 'server';
     const transform = (changedPort: Port) => {
       if (changedPort === 'server') {
         if (!serverTransport) {
@@ -75,22 +73,29 @@ const createBaseApp = <T>({
   });
 };
 
-const createWebApp = async <T>(options: Config<T>) => {
-  options.transports ??= {};
-  options.transports.client ??= createBroadcastTransport(options.name);
-  options.transports.server ??= createBroadcastTransport(options.name);
+const createSharedTabApp = async <T>(options: Config<T>) => {
+  options.share.transports ??= {};
+  options.share.transports.client ??= createBroadcastTransport(
+    options.share.name
+  );
+  options.share.transports.server ??= createBroadcastTransport(
+    options.share.name
+  );
   let app: App<any>;
   app = await Promise.race([
     new Promise<App<any>>((resolve) => {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       navigator.locks.request(
-        `reactant-share-app-lock:${options.name}`,
+        `reactant-share-app-lock:${options.share.name}`,
         async () => {
           if (!app) {
             app = await createBaseApp({
               ...options,
-              port: 'server',
+              share: {
+                ...options.share,
+                port: 'server',
+              },
             });
           } else {
             app.transform('server');
@@ -105,13 +110,16 @@ const createWebApp = async <T>(options: Config<T>) => {
     new Promise<App<any>>(async (resolve) => {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      const isClient: boolean = await options.transports?.client?.emit(
+      const isClient: boolean = await options.share.transports?.client?.emit(
         isClientName
       );
       if (isClient) {
         const app = await createBaseApp({
           ...options,
-          port: 'client',
+          share: {
+            ...options.share,
+            port: 'client',
+          },
         });
         resolve(app);
       }
@@ -120,53 +128,52 @@ const createWebApp = async <T>(options: Config<T>) => {
   return app;
 };
 
-export const createApp = async <T>({
-  type,
-  transports: originalTransports,
-  typeOptions = {},
-  ...options
-}: Config<T> & {
-  type?: 'Extension' | 'ShareWorker';
-  typeOptions?: {
-    worker?: string;
-  };
-}) => {
+export const createApp = async <T>(options: Config<T>) => {
   let app: App<any>;
-  let transports = originalTransports;
-  switch (type) {
-    case 'Extension':
+  let transports = options.share.transports ?? {};
+  switch (options.share.type) {
+    case 'BrowserExtension':
       // TODO: add Extension default transport
       transports = {
-        server: originalTransports?.server,
-        client: originalTransports?.client,
+        server: options.share.transports?.server,
+        client: options.share.transports?.client,
       };
       app = await createBaseApp({
         ...options,
-        transports,
+        share: {
+          ...options.share,
+          transports,
+        },
       });
       break;
-    case 'ShareWorker':
+    case 'SharedWorker':
       transports = {
-        server: originalTransports?.server,
-        client: originalTransports?.client,
+        server: options.share.transports?.server,
+        client: options.share.transports?.client,
       };
-      if (options.port === 'server') {
+      if (options.share.port === 'server') {
         transports.server ??= createTransport('SharedWorkerInternal', {});
-      } else if (options.port === 'client' && !transports.client) {
-        if (typeof typeOptions.worker !== 'string') {
+      } else if (options.share.port === 'client' && !transports.client) {
+        if (!(options.share.worker instanceof SharedWorker)) {
           throw new Error(``);
         }
         transports.client = createTransport('SharedWorkerMain', {
-          worker: new SharedWorker(typeOptions.worker),
+          worker: options.share.worker,
         });
       }
       app = await createBaseApp({
         ...options,
-        transports,
+        share: {
+          ...options.share,
+          transports,
+        },
       });
       break;
+    case 'SharedTab':
+      app = await createSharedTabApp(options);
+      break;
     default:
-      app = await createWebApp(options);
+      throw new Error(``);
   }
   return app;
 };

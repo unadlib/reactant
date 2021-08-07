@@ -4,13 +4,13 @@ import { AppView, Counter } from './app';
 
 createApp({
   modules: [{ provide: 'counter', useClass: Counter }],
-  name: 'counter',
   main: { provide: 'appView', useClass: AppView },
-  port: 'client',
   render,
-  type: 'ShareWorker',
-  typeOptions: {
-    worker: 'worker.bundle.js',
+  share: {
+    name: 'counter',
+    port: 'client',
+    type: 'SharedWorker',
+    worker: new SharedWorker('worker.bundle.js'),
   },
 }).then((app) => {
   console.log(app, '====');

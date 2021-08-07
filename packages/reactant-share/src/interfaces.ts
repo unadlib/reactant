@@ -6,27 +6,46 @@ export interface Config<T> extends BaseConfig<T> {
   /**
    *
    */
-  name: string;
-  /**
-   *
-   */
-  transports?: {
-    server?: Transport;
-    client?: Transport;
+  share: {
+    /**
+     *
+     */
+    name: string;
+    /**
+     *
+     */
+    type: 'SharedTab' | 'BrowserExtension' | 'SharedWorker';
+    /**
+     *
+     */
+    transports?: {
+      server?: Transport;
+      client?: Transport;
+    };
+    /**
+     *
+     */
+    port?: Port;
+    /**
+     *
+     */
+    worker?: SharedWorker;
   };
-  /**
-   *
-   */
-  port?: Port;
 }
 
 export interface App<T> extends BaseApp<T> {
+  /**
+   *
+   */
   transform: (changedPort: Port) => void;
 }
 
 export type Callback = () => void | Promise<void>;
 
 export type CallbackWithHook = <T = any, P = any>(
+  /**
+   *
+   */
   transport?: Transport<T, P>
 ) => void | (() => void);
 

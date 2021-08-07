@@ -8,9 +8,11 @@ createApp({
   render: () => {
     //
   },
-  name: 'counter',
-  port: 'server',
-  type: 'ShareWorker',
+  share: {
+    name: 'counter',
+    port: 'server',
+    type: 'SharedWorker',
+  }
 }).then((app) => {
   console.log(app, '====');
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment

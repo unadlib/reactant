@@ -14,8 +14,6 @@ import {
 
 @injectable()
 export class Counter {
-  actions: any;
-
   constructor() {
     onClient(() =>
       subscribe(this, () => {
