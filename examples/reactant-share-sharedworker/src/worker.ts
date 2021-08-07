@@ -4,12 +4,12 @@ import { AppView, Counter } from './app';
 
 createApp({
   modules: [{ provide: 'counter', useClass: Counter }],
-  name: 'counter',
   main: { provide: 'appView', useClass: AppView },
-  port: 'server',
   render: () => {
     //
   },
+  name: 'counter',
+  port: 'server',
   type: 'ShareWorker',
 }).then((app) => {
   console.log(app, '====');

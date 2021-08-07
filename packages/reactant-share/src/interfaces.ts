@@ -26,6 +26,8 @@ export interface App<T> extends BaseApp<T> {
 
 export type Callback = () => void | Promise<void>;
 
-export type CallbackWithHook = () => void | (() => void);
+export type CallbackWithHook = <T = any, P = any>(
+  transport?: Transport<T, P>
+) => void | (() => void);
 
 export type PortApp = Partial<Record<Port, BaseApp<any>>>;

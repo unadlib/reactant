@@ -45,7 +45,7 @@ export const handleClient = (
   disposeServer?: () => void
 ) => {
   disposeServer?.();
-  setPort({ client: app }, clientCallbacks);
+  setPort({ client: app }, clientCallbacks, transport);
   const disposeListeners: ((() => void) | undefined)[] = [];
   disposeListeners.push(
     transport.listen(lastActionName, (lastAction: any) => {

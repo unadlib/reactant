@@ -1,3 +1,4 @@
+import { Transport } from 'data-transport';
 import { CallbackWithHook, Port, PortApp } from './interfaces';
 
 let portApp: PortApp;
@@ -12,7 +13,8 @@ export const detectClient = () => detectPort('client');
 
 export const setPort = (
   currentPortApp: PortApp,
-  callbacks: Set<CallbackWithHook>
+  callbacks: Set<CallbackWithHook>,
+  transport: Transport
 ) => {
   if (lastHooks) {
     for (const hook of lastHooks) {
@@ -27,7 +29,7 @@ export const setPort = (
   portApp = currentPortApp;
   for (const callback of callbacks) {
     try {
-      const hook = callback();
+      const hook = callback(transport);
       lastHooks.add(hook);
     } catch (e) {
       console.error(e);
