@@ -1,5 +1,5 @@
 {
-  "name": "reactant-share-chrome-extension",
+  "name": "reactant-share-chromeextension",
   "version": "1.0.0",
   "description": "A chrome-extension example for reactant-share",
   "main": "index.js",
