@@ -1,0 +1,25 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "declaration": false,
+    "declarationMap": false,
+    "paths": {
+      "reactant": [
+        "../../node_modules/reactant"
+      ],
+      "reactant-web": [
+        "../../node_modules/reactant-web"
+      ],
+      "reactant-share": [
+        "../../node_modules/reactant-share"
+      ],
+      "reactant-storage": [
+        "../../node_modules/reactant-storage"
+      ],
+      "reactant-router": [
+        "../../node_modules/reactant-router"
+      ]
+    }
+  }
+}
