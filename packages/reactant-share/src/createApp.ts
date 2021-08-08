@@ -64,13 +64,11 @@ const createBaseApp = <T>({
         throw new Error(`'transports.client' does not exist.`);
       }
       setClientTransport(clientTransport);
-      clientTransport
-        .emit(preloadedStateActionName)
-        .then((preloadedState: any) => {
-          app = createReactantApp({ ...options, preloadedState });
-          disposeClient = handleClient(app, clientTransport!);
-          resolve(app);
-        });
+      clientTransport.emit(preloadedStateActionName).then((preloadedState) => {
+        app = createReactantApp({ ...options, preloadedState });
+        disposeClient = handleClient(app, clientTransport);
+        resolve(app);
+      });
     }
   });
 };

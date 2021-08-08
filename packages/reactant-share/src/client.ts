@@ -1,7 +1,6 @@
 import { App, applyPatches } from 'reactant';
-import { Transport } from 'data-transport';
 import { getClientTransport } from './createTransport';
-import { CallbackWithHook } from './interfaces';
+import { CallbackWithHook, Transports } from './interfaces';
 import { lastActionName, proxyClientActionName } from './constants';
 import { detectClient, setPort } from './port';
 
@@ -41,16 +40,19 @@ export const proxyClient = ({
 
 export const handleClient = (
   app: App<any>,
-  transport: Transport,
+  transport: Transports['client'],
   disposeServer?: () => void
 ) => {
+  if (!transport) {
+    throw new Error(``);
+  }
   disposeServer?.();
   setPort({ client: app }, clientCallbacks, transport);
   const disposeListeners: ((() => void) | undefined)[] = [];
   disposeListeners.push(
-    transport.listen(lastActionName, (lastAction: any) => {
-      const state = applyPatches(app.store?.getState(), lastAction._patches);
-      app.store?.dispatch({ ...lastAction, state });
+    transport.listen(lastActionName, async (lastAction) => {
+      const state = applyPatches(app.store!.getState(), lastAction._patches!);
+      app.store!.dispatch({ ...lastAction, state });
     })
   );
   disposeListeners.push(() => transport.dispose());

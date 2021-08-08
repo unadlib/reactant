@@ -1,8 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable consistent-return */
 import { App, containerKey, ThisService, Container } from 'reactant';
 import { LastAction } from 'reactant-last-action';
-import { Transport } from 'data-transport';
-import { CallbackWithHook } from './interfaces';
+import { CallbackWithHook, Transports } from './interfaces';
 import {
   isClientName,
   lastActionName,
@@ -25,47 +25,49 @@ export const onServer = (callback: CallbackWithHook) => {
 
 export const handleServer = (
   app: App<any>,
-  transport: Transport,
+  transport: Transports['server'],
   disposeClient?: () => void
 ) => {
+  if (!transport) {
+    throw new Error(``);
+  }
   disposeClient?.();
   setPort({ server: app }, serverCallbacks, transport);
   const container: Container = app.instance[containerKey];
   const disposeListeners: ((() => void) | undefined)[] = [];
-  disposeListeners.push(transport.listen(isClientName, () => true));
+  disposeListeners.push(transport.listen(isClientName, async () => true));
   disposeListeners.push(
-    transport.listen(preloadedStateActionName, () => app.store?.getState())
+    transport.listen(preloadedStateActionName, async () =>
+      app.store?.getState()
+    )
   );
   disposeListeners.push(
-    transport.listen(
-      proxyClientActionName,
-      async (options: { module: string; method: string; args: any[] }) => {
-        let module: ThisService | undefined = container.get(options.module);
-        if (!module) {
-          const matches = options.module.match(/\d+$/g);
-          if (!matches) {
-            throw new Error(``);
-          }
-          const [index] = matches;
-          const name = options.module.replace(new RegExp(`${index}$`), '');
-          const modules = container.getAll(name);
-          if (!Array.isArray(modules) || modules.length) {
-            throw new Error(``);
-          }
-          module = modules[Number(index)] as ThisService;
+    transport.listen(proxyClientActionName, async (options) => {
+      let module = container.get<ThisService | undefined>(options.module);
+      if (!module) {
+        const matches = options.module.match(/\d+$/g);
+        if (!matches) {
+          throw new Error(``);
         }
-        const method = module[options.method];
-        const result = await method.apply(module, options.args);
-        return result;
+        const [index] = matches;
+        const name = options.module.replace(new RegExp(`${index}$`), '');
+        const modules = container.getAll(name);
+        if (!Array.isArray(modules) || modules.length) {
+          throw new Error(``);
+        }
+        module = modules[Number(index)] as ThisService;
       }
-    )
+      const method = module[options.method];
+      const result = await method.apply(module, options.args);
+      return result;
+    })
   );
   disposeListeners.push(() => transport.dispose());
   disposeListeners.push(
     app.store?.subscribe(() => {
       const {
         lastAction: { _inversePatches: _, ...lastAction },
-      }: LastAction = container.get(LastAction);
+      } = container.get(LastAction);
       if (lastAction) {
         transport.emit({ name: lastActionName, respond: false }, lastAction);
       }
