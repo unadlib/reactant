@@ -133,11 +133,15 @@ export const createApp = async <T>(options: Config<T>) => {
   let transports = options.share.transports ?? {};
   switch (options.share.type) {
     case 'BrowserExtension':
-      // TODO: add Extension default transport
       transports = {
         server: options.share.transports?.server,
         client: options.share.transports?.client,
       };
+      if (options.share.port === 'server') {
+        transports.server ??= createTransport('BrowserExtensionsMain', {});
+      } else if (options.share.port === 'client') {
+        transports.client ??= createTransport('BrowserExtensionsClient', {});
+      }
       app = await createBaseApp({
         ...options,
         share: {
