@@ -35,7 +35,9 @@ export const proxyClient = ({
       });
     }
   }
-  return Promise.reject(new Error(`error`));
+  return Promise.reject(
+    new Error(`Detected that the current port is not a client.`)
+  );
 };
 
 export const handleClient = (
@@ -44,7 +46,7 @@ export const handleClient = (
   disposeServer?: () => void
 ) => {
   if (!transport) {
-    throw new Error(``);
+    throw new Error(`The client transport does not exist.`);
   }
   disposeServer?.();
   setPort({ client: app }, clientCallbacks, transport);

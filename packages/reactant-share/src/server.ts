@@ -29,7 +29,7 @@ export const handleServer = (
   disposeClient?: () => void
 ) => {
   if (!transport) {
-    throw new Error(``);
+    throw new Error(`The server transport does not exist.`);
   }
   disposeClient?.();
   setPort({ server: app }, serverCallbacks, transport);
@@ -47,13 +47,15 @@ export const handleServer = (
       if (!module) {
         const matches = options.module.match(/\d+$/g);
         if (!matches) {
-          throw new Error(``);
+          throw new Error(`The module '${options.module}' does not exist.`);
         }
         const [index] = matches;
         const name = options.module.replace(new RegExp(`${index}$`), '');
         const modules = container.getAll(name);
         if (!Array.isArray(modules) || modules.length) {
-          throw new Error(``);
+          throw new Error(
+            `The module '${options.module}' is not a multiple instances injected module, and it does not exist.`
+          );
         }
         module = modules[Number(index)] as ThisService;
       }

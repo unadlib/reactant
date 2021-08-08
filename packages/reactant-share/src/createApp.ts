@@ -161,7 +161,9 @@ export const createApp = async <T>(options: Config<T>) => {
           transports.server ??= createTransport('SharedWorkerInternal', {});
         } else if (options.share.port === 'client' && !transports.client) {
           if (typeof options.share.sharedWorkerURL !== 'string') {
-            throw new Error(``);
+            throw new Error(
+              `The value of 'options.share.sharedWorkerURL' should be a string.`
+            );
           }
           transports.client = createTransport('SharedWorkerMain', {
             worker: new SharedWorker(options.share.sharedWorkerURL),
@@ -182,7 +184,9 @@ export const createApp = async <T>(options: Config<T>) => {
       app = await createSharedTabApp(options);
       break;
     default:
-      throw new Error(``);
+      throw new Error(
+        `The value of 'options.share.type' be 'SharedTab', 'SharedWorker' or 'BrowserExtension'`
+      );
   }
   return app;
 };

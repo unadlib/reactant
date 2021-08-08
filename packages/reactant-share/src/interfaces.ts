@@ -11,37 +11,37 @@ export type Port = 'server' | 'client';
 
 export interface Transports {
   /**
-   *
+   * Server Transport
    */
   server?: Transport<ServerTransport, ClientTransport>;
   /**
-   *
+   * Client Transport
    */
   client?: Transport<ClientTransport, ServerTransport>;
 }
 export interface Config<T> extends BaseConfig<T> {
   /**
-   *
+   * Reactant shared app options.
    */
   share: {
     /**
-     *
+     * Reactant shared app name.
      */
     name: string;
     /**
-     *
+     * Reactant shared app type.
      */
     type: 'SharedTab' | 'BrowserExtension' | 'SharedWorker';
     /**
-     *
+     * Shared app's transports
      */
     transports?: Transports;
     /**
-     *
+     * Specify 'client' or 'server' port.
      */
     port?: Port;
     /**
-     *
+     * Specify a SharedWorker URL
      */
     sharedWorkerURL?: string;
   };
@@ -53,7 +53,7 @@ export type Callback = () => void | Promise<void>;
 
 export type CallbackWithHook = <T = any, P = any>(
   /**
-   *
+   * Shared app's transport
    */
   transport?: Transport<T, P>
 ) => void | (() => void);
