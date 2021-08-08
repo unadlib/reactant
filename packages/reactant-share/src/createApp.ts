@@ -1,14 +1,14 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-shadow */
 /* eslint-disable no-async-promise-executor */
-import { App as BaseApp, createApp as createReactantApp } from 'reactant';
+import { App, createApp as createReactantApp } from 'reactant';
 import { createTransport } from 'data-transport';
 import {
   LastAction,
   LastActionOptions,
   ILastActionOptions,
 } from 'reactant-last-action';
-import { Config, App, Port } from './interfaces';
+import { Config, Port, Transform } from './interfaces';
 import { handleServer } from './server';
 import { handleClient } from './client';
 import {
@@ -16,6 +16,8 @@ import {
   setClientTransport,
 } from './createTransport';
 import { isClientName, preloadedStateActionName } from './constants';
+
+let transform: Transform;
 
 const createBaseApp = <T>({
   share,
@@ -31,13 +33,13 @@ const createBaseApp = <T>({
   });
   console.log('----', share.port);
   return new Promise(async (resolve) => {
-    let app: BaseApp<any>;
+    let app: App<any>;
     let disposeServer: (() => void) | undefined;
     let disposeClient: (() => void) | undefined;
     const serverTransport = share.transports?.server;
     const clientTransport = share.transports?.client;
     const isServer = share.port === 'server';
-    const transform = (changedPort: Port) => {
+    transform = (changedPort: Port) => {
       if (changedPort === 'server') {
         if (!serverTransport) {
           throw new Error(`'transports.server' does not exist.`);
@@ -56,7 +58,7 @@ const createBaseApp = <T>({
       }
       app = createReactantApp(options);
       disposeServer = handleServer(app, serverTransport);
-      resolve({ ...app, transform });
+      resolve(app);
     } else {
       if (!clientTransport) {
         throw new Error(`'transports.client' does not exist.`);
@@ -67,7 +69,7 @@ const createBaseApp = <T>({
         .then((preloadedState: any) => {
           app = createReactantApp({ ...options, preloadedState });
           disposeClient = handleClient(app, clientTransport!);
-          resolve({ ...app, transform });
+          resolve(app);
         });
     }
   });
@@ -98,7 +100,7 @@ const createSharedTabApp = async <T>(options: Config<T>) => {
               },
             });
           } else {
-            app.transform('server');
+            transform?.('server');
           }
           resolve(app);
           return new Promise(() => {

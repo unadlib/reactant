@@ -1,4 +1,4 @@
-import { App as BaseApp, applyPatches } from 'reactant';
+import { App, applyPatches } from 'reactant';
 import { Transport } from 'data-transport';
 import { getClientTransport } from './createTransport';
 import { CallbackWithHook } from './interfaces';
@@ -40,7 +40,7 @@ export const proxyClient = ({
 };
 
 export const handleClient = (
-  app: BaseApp<any>,
+  app: App<any>,
   transport: Transport,
   disposeServer?: () => void
 ) => {

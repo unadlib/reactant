@@ -1,5 +1,5 @@
 /* eslint-disable consistent-return */
-import { App as BaseApp, containerKey, ThisService, Container } from 'reactant';
+import { App, containerKey, ThisService, Container } from 'reactant';
 import { LastAction } from 'reactant-last-action';
 import { Transport } from 'data-transport';
 import { CallbackWithHook } from './interfaces';
@@ -24,7 +24,7 @@ export const onServer = (callback: CallbackWithHook) => {
 };
 
 export const handleServer = (
-  app: BaseApp<any>,
+  app: App<any>,
   transport: Transport,
   disposeClient?: () => void
 ) => {

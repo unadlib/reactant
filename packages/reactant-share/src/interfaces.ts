@@ -1,5 +1,5 @@
 import { Transport } from 'data-transport';
-import { Config as BaseConfig, App as BaseApp } from 'reactant';
+import { Config as BaseConfig, App } from 'reactant';
 
 export type Port = 'server' | 'client';
 export interface Config<T> extends BaseConfig<T> {
@@ -33,12 +33,7 @@ export interface Config<T> extends BaseConfig<T> {
   };
 }
 
-export interface App<T> extends BaseApp<T> {
-  /**
-   *
-   */
-  transform: (changedPort: Port) => void;
-}
+export type Transform = (changedPort: Port) => void;
 
 export type Callback = () => void | Promise<void>;
 
@@ -49,4 +44,4 @@ export type CallbackWithHook = <T = any, P = any>(
   transport?: Transport<T, P>
 ) => void | (() => void);
 
-export type PortApp = Partial<Record<Port, BaseApp<any>>>;
+export type PortApp = Partial<Record<Port, App<any>>>;
