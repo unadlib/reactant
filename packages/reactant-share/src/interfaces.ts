@@ -29,7 +29,7 @@ export interface Config<T> extends BaseConfig<T> {
     /**
      *
      */
-    worker?: SharedWorker;
+    sharedWorkerURL?: string;
   };
 }
 

@@ -151,8 +151,9 @@ export function createStore<T = any>(
             const initState = enableAutoFreeze
               ? produce({ ...service[stateKey] }, () => {}) // freeze init state
               : service[stateKey]!;
-            const serviceReducers = Object.entries(initState).reduce(
-              (serviceReducersMapObject: ReducersMapObject, [key, value]) => {
+            const serviceReducers = Object.keys(initState).reduce(
+              (serviceReducersMapObject: ReducersMapObject, key) => {
+                const value = initState[key];
                 // support pure reducer
                 if (typeof value === 'function') {
                   return Object.assign(serviceReducersMapObject, {

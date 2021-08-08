@@ -76,6 +76,13 @@ const createBaseApp = <T>({
 };
 
 const createSharedTabApp = async <T>(options: Config<T>) => {
+  // TODO: use web lock polyfill
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  if (!navigator.locks) {
+    const app = createReactantApp(options);
+    return app;
+  }
   options.share.transports ??= {};
   options.share.transports.client ??= createBroadcastTransport(
     options.share.name
@@ -153,27 +160,31 @@ export const createApp = async <T>(options: Config<T>) => {
       });
       break;
     case 'SharedWorker':
-      transports = {
-        server: options.share.transports?.server,
-        client: options.share.transports?.client,
-      };
-      if (options.share.port === 'server') {
-        transports.server ??= createTransport('SharedWorkerInternal', {});
-      } else if (options.share.port === 'client' && !transports.client) {
-        if (!(options.share.worker instanceof SharedWorker)) {
-          throw new Error(``);
+      try {
+        transports = {
+          server: options.share.transports?.server,
+          client: options.share.transports?.client,
+        };
+        if (options.share.port === 'server') {
+          transports.server ??= createTransport('SharedWorkerInternal', {});
+        } else if (options.share.port === 'client' && !transports.client) {
+          if (typeof options.share.sharedWorkerURL !== 'string') {
+            throw new Error(``);
+          }
+          transports.client = createTransport('SharedWorkerMain', {
+            worker: new SharedWorker(options.share.sharedWorkerURL),
+          });
         }
-        transports.client = createTransport('SharedWorkerMain', {
-          worker: options.share.worker,
+        app = await createBaseApp({
+          ...options,
+          share: {
+            ...options.share,
+            transports,
+          },
         });
+      } catch (e) {
+        app = await createSharedTabApp(options);
       }
-      app = await createBaseApp({
-        ...options,
-        share: {
-          ...options.share,
-          transports,
-        },
-      });
       break;
     case 'SharedTab':
       app = await createSharedTabApp(options);

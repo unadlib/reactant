@@ -10,7 +10,7 @@ createApp({
     name: 'counter',
     port: 'client',
     type: 'SharedWorker',
-    worker: new SharedWorker('worker.bundle.js'),
+    sharedWorkerURL: 'worker.bundle.js',
   },
 }).then((app) => {
   console.log(app, '====');
