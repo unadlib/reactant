@@ -1,8 +1,8 @@
 {
-  "name": "ts-counter-share",
+  "name": "reactant-share-sharedtab",
   "private": true,
   "version": "1.0.0",
-  "description": "A counter example for reactant-share",
+  "description": "A shared-tab example for reactant-share",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server",
