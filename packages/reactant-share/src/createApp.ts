@@ -77,9 +77,7 @@ const createBaseApp = <T>({
 
 const createSharedTabApp = async <T>(options: Config<T>) => {
   // TODO: use web lock polyfill
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  if (!navigator.locks) {
+  if (!(navigator as any).locks) {
     const app = createReactantApp(options);
     return app;
   }
@@ -93,9 +91,7 @@ const createSharedTabApp = async <T>(options: Config<T>) => {
   let app: App<any>;
   app = await Promise.race([
     new Promise<App<any>>((resolve) => {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      navigator.locks.request(
+      (navigator as any).locks.request(
         `reactant-share-app-lock:${options.share.name}`,
         async () => {
           if (!app) {
@@ -117,9 +113,7 @@ const createSharedTabApp = async <T>(options: Config<T>) => {
       );
     }),
     new Promise<App<any>>(async (resolve) => {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      const isClient: boolean = await options.share.transports?.client?.emit(
+      const isClient = await options.share.transports?.client?.emit(
         isClientName
       );
       if (isClient) {

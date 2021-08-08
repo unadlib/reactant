@@ -1,4 +1,4 @@
-import { identifierKey, ThisService } from 'reactant';
+import { identifierKey, Service } from 'reactant';
 import { proxyClient } from '../client';
 import { detectClient } from '../port';
 
@@ -13,11 +13,13 @@ export const proxify = (
       `${String(key)} can only be decorated by '@proxify' as a class method.`
     );
   }
-  function value(this: ThisService, ...args: any) {
+  function value(this: Service, ...args: any) {
     if (detectClient()) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      return proxyClient({ module: this[identifierKey], method: key, args });
+      return proxyClient({
+        module: this[identifierKey]!,
+        method: key,
+        args,
+      });
     }
     return fn!.apply(this, args);
   }
