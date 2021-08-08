@@ -157,23 +157,23 @@ test('module with multiple module injection with same module or others', () => {
     }
   );
   expect(store.getState()).toEqual({
-    FooIdentifier: { count: 1 },
-    FooIdentifier1: { count: 1 },
-    FooIdentifier2: { count: 1 },
+    'FooIdentifier:0': { count: 1 },
+    'FooIdentifier:1': { count: 1 },
+    'FooIdentifier:2': { count: 1 },
     foo: { count: 1 },
   });
   fooBar.foos[0].increase();
   expect(store.getState()).toEqual({
-    FooIdentifier: { count: 2 },
-    FooIdentifier1: { count: 1 },
-    FooIdentifier2: { count: 1 },
+    'FooIdentifier:0': { count: 2 },
+    'FooIdentifier:1': { count: 1 },
+    'FooIdentifier:2': { count: 1 },
     foo: { count: 1 },
   });
   fooBar.foos[1].increase();
   expect(store.getState()).toEqual({
-    FooIdentifier: { count: 2 },
-    FooIdentifier1: { count: 2 },
-    FooIdentifier2: { count: 1 },
+    'FooIdentifier:0': { count: 2 },
+    'FooIdentifier:1': { count: 2 },
+    'FooIdentifier:2': { count: 1 },
     foo: { count: 1 },
   });
   expect(fooBar.foos[1].num).toBe(3);

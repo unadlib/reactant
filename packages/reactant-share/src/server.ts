@@ -10,6 +10,7 @@ import {
   proxyClientActionName,
 } from './constants';
 import { setPort } from './port';
+import { proxy } from './proxy';
 
 export const serverCallbacks = new Set<CallbackWithHook>();
 
@@ -43,24 +44,7 @@ export const handleServer = (
   );
   disposeListeners.push(
     transport.listen(proxyClientActionName, async (options) => {
-      let module = container.get<ThisService | undefined>(options.module);
-      if (!module) {
-        const matches = options.module.match(/\d+$/g);
-        if (!matches) {
-          throw new Error(`The module '${options.module}' does not exist.`);
-        }
-        const [index] = matches;
-        const name = options.module.replace(new RegExp(`${index}$`), '');
-        const modules = container.getAll(name);
-        if (!Array.isArray(modules) || modules.length) {
-          throw new Error(
-            `The module '${options.module}' is not a multiple instances injected module, and it does not exist.`
-          );
-        }
-        module = modules[Number(index)] as ThisService;
-      }
-      const method = module[options.method];
-      const result = await method.apply(module, options.args);
+      const result = await proxy(container, options);
       return result;
     })
   );

@@ -1,8 +1,9 @@
-import { App, applyPatches } from 'reactant';
+import { App, Container, containerKey } from 'reactant';
 import { getClientTransport } from './createTransport';
 import { CallbackWithHook, Transports } from './interfaces';
 import { lastActionName, proxyClientActionName } from './constants';
 import { detectClient, setPort } from './port';
+import { proxy } from './proxy';
 
 export const clientCallbacks = new Set<CallbackWithHook>();
 
@@ -52,9 +53,13 @@ export const handleClient = (
   setPort({ client: app }, clientCallbacks, transport);
   const disposeListeners: ((() => void) | undefined)[] = [];
   disposeListeners.push(
-    transport.listen(lastActionName, async (lastAction) => {
-      const state = applyPatches(app.store!.getState(), lastAction._patches!);
-      app.store!.dispatch({ ...lastAction, state });
+    transport.listen(lastActionName, async (options) => {
+      const container: Container = app.instance[containerKey];
+      proxy(container, {
+        module: options.type as string,
+        method: options.method!,
+        args: options.params,
+      });
     })
   );
   disposeListeners.push(() => transport.dispose());

@@ -23,9 +23,8 @@ const createBaseApp = <T>({
   share,
   ...options
 }: Config<T>): Promise<App<any>> => {
-  options.devOptions ??= {};
-  options.devOptions.enablePatches = true;
-  options.modules?.push(LastAction, {
+  options.modules ??= [];
+  options.modules.push(LastAction, {
     provide: LastActionOptions,
     useValue: {
       stateKey: `lastAction-${share.name}`,

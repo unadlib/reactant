@@ -114,15 +114,14 @@ export function createStore<T = any>(
             );
           }
         }
+        if (services.length > 1) {
+          // injection about multi-instances
+          identifier += `:${index}`;
+        }
         if (identifiers.has(identifier)) {
-          if (services.length === 1) {
-            throw new Error(
-              `'${className}' module name '${identifier}' property and other module conflicts.`
-            );
-          } else {
-            // injection about multi-instances
-            identifier += `${index}`;
-          }
+          throw new Error(
+            `'${className}' module name '${identifier}' property and other module conflicts.`
+          );
         }
         identifiers.add(identifier);
         if (isPlainObject) {
