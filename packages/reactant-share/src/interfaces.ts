@@ -31,7 +31,7 @@ export interface Config<T> extends BaseConfig<T> {
     /**
      * Reactant shared app type.
      */
-    type: 'SharedTab' | 'BrowserExtension' | 'SharedWorker';
+    type: 'SharedTab' | 'BrowserExtension' | 'SharedWorker' | 'Base';
     /**
      * Shared app's transports
      */

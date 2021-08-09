@@ -182,9 +182,12 @@ export const createApp = async <T>(options: Config<T>) => {
     case 'SharedTab':
       app = await createSharedTabApp(options);
       break;
+    case 'Base':
+      app = await createBaseApp(options);
+      break;
     default:
       throw new Error(
-        `The value of 'options.share.type' be 'SharedTab', 'SharedWorker' or 'BrowserExtension'`
+        `The value of 'options.share.type' be 'SharedTab', 'SharedWorker', 'BrowserExtension' or 'Base'`
       );
   }
   return app;
