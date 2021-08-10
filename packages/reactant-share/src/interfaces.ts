@@ -1,8 +1,10 @@
 import { Transport } from 'data-transport';
-import { Config as BaseConfig, App, ReactantAction } from 'reactant';
+import { Config as BaseConfig, App } from 'reactant';
+import { ILastActionState } from 'reactant-last-action';
 import {
   isClientName,
   lastActionName,
+  loadFullStateActionName,
   preloadedStateActionName,
   proxyClientActionName,
 } from './constants';
@@ -67,14 +69,15 @@ export interface ClientTransport {
     args: any[];
   }): Promise<any>;
   [preloadedStateActionName](): Promise<Record<string, any>>;
+  [loadFullStateActionName](): Promise<Record<string, any>>;
   [isClientName](): Promise<boolean>;
 }
 
 export interface ServerTransport {
   [lastActionName](
     action: Pick<
-      ReactantAction<any>,
-      Exclude<keyof ReactantAction<any>, '_inversePatches'>
+      ILastActionState,
+      Exclude<keyof ILastActionState, '_inversePatches'>
     >
   ): Promise<void>;
 }

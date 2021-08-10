@@ -6,6 +6,7 @@ import { CallbackWithHook, Transports } from './interfaces';
 import {
   isClientName,
   lastActionName,
+  loadFullStateActionName,
   preloadedStateActionName,
   proxyClientActionName,
 } from './constants';
@@ -41,6 +42,9 @@ export const handleServer = (
     transport.listen(preloadedStateActionName, async () =>
       app.store?.getState()
     )
+  );
+  disposeListeners.push(
+    transport.listen(loadFullStateActionName, async () => app.store?.getState())
   );
   disposeListeners.push(
     transport.listen(proxyClientActionName, async (options) => {

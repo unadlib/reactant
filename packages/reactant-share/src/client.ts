@@ -1,7 +1,13 @@
-import { App, Container, containerKey } from 'reactant';
+import { actionIdentifier, App, Container, containerKey } from 'reactant';
+import { LastAction } from 'reactant-last-action';
 import { getClientTransport } from './createTransport';
 import { CallbackWithHook, Transports } from './interfaces';
-import { lastActionName, proxyClientActionName } from './constants';
+import {
+  lastActionName,
+  loadFullStateActionName,
+  preloadedStateActionName,
+  proxyClientActionName,
+} from './constants';
 import { detectClient, setPort } from './port';
 import { proxy } from './proxy';
 
@@ -41,6 +47,8 @@ export const proxyClient = ({
   );
 };
 
+let syncFullStatePromise: Promise<Record<string, any>> | null;
+
 export const handleClient = (
   app: App<any>,
   transport: Transports['client'],
@@ -55,11 +63,26 @@ export const handleClient = (
   disposeListeners.push(
     transport.listen(lastActionName, async (options) => {
       const container: Container = app.instance[containerKey];
-      proxy(container, {
-        module: options.type as string,
-        method: options.method!,
-        args: options.params,
-      });
+      const lastAction = container.get(LastAction);
+      if (options._sequence && options._sequence === lastAction.sequence + 1) {
+        // TODO: think about using patches
+        proxy(container, {
+          module: options.type as string,
+          method: options.method!,
+          args: options.params,
+        });
+        lastAction.sequence = options._sequence;
+      } else if (!syncFullStatePromise) {
+        syncFullStatePromise = transport.emit(loadFullStateActionName);
+        const fullState = await syncFullStatePromise;
+        syncFullStatePromise = null;
+        app.store!.dispatch({
+          type: `${actionIdentifier}_${loadFullStateActionName}`,
+          state: fullState,
+          _reactant: actionIdentifier,
+        });
+        lastAction.sequence = fullState[lastAction.stateKey]._sequence;
+      }
     })
   );
   disposeListeners.push(() => transport.dispose());

@@ -18,11 +18,20 @@ export interface ILastActionOptions {
   stateKey?: string;
 }
 
+export interface ILastActionState<T = any> extends ReactantAction<T> {
+  /**
+   * sync sequence
+   */
+  _sequence?: number;
+}
+
 @injectable()
 class ReactantLastAction extends PluginModule {
   readonly [storeKey]?: ReactantStore;
 
-  protected stateKey: string;
+  stateKey: string;
+
+  private _sequence: number | undefined;
 
   constructor(@optional(LastActionOptions) public options: ILastActionOptions) {
     super();
@@ -32,13 +41,27 @@ class ReactantLastAction extends PluginModule {
   beforeCombineRootReducers(reducers: ReducersMapObject): ReducersMapObject {
     return Object.assign(reducers, {
       [this.stateKey]: (
-        _state: ReactantAction | null = null,
-        { state, ...action }: ReactantAction
-      ) => action,
+        _state: ILastActionState | null = null,
+        { state, ...action }: ILastActionState
+      ) =>
+        state
+          ? {
+              ...action,
+              _sequence: (_state?._sequence ?? 0) + 1,
+            }
+          : _state,
     });
   }
 
-  get lastAction(): ReactantAction {
+  set sequence(value: number) {
+    this._sequence = value;
+  }
+
+  get sequence() {
+    return this._sequence ?? this.lastAction?._sequence ?? 0;
+  }
+
+  get lastAction(): ILastActionState {
     return this[storeKey]?.getState()[this.stateKey] ?? null;
   }
 }
