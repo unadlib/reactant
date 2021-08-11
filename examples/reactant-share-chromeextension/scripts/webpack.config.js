@@ -70,7 +70,7 @@ const options = {
         exclude: /node_modules/,
       },
       {
-        test: new RegExp(`\.(${fileExtensions.join('|')})$`),
+        test: new RegExp(`.(${fileExtensions.join('|')})$`),
         loader: 'file-loader?name=[name].[ext]',
         exclude: /node_modules/,
       },

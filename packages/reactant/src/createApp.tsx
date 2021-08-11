@@ -6,7 +6,6 @@ import {
   ViewModule,
   createStore,
   ServiceIdentifiersMap,
-  Module,
   bindModules,
   Loader,
   PluginHooks,

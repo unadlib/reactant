@@ -1,6 +1,5 @@
 import {
   ContainerOptions,
-  ServiceIdentifier,
   ReactModuleOptions,
   TypePreloadedState,
   ReactantStore,

@@ -8,7 +8,7 @@ import {
   LastActionOptions,
   ILastActionOptions,
 } from 'reactant-last-action';
-import { Config, Port, Transform } from './interfaces';
+import { Config, Port, Transform, Transports } from './interfaces';
 import { handleServer } from './server';
 import { handleClient } from './client';
 import {
@@ -101,7 +101,7 @@ const createSharedTabApp = async <T>(options: Config<T>) => {
   options.share.transports.server ??= createBroadcastTransport(
     options.share.name
   );
-  if (options.share.port === 'client') {
+  if (options.share.port) {
     const app = await createBaseApp(options);
     return app;
   }
@@ -150,7 +150,7 @@ const createSharedTabApp = async <T>(options: Config<T>) => {
 
 export const createApp = async <T>(options: Config<T>) => {
   let app: App<any>;
-  let transports = options.share.transports ?? {};
+  let transports: Transports;
   switch (options.share.type) {
     case 'BrowserExtension':
       transports = {
