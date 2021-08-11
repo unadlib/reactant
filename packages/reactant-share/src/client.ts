@@ -1,4 +1,10 @@
-import { actionIdentifier, App, Container, containerKey } from 'reactant';
+import {
+  actionIdentifier,
+  App,
+  applyPatches,
+  Container,
+  containerKey,
+} from 'reactant';
 import { LastAction } from 'reactant-last-action';
 import { getClientTransport } from './createTransport';
 import { CallbackWithHook, Transports } from './interfaces';
@@ -49,11 +55,17 @@ export const proxyClient = ({
 
 let syncFullStatePromise: Promise<Record<string, any>> | null;
 
-export const handleClient = (
-  app: App<any>,
-  transport: Transports['client'],
-  disposeServer?: () => void
-) => {
+export const handleClient = ({
+  app,
+  transport,
+  disposeServer,
+  enablePatches,
+}: {
+  app: App<any>;
+  transport: Transports['client'];
+  disposeServer?: () => void;
+  enablePatches?: boolean;
+}) => {
   if (!transport) {
     throw new Error(`The client transport does not exist.`);
   }
@@ -65,12 +77,21 @@ export const handleClient = (
       const container: Container = app.instance[containerKey];
       const lastAction = container.get(LastAction);
       if (options._sequence && options._sequence === lastAction.sequence + 1) {
-        // TODO: think about using patches
-        proxy(container, {
-          module: options.type as string,
-          method: options.method!,
-          args: options.params,
-        });
+        if (enablePatches) {
+          if (!Array.isArray(options._patches)) {
+            throw new Error(
+              `The server port is not set '{ enablePatches: true }' in 'createApp()' devOptions.`
+            );
+          }
+          const state = applyPatches(app.store!.getState(), options._patches!);
+          app.store!.dispatch({ ...options, state });
+        } else {
+          proxy(container, {
+            module: options.type as string,
+            method: options.method!,
+            args: options.params,
+          });
+        }
         lastAction.sequence = options._sequence;
       } else if (!syncFullStatePromise) {
         syncFullStatePromise = transport.emit(loadFullStateActionName);

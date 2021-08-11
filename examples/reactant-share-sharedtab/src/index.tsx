@@ -87,6 +87,9 @@ createApp({
     name: 'counter',
     type: 'SharedTab',
   },
+  devOptions: {
+    enablePatches: true,
+  },
 }).then((app) => {
   console.log(app, '====');
   window.app = app;

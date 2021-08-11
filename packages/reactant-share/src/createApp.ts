@@ -43,12 +43,21 @@ const createBaseApp = <T>({
         if (!serverTransport) {
           throw new Error(`'transports.server' does not exist.`);
         }
-        handleServer(app, serverTransport, disposeClient);
+        handleServer({
+          app,
+          transport: serverTransport,
+          disposeClient,
+        });
       } else {
         if (!clientTransport) {
           throw new Error(`'transports.client' does not exist.`);
         }
-        handleClient(app, clientTransport, disposeServer);
+        handleClient({
+          app,
+          transport: clientTransport,
+          disposeServer,
+          enablePatches: !!options.devOptions?.enablePatches,
+        });
       }
     };
     if (isServer) {
@@ -56,7 +65,10 @@ const createBaseApp = <T>({
         throw new Error(`'transports.server' does not exist.`);
       }
       app = createReactantApp(options);
-      disposeServer = handleServer(app, serverTransport);
+      disposeServer = handleServer({
+        app,
+        transport: serverTransport,
+      });
       resolve(app);
     } else {
       if (!clientTransport) {
@@ -65,7 +77,11 @@ const createBaseApp = <T>({
       setClientTransport(clientTransport);
       clientTransport.emit(preloadedStateActionName).then((preloadedState) => {
         app = createReactantApp({ ...options, preloadedState });
-        disposeClient = handleClient(app, clientTransport);
+        disposeClient = handleClient({
+          app,
+          transport: clientTransport,
+          enablePatches: !!options.devOptions?.enablePatches,
+        });
         resolve(app);
       });
     }

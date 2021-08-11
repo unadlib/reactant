@@ -25,11 +25,15 @@ export const onServer = (callback: CallbackWithHook) => {
   };
 };
 
-export const handleServer = (
-  app: App<any>,
-  transport: Transports['server'],
-  disposeClient?: () => void
-) => {
+export const handleServer = ({
+  app,
+  transport,
+  disposeClient,
+}: {
+  app: App<any>;
+  transport: Transports['server'];
+  disposeClient?: () => void;
+}) => {
   if (!transport) {
     throw new Error(`The server transport does not exist.`);
   }
