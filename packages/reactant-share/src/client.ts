@@ -1,21 +1,11 @@
-import {
-  actionIdentifier,
-  App,
-  applyPatches,
-  Container,
-  containerKey,
-} from 'reactant';
+import { App, applyPatches, Container, containerKey } from 'reactant';
 import { LastAction } from 'reactant-last-action';
 import { getClientTransport } from './createTransport';
 import { CallbackWithHook, Transports } from './interfaces';
-import {
-  lastActionName,
-  loadFullStateActionName,
-  preloadedStateActionName,
-  proxyClientActionName,
-} from './constants';
+import { lastActionName, proxyClientActionName } from './constants';
 import { detectClient, setPort } from './port';
 import { proxy } from './proxy';
+import { syncFullState } from './syncFullState';
 
 export const clientCallbacks = new Set<CallbackWithHook>();
 
@@ -52,8 +42,6 @@ export const proxyClient = ({
     new Error(`Detected that the current port is not a client.`)
   );
 };
-
-let syncFullStatePromise: Promise<Record<string, any>> | null;
 
 export const handleClient = ({
   app,
@@ -93,16 +81,11 @@ export const handleClient = ({
           });
         }
         lastAction.sequence = options._sequence;
-      } else if (!syncFullStatePromise) {
-        syncFullStatePromise = transport.emit(loadFullStateActionName);
-        const fullState = await syncFullStatePromise;
-        syncFullStatePromise = null;
-        app.store!.dispatch({
-          type: `${actionIdentifier}_${loadFullStateActionName}`,
-          state: fullState,
-          _reactant: actionIdentifier,
+      } else {
+        syncFullState({
+          app,
+          transport,
         });
-        lastAction.sequence = fullState[lastAction.stateKey]._sequence;
       }
     })
   );
