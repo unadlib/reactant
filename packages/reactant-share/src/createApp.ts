@@ -101,6 +101,10 @@ const createSharedTabApp = async <T>(options: Config<T>) => {
   options.share.transports.server ??= createBroadcastTransport(
     options.share.name
   );
+  if (options.share.port === 'client') {
+    const app = await createBaseApp(options);
+    return app;
+  }
   let app: App<any>;
   app = await Promise.race([
     new Promise<App<any>>((resolve) => {
