@@ -73,10 +73,7 @@ describe('base API', () => {
     act(() => {
       app.bootstrap(container);
     });
-    expect(
-      /^@@redux\/INIT/.test(app.store?.getState().lastAction.type)
-    ).toBeTruthy();
-    expect(Object.keys(app.store?.getState().lastAction)).toEqual(['type']);
+    expect(app.store?.getState().lastAction).toBeNull();
     expect(container.textContent).toBe('0');
 
     act(() => {
@@ -90,6 +87,7 @@ describe('base API', () => {
       method: 'increase',
       type: 'counter',
       params: [],
+      _sequence: 1,
     };
 
     expect(app.store?.getState().lastAction).toEqual(expectedValue);
@@ -182,11 +180,9 @@ describe('base API', () => {
     act(() => {
       app.bootstrap(container);
     });
+    expect(app.instance.lastActionService.sequence).toBe(0);
 
-    expect(
-      /^@@redux\/INIT/.test(app.store?.getState()[stateKey].type)
-    ).toBeTruthy();
-    expect(Object.keys(app.store?.getState()[stateKey])).toEqual(['type']);
+    expect(app.store?.getState()[stateKey]).toBeNull();
     expect(container.textContent).toBe('00');
 
     expect(watchFn.mock.calls.length).toBe(0);
@@ -205,6 +201,7 @@ describe('base API', () => {
       method: 'increase',
       type: 'counter',
       params: [],
+      _sequence: 1,
     };
 
     expect(app.store?.getState()[stateKey]).toEqual(expectedValue);
@@ -226,6 +223,7 @@ describe('base API', () => {
       method: 'decrease',
       type: 'counter',
       params: [1],
+      _sequence: 2,
     };
 
     expect(app.store?.getState()[stateKey]).toEqual(expectedValue1);
@@ -236,5 +234,9 @@ describe('base API', () => {
       [expectedValue1, expectedValue],
     ]);
     expect(subscribeFn.mock.calls).toEqual([[expectedValue], [expectedValue1]]);
+
+    expect(app.instance.lastActionService.sequence).toBe(2);
+    app.instance.lastActionService.sequence = 10;
+    expect(app.instance.lastActionService.sequence).toBe(10);
   });
 });
