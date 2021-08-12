@@ -47,12 +47,10 @@ export const handleClient = ({
   app,
   transport,
   disposeServer,
-  enablePatches,
 }: {
   app: App<any>;
   transport: Transports['client'];
   disposeServer?: () => void;
-  enablePatches?: boolean;
 }) => {
   if (!transport) {
     throw new Error(`The client transport does not exist.`);
@@ -65,21 +63,9 @@ export const handleClient = ({
       const container: Container = app.instance[containerKey];
       const lastAction = container.get(LastAction);
       if (options._sequence && options._sequence === lastAction.sequence + 1) {
-        if (enablePatches) {
-          if (!Array.isArray(options._patches)) {
-            throw new Error(
-              `The server port is not set '{ enablePatches: true }' in 'createApp()' devOptions.`
-            );
-          }
-          const state = applyPatches(app.store!.getState(), options._patches!);
-          app.store!.dispatch({ ...options, state });
-        } else {
-          proxy(container, {
-            module: options.type as string,
-            method: options.method!,
-            args: options.params,
-          });
-        }
+        // TODO: dev mode checking unminimized patches with diff-match-patch
+        const state = applyPatches(app.store!.getState(), options._patches!);
+        app.store!.dispatch({ ...options, state });
         lastAction.sequence = options._sequence;
       } else {
         syncFullState({

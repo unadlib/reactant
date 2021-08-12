@@ -24,6 +24,8 @@ const createBaseApp = <T>({
   ...options
 }: Config<T>): Promise<App<any>> => {
   options.modules ??= [];
+  options.devOptions ??= {};
+  options.devOptions.enablePatches = true;
   options.modules.push(LastAction, {
     provide: LastActionOptions,
     useValue: {
@@ -56,7 +58,6 @@ const createBaseApp = <T>({
           app,
           transport: clientTransport,
           disposeServer,
-          enablePatches: !!options.devOptions?.enablePatches,
         });
       }
     };
@@ -80,7 +81,6 @@ const createBaseApp = <T>({
         disposeClient = handleClient({
           app,
           transport: clientTransport,
-          enablePatches: !!options.devOptions?.enablePatches,
         });
         resolve(app);
       });
