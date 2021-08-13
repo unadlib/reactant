@@ -16,8 +16,16 @@ interface RouterState {
 }
 
 export interface IRouterOptions {
+  /**
+   * Auto provider injection.
+   */
   autoProvide?: boolean;
+  /**
+   * Define a string as Router reducer key.
+   */
+  stateKey?: string;
 }
+
 // TODO: support ssr and router config
 @injectable()
 class ReactantRouter extends PluginModule {
@@ -25,10 +33,13 @@ class ReactantRouter extends PluginModule {
 
   autoProvide: boolean;
 
+  stateKey: string;
+
   constructor(@optional(RouterOptions) public options: IRouterOptions) {
     super();
-    const { autoProvide = true } = this.options || {};
+    const { autoProvide = true, stateKey = 'router' } = this.options || {};
     this.autoProvide = autoProvide;
+    this.stateKey = stateKey;
   }
 
   history = createBrowserHistory();
@@ -36,15 +47,13 @@ class ReactantRouter extends PluginModule {
   middleware = routerMiddleware(this.history);
 
   beforeCombineRootReducers(reducers: ReducersMapObject): ReducersMapObject {
-    if (reducers.router) {
-      if (__DEV__) {
-        console.error(
-          `'reactant-router' reducer name must be 'router', A module with the property name 'router' already exists, please modify the module 'name'.`
-        );
-      }
+    if (Object.prototype.hasOwnProperty.call(reducers, this.stateKey)) {
+      throw new Error(
+        `The identifier '${this.stateKey}' has a duplicate name, please reset the option 'stateKey' of 'ReactantRouter' module.`
+      );
     }
     return Object.assign(reducers, {
-      router: connectRouter(this.history),
+      [this.stateKey]: connectRouter(this.history),
     });
   }
 
@@ -53,7 +62,7 @@ class ReactantRouter extends PluginModule {
   );
 
   get router(): RouterState {
-    return this[storeKey]?.getState().router;
+    return this[storeKey]?.getState()[this.stateKey];
   }
 
   get currentPath() {
