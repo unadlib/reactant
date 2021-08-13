@@ -121,6 +121,7 @@ export function createStore<T = any>(
           // injection about multi-instances
           identifier += `:${index}`;
         }
+        // identifier definition priority: ServiceIdentifier(string) > class [identifierKey] > class 'name' field.
         if (modulesMap.has(identifier)) {
           throw new Error(
             `'${className}' module name '${identifier}' property and other module conflicts.`

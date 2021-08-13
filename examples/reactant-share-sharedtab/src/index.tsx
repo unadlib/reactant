@@ -7,7 +7,6 @@ import {
   useConnector,
   action,
   state,
-  inject,
   onClient,
   onServer,
   proxify,
@@ -16,7 +15,7 @@ import {
 
 @injectable()
 class Counter {
-  actions: any;
+  name = 'counter';
 
   constructor() {
     onClient(() => {
@@ -49,7 +48,9 @@ class Counter {
 
 @injectable()
 class AppView extends ViewModule {
-  constructor(@inject('counter') public counter: Counter) {
+  name = 'appView';
+
+  constructor(public counter: Counter) {
     super();
   }
 
@@ -80,8 +81,8 @@ class AppView extends ViewModule {
 }
 
 createApp({
-  modules: [{ provide: 'counter', useClass: Counter }],
-  main: { provide: 'appView', useClass: AppView },
+  modules: [],
+  main: AppView,
   render,
   share: {
     name: 'counter',
