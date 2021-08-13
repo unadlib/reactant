@@ -9,7 +9,7 @@ import {
 } from 'redux';
 import { Patch } from 'immer';
 import { EnhancerOptions } from 'redux-devtools-extension';
-import { Container, ModuleOptions } from 'reactant-di';
+import { Container, ModuleOptions, ServiceIdentifier } from 'reactant-di';
 import {
   storeKey,
   subscriptionsKey,
@@ -78,6 +78,8 @@ export type StateMapObject<T extends Record<string, Function>> = {
     ? FirstParameter<T[P]>
     : never;
 };
+
+export type ModulesMap = Map<ServiceIdentifier<any>, any>;
 
 export type FirstParameter<T extends (...args: any) => any> = T extends (
   param: infer P,

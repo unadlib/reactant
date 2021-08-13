@@ -9,6 +9,7 @@ import {
   bindModules,
   Loader,
   PluginHooks,
+  ModulesMap,
 } from 'reactant-module';
 import { Config, App } from './interfaces';
 
@@ -64,6 +65,7 @@ function createApp<T>({
 }: Config<T>): App<T> {
   let loader: Loader;
   const ServiceIdentifiers: ServiceIdentifiersMap = new Map();
+  const modulesMap: ModulesMap = new Map();
   const container = createContainer({
     ServiceIdentifiers,
     modules: [main, ...modules],
@@ -96,7 +98,10 @@ function createApp<T>({
     },
     pluginHooks,
     preloadedState,
-    devOptions
+    devOptions,
+    undefined,
+    undefined,
+    modulesMap
   );
   const withoutReducers = store.getState() === null;
   loader = (loadModules, beforeReplaceReducer) => {
@@ -113,7 +118,8 @@ function createApp<T>({
       store,
       () => {
         beforeReplaceReducer?.(container);
-      }
+      },
+      modulesMap
     );
   };
   return {
@@ -121,6 +127,10 @@ function createApp<T>({
      * App's main module instance.
      */
     instance,
+    /**
+     * All modules of the app.
+     */
+    modules: modulesMap,
     /**
      * Redux store.
      */

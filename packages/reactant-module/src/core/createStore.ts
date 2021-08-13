@@ -23,6 +23,7 @@ import {
   ReactantStore,
   Loader,
   Service as IService,
+  ModulesMap,
 } from '../interfaces';
 import {
   storeKey,
@@ -50,14 +51,13 @@ export function createStore<T = any>(
   preloadedState?: PreloadedState<T>,
   devOptions: DevOptions = {},
   originalStore?: ReactantStore,
-  beforeReplaceReducer?: () => void
+  beforeReplaceReducer?: () => void,
+  modulesMap: ModulesMap = new Map()
 ): ReactantStore {
   let isExistReducer = false;
   let store: ReactantStore | undefined = originalStore;
   let reducers: ReducersMapObject = {};
-  const identifiers = new Set<string>();
   const subscriptions: Subscriptions = [];
-
   const enableAutoFreeze = devOptions.autoFreeze ?? __DEV__;
   const enableReduxDevTools = devOptions.reduxDevTools ?? __DEV__;
   const enablePatches = devOptions.enablePatches ?? false;
@@ -83,7 +83,10 @@ export function createStore<T = any>(
       const services: IService[] = container.getAll(Service);
       loadedModules.add(Service);
       services.forEach((service, index) => {
-        if (typeof service !== 'object' || service === null) return;
+        if (typeof service !== 'object' || service === null) {
+          modulesMap.set(Service, service);
+          return;
+        }
         handlePlugin(service, pluginHooks);
         const isPlainObject =
           toString.call(service[stateKey]) === '[object Object]';
@@ -118,12 +121,12 @@ export function createStore<T = any>(
           // injection about multi-instances
           identifier += `:${index}`;
         }
-        if (identifiers.has(identifier)) {
+        if (modulesMap.has(identifier)) {
           throw new Error(
             `'${className}' module name '${identifier}' property and other module conflicts.`
           );
         }
-        identifiers.add(identifier);
+        modulesMap.set(identifier, service);
         if (isPlainObject) {
           const isEmptyObject = Object.keys(service[stateKey]!).length === 0;
           if (!isEmptyObject) {
