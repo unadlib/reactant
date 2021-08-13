@@ -2,7 +2,7 @@
 
 ![Node CI](https://github.com/unadlib/reactant/workflows/Node%20CI/badge.svg)
 
-A shared model for Reactant
+A shared application model about one server application shared to multiple render-only clients.
 
 ## Usage
 

@@ -1,7 +1,7 @@
 {
   "name": "reactant-share",
   "version": "0.7.1",
-  "description": "A shared-app model for Reactant",
+  "description": "A shared application model for Reactant",
   "main": "dist/index.cjs.js",
   "unpkg": "dist/index.umd.js",
   "module": "dist/index.esm.js",
