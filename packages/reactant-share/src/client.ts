@@ -4,7 +4,6 @@ import { getClientTransport } from './createTransport';
 import { CallbackWithHook, Transports } from './interfaces';
 import { lastActionName, proxyClientActionName } from './constants';
 import { detectClient, setPort } from './port';
-import { proxy } from './proxy';
 import { syncFullState } from './syncFullState';
 
 export const clientCallbacks = new Set<CallbackWithHook>();
