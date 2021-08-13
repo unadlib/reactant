@@ -39,6 +39,11 @@ class ReactantLastAction extends PluginModule {
   }
 
   beforeCombineRootReducers(reducers: ReducersMapObject): ReducersMapObject {
+    if (Object.prototype.hasOwnProperty.call(reducers, this.stateKey)) {
+      throw new Error(
+        `The identifier '${this.stateKey}' has a duplicate name, please reset the option 'stateKey' of 'LastAction' module.`
+      );
+    }
     return Object.assign(reducers, {
       [this.stateKey]: (
         _state: ILastActionState | null = null,

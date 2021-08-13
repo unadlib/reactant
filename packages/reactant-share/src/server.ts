@@ -52,7 +52,7 @@ export const handleServer = ({
   );
   disposeListeners.push(
     transport.listen(proxyClientActionName, async (options) => {
-      const result = await proxy(container, options);
+      const result = await proxy(app, options);
       return result;
     })
   );
