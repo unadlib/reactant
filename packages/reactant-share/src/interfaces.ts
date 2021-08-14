@@ -50,6 +50,10 @@ export interface Config<T> extends BaseConfig<T> {
      * Enable patches filter to support minimized modules collections in client port.
      */
     enablePatchesFilter?: boolean;
+    /**
+     * Transform client/server port
+     */
+    transform?: Transform;
   };
 }
 

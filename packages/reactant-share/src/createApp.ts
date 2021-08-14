@@ -8,7 +8,7 @@ import {
   LastActionOptions,
   ILastActionOptions,
 } from 'reactant-last-action';
-import { Config, Port, Transform, Transports } from './interfaces';
+import { Config, Port, Transports } from './interfaces';
 import { handleServer } from './server';
 import { handleClient } from './client';
 import { createBroadcastTransport } from './createTransport';
@@ -18,8 +18,6 @@ import {
   PortDetector,
   PortDetectorOptions,
 } from './port';
-
-let transform: Transform;
 
 const createBaseApp = <T>({
   share,
@@ -52,7 +50,8 @@ const createBaseApp = <T>({
     const serverTransport = share.transports?.server;
     const clientTransport = share.transports?.client;
     const isServer = share.port === 'server';
-    transform = (changedPort: Port) => {
+    const { transform } = share;
+    share.transform = (changedPort: Port) => {
       if (changedPort === 'server') {
         if (!serverTransport) {
           throw new Error(`'transports.server' does not exist.`);
@@ -73,6 +72,7 @@ const createBaseApp = <T>({
           enablePatchesFilter: share.enablePatchesFilter,
         });
       }
+      transform?.(changedPort);
     };
     if (isServer) {
       if (!serverTransport) {
@@ -104,7 +104,13 @@ const createBaseApp = <T>({
 const createSharedTabApp = async <T>(options: Config<T>) => {
   // TODO: use web lock polyfill
   if (!(navigator as any).locks) {
-    const app = createReactantApp(options);
+    options.share.transports ??= {};
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    options.share.transports.server = { emit() {}, listen() {} };
+    options.share.port = 'server';
+    const app = createBaseApp(options);
     return app;
   }
   options.share.transports ??= {};
@@ -125,15 +131,10 @@ const createSharedTabApp = async <T>(options: Config<T>) => {
         `reactant-share-app-lock:${options.share.name}`,
         async () => {
           if (!app) {
-            app = await createBaseApp({
-              ...options,
-              share: {
-                ...options.share,
-                port: 'server',
-              },
-            });
+            options.share.port = 'server';
+            app = await createBaseApp(options);
           } else {
-            transform?.('server');
+            options.share.transform?.('server');
           }
           resolve(app);
           return new Promise(() => {
@@ -147,13 +148,8 @@ const createSharedTabApp = async <T>(options: Config<T>) => {
         isClientName
       );
       if (isClient) {
-        const app = await createBaseApp({
-          ...options,
-          share: {
-            ...options.share,
-            port: 'client',
-          },
-        });
+        options.share.port = 'client';
+        const app = await createBaseApp(options);
         resolve(app);
       }
     }),
@@ -175,13 +171,8 @@ export const createSharedApp = async <T>(options: Config<T>) => {
       } else if (options.share.port === 'client') {
         transports.client ??= createTransport('BrowserExtensionsClient', {});
       }
-      app = await createBaseApp({
-        ...options,
-        share: {
-          ...options.share,
-          transports,
-        },
-      });
+      options.share.transports = transports;
+      app = await createBaseApp(options);
       break;
     case 'SharedWorker':
       try {
@@ -201,13 +192,8 @@ export const createSharedApp = async <T>(options: Config<T>) => {
             worker: new SharedWorker(options.share.sharedWorkerURL),
           });
         }
-        app = await createBaseApp({
-          ...options,
-          share: {
-            ...options.share,
-            transports,
-          },
-        });
+        options.share.transports = transports;
+        app = await createBaseApp(options);
       } catch (e) {
         app = await createSharedTabApp(options);
       }
