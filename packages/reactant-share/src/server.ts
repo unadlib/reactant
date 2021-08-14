@@ -12,6 +12,7 @@ import {
 } from './constants';
 import { PortDetector } from './port';
 import { proxy } from './proxy';
+import { checkPatches } from './checkPatches';
 
 export const handleServer = ({
   app,
@@ -46,13 +47,26 @@ export const handleServer = ({
     })
   );
   disposeListeners.push(() => transport.dispose());
+  let oldStateTree: Record<string, any>;
+  if (__DEV__) {
+    oldStateTree = app.store!.getState();
+  }
   disposeListeners.push(
     app.store?.subscribe(() => {
-      const {
-        lastAction: { _inversePatches: _, ...lastAction },
-      } = container.get(LastAction);
-      if (lastAction) {
-        transport.emit({ name: lastActionName, respond: false }, lastAction);
+      try {
+        const {
+          lastAction: { _inversePatches: _, ...lastAction },
+        } = container.get(LastAction);
+        if (lastAction) {
+          if (__DEV__) {
+            checkPatches(oldStateTree, lastAction);
+          }
+          transport.emit({ name: lastActionName, respond: false }, lastAction);
+        }
+      } finally {
+        if (__DEV__) {
+          oldStateTree = app.store!.getState();
+        }
       }
     })
   );

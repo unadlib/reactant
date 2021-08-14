@@ -73,11 +73,11 @@ export interface ClientTransport {
   [isClientName](): Promise<boolean>;
 }
 
+export type ActionOptions = Pick<
+  ILastActionState,
+  Exclude<keyof ILastActionState, '_inversePatches'>
+>;
+
 export interface ServerTransport {
-  [lastActionName](
-    action: Pick<
-      ILastActionState,
-      Exclude<keyof ILastActionState, '_inversePatches'>
-    >
-  ): Promise<void>;
+  [lastActionName](options: ActionOptions): Promise<void>;
 }
