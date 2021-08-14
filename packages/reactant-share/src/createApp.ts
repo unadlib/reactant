@@ -17,6 +17,7 @@ import {
 } from './createTransport';
 import { isClientName, preloadedStateActionName } from './constants';
 import { PortDetector, PortDetectorOptions } from './port';
+import { SyncFullStatePromiseRef } from './syncFullState';
 
 let transform: Transform;
 
@@ -25,6 +26,7 @@ const createBaseApp = <T>({
   ...options
 }: Config<T>): Promise<App<any>> => {
   let portApp: PortApp;
+  const syncFullStatePromiseRef: SyncFullStatePromiseRef = { current: null };
   options.modules ??= [];
   options.devOptions ??= {};
   options.devOptions.enablePatches = true;
@@ -75,6 +77,7 @@ const createBaseApp = <T>({
           app,
           transport: clientTransport,
           disposeServer,
+          syncFullStatePromiseRef,
         });
       }
     };
@@ -98,6 +101,7 @@ const createBaseApp = <T>({
         disposeClient = handleClient({
           app,
           transport: clientTransport,
+          syncFullStatePromiseRef,
         });
         resolve(app);
       });

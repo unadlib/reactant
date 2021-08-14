@@ -4,7 +4,7 @@ import { getClientTransport } from './createTransport';
 import { CallbackWithHook, Transports } from './interfaces';
 import { lastActionName, proxyClientActionName } from './constants';
 import { PortDetector, setPort } from './port';
-import { syncFullState } from './syncFullState';
+import { syncFullState, SyncFullStatePromiseRef } from './syncFullState';
 
 export const clientCallbacks = new Set<CallbackWithHook>();
 
@@ -43,10 +43,12 @@ export const proxyClient = ({
 export const handleClient = ({
   app,
   transport,
+  syncFullStatePromiseRef,
   disposeServer,
 }: {
   app: App<any>;
   transport: Transports['client'];
+  syncFullStatePromiseRef: SyncFullStatePromiseRef;
   disposeServer?: () => void;
 }) => {
   if (!transport) {
@@ -98,6 +100,7 @@ export const handleClient = ({
         syncFullState({
           app,
           transport,
+          syncFullStatePromiseRef,
         });
       }
     })
