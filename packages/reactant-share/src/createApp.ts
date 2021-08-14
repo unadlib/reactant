@@ -8,15 +8,16 @@ import {
   LastActionOptions,
   ILastActionOptions,
 } from 'reactant-last-action';
-import { Config, Port, PortApp, Transform, Transports } from './interfaces';
+import { Config, Port, Transform, Transports } from './interfaces';
 import { handleServer } from './server';
 import { handleClient } from './client';
-import {
-  createBroadcastTransport,
-  setClientTransport,
-} from './createTransport';
+import { createBroadcastTransport } from './createTransport';
 import { isClientName, preloadedStateActionName } from './constants';
-import { PortDetector, PortDetectorOptions } from './port';
+import {
+  IPortDetectorOptions,
+  PortDetector,
+  PortDetectorOptions,
+} from './port';
 import { SyncFullStatePromiseRef } from './syncFullState';
 
 let transform: Transform;
@@ -25,7 +26,6 @@ const createBaseApp = <T>({
   share,
   ...options
 }: Config<T>): Promise<App<any>> => {
-  let portApp: PortApp;
   const syncFullStatePromiseRef: SyncFullStatePromiseRef = { current: null };
   options.modules ??= [];
   options.devOptions ??= {};
@@ -41,13 +41,8 @@ const createBaseApp = <T>({
     {
       provide: PortDetectorOptions,
       useValue: {
-        set(currentApp: PortApp) {
-          portApp = currentApp;
-        },
-        get() {
-          return portApp;
-        },
-      },
+        transports: share.transports,
+      } as IPortDetectorOptions,
     },
     PortDetector
   );
@@ -95,7 +90,6 @@ const createBaseApp = <T>({
       if (!clientTransport) {
         throw new Error(`'transports.client' does not exist.`);
       }
-      setClientTransport(clientTransport);
       clientTransport.emit(preloadedStateActionName).then((preloadedState) => {
         app = createReactantApp({ ...options, preloadedState });
         disposeClient = handleClient({

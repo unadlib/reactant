@@ -6,21 +6,20 @@ import {
   action,
   state,
   inject,
-  onClient,
-  onServer,
   proxify,
   subscribe,
+  PortDetector,
 } from 'reactant-share';
 
 @injectable()
 export class Counter {
-  constructor() {
-    onClient(() =>
+  constructor(private portDetector: PortDetector) {
+    this.portDetector.onClient(() =>
       subscribe(this, () => {
         console.log('client ====');
       })
     );
-    onServer(() =>
+    this.portDetector.onServer(() =>
       subscribe(this, () => {
         console.log('server ====');
       })

@@ -33,6 +33,7 @@ export const proxify = (
         module: this[identifierKey]!,
         method: key,
         args,
+        clientTransport: portDetector.transports.client,
       });
     }
     return fn!.apply(this, args);

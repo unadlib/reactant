@@ -1,33 +1,21 @@
 import { App, applyPatches, Container, containerKey } from 'reactant';
 import { LastAction } from 'reactant-last-action';
-import { getClientTransport } from './createTransport';
 import { CallbackWithHook, Transports } from './interfaces';
 import { lastActionName, proxyClientActionName } from './constants';
-import { PortDetector, setPort } from './port';
+import { PortDetector } from './port';
 import { syncFullState, SyncFullStatePromiseRef } from './syncFullState';
-
-export const clientCallbacks = new Set<CallbackWithHook>();
-
-export const onClient = (callback: CallbackWithHook) => {
-  if (typeof callback !== 'function') {
-    throw new Error(`'onServer' argument should be a function.`);
-  }
-  clientCallbacks.add(callback);
-  return () => {
-    clientCallbacks.delete(callback);
-  };
-};
 
 export const proxyClient = ({
   module,
   method,
   args,
+  clientTransport,
 }: {
   module: string;
   method: string;
   args: any[];
+  clientTransport: Transports['client'];
 }) => {
-  const clientTransport = getClientTransport();
   if (clientTransport) {
     return clientTransport.emit(proxyClientActionName, {
       module,
@@ -57,7 +45,7 @@ export const handleClient = ({
   disposeServer?.();
   const container: Container = app.instance[containerKey];
   const portDetector = container.get(PortDetector);
-  portDetector.setPort({ client: app }, clientCallbacks, transport);
+  portDetector.setPort({ client: app }, transport);
   const disposeListeners: ((() => void) | undefined)[] = [];
   disposeListeners.push(
     transport.listen(lastActionName, async (options) => {

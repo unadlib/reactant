@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable consistent-return */
-import { App, containerKey, Container } from 'reactant';
+import { App, containerKey, Container, Service } from 'reactant';
 import { LastAction } from 'reactant-last-action';
 import { CallbackWithHook, Transports } from './interfaces';
 import {
@@ -12,18 +12,6 @@ import {
 } from './constants';
 import { PortDetector } from './port';
 import { proxy } from './proxy';
-
-export const serverCallbacks = new Set<CallbackWithHook>();
-
-export const onServer = (callback: CallbackWithHook) => {
-  if (typeof callback !== 'function') {
-    throw new Error(`'onServer' argument should be a function.`);
-  }
-  serverCallbacks.add(callback);
-  return () => {
-    serverCallbacks.delete(callback);
-  };
-};
 
 export const handleServer = ({
   app,
@@ -40,7 +28,7 @@ export const handleServer = ({
   disposeClient?.();
   const container: Container = app.instance[containerKey];
   const portDetector = container.get(PortDetector);
-  portDetector.setPort({ server: app }, serverCallbacks, transport);
+  portDetector.setPort({ server: app }, transport);
   const disposeListeners: ((() => void) | undefined)[] = [];
   disposeListeners.push(transport.listen(isClientName, async () => true));
   disposeListeners.push(

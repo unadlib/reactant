@@ -7,24 +7,23 @@ import {
   useConnector,
   action,
   state,
-  onClient,
-  onServer,
   proxify,
   subscribe,
+  PortDetector,
 } from 'reactant-share';
 
 @injectable()
 class Counter {
   name = 'counter';
 
-  constructor() {
-    onClient(() => {
+  constructor(private portDetector: PortDetector) {
+    this.portDetector.onClient(() => {
       console.log('client ====');
       return subscribe(this, () => {
         console.log('client ====');
       });
     });
-    onServer(() => {
+    this.portDetector.onServer(() => {
       console.log('server ====');
       return subscribe(this, () => {
         console.log('server ====');
