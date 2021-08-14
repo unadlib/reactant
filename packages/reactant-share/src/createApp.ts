@@ -70,6 +70,7 @@ const createBaseApp = <T>({
           app,
           transport: clientTransport,
           disposeServer,
+          enablePatchesFilter: share.enablePatchesFilter,
         });
       }
     };
@@ -92,6 +93,7 @@ const createBaseApp = <T>({
         disposeClient = handleClient({
           app,
           transport: clientTransport,
+          enablePatchesFilter: share.enablePatchesFilter,
         });
         resolve(app);
       });

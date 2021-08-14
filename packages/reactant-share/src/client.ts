@@ -3,6 +3,7 @@ import { LastAction } from 'reactant-last-action';
 import { Transports } from './interfaces';
 import { lastActionName, proxyClientActionName } from './constants';
 import { PortDetector } from './port';
+import { filterPatches } from './filterPatches';
 
 export const proxyClient = ({
   module,
@@ -31,10 +32,12 @@ export const handleClient = ({
   app,
   transport,
   disposeServer,
+  enablePatchesFilter,
 }: {
   app: App<any>;
   transport: Transports['client'];
   disposeServer?: () => void;
+  enablePatchesFilter?: boolean;
 }) => {
   if (!transport) {
     throw new Error(`The client transport does not exist.`);
@@ -44,11 +47,23 @@ export const handleClient = ({
   const portDetector = container.get(PortDetector);
   portDetector.setPort({ client: app }, transport);
   const disposeListeners: ((() => void) | undefined)[] = [];
+  let lastState: Record<string, any>;
+  if (enablePatchesFilter) {
+    lastState = app.store!.getState();
+    disposeListeners.push(() =>
+      app.store?.subscribe(() => {
+        lastState = app.store!.getState();
+      })
+    );
+  }
   disposeListeners.push(
     transport.listen(lastActionName, async (options) => {
       const lastAction = container.get(LastAction);
       if (options._sequence && options._sequence === lastAction.sequence + 1) {
-        const state = applyPatches(app.store!.getState(), options._patches!);
+        const patches = enablePatchesFilter
+          ? filterPatches(lastState, options)
+          : options._patches;
+        const state = applyPatches(app.store!.getState(), patches!);
         app.store!.dispatch({ ...options, state });
         lastAction.sequence = options._sequence;
       } else {

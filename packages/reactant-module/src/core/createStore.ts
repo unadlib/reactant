@@ -260,7 +260,20 @@ export function createStore<T = any>(
     );
     store = createStoreWithRedux(
       perform(pluginHooks.afterCombineRootReducers, reducer),
-      perform(pluginHooks.preloadedStateHandler, preloadedState),
+      perform(
+        pluginHooks.preloadedStateHandler,
+        preloadedState
+          ? Object.entries(preloadedState).reduce<Record<string, any>>(
+              (state, [key, value]) =>
+                modulesMap.has(key)
+                  ? Object.assign(state, {
+                      [key]: value,
+                    })
+                  : state,
+              {}
+            )
+          : preloadedState
+      ),
       composeEnhancers(
         applyMiddleware(...pluginHooks.middleware),
         ...pluginHooks.enhancer

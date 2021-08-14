@@ -46,6 +46,10 @@ export interface Config<T> extends BaseConfig<T> {
      * Specify a SharedWorker URL
      */
     sharedWorkerURL?: string;
+    /**
+     * Enable patches filter to support minimized modules collections in client port.
+     */
+    enablePatchesFilter?: boolean;
   };
 }
 

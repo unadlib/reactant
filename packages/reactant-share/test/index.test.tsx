@@ -14,6 +14,7 @@ import {
   proxify,
   PortDetector,
   createTransport,
+  optional,
 } from '..';
 
 let serverContainer: Element;
@@ -33,12 +34,28 @@ afterEach(() => {
   clientContainer.remove();
 });
 
-describe('useConnector', () => {
+describe('base', () => {
+  @injectable()
+  class TodoList {
+    name = 'todoList';
+
+    @state
+    list: number[] = [];
+
+    @action
+    add(num: number) {
+      this.list.push(num);
+    }
+  }
+
   @injectable()
   class Counter {
     name = 'counter';
 
-    constructor(private portDetector: PortDetector) {
+    constructor(
+      private portDetector: PortDetector,
+      @optional('todoList') private todoList: TodoList
+    ) {
       this.portDetector.onClient(() => {
         console.log('client ====');
         return subscribe(this, () => {
@@ -56,9 +73,14 @@ describe('useConnector', () => {
     @state
     count = 0;
 
+    @state
+    obj: Record<string, number> = {};
+
     @action
     increase() {
       this.count += 1;
+      this.obj.number = this.count;
+      this.todoList?.add(this.count);
     }
 
     @action
@@ -100,7 +122,7 @@ describe('useConnector', () => {
       );
     }
   }
-  test('selector for object map values', async () => {
+  test('base server/client port mode', async () => {
     const ports = mockPairPorts();
 
     const serverApp = await createSharedApp({
@@ -155,5 +177,67 @@ describe('useConnector', () => {
 
     expect(serverContainer.querySelector('#count')?.textContent).toBe('2');
     expect(clientContainer.querySelector('#count')?.textContent).toBe('2');
+  });
+
+  test('base server/Minimal set client port mode', async () => {
+    const ports = mockPairPorts();
+
+    const serverApp = await createSharedApp({
+      modules: [{ provide: 'todoList', useClass: TodoList }],
+      main: AppView,
+      render,
+      share: {
+        name: 'counter',
+        type: 'Base',
+        port: 'server',
+        transports: {
+          server: createTransport('Base', ports[0]),
+        },
+      },
+    });
+    act(() => {
+      serverApp.bootstrap(serverContainer);
+    });
+    expect(serverContainer.querySelector('#count')?.textContent).toBe('0');
+
+    const clientApp = await createSharedApp({
+      modules: [],
+      main: AppView,
+      render,
+      share: {
+        name: 'counter',
+        type: 'Base',
+        port: 'client',
+        transports: {
+          client: createTransport('Base', ports[1]),
+        },
+        enablePatchesFilter: true,
+      },
+    });
+    act(() => {
+      clientApp.bootstrap(clientContainer);
+    });
+    expect(clientContainer.querySelector('#count')?.textContent).toBe('0');
+
+    act(() => {
+      serverContainer
+        .querySelector('#increase')!
+        .dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    });
+    expect(serverContainer.querySelector('#count')?.textContent).toBe('1');
+    expect(clientContainer.querySelector('#count')?.textContent).toBe('1');
+
+    expect(clientApp.store?.getState().counter.obj.number).toBe(1);
+
+    act(() => {
+      clientContainer
+        .querySelector('#increase')!
+        .dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    });
+
+    expect(serverContainer.querySelector('#count')?.textContent).toBe('2');
+    expect(clientContainer.querySelector('#count')?.textContent).toBe('2');
+
+    expect(clientApp.store?.getState().counter.obj.number).toBe(2);
   });
 });
