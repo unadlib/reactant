@@ -1,9 +1,8 @@
 import { App, applyPatches, Container, containerKey } from 'reactant';
 import { LastAction } from 'reactant-last-action';
-import { CallbackWithHook, Transports } from './interfaces';
+import { Transports } from './interfaces';
 import { lastActionName, proxyClientActionName } from './constants';
 import { PortDetector } from './port';
-import { syncFullState, SyncFullStatePromiseRef } from './syncFullState';
 
 export const proxyClient = ({
   module,
@@ -31,12 +30,10 @@ export const proxyClient = ({
 export const handleClient = ({
   app,
   transport,
-  syncFullStatePromiseRef,
   disposeServer,
 }: {
   app: App<any>;
   transport: Transports['client'];
-  syncFullStatePromiseRef: SyncFullStatePromiseRef;
   disposeServer?: () => void;
 }) => {
   if (!transport) {
@@ -85,11 +82,7 @@ export const handleClient = ({
         app.store!.dispatch({ ...options, state });
         lastAction.sequence = options._sequence;
       } else {
-        syncFullState({
-          app,
-          transport,
-          syncFullStatePromiseRef,
-        });
+        portDetector.syncFullState();
       }
     })
   );

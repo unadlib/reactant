@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable consistent-return */
-import { App, containerKey, Container, Service } from 'reactant';
+import { App, containerKey, Container } from 'reactant';
 import { LastAction } from 'reactant-last-action';
-import { CallbackWithHook, Transports } from './interfaces';
+import { Transports } from './interfaces';
 import {
   isClientName,
   lastActionName,

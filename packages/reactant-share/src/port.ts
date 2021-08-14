@@ -1,4 +1,12 @@
-import { injectable, inject } from 'reactant';
+import {
+  injectable,
+  inject,
+  actionIdentifier,
+  storeKey,
+  Service,
+} from 'reactant';
+import { LastAction } from 'reactant-last-action';
+import { loadFullStateActionName } from './constants';
 import { CallbackWithHook, Port, PortApp, Transports } from './interfaces';
 
 export const PortDetectorOptions = Symbol('PortDetectorOptions');
@@ -17,8 +25,11 @@ export class PortDetector {
 
   private clientCallbacks = new Set<CallbackWithHook>();
 
+  private syncFullStatePromise?: Promise<Record<string, any>>;
+
   constructor(
-    @inject(PortDetectorOptions) private options: IPortDetectorOptions
+    @inject(PortDetectorOptions) private options: IPortDetectorOptions,
+    private lastAction: LastAction
   ) {}
 
   private detectPort(port: Port) {
@@ -80,5 +91,27 @@ export class PortDetector {
         console.error(e);
       }
     }
+  }
+
+  async syncFullState() {
+    if (this.syncFullStatePromise) return;
+    if (typeof this.transports.client === 'undefined') {
+      throw new Error(``);
+    }
+    this.syncFullStatePromise = this.transports.client.emit(
+      loadFullStateActionName
+    );
+    const fullState = await this.syncFullStatePromise;
+    this.syncFullStatePromise = undefined;
+    const store = (this as Service)[storeKey];
+    store!.dispatch({
+      type: `${actionIdentifier}_${loadFullStateActionName}`,
+      state: fullState,
+      _reactant: actionIdentifier,
+    });
+    if (typeof fullState === 'undefined') {
+      throw new Error(``);
+    }
+    this.lastAction.sequence = fullState[this.lastAction.stateKey]._sequence;
   }
 }
