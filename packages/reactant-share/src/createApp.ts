@@ -8,7 +8,7 @@ import {
   LastActionOptions,
   ILastActionOptions,
 } from 'reactant-last-action';
-import { Config, Port, Transform, Transports } from './interfaces';
+import { Config, Port, PortApp, Transform, Transports } from './interfaces';
 import { handleServer } from './server';
 import { handleClient } from './client';
 import {
@@ -16,6 +16,7 @@ import {
   setClientTransport,
 } from './createTransport';
 import { isClientName, preloadedStateActionName } from './constants';
+import { PortDetector, PortDetectorOptions } from './port';
 
 let transform: Transform;
 
@@ -23,15 +24,31 @@ const createBaseApp = <T>({
   share,
   ...options
 }: Config<T>): Promise<App<any>> => {
+  let portApp: PortApp;
   options.modules ??= [];
   options.devOptions ??= {};
   options.devOptions.enablePatches = true;
-  options.modules.push(LastAction, {
-    provide: LastActionOptions,
-    useValue: {
-      stateKey: `lastAction-${share.name}`,
-    } as ILastActionOptions,
-  });
+  options.modules.push(
+    LastAction,
+    {
+      provide: LastActionOptions,
+      useValue: {
+        stateKey: `lastAction-${share.name}`,
+      } as ILastActionOptions,
+    },
+    {
+      provide: PortDetectorOptions,
+      useValue: {
+        set(currentApp: PortApp) {
+          portApp = currentApp;
+        },
+        get() {
+          return portApp;
+        },
+      },
+    },
+    PortDetector
+  );
   console.log('----', share.port);
   return new Promise(async (resolve) => {
     let app: App<any>;

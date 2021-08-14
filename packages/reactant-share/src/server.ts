@@ -10,7 +10,7 @@ import {
   preloadedStateActionName,
   proxyClientActionName,
 } from './constants';
-import { setPort } from './port';
+import { PortDetector } from './port';
 import { proxy } from './proxy';
 
 export const serverCallbacks = new Set<CallbackWithHook>();
@@ -38,8 +38,9 @@ export const handleServer = ({
     throw new Error(`The server transport does not exist.`);
   }
   disposeClient?.();
-  setPort({ server: app }, serverCallbacks, transport);
   const container: Container = app.instance[containerKey];
+  const portDetector = container.get(PortDetector);
+  portDetector.setPort({ server: app }, serverCallbacks, transport);
   const disposeListeners: ((() => void) | undefined)[] = [];
   disposeListeners.push(transport.listen(isClientName, async () => true));
   disposeListeners.push(

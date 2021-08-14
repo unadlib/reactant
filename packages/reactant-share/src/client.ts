@@ -3,7 +3,7 @@ import { LastAction } from 'reactant-last-action';
 import { getClientTransport } from './createTransport';
 import { CallbackWithHook, Transports } from './interfaces';
 import { lastActionName, proxyClientActionName } from './constants';
-import { detectClient, setPort } from './port';
+import { PortDetector, setPort } from './port';
 import { syncFullState } from './syncFullState';
 
 export const clientCallbacks = new Set<CallbackWithHook>();
@@ -27,15 +27,13 @@ export const proxyClient = ({
   method: string;
   args: any[];
 }) => {
-  if (detectClient()) {
-    const clientTransport = getClientTransport();
-    if (clientTransport) {
-      return clientTransport.emit(proxyClientActionName, {
-        module,
-        method,
-        args,
-      });
-    }
+  const clientTransport = getClientTransport();
+  if (clientTransport) {
+    return clientTransport.emit(proxyClientActionName, {
+      module,
+      method,
+      args,
+    });
   }
   return Promise.reject(
     new Error(`Detected that the current port is not a client.`)
@@ -55,11 +53,12 @@ export const handleClient = ({
     throw new Error(`The client transport does not exist.`);
   }
   disposeServer?.();
-  setPort({ client: app }, clientCallbacks, transport);
+  const container: Container = app.instance[containerKey];
+  const portDetector = container.get(PortDetector);
+  portDetector.setPort({ client: app }, clientCallbacks, transport);
   const disposeListeners: ((() => void) | undefined)[] = [];
   disposeListeners.push(
     transport.listen(lastActionName, async (options) => {
-      const container: Container = app.instance[containerKey];
       const lastAction = container.get(LastAction);
       if (options._sequence && options._sequence === lastAction.sequence + 1) {
         if (__DEV__) {

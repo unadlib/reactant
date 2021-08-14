@@ -1,6 +1,6 @@
-import { identifierKey, Service } from 'reactant';
+import { containerKey, identifierKey, Service } from 'reactant';
 import { proxyClient } from '../client';
-import { detectClient } from '../port';
+import { PortDetector } from '../port';
 
 export const proxify = (
   target: object,
@@ -14,7 +14,8 @@ export const proxify = (
     );
   }
   function value(this: Service, ...args: any) {
-    if (detectClient()) {
+    const portDetector = this[containerKey]?.get(PortDetector);
+    if (portDetector?.isClient) {
       if (__DEV__) {
         const moduleName = target.constructor.name;
         if (typeof this[identifierKey] !== 'string') {

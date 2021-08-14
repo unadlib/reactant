@@ -1,37 +1,56 @@
+import { injectable, inject } from 'reactant';
 import { CallbackWithHook, Port, PortApp, Transports } from './interfaces';
 
-let portApp: PortApp;
+export const PortDetectorOptions = Symbol('PortDetectorOptions');
 
-let lastHooks: Set<ReturnType<CallbackWithHook>>;
+interface IPortDetectorOptions {
+  get(): PortApp;
+  set(app: PortApp): void;
+}
 
-export const detectPort = (port: Port) => !!portApp?.[port];
+@injectable()
+export class PortDetector {
+  private lastHooks?: Set<ReturnType<CallbackWithHook>>;
 
-export const detectServer = () => detectPort('server');
+  constructor(
+    @inject(PortDetectorOptions) private options: IPortDetectorOptions
+  ) {}
 
-export const detectClient = () => detectPort('client');
+  private detectPort(port: Port) {
+    return this.options.get()?.[port];
+  }
 
-export const setPort = (
-  currentPortApp: PortApp,
-  callbacks: Set<CallbackWithHook>,
-  transport: Transports[keyof Transports]
-) => {
-  if (lastHooks) {
-    for (const hook of lastHooks) {
+  get isServer() {
+    return !!this.detectPort('server');
+  }
+
+  get isClient() {
+    return !!this.detectPort('client');
+  }
+
+  setPort(
+    currentPortApp: PortApp,
+    callbacks: Set<CallbackWithHook>,
+    transport: Transports[keyof Transports]
+  ) {
+    if (this.lastHooks) {
+      for (const hook of this.lastHooks) {
+        try {
+          hook?.();
+        } catch (e) {
+          console.error(e);
+        }
+      }
+    }
+    this.lastHooks = new Set();
+    this.options.set(currentPortApp);
+    for (const callback of callbacks) {
       try {
-        hook?.();
+        const hook = callback(transport);
+        this.lastHooks.add(hook);
       } catch (e) {
         console.error(e);
       }
     }
   }
-  lastHooks = new Set();
-  portApp = currentPortApp;
-  for (const callback of callbacks) {
-    try {
-      const hook = callback(transport);
-      lastHooks.add(hook);
-    } catch (e) {
-      console.error(e);
-    }
-  }
-};
+}
