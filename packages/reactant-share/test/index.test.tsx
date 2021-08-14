@@ -10,7 +10,7 @@ import {
   ViewModule,
   useConnector,
   subscribe,
-  createApp,
+  createSharedApp,
   proxify,
   PortDetector,
   createTransport,
@@ -103,7 +103,7 @@ describe('useConnector', () => {
   test('selector for object map values', async () => {
     const ports = mockPairPorts();
 
-    const serverApp = await createApp({
+    const serverApp = await createSharedApp({
       modules: [],
       main: AppView,
       render,
@@ -121,7 +121,7 @@ describe('useConnector', () => {
     });
     expect(serverContainer.querySelector('#count')?.textContent).toBe('0');
 
-    const clientApp = await createApp({
+    const clientApp = await createSharedApp({
       modules: [],
       main: AppView,
       render,

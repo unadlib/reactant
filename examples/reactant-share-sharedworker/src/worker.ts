@@ -1,8 +1,8 @@
 /* eslint-disable no-restricted-globals */
-import { createApp } from 'reactant-share';
+import { createSharedApp } from 'reactant-share';
 import { AppView, Counter } from './app';
 
-createApp({
+createSharedApp({
   modules: [{ provide: 'counter', useClass: Counter }],
   main: { provide: 'appView', useClass: AppView },
   render: () => {

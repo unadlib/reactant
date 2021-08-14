@@ -159,7 +159,7 @@ const createSharedTabApp = async <T>(options: Config<T>) => {
   return app;
 };
 
-export const createApp = async <T>(options: Config<T>) => {
+export const createSharedApp = async <T>(options: Config<T>) => {
   let app: App<any>;
   let transports: Transports;
   switch (options.share.type) {

@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from 'reactant-web';
 import {
   ViewModule,
-  createApp,
+  createSharedApp,
   injectable,
   useConnector,
   action,
@@ -79,7 +79,7 @@ class AppView extends ViewModule {
   }
 }
 
-createApp({
+createSharedApp({
   modules: [],
   main: AppView,
   render,

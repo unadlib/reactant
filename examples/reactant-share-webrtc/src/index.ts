@@ -1,6 +1,6 @@
 import SimplePeer from 'simple-peer';
 import { render } from 'reactant-web';
-import { createApp, createTransport } from 'reactant-share';
+import { createSharedApp, createTransport } from 'reactant-share';
 import { AppView, Counter } from './app';
 
 const peer = new SimplePeer({
@@ -23,7 +23,7 @@ peer.on('connect', () => {
   const serverTransport = createTransport('WebRTC', {
     peer,
   });
-  createApp({
+  createSharedApp({
     modules: [{ provide: 'counter', useClass: Counter }],
     main: { provide: 'appView', useClass: AppView },
     render,

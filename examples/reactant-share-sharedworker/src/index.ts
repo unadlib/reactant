@@ -1,8 +1,8 @@
 import { render } from 'reactant-web';
-import { createApp } from 'reactant-share';
+import { createSharedApp } from 'reactant-share';
 import { AppView, Counter } from './app';
 
-createApp({
+createSharedApp({
   modules: [{ provide: 'counter', useClass: Counter }],
   main: { provide: 'appView', useClass: AppView },
   render,
