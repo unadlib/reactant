@@ -4545,10 +4545,10 @@ dashdash@^1.12.0:
   dependencies:
     assert-plus "^1.0.0"
 
-data-transport@^2.2.2:
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/data-transport/-/data-transport-2.2.2.tgz#9ccfcf69f49280c7dbb7e3996121b463163c8c74"
-  integrity sha512-u+fyD3JtWWqu5hgvnfgTCnrNC8W3mFx1Ksh5Qbbzbrdn+mLBZFLGfNe3SWAB3Ctmgp5CeGQ8h5HC9PCYZ2vuRg==
+data-transport@^2.2.3:
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/data-transport/-/data-transport-2.2.3.tgz#54c6a0aa347062dfa4f69f6b1107037fe2233477"
+  integrity sha512-qdx2Qj0kyNVFb6k/EluW11tNbipuWSzh8N0+eWwYX98UtMGTBMfmkAWB/mlxQqw8mlJMEPHwoKSl2JkvJR9+uQ==
   dependencies:
     uuid "^8.3.0"
 
