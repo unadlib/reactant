@@ -54,14 +54,13 @@ export const handleServer = ({
   disposeListeners.push(
     app.store?.subscribe(() => {
       try {
-        const {
-          lastAction: { _inversePatches: _, ...lastAction },
-        } = container.get(LastAction);
+        const { lastAction } = container.get(LastAction);
         if (lastAction) {
+          const { _inversePatches: _, ...action } = lastAction;
           if (__DEV__) {
-            checkPatches(oldStateTree, lastAction);
+            checkPatches(oldStateTree, action);
           }
-          transport.emit({ name: lastActionName, respond: false }, lastAction);
+          transport.emit({ name: lastActionName, respond: false }, action);
         }
       } finally {
         if (__DEV__) {

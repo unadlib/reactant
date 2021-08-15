@@ -48,13 +48,10 @@ class ReactantLastAction extends PluginModule {
       [this.stateKey]: (
         _state: ILastActionState | null = null,
         { state, ...action }: ILastActionState
-      ) =>
-        state
-          ? {
-              ...action,
-              _sequence: (_state?._sequence ?? 0) + 1,
-            }
-          : _state,
+      ) => ({
+        ...action,
+        _sequence: (_state?._sequence ?? 0) + 1,
+      }),
     });
   }
 

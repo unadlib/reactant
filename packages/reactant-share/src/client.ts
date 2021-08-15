@@ -1,4 +1,10 @@
-import { App, applyPatches, Container, containerKey } from 'reactant';
+import {
+  actionIdentifier,
+  App,
+  applyPatches,
+  Container,
+  containerKey,
+} from 'reactant';
 import { LastAction } from 'reactant-last-action';
 import { Transports } from './interfaces';
 import { lastActionName, proxyClientActionName } from './constants';
@@ -60,11 +66,15 @@ export const handleClient = ({
     transport.listen(lastActionName, async (options) => {
       const lastAction = container.get(LastAction);
       if (options._sequence && options._sequence === lastAction.sequence + 1) {
-        const patches = enablePatchesFilter
-          ? filterPatches(lastState, options)
-          : options._patches;
-        const state = applyPatches(app.store!.getState(), patches!);
-        app.store!.dispatch({ ...options, state });
+        if (options._reactant === actionIdentifier) {
+          const patches = enablePatchesFilter
+            ? filterPatches(lastState, options)
+            : options._patches;
+          const state = applyPatches(app.store!.getState(), patches!);
+          app.store!.dispatch({ ...options, state });
+        } else {
+          app.store!.dispatch(options);
+        }
         lastAction.sequence = options._sequence;
       } else {
         portDetector.syncFullState();
