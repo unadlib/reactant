@@ -8,6 +8,7 @@ import {
   injectable,
   PortDetector,
   useConnector,
+  watch,
 } from 'reactant-share';
 import { TodoListView } from './todoList.view';
 import { CounterView } from './counter.view';
@@ -18,7 +19,7 @@ const Link: FunctionComponent<{ active: boolean; onClick: () => any }> = ({
   onClick,
 }) => {
   return (
-    <div onClick={onClick} style={{ color: active ? 'red' : 'green' }}>
+    <div onClick={onClick} style={{ color: active ? 'red' : 'black' }}>
       {children}
     </div>
   );
@@ -45,6 +46,16 @@ export class AppView extends ViewModule {
     });
     this.portDetector.onClient(() => {
       this.type = 'Client';
+      return watch(
+        this,
+        () => this.router.currentPath,
+        (currentPath) => {
+          this.router.history.replace(
+            currentPath,
+            this.router.router.location.state
+          );
+        }
+      );
     });
   }
 
@@ -96,7 +107,9 @@ export class AppView extends ViewModule {
 
         <Switch>
           <Route exact path="/">
-            <h2>{`This app is ${type}`}</h2>
+            <h2 style={{ color: type === 'Server' ? 'red' : 'green' }}>
+              {`This app is ${type}`}
+            </h2>
           </Route>
           <Route
             path={this.counterView.path}
