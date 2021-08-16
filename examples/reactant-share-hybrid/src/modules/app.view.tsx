@@ -108,7 +108,7 @@ export class AppView extends ViewModule {
         <Switch>
           <Route exact path="/">
             <h2 style={{ color: type === 'Server' ? 'red' : 'green' }}>
-              {`This app is ${type}`}
+              {`This app is a ${type}`}
             </h2>
           </Route>
           <Route

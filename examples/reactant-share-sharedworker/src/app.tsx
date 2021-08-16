@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   ViewModule,
   injectable,
@@ -13,19 +13,6 @@ import {
 
 @injectable()
 export class Counter {
-  constructor(private portDetector: PortDetector) {
-    this.portDetector.onClient(() =>
-      subscribe(this, () => {
-        console.log('client ====');
-      })
-    );
-    this.portDetector.onServer(() =>
-      subscribe(this, () => {
-        console.log('server ====');
-      })
-    );
-  }
-
   @state
   count = 0;
 
@@ -42,8 +29,31 @@ export class Counter {
 
 @injectable()
 export class AppView extends ViewModule {
-  constructor(@inject('counter') public counter: Counter) {
+  type?: 'Server' | 'Client';
+
+  setType?: React.Dispatch<
+    React.SetStateAction<'Server' | 'Client' | undefined>
+  >;
+
+  constructor(
+    @inject('counter') private counter: Counter,
+    private portDetector: PortDetector
+  ) {
     super();
+    this.portDetector.onClient(() => {
+      this.type = 'Client';
+      this.setType?.(this.type);
+      return subscribe(this, () => {
+        console.log('client ====');
+      });
+    });
+    this.portDetector.onServer(() => {
+      this.type = 'Server';
+      this.setType?.(this.type);
+      return subscribe(this, () => {
+        console.log('server ====');
+      });
+    });
   }
 
   @proxify
@@ -58,8 +68,13 @@ export class AppView extends ViewModule {
 
   component() {
     const count = useConnector(() => this.counter.count);
+    const [type, setType] = useState(this.type);
+    this.setType = setType;
     return (
       <>
+        <h2 style={{ color: type === 'Server' ? 'red' : 'green' }}>
+          {`This app is a ${type}`}
+        </h2>
         <button type="button" onClick={() => this.decrease()}>
           -
         </button>
