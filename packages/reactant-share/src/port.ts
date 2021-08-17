@@ -1,12 +1,14 @@
 import {
   injectable,
   inject,
+  optional,
   actionIdentifier,
   storeKey,
   Service,
 } from 'reactant';
 import { LastAction } from 'reactant-last-action';
-import { loadFullStateActionName } from './constants';
+import { Router } from 'reactant-router';
+import { loadFullStateActionName, syncRouterName } from './constants';
 import { CallbackWithHook, Port, PortApp, Transports } from './interfaces';
 
 export const PortDetectorOptions = Symbol('PortDetectorOptions');
@@ -21,22 +23,41 @@ export class PortDetector {
 
   private lastHooks?: Set<ReturnType<CallbackWithHook>>;
 
-  private serverCallbacks = new Set<CallbackWithHook>();
+  private serverCallbacks = new Set<
+    CallbackWithHook<Required<Transports>['server']>
+  >();
 
-  private clientCallbacks = new Set<CallbackWithHook>();
+  private clientCallbacks = new Set<
+    CallbackWithHook<Required<Transports>['server']>
+  >();
 
   private syncFullStatePromise?: Promise<Record<string, any>>;
 
   constructor(
     @inject(PortDetectorOptions) private options: IPortDetectorOptions,
-    private lastAction: LastAction
-  ) {}
+    private lastAction: LastAction,
+    @optional(Router) private router: Router
+  ) {
+    if (this.router) {
+      this.onServer((transport) => {
+        return transport!.listen(
+          syncRouterName,
+          async () => this.router.router.location
+        );
+      });
+      this.onClient((transport) => {
+        transport!.emit(syncRouterName).then((location) => {
+          this.router.history.replace(location);
+        });
+      });
+    }
+  }
 
   private detectPort(port: Port) {
     return this.portApp?.[port];
   }
 
-  onServer(callback: CallbackWithHook) {
+  onServer(callback: CallbackWithHook<Required<Transports>['server']>) {
     if (typeof callback !== 'function') {
       throw new Error(`'onServer' argument should be a function.`);
     }
@@ -46,7 +67,7 @@ export class PortDetector {
     };
   }
 
-  onClient(callback: CallbackWithHook) {
+  onClient(callback: CallbackWithHook<Required<Transports>['client']>) {
     if (typeof callback !== 'function') {
       throw new Error(`'onClient' argument should be a function.`);
     }
@@ -68,7 +89,10 @@ export class PortDetector {
     return this.options.transports ?? {};
   }
 
-  setPort(currentPortApp: PortApp, transport: Transports[keyof Transports]) {
+  setPort(
+    currentPortApp: PortApp,
+    transport: Required<Transports>[keyof Transports]
+  ) {
     if (this.lastHooks) {
       for (const hook of this.lastHooks) {
         try {

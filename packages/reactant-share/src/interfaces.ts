@@ -1,12 +1,14 @@
 import { Transport } from 'data-transport';
 import { Config as BaseConfig, App } from 'reactant';
 import { ILastActionState } from 'reactant-last-action';
+import { Router } from 'reactant-router';
 import {
   isClientName,
   lastActionName,
   loadFullStateActionName,
   preloadedStateActionName,
   proxyClientActionName,
+  syncRouterName,
 } from './constants';
 
 export type Port = 'server' | 'client';
@@ -61,11 +63,11 @@ export type Transform = (changedPort: Port) => void;
 
 export type Callback = () => void | Promise<void>;
 
-export type CallbackWithHook = <T = any, P = any>(
+export type CallbackWithHook<T extends Transport = Transport<any, any>> = (
   /**
    * Shared app's transport
    */
-  transport?: Transport<T, P>
+  transport: T
 ) => void | (() => void);
 
 export type PortApp = Partial<Record<Port, App<any>>>;
@@ -79,6 +81,7 @@ export interface ClientTransport {
   [preloadedStateActionName](): Promise<Record<string, any>>;
   [loadFullStateActionName](): Promise<Record<string, any>>;
   [isClientName](): Promise<boolean>;
+  [syncRouterName](): Promise<Router['router']['location']>;
 }
 
 export type ActionOptions = Pick<

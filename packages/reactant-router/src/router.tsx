@@ -1,10 +1,18 @@
+/* eslint-disable consistent-return */
 import React, { PropsWithChildren, FunctionComponent } from 'react';
 import { PluginModule, injectable, optional, storeKey } from 'reactant-module';
-import { ReducersMapObject, Store } from 'redux';
+import {
+  ReducersMapObject,
+  Store,
+  Middleware,
+  Action as ReduxAction,
+} from 'redux';
 import {
   connectRouter,
-  routerMiddleware,
   ConnectedRouter,
+  CALL_HISTORY_METHOD,
+  LOCATION_CHANGE,
+  RouterAction,
 } from 'connected-react-router';
 import { createBrowserHistory, Location, LocationState, Action } from 'history';
 
@@ -44,7 +52,23 @@ class ReactantRouter extends PluginModule {
 
   history = createBrowserHistory();
 
-  middleware = routerMiddleware(this.history);
+  middleware: Middleware = (store) => (next) => (action: RouterAction) => {
+    if (action.type !== CALL_HISTORY_METHOD) {
+      if (
+        action.type === LOCATION_CHANGE &&
+        action?.payload?.isFirstRendering === false &&
+        this.history.location !== action.payload.location
+      ) {
+        this.history.replace(action.payload.location);
+      }
+      return next(action);
+    }
+    const {
+      payload: { method, args = [] },
+    } = action;
+    const history: Record<string, Function> = this.history as any;
+    history[method](...args);
+  };
 
   beforeCombineRootReducers(reducers: ReducersMapObject): ReducersMapObject {
     if (Object.prototype.hasOwnProperty.call(reducers, this.stateKey)) {

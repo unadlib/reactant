@@ -8,7 +8,6 @@ import {
   injectable,
   PortDetector,
   useConnector,
-  watch,
 } from 'reactant-share';
 import { TodoListView } from './todoList.view';
 import { CounterView } from './counter.view';
@@ -46,16 +45,6 @@ export class AppView extends ViewModule {
     });
     this.portDetector.onClient(() => {
       this.type = 'Client';
-      return watch(
-        this,
-        () => this.router.currentPath,
-        (currentPath) => {
-          this.router.history.replace(
-            currentPath,
-            this.router.router.location.state
-          );
-        }
-      );
     });
   }
 
