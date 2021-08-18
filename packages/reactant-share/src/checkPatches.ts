@@ -16,10 +16,10 @@ export const checkPatches = (
       if (oldState && typeof oldState === 'object') {
         const length = Array.isArray(oldState)
           ? oldState.length
-          : Object.keys(oldState).length ?? 0;
+          : Object.keys(oldState).length;
         if (length > 0) {
           const state = path.join('.');
-          throw new Error(
+          console.warn(
             `The state '${state}' operation in the method '${
               options.method
             }' of the module '${String(

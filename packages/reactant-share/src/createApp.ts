@@ -60,6 +60,7 @@ const createBaseApp = <T>({
           app,
           transport: serverTransport,
           disposeClient,
+          enablePatchesChecker: share.enablePatchesChecker,
         });
       } else {
         if (!clientTransport) {
@@ -82,6 +83,7 @@ const createBaseApp = <T>({
       disposeServer = handleServer({
         app,
         transport: serverTransport,
+        enablePatchesChecker: share.enablePatchesChecker,
       });
       resolve(app);
     } else {

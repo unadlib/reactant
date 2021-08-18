@@ -18,10 +18,12 @@ export const handleServer = ({
   app,
   transport,
   disposeClient,
+  enablePatchesChecker,
 }: {
   app: App<any>;
   transport: Transports['server'];
   disposeClient?: () => void;
+  enablePatchesChecker?: boolean;
 }) => {
   if (!transport) {
     throw new Error(`The server transport does not exist.`);
@@ -57,7 +59,7 @@ export const handleServer = ({
         const { lastAction } = container.get(LastAction);
         if (lastAction) {
           const { _inversePatches: _, ...action } = lastAction;
-          if (__DEV__) {
+          if (__DEV__ && enablePatchesChecker) {
             checkPatches(oldStateTree, action);
           }
           transport.emit({ name: lastActionName, respond: false }, action);

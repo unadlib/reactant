@@ -53,6 +53,10 @@ export interface Config<T> extends BaseConfig<T> {
      */
     enablePatchesFilter?: boolean;
     /**
+     * Enable patches checker to support minimized patches in server port.
+     */
+    enablePatchesChecker?: boolean;
+    /**
      * Transform client/server port
      */
     transform?: Transform;
