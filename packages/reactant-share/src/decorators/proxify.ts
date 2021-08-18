@@ -1,6 +1,6 @@
 import { containerKey, identifierKey, Service } from 'reactant';
 import { proxyClient } from '../client';
-import { PortDetector } from '../port';
+import { PortDetector } from '../portDetector';
 
 export const proxify = (
   target: object,

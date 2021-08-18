@@ -17,7 +17,7 @@ import {
   IPortDetectorOptions,
   PortDetector,
   PortDetectorOptions,
-} from './port';
+} from './portDetector';
 
 const createBaseApp = <T>({
   share,

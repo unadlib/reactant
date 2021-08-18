@@ -96,3 +96,23 @@ export type ActionOptions = Pick<
 export interface ServerTransport {
   [lastActionName](options: ActionOptions): Promise<void>;
 }
+
+export interface ProxyClientOptions {
+  module: string;
+  method: string;
+  args: any[];
+  clientTransport: Transports['client'];
+}
+export interface HandleServerOptions {
+  app: App<any>;
+  transport: Transports['server'];
+  disposeClient?: () => void;
+  enablePatchesChecker?: boolean;
+}
+
+export interface HandleClientOptions {
+  app: App<any>;
+  transport: Transports['client'];
+  disposeServer?: () => void;
+  enablePatchesFilter?: boolean;
+}

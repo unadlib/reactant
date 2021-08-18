@@ -120,7 +120,7 @@ export class PortDetector {
   async syncFullState() {
     if (this.syncFullStatePromise) return;
     if (typeof this.transports.client === 'undefined') {
-      throw new Error(``);
+      throw new Error(`The current client transport does not exist.`);
     }
     this.syncFullStatePromise = this.transports.client.emit(
       loadFullStateActionName
@@ -134,7 +134,7 @@ export class PortDetector {
       _reactant: actionIdentifier,
     });
     if (typeof fullState === 'undefined') {
-      throw new Error(``);
+      throw new Error(`Failed to sync full state from server port.`);
     }
     this.lastAction.sequence = fullState[this.lastAction.stateKey]._sequence;
   }

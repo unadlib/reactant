@@ -1,14 +1,13 @@
 import {
   actionIdentifier,
-  App,
   applyPatches,
   Container,
   containerKey,
 } from 'reactant';
 import { LastAction } from 'reactant-last-action';
-import { Transports } from './interfaces';
+import { HandleClientOptions, ProxyClientOptions } from './interfaces';
 import { lastActionName, proxyClientActionName } from './constants';
-import { PortDetector } from './port';
+import { PortDetector } from './portDetector';
 import { filterPatches } from './filterPatches';
 
 export const proxyClient = ({
@@ -16,12 +15,7 @@ export const proxyClient = ({
   method,
   args,
   clientTransport,
-}: {
-  module: string;
-  method: string;
-  args: any[];
-  clientTransport: Transports['client'];
-}) => {
+}: ProxyClientOptions) => {
   if (clientTransport) {
     return clientTransport.emit(proxyClientActionName, {
       module,
@@ -39,12 +33,7 @@ export const handleClient = ({
   transport,
   disposeServer,
   enablePatchesFilter,
-}: {
-  app: App<any>;
-  transport: Transports['client'];
-  disposeServer?: () => void;
-  enablePatchesFilter?: boolean;
-}) => {
+}: HandleClientOptions) => {
   if (!transport) {
     throw new Error(`The client transport does not exist.`);
   }

@@ -2,7 +2,7 @@
 /* eslint-disable consistent-return */
 import { App, containerKey, Container } from 'reactant';
 import { LastAction } from 'reactant-last-action';
-import { Transports } from './interfaces';
+import { HandleServerOptions } from './interfaces';
 import {
   isClientName,
   lastActionName,
@@ -10,7 +10,7 @@ import {
   preloadedStateActionName,
   proxyClientActionName,
 } from './constants';
-import { PortDetector } from './port';
+import { PortDetector } from './portDetector';
 import { proxy } from './proxy';
 import { checkPatches } from './checkPatches';
 
@@ -19,12 +19,7 @@ export const handleServer = ({
   transport,
   disposeClient,
   enablePatchesChecker,
-}: {
-  app: App<any>;
-  transport: Transports['server'];
-  disposeClient?: () => void;
-  enablePatchesChecker?: boolean;
-}) => {
+}: HandleServerOptions) => {
   if (!transport) {
     throw new Error(`The server transport does not exist.`);
   }
