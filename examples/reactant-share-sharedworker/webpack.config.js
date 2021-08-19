@@ -5,6 +5,8 @@ module.exports = {
   entry: {
     index: './src/index.ts',
     worker: './src/worker.ts',
+    iframe: './src/iframe.ts',
+    'detached-window': './src/detached-window.ts',
   },
   module: {
     rules: [

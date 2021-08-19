@@ -1,18 +1,18 @@
 /* eslint-disable no-restricted-globals */
 import { createSharedApp } from 'reactant-share';
-import { AppView, Counter } from './app';
+import { AppView } from './app.view';
 
 createSharedApp({
-  modules: [{ provide: 'counter', useClass: Counter }],
-  main: { provide: 'appView', useClass: AppView },
+  modules: [],
+  main: AppView,
   render: () => {
     //
   },
   share: {
-    name: 'counter',
+    name: 'SharedWorkerApp',
     port: 'server',
     type: 'SharedWorker',
-  }
+  },
 }).then((app) => {
   console.log(app, '====');
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment

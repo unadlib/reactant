@@ -1,20 +1,26 @@
 import { render } from 'reactant-web';
 import { createSharedApp } from 'reactant-share';
-import { Router } from 'reactant-router';
-import { AppView } from './app.view';
+import { TodoListView } from './todoList.view';
 
 createSharedApp({
-  modules: [Router],
-  main: AppView,
+  modules: [
+    {
+      provide: 'TodoListViewOptions',
+      useValue: {
+        isDetachedWindow: true,
+      },
+    },
+  ],
+  main: TodoListView,
   render,
   share: {
     name: 'SharedWorkerApp',
-    port: 'client',
     type: 'SharedWorker',
+    port: 'client',
     sharedWorkerURL: 'worker.bundle.js',
   },
 }).then((app) => {
   console.log(app, '====');
-  app.bootstrap(document.getElementById('app'));
   (window as any).app = app;
+  app.bootstrap(document.getElementById('app'));
 });
