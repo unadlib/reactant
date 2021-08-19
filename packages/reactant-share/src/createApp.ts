@@ -159,6 +159,77 @@ const createSharedTabApp = async <T>(options: Config<T>) => {
   return app;
 };
 
+/**
+ * ## Description
+ *
+ * You can create an shared app with `createSharedApp()` passing app configuration,
+ * which will asynchronously return an object including `instance`, `store`,
+ * and `bootstrap()` method(You can run `bootstrap` to start the app inject into the browser or mobile).
+ *
+ * ## Example
+ *
+ * ```ts
+  import { createSharedApp, injectable, state, action, proxify } from 'reactant-share';
+  import { mockPairPorts, createTransport } from 'data-transport';
+
+  @injectable()
+  class Counter {
+    name = 'counter';
+
+    @state
+    count = 0;
+
+    @action
+    _increase() {
+      this.count += 1;
+    }
+
+    @proxify
+    async increase() {
+      this._increase();
+    }
+  }
+
+  (async () => {
+    const ports = mockPairPorts();
+
+    const server = await createSharedApp({
+      modules: [],
+      main: Counter,
+      render: () => {},
+      share: {
+        name: 'counter',
+        type: 'Base',
+        port: 'server',
+        transports: {
+          server: createTransport('Base', ports[0]),
+        },
+      },
+    });
+
+    const client = await createSharedApp({
+      modules: [],
+      main: Counter,
+      render: () => {},
+      share: {
+        name: 'counter',
+        type: 'Base',
+        port: 'client',
+        transports: {
+          client: createTransport('Base', ports[1]),
+        },
+      },
+    });
+
+    await client.instance.increase();
+
+    expect(client.instance.count).toBe(1);
+    expect(server.instance.count).toBe(1);
+
+    global.done();
+  })();
+ * ```
+ */
 export const createSharedApp = async <T>(options: Config<T>) => {
   let app: App<any>;
   let transports: Transports;
