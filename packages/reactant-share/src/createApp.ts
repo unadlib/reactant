@@ -240,9 +240,13 @@ export const createSharedApp = async <T>(options: Config<T>) => {
         client: options.share.transports?.client,
       };
       if (options.share.port === 'server') {
-        transports.server ??= createTransport('BrowserExtensionsMain', {});
+        transports.server ??= createTransport('BrowserExtensionsMain', {
+          prefix: `reactant-share:${options.share.name}`,
+        });
       } else if (options.share.port === 'client') {
-        transports.client ??= createTransport('BrowserExtensionsClient', {});
+        transports.client ??= createTransport('BrowserExtensionsClient', {
+          prefix: `reactant-share:${options.share.name}`,
+        });
       }
       options.share.transports = transports;
       app = await createBaseApp(options);
@@ -254,7 +258,9 @@ export const createSharedApp = async <T>(options: Config<T>) => {
           client: options.share.transports?.client,
         };
         if (options.share.port === 'server') {
-          transports.server ??= createTransport('SharedWorkerInternal', {});
+          transports.server ??= createTransport('SharedWorkerInternal', {
+            prefix: `reactant-share:${options.share.name}`,
+          });
         } else if (options.share.port === 'client' && !transports.client) {
           if (typeof options.share.sharedWorkerURL !== 'string') {
             throw new Error(
@@ -263,6 +269,7 @@ export const createSharedApp = async <T>(options: Config<T>) => {
           }
           transports.client = createTransport('SharedWorkerMain', {
             worker: new SharedWorker(options.share.sharedWorkerURL),
+            prefix: `reactant-share:${options.share.name}`,
           });
         }
         options.share.transports = transports;
