@@ -23,44 +23,47 @@ export interface Transports {
    */
   client?: Transport<ClientTransport, ServerTransport>;
 }
+
+export interface ISharedAppOptions {
+  /**
+   * Reactant shared app name.
+   */
+  name: string;
+  /**
+   * Reactant shared app type.
+   */
+  type: 'SharedTab' | 'BrowserExtension' | 'SharedWorker' | 'Base';
+  /**
+   * Shared app's transports
+   */
+  transports?: Transports;
+  /**
+   * Specify 'client' or 'server' port.
+   */
+  port?: Port;
+  /**
+   * Specify a SharedWorker URL
+   */
+  sharedWorkerURL?: string;
+  /**
+   * Enable patches filter to support minimized modules collections in client port.
+   */
+  enablePatchesFilter?: boolean;
+  /**
+   * Enable patches checker to support minimized patches in server port.
+   */
+  enablePatchesChecker?: boolean;
+  /**
+   * Transform client/server port
+   */
+  transform?: Transform;
+};
+
 export interface Config<T> extends BaseConfig<T> {
   /**
    * Reactant shared app options.
    */
-  share: {
-    /**
-     * Reactant shared app name.
-     */
-    name: string;
-    /**
-     * Reactant shared app type.
-     */
-    type: 'SharedTab' | 'BrowserExtension' | 'SharedWorker' | 'Base';
-    /**
-     * Shared app's transports
-     */
-    transports?: Transports;
-    /**
-     * Specify 'client' or 'server' port.
-     */
-    port?: Port;
-    /**
-     * Specify a SharedWorker URL
-     */
-    sharedWorkerURL?: string;
-    /**
-     * Enable patches filter to support minimized modules collections in client port.
-     */
-    enablePatchesFilter?: boolean;
-    /**
-     * Enable patches checker to support minimized patches in server port.
-     */
-    enablePatchesChecker?: boolean;
-    /**
-     * Transform client/server port
-     */
-    transform?: Transform;
-  };
+  share: ISharedAppOptions;
 }
 
 export type Transform = (changedPort: Port) => void;

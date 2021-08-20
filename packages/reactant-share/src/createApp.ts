@@ -8,11 +8,15 @@ import {
   LastActionOptions,
   ILastActionOptions,
 } from 'reactant-last-action';
-import { Config, Port, Transports } from './interfaces';
+import { Config, ISharedAppOptions, Port, Transports } from './interfaces';
 import { handleServer } from './server';
 import { handleClient } from './client';
 import { createBroadcastTransport } from './createTransport';
-import { isClientName, preloadedStateActionName } from './constants';
+import {
+  isClientName,
+  preloadedStateActionName,
+  SharedAppOptions,
+} from './constants';
 import {
   IPortDetectorOptions,
   PortDetector,
@@ -39,6 +43,10 @@ const createBaseApp = <T>({
       useValue: {
         transports: share.transports,
       } as IPortDetectorOptions,
+    },
+    {
+      provide: SharedAppOptions,
+      useValue: share as ISharedAppOptions,
     },
     PortDetector
   );
@@ -275,6 +283,7 @@ export const createSharedApp = async <T>(options: Config<T>) => {
         options.share.transports = transports;
         app = await createBaseApp(options);
       } catch (e) {
+        options.share.type = 'SharedTab';
         app = await createSharedTabApp(options);
       }
       break;
