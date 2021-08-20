@@ -94,7 +94,12 @@ export function createStore<T = any>(
         // eslint-disable-next-line @typescript-eslint/ban-types
         const className = (Service as Function).name;
         let identifier: string | undefined =
-          service[identifierKey] ?? service.name;
+          service[identifierKey] ??
+          (typeof service === 'object' &&
+          Object.getPrototypeOf(service).constructor !== Object &&
+          !Array.isArray(service)
+            ? service.name
+            : undefined);
         // string identifier is defined primarily.
         if (typeof Service === 'string') {
           identifier = Service;

@@ -65,7 +65,7 @@ export const model = <
     });
   });
   module = {
-    name: scheme.name,
+    [identifierKey]: scheme.name,
     [stateKey]: {
       ...scheme.state,
     },

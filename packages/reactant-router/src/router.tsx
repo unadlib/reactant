@@ -1,12 +1,7 @@
 /* eslint-disable consistent-return */
 import React, { PropsWithChildren, FunctionComponent } from 'react';
 import { PluginModule, injectable, optional, storeKey } from 'reactant-module';
-import {
-  ReducersMapObject,
-  Store,
-  Middleware,
-  Action as ReduxAction,
-} from 'redux';
+import { ReducersMapObject, Store, Middleware } from 'redux';
 import {
   connectRouter,
   ConnectedRouter,

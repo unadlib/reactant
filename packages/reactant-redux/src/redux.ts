@@ -1,4 +1,4 @@
-import { storeKey, Service, stateKey } from 'reactant-module';
+import { storeKey, Service, stateKey, identifierKey } from 'reactant-module';
 import { Dispatch } from 'redux';
 
 type ServiceName = Pick<Service, 'name'>;
@@ -33,7 +33,7 @@ export const redux = <
     });
   });
   module = {
-    name: scheme.name,
+    [identifierKey]: scheme.name,
     [stateKey]: {
       ...scheme.reducers,
     },
