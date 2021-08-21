@@ -1,18 +1,30 @@
-import { injectable, action, state } from 'reactant';
+import { injectable, action, state, proxify } from 'reactant-share';
 
 @injectable()
 class CounterService {
+  name = 'counter';
+
   @state
   count = 0;
 
   @action
-  increase() {
+  _increase() {
     this.count += 1;
   }
 
   @action
-  decrease() {
+  _decrease() {
     this.count -= 1;
+  }
+
+  @proxify
+  async increase() {
+    this._increase();
+  }
+
+  @proxify
+  async decrease() {
+    this._decrease();
   }
 }
 
