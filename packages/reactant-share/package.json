@@ -28,7 +28,8 @@
     "data-transport": "^2.2.3",
     "reactant": "^0.7.1",
     "reactant-last-action": "^0.7.1",
-    "reactant-router": "^0.7.1"
+    "reactant-router": "^0.7.1",
+    "reactant-storage": "^0.7.1"
   },
   "devDependencies": {
     "react": "^16.12.0 || ^17",

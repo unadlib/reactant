@@ -47,9 +47,17 @@ class ReactantLastAction extends PluginModule {
     return Object.assign(reducers, {
       [this.stateKey]: (
         _state: ILastActionState | null = null,
-        { state, ...action }: ILastActionState
+        {
+          state,
+          rehydrate,
+          register,
+          ...action
+        }: ILastActionState & { rehydrate: any; register: any }
       ) => ({
         ...action,
+        // ignore redux-persist property function in the action
+        ...(typeof rehydrate === 'function' ? {} : { rehydrate }),
+        ...(typeof register === 'function' ? {} : { register }),
         _sequence: (_state?._sequence ?? 0) + 1,
       }),
     });

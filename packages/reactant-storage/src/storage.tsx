@@ -10,15 +10,14 @@ import {
   identifierKey,
 } from 'reactant-module';
 import { Reducer, ReducersMapObject, Store } from 'redux';
-import { useStore } from 'react-redux';
 import {
   persistStore,
   persistReducer,
   Storage,
   PersistConfig,
+  Persistor,
 } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
-import storage from 'redux-persist/lib/storage';
 
 const StorageOptions = Symbol('StorageOptions');
 
@@ -38,6 +37,8 @@ type SetStorageOptions<T> = Pick<
 @injectable()
 class ReactantStorage extends PluginModule {
   protected blacklist: string[] = [];
+
+  protected persistor?: Persistor;
 
   constructor(@inject(StorageOptions) public options: IStorageOptions) {
     super();
@@ -152,18 +153,21 @@ class ReactantStorage extends PluginModule {
     // eslint-disable-next-line no-param-reassign
     store.replaceReducer = (reducer: Reducer) => {
       replaceReducer(reducer);
-      persistStore(store);
+      this.persistor = persistStore(store);
     };
+    this.persistor = persistStore(store);
   }
 
   provider = (props: PropsWithChildren<{}>) => {
-    const persistor = persistStore(useStore());
     return (
-      <PersistGate loading={this.options.loading || null} persistor={persistor}>
+      <PersistGate
+        loading={this.options.loading || null}
+        persistor={this.persistor!}
+      >
         {props.children}
       </PersistGate>
     );
   };
 }
 
-export { ReactantStorage as Storage, storage as localStorage, StorageOptions };
+export { ReactantStorage as Storage, StorageOptions };
