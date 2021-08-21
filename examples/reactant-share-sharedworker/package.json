@@ -17,6 +17,7 @@
     "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
+    "localforage": "^1.10.0",
     "react": "^17.0.2"
   }
 }
