@@ -25,6 +25,7 @@ export const handleServer = ({
   }
   disposeClient?.();
   const container: Container = app.instance[containerKey];
+  const lastAction = container.get(LastAction);
   const portDetector = container.get(PortDetector);
   portDetector.setPort({ server: app }, transport);
   const disposeListeners: ((() => void) | undefined)[] = [];
@@ -35,7 +36,9 @@ export const handleServer = ({
     )
   );
   disposeListeners.push(
-    transport.listen(loadFullStateActionName, async () => app.store?.getState())
+    transport.listen(loadFullStateActionName, async (sequence) =>
+      lastAction.sequence > sequence ? app.store?.getState() : null
+    )
   );
   disposeListeners.push(
     transport.listen(proxyClientActionName, async (options) => {
@@ -51,9 +54,8 @@ export const handleServer = ({
   disposeListeners.push(
     app.store?.subscribe(() => {
       try {
-        const { lastAction } = container.get(LastAction);
-        if (lastAction) {
-          const { _inversePatches: _, ...action } = lastAction;
+        if (lastAction.lastAction) {
+          const { _inversePatches: _, ...action } = lastAction.lastAction;
           if (__DEV__ && enablePatchesChecker) {
             checkPatches(oldStateTree, action);
           }

@@ -1,15 +1,17 @@
-import { Transport } from 'data-transport';
-import { Config as BaseConfig, App } from 'reactant';
-import { ILastActionState } from 'reactant-last-action';
-import { Router } from 'reactant-router';
+import type { Transport } from 'data-transport';
+import type { Config as BaseConfig, App } from 'reactant';
+import type { ILastActionState } from 'reactant-last-action';
+import type { Router, RouterState } from 'reactant-router';
 import {
   isClientName,
   lastActionName,
   loadFullStateActionName,
   preloadedStateActionName,
   proxyClientActionName,
+  routerChangeName,
   syncRouterName,
 } from './constants';
+import type { RouterChangeNameOptions } from './router';
 
 export type Port = 'server' | 'client';
 
@@ -57,7 +59,7 @@ export interface ISharedAppOptions {
    * Transform client/server port
    */
   transform?: Transform;
-};
+}
 
 export interface Config<T> extends BaseConfig<T> {
   /**
@@ -86,7 +88,9 @@ export interface ClientTransport {
     args: any[];
   }): Promise<any>;
   [preloadedStateActionName](): Promise<Record<string, any>>;
-  [loadFullStateActionName](): Promise<Record<string, any>>;
+  [loadFullStateActionName](
+    sequence: number
+  ): Promise<Record<string, any> | null | undefined>;
   [isClientName](): Promise<boolean>;
   [syncRouterName](): Promise<Router['router']['location']>;
 }
@@ -98,6 +102,7 @@ export type ActionOptions = Pick<
 
 export interface ServerTransport {
   [lastActionName](options: ActionOptions): Promise<void>;
+  [routerChangeName](options: RouterChangeNameOptions): Promise<RouterState>;
 }
 
 export interface ProxyClientOptions {
@@ -118,4 +123,5 @@ export interface HandleClientOptions {
   transport: Transports['client'];
   disposeServer?: () => void;
   enablePatchesFilter?: boolean;
+  preloadedState?: Record<string, any>;
 }

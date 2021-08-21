@@ -1,15 +1,19 @@
 import {
   injectable,
   inject,
-  optional,
   actionIdentifier,
   storeKey,
   Service,
 } from 'reactant';
 import { LastAction } from 'reactant-last-action';
-import { Router } from 'reactant-router';
-import { loadFullStateActionName, syncRouterName } from './constants';
-import { CallbackWithHook, Port, PortApp, Transports } from './interfaces';
+import { loadFullStateActionName } from './constants';
+import {
+  CallbackWithHook,
+  ClientTransport,
+  Port,
+  PortApp,
+  Transports,
+} from './interfaces';
 
 export const PortDetectorOptions = Symbol('PortDetectorOptions');
 
@@ -31,26 +35,17 @@ export class PortDetector {
     CallbackWithHook<Required<Transports>['server']>
   >();
 
-  private syncFullStatePromise?: Promise<Record<string, any>>;
+  private syncFullStatePromise?: ReturnType<
+    ClientTransport[typeof loadFullStateActionName]
+  >;
 
   constructor(
     @inject(PortDetectorOptions) private options: IPortDetectorOptions,
-    private lastAction: LastAction,
-    @optional(Router) private router: Router
+    private lastAction: LastAction
   ) {
-    if (this.router) {
-      this.onServer((transport) => {
-        return transport!.listen(
-          syncRouterName,
-          async () => this.router.router.location
-        );
-      });
-      this.onClient((transport) => {
-        transport!.emit(syncRouterName).then((location) => {
-          this.router.history.replace(location);
-        });
-      });
-    }
+    this.onClient(() => {
+      this.syncFullState();
+    });
   }
 
   private detectPort(port: Port) {
@@ -123,19 +118,25 @@ export class PortDetector {
       throw new Error(`The current client transport does not exist.`);
     }
     this.syncFullStatePromise = this.transports.client.emit(
-      loadFullStateActionName
+      loadFullStateActionName,
+      this.lastAction.sequence
     );
     const fullState = await this.syncFullStatePromise;
     this.syncFullStatePromise = undefined;
+    if (typeof fullState === 'undefined') {
+      throw new Error(`Failed to sync full state from server port.`);
+    }
+    if (
+      fullState === null ||
+      this.lastAction.sequence > fullState[this.lastAction.stateKey]._sequence
+    )
+      return;
     const store = (this as Service)[storeKey];
     store!.dispatch({
       type: `${actionIdentifier}_${loadFullStateActionName}`,
       state: fullState,
       _reactant: actionIdentifier,
     });
-    if (typeof fullState === 'undefined') {
-      throw new Error(`Failed to sync full state from server port.`);
-    }
     this.lastAction.sequence = fullState[this.lastAction.stateKey]._sequence;
   }
 }

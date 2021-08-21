@@ -104,6 +104,7 @@ const createBaseApp = <T>({
           app,
           transport: clientTransport,
           enablePatchesFilter: share.enablePatchesFilter,
+          preloadedState,
         });
         resolve(app);
       });

@@ -33,12 +33,14 @@ export const handleClient = ({
   transport,
   disposeServer,
   enablePatchesFilter,
+  preloadedState,
 }: HandleClientOptions) => {
   if (!transport) {
     throw new Error(`The client transport does not exist.`);
   }
   disposeServer?.();
   const container: Container = app.instance[containerKey];
+  const lastAction = container.get(LastAction);
   const portDetector = container.get(PortDetector);
   portDetector.setPort({ client: app }, transport);
   const disposeListeners: ((() => void) | undefined)[] = [];
@@ -51,9 +53,11 @@ export const handleClient = ({
       })
     );
   }
+  if (preloadedState) {
+    lastAction.sequence = preloadedState[lastAction.stateKey]._sequence;
+  }
   disposeListeners.push(
     transport.listen(lastActionName, async (options) => {
-      const lastAction = container.get(LastAction);
       if (options._sequence && options._sequence === lastAction.sequence + 1) {
         if (options._reactant === actionIdentifier) {
           const patches = enablePatchesFilter

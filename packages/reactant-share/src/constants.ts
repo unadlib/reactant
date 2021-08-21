@@ -6,5 +6,6 @@ export const loadFullStateActionName = '@@reactant:loadFullState';
 export const syncRouterName = '@@reactant:syncRouter';
 // Server to Client
 export const lastActionName = '@@reactant:lastAction';
+export const routerChangeName = '@@reactant:routerChange';
 
 export const SharedAppOptions = Symbol('SharedAppOptions');
