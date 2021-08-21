@@ -1,6 +1,6 @@
 {
   "name": "reactant-last-action",
-  "version": "0.7.1",
+  "version": "0.8.0",
   "description": "A Reactant plugin for staging last action",
   "main": "dist/index.cjs.js",
   "unpkg": "dist/index.umd.js",
@@ -19,9 +19,8 @@
     "reactant-module": "*",
     "redux": "^4.1.0"
   },
-  "dependencies": {},
   "devDependencies": {
-    "reactant-module": "^0.7.1",
+    "reactant-module": "^0.8.0",
     "redux": "^4.1.0"
   }
 }
