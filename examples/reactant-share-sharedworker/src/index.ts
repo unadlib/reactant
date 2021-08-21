@@ -1,6 +1,5 @@
 import { render } from 'reactant-web';
-import { createSharedApp } from 'reactant-share';
-import { Router } from 'reactant-router';
+import { createSharedApp, Router } from 'reactant-share';
 import { AppView } from './app.view';
 
 createSharedApp({

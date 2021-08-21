@@ -1,9 +1,9 @@
 /* eslint-disable no-restricted-globals */
-import { createSharedApp } from 'reactant-share';
+import { createSharedApp, Router } from 'reactant-share';
 import { AppView } from './app.view';
 
 createSharedApp({
-  modules: [],
+  modules: [Router],
   main: AppView,
   render: () => {
     //

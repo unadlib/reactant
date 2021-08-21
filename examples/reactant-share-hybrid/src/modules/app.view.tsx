@@ -1,13 +1,13 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, FunctionComponent } from 'react';
 import { Switch, Route } from 'reactant-web';
-import { Router } from 'reactant-router';
 import {
   proxify,
   ViewModule,
   injectable,
   PortDetector,
   useConnector,
+  Router,
 } from 'reactant-share';
 import { TodoListView } from './todoList.view';
 import { CounterView } from './counter.view';
@@ -50,7 +50,7 @@ export class AppView extends ViewModule {
 
   @proxify
   async routerChange(path: string) {
-    this.router.history.push(path);
+    this.router.push(path);
   }
 
   component() {

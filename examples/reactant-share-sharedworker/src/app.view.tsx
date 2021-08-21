@@ -1,14 +1,16 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, FunctionComponent } from 'react';
 import { Switch, Route } from 'reactant-web';
-import { Router } from 'reactant-router';
 import {
-  optional,
   proxify,
   ViewModule,
   injectable,
-  PortDetector,
   useConnector,
+  Router,
+  PortDetector,
+  ClientTransport as IClientTransport,
+  ServerTransport as IServerTransport,
+  Transport,
 } from 'reactant-share';
 import { TodoListView } from './todoList.view';
 import { CounterView } from './counter.view';
@@ -25,6 +27,10 @@ const Link: FunctionComponent<{ active: boolean; onClick: () => any }> = ({
   );
 };
 
+interface ClientTransport extends IClientTransport {
+  test(n: number): Promise<string>;
+}
+
 @injectable()
 export class AppView extends ViewModule {
   name = 'appView';
@@ -38,34 +44,25 @@ export class AppView extends ViewModule {
   constructor(
     private todoListView: TodoListView,
     private counterView: CounterView,
-    private portDetector: PortDetector,
-    @optional(Router) private router?: Router
+    { onServer, onClient }: PortDetector,
+    private router: Router
   ) {
     super();
-    this.portDetector.onServer((transport: any) => {
-      this.type = 'Server';
-      this.setType?.('Server');
-      let currentPath: string;
-      this.push = (path: string) => {
-        currentPath = path;
-        transport.emit({ name: 'routerChange', respond: false }, path);
-      };
-      transport.listen('initRouter', async () => currentPath);
+
+    onServer((transport: Transport<IServerTransport, ClientTransport>) => {
+      transport.listen('test', async (n) => `response '${n}' from server port`);
     });
-    this.portDetector.onClient((transport: any) => {
+    onClient((transport: Transport<ClientTransport, IServerTransport>) => {
       this.type = 'Client';
-      transport.listen('routerChange', (path: string) => {
-        this.router?.history.push(path);
-      });
-      transport.emit('initRouter').then((path: string) => {
-        this.router?.history.push(path);
+      transport.emit('test', 42).then((response) => {
+        console.log(response);
       });
     });
   }
 
   @proxify
   async routerChange(path: string) {
-    this.push?.(path);
+    this.router.push(path);
   }
 
   component() {

@@ -52,7 +52,7 @@ export class PortDetector {
     return this.portApp?.[port];
   }
 
-  onServer(callback: CallbackWithHook<Required<Transports>['server']>) {
+  onServer = (callback: CallbackWithHook<Required<Transports>['server']>) => {
     if (typeof callback !== 'function') {
       throw new Error(`'onServer' argument should be a function.`);
     }
@@ -62,7 +62,7 @@ export class PortDetector {
     };
   }
 
-  onClient(callback: CallbackWithHook<Required<Transports>['client']>) {
+  onClient = (callback: CallbackWithHook<Required<Transports>['client']>) => {
     if (typeof callback !== 'function') {
       throw new Error(`'onClient' argument should be a function.`);
     }
