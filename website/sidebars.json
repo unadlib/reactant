@@ -7,12 +7,7 @@
       "using-create-react-app",
       "react-native-cli"
     ],
-    "Basic Tutorial": [
-      "state-action",
-      "component",
-      "view-module",
-      "base-di"
-    ],
+    "Basic Tutorial": ["state-action", "component", "view-module", "base-di"],
     "Advanced Guides": [
       "hooks",
       "di",
@@ -22,6 +17,7 @@
       "dynamic-modules",
       "dev-workflow"
     ],
+    "Shared App": ["shared-app", "shared-app-routing", "shared-app-persistence"],
     "Tooling": ["cli", "dev-tools"],
     "Resources": ["examples", "faq", "performance"]
   },

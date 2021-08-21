@@ -42,6 +42,10 @@ export interface IRouterOptions extends IBaseRouterOptions {
   //
 }
 
+/**
+ * ReactantRouter
+ * todo
+ */
 @injectable()
 class ReactantRouter extends BaseReactantRouter {
   name = 'reactant:router';

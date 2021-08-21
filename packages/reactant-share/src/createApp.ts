@@ -50,7 +50,7 @@ const createBaseApp = <T>({
     },
     PortDetector
   );
-  console.log('----', share.port);
+
   return new Promise(async (resolve) => {
     let app: App<any>;
     let disposeServer: (() => void) | undefined;
@@ -296,7 +296,7 @@ export const createSharedApp = async <T>(options: Config<T>) => {
       break;
     default:
       throw new Error(
-        `The value of 'options.share.type' be 'SharedTab', 'SharedWorker', 'BrowserExtension' or 'Base'`
+        `The value of 'options.share.type' be 'SharedTab', 'SharedWorker', 'BrowserExtension' or 'Base'.`
       );
   }
   return app;

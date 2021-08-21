@@ -13,6 +13,10 @@ export interface IStorageOptions extends IBaseStorageOptions {
   //
 }
 
+/**
+ * ReactantStorage
+ * todo
+ */
 @injectable()
 class ReactantStorage extends BaseReactantStorage {
   constructor(

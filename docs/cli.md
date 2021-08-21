@@ -23,6 +23,10 @@ npx reactant-cli init my-app
 
 * Use `-l <language>`or `--language <language>` for specifying a language, support `js`, `ts`, `javascript`, and `typescript`, the default is `typescript`.
 
+* Use `-t <type>`or `--type <type>` for specifying a type app, support `web`, `shared-tab`, and `shared-worker`, the default is `web`.
+
+> `shared-tab` and `shared-worker` are shared App project templates based on `reactant-share`.
+
 ## Generate files 
 
 ### Generate a service file
