@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 import React, { PropsWithChildren, ReactNode } from 'react';
 import {
   PluginModule,
@@ -36,6 +37,8 @@ type SetStorageOptions<T> = Pick<
 
 @injectable()
 class ReactantStorage extends PluginModule {
+  protected blacklist: string[] = [];
+
   constructor(@inject(StorageOptions) public options: IStorageOptions) {
     super();
     if (__DEV__) {
@@ -107,8 +110,20 @@ class ReactantStorage extends PluginModule {
       set();
     }
     Object.keys(reducers).forEach((key) => {
+      const isTempIdentifier = /^@@reactant\//.test(key);
+      if (isTempIdentifier) {
+        this.blacklist.push(key);
+      }
       const persistConfig = this.persistConfig[key];
       if (persistConfig) {
+        if (isTempIdentifier) {
+          if (__DEV__) {
+            console.warn(
+              `For state persistence, The 'name' field in the ${key} module has not been set yet.`
+            );
+          }
+          return;
+        }
         const reducer = persistReducer(persistConfig, reducers[key]);
         Object.assign(reducers, {
           [key]: reducer,
@@ -121,7 +136,11 @@ class ReactantStorage extends PluginModule {
   afterCombineRootReducers(rootReducer: Reducer) {
     return persistReducer(
       {
-        blacklist: [...Object.keys(this.persistConfig), 'router'],
+        blacklist: [
+          ...Object.keys(this.persistConfig),
+          ...this.blacklist,
+          'router',
+        ],
         ...this.persistRootConfig,
       },
       rootReducer
