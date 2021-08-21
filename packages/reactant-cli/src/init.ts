@@ -49,7 +49,7 @@ export const createInitCommand = (
       `specify a development language(${supportLanguages.join('/')})`,
       supportLanguageMap.typescript
     )
-    .option('-t, --type', `create a ${appType} project`, supportTypeMap.web)
+    .option('-t, --type <type>', `create a ${appType} project`, supportTypeMap.web)
     .option('-v, --verbose', 'print verbose logs', false)
     .option('--use-npm', 'use npm for the package manager', false)
     .option('--use-pnp', 'use yarn PnP feature', false)
