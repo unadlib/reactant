@@ -16,6 +16,7 @@ sidebar_label: "index"
 * [Load](_index_.md#load)
 * [LoadOptions](_index_.md#loadoptions)
 * [Loader](_index_.md#loader)
+* [ModulesMap](_index_.md#modulesmap)
 * [PartialKeys](_index_.md#partialkeys)
 * [PartialRequired](_index_.md#partialrequired)
 * [PickOptional](_index_.md#pickoptional)
@@ -119,6 +120,12 @@ ___
 ###  Loader
 
 • **Loader**:
+
+___
+
+###  ModulesMap
+
+• **ModulesMap**:
 
 ___
 

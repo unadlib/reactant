@@ -10,6 +10,7 @@ const projects = [
   'reactant-redux',
   'reactant-router',
   'reactant-storage',
+  'reactant-share',
   'reactant',
 ];
 

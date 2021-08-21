@@ -23,11 +23,13 @@ sidebar_label: "ReactantStorage"
 ### Properties
 
 * [[storeKey]](_storage_.reactantstorage.md#optional-readonly-[storekey])
+* [blacklist](_storage_.reactantstorage.md#protected-blacklist)
 * [enhancer](_storage_.reactantstorage.md#optional-enhancer)
 * [middleware](_storage_.reactantstorage.md#optional-middleware)
 * [name](_storage_.reactantstorage.md#optional-name)
 * [options](_storage_.reactantstorage.md#options)
 * [persistConfig](_storage_.reactantstorage.md#protected-persistconfig)
+* [persistor](_storage_.reactantstorage.md#protected-optional-persistor)
 * [storageSettingMap](_storage_.reactantstorage.md#private-storagesettingmap)
 
 ### Methods
@@ -49,7 +51,7 @@ sidebar_label: "ReactantStorage"
 
 \+ **new ReactantStorage**(`options`: [IStorageOptions](../interfaces/_storage_.istorageoptions.md)): *[ReactantStorage](_storage_.reactantstorage.md)*
 
-*Defined in [packages/reactant-storage/src/storage.tsx:38](https://github.com/unadlib/reactant/blob/64ece1ec/packages/reactant-storage/src/storage.tsx#L38)*
+*Defined in [packages/reactant-storage/src/storage.tsx:41](https://github.com/unadlib/reactant/blob/5e7c46f4/packages/reactant-storage/src/storage.tsx#L41)*
 
 **Parameters:**
 
@@ -67,7 +69,15 @@ Name | Type |
 
 *Inherited from [ReactantStorage](_storage_.reactantstorage.md).[[storeKey]](_storage_.reactantstorage.md#optional-readonly-[storekey])*
 
-*Defined in [packages/reactant-module/src/core/plugin.ts:15](https://github.com/unadlib/reactant/blob/64ece1ec/packages/reactant-module/src/core/plugin.ts#L15)*
+*Defined in [packages/reactant-module/src/core/plugin.ts:15](https://github.com/unadlib/reactant/blob/5e7c46f4/packages/reactant-module/src/core/plugin.ts#L15)*
+
+___
+
+### `Protected` blacklist
+
+• **blacklist**: *string[]* = []
+
+*Defined in [packages/reactant-storage/src/storage.tsx:39](https://github.com/unadlib/reactant/blob/5e7c46f4/packages/reactant-storage/src/storage.tsx#L39)*
 
 ___
 
@@ -77,7 +87,7 @@ ___
 
 *Inherited from [ReactantStorage](_storage_.reactantstorage.md).[enhancer](_storage_.reactantstorage.md#optional-enhancer)*
 
-*Defined in [packages/reactant-module/src/core/plugin.ts:29](https://github.com/unadlib/reactant/blob/64ece1ec/packages/reactant-module/src/core/plugin.ts#L29)*
+*Defined in [packages/reactant-module/src/core/plugin.ts:29](https://github.com/unadlib/reactant/blob/5e7c46f4/packages/reactant-module/src/core/plugin.ts#L29)*
 
 inject enhancer for Redux
 
@@ -89,7 +99,7 @@ ___
 
 *Inherited from [ReactantStorage](_storage_.reactantstorage.md).[middleware](_storage_.reactantstorage.md#optional-middleware)*
 
-*Defined in [packages/reactant-module/src/core/plugin.ts:26](https://github.com/unadlib/reactant/blob/64ece1ec/packages/reactant-module/src/core/plugin.ts#L26)*
+*Defined in [packages/reactant-module/src/core/plugin.ts:26](https://github.com/unadlib/reactant/blob/5e7c46f4/packages/reactant-module/src/core/plugin.ts#L26)*
 
 inject middleware for Redux
 
@@ -101,7 +111,7 @@ ___
 
 *Inherited from [ReactantStorage](_storage_.reactantstorage.md).[name](_storage_.reactantstorage.md#optional-name)*
 
-*Defined in [packages/reactant-module/src/core/plugin.ts:18](https://github.com/unadlib/reactant/blob/64ece1ec/packages/reactant-module/src/core/plugin.ts#L18)*
+*Defined in [packages/reactant-module/src/core/plugin.ts:18](https://github.com/unadlib/reactant/blob/5e7c46f4/packages/reactant-module/src/core/plugin.ts#L18)*
 
 As a key in reducers object map
 
@@ -111,7 +121,7 @@ ___
 
 • **options**: *[IStorageOptions](../interfaces/_storage_.istorageoptions.md)*
 
-*Defined in [packages/reactant-storage/src/storage.tsx:39](https://github.com/unadlib/reactant/blob/64ece1ec/packages/reactant-storage/src/storage.tsx#L39)*
+*Defined in [packages/reactant-storage/src/storage.tsx:43](https://github.com/unadlib/reactant/blob/5e7c46f4/packages/reactant-storage/src/storage.tsx#L43)*
 
 ___
 
@@ -119,7 +129,15 @@ ___
 
 • **persistConfig**: *Record‹string, PersistConfig‹any››*
 
-*Defined in [packages/reactant-storage/src/storage.tsx:61](https://github.com/unadlib/reactant/blob/64ece1ec/packages/reactant-storage/src/storage.tsx#L61)*
+*Defined in [packages/reactant-storage/src/storage.tsx:65](https://github.com/unadlib/reactant/blob/5e7c46f4/packages/reactant-storage/src/storage.tsx#L65)*
+
+___
+
+### `Protected` `Optional` persistor
+
+• **persistor**? : *Persistor*
+
+*Defined in [packages/reactant-storage/src/storage.tsx:41](https://github.com/unadlib/reactant/blob/5e7c46f4/packages/reactant-storage/src/storage.tsx#L41)*
 
 ___
 
@@ -127,7 +145,7 @@ ___
 
 • **storageSettingMap**: *Map‹object, Function›* = new Map<object, Function>()
 
-*Defined in [packages/reactant-storage/src/storage.tsx:68](https://github.com/unadlib/reactant/blob/64ece1ec/packages/reactant-storage/src/storage.tsx#L68)*
+*Defined in [packages/reactant-storage/src/storage.tsx:72](https://github.com/unadlib/reactant/blob/5e7c46f4/packages/reactant-storage/src/storage.tsx#L72)*
 
 ## Methods
 
@@ -137,7 +155,7 @@ ___
 
 *Overrides void*
 
-*Defined in [packages/reactant-storage/src/storage.tsx:121](https://github.com/unadlib/reactant/blob/64ece1ec/packages/reactant-storage/src/storage.tsx#L121)*
+*Defined in [packages/reactant-storage/src/storage.tsx:137](https://github.com/unadlib/reactant/blob/5e7c46f4/packages/reactant-storage/src/storage.tsx#L137)*
 
 **Parameters:**
 
@@ -164,7 +182,7 @@ ___
 
 *Overrides void*
 
-*Defined in [packages/reactant-storage/src/storage.tsx:131](https://github.com/unadlib/reactant/blob/64ece1ec/packages/reactant-storage/src/storage.tsx#L131)*
+*Defined in [packages/reactant-storage/src/storage.tsx:151](https://github.com/unadlib/reactant/blob/5e7c46f4/packages/reactant-storage/src/storage.tsx#L151)*
 
 **Parameters:**
 
@@ -182,7 +200,7 @@ ___
 
 *Overrides void*
 
-*Defined in [packages/reactant-storage/src/storage.tsx:105](https://github.com/unadlib/reactant/blob/64ece1ec/packages/reactant-storage/src/storage.tsx#L105)*
+*Defined in [packages/reactant-storage/src/storage.tsx:109](https://github.com/unadlib/reactant/blob/5e7c46f4/packages/reactant-storage/src/storage.tsx#L109)*
 
 **Parameters:**
 
@@ -200,7 +218,7 @@ ___
 
 *Inherited from [ReactantStorage](_storage_.reactantstorage.md).[preloadedStateHandler](_storage_.reactantstorage.md#optional-preloadedstatehandler)*
 
-*Defined in [packages/reactant-module/src/core/plugin.ts:21](https://github.com/unadlib/reactant/blob/64ece1ec/packages/reactant-module/src/core/plugin.ts#L21)*
+*Defined in [packages/reactant-module/src/core/plugin.ts:21](https://github.com/unadlib/reactant/blob/5e7c46f4/packages/reactant-module/src/core/plugin.ts#L21)*
 
 preloaded state handler for Redux
 
@@ -220,7 +238,7 @@ ___
 
 *Overrides void*
 
-*Defined in [packages/reactant-storage/src/storage.tsx:140](https://github.com/unadlib/reactant/blob/64ece1ec/packages/reactant-storage/src/storage.tsx#L140)*
+*Defined in [packages/reactant-storage/src/storage.tsx:161](https://github.com/unadlib/reactant/blob/5e7c46f4/packages/reactant-storage/src/storage.tsx#L161)*
 
 **Parameters:**
 
@@ -236,7 +254,7 @@ ___
 
 ▸ **setStorage**<**T**>(`target`: T, `options`: [SetStorageOptions](../modules/_storage_.md#setstorageoptions)‹T›): *void*
 
-*Defined in [packages/reactant-storage/src/storage.tsx:70](https://github.com/unadlib/reactant/blob/64ece1ec/packages/reactant-storage/src/storage.tsx#L70)*
+*Defined in [packages/reactant-storage/src/storage.tsx:74](https://github.com/unadlib/reactant/blob/5e7c46f4/packages/reactant-storage/src/storage.tsx#L74)*
 
 **Type parameters:**
 
@@ -257,10 +275,10 @@ Name | Type |
 
 ### ▪ **persistRootConfig**: *object*
 
-*Defined in [packages/reactant-storage/src/storage.tsx:63](https://github.com/unadlib/reactant/blob/64ece1ec/packages/reactant-storage/src/storage.tsx#L63)*
+*Defined in [packages/reactant-storage/src/storage.tsx:67](https://github.com/unadlib/reactant/blob/5e7c46f4/packages/reactant-storage/src/storage.tsx#L67)*
 
 ###  key
 
 • **key**: *string* = "root"
 
-*Defined in [packages/reactant-storage/src/storage.tsx:64](https://github.com/unadlib/reactant/blob/64ece1ec/packages/reactant-storage/src/storage.tsx#L64)*
+*Defined in [packages/reactant-storage/src/storage.tsx:68](https://github.com/unadlib/reactant/blob/5e7c46f4/packages/reactant-storage/src/storage.tsx#L68)*

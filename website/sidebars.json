@@ -17,7 +17,11 @@
       "dynamic-modules",
       "dev-workflow"
     ],
-    "Shared App": ["shared-app", "shared-app-routing", "shared-app-persistence"],
+    "Shared App": [
+      "shared-app",
+      "shared-app-routing",
+      "shared-app-persistence"
+    ],
     "Tooling": ["cli", "dev-tools"],
     "Resources": ["examples", "faq", "performance"]
   },
@@ -52,6 +56,13 @@
     ],
     "reactant-web": ["web"],
     "reactant-native": ["native"],
+    "reactant-share": [
+      "api/reactant-share/modules/_createapp_",
+      "api/reactant-share/modules/_portdetector_",
+      "api/reactant-share/modules/_decorators_proxify_",
+      "api/reactant-share/modules/_router_",
+      "api/reactant-share/modules/_storage_"
+    ],
     "reactant-redux": ["api/reactant-redux/modules/_redux_"],
     "reactant-model": ["api/reactant-model/modules/_model_"],
     "reactant-router": [

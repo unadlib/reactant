@@ -6,7 +6,7 @@ sidebar_label: "@defaultProps()"
 
 ▸ **defaultProps**<**P**>(`props`: P | [PickOptional](_interfaces_.md#pickoptional)‹P›): *(Anonymous function)*
 
-*Defined in [packages/reactant-module/src/decorators/defaultProps.ts:40](https://github.com/unadlib/reactant/blob/64ece1ec/packages/reactant-module/src/decorators/defaultProps.ts#L40)*
+*Defined in [packages/reactant-module/src/decorators/defaultProps.ts:40](https://github.com/unadlib/reactant/blob/5e7c46f4/packages/reactant-module/src/decorators/defaultProps.ts#L40)*
 
 ## Description
 

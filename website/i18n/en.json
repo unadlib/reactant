@@ -317,6 +317,10 @@
         "title": "redux",
         "sidebar_label": "redux"
       },
+      "api/reactant-router/classes/_router_.basereactantrouter": {
+        "title": "BaseReactantRouter",
+        "sidebar_label": "BaseReactantRouter"
+      },
       "api/reactant-router/classes/_router_.reactantrouter": {
         "title": "ReactantRouter",
         "sidebar_label": "ReactantRouter"
@@ -340,6 +344,126 @@
       "api/reactant-router/modules/_router_": {
         "title": "router",
         "sidebar_label": "router"
+      },
+      "api/reactant-share/classes/_portdetector_.portdetector": {
+        "title": "PortDetector",
+        "sidebar_label": "PortDetector"
+      },
+      "api/reactant-share/classes/_router_.reactantrouter": {
+        "title": "ReactantRouter",
+        "sidebar_label": "ReactantRouter"
+      },
+      "api/reactant-share/classes/_storage_.reactantstorage": {
+        "title": "ReactantStorage",
+        "sidebar_label": "ReactantStorage"
+      },
+      "api/reactant-share/index": {
+        "title": "reactant-share",
+        "sidebar_label": "Globals"
+      },
+      "api/reactant-share/interfaces/_interfaces_.clienttransport": {
+        "title": "ClientTransport",
+        "sidebar_label": "ClientTransport"
+      },
+      "api/reactant-share/interfaces/_interfaces_.config": {
+        "title": "Config",
+        "sidebar_label": "Config"
+      },
+      "api/reactant-share/interfaces/_interfaces_.handleclientoptions": {
+        "title": "HandleClientOptions",
+        "sidebar_label": "HandleClientOptions"
+      },
+      "api/reactant-share/interfaces/_interfaces_.handleserveroptions": {
+        "title": "HandleServerOptions",
+        "sidebar_label": "HandleServerOptions"
+      },
+      "api/reactant-share/interfaces/_interfaces_.isharedappoptions": {
+        "title": "ISharedAppOptions",
+        "sidebar_label": "ISharedAppOptions"
+      },
+      "api/reactant-share/interfaces/_interfaces_.proxyclientoptions": {
+        "title": "ProxyClientOptions",
+        "sidebar_label": "ProxyClientOptions"
+      },
+      "api/reactant-share/interfaces/_interfaces_.servertransport": {
+        "title": "ServerTransport",
+        "sidebar_label": "ServerTransport"
+      },
+      "api/reactant-share/interfaces/_interfaces_.transports": {
+        "title": "Transports",
+        "sidebar_label": "Transports"
+      },
+      "api/reactant-share/interfaces/_portdetector_.iportdetectoroptions": {
+        "title": "IPortDetectorOptions",
+        "sidebar_label": "IPortDetectorOptions"
+      },
+      "api/reactant-share/interfaces/_router_.irouteroptions": {
+        "title": "IRouterOptions",
+        "sidebar_label": "IRouterOptions"
+      },
+      "api/reactant-share/interfaces/_storage_.istorageoptions": {
+        "title": "IStorageOptions",
+        "sidebar_label": "IStorageOptions"
+      },
+      "api/reactant-share/modules/_checkpatches_": {
+        "title": "checkPatches",
+        "sidebar_label": "checkPatches"
+      },
+      "api/reactant-share/modules/_client_": {
+        "title": "client",
+        "sidebar_label": "client"
+      },
+      "api/reactant-share/modules/_constants_": {
+        "title": "constants",
+        "sidebar_label": "constants"
+      },
+      "api/reactant-share/modules/_createapp_": {
+        "title": "createSharedApp()",
+        "sidebar_label": "createSharedApp()"
+      },
+      "api/reactant-share/modules/_createtransport_": {
+        "title": "createTransport",
+        "sidebar_label": "createTransport"
+      },
+      "api/reactant-share/modules/_decorators_index_": {
+        "title": "decorators/index",
+        "sidebar_label": "decorators/index"
+      },
+      "api/reactant-share/modules/_decorators_proxify_": {
+        "title": "@proxify",
+        "sidebar_label": "@proxify"
+      },
+      "api/reactant-share/modules/_filterpatches_": {
+        "title": "filterPatches",
+        "sidebar_label": "filterPatches"
+      },
+      "api/reactant-share/modules/_index_": {
+        "title": "index",
+        "sidebar_label": "index"
+      },
+      "api/reactant-share/modules/_interfaces_": {
+        "title": "interfaces",
+        "sidebar_label": "interfaces"
+      },
+      "api/reactant-share/modules/_portdetector_": {
+        "title": "PortDetector",
+        "sidebar_label": "PortDetector"
+      },
+      "api/reactant-share/modules/_proxy_": {
+        "title": "proxy",
+        "sidebar_label": "proxy"
+      },
+      "api/reactant-share/modules/_router_": {
+        "title": "Router",
+        "sidebar_label": "Router"
+      },
+      "api/reactant-share/modules/_server_": {
+        "title": "server",
+        "sidebar_label": "server"
+      },
+      "api/reactant-share/modules/_storage_": {
+        "title": "Storage",
+        "sidebar_label": "Storage"
       },
       "api/reactant-storage/classes/_storage_.reactantstorage": {
         "title": "ReactantStorage",
@@ -457,6 +581,15 @@
       "routing": {
         "title": "Routing"
       },
+      "shared-app-persistence": {
+        "title": "Shared App Persistence"
+      },
+      "shared-app-routing": {
+        "title": "Shared App Routing"
+      },
+      "shared-app": {
+        "title": "Shared App"
+      },
       "state-action": {
         "title": "@state and @action"
       },
@@ -479,11 +612,13 @@
       "Getting Started": "Getting Started",
       "Basic Tutorial": "Basic Tutorial",
       "Advanced Guides": "Advanced Guides",
+      "Shared App": "Shared App",
       "Tooling": "Tooling",
       "Resources": "Resources",
       "reactant": "reactant",
       "reactant-web": "reactant-web",
       "reactant-native": "reactant-native",
+      "reactant-share": "reactant-share",
       "reactant-redux": "reactant-redux",
       "reactant-model": "reactant-model",
       "reactant-router": "reactant-router",

@@ -16,7 +16,7 @@ sidebar_label: "spawnMiddlewares()"
 
 ▸ **spawnMiddlewares**(...`args`: Middleware[]): *(Anonymous class)*
 
-*Defined in [packages/reactant-module/src/core/spawnMiddlewares.ts:26](https://github.com/unadlib/reactant/blob/64ece1ec/packages/reactant-module/src/core/spawnMiddlewares.ts#L26)*
+*Defined in [packages/reactant-module/src/core/spawnMiddlewares.ts:26](https://github.com/unadlib/reactant/blob/5e7c46f4/packages/reactant-module/src/core/spawnMiddlewares.ts#L26)*
 
 ## Description
 Compose and spawn middlewares for Redux.

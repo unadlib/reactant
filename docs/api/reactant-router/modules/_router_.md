@@ -12,6 +12,7 @@ sidebar_label: "router"
 
 ### Classes
 
+* [BaseReactantRouter](../classes/_router_.basereactantrouter.md)
 * [ReactantRouter](../classes/_router_.reactantrouter.md)
 
 ### Interfaces
@@ -35,4 +36,4 @@ sidebar_label: "router"
 
 • **RouterOptions**: *unique symbol* = Symbol('RouterOptions')
 
-*Defined in [packages/reactant-router/src/router.tsx:11](https://github.com/unadlib/reactant/blob/64ece1ec/packages/reactant-router/src/router.tsx#L11)*
+*Defined in [packages/reactant-router/src/router.tsx:20](https://github.com/unadlib/reactant/blob/5e7c46f4/packages/reactant-router/src/router.tsx#L20)*

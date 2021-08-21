@@ -6,7 +6,7 @@ sidebar_label: "createApp()"
 
 ▸ **createApp**<**T**>(`__namedParameters`: object): *[App](../interfaces/_interfaces_.app.md)‹T›*
 
-*Defined in [createApp.tsx:40](https://github.com/unadlib/reactant/blob/64ece1ec/packages/reactant/src/createApp.tsx#L40)*
+*Defined in [createApp.tsx:40](https://github.com/unadlib/reactant/blob/5e7c46f4/packages/reactant/src/createApp.tsx#L40)*
 
 ## Description
 
@@ -43,7 +43,7 @@ Name | Type | Default | Description |
 ------ | ------ | ------ | ------ |
 `containerOptions` | undefined &#124; object | - | Dependent injection container options. |
 `devOptions` | undefined &#124; DevOptions | - | Reactant's development setting options. |
-`main` | string &#124; symbol &#124; object &#124; Abstract‹T› | - | As the main start-up module. |
+`main` | ValueProvider‹T› &#124; FactoryProvider‹T› &#124; ClassProvider‹T› &#124; ModuleProvider‹T› &#124; Module‹T› | - | As the main start-up module. |
 `modules` | ValueProvider‹any› &#124; FactoryProvider‹any› &#124; ClassProvider‹any› &#124; ModuleProvider‹any› &#124; Module‹any›[] | [] | Importing the injected dependency modules. |
 `preloadedState` | undefined &#124; object | - | Preloaded state of shared state for Redux. |
 `render` | function | - | As a rendering function for any React renderer. |
