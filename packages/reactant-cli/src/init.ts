@@ -11,13 +11,21 @@ export const supportLanguageMap = {
   javascript: 'javascript',
 } as const;
 
+export const supportTypeMap = {
+  native: 'native',
+  web: 'web',
+  'shared-tab': 'shared-tab',
+  'shared-worker': 'shared-worker',
+  // 'browser-extension': 'browser-extension',
+} as const;
+
 export const supportLanguages = Array.from(
   new Set(Object.values(supportLanguageMap))
 );
 
 interface Options {
   verbose: boolean;
-  native: boolean;
+  type: keyof typeof supportTypeMap;
   language: keyof typeof supportLanguageMap;
   useNpm: boolean;
   usePnp: boolean;
@@ -27,8 +35,8 @@ export const createInitCommand = (
   command: Command,
   packageJson: PackageJson
 ) => {
-  const [appType] = packageJson.name
-    ?.replace(/^./, i => i.toUpperCase())
+  const [appType] = packageJson!
+    .name!.replace(/^./, (i) => i.toUpperCase())
     .split('-');
   command
     .command('init')
@@ -41,20 +49,27 @@ export const createInitCommand = (
       `specify a development language(${supportLanguages.join('/')})`,
       supportLanguageMap.typescript
     )
-    .option(
-      '-n, --native',
-      `create a ${appType} project for react-native`,
-      false
-    )
+    .option('-t, --type', `create a ${appType} project`, supportTypeMap.web)
     .option('-v, --verbose', 'print verbose logs', false)
     .option('--use-npm', 'use npm for the package manager', false)
     .option('--use-pnp', 'use yarn PnP feature', false)
     .action(
-      (projectName, { verbose, native, language, useNpm, usePnp }: Options) => {
+      (projectName, { verbose, type, language, useNpm, usePnp }: Options) => {
+        const native = type === 'native';
         if (native) {
           console.log(
             chalk.red(
               `Currently, reactant-cli does not support initializing a react-native project.`
+            )
+          );
+          process.exit(1);
+        }
+        if (typeof supportTypeMap[type] === 'undefined') {
+          console.log(
+            chalk.red(
+              `The type ${type} is invalid, '--type' or '-t' supports only ${Object.keys(
+                supportTypeMap
+              ).join(', ')}.`
             )
           );
           process.exit(1);
@@ -69,7 +84,6 @@ export const createInitCommand = (
           );
           process.exit(1);
         }
-        const type = native ? 'native' : 'web';
         generateProject({
           name: projectName,
           verbose,
