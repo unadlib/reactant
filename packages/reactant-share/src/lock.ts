@@ -29,7 +29,7 @@ const simpleLock = (name: LockName, callback: LockCallBack) =>
     const lockId = Math.random().toString(36);
     lockMap[name] ??= {};
     lockMap[name][lockId] = callback;
-    const storageKey = `${lockStorageKey}_${name}`;
+    const storageKey = `${lockStorageKey}:${name}`;
     const oldStorageValue = localStorage.getItem(storageKey);
     const lockQueue: LockQueue = JSON.parse(oldStorageValue ?? '[]');
     lockQueue.push({ tabId, lockId });
