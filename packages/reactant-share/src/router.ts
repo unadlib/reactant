@@ -114,7 +114,7 @@ class ReactantRouter extends BaseReactantRouter {
         this.history = history;
       });
       this.portDetector.onClient((transport) => {
-        transport.listen(routerChangeName, ({ method, args = [] }) => {
+        return transport.listen(routerChangeName, ({ method, args = [] }) => {
           const fn: Function = this.history[method];
           fn(...args);
           return this.router;

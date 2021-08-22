@@ -22,6 +22,7 @@ import {
   PortDetector,
   PortDetectorOptions,
 } from './portDetector';
+import { useLock } from './lock';
 
 const createBaseApp = <T>({
   share,
@@ -113,17 +114,6 @@ const createBaseApp = <T>({
 };
 
 const createSharedTabApp = async <T>(options: Config<T>) => {
-  // TODO: use web lock polyfill
-  if (!(navigator as any).locks) {
-    options.share.transports ??= {};
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    options.share.transports.server = { emit() {}, listen() {} };
-    options.share.port = 'server';
-    const app = createBaseApp(options);
-    return app;
-  }
   options.share.transports ??= {};
   options.share.transports.client ??= createBroadcastTransport(
     options.share.name
@@ -138,21 +128,18 @@ const createSharedTabApp = async <T>(options: Config<T>) => {
   let app: App<any>;
   app = await Promise.race([
     new Promise<App<any>>((resolve) => {
-      (navigator as any).locks.request(
-        `reactant-share-app-lock:${options.share.name}`,
-        async () => {
-          if (!app) {
-            options.share.port = 'server';
-            app = await createBaseApp(options);
-          } else {
-            options.share.transform?.('server');
-          }
-          resolve(app);
-          return new Promise(() => {
-            //
-          });
+      useLock(`reactant-share-app-lock:${options.share.name}`, async () => {
+        if (!app) {
+          options.share.port = 'server';
+          app = await createBaseApp(options);
+        } else {
+          options.share.transform?.('server');
         }
-      );
+        resolve(app);
+        return new Promise(() => {
+          //
+        });
+      });
     }),
     new Promise<App<any>>(async (resolve) => {
       const isClient = await options.share.transports?.client?.emit(
