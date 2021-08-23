@@ -48,6 +48,8 @@ class ReactantLastAction extends PluginModule {
       [this.stateKey]: (
         _state: ILastActionState | null = null,
         {
+          // ignore inversePatches
+          _inversePatches,
           state,
           rehydrate,
           register,
@@ -56,8 +58,16 @@ class ReactantLastAction extends PluginModule {
       ) => ({
         ...action,
         // ignore redux-persist property function in the action
-        ...(typeof rehydrate === 'function' ? {} : { rehydrate }),
-        ...(typeof register === 'function' ? {} : { register }),
+        ...(typeof rehydrate === 'function' ||
+        typeof rehydrate === 'undefined' ||
+        rehydrate === null
+          ? {}
+          : { rehydrate }),
+        ...(typeof register === 'function' ||
+        typeof register === 'undefined' ||
+        register === null
+          ? {}
+          : { register }),
         _sequence: (_state?._sequence ?? 0) + 1,
       }),
     });

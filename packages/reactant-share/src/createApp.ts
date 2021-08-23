@@ -101,7 +101,13 @@ const createBaseApp = <T>({
       }
       clientTransport.emit(preloadedStateActionName).then((preloadedState) => {
         // TODO: preloadedState loading issue in safari
-        app = createReactantApp({ ...options, preloadedState });
+        const isSafari = /^((?!chrome|android).)*safari/i.test(
+          navigator.userAgent
+        );
+        app = createReactantApp({
+          ...options,
+          preloadedState: isSafari ? undefined : preloadedState,
+        });
         disposeClient = handleClient({
           app,
           transport: clientTransport,
@@ -115,18 +121,17 @@ const createBaseApp = <T>({
 };
 
 const createSharedTabApp = async <T>(options: Config<T>) => {
-  // TODO: window unload delete lock issue in safari
-  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-  if (isSafari) {
-    options.share.transports ??= {};
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    options.share.transports.server = { emit() {}, listen() {} };
-    options.share.port = 'server';
-    const app = createBaseApp(options);
-    return app;
-  }
+  // TODO: performance issue in Safari v10
+  // if (isSafari) {
+  //   options.share.transports ??= {};
+  //   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  //   // @ts-ignore
+  //   // eslint-disable-next-line @typescript-eslint/no-empty-function
+  //   options.share.transports.server = { emit() {}, listen() {} };
+  //   options.share.port = 'server';
+  //   const app = createBaseApp(options);
+  //   return app;
+  // }
   options.share.transports ??= {};
   options.share.transports.client ??= createBroadcastTransport(
     options.share.name
@@ -285,6 +290,7 @@ export const createSharedApp = async <T>(options: Config<T>) => {
         app = await createBaseApp(options);
       } catch (e) {
         options.share.type = 'SharedTab';
+        delete options.share.port;
         app = await createSharedTabApp(options);
       }
       break;
