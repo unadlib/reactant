@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-shadow */
 /* eslint-disable no-async-promise-executor */
@@ -100,7 +101,6 @@ const createBaseApp = <T>({
         throw new Error(`'transports.client' does not exist.`);
       }
       clientTransport.emit(preloadedStateActionName).then((preloadedState) => {
-        // TODO: preloadedState loading issue in safari
         app = createReactantApp({
           ...options,
           preloadedState,
@@ -118,14 +118,13 @@ const createBaseApp = <T>({
 };
 
 const createSharedTabApp = async <T>(options: Config<T>) => {
-  // TODO: performance issue in Safari v10
+  /**
+   * Performance issue with broadcast-channel repo in Safari.
+   */
   const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
   if (isSafari) {
     options.share.transports ??= {};
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    options.share.transports.server = { emit() {}, listen() {} };
+    options.share.transports.server = { emit() {}, listen() {} } as any;
     options.share.port = 'server';
     const app = createBaseApp(options);
     return app;
