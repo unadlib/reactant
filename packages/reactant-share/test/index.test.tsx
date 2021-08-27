@@ -35,10 +35,10 @@ afterEach(() => {
 });
 
 describe('base', () => {
-  @injectable()
+  @injectable({
+    name: 'todoList',
+  })
   class TodoList {
-    name = 'todoList';
-
     @state
     list: number[] = [];
 
@@ -48,10 +48,10 @@ describe('base', () => {
     }
   }
 
-  @injectable()
+  @injectable({
+    name: 'counter',
+  })
   class Counter {
-    name = 'counter';
-
     constructor(
       private portDetector: PortDetector,
       @optional('todoList') private todoList: TodoList
@@ -89,10 +89,10 @@ describe('base', () => {
     }
   }
 
-  @injectable()
+  @injectable({
+    name: 'appView',
+  })
   class AppView extends ViewModule {
-    name = 'appView';
-
     constructor(public counter: Counter) {
       super();
     }

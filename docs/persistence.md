@@ -55,10 +55,10 @@ app.bootstrap(document.getElementById('app'));
 import { injectable, action, state } from 'reactant';
 import { Storage } from 'reactant-storage';
 
-@injectable()
+@injectable({
+  name: 'shoppingCart',
+})
 class ShoppingCart {
-  name = 'shoppingCart';
-
   constructor(public storage: Storage) {
     this.storage.setStorage(this, {
       whitelist: ['list'],

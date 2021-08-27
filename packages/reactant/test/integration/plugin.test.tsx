@@ -1,6 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/ban-ts-ignore */
 /* eslint-disable class-methods-use-this */
 import React, { FC, PropsWithChildren } from 'react';
 import { unmountComponentAtNode, render } from 'reactant-web';

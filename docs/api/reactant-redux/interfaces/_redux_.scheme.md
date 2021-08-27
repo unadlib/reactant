@@ -12,15 +12,14 @@ sidebar_label: "Scheme"
 
 ## Hierarchy
 
-* object
-
-  ↳ **Scheme**
+* **Scheme**
 
 ## Index
 
 ### Properties
 
 * [actions](_redux_.scheme.md#actions)
+* [name](_redux_.scheme.md#name)
 * [reducers](_redux_.scheme.md#reducers)
 
 ## Properties
@@ -29,7 +28,15 @@ sidebar_label: "Scheme"
 
 • **actions**: *A*
 
-*Defined in [redux.ts:8](https://github.com/unadlib/reactant/blob/5e7c46f4/packages/reactant-redux/src/redux.ts#L8)*
+*Defined in [redux.ts:7](https://github.com/unadlib/reactant/blob/02f8f232/packages/reactant-redux/src/redux.ts#L7)*
+
+___
+
+###  name
+
+• **name**: *string*
+
+*Defined in [redux.ts:5](https://github.com/unadlib/reactant/blob/02f8f232/packages/reactant-redux/src/redux.ts#L5)*
 
 ___
 
@@ -37,4 +44,4 @@ ___
 
 • **reducers**: *S*
 
-*Defined in [redux.ts:7](https://github.com/unadlib/reactant/blob/5e7c46f4/packages/reactant-redux/src/redux.ts#L7)*
+*Defined in [redux.ts:6](https://github.com/unadlib/reactant/blob/02f8f232/packages/reactant-redux/src/redux.ts#L6)*

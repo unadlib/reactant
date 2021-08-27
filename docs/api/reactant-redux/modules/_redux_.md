@@ -13,7 +13,6 @@ sidebar_label: "redux"
 ### Type aliases
 
 * [Actions](_redux_.md#actions)
-* [ServiceName](_redux_.md#servicename)
 * [State](_redux_.md#state)
 
 ### Functions
@@ -26,17 +25,9 @@ sidebar_label: "redux"
 
 Ƭ **Actions**: *object*
 
-*Defined in [redux.ts:15](https://github.com/unadlib/reactant/blob/5e7c46f4/packages/reactant-redux/src/redux.ts#L15)*
+*Defined in [redux.ts:14](https://github.com/unadlib/reactant/blob/02f8f232/packages/reactant-redux/src/redux.ts#L14)*
 
 #### Type declaration:
-
-___
-
-###  ServiceName
-
-Ƭ **ServiceName**: *Pick‹Service, "name"›*
-
-*Defined in [redux.ts:4](https://github.com/unadlib/reactant/blob/5e7c46f4/packages/reactant-redux/src/redux.ts#L4)*
 
 ___
 
@@ -44,7 +35,7 @@ ___
 
 Ƭ **State**: *object*
 
-*Defined in [redux.ts:11](https://github.com/unadlib/reactant/blob/5e7c46f4/packages/reactant-redux/src/redux.ts#L11)*
+*Defined in [redux.ts:10](https://github.com/unadlib/reactant/blob/02f8f232/packages/reactant-redux/src/redux.ts#L10)*
 
 #### Type declaration:
 
@@ -54,7 +45,7 @@ ___
 
 ▸ **redux**<**S**, **A**>(`scheme`: [Scheme](../interfaces/_redux_.scheme.md)‹S, A›): *[Actions](_redux_.md#actions)‹A› & Service‹[State](_redux_.md#state)‹S›› & [State](_redux_.md#state)‹S›*
 
-*Defined in [redux.ts:19](https://github.com/unadlib/reactant/blob/5e7c46f4/packages/reactant-redux/src/redux.ts#L19)*
+*Defined in [redux.ts:18](https://github.com/unadlib/reactant/blob/02f8f232/packages/reactant-redux/src/redux.ts#L18)*
 
 **Type parameters:**
 

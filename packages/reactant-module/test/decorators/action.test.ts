@@ -56,10 +56,10 @@ describe('@action', () => {
   });
 
   test('enable `autoFreeze` in devOptions', () => {
-    @injectable()
+    @injectable({
+      name: 'counter',
+    })
     class Counter {
-      name = 'counter';
-
       @state
       count = 0;
 
@@ -125,10 +125,10 @@ describe('@action', () => {
   });
 
   test('inherited module with stagedState about more effects', () => {
-    @injectable()
+    @injectable({
+      name: 'foo0',
+    })
     class Foo0 {
-      name = 'foo0';
-
       @state
       count0 = 1;
 
@@ -151,10 +151,10 @@ describe('@action', () => {
       }
     }
 
-    @injectable()
+    @injectable({
+      name: 'foo',
+    })
     class Foo extends Foo0 {
-      name = 'foo';
-
       count = 1;
 
       add(count: number) {
@@ -307,10 +307,10 @@ describe('@action', () => {
   });
 
   test('across module changing state with error', () => {
-    @injectable()
+    @injectable({
+      name: 'foo',
+    })
     class Foo {
-      name = 'foo';
-
       @state
       list: number[] = [];
 
@@ -325,10 +325,10 @@ describe('@action', () => {
       }
     }
 
-    @injectable()
+    @injectable({
+      name: 'counter',
+    })
     class Counter {
-      name = 'counter';
-
       constructor(public foo: Foo) {}
 
       @state
@@ -400,10 +400,10 @@ describe('@action', () => {
     interface Todo {
       text: string;
     }
-    @injectable()
+    @injectable({
+      name: 'todo',
+    })
     class TodoList {
-      name = 'todo';
-
       @state
       list: Todo[] = [
         {

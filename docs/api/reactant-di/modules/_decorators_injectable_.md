@@ -6,7 +6,7 @@ sidebar_label: "@injectable()"
 
 ▸ **injectable**(`options`: [ModuleDecoratorOptions](../interfaces/_interfaces_.moduledecoratoroptions.md)): *(Anonymous function)*
 
-*Defined in [packages/reactant-di/src/decorators/injectable.ts:84](https://github.com/unadlib/reactant/blob/5e7c46f4/packages/reactant-di/src/decorators/injectable.ts#L84)*
+*Defined in [packages/reactant-di/src/decorators/injectable.ts:86](https://github.com/unadlib/reactant/blob/02f8f232/packages/reactant-di/src/decorators/injectable.ts#L86)*
 
 ## Description
 
@@ -61,6 +61,7 @@ class Foo {
 }
 
 @injectable({
+  name: 'fooBar',
   deps: [Bar,  { provide: 'foo' }],
 })
 class FooBar {

@@ -13,7 +13,12 @@ import {
   PreloadedState,
   applyMiddleware,
 } from 'redux';
-import { Container, ServiceIdentifiersMap, ModuleOptions } from 'reactant-di';
+import {
+  Container,
+  ServiceIdentifiersMap,
+  ModuleOptions,
+  nameKey,
+} from 'reactant-di';
 import {
   ReactantAction,
   PluginHooks,
@@ -34,6 +39,7 @@ import {
   enablePatchesKey,
   containerKey,
   identifierKey,
+  modulesKey,
 } from '../constants';
 import { getStageName, perform, getComposeEnhancers } from '../utils';
 import { handlePlugin } from './handlePlugin';
@@ -52,7 +58,7 @@ export function createStore<T = any>(
   devOptions: DevOptions = {},
   originalStore?: ReactantStore,
   beforeReplaceReducer?: () => void,
-  modulesMap: ModulesMap = new Map()
+  modulesMap: ModulesMap = {}
 ): ReactantStore {
   let isExistReducer = false;
   let store: ReactantStore | undefined = originalStore;
@@ -84,41 +90,27 @@ export function createStore<T = any>(
       loadedModules.add(Service);
       services.forEach((service, index) => {
         if (typeof service !== 'object' || service === null) {
-          modulesMap.set(Service, service);
           return;
         }
         handlePlugin(service, pluginHooks);
         const isPlainObject =
           toString.call(service[stateKey]) === '[object Object]';
-
-        // eslint-disable-next-line @typescript-eslint/ban-types
         const className = (Service as Function).name;
-        let identifier: string | undefined =
-          service[identifierKey] ??
-          (typeof service === 'object' &&
-          Object.getPrototypeOf(service).constructor !== Object &&
-          !Array.isArray(service)
-            ? service.name
-            : undefined);
-        // string identifier is defined primarily.
-        if (typeof Service === 'string') {
-          identifier = Service;
-        }
-        // `service.name` is to be defined and define stage name, but persist or merge state should be defined.
+        let identifier: string | undefined = service[nameKey];
+        // The `options.name` property of the decorator `@injectable(options)` parameter must be specified as a string, otherwise a staged string will be generated.
         // this solution replaces the `combineReducers` need `Object.keys` get keys without `symbol` keys.
         identifier ??= getStageName(className);
         if (typeof identifier !== 'string') {
           if (__DEV__) {
             console.error(`
-                Since '${className}' module has set the module state, '${className}' module must set a unique and valid class property 'name' to be used as the module index.
+                Since '${className}' module has set the module state, '${className}' module must set a unique and valid class property 'nameKey' to be used as the module index.
                 Example:
-                  class FooBar {
-                    name = 'FooBar'; // <- add the 'name' property.
-                  }
+                  @injectable({ name: 'fooBar' }) // <- add identifier for modules.
+                  class FooBar {}
               `);
           } else {
             throw new Error(
-              `'${className}' module 'name' property should be defined as a valid 'string'.`
+              `'${className}' module 'options.name' property in '@injectable(options)' should be defined as a valid 'string'.`
             );
           }
         }
@@ -126,13 +118,14 @@ export function createStore<T = any>(
           // injection about multi-instances
           identifier += `:${index}`;
         }
-        // identifier definition priority: ServiceIdentifier(string) > class [identifierKey] > class 'name' field.
-        if (modulesMap.has(identifier)) {
+        if (modulesMap[identifier]) {
           throw new Error(
             `'${className}' module name '${identifier}' property and other module conflicts.`
           );
         }
-        modulesMap.set(identifier, service);
+        Object.assign(modulesMap, {
+          [identifier]: service,
+        });
         if (isPlainObject) {
           const isEmptyObject = Object.keys(service[stateKey]!).length === 0;
           if (!isEmptyObject) {
@@ -213,6 +206,12 @@ export function createStore<T = any>(
           subscriptions.push(...service[subscriptionsKey]!);
         }
         Object.defineProperties(service, {
+          [modulesKey]: {
+            enumerable: false,
+            configurable: false,
+            writable: false,
+            value: modulesMap,
+          },
           [identifierKey]: {
             enumerable: false,
             configurable: false,
@@ -270,7 +269,7 @@ export function createStore<T = any>(
         preloadedState
           ? Object.entries(preloadedState).reduce<Record<string, any>>(
               (state, [key, value]) =>
-                modulesMap.has(key)
+                modulesMap[key]
                   ? Object.assign(state, {
                       [key]: value,
                     })

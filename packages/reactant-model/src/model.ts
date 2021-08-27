@@ -6,11 +6,11 @@ import {
   actionIdentifier,
   enablePatchesKey,
   identifierKey,
+  nameKey,
 } from 'reactant-module';
 
-type ServiceName = Pick<Service, 'name'>;
-
-interface Scheme<S, A> extends ServiceName {
+interface Scheme<S, A> {
+  name: string;
   state: S;
   actions: A;
 }
@@ -65,7 +65,7 @@ export const model = <
     });
   });
   module = {
-    [identifierKey]: scheme.name,
+    [nameKey]: scheme.name,
     [stateKey]: {
       ...scheme.state,
     },

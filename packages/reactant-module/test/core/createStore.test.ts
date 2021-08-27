@@ -46,10 +46,10 @@ describe('createStore', () => {
   });
 
   test('preloadedState', () => {
-    @injectable()
+    @injectable({
+      name: 'counter',
+    })
     class Counter {
-      name = 'counter';
-
       @state
       count = 0;
     }
@@ -86,10 +86,10 @@ describe('createStore', () => {
   });
 
   test('middleware module', () => {
-    @injectable()
+    @injectable({
+      name: 'counter',
+    })
     class Counter {
-      name = 'counter';
-
       @state
       count = 0;
 
@@ -246,10 +246,10 @@ describe('createStore', () => {
   });
 
   test('devOptions', () => {
-    @injectable()
+    @injectable({
+      name: 'counter',
+    })
     class Counter {
-      name = 'counter';
-
       @state
       count = 0;
 

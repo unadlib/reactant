@@ -1,9 +1,9 @@
 import { injectable, action, state, proxify } from 'reactant-share';
 
-@injectable()
+@injectable({
+  name: 'counter',
+})
 class CounterService {
-  name = 'counter';
-
   @state
   count = 0;
 

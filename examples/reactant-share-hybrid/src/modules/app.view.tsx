@@ -24,10 +24,10 @@ const Link: FunctionComponent<{ active: boolean; onClick: () => any }> = ({
   );
 };
 
-@injectable()
+@injectable({
+  name: 'appView',
+})
 export class AppView extends ViewModule {
-  name = 'appView';
-
   type = '';
 
   setType?: React.Dispatch<React.SetStateAction<string>>;

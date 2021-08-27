@@ -6,7 +6,7 @@ sidebar_label: "createApp()"
 
 ▸ **createApp**<**T**>(`__namedParameters`: object): *[App](../interfaces/_interfaces_.app.md)‹T›*
 
-*Defined in [createApp.tsx:40](https://github.com/unadlib/reactant/blob/5e7c46f4/packages/reactant/src/createApp.tsx#L40)*
+*Defined in [createApp.tsx:40](https://github.com/unadlib/reactant/blob/02f8f232/packages/reactant/src/createApp.tsx#L40)*
 
 ## Description
 

@@ -29,7 +29,7 @@ sidebar_label: "CustomMetadataReader"
 
 *Overrides void*
 
-*Defined in [packages/reactant-di/src/createContainer.ts:25](https://github.com/unadlib/reactant/blob/5e7c46f4/packages/reactant-di/src/createContainer.ts#L25)*
+*Defined in [packages/reactant-di/src/createContainer.ts:25](https://github.com/unadlib/reactant/blob/02f8f232/packages/reactant-di/src/createContainer.ts#L25)*
 
 **Parameters:**
 

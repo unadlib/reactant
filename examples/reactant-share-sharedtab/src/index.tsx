@@ -12,10 +12,10 @@ import {
   PortDetector,
 } from 'reactant-share';
 
-@injectable()
+@injectable({
+  name: 'counter',
+})
 class Counter {
-  name = 'counter';
-
   constructor(private portDetector: PortDetector) {
     this.portDetector.onClient(() => {
       console.log('client ====');
@@ -45,10 +45,10 @@ class Counter {
   }
 }
 
-@injectable()
+@injectable({
+  name: 'appView',
+})
 class AppView extends ViewModule {
-  name = 'appView';
-
   constructor(public counter: Counter) {
     super();
   }

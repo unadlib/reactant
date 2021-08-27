@@ -19,7 +19,6 @@ sidebar_label: "PluginModule"
 * [[storeKey]](_core_plugin_.pluginmodule.md#optional-readonly-[storekey])
 * [enhancer](_core_plugin_.pluginmodule.md#optional-enhancer)
 * [middleware](_core_plugin_.pluginmodule.md#optional-middleware)
-* [name](_core_plugin_.pluginmodule.md#optional-name)
 * [provider](_core_plugin_.pluginmodule.md#optional-provider)
 
 ### Methods
@@ -37,7 +36,7 @@ sidebar_label: "PluginModule"
 
 *Implementation of [Service](../interfaces/_interfaces_.service.md).[[storeKey]](../interfaces/_interfaces_.service.md#optional-readonly-[storekey])*
 
-*Defined in [packages/reactant-module/src/core/plugin.ts:15](https://github.com/unadlib/reactant/blob/5e7c46f4/packages/reactant-module/src/core/plugin.ts#L15)*
+*Defined in [packages/reactant-module/src/core/plugin.ts:15](https://github.com/unadlib/reactant/blob/02f8f232/packages/reactant-module/src/core/plugin.ts#L15)*
 
 ___
 
@@ -45,7 +44,7 @@ ___
 
 • **enhancer**? : *Function*
 
-*Defined in [packages/reactant-module/src/core/plugin.ts:29](https://github.com/unadlib/reactant/blob/5e7c46f4/packages/reactant-module/src/core/plugin.ts#L29)*
+*Defined in [packages/reactant-module/src/core/plugin.ts:26](https://github.com/unadlib/reactant/blob/02f8f232/packages/reactant-module/src/core/plugin.ts#L26)*
 
 inject enhancer for Redux
 
@@ -55,21 +54,9 @@ ___
 
 • **middleware**? : *Middleware*
 
-*Defined in [packages/reactant-module/src/core/plugin.ts:26](https://github.com/unadlib/reactant/blob/5e7c46f4/packages/reactant-module/src/core/plugin.ts#L26)*
+*Defined in [packages/reactant-module/src/core/plugin.ts:23](https://github.com/unadlib/reactant/blob/02f8f232/packages/reactant-module/src/core/plugin.ts#L23)*
 
 inject middleware for Redux
-
-___
-
-### `Optional` name
-
-• **name**? : *undefined | string*
-
-*Implementation of [Service](../interfaces/_interfaces_.service.md).[name](../interfaces/_interfaces_.service.md#optional-name)*
-
-*Defined in [packages/reactant-module/src/core/plugin.ts:18](https://github.com/unadlib/reactant/blob/5e7c46f4/packages/reactant-module/src/core/plugin.ts#L18)*
-
-As a key in reducers object map
 
 ___
 
@@ -77,7 +64,7 @@ ___
 
 • **provider**? : *FunctionComponent*
 
-*Defined in [packages/reactant-module/src/core/plugin.ts:43](https://github.com/unadlib/reactant/blob/5e7c46f4/packages/reactant-module/src/core/plugin.ts#L43)*
+*Defined in [packages/reactant-module/src/core/plugin.ts:40](https://github.com/unadlib/reactant/blob/02f8f232/packages/reactant-module/src/core/plugin.ts#L40)*
 
 Define a React Provider for the current PluginModule
 
@@ -87,7 +74,7 @@ Define a React Provider for the current PluginModule
 
 ▸ **afterCombineRootReducers**(`rootReducer`: Reducer): *Reducer*
 
-*Defined in [packages/reactant-module/src/core/plugin.ts:40](https://github.com/unadlib/reactant/blob/5e7c46f4/packages/reactant-module/src/core/plugin.ts#L40)*
+*Defined in [packages/reactant-module/src/core/plugin.ts:37](https://github.com/unadlib/reactant/blob/02f8f232/packages/reactant-module/src/core/plugin.ts#L37)*
 
 As hook after combine rootReducers
 
@@ -105,7 +92,7 @@ ___
 
 ▸ **afterCreateStore**(`store`: Store): *void*
 
-*Defined in [packages/reactant-module/src/core/plugin.ts:32](https://github.com/unadlib/reactant/blob/5e7c46f4/packages/reactant-module/src/core/plugin.ts#L32)*
+*Defined in [packages/reactant-module/src/core/plugin.ts:29](https://github.com/unadlib/reactant/blob/02f8f232/packages/reactant-module/src/core/plugin.ts#L29)*
 
 As hook after createStore
 
@@ -123,7 +110,7 @@ ___
 
 ▸ **beforeCombineRootReducers**(`reducers`: ReducersMapObject): *ReducersMapObject*
 
-*Defined in [packages/reactant-module/src/core/plugin.ts:37](https://github.com/unadlib/reactant/blob/5e7c46f4/packages/reactant-module/src/core/plugin.ts#L37)*
+*Defined in [packages/reactant-module/src/core/plugin.ts:34](https://github.com/unadlib/reactant/blob/02f8f232/packages/reactant-module/src/core/plugin.ts#L34)*
 
 As hook before combine rootReducers
 
@@ -141,7 +128,7 @@ ___
 
 ▸ **preloadedStateHandler**(`preloadedState`: PreloadedState‹any›): *PreloadedState‹any›*
 
-*Defined in [packages/reactant-module/src/core/plugin.ts:21](https://github.com/unadlib/reactant/blob/5e7c46f4/packages/reactant-module/src/core/plugin.ts#L21)*
+*Defined in [packages/reactant-module/src/core/plugin.ts:18](https://github.com/unadlib/reactant/blob/02f8f232/packages/reactant-module/src/core/plugin.ts#L18)*
 
 preloaded state handler for Redux
 

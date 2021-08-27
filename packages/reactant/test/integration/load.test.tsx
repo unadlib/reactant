@@ -71,7 +71,9 @@ test('base `load`', async () => {
 });
 
 test('base `load` with multi-modules', async () => {
-  @injectable()
+  @injectable({
+    name: 'Counter0',
+  })
   class Counter0 {
     @state
     count0 = 0;
@@ -112,18 +114,18 @@ test('base `load` with multi-modules', async () => {
     },
   });
 
-  @injectable()
+  @injectable({
+    name: 'Counter1',
+  })
   class Counter1 {
-    name = 'Counter1';
-
     @state
     count1 = 0;
   }
 
-  @injectable()
+  @injectable({
+    name: 'Counter2',
+  })
   class Counter2 {
-    name = 'Counter2';
-
     constructor(public counter1: Counter1) {}
 
     @state

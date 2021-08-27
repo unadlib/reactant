@@ -18,7 +18,7 @@ sidebar_label: "createSharedApp()"
 
 ▸ **createBaseApp**<**T**>(`__namedParameters`: object): *Promise‹App‹any››*
 
-*Defined in [packages/reactant-share/src/createApp.ts:26](https://github.com/unadlib/reactant/blob/5e7c46f4/packages/reactant-share/src/createApp.ts#L26)*
+*Defined in [packages/reactant-share/src/createApp.ts:28](https://github.com/unadlib/reactant/blob/02f8f232/packages/reactant-share/src/createApp.ts#L28)*
 
 **Type parameters:**
 
@@ -41,7 +41,7 @@ ___
 
 ▸ **createSharedApp**<**T**>(`options`: [Config](../interfaces/_interfaces_.config.md)‹T›): *Promise‹App‹any››*
 
-*Defined in [packages/reactant-share/src/createApp.ts:242](https://github.com/unadlib/reactant/blob/5e7c46f4/packages/reactant-share/src/createApp.ts#L242)*
+*Defined in [packages/reactant-share/src/createApp.ts:244](https://github.com/unadlib/reactant/blob/02f8f232/packages/reactant-share/src/createApp.ts#L244)*
 
 ## Description
 
@@ -55,10 +55,10 @@ and `bootstrap()` method(You can run `bootstrap` to start the app inject into th
 import { createSharedApp, injectable, state, action, proxify } from 'reactant-share';
 import { mockPairPorts, createTransport } from 'data-transport';
 
-@injectable()
+@injectable({
+  name: 'counter',
+})
 class Counter {
-  name = 'counter';
-
   @state
   count = 0;
 
@@ -131,7 +131,7 @@ ___
 
 ▸ **createSharedTabApp**<**T**>(`options`: [Config](../interfaces/_interfaces_.config.md)‹T›): *Promise‹App‹any››*
 
-*Defined in [packages/reactant-share/src/createApp.ts:115](https://github.com/unadlib/reactant/blob/5e7c46f4/packages/reactant-share/src/createApp.ts#L115)*
+*Defined in [packages/reactant-share/src/createApp.ts:120](https://github.com/unadlib/reactant/blob/02f8f232/packages/reactant-share/src/createApp.ts#L120)*
 
 **Type parameters:**
 

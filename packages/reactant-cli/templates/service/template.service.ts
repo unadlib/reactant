@@ -1,9 +1,9 @@
 import { injectable } from 'reactant';
 
-@injectable()
+@injectable({
+  name: 'templateService',
+})
 class TemplateService {
-  name = 'TemplateService';
-
   constructor() {}
 }
 

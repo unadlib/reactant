@@ -6,3 +6,5 @@ export const METADATA_KEY = {
   inversifyParamtypes: 'inversify:paramtypes',
   inversifyTagged: 'inversify:tagged',
 } as const;
+
+export const nameKey = Symbol('name');

@@ -40,6 +40,7 @@ sidebar_label: "index"
 * [lookupServiceIdentifier](_index_.md#lookupserviceidentifier)
 * [multiInject](_index_.md#multiinject)
 * [multiOptional](_index_.md#multioptional)
+* [nameKey](_index_.md#namekey)
 * [optional](_index_.md#optional)
 * [setMetadata](_index_.md#setmetadata)
 * [setModulesDeps](_index_.md#setmodulesdeps)
@@ -235,6 +236,12 @@ ___
 ###  multiOptional
 
 • **multiOptional**:
+
+___
+
+###  nameKey
+
+• **nameKey**:
 
 ___
 

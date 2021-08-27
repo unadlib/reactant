@@ -9,13 +9,6 @@ abstract class ViewModule implements Service {
 
   readonly [storeKey]?: Store;
 
-  /**
-   * The name field will be used as a key to define the state of this module in the reducers object map in the store.
-   * If it is not defined, then it defaults to a random string.
-   * So in cases where persistence is required, etc., it must be defined, otherwise the issue will appear
-   */
-  name?: string;
-
   constructor() {
     // It needs to ensure that the default props of the component in the current instance can be assigned values,
     // and have the correct 'this' binding.

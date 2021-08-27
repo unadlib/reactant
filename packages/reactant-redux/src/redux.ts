@@ -1,9 +1,8 @@
-import { storeKey, Service, stateKey, identifierKey } from 'reactant-module';
+import { storeKey, Service, stateKey, nameKey } from 'reactant-module';
 import { Dispatch } from 'redux';
 
-type ServiceName = Pick<Service, 'name'>;
-
-interface Scheme<S, A> extends ServiceName {
+interface Scheme<S, A> {
+  name: string;
   reducers: S;
   actions: A;
 }
@@ -33,7 +32,7 @@ export const redux = <
     });
   });
   module = {
-    [identifierKey]: scheme.name,
+    [nameKey]: scheme.name,
     [stateKey]: {
       ...scheme.reducers,
     },

@@ -128,15 +128,15 @@ function createApp<T>({
      */
     instance,
     /**
-     * All modules of the app.
+     * The container for modules collection
      */
-    modules: modulesMap,
+    container,
     /**
      * Redux store.
      */
     store: withoutReducers ? null : store,
     /**
-     * bootstrap app with renderer.
+     * Bootstrap app with a renderer.
      */
     bootstrap(...args: unknown[]): Element | void {
       if (!(instance instanceof ViewModule)) {

@@ -46,10 +46,10 @@ export interface IRouterOptions extends IBaseRouterOptions {
  * ReactantRouter
  * todo
  */
-@injectable()
+@injectable({
+  name: 'reactant:router',
+})
 class ReactantRouter extends BaseReactantRouter {
-  name = 'reactant:router';
-
   private _router?: RouterState;
 
   constructor(

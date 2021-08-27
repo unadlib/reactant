@@ -30,7 +30,9 @@ afterEach(() => {
 
 describe('base API', () => {
   test('base lastAction module', async () => {
-    @injectable()
+    @injectable({
+      name: 'counter',
+    })
     class Counter {
       @state
       count = 0;
@@ -101,7 +103,9 @@ describe('base API', () => {
     const subscribeFn = jest.fn();
     const watchFn = jest.fn();
 
-    @injectable()
+    @injectable({
+      name: 'counter',
+    })
     class Counter {
       @state
       count = 0;

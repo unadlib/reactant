@@ -25,7 +25,7 @@ sidebar_label: "LoadOptions"
 
 • **main**: *[ReactModuleOptions](../modules/_interfaces_.md#reactmoduleoptions)‹T›*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:119](https://github.com/unadlib/reactant/blob/5e7c46f4/packages/reactant-module/src/interfaces.ts#L119)*
+*Defined in [packages/reactant-module/src/interfaces.ts:115](https://github.com/unadlib/reactant/blob/02f8f232/packages/reactant-module/src/interfaces.ts#L115)*
 
 ___
 
@@ -33,4 +33,4 @@ ___
 
 • **modules**? : *[ReactModuleOptions](../modules/_interfaces_.md#reactmoduleoptions)[]*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:118](https://github.com/unadlib/reactant/blob/5e7c46f4/packages/reactant-module/src/interfaces.ts#L118)*
+*Defined in [packages/reactant-module/src/interfaces.ts:114](https://github.com/unadlib/reactant/blob/02f8f232/packages/reactant-module/src/interfaces.ts#L114)*

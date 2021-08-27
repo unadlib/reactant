@@ -24,4 +24,4 @@ sidebar_label: "PortDetector"
 
 • **PortDetectorOptions**: *unique symbol* = Symbol('PortDetectorOptions')
 
-*Defined in [packages/reactant-share/src/portDetector.ts:18](https://github.com/unadlib/reactant/blob/5e7c46f4/packages/reactant-share/src/portDetector.ts#L18)*
+*Defined in [packages/reactant-share/src/portDetector.ts:18](https://github.com/unadlib/reactant/blob/02f8f232/packages/reactant-share/src/portDetector.ts#L18)*

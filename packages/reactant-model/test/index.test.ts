@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable no-param-reassign */
 import {
   injectable,
@@ -15,6 +16,7 @@ test('base model with `useValue`', () => {
   const todoList: string[] = [];
 
   const todoModel = model({
+    name: 'todo',
     state: {
       todoList,
     },
@@ -149,6 +151,7 @@ test('base model with `useValue` and `enablePatches`', () => {
   const todoList: string[] = [];
 
   const todoModel = model({
+    name: 'todo',
     state: {
       todoList,
     },

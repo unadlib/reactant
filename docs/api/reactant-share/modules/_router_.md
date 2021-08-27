@@ -34,4 +34,4 @@ sidebar_label: "Router"
 
 Ƭ **RouterChangeNameOptions**: *object | object | object | object | object*
 
-*Defined in [packages/reactant-share/src/router.ts:19](https://github.com/unadlib/reactant/blob/5e7c46f4/packages/reactant-share/src/router.ts#L19)*
+*Defined in [packages/reactant-share/src/router.ts:19](https://github.com/unadlib/reactant/blob/02f8f232/packages/reactant-share/src/router.ts#L19)*

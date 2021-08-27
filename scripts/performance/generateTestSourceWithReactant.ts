@@ -54,12 +54,12 @@ import { render } from 'reactant-web';
 import { injectable, action, selector, createApp, ViewModule, computed, storeKey, state, stateKey } from '..';
 let time = Date.now();
 const computedTime = ${computedTime};
-@injectable()
+@injectable({
+  name: 'Service0',
+})
 class Service0 {
   @state
   test0 = 0;
-
-  name = 'Service0';
 
   get props() {
     return {
@@ -82,11 +82,11 @@ ${(() => {
   let classStr = '';
   for (let i = 1; i < classAmount; i += 1) {
     classStr += `
-@injectable()
+@injectable({
+  name: 'Service${i}',
+})
 class Service${i} {
   constructor(public service${i - 1}: Service${i - 1}) {}
-
-  name = 'Service${i}';
 
   ${(() => {
     let stateStr = '';

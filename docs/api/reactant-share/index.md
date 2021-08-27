@@ -18,6 +18,7 @@ sidebar_label: "Globals"
 * ["filterPatches"](modules/_filterpatches_.md)
 * ["index"](modules/_index_.md)
 * ["interfaces"](modules/_interfaces_.md)
+* ["lock"](modules/_lock_.md)
 * ["portDetector"](modules/_portdetector_.md)
 * ["proxy"](modules/_proxy_.md)
 * ["router"](modules/_router_.md)

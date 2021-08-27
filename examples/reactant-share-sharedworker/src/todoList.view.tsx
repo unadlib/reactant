@@ -21,7 +21,9 @@ interface Todo {
 interface TodoListViewOptions {
   isDetachedWindow?: boolean;
 }
-@injectable()
+@injectable({
+  name: 'todoListView',
+})
 export class TodoListView extends ViewModule {
   constructor(
     @optional('TodoListViewOptions') private options?: TodoListViewOptions
@@ -34,7 +36,7 @@ export class TodoListView extends ViewModule {
     }
   }
 
-  name = 'todoListView';
+  name = 'todoList';
 
   path = '/todoList';
 

@@ -32,7 +32,9 @@ afterEach(() => {
 
 describe('base API', () => {
   test('base persistence module', async () => {
-    @injectable()
+    @injectable({
+      name: 'bar',
+    })
     class Bar {
       constructor(public storage: Storage) {
         this.storage.setStorage(this, {
@@ -40,21 +42,19 @@ describe('base API', () => {
         });
       }
 
-      name = 'bar';
-
       @state
       test = 'test';
     }
 
-    @injectable()
+    @injectable({
+      name: 'count',
+    })
     class Count {
       constructor(public storage: Storage) {
         this.storage.setStorage(this, {
           blacklist: ['num'],
         });
       }
-
-      name = 'count';
 
       @state
       num = 0;

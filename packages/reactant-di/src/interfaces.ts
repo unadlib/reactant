@@ -84,5 +84,12 @@ interface DependenciesProvider {
 type DependenciesModule = Module<any> | DependenciesProvider;
 
 export interface ModuleDecoratorOptions {
+  /**
+   *
+   */
+  name?: string;
+  /**
+   *
+   */
   deps?: DependenciesModule[];
 }

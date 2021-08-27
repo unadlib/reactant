@@ -29,7 +29,6 @@ sidebar_label: "index"
 * [ReactantStore](_index_.md#reactantstore)
 * [ReduxDevToolsOptions](_index_.md#reduxdevtoolsoptions)
 * [Service](_index_.md#service)
-* [State](_index_.md#state)
 * [StateMapObject](_index_.md#statemapobject)
 * [StateService](_index_.md#stateservice)
 * [Subscribe](_index_.md#subscribe)
@@ -64,6 +63,7 @@ sidebar_label: "index"
 * [lazy](_index_.md#lazy)
 * [load](_index_.md#load)
 * [loaderKey](_index_.md#loaderkey)
+* [modulesKey](_index_.md#moduleskey)
 * [perform](_index_.md#perform)
 * [spawnMiddlewares](_index_.md#spawnmiddlewares)
 * [state](_index_.md#state)
@@ -198,12 +198,6 @@ ___
 ###  Service
 
 • **Service**:
-
-___
-
-###  State
-
-• **State**:
 
 ___
 
@@ -408,6 +402,12 @@ ___
 ###  loaderKey
 
 • **loaderKey**:
+
+___
+
+###  modulesKey
+
+• **modulesKey**:
 
 ___
 

@@ -31,6 +31,7 @@ test('base redux with `useValue`', () => {
   type TodoAction = AddTodoAction | ToggleTodoAction;
 
   const todoModel = redux({
+    name: 'todo',
     reducers: {
       todoList: (state: Todo[] = [], action: TodoAction) =>
         action.type === 'add' ? [...state, action.payload] : state,
@@ -72,7 +73,9 @@ test('base redux with `useValue`', () => {
     container,
     ServiceIdentifiers,
     new Set(),
-    (...args: any[]) => {},
+    (...args: any[]) => {
+      //
+    },
     {
       middleware: [],
       beforeCombineRootReducers: [],
@@ -168,7 +171,9 @@ test('base redux with `useFactory`', () => {
     container,
     ServiceIdentifiers,
     new Set(),
-    (...args: any[]) => {},
+    (...args: any[]) => {
+      //
+    },
     {
       middleware: [],
       beforeCombineRootReducers: [],

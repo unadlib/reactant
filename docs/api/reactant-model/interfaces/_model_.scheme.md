@@ -12,15 +12,14 @@ sidebar_label: "Scheme"
 
 ## Hierarchy
 
-* object
-
-  ↳ **Scheme**
+* **Scheme**
 
 ## Index
 
 ### Properties
 
 * [actions](_model_.scheme.md#actions)
+* [name](_model_.scheme.md#name)
 * [state](_model_.scheme.md#state)
 
 ## Properties
@@ -29,7 +28,15 @@ sidebar_label: "Scheme"
 
 • **actions**: *A*
 
-*Defined in [model.ts:15](https://github.com/unadlib/reactant/blob/5e7c46f4/packages/reactant-model/src/model.ts#L15)*
+*Defined in [model.ts:15](https://github.com/unadlib/reactant/blob/02f8f232/packages/reactant-model/src/model.ts#L15)*
+
+___
+
+###  name
+
+• **name**: *string*
+
+*Defined in [model.ts:13](https://github.com/unadlib/reactant/blob/02f8f232/packages/reactant-model/src/model.ts#L13)*
 
 ___
 
@@ -37,4 +44,4 @@ ___
 
 • **state**: *S*
 
-*Defined in [model.ts:14](https://github.com/unadlib/reactant/blob/5e7c46f4/packages/reactant-model/src/model.ts#L14)*
+*Defined in [model.ts:14](https://github.com/unadlib/reactant/blob/02f8f232/packages/reactant-model/src/model.ts#L14)*

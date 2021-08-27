@@ -1,5 +1,6 @@
+/* eslint-disable no-param-reassign */
 import { injectable as injectify, decorate } from 'inversify';
-import { METADATA_KEY } from '../constants';
+import { METADATA_KEY, nameKey } from '../constants';
 import { setMetadata } from '../util';
 import { ModuleDecoratorOptions } from '../interfaces';
 import { inject } from './inject';
@@ -61,6 +62,7 @@ import { multiOptional } from './multiOptional';
  * }
  *
  * @injectable({
+ *   name: 'fooBar',
  *   deps: [Bar,  { provide: 'foo' }],
  * })
  * class FooBar {
@@ -83,7 +85,19 @@ import { multiOptional } from './multiOptional';
  */
 export function injectable(options: ModuleDecoratorOptions = {}) {
   return (target: any) => {
-    const { deps = [] } = options;
+    const { deps = [], name } = options;
+    if (typeof name === 'string') {
+      Object.defineProperty(target.prototype, nameKey, {
+        enumerable: false,
+        configurable: false,
+        writable: false,
+        value: name,
+      });
+    } else if (__DEV__ && typeof name !== 'undefined') {
+      console.warn(
+        `The parameter 'name' of the decorator @injectable(options) used in '${target.name}' class must be a string.`
+      );
+    }
     deps.forEach((option, index) => {
       if (typeof option === 'function') {
         decorate(inject(option) as ClassDecorator, target, index);

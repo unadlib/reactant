@@ -25,7 +25,7 @@ sidebar_label: "IRouterOptions"
 
 *Inherited from [IRouterOptions](_router_.irouteroptions.md).[autoProvide](_router_.irouteroptions.md#optional-autoprovide)*
 
-*Defined in [packages/reactant-router/src/router.tsx:31](https://github.com/unadlib/reactant/blob/5e7c46f4/packages/reactant-router/src/router.tsx#L31)*
+*Defined in [packages/reactant-router/src/router.tsx:31](https://github.com/unadlib/reactant/blob/02f8f232/packages/reactant-router/src/router.tsx#L31)*
 
 Auto provider injection.
 
@@ -37,6 +37,6 @@ ___
 
 *Inherited from [IRouterOptions](_router_.irouteroptions.md).[stateKey](_router_.irouteroptions.md#optional-statekey)*
 
-*Defined in [packages/reactant-router/src/router.tsx:35](https://github.com/unadlib/reactant/blob/5e7c46f4/packages/reactant-router/src/router.tsx#L35)*
+*Defined in [packages/reactant-router/src/router.tsx:35](https://github.com/unadlib/reactant/blob/02f8f232/packages/reactant-router/src/router.tsx#L35)*
 
 Define a string as Router reducer key.

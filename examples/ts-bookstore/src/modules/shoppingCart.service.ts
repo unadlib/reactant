@@ -8,10 +8,10 @@ interface IListItem {
 
 type IList = IListItem[];
 
-@injectable()
+@injectable({
+  name: 'shoppingCart',
+})
 class ShoppingCart {
-  name = 'shoppingCart';
-
   // constructor(public storage: Storage) {
   //   this.storage.setStorage(this, {
   //     whitelist: ['list'],

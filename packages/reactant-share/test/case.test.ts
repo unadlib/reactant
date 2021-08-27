@@ -2,10 +2,10 @@
 import { mockPairPorts, createTransport } from 'data-transport';
 import { createSharedApp, injectable, state, action, proxify } from '..';
 
-@injectable()
+@injectable({
+  name: 'counter',
+})
 class Counter {
-  name = 'counter';
-
   @state
   count = 0;
 

@@ -14,9 +14,6 @@ import { Service } from '../interfaces';
 abstract class PluginModule implements Service {
   readonly [storeKey]?: Store;
 
-  /** As a key in reducers object map */
-  name?: string;
-
   /** preloaded state handler for Redux */
   preloadedStateHandler?(
     preloadedState: PreloadedState<any>

@@ -59,10 +59,8 @@ describe('base API', () => {
 
   const value = 'title about app';
 
-  @injectable()
-  class Foo0 {
-    name = 'Foo0';
-  }
+  @injectable({ name: 'Foo0' })
+  class Foo0 {}
 
   @injectable()
   class Foo {
@@ -190,10 +188,10 @@ describe('base API', () => {
       test: 1,
     };
 
-    @injectable()
+    @injectable({
+      name: 'homeView1',
+    })
     class HomeView1 extends ViewModule {
-      name = 'homeView1';
-
       @state
       state: typeof a = a;
 
@@ -242,10 +240,10 @@ describe('base API', () => {
 
     type HomeViewProps = HomeView1Props & { s?: string };
 
-    @injectable()
+    @injectable({
+      name: 'homeView',
+    })
     class HomeView extends HomeView1 {
-      name = 'homeView';
-
       @action
       increase(num: number) {
         super.increase(num);
@@ -487,7 +485,6 @@ describe('base API', () => {
 
     @injectable()
     class HomeView1 extends ViewModule {
-      // name = 'homeView';
       @state
       list = createState<{ count: number }[], ReactantAction>(
         // eslint-disable-next-line no-shadow
@@ -609,25 +606,25 @@ describe('base API', () => {
 
 describe('multiple reactant app', () => {
   test('ViewModule with state, multiple reactant app instances', () => {
-    @injectable()
+    @injectable({
+      name: 'bar',
+    })
     class Bar {
-      name = 'bar';
-
       @state
       state = {
         test: 'test',
       };
     }
 
-    @injectable()
+    @injectable({ name: 'foo' })
     class Foo {
       name = 'foo';
     }
 
-    @injectable()
+    @injectable({
+      name: 'count',
+    })
     class Count {
-      name = 'count';
-
       @state
       state = {
         num: 0,
@@ -665,7 +662,9 @@ describe('multiple reactant app', () => {
         );
       }
     }
-    @injectable()
+    @injectable({
+      name: 'homeView',
+    })
     class HomeView extends ViewModule {
       text = 'app';
 

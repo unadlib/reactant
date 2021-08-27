@@ -122,7 +122,9 @@ import {
   IStorageOptions,
 } from 'reactant-storage';
 
-@injectable()
+@injectable({
+  name: 'bar'
+})
 class HomeView extends ViewModule {
   constructor(public storage: Storage) {
     super();
@@ -130,8 +132,6 @@ class HomeView extends ViewModule {
       whitelist: ['test'],
     });
   }
-
-  name = 'bar';
 
   @state
   test = 'test';

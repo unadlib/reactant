@@ -6,8 +6,8 @@ import {
   inject,
   Service,
   stateKey,
-  PartialRequired,
   identifierKey,
+  nameKey,
 } from 'reactant-module';
 import { Reducer, ReducersMapObject, Store } from 'redux';
 import {
@@ -71,37 +71,35 @@ class ReactantStorage extends PluginModule {
 
   private storageSettingMap = new Map<object, Function>();
 
-  setStorage<T extends PartialRequired<Service, 'name'>>(
-    target: T,
-    options: SetStorageOptions<T>
-  ) {
+  setStorage<T extends object>(target: T, options: SetStorageOptions<T>) {
+    const module: Service = target;
     if (
-      typeof target[stateKey] !== 'object' ||
-      typeof target.name !== 'string'
+      typeof module[stateKey] !== 'object' ||
+      typeof module[nameKey] !== 'string'
     ) {
       if (__DEV__) {
         console.warn(
-          `Module '${target}' is invalid for using 'setStorage', it should set 'name' and  '@state' decorated properties in module '${target}'.`
+          `Module '${module}' is invalid for using 'setStorage', The parameter 'options.name' of the decorator '@injectable(options)' that decorates the '${module}' module must be specified as a string.`
         );
       }
       return;
     }
-    if (this.storageSettingMap.has(target)) {
+    if (this.storageSettingMap.has(module)) {
       if (__DEV__) {
         console.warn(
-          `Module '${target}' has already been set up with Storage.`
+          `Module '${module}' has already been set up with Storage.`
         );
       }
       return;
     }
-    this.storageSettingMap.set(target, () => {
+    this.storageSettingMap.set(module, () => {
       const persistConfig = {
         storage: this.options.storage,
         ...options,
-        key: target[identifierKey],
+        key: module[identifierKey],
       };
       Object.assign(this.persistConfig, {
-        [target[identifierKey]!]: persistConfig,
+        [module[identifierKey]!]: persistConfig,
       });
     });
   }
@@ -120,7 +118,7 @@ class ReactantStorage extends PluginModule {
         if (isTempIdentifier) {
           if (__DEV__) {
             console.warn(
-              `For state persistence, The 'name' field in the ${key} module has not been set yet.`
+              `For state persistence, The '@injectable({ name })' in the ${key} module has not been set yet.`
             );
           }
           return;

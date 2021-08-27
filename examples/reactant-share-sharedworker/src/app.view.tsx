@@ -31,10 +31,10 @@ interface ClientTransport extends IClientTransport {
   test(n: number): Promise<string>;
 }
 
-@injectable()
+@injectable({
+  name: 'appView',
+})
 export class AppView extends ViewModule {
-  name = 'appView';
-
   type = '';
 
   push?: (path: string) => void;

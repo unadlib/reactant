@@ -183,10 +183,10 @@ const createSharedTabApp = async <T>(options: Config<T>) => {
  * import { createSharedApp, injectable, state, action, proxify } from 'reactant-share';
  * import { mockPairPorts, createTransport } from 'data-transport';
  *
- * @injectable()
+ * @injectable({
+ *   name: 'counter',
+ * })
  * class Counter {
- *   name = 'counter';
- *
  *   @state
  *   count = 0;
  *

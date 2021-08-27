@@ -4,7 +4,7 @@ import {
   TypePreloadedState,
   ReactantStore,
   DevOptions,
-  ModulesMap,
+  Container,
 } from 'reactant-module';
 
 export interface Config<T> {
@@ -36,7 +36,7 @@ export interface Config<T> {
 
 export interface App<T> {
   instance: T;
-  modules: ModulesMap;
+  container: Container;
   store: ReactantStore | null;
   bootstrap(...args: unknown[]): void | Element;
 }

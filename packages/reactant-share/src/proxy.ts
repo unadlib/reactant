@@ -1,4 +1,5 @@
-import { App, ThisService } from 'reactant';
+import type { App, ThisService } from 'reactant';
+import { modulesKey } from 'reactant';
 
 export const proxy = (
   app: App<any>,
@@ -8,7 +9,8 @@ export const proxy = (
     args: any[];
   }
 ) => {
-  const module: ThisService | undefined = app.modules.get(options.module);
+  const module: ThisService | undefined =
+    app.instance[modulesKey][options.module];
   if (!module) {
     throw new Error(
       `The module '${options.module}' is not a multiple instances injected module, and it does not exist.`

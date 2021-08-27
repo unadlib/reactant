@@ -9,7 +9,7 @@ import {
 } from 'redux';
 import { Patch } from 'immer';
 import { EnhancerOptions } from 'redux-devtools-extension';
-import { Container, ModuleOptions, ServiceIdentifier } from 'reactant-di';
+import { Container, ModuleOptions, nameKey } from 'reactant-di';
 import {
   storeKey,
   subscriptionsKey,
@@ -37,14 +37,9 @@ export type ReduxDevToolsOptions = Pick<
 
 export type TypePreloadedState<T> = PreloadedState<T>;
 
-export interface State {
-  name?: string;
-}
-
 export type Subscriptions = (() => void)[];
 
-export interface Service<T extends Record<string, any> = Record<string, any>>
-  extends State {
+export interface Service<T extends Record<string, any> = Record<string, any>> {
   readonly [stateKey]?: T;
   readonly [storeKey]?: Store;
   readonly [loaderKey]?: Loader;
@@ -52,6 +47,7 @@ export interface Service<T extends Record<string, any> = Record<string, any>>
   readonly [subscriptionsKey]?: Subscriptions;
   readonly [containerKey]?: Container;
   [identifierKey]?: string;
+  [nameKey]?: string;
 }
 
 export type ThisService = Service & { [P: string]: any };
@@ -79,7 +75,7 @@ export type StateMapObject<T extends Record<string, Function>> = {
     : never;
 };
 
-export type ModulesMap = Map<ServiceIdentifier<any>, any>;
+export type ModulesMap = Record<string, any>;
 
 export type FirstParameter<T extends (...args: any) => any> = T extends (
   param: infer P,

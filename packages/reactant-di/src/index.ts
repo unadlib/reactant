@@ -7,3 +7,4 @@ export * from './forwardRef';
 export * from './moduleRef';
 export * from './util';
 export * from './interfaces';
+export { nameKey } from './constants';

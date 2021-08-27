@@ -8,13 +8,15 @@ import {
   proxify,
 } from 'reactant-share';
 
-@injectable()
+@injectable({
+  name: 'counterView',
+})
 export class CounterView extends ViewModule {
   constructor() {
     super();
   }
 
-  name = 'counterView';
+  name = 'counter';
 
   path = '/counter';
 
