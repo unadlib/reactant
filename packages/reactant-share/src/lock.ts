@@ -61,7 +61,7 @@ const filterExpiredTabs = () => {
   return expiredTabIds;
 };
 
-let heartbeatTimer: NodeJS.Timeout;
+let heartbeatTimer: number;
 
 const simpleLock = (name: LockName, callback: LockCallBack) => {
   addUnloadListener();
@@ -69,7 +69,7 @@ const simpleLock = (name: LockName, callback: LockCallBack) => {
   clearTabLocks(filterExpiredTabs());
   if (typeof heartbeatTimer === 'undefined') {
     const tabHeartbeatKey = `${tabStorageKey}:${tabId}`;
-    heartbeatTimer = setInterval(
+    heartbeatTimer = window.setInterval(
       () => localStorage.setItem(tabHeartbeatKey, Date.now().toString()),
       1000
     );
