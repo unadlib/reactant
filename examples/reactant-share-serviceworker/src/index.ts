@@ -12,19 +12,19 @@ import { AppView } from './app.view';
 createSharedApp({
   modules: [
     Router,
-    Storage,
-    {
-      provide: StorageOptions,
-      useValue: {
-        storage: localForage,
-        loading: 'loading',
-      } as IStorageOptions,
-    },
+    // Storage,
+    // {
+    //   provide: StorageOptions,
+    //   useValue: {
+    //     storage: localForage,
+    //     loading: 'loading',
+    //   } as IStorageOptions,
+    // },
   ],
   main: AppView,
   render,
   share: {
-    name: 'SharedWorkerApp',
+    name: 'ServiceWorkerApp',
     port: 'client',
     type: 'ServiceWorker',
     workerURL: 'worker.bundle.js',

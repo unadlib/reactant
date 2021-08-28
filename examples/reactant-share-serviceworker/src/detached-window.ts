@@ -14,8 +14,8 @@ createSharedApp({
   main: TodoListView,
   render,
   share: {
-    name: 'SharedWorkerApp',
-    type: 'SharedWorker',
+    name: 'ServiceWorkerApp',
+    type: 'ServiceWorker',
     port: 'client',
     workerURL: 'worker.bundle.js',
   },

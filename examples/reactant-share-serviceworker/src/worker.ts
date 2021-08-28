@@ -26,7 +26,7 @@ createSharedApp({
     //
   },
   share: {
-    name: 'SharedWorkerApp',
+    name: 'ServiceWorkerApp',
     port: 'server',
     type: 'ServiceWorker',
   },

@@ -269,7 +269,7 @@ export const createSharedApp = async <T>(options: Config<T>) => {
         client: options.share.transports?.client,
       };
       if (options.share.port === 'server') {
-        transports.server ??= createTransport('SharedWorkerInternal', {
+        transports.server ??= createTransport('ServiceWorkerService', {
           prefix: `reactant-share:${options.share.name}`,
         });
       } else if (options.share.port === 'client' && !transports.client) {
@@ -283,9 +283,8 @@ export const createSharedApp = async <T>(options: Config<T>) => {
           await new Promise((resolve) => {
             navigator.serviceWorker.register(options.share.workerURL!);
             navigator.serviceWorker.ready.then((registration) => {
-              transports.client = createTransport('SharedWorkerMain', {
-                // @ts-ignore
-                worker: registration.active!,
+              transports.client = createTransport('ServiceWorkerClient', {
+                serviceWorker: registration.active!,
                 prefix: `reactant-share:${options.share.name}`,
               });
               resolve(null);

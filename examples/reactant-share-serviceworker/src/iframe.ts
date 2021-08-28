@@ -7,9 +7,9 @@ createSharedApp({
   main: CounterView,
   render,
   share: {
-    name: 'SharedWorkerApp',
+    name: 'ServiceWorkerApp',
     port: 'client',
-    type: 'SharedWorker',
+    type: 'ServiceWorker',
     workerURL: 'worker.bundle.js',
   },
 }).then((app) => {
