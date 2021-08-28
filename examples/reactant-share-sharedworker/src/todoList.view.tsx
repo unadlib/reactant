@@ -27,7 +27,7 @@ interface TodoListViewOptions {
 })
 export class TodoListView extends ViewModule {
   constructor(
-    @optional(Storage) protected storage?: Storage,
+    // @optional(Storage) protected storage?: Storage,
     @optional('TodoListViewOptions') private options?: TodoListViewOptions
   ) {
     super();
