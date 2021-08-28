@@ -60,7 +60,7 @@
 <p><code>@state</code> used to decorate a module immutable state, <code>@action</code> used to decorate a function to change the module state. Although the decorated state is an immutable state, you can actually update the state in this module using mutations in the method decorated by <code>@action</code>.</p>
 <p><code>@injectable</code> is used to decorate a module that can be injected. While Reactant also supports modules that do not require <code>@injectable</code> decoration in advance, we recommend <code>@injectable</code> decoration for any module that requires dependency injection.</p>
 <blockquote>
-<p><code>@injectable</code> parameters in TypeScript and JavaScript are completely different, See <a href="/docs/api/reactant-di/modules/_decorators_injectable_">@injectable</a> for more details.</p>
+<p><code>@injectable</code> parameters in TypeScript and JavaScript are completely different, See <a href="/docs/api/reactant-module/modules/_decorators_injectable_">@injectable</a> for more details.</p>
 </blockquote>
 <p>For Example, <code>Counter</code> project set up with <code>TypeScript</code>.</p>
 <pre><code class="hljs css language-ts"><span class="hljs-keyword">import</span> { injectable, action, state } <span class="hljs-keyword">from</span> <span class="hljs-string">'reactant'</span>;
