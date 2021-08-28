@@ -16,7 +16,7 @@ sidebar_label: "ISharedAppOptions"
 * [enablePatchesFilter](_interfaces_.isharedappoptions.md#optional-enablepatchesfilter)
 * [name](_interfaces_.isharedappoptions.md#name)
 * [port](_interfaces_.isharedappoptions.md#optional-port)
-* [sharedWorkerURL](_interfaces_.isharedappoptions.md#optional-sharedworkerurl)
+* [workerURL](_interfaces_.isharedappoptions.md#optional-workerURL)
 * [transform](_interfaces_.isharedappoptions.md#optional-transform)
 * [transports](_interfaces_.isharedappoptions.md#optional-transports)
 * [type](_interfaces_.isharedappoptions.md#type)
@@ -63,9 +63,9 @@ Specify 'client' or 'server' port.
 
 ___
 
-### `Optional` sharedWorkerURL
+### `Optional` workerURL
 
-• **sharedWorkerURL**? : *undefined | string*
+• **workerURL**? : *undefined | string*
 
 *Defined in [packages/reactant-share/src/interfaces.ts:49](https://github.com/unadlib/reactant/blob/f1370319/packages/reactant-share/src/interfaces.ts#L49)*
 

@@ -10,7 +10,7 @@ createSharedApp({
     name: 'SharedWorkerApp',
     port: 'client',
     type: 'SharedWorker',
-    sharedWorkerURL: 'worker.bundle.js',
+    workerURL: 'worker.bundle.js',
   },
 }).then((app) => {
   app.bootstrap(document.getElementById('app'));

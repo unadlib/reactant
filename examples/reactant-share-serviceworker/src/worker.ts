@@ -1,4 +1,4 @@
-import { render } from 'reactant-web';
+/* eslint-disable no-restricted-globals */
 import {
   createSharedApp,
   Router,
@@ -22,15 +22,17 @@ createSharedApp({
     },
   ],
   main: AppView,
-  render,
+  render: () => {
+    //
+  },
   share: {
     name: 'SharedWorkerApp',
-    port: 'client',
-    type: 'SharedWorker',
-    workerURL: 'worker.bundle.js',
+    port: 'server',
+    type: 'ServiceWorker',
   },
 }).then((app) => {
   console.log(app, '====');
-  app.bootstrap(document.getElementById('app'));
-  (window as any).app = app;
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  (self as any).app = app;
 });

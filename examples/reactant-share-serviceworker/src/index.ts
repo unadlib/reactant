@@ -26,7 +26,7 @@ createSharedApp({
   share: {
     name: 'SharedWorkerApp',
     port: 'client',
-    type: 'SharedWorker',
+    type: 'ServiceWorker',
     workerURL: 'worker.bundle.js',
   },
 }).then((app) => {

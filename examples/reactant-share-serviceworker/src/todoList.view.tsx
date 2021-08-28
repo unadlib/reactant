@@ -31,9 +31,9 @@ export class TodoListView extends ViewModule {
     @optional('TodoListViewOptions') private options?: TodoListViewOptions
   ) {
     super();
-    // this.storage?.setStorage(this, {
-    //   blacklist: ['existDetachedWindow'],
-    // });
+    this.storage?.setStorage(this, {
+      blacklist: ['existDetachedWindow'],
+    });
     if (this.isDetachedWindow) {
       window.addEventListener('unload', () => {
         this.setExistDetachedWindow(false);

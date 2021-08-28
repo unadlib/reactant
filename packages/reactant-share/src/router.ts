@@ -56,7 +56,8 @@ class ReactantRouter extends BaseReactantRouter {
     super(
       options,
       !(
-        sharedAppOptions.type === 'SharedWorker' &&
+        (sharedAppOptions.type === 'SharedWorker' ||
+          sharedAppOptions.type === 'ServiceWorker') &&
         sharedAppOptions.port === 'server'
       )
     );
@@ -73,7 +74,10 @@ class ReactantRouter extends BaseReactantRouter {
       });
     });
 
-    if (sharedAppOptions.type === 'SharedWorker') {
+    if (
+      sharedAppOptions.type === 'SharedWorker' ||
+      sharedAppOptions.type === 'ServiceWorker'
+    ) {
       this.portDetector.onServer((transport) => {
         const history: History = {
           push: async (path: string, state?: Record<string, any>) => {

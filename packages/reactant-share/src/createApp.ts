@@ -262,6 +262,42 @@ export const createSharedApp = async <T>(options: Config<T>) => {
       options.share.transports = transports;
       app = await createBaseApp(options);
       break;
+
+    case 'ServiceWorker':
+      transports = {
+        server: options.share.transports?.server,
+        client: options.share.transports?.client,
+      };
+      if (options.share.port === 'server') {
+        transports.server ??= createTransport('SharedWorkerInternal', {
+          prefix: `reactant-share:${options.share.name}`,
+        });
+      } else if (options.share.port === 'client' && !transports.client) {
+        if (typeof options.share.workerURL !== 'string') {
+          throw new Error(
+            `The value of 'options.share.workerURL' should be a string.`
+          );
+        }
+
+        if (navigator.serviceWorker) {
+          await new Promise((resolve) => {
+            navigator.serviceWorker.register(options.share.workerURL!);
+            navigator.serviceWorker.ready.then((registration) => {
+              transports.client = createTransport('SharedWorkerMain', {
+                // @ts-ignore
+                worker: registration.active!,
+                prefix: `reactant-share:${options.share.name}`,
+              });
+              resolve(null);
+            });
+          });
+        } else {
+          throw new Error(``);
+        }
+      }
+      options.share.transports = transports;
+      app = await createBaseApp(options);
+      break;
     case 'SharedWorker':
       try {
         transports = {
@@ -273,20 +309,20 @@ export const createSharedApp = async <T>(options: Config<T>) => {
             prefix: `reactant-share:${options.share.name}`,
           });
         } else if (options.share.port === 'client' && !transports.client) {
-          if (typeof options.share.sharedWorkerURL !== 'string') {
+          if (typeof options.share.workerURL !== 'string') {
             throw new Error(
-              `The value of 'options.share.sharedWorkerURL' should be a string.`
+              `The value of 'options.share.workerURL' should be a string.`
             );
           }
           transports.client = createTransport('SharedWorkerMain', {
-            worker: new SharedWorker(options.share.sharedWorkerURL),
+            worker: new SharedWorker(options.share.workerURL),
             prefix: `reactant-share:${options.share.name}`,
           });
         }
         options.share.transports = transports;
         app = await createBaseApp(options);
       } catch (e) {
-        const { port, sharedWorkerURL, name, ...shareOptions } = options.share;
+        const { port, workerURL, name, ...shareOptions } = options.share;
         app = await createSharedTabApp({
           ...options,
           share: {
