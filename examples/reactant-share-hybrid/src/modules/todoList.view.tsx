@@ -127,11 +127,7 @@ export class TodoListView extends ViewModule {
             type="button"
             onClick={() => {
               this.setExistDetachedWindow(true);
-              window.open(
-                'http://localhost:7000/detached-window.html',
-                '',
-                'width=300,height=600'
-              );
+              window.open('./detached-window.html', '', 'width=300,height=600');
             }}
           >
             Detach

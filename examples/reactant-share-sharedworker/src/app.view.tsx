@@ -121,10 +121,7 @@ export class AppView extends ViewModule {
             component={this.todoListView.component}
           />
           <Route path="/iframe">
-            <iframe
-              title="iFrame mode"
-              src="http://localhost:7000/iframe.html"
-            />
+            <iframe title="iFrame mode" src="./iframe.html" />
           </Route>
         </Switch>
       </>
