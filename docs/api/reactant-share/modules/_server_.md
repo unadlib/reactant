@@ -16,7 +16,7 @@ sidebar_label: "server"
 
 ▸ **handleServer**(`__namedParameters`: object): *(Anonymous function)*
 
-*Defined in [packages/reactant-share/src/server.ts:17](https://github.com/unadlib/reactant/blob/3ea14604/packages/reactant-share/src/server.ts#L17)*
+*Defined in [packages/reactant-share/src/server.ts:17](https://github.com/unadlib/reactant/blob/f1370319/packages/reactant-share/src/server.ts#L17)*
 
 **Parameters:**
 

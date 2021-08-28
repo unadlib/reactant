@@ -45,7 +45,7 @@
       "api/reactant-module/modules/_core_spawnmiddlewares_",
       "api/reactant-module/classes/_core_view_.viewmodule",
       "api/reactant-module/classes/_core_plugin_.pluginmodule",
-      "api/reactant-di/modules/_decorators_injectable_",
+      "api/reactant-module/modules/_decorators_injectable_",
       "api/reactant-di/modules/_decorators_inject_",
       "api/reactant-di/modules/_decorators_optional_",
       "api/reactant-di/modules/_decorators_multiinject_",

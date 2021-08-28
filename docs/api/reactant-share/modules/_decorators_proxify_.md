@@ -16,7 +16,7 @@ sidebar_label: "@proxify"
 
 ▸ **proxify**(`target`: object, `key`: string, `descriptor`: TypedPropertyDescriptor‹function›): *object*
 
-*Defined in [packages/reactant-share/src/decorators/proxify.ts:11](https://github.com/unadlib/reactant/blob/3ea14604/packages/reactant-share/src/decorators/proxify.ts#L11)*
+*Defined in [packages/reactant-share/src/decorators/proxify.ts:11](https://github.com/unadlib/reactant/blob/f1370319/packages/reactant-share/src/decorators/proxify.ts#L11)*
 
 proxify
 

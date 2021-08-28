@@ -17,7 +17,7 @@
   "api/reactant-module/modules/_core_spawnmiddlewares_": "spawnMiddlewares()",
   "api/reactant-module/classes/_core_view_.viewmodule": "ViewModule",
   "api/reactant-module/classes/_core_plugin_.pluginmodule": "PluginModule",
-  "api/reactant-di/modules/_decorators_injectable_": "@injectable()",
+  "api/reactant-module/modules/_decorators_injectable_": "@injectable()",
   "api/reactant-di/modules/_decorators_inject_": "@inject()",
   "api/reactant-di/modules/_decorators_optional_": "@optional()",
   "api/reactant-di/modules/_decorators_multiinject_": "@multiInject()",

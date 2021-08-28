@@ -13,7 +13,7 @@ In addition to the basics of React, Reactant introduces two new concepts, [`View
 
 `@injectable` is used to decorate a module that can be injected. While Reactant also supports modules that do not require `@injectable` decoration in advance, we recommend `@injectable` decoration for any module that requires dependency injection.
 
-> `@injectable` parameters in TypeScript and JavaScript are completely different, See [@injectable](api/reactant-di/modules/_decorators_injectable_.md) for more details.
+> `@injectable` parameters in TypeScript and JavaScript are completely different, See [@injectable](api/reactant-module/modules/_decorators_injectable_.md) for more details.
 
 For Example, `Counter` project set up with `TypeScript`.
 

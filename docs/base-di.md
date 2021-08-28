@@ -47,7 +47,7 @@ class Bar {
 }
 ```
 
-See [@injectable()](api/reactant-di/modules/_decorators_injectable_.md) API doc for more information.
+See [@injectable()](api/reactant-module/modules/_decorators_injectable_.md) API doc for more information.
 
 > Be sure to install `@babel/plugin-propose-decorators` and configure the babel settings correctly.
 

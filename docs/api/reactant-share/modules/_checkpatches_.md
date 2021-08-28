@@ -16,7 +16,7 @@ sidebar_label: "checkPatches"
 
 ▸ **checkPatches**(`oldStateTree`: Record‹string, any›, `options`: [ActionOptions](_interfaces_.md#actionoptions)): *void*
 
-*Defined in [packages/reactant-share/src/checkPatches.ts:3](https://github.com/unadlib/reactant/blob/3ea14604/packages/reactant-share/src/checkPatches.ts#L3)*
+*Defined in [packages/reactant-share/src/checkPatches.ts:3](https://github.com/unadlib/reactant/blob/f1370319/packages/reactant-share/src/checkPatches.ts#L3)*
 
 **Parameters:**
 

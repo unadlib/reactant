@@ -7,7 +7,7 @@ title: Dependency Injection
 
 ### Class Decorators
 
-* [@injectable()](api/reactant-di/modules/_decorators_injectable_.md)
+* [@injectable()](api/reactant-module/modules/_decorators_injectable_.md)
 
 ### Parameter Decorators
 
