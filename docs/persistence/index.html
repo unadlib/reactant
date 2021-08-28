@@ -100,10 +100,10 @@ app.bootstrap(<span class="hljs-built_in">document</span>.getElementById(<span c
 <pre><code class="hljs css language-ts"><span class="hljs-keyword">import</span> { injectable, action, state } <span class="hljs-keyword">from</span> <span class="hljs-string">'reactant'</span>;
 <span class="hljs-keyword">import</span> { Storage } <span class="hljs-keyword">from</span> <span class="hljs-string">'reactant-storage'</span>;
 
-<span class="hljs-meta">@injectable</span>()
+<span class="hljs-meta">@injectable</span>({
+  name: <span class="hljs-string">'shoppingCart'</span>,
+})
 <span class="hljs-keyword">class</span> ShoppingCart {
-  name = <span class="hljs-string">'shoppingCart'</span>;
-
   <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">public</span> storage: Storage</span>) {
     <span class="hljs-keyword">this</span>.storage.setStorage(<span class="hljs-keyword">this</span>, {
       whitelist: [<span class="hljs-string">'list'</span>],

@@ -152,7 +152,9 @@ app.bootstrap(appName);
   <span class="hljs-type">IStorageOptions</span>,
 } from <span class="hljs-symbol">'reactant</span>-storage';
 
-<span class="hljs-meta">@injectable</span>()
+<span class="hljs-meta">@injectable</span>({
+  name: <span class="hljs-symbol">'ba</span>r'
+})
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HomeView</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ViewModule</span> </span>{
   constructor(public storage: <span class="hljs-type">Storage</span>) {
     <span class="hljs-keyword">super</span>();
@@ -160,8 +162,6 @@ app.bootstrap(appName);
       whitelist: [<span class="hljs-symbol">'tes</span>t'],
     });
   }
-
-  name = <span class="hljs-symbol">'ba</span>r';
 
   <span class="hljs-meta">@state</span>
   test = <span class="hljs-symbol">'tes</span>t';
