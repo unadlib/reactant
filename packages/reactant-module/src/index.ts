@@ -1,5 +1,16 @@
 export { applyPatches } from 'immer';
-export * from 'reactant-di';
+export {
+  inject,
+  optional,
+  multiInject,
+  multiOptional,
+  getLazyDecorator,
+  createContainer,
+  bindModules,
+  Optional,
+  forwardRef,
+  ModuleRef,
+} from 'reactant-di';
 
 export * from './core/index';
 export * from './decorators/index';

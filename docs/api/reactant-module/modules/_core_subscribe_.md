@@ -16,7 +16,7 @@ sidebar_label: "subscribe()"
 
 ▸ **subscribe**(`service`: [Service](../interfaces/_interfaces_.service.md)‹object› & object, `listener`: function): *Unsubscribe*
 
-*Defined in [packages/reactant-module/src/core/subscribe.ts:39](https://github.com/unadlib/reactant/blob/02f8f232/packages/reactant-module/src/core/subscribe.ts#L39)*
+*Defined in [packages/reactant-module/src/core/subscribe.ts:39](https://github.com/unadlib/reactant/blob/3ea14604/packages/reactant-module/src/core/subscribe.ts#L39)*
 
 ## Description
 

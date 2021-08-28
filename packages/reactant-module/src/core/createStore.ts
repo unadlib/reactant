@@ -13,11 +13,10 @@ import {
   PreloadedState,
   applyMiddleware,
 } from 'redux';
-import {
+import type {
   Container,
   ServiceIdentifiersMap,
   ModuleOptions,
-  nameKey,
 } from 'reactant-di';
 import {
   ReactantAction,
@@ -40,6 +39,7 @@ import {
   containerKey,
   identifierKey,
   modulesKey,
+  nameKey,
 } from '../constants';
 import { getStageName, perform, getComposeEnhancers } from '../utils';
 import { handlePlugin } from './handlePlugin';

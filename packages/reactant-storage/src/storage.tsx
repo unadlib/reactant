@@ -22,7 +22,13 @@ import { PersistGate } from 'redux-persist/integration/react';
 const StorageOptions = Symbol('StorageOptions');
 
 export interface IStorageOptions extends Partial<PersistConfig<any>> {
+  /**
+   * define storage container
+   */
   storage: Storage;
+  /**
+   * define storage loading UI
+   */
   loading?: ReactNode;
 }
 
@@ -30,7 +36,13 @@ type SetStorageOptions<T> = Pick<
   Partial<PersistConfig<any>>,
   Exclude<keyof PersistConfig<any>, 'key' | 'blacklist' | 'whitelist'>
 > & {
+  /**
+   * define persistent data blacklist
+   */
   blacklist?: (keyof T)[];
+  /**
+   * define persistent data whitelist
+   */
   whitelist?: (keyof T)[];
 };
 

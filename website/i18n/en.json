@@ -161,6 +161,10 @@
         "title": "LoadOptions",
         "sidebar_label": "LoadOptions"
       },
+      "api/reactant-module/interfaces/_interfaces_.moduledecoratoroptions": {
+        "title": "ModuleDecoratorOptions",
+        "sidebar_label": "ModuleDecoratorOptions"
+      },
       "api/reactant-module/interfaces/_interfaces_.propertydescriptor": {
         "title": "PropertyDescriptor",
         "sidebar_label": "PropertyDescriptor"
@@ -172,10 +176,6 @@
       "api/reactant-module/interfaces/_interfaces_.service": {
         "title": "Service",
         "sidebar_label": "Service"
-      },
-      "api/reactant-module/interfaces/_interfaces_.state": {
-        "title": "State",
-        "sidebar_label": "State"
       },
       "api/reactant-module/modules/_constants_index_": {
         "title": "constants/index",
@@ -252,6 +252,10 @@
       "api/reactant-module/modules/_decorators_index_": {
         "title": "decorators/index",
         "sidebar_label": "decorators/index"
+      },
+      "api/reactant-module/modules/_decorators_injectable_": {
+        "title": "decorators/injectable",
+        "sidebar_label": "decorators/injectable"
       },
       "api/reactant-module/modules/_decorators_lazy_": {
         "title": "@lazy()",
@@ -444,6 +448,10 @@
       "api/reactant-share/modules/_interfaces_": {
         "title": "interfaces",
         "sidebar_label": "interfaces"
+      },
+      "api/reactant-share/modules/_lock_": {
+        "title": "lock",
+        "sidebar_label": "lock"
       },
       "api/reactant-share/modules/_portdetector_": {
         "title": "PortDetector",

@@ -29,21 +29,13 @@ sidebar_label: "index"
 * [ValueProvider](_index_.md#valueprovider)
 * [bindModules](_index_.md#bindmodules)
 * [createContainer](_index_.md#createcontainer)
-* [defaultUndefinedValue](_index_.md#defaultundefinedvalue)
 * [forwardRef](_index_.md#forwardref)
 * [getLazyDecorator](_index_.md#getlazydecorator)
-* [getMetadata](_index_.md#getmetadata)
-* [getModulesDeps](_index_.md#getmodulesdeps)
 * [inject](_index_.md#inject)
 * [injectable](_index_.md#injectable)
-* [lookupOptionalIdentifier](_index_.md#lookupoptionalidentifier)
-* [lookupServiceIdentifier](_index_.md#lookupserviceidentifier)
 * [multiInject](_index_.md#multiinject)
 * [multiOptional](_index_.md#multioptional)
-* [nameKey](_index_.md#namekey)
 * [optional](_index_.md#optional)
-* [setMetadata](_index_.md#setmetadata)
-* [setModulesDeps](_index_.md#setmodulesdeps)
 
 ## References
 
@@ -173,12 +165,6 @@ ___
 
 ___
 
-###  defaultUndefinedValue
-
-• **defaultUndefinedValue**:
-
-___
-
 ###  forwardRef
 
 • **forwardRef**:
@@ -188,18 +174,6 @@ ___
 ###  getLazyDecorator
 
 • **getLazyDecorator**:
-
-___
-
-###  getMetadata
-
-• **getMetadata**:
-
-___
-
-###  getModulesDeps
-
-• **getModulesDeps**:
 
 ___
 
@@ -215,18 +189,6 @@ ___
 
 ___
 
-###  lookupOptionalIdentifier
-
-• **lookupOptionalIdentifier**:
-
-___
-
-###  lookupServiceIdentifier
-
-• **lookupServiceIdentifier**:
-
-___
-
 ###  multiInject
 
 • **multiInject**:
@@ -239,24 +201,6 @@ ___
 
 ___
 
-###  nameKey
-
-• **nameKey**:
-
-___
-
 ###  optional
 
 • **optional**:
-
-___
-
-###  setMetadata
-
-• **setMetadata**:
-
-___
-
-###  setModulesDeps
-
-• **setModulesDeps**:

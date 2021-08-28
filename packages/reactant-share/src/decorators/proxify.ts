@@ -4,7 +4,9 @@ import { PortDetector } from '../portDetector';
 
 /**
  * proxify
- * todo
+ *
+ * It is used to turn a method into a proxied method.
+ * The execution of the decorated method in the client will be proxied by the same method in the server by the associated parameters.
  */
 export const proxify = (
   target: object,

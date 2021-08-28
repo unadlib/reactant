@@ -30,7 +30,7 @@ sidebar_label: "App"
 
 • **container**: *Container*
 
-*Defined in [interfaces.ts:39](https://github.com/unadlib/reactant/blob/02f8f232/packages/reactant/src/interfaces.ts#L39)*
+*Defined in [interfaces.ts:39](https://github.com/unadlib/reactant/blob/3ea14604/packages/reactant/src/interfaces.ts#L39)*
 
 ___
 
@@ -38,7 +38,7 @@ ___
 
 • **instance**: *T*
 
-*Defined in [interfaces.ts:38](https://github.com/unadlib/reactant/blob/02f8f232/packages/reactant/src/interfaces.ts#L38)*
+*Defined in [interfaces.ts:38](https://github.com/unadlib/reactant/blob/3ea14604/packages/reactant/src/interfaces.ts#L38)*
 
 ___
 
@@ -46,7 +46,7 @@ ___
 
 • **store**: *ReactantStore | null*
 
-*Defined in [interfaces.ts:40](https://github.com/unadlib/reactant/blob/02f8f232/packages/reactant/src/interfaces.ts#L40)*
+*Defined in [interfaces.ts:40](https://github.com/unadlib/reactant/blob/3ea14604/packages/reactant/src/interfaces.ts#L40)*
 
 ## Methods
 
@@ -54,7 +54,7 @@ ___
 
 ▸ **bootstrap**(...`args`: unknown[]): *void | Element*
 
-*Defined in [interfaces.ts:41](https://github.com/unadlib/reactant/blob/02f8f232/packages/reactant/src/interfaces.ts#L41)*
+*Defined in [interfaces.ts:41](https://github.com/unadlib/reactant/blob/3ea14604/packages/reactant/src/interfaces.ts#L41)*
 
 **Parameters:**
 

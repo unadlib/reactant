@@ -25,7 +25,9 @@ sidebar_label: "IStorageOptions"
 
 *Inherited from [IStorageOptions](_storage_.istorageoptions.md).[loading](_storage_.istorageoptions.md#optional-loading)*
 
-*Defined in [packages/reactant-storage/src/storage.tsx:26](https://github.com/unadlib/reactant/blob/02f8f232/packages/reactant-storage/src/storage.tsx#L26)*
+*Defined in [packages/reactant-storage/src/storage.tsx:32](https://github.com/unadlib/reactant/blob/3ea14604/packages/reactant-storage/src/storage.tsx#L32)*
+
+define storage loading UI
 
 ___
 
@@ -35,4 +37,6 @@ ___
 
 *Inherited from [IStorageOptions](_storage_.istorageoptions.md).[storage](_storage_.istorageoptions.md#storage)*
 
-*Defined in [packages/reactant-storage/src/storage.tsx:25](https://github.com/unadlib/reactant/blob/02f8f232/packages/reactant-storage/src/storage.tsx#L25)*
+*Defined in [packages/reactant-storage/src/storage.tsx:28](https://github.com/unadlib/reactant/blob/3ea14604/packages/reactant-storage/src/storage.tsx#L28)*
+
+define storage container

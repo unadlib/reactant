@@ -16,7 +16,7 @@ sidebar_label: "decorators/lazy"
 
 ▸ **getLazyDecorator**(`getService`: function): *(Anonymous function)*
 
-*Defined in [packages/reactant-di/src/decorators/lazy.ts:41](https://github.com/unadlib/reactant/blob/02f8f232/packages/reactant-di/src/decorators/lazy.ts#L41)*
+*Defined in [packages/reactant-di/src/decorators/lazy.ts:41](https://github.com/unadlib/reactant/blob/3ea14604/packages/reactant-di/src/decorators/lazy.ts#L41)*
 
 ## Description
 

@@ -10,6 +10,7 @@ import {
   proxify,
   computed,
   optional,
+  Storage,
 } from 'reactant-share';
 
 interface Todo {
@@ -26,9 +27,13 @@ interface TodoListViewOptions {
 })
 export class TodoListView extends ViewModule {
   constructor(
+    @optional(Storage) protected storage?: Storage,
     @optional('TodoListViewOptions') private options?: TodoListViewOptions
   ) {
     super();
+    this.storage?.setStorage(this, {
+      blacklist: ['existDetachedWindow'],
+    });
     if (this.isDetachedWindow) {
       window.addEventListener('unload', () => {
         this.setExistDetachedWindow(false);

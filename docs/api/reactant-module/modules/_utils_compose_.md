@@ -16,4 +16,4 @@ sidebar_label: "utils/compose"
 
 • **compose**: *compose* = composeWithReact
 
-*Defined in [packages/reactant-module/src/utils/compose.ts:3](https://github.com/unadlib/reactant/blob/02f8f232/packages/reactant-module/src/utils/compose.ts#L3)*
+*Defined in [packages/reactant-module/src/utils/compose.ts:3](https://github.com/unadlib/reactant/blob/3ea14604/packages/reactant-module/src/utils/compose.ts#L3)*

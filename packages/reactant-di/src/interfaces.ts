@@ -85,11 +85,7 @@ type DependenciesModule = Module<any> | DependenciesProvider;
 
 export interface ModuleDecoratorOptions {
   /**
-   *
-   */
-  name?: string;
-  /**
-   *
+   * Metadata for module dependencies
    */
   deps?: DependenciesModule[];
 }

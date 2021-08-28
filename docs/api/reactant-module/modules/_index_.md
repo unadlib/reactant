@@ -16,6 +16,7 @@ sidebar_label: "index"
 * [Load](_index_.md#load)
 * [LoadOptions](_index_.md#loadoptions)
 * [Loader](_index_.md#loader)
+* [ModuleDecoratorOptions](_index_.md#moduledecoratoroptions)
 * [ModulesMap](_index_.md#modulesmap)
 * [PartialKeys](_index_.md#partialkeys)
 * [PartialRequired](_index_.md#partialrequired)
@@ -58,12 +59,14 @@ sidebar_label: "index"
 * [getStagedState](_index_.md#getstagedstate)
 * [handlePlugin](_index_.md#handleplugin)
 * [identifierKey](_index_.md#identifierkey)
+* [injectable](_index_.md#injectable)
 * [isEqual](_index_.md#isequal)
 * [isEqualExceptFunction](_index_.md#isequalexceptfunction)
 * [lazy](_index_.md#lazy)
 * [load](_index_.md#load)
 * [loaderKey](_index_.md#loaderkey)
 * [modulesKey](_index_.md#moduleskey)
+* [nameKey](_index_.md#namekey)
 * [perform](_index_.md#perform)
 * [spawnMiddlewares](_index_.md#spawnmiddlewares)
 * [state](_index_.md#state)
@@ -120,6 +123,12 @@ ___
 ###  Loader
 
 • **Loader**:
+
+___
+
+###  ModuleDecoratorOptions
+
+• **ModuleDecoratorOptions**:
 
 ___
 
@@ -375,6 +384,12 @@ ___
 
 ___
 
+###  injectable
+
+• **injectable**:
+
+___
+
 ###  isEqual
 
 • **isEqual**:
@@ -408,6 +423,12 @@ ___
 ###  modulesKey
 
 • **modulesKey**:
+
+___
+
+###  nameKey
+
+• **nameKey**:
 
 ___
 

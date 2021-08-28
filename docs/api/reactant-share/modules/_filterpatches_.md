@@ -16,7 +16,7 @@ sidebar_label: "filterPatches"
 
 ▸ **filterPatches**(`data`: Record‹string, any›, `options`: [ActionOptions](_interfaces_.md#actionoptions)): *Patch[]*
 
-*Defined in [packages/reactant-share/src/filterPatches.ts:4](https://github.com/unadlib/reactant/blob/02f8f232/packages/reactant-share/src/filterPatches.ts#L4)*
+*Defined in [packages/reactant-share/src/filterPatches.ts:4](https://github.com/unadlib/reactant/blob/3ea14604/packages/reactant-share/src/filterPatches.ts#L4)*
 
 **Parameters:**
 

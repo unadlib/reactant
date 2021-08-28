@@ -9,7 +9,6 @@ sidebar_label: "constants"
 ### Variables
 
 * [METADATA_KEY](_constants_.md#const-metadata_key)
-* [nameKey](_constants_.md#const-namekey)
 
 ## Variables
 
@@ -24,7 +23,7 @@ sidebar_label: "constants"
   inversifyTagged: 'inversify:tagged',
 } as const
 
-*Defined in [packages/reactant-di/src/constants.ts:1](https://github.com/unadlib/reactant/blob/02f8f232/packages/reactant-di/src/constants.ts#L1)*
+*Defined in [packages/reactant-di/src/constants.ts:1](https://github.com/unadlib/reactant/blob/3ea14604/packages/reactant-di/src/constants.ts#L1)*
 
 #### Type declaration:
 
@@ -39,11 +38,3 @@ sidebar_label: "constants"
 * **paramtypes**: *"design:paramtypes"* = "design:paramtypes"
 
 * **provide**: *"reactant:provide"* = "reactant:provide"
-
-___
-
-### `Const` nameKey
-
-• **nameKey**: *unique symbol* = Symbol('name')
-
-*Defined in [packages/reactant-di/src/constants.ts:10](https://github.com/unadlib/reactant/blob/02f8f232/packages/reactant-di/src/constants.ts#L10)*

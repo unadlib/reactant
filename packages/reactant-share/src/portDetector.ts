@@ -22,8 +22,9 @@ export interface IPortDetectorOptions {
 }
 
 /**
- * PortDetector
- * todo
+ * Port Detector
+ *
+ * It provides port detection and client/server port switching functions.
  */
 @injectable()
 export class PortDetector {
@@ -58,7 +59,9 @@ export class PortDetector {
 
   /**
    * onServer
-   * todo
+   *
+   * When the port is server, this hook will execute.
+   * And allow to return a function that will be executed when the current port is switched to client.
    */
   onServer = (callback: CallbackWithHook<Required<Transports>['server']>) => {
     if (typeof callback !== 'function') {
@@ -72,7 +75,9 @@ export class PortDetector {
 
   /**
    * onClient
-   * todo
+   *
+   * When the port is client, this hook will execute.
+   * And allow to return a function that will be executed when the current port is switched to server.
    */
   onClient = (callback: CallbackWithHook<Required<Transports>['client']>) => {
     if (typeof callback !== 'function') {

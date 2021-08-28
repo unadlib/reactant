@@ -1,11 +1,6 @@
-import { injectable as injectify, decorate } from 'inversify';
-import { METADATA_KEY } from '../constants';
-import { setMetadata } from '../util';
+import { injectable as baseInjectable } from 'reactant-di';
+import { nameKey } from '../constants';
 import { ModuleDecoratorOptions } from '../interfaces';
-import { inject } from './inject';
-import { optional } from './optional';
-import { multiInject } from './multiInject';
-import { multiOptional } from './multiOptional';
 
 /**
  * ## Description
@@ -61,6 +56,7 @@ import { multiOptional } from './multiOptional';
  * }
  *
  * @injectable({
+ *   name: 'fooBar',
  *   deps: [Bar,  { provide: 'foo' }],
  * })
  * class FooBar {
@@ -82,39 +78,21 @@ import { multiOptional } from './multiOptional';
  * ```
  */
 export function injectable(options: ModuleDecoratorOptions = {}) {
+  const decorate = baseInjectable(options);
   return (target: any) => {
-    const { deps = [] } = options;
-    deps.forEach((option, index) => {
-      if (typeof option === 'function') {
-        decorate(inject(option) as ClassDecorator, target, index);
-      } else if (toString.call(option) === '[object Object]') {
-        if (option.optional && !option.multi) {
-          decorate(optional(option.provide) as ClassDecorator, target, index);
-        } else if (option.multi && !option.optional) {
-          decorate(
-            multiInject(option.provide) as ClassDecorator,
-            target,
-            index
-          );
-        } else if (option.multi && option.optional) {
-          decorate(
-            multiOptional(option.provide) as ClassDecorator,
-            target,
-            index
-          );
-        } else if (option.provide) {
-          decorate(inject(option.provide) as ClassDecorator, target, index);
-        } else {
-          throw new Error(`@injectable ${option} option error`);
-        }
-      } else {
-        throw new Error(`@injectable ${option} option error`);
-      }
-    });
-    // it has to use `Reflect.getMetadata` with metadata, it just get all injectable deps.
-    // so add the services set for `injectable` services.
-    setMetadata(METADATA_KEY.provide, target, target);
-    decorate(injectify(), target);
-    return target;
+    const { name } = options;
+    if (typeof name === 'string') {
+      Object.defineProperty(target.prototype, nameKey, {
+        enumerable: false,
+        configurable: false,
+        writable: false,
+        value: name,
+      });
+    } else if (__DEV__ && typeof name !== 'undefined') {
+      console.warn(
+        `The parameter 'name' of the decorator @injectable(options) used in '${target.name}' class must be a string.`
+      );
+    }
+    return decorate(target);
   };
 }

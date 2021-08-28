@@ -9,7 +9,11 @@ import {
 } from 'redux';
 import { Patch } from 'immer';
 import { EnhancerOptions } from 'redux-devtools-extension';
-import { Container, ModuleOptions, nameKey } from 'reactant-di';
+import type {
+  Container,
+  ModuleOptions,
+  ModuleDecoratorOptions as IModuleDecoratorOptions,
+} from 'reactant-di';
 import {
   storeKey,
   subscriptionsKey,
@@ -19,6 +23,7 @@ import {
   enablePatchesKey,
   containerKey,
   identifierKey,
+  nameKey,
 } from './constants';
 import { PluginModule } from './core';
 
@@ -126,6 +131,13 @@ export type Load = (
 ) => Promise<Container>;
 
 export type StateService<T> = Service<T>;
+
+export interface ModuleDecoratorOptions extends IModuleDecoratorOptions {
+  /**
+   * string identifier of the current module, which is used for module word maps indexed by strings such as reducers and proxies.
+   */
+  name?: string;
+}
 
 export interface PropertyDescriptor<T> extends TypedPropertyDescriptor<T> {
   initializer(): T;

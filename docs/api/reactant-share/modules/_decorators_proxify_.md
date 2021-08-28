@@ -16,10 +16,12 @@ sidebar_label: "@proxify"
 
 ▸ **proxify**(`target`: object, `key`: string, `descriptor`: TypedPropertyDescriptor‹function›): *object*
 
-*Defined in [packages/reactant-share/src/decorators/proxify.ts:9](https://github.com/unadlib/reactant/blob/02f8f232/packages/reactant-share/src/decorators/proxify.ts#L9)*
+*Defined in [packages/reactant-share/src/decorators/proxify.ts:11](https://github.com/unadlib/reactant/blob/3ea14604/packages/reactant-share/src/decorators/proxify.ts#L11)*
 
 proxify
-todo
+
+It is used to turn a method into a proxied method.
+The execution of the decorated method in the client will be proxied by the same method in the server by the associated parameters.
 
 **Parameters:**
 
