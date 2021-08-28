@@ -8,6 +8,7 @@ import {
   CALL_HISTORY_METHOD,
   LOCATION_CHANGE,
   RouterAction,
+  onLocationChanged,
 } from 'connected-react-router';
 import {
   createBrowserHistory,
@@ -60,6 +61,8 @@ abstract class BaseReactantRouter extends PluginModule {
   abstract goForward(): Promise<void> | void;
 
   autoCreateHistory: boolean;
+
+  onLocationChanged = onLocationChanged;
 
   constructor(
     @optional(RouterOptions) protected options: IRouterOptions,

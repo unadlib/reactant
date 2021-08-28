@@ -70,7 +70,8 @@ class ReactantRouter extends BaseReactantRouter {
     });
     this.portDetector.onClient((transport) => {
       transport!.emit(syncRouterName).then((location) => {
-        this.history.replace(location);
+        const action = this.onLocationChanged(location, 'REPLACE');
+        this[storeKey]?.dispatch(action!);
       });
     });
 
