@@ -1,6 +1,6 @@
 {
   "name": "reactant-share",
-  "version": "0.8.2",
+  "version": "0.9.0",
   "description": "A shared application model for Reactant",
   "main": "dist/index.cjs.js",
   "unpkg": "dist/index.umd.js",
@@ -26,13 +26,13 @@
   "dependencies": {
     "broadcast-channel": "^4.0.0",
     "data-transport": "^2.2.5",
-    "reactant": "^0.8.2",
-    "reactant-last-action": "^0.8.2",
-    "reactant-router": "^0.8.2",
-    "reactant-storage": "^0.8.2"
+    "reactant": "^0.9.0",
+    "reactant-last-action": "^0.9.0",
+    "reactant-router": "^0.9.0",
+    "reactant-storage": "^0.9.0"
   },
   "devDependencies": {
     "react": "^16.12.0 || ^17",
-    "reactant-web": "^0.8.2"
+    "reactant-web": "^0.9.0"
   }
 }
