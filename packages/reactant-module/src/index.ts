@@ -12,6 +12,15 @@ export {
   ModuleRef,
 } from 'reactant-di';
 
+export type {
+  Container,
+  ValueProvider,
+  ModuleProvider,
+  ClassProvider,
+  FactoryProvider,
+  ModuleOptions,
+} from 'reactant-di';
+
 export * from './core/index';
 export * from './decorators/index';
 export * from './utils/index';
