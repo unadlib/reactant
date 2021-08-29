@@ -12,7 +12,7 @@ import {
   SharedAppOptions,
   syncRouterName,
 } from './constants';
-import { proxify } from './decorators';
+import { proxy } from './decorators';
 import { ISharedAppOptions } from './interfaces';
 import { PortDetector } from './portDetector';
 
@@ -129,27 +129,27 @@ class ReactantRouter extends BaseReactantRouter {
     return this._router ?? this[storeKey]?.getState()[this.stateKey];
   }
 
-  @proxify
+  @proxy
   async push(path: string, state?: Record<string, any>) {
     await this.history.push(path, state);
   }
 
-  @proxify
+  @proxy
   async replace(path: string, state?: Record<string, any>) {
     await this.history.replace(path, state);
   }
 
-  @proxify
+  @proxy
   async go(n: number) {
     await this.history.go(n);
   }
 
-  @proxify
+  @proxy
   async goBack() {
     await this.history.goBack();
   }
 
-  @proxify
+  @proxy
   async goForward() {
     await this.history.goForward();
   }

@@ -180,7 +180,7 @@ const createSharedTabApp = async <T>(options: Config<T>) => {
  * ## Example
  *
  * ```ts
- * import { createSharedApp, injectable, state, action, proxify } from 'reactant-share';
+ * import { createSharedApp, injectable, state, action, proxy } from 'reactant-share';
  * import { mockPairPorts, createTransport } from 'data-transport';
  *
  * @injectable({
@@ -195,7 +195,7 @@ const createSharedTabApp = async <T>(options: Config<T>) => {
  *     this.count += 1;
  *   }
  *
- *   @proxify
+ *   @proxy
  *   async increase() {
  *     this._increase();
  *   }

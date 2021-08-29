@@ -59,7 +59,7 @@
     "reactant-share": [
       "api/reactant-share/modules/_createapp_",
       "api/reactant-share/modules/_portdetector_",
-      "api/reactant-share/modules/_decorators_proxify_",
+      "api/reactant-share/modules/_decorators_proxy_",
       "api/reactant-share/modules/_router_",
       "api/reactant-share/modules/_storage_"
     ],

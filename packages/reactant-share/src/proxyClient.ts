@@ -1,7 +1,7 @@
 import type { App, ThisService } from 'reactant';
 import { modulesKey } from 'reactant';
 
-export const proxy = (
+export const proxyClient = (
   app: App<any>,
   options: {
     module: string;

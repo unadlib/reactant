@@ -6,7 +6,7 @@ sidebar_label: "@autobind"
 
 ▸ **autobind**(`target`: object, `key`: string | symbol, `__namedParameters`: object): *object*
 
-*Defined in [packages/reactant-module/src/decorators/autobind.ts:42](https://github.com/unadlib/reactant/blob/f1370319/packages/reactant-module/src/decorators/autobind.ts#L42)*
+*Defined in [packages/reactant-module/src/decorators/autobind.ts:42](https://github.com/unadlib/reactant/blob/a089af11/packages/reactant-module/src/decorators/autobind.ts#L42)*
 
 ## Description
 

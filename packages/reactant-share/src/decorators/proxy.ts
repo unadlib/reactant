@@ -3,12 +3,12 @@ import { proxyClient } from '../client';
 import { PortDetector } from '../portDetector';
 
 /**
- * proxify
+ * proxy
  *
  * It is used to turn a method into a proxied method.
  * The execution of the decorated method in the client will be proxied by the same method in the server by the associated parameters.
  */
-export const proxify = (
+export const proxy = (
   target: object,
   key: string,
   descriptor: TypedPropertyDescriptor<(...args: any[]) => Promise<any>>
@@ -16,7 +16,7 @@ export const proxify = (
   const fn = descriptor.value;
   if (typeof fn !== 'function') {
     throw new Error(
-      `${String(key)} can only be decorated by '@proxify' as a class method.`
+      `${String(key)} can only be decorated by '@proxy' as a class method.`
     );
   }
   function value(this: Service, ...args: any) {

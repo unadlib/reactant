@@ -8,10 +8,10 @@ sidebar_label: "decorators/index"
 
 ### References
 
-* [proxify](_decorators_index_.md#proxify)
+* [proxy](_decorators_index_.md#proxy)
 
 ## References
 
-###  proxify
+###  proxy
 
-• **proxify**:
+• **proxy**:

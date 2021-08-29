@@ -23,7 +23,7 @@ sidebar_label: "ProxyClientOptions"
 
 • **args**: *any[]*
 
-*Defined in [packages/reactant-share/src/interfaces.ts:111](https://github.com/unadlib/reactant/blob/f1370319/packages/reactant-share/src/interfaces.ts#L111)*
+*Defined in [packages/reactant-share/src/interfaces.ts:116](https://github.com/unadlib/reactant/blob/a089af11/packages/reactant-share/src/interfaces.ts#L116)*
 
 ___
 
@@ -31,7 +31,7 @@ ___
 
 • **clientTransport**: *Transports["client"]*
 
-*Defined in [packages/reactant-share/src/interfaces.ts:112](https://github.com/unadlib/reactant/blob/f1370319/packages/reactant-share/src/interfaces.ts#L112)*
+*Defined in [packages/reactant-share/src/interfaces.ts:117](https://github.com/unadlib/reactant/blob/a089af11/packages/reactant-share/src/interfaces.ts#L117)*
 
 ___
 
@@ -39,7 +39,7 @@ ___
 
 • **method**: *string*
 
-*Defined in [packages/reactant-share/src/interfaces.ts:110](https://github.com/unadlib/reactant/blob/f1370319/packages/reactant-share/src/interfaces.ts#L110)*
+*Defined in [packages/reactant-share/src/interfaces.ts:115](https://github.com/unadlib/reactant/blob/a089af11/packages/reactant-share/src/interfaces.ts#L115)*
 
 ___
 
@@ -47,4 +47,4 @@ ___
 
 • **module**: *string*
 
-*Defined in [packages/reactant-share/src/interfaces.ts:109](https://github.com/unadlib/reactant/blob/f1370319/packages/reactant-share/src/interfaces.ts#L109)*
+*Defined in [packages/reactant-share/src/interfaces.ts:114](https://github.com/unadlib/reactant/blob/a089af11/packages/reactant-share/src/interfaces.ts#L114)*

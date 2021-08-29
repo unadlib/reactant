@@ -11,7 +11,7 @@ import {
   useConnector,
   subscribe,
   createSharedApp,
-  proxify,
+  proxy,
   PortDetector,
   createTransport,
   optional,
@@ -97,12 +97,12 @@ describe('base', () => {
       super();
     }
 
-    @proxify
+    @proxy
     async decrease() {
       return this.counter.decrease();
     }
 
-    @proxify
+    @proxy
     async increase() {
       return this.counter.increase();
     }

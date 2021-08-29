@@ -433,9 +433,9 @@
         "title": "decorators/index",
         "sidebar_label": "decorators/index"
       },
-      "api/reactant-share/modules/_decorators_proxify_": {
-        "title": "@proxify",
-        "sidebar_label": "@proxify"
+      "api/reactant-share/modules/_decorators_proxy_": {
+        "title": "@proxy",
+        "sidebar_label": "@proxy"
       },
       "api/reactant-share/modules/_filterpatches_": {
         "title": "filterPatches",
@@ -457,9 +457,9 @@
         "title": "PortDetector",
         "sidebar_label": "PortDetector"
       },
-      "api/reactant-share/modules/_proxy_": {
-        "title": "proxy",
-        "sidebar_label": "proxy"
+      "api/reactant-share/modules/_proxyclient_": {
+        "title": "proxyClient",
+        "sidebar_label": "proxyClient"
       },
       "api/reactant-share/modules/_router_": {
         "title": "Router",

@@ -7,7 +7,7 @@ import {
   useConnector,
   action,
   state,
-  proxify,
+  proxy,
   subscribe,
   PortDetector,
 } from 'reactant-share';
@@ -53,12 +53,12 @@ class AppView extends ViewModule {
     super();
   }
 
-  @proxify
+  @proxy
   async decrease() {
     return this.counter.decrease();
   }
 
-  @proxify
+  @proxy
   async increase() {
     return this.counter.increase();
   }

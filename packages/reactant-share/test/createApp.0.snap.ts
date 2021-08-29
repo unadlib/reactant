@@ -1,4 +1,4 @@
-import { createSharedApp, injectable, state, action, proxify } from 'reactant-share';
+import { createSharedApp, injectable, state, action, proxy } from 'reactant-share';
 import { mockPairPorts, createTransport } from 'data-transport';
 
 @injectable({
@@ -13,7 +13,7 @@ class Counter {
     this.count += 1;
   }
 
-  @proxify
+  @proxy
   async increase() {
     this._increase();
   }

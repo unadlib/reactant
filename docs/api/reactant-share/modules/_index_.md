@@ -16,7 +16,7 @@ sidebar_label: "index"
 * [ServerTransport](_index_.md#servertransport)
 * [Storage](_index_.md#storage)
 * [createSharedApp](_index_.md#createsharedapp)
-* [proxify](_index_.md#proxify)
+* [proxy](_index_.md#proxy)
 
 ## References
 
@@ -68,6 +68,6 @@ ___
 
 ___
 
-###  proxify
+###  proxy
 
-• **proxify**:
+• **proxy**:

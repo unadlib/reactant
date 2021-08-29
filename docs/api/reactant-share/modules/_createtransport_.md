@@ -16,7 +16,7 @@ sidebar_label: "createTransport"
 
 ▸ **createBroadcastTransport**(`name`: string): *Transport‹any, any›*
 
-*Defined in [packages/reactant-share/src/createTransport.ts:4](https://github.com/unadlib/reactant/blob/f1370319/packages/reactant-share/src/createTransport.ts#L4)*
+*Defined in [packages/reactant-share/src/createTransport.ts:4](https://github.com/unadlib/reactant/blob/a089af11/packages/reactant-share/src/createTransport.ts#L4)*
 
 **Parameters:**
 

@@ -7,7 +7,6 @@
     "cSpell.words": [
       "inversify",
       "middlewares",
-      "persistor",
-      "proxify"
+      "persistor"
     ]
 }

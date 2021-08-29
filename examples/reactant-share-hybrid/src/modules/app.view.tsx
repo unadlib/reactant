@@ -2,7 +2,7 @@
 import React, { useState, FunctionComponent } from 'react';
 import { Switch, Route } from 'reactant-web';
 import {
-  proxify,
+  proxy,
   ViewModule,
   injectable,
   PortDetector,
@@ -48,7 +48,7 @@ export class AppView extends ViewModule {
     });
   }
 
-  @proxify
+  @proxy
   async routerChange(path: string) {
     this.router.push(path);
   }

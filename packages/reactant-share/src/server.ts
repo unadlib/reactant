@@ -11,7 +11,7 @@ import {
   proxyClientActionName,
 } from './constants';
 import { PortDetector } from './portDetector';
-import { proxy } from './proxy';
+import { proxyClient } from './proxyClient';
 import { checkPatches } from './checkPatches';
 
 export const handleServer = ({
@@ -42,7 +42,7 @@ export const handleServer = ({
   );
   disposeListeners.push(
     transport.listen(proxyClientActionName, async (options) => {
-      const result = await proxy(app, options);
+      const result = await proxyClient(app, options);
       return result;
     })
   );

@@ -18,7 +18,7 @@ sidebar_label: "createSharedApp()"
 
 ▸ **createBaseApp**<**T**>(`__namedParameters`: object): *Promise‹App‹any››*
 
-*Defined in [packages/reactant-share/src/createApp.ts:28](https://github.com/unadlib/reactant/blob/f1370319/packages/reactant-share/src/createApp.ts#L28)*
+*Defined in [packages/reactant-share/src/createApp.ts:28](https://github.com/unadlib/reactant/blob/a089af11/packages/reactant-share/src/createApp.ts#L28)*
 
 **Type parameters:**
 
@@ -41,7 +41,7 @@ ___
 
 ▸ **createSharedApp**<**T**>(`options`: [Config](../interfaces/_interfaces_.config.md)‹T›): *Promise‹App‹any››*
 
-*Defined in [packages/reactant-share/src/createApp.ts:244](https://github.com/unadlib/reactant/blob/f1370319/packages/reactant-share/src/createApp.ts#L244)*
+*Defined in [packages/reactant-share/src/createApp.ts:244](https://github.com/unadlib/reactant/blob/a089af11/packages/reactant-share/src/createApp.ts#L244)*
 
 ## Description
 
@@ -52,7 +52,7 @@ and `bootstrap()` method(You can run `bootstrap` to start the app inject into th
 ## Example
 
 ```ts
-import { createSharedApp, injectable, state, action, proxify } from 'reactant-share';
+import { createSharedApp, injectable, state, action, proxy } from 'reactant-share';
 import { mockPairPorts, createTransport } from 'data-transport';
 
 @injectable({
@@ -67,7 +67,7 @@ class Counter {
     this.count += 1;
   }
 
-  @proxify
+  @proxy
   async increase() {
     this._increase();
   }
@@ -131,7 +131,7 @@ ___
 
 ▸ **createSharedTabApp**<**T**>(`options`: [Config](../interfaces/_interfaces_.config.md)‹T›): *Promise‹App‹any››*
 
-*Defined in [packages/reactant-share/src/createApp.ts:120](https://github.com/unadlib/reactant/blob/f1370319/packages/reactant-share/src/createApp.ts#L120)*
+*Defined in [packages/reactant-share/src/createApp.ts:120](https://github.com/unadlib/reactant/blob/a089af11/packages/reactant-share/src/createApp.ts#L120)*
 
 **Type parameters:**
 

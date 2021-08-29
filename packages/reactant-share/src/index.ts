@@ -4,7 +4,7 @@ export { createSharedApp } from './createApp';
 export { PortDetector } from './portDetector';
 export { Router, RouterOptions } from './router';
 export { Storage, StorageOptions } from './storage';
-export { proxify } from './decorators/index';
+export { proxy } from './decorators/index';
 
 export type { IRouterOptions } from './router';
 export type { IStorageOptions } from './storage';

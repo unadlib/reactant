@@ -5,7 +5,7 @@ import {
   useConnector,
   action,
   state,
-  proxify,
+  proxy,
 } from 'reactant-share';
 
 @injectable({
@@ -33,12 +33,12 @@ export class CounterView extends ViewModule {
     this.count -= 1;
   }
 
-  @proxify
+  @proxy
   async decrease() {
     return this._decrease();
   }
 
-  @proxify
+  @proxy
   async increase() {
     return this._increase();
   }

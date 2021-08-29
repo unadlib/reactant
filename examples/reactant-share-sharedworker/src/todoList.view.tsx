@@ -7,7 +7,7 @@ import {
   useConnector,
   action,
   state,
-  proxify,
+  proxy,
   computed,
   optional,
   Storage,
@@ -53,7 +53,7 @@ export class TodoListView extends ViewModule {
     this.existDetachedWindow = value;
   }
 
-  @proxify
+  @proxy
   async setExistDetachedWindow(value: boolean) {
     this._setExistDetachedWindow(value);
   }
@@ -83,12 +83,12 @@ export class TodoListView extends ViewModule {
     todo.complete = !todo.complete;
   }
 
-  @proxify
+  @proxy
   async add(text: string) {
     return this._add(text);
   }
 
-  @proxify
+  @proxy
   async toggle(id: string) {
     return this._toggle(id);
   }

@@ -28,6 +28,7 @@ sidebar_label: "ReactantRouter"
 * [enhancer](_router_.reactantrouter.md#optional-enhancer)
 * [history](_router_.reactantrouter.md#protected-history)
 * [middleware](_router_.reactantrouter.md#optional-middleware)
+* [onLocationChanged](_router_.reactantrouter.md#onlocationchanged)
 * [options](_router_.reactantrouter.md#options)
 * [stateKey](_router_.reactantrouter.md#statekey)
 
@@ -58,7 +59,7 @@ sidebar_label: "ReactantRouter"
 
 *Overrides [BaseReactantRouter](_router_.basereactantrouter.md).[constructor](_router_.basereactantrouter.md#constructor)*
 
-*Defined in [packages/reactant-router/src/router.tsx:126](https://github.com/unadlib/reactant/blob/f1370319/packages/reactant-router/src/router.tsx#L126)*
+*Defined in [packages/reactant-router/src/router.tsx:129](https://github.com/unadlib/reactant/blob/a089af11/packages/reactant-router/src/router.tsx#L129)*
 
 **Parameters:**
 
@@ -78,7 +79,7 @@ Name | Type |
 
 *Overrides void*
 
-*Defined in [packages/reactant-router/src/router.tsx:41](https://github.com/unadlib/reactant/blob/f1370319/packages/reactant-router/src/router.tsx#L41)*
+*Defined in [packages/reactant-router/src/router.tsx:42](https://github.com/unadlib/reactant/blob/a089af11/packages/reactant-router/src/router.tsx#L42)*
 
 ___
 
@@ -88,7 +89,7 @@ ___
 
 *Inherited from [BaseReactantRouter](_router_.basereactantrouter.md).[autoCreateHistory](_router_.basereactantrouter.md#autocreatehistory)*
 
-*Defined in [packages/reactant-router/src/router.tsx:62](https://github.com/unadlib/reactant/blob/f1370319/packages/reactant-router/src/router.tsx#L62)*
+*Defined in [packages/reactant-router/src/router.tsx:63](https://github.com/unadlib/reactant/blob/a089af11/packages/reactant-router/src/router.tsx#L63)*
 
 ___
 
@@ -98,7 +99,7 @@ ___
 
 *Inherited from [BaseReactantRouter](_router_.basereactantrouter.md).[autoProvide](_router_.basereactantrouter.md#autoprovide)*
 
-*Defined in [packages/reactant-router/src/router.tsx:43](https://github.com/unadlib/reactant/blob/f1370319/packages/reactant-router/src/router.tsx#L43)*
+*Defined in [packages/reactant-router/src/router.tsx:44](https://github.com/unadlib/reactant/blob/a089af11/packages/reactant-router/src/router.tsx#L44)*
 
 ___
 
@@ -108,7 +109,7 @@ ___
 
 *Inherited from [BaseReactantRouter](_router_.basereactantrouter.md).[enhancer](_router_.basereactantrouter.md#optional-enhancer)*
 
-*Defined in [packages/reactant-module/src/core/plugin.ts:26](https://github.com/unadlib/reactant/blob/f1370319/packages/reactant-module/src/core/plugin.ts#L26)*
+*Defined in [packages/reactant-module/src/core/plugin.ts:26](https://github.com/unadlib/reactant/blob/a089af11/packages/reactant-module/src/core/plugin.ts#L26)*
 
 inject enhancer for Redux
 
@@ -120,7 +121,7 @@ ___
 
 *Inherited from [BaseReactantRouter](_router_.basereactantrouter.md).[history](_router_.basereactantrouter.md#protected-history)*
 
-*Defined in [packages/reactant-router/src/router.tsx:47](https://github.com/unadlib/reactant/blob/f1370319/packages/reactant-router/src/router.tsx#L47)*
+*Defined in [packages/reactant-router/src/router.tsx:48](https://github.com/unadlib/reactant/blob/a089af11/packages/reactant-router/src/router.tsx#L48)*
 
 ___
 
@@ -130,9 +131,19 @@ ___
 
 *Inherited from [BaseReactantRouter](_router_.basereactantrouter.md).[middleware](_router_.basereactantrouter.md#optional-middleware)*
 
-*Defined in [packages/reactant-module/src/core/plugin.ts:23](https://github.com/unadlib/reactant/blob/f1370319/packages/reactant-module/src/core/plugin.ts#L23)*
+*Defined in [packages/reactant-module/src/core/plugin.ts:23](https://github.com/unadlib/reactant/blob/a089af11/packages/reactant-module/src/core/plugin.ts#L23)*
 
 inject middleware for Redux
+
+___
+
+###  onLocationChanged
+
+• **onLocationChanged**: *onLocationChanged* = onLocationChanged
+
+*Inherited from [BaseReactantRouter](_router_.basereactantrouter.md).[onLocationChanged](_router_.basereactantrouter.md#onlocationchanged)*
+
+*Defined in [packages/reactant-router/src/router.tsx:65](https://github.com/unadlib/reactant/blob/a089af11/packages/reactant-router/src/router.tsx#L65)*
 
 ___
 
@@ -142,7 +153,7 @@ ___
 
 *Overrides [BaseReactantRouter](_router_.basereactantrouter.md).[options](_router_.basereactantrouter.md#protected-options)*
 
-*Defined in [packages/reactant-router/src/router.tsx:127](https://github.com/unadlib/reactant/blob/f1370319/packages/reactant-router/src/router.tsx#L127)*
+*Defined in [packages/reactant-router/src/router.tsx:130](https://github.com/unadlib/reactant/blob/a089af11/packages/reactant-router/src/router.tsx#L130)*
 
 ___
 
@@ -152,7 +163,7 @@ ___
 
 *Inherited from [BaseReactantRouter](_router_.basereactantrouter.md).[stateKey](_router_.basereactantrouter.md#statekey)*
 
-*Defined in [packages/reactant-router/src/router.tsx:45](https://github.com/unadlib/reactant/blob/f1370319/packages/reactant-router/src/router.tsx#L45)*
+*Defined in [packages/reactant-router/src/router.tsx:46](https://github.com/unadlib/reactant/blob/a089af11/packages/reactant-router/src/router.tsx#L46)*
 
 ## Accessors
 
@@ -162,7 +173,7 @@ ___
 
 *Inherited from [BaseReactantRouter](_router_.basereactantrouter.md).[currentPath](_router_.basereactantrouter.md#currentpath)*
 
-*Defined in [packages/reactant-router/src/router.tsx:115](https://github.com/unadlib/reactant/blob/f1370319/packages/reactant-router/src/router.tsx#L115)*
+*Defined in [packages/reactant-router/src/router.tsx:118](https://github.com/unadlib/reactant/blob/a089af11/packages/reactant-router/src/router.tsx#L118)*
 
 **Returns:** *string*
 
@@ -174,7 +185,7 @@ ___
 
 *Inherited from [BaseReactantRouter](_router_.basereactantrouter.md).[router](_router_.basereactantrouter.md#router)*
 
-*Defined in [packages/reactant-router/src/router.tsx:111](https://github.com/unadlib/reactant/blob/f1370319/packages/reactant-router/src/router.tsx#L111)*
+*Defined in [packages/reactant-router/src/router.tsx:114](https://github.com/unadlib/reactant/blob/a089af11/packages/reactant-router/src/router.tsx#L114)*
 
 **Returns:** *[RouterState](../interfaces/_router_.routerstate.md)*
 
@@ -186,7 +197,7 @@ ___
 
 *Inherited from [BaseReactantRouter](_router_.basereactantrouter.md).[ConnectedRouter](_router_.basereactantrouter.md#connectedrouter)*
 
-*Defined in [packages/reactant-router/src/router.tsx:107](https://github.com/unadlib/reactant/blob/f1370319/packages/reactant-router/src/router.tsx#L107)*
+*Defined in [packages/reactant-router/src/router.tsx:110](https://github.com/unadlib/reactant/blob/a089af11/packages/reactant-router/src/router.tsx#L110)*
 
 **Parameters:**
 
@@ -206,7 +217,7 @@ ___
 
 *Inherited from [BaseReactantRouter](_router_.basereactantrouter.md).[afterCombineRootReducers](_router_.basereactantrouter.md#optional-aftercombinerootreducers)*
 
-*Defined in [packages/reactant-module/src/core/plugin.ts:37](https://github.com/unadlib/reactant/blob/f1370319/packages/reactant-module/src/core/plugin.ts#L37)*
+*Defined in [packages/reactant-module/src/core/plugin.ts:37](https://github.com/unadlib/reactant/blob/a089af11/packages/reactant-module/src/core/plugin.ts#L37)*
 
 As hook after combine rootReducers
 
@@ -226,7 +237,7 @@ ___
 
 *Inherited from [BaseReactantRouter](_router_.basereactantrouter.md).[afterCreateStore](_router_.basereactantrouter.md#optional-aftercreatestore)*
 
-*Defined in [packages/reactant-module/src/core/plugin.ts:29](https://github.com/unadlib/reactant/blob/f1370319/packages/reactant-module/src/core/plugin.ts#L29)*
+*Defined in [packages/reactant-module/src/core/plugin.ts:29](https://github.com/unadlib/reactant/blob/a089af11/packages/reactant-module/src/core/plugin.ts#L29)*
 
 As hook after createStore
 
@@ -248,7 +259,7 @@ ___
 
 *Overrides void*
 
-*Defined in [packages/reactant-router/src/router.tsx:95](https://github.com/unadlib/reactant/blob/f1370319/packages/reactant-router/src/router.tsx#L95)*
+*Defined in [packages/reactant-router/src/router.tsx:98](https://github.com/unadlib/reactant/blob/a089af11/packages/reactant-router/src/router.tsx#L98)*
 
 **Parameters:**
 
@@ -266,7 +277,7 @@ ___
 
 *Overrides [BaseReactantRouter](_router_.basereactantrouter.md).[go](_router_.basereactantrouter.md#abstract-go)*
 
-*Defined in [packages/reactant-router/src/router.tsx:139](https://github.com/unadlib/reactant/blob/f1370319/packages/reactant-router/src/router.tsx#L139)*
+*Defined in [packages/reactant-router/src/router.tsx:142](https://github.com/unadlib/reactant/blob/a089af11/packages/reactant-router/src/router.tsx#L142)*
 
 **Parameters:**
 
@@ -284,7 +295,7 @@ ___
 
 *Overrides [BaseReactantRouter](_router_.basereactantrouter.md).[goBack](_router_.basereactantrouter.md#abstract-goback)*
 
-*Defined in [packages/reactant-router/src/router.tsx:143](https://github.com/unadlib/reactant/blob/f1370319/packages/reactant-router/src/router.tsx#L143)*
+*Defined in [packages/reactant-router/src/router.tsx:146](https://github.com/unadlib/reactant/blob/a089af11/packages/reactant-router/src/router.tsx#L146)*
 
 **Returns:** *void*
 
@@ -296,7 +307,7 @@ ___
 
 *Overrides [BaseReactantRouter](_router_.basereactantrouter.md).[goForward](_router_.basereactantrouter.md#abstract-goforward)*
 
-*Defined in [packages/reactant-router/src/router.tsx:147](https://github.com/unadlib/reactant/blob/f1370319/packages/reactant-router/src/router.tsx#L147)*
+*Defined in [packages/reactant-router/src/router.tsx:150](https://github.com/unadlib/reactant/blob/a089af11/packages/reactant-router/src/router.tsx#L150)*
 
 **Returns:** *void*
 
@@ -308,7 +319,7 @@ ___
 
 *Inherited from [BaseReactantRouter](_router_.basereactantrouter.md).[preloadedStateHandler](_router_.basereactantrouter.md#optional-preloadedstatehandler)*
 
-*Defined in [packages/reactant-module/src/core/plugin.ts:18](https://github.com/unadlib/reactant/blob/f1370319/packages/reactant-module/src/core/plugin.ts#L18)*
+*Defined in [packages/reactant-module/src/core/plugin.ts:18](https://github.com/unadlib/reactant/blob/a089af11/packages/reactant-module/src/core/plugin.ts#L18)*
 
 preloaded state handler for Redux
 
@@ -330,7 +341,7 @@ ___
 
 *Overrides void*
 
-*Defined in [packages/reactant-router/src/router.tsx:119](https://github.com/unadlib/reactant/blob/f1370319/packages/reactant-router/src/router.tsx#L119)*
+*Defined in [packages/reactant-router/src/router.tsx:122](https://github.com/unadlib/reactant/blob/a089af11/packages/reactant-router/src/router.tsx#L122)*
 
 **Parameters:**
 
@@ -348,7 +359,7 @@ ___
 
 *Overrides [BaseReactantRouter](_router_.basereactantrouter.md).[push](_router_.basereactantrouter.md#abstract-push)*
 
-*Defined in [packages/reactant-router/src/router.tsx:131](https://github.com/unadlib/reactant/blob/f1370319/packages/reactant-router/src/router.tsx#L131)*
+*Defined in [packages/reactant-router/src/router.tsx:134](https://github.com/unadlib/reactant/blob/a089af11/packages/reactant-router/src/router.tsx#L134)*
 
 **Parameters:**
 
@@ -367,7 +378,7 @@ ___
 
 *Overrides [BaseReactantRouter](_router_.basereactantrouter.md).[replace](_router_.basereactantrouter.md#abstract-replace)*
 
-*Defined in [packages/reactant-router/src/router.tsx:135](https://github.com/unadlib/reactant/blob/f1370319/packages/reactant-router/src/router.tsx#L135)*
+*Defined in [packages/reactant-router/src/router.tsx:138](https://github.com/unadlib/reactant/blob/a089af11/packages/reactant-router/src/router.tsx#L138)*
 
 **Parameters:**
 
