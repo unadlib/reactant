@@ -52,6 +52,8 @@ class ReactantStorage extends PluginModule {
 
   protected persistor?: Persistor;
 
+  onRehydrate?: () => void;
+
   constructor(@inject(StorageOptions) public options: IStorageOptions) {
     super();
     if (__DEV__) {
@@ -163,9 +165,13 @@ class ReactantStorage extends PluginModule {
     // eslint-disable-next-line no-param-reassign
     store.replaceReducer = (reducer: Reducer) => {
       replaceReducer(reducer);
-      this.persistor = persistStore(store);
+      this.persistor = persistStore(store, null, () => {
+        this.onRehydrate?.();
+      });
     };
-    this.persistor = persistStore(store);
+    this.persistor = persistStore(store, null, () => {
+      this.onRehydrate?.();
+    });
   }
 
   provider = (props: PropsWithChildren<{}>) => {
