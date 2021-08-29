@@ -2,7 +2,7 @@
 
 ![Node CI](https://github.com/unadlib/reactant/workflows/Node%20CI/badge.svg)
 
-A shared application model about one server application shared to multiple render-only clients.
+A shared application model about one single page application shared to multiple render-only browser windows.
 
 ## Usage
 
@@ -12,4 +12,4 @@ npm install reactant-share
 yarn add reactant-share
 ```
 
-You can visit [reactant.js.org](https://reactant.js.org/) for more documentation.
+You can visit [reactant.js.org](https://reactant.js.org/docs/shared-app/) for more documentation.
