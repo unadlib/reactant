@@ -53,6 +53,10 @@ export interface ISharedAppOptions {
    */
   workerURL?: string;
   /**
+   * Specify a ServiceWorker or SharedWorker
+   */
+  worker?: ServiceWorker | SharedWorker;
+  /**
    * Enable patches filter to support minimized modules collections in client port.
    */
   enablePatchesFilter?: boolean;

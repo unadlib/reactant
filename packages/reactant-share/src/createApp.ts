@@ -269,6 +269,18 @@ export const createSharedApp = async <T>(options: Config<T>) => {
           server: options.share.transports?.server,
           client: options.share.transports?.client,
         };
+
+        if (
+          options.share.port === 'client' &&
+          !transports.client &&
+          options.share.worker
+        ) {
+          transports.client = createTransport('ServiceWorkerClient', {
+            worker: options.share.worker as ServiceWorker,
+            prefix: `reactant-share:${options.share.name}`,
+          });
+        }
+
         if (options.share.port === 'server') {
           transports.server ??= createTransport('ServiceWorkerService', {
             prefix: `reactant-share:${options.share.name}`,
@@ -280,12 +292,12 @@ export const createSharedApp = async <T>(options: Config<T>) => {
             );
           }
 
-          if (navigator.serviceWorker) {
+          if ('serviceWorker' in navigator) {
             await new Promise((resolve) => {
               navigator.serviceWorker.register(options.share.workerURL!);
               navigator.serviceWorker.ready.then((registration) => {
                 transports.client = createTransport('ServiceWorkerClient', {
-                  serviceWorker: registration.active!,
+                  worker: registration.active!,
                   prefix: `reactant-share:${options.share.name}`,
                 });
                 resolve(null);
@@ -318,6 +330,18 @@ export const createSharedApp = async <T>(options: Config<T>) => {
           server: options.share.transports?.server,
           client: options.share.transports?.client,
         };
+
+        if (
+          options.share.port === 'client' &&
+          !transports.client &&
+          options.share.worker
+        ) {
+          transports.client = createTransport('SharedWorkerMain', {
+            worker: options.share.worker as SharedWorker,
+            prefix: `reactant-share:${options.share.name}`,
+          });
+        }
+
         if (options.share.port === 'server') {
           transports.server ??= createTransport('SharedWorkerInternal', {
             prefix: `reactant-share:${options.share.name}`,
