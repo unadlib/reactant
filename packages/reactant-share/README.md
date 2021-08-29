@@ -2,8 +2,7 @@
 
 ![Node CI](https://github.com/unadlib/reactant/workflows/Node%20CI/badge.svg)
 
-A shared application model about one single page application shared to multiple render-only browser windows.
-
+A framework for building applications that support multiple windows.
 ## Usage
 
 ```sh

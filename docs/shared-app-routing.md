@@ -3,4 +3,7 @@ id: shared-app-routing
 title: Routing
 ---
 
-## Todo
+## Routing
+
+## Examples
+
