@@ -15,20 +15,21 @@ export interface IStorageOptions extends IBaseStorageOptions {
 
 @injectable()
 class ReactantStorage extends BaseReactantStorage {
+  rehydrateCallbackSet = new Set<() => void>();
+
   constructor(
     @inject(StorageOptions) public options: IStorageOptions,
-    protected portDetector: PortDetector,
     @inject(SharedAppOptions) protected sharedAppOptions: ISharedAppOptions
   ) {
     super(options);
 
-    this.portDetector.onServer(() => {
-      this.persistor?.persist();
-    });
-
-    this.portDetector.onClient(() => {
-      this.persistor?.pause();
-    });
+    this.onRehydrate = () => {
+      const callbacks = Array.from(this.rehydrateCallbackSet);
+      this.rehydrateCallbackSet.clear();
+      for (const callback of callbacks) {
+        callback();
+      }
+    };
   }
 }
 

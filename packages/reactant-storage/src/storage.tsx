@@ -50,9 +50,11 @@ type SetStorageOptions<T> = Pick<
 class ReactantStorage extends PluginModule {
   protected blacklist: string[] = [];
 
-  protected persistor?: Persistor;
+  persistor?: Persistor;
 
   onRehydrate?: () => void;
+
+  rehydrated = false;
 
   constructor(@inject(StorageOptions) public options: IStorageOptions) {
     super();
@@ -166,10 +168,12 @@ class ReactantStorage extends PluginModule {
     store.replaceReducer = (reducer: Reducer) => {
       replaceReducer(reducer);
       this.persistor = persistStore(store, null, () => {
+        this.rehydrated = true;
         this.onRehydrate?.();
       });
     };
     this.persistor = persistStore(store, null, () => {
+      this.rehydrated = true;
       this.onRehydrate?.();
     });
   }

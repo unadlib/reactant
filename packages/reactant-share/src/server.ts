@@ -31,8 +31,12 @@ export const handleServer = ({
   const disposeListeners: ((() => void) | undefined)[] = [];
   disposeListeners.push(transport.listen(isClientName, async () => true));
   disposeListeners.push(
-    transport.listen(preloadedStateActionName, async () =>
-      app.store?.getState()
+    transport.listen(
+      preloadedStateActionName,
+      () =>
+        new Promise((resolve) => {
+          portDetector.onRehydrate(() => resolve(app.store?.getState()));
+        })
     )
   );
   disposeListeners.push(

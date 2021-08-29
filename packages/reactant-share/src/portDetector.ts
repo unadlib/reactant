@@ -4,9 +4,11 @@ import {
   actionIdentifier,
   storeKey,
   Service,
+  optional,
 } from 'reactant';
 import { LastAction } from 'reactant-last-action';
-import { loadFullStateActionName } from './constants';
+import { Storage } from './storage';
+import { loadFullStateActionName, syncToClientsName } from './constants';
 import {
   CallbackWithHook,
   ClientTransport,
@@ -46,11 +48,41 @@ export class PortDetector {
 
   constructor(
     @inject(PortDetectorOptions) private options: IPortDetectorOptions,
-    private lastAction: LastAction
+    private lastAction: LastAction,
+    @optional(Storage) private storage?: Storage
   ) {
-    this.onClient(() => {
+    if (this.storage) {
+      this.onServer(() => {
+        this.storage!.persistor!.persist();
+      });
+
+      this.onClient(() => {
+        this.storage!.persistor!.pause();
+      });
+    }
+
+    this.onClient((transport) => {
       this.syncFullState();
+      return transport.listen(syncToClientsName, async (fullState) => {
+        if (!fullState) return;
+        const store = (this as Service)[storeKey];
+        store!.dispatch({
+          type: `${actionIdentifier}_${loadFullStateActionName}`,
+          state: fullState,
+          _reactant: actionIdentifier,
+        });
+        this.lastAction.sequence =
+          fullState[this.lastAction.stateKey]._sequence;
+      });
     });
+  }
+
+  onRehydrate(callback: () => void) {
+    if (!this.storage || this.storage.rehydrated) {
+      callback();
+    } else {
+      this.storage.rehydrateCallbackSet.add(callback);
+    }
   }
 
   private detectPort(port: Port) {
@@ -126,6 +158,20 @@ export class PortDetector {
       } catch (e) {
         console.error(e);
       }
+    }
+  }
+
+  syncToClients() {
+    const store = (this as Service)[storeKey];
+    if (this.transports.server) {
+      this.transports.server?.emit(
+        { name: syncToClientsName, respond: false },
+        store!.getState()
+      );
+    } else {
+      throw new Error(
+        `Failed to 'syncToClients()', 'transports.server' does not exist.`
+      );
     }
   }
 
