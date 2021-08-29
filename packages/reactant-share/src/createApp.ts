@@ -293,7 +293,7 @@ export const createSharedApp = async <T>(options: Config<T>) => {
             });
           } else {
             throw new Error(
-              `The current browser does not support serviceWorker.`
+              `The current browser does not support ServiceWorker.`
             );
           }
         }
