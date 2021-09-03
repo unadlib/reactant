@@ -48,6 +48,12 @@ describe('base', () => {
     }
   }
 
+  let onClientFn: jest.Mock<any, any>;
+  let subscribeOnClientFn: jest.Mock<any, any>;
+
+  let onServerFn: jest.Mock<any, any>;
+  let subscribeOnServerFn: jest.Mock<any, any>;
+
   @injectable({
     name: 'counter',
   })
@@ -57,15 +63,15 @@ describe('base', () => {
       @optional('todoList') private todoList: TodoList
     ) {
       this.portDetector.onClient(() => {
-        console.log('client ====');
+        onClientFn?.();
         return subscribe(this, () => {
-          console.log('client ====');
+          subscribeOnClientFn?.();
         });
       });
       this.portDetector.onServer(() => {
-        console.log('server ====');
+        onServerFn?.();
         return subscribe(this, () => {
-          console.log('server ====');
+          subscribeOnServerFn?.();
         });
       });
     }
@@ -123,6 +129,11 @@ describe('base', () => {
     }
   }
   test('base server/client port mode', async () => {
+    onClientFn = jest.fn();
+    subscribeOnClientFn = jest.fn();
+    onServerFn = jest.fn();
+    subscribeOnServerFn = jest.fn();
+
     const ports = mockPairPorts();
 
     const serverApp = await createSharedApp({
@@ -138,9 +149,17 @@ describe('base', () => {
         },
       },
     });
+    expect(onClientFn.mock.calls.length).toBe(0);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(0);
+    expect(onServerFn.mock.calls.length).toBe(1);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(0);
     act(() => {
       serverApp.bootstrap(serverContainer);
     });
+    expect(onClientFn.mock.calls.length).toBe(0);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(0);
+    expect(onServerFn.mock.calls.length).toBe(1);
+    // expect(subscribeOnServerFn.mock.calls.length).toBe(1);
     expect(serverContainer.querySelector('#count')?.textContent).toBe('0');
 
     const clientApp = await createSharedApp({
@@ -156,9 +175,19 @@ describe('base', () => {
         },
       },
     });
+
+    expect(onClientFn.mock.calls.length).toBe(1);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(0);
+    expect(onServerFn.mock.calls.length).toBe(1);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(0);
+
     act(() => {
       clientApp.bootstrap(clientContainer);
     });
+    expect(onClientFn.mock.calls.length).toBe(1);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(0);
+    expect(onServerFn.mock.calls.length).toBe(1);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(0);
     expect(clientContainer.querySelector('#count')?.textContent).toBe('0');
 
     act(() => {
@@ -166,6 +195,12 @@ describe('base', () => {
         .querySelector('#increase')!
         .dispatchEvent(new MouseEvent('click', { bubbles: true }));
     });
+
+    expect(onClientFn.mock.calls.length).toBe(1);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(1);
+    expect(onServerFn.mock.calls.length).toBe(1);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(1);
+
     expect(serverContainer.querySelector('#count')?.textContent).toBe('1');
     expect(clientContainer.querySelector('#count')?.textContent).toBe('1');
 
@@ -174,6 +209,11 @@ describe('base', () => {
         .querySelector('#increase')!
         .dispatchEvent(new MouseEvent('click', { bubbles: true }));
     });
+
+    expect(onClientFn.mock.calls.length).toBe(1);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(2);
+    expect(onServerFn.mock.calls.length).toBe(1);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(2);
 
     expect(serverContainer.querySelector('#count')?.textContent).toBe('2');
     expect(clientContainer.querySelector('#count')?.textContent).toBe('2');
