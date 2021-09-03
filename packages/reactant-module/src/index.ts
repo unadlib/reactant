@@ -19,6 +19,8 @@ export type {
   ClassProvider,
   FactoryProvider,
   ModuleOptions,
+  ServiceIdentifiersMap,
+  ContainerOptions,
 } from 'reactant-di';
 
 export * from './core/index';
