@@ -5,6 +5,7 @@ export { PortDetector } from './portDetector';
 export { Router, RouterOptions } from './router';
 export { Storage, StorageOptions } from './storage';
 export { proxy } from './decorators/index';
+export { useLock } from './lock';
 
 export type { IRouterOptions } from './router';
 export type { IStorageOptions } from './storage';

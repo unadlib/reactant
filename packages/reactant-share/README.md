@@ -3,6 +3,7 @@
 ![Node CI](https://github.com/unadlib/reactant/workflows/Node%20CI/badge.svg)
 
 A framework for building applications that support multiple windows.
+
 ## Usage
 
 ```sh
