@@ -270,12 +270,8 @@ export const createSharedApp = async <T>(options: Config<T>) => {
           client: options.share.transports?.client,
         };
 
-        if (
-          options.share.port === 'client' &&
-          !transports.client &&
-          options.share.worker
-        ) {
-          transports.client = createTransport('ServiceWorkerClient', {
+        if (options.share.port === 'client' && options.share.worker) {
+          transports.client ??= createTransport('ServiceWorkerClient', {
             worker: options.share.worker as ServiceWorker,
             prefix: `reactant-share:${options.share.name}`,
           });
@@ -331,12 +327,8 @@ export const createSharedApp = async <T>(options: Config<T>) => {
           client: options.share.transports?.client,
         };
 
-        if (
-          options.share.port === 'client' &&
-          !transports.client &&
-          options.share.worker
-        ) {
-          transports.client = createTransport('SharedWorkerMain', {
+        if (options.share.port === 'client' && options.share.worker) {
+          transports.client ??= createTransport('SharedWorkerMain', {
             worker: options.share.worker as SharedWorker,
             prefix: `reactant-share:${options.share.name}`,
           });

@@ -128,7 +128,13 @@ describe('base', () => {
       );
     }
   }
-  test('base server/client port mode', async () => {
+  test.each([
+    { type: 'Base' },
+    { type: 'SharedTab' },
+    { type: 'BrowserExtension' },
+    { type: 'SharedWorker' },
+    { type: 'ServiceWorker' },
+  ])('base server/client port mode in $type', async () => {
     onClientFn = jest.fn();
     subscribeOnClientFn = jest.fn();
     onServerFn = jest.fn();
