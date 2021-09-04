@@ -166,4 +166,171 @@ describe('base API', () => {
         '{"num1":"0","_persist":"{\\"version\\":-1,\\"rehydrated\\":true}"}',
     });
   });
+
+  test('base persistence module without any state', async () => {
+    @injectable({
+      name: 'AppView',
+    })
+    class AppView extends ViewModule {
+      constructor(public storage: Storage) {
+        super();
+        this.storage.setStorage(this, {});
+      }
+
+      component() {
+        return null;
+      }
+    }
+
+    const storage = {
+      data: {} as Record<string, any>,
+      getItem(key: string): Promise<string> {
+        return new Promise((resolve) => {
+          resolve(this.data[key]);
+        });
+      },
+      setItem(key: string, item: string): Promise<void> {
+        return new Promise((resolve) => {
+          this.data[key] = item;
+          resolve();
+        });
+      },
+      removeItem(key: string): Promise<void> {
+        return new Promise((resolve) => {
+          delete this.data[key];
+          resolve();
+        });
+      },
+    };
+    expect(() => {
+      createApp({
+        modules: [
+          {
+            provide: StorageOptions,
+            useValue: {
+              storage,
+            } as IStorageOptions,
+          },
+        ],
+        main: AppView,
+        render,
+      });
+    }).toThrow(
+      `Module 'AppView' is invalid for using 'setStorage', The current module does not have any global state that is decorated with '@state'.`
+    );
+  });
+
+  test('base persistence module with non-string name', async () => {
+    @injectable({
+      name: Symbol('') as any,
+    })
+    class AppView extends ViewModule {
+      constructor(public storage: Storage) {
+        super();
+        this.storage.setStorage(this, {
+          whitelist: ['count'],
+        });
+      }
+
+      @state
+      count = 0;
+
+      component() {
+        return null;
+      }
+    }
+
+    const storage = {
+      data: {} as Record<string, any>,
+      getItem(key: string): Promise<string> {
+        return new Promise((resolve) => {
+          resolve(this.data[key]);
+        });
+      },
+      setItem(key: string, item: string): Promise<void> {
+        return new Promise((resolve) => {
+          this.data[key] = item;
+          resolve();
+        });
+      },
+      removeItem(key: string): Promise<void> {
+        return new Promise((resolve) => {
+          delete this.data[key];
+          resolve();
+        });
+      },
+    };
+    expect(() => {
+      createApp({
+        modules: [
+          {
+            provide: StorageOptions,
+            useValue: {
+              storage,
+            } as IStorageOptions,
+          },
+        ],
+        main: AppView,
+        render,
+      });
+    }).toThrow(
+      `Module 'AppView' is invalid for using 'setStorage', The parameter 'options.name' of the decorator '@injectable(options)' that decorates the 'AppView' module must be specified as a string.`
+    );
+  });
+
+  test('base persistence module without setting name', async () => {
+    @injectable()
+    class AppView extends ViewModule {
+      constructor(public storage: Storage) {
+        super();
+        this.storage.setStorage(this, {
+          whitelist: ['count'],
+        });
+      }
+
+      @state
+      count = 0;
+
+      component() {
+        return null;
+      }
+    }
+
+    const storage = {
+      data: {} as Record<string, any>,
+      getItem(key: string): Promise<string> {
+        return new Promise((resolve) => {
+          resolve(this.data[key]);
+        });
+      },
+      setItem(key: string, item: string): Promise<void> {
+        return new Promise((resolve) => {
+          this.data[key] = item;
+          resolve();
+        });
+      },
+      removeItem(key: string): Promise<void> {
+        return new Promise((resolve) => {
+          delete this.data[key];
+          resolve();
+        });
+      },
+    };
+    expect(() => {
+      createApp({
+        modules: [
+          {
+            provide: StorageOptions,
+            useValue: {
+              storage,
+            } as IStorageOptions,
+          },
+        ],
+        main: AppView,
+        render,
+      });
+    }).toThrow(
+      `Module 'AppView' is invalid for using 'setStorage', The parameter 'options.name' of the decorator '@injectable(options)' that decorates the 'AppView' module must be specified as a string.`
+    );
+  });
 });

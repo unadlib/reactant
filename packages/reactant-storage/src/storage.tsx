@@ -58,24 +58,6 @@ class ReactantStorage extends PluginModule {
 
   constructor(@inject(StorageOptions) public options: IStorageOptions) {
     super();
-    if (__DEV__) {
-      if (
-        typeof this.options.storage === 'undefined' ||
-        this.options.storage === null
-      ) {
-        console.warn(
-          `Module 'Storage' must depend on the 'StorageOptions', and 'StorageOptions' should set 'storage' property.
-            example:
-              {
-                provide: StorageOptions,
-                useValue: {
-                  storage,
-                },
-              }
-          `
-        );
-      }
-    }
   }
 
   protected persistConfig: Record<string, PersistConfig<any>> = {};
@@ -89,24 +71,15 @@ class ReactantStorage extends PluginModule {
 
   setStorage<T extends object>(target: T, options: SetStorageOptions<T>) {
     const module: Service = target;
-    if (
-      typeof module[stateKey] !== 'object' ||
-      typeof module[nameKey] !== 'string'
-    ) {
-      if (__DEV__) {
-        console.warn(
-          `Module '${module}' is invalid for using 'setStorage', The parameter 'options.name' of the decorator '@injectable(options)' that decorates the '${module}' module must be specified as a string.`
-        );
-      }
-      return;
+    if (typeof module[nameKey] !== 'string') {
+      throw new Error(
+        `Module '${module.constructor.name}' is invalid for using 'setStorage', The parameter 'options.name' of the decorator '@injectable(options)' that decorates the '${module.constructor.name}' module must be specified as a string.`
+      );
     }
-    if (this.storageSettingMap.has(module)) {
-      if (__DEV__) {
-        console.warn(
-          `Module '${module}' has already been set up with Storage.`
-        );
-      }
-      return;
+    if (typeof module[stateKey] !== 'object') {
+      throw new Error(
+        `Module '${module.constructor.name}' is invalid for using 'setStorage', The current module does not have any global state that is decorated with '@state'.`
+      );
     }
     this.storageSettingMap.set(module, () => {
       const persistConfig = {
@@ -125,20 +98,8 @@ class ReactantStorage extends PluginModule {
       set();
     }
     Object.keys(reducers).forEach((key) => {
-      const isTempIdentifier = /^@@reactant\//.test(key);
-      if (isTempIdentifier) {
-        this.blacklist.push(key);
-      }
       const persistConfig = this.persistConfig[key];
       if (persistConfig) {
-        if (isTempIdentifier) {
-          if (__DEV__) {
-            console.warn(
-              `For state persistence, The '@injectable({ name })' in the ${key} module has not been set yet.`
-            );
-          }
-          return;
-        }
         const reducer = persistReducer(persistConfig, reducers[key]);
         Object.assign(reducers, {
           [key]: reducer,
