@@ -1,3 +1,5 @@
+import fs from 'fs';
+import path from 'path';
 import React from 'react';
 import { mockPairPorts } from 'data-transport';
 import { unmountComponentAtNode, render } from 'reactant-web';
@@ -16,6 +18,7 @@ import {
   createTransport,
   optional,
 } from '..';
+import { useLock } from '../src/lock';
 
 let serverContainer: Element;
 let clientContainer: Element;
@@ -130,11 +133,10 @@ describe('base', () => {
   }
   test.each([
     { type: 'Base' },
-    { type: 'SharedTab' },
     { type: 'BrowserExtension' },
     { type: 'SharedWorker' },
     { type: 'ServiceWorker' },
-  ])('base server/client port mode in $type', async () => {
+  ])('base server/client port mode in $type', async ({ type }: any) => {
     onClientFn = jest.fn();
     subscribeOnClientFn = jest.fn();
     onServerFn = jest.fn();
@@ -148,7 +150,7 @@ describe('base', () => {
       render,
       share: {
         name: 'counter',
-        type: 'Base',
+        type,
         port: 'server',
         transports: {
           server: createTransport('Base', ports[0]),
@@ -174,7 +176,7 @@ describe('base', () => {
       render,
       share: {
         name: 'counter',
-        type: 'Base',
+        type,
         port: 'client',
         transports: {
           client: createTransport('Base', ports[1]),
@@ -189,6 +191,114 @@ describe('base', () => {
 
     act(() => {
       clientApp.bootstrap(clientContainer);
+    });
+    expect(onClientFn.mock.calls.length).toBe(1);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(0);
+    expect(onServerFn.mock.calls.length).toBe(1);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(0);
+    expect(clientContainer.querySelector('#count')?.textContent).toBe('0');
+
+    act(() => {
+      serverContainer
+        .querySelector('#increase')!
+        .dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    });
+
+    expect(onClientFn.mock.calls.length).toBe(1);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(1);
+    expect(onServerFn.mock.calls.length).toBe(1);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(1);
+
+    expect(serverContainer.querySelector('#count')?.textContent).toBe('1');
+    expect(clientContainer.querySelector('#count')?.textContent).toBe('1');
+
+    act(() => {
+      clientContainer
+        .querySelector('#increase')!
+        .dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    });
+
+    expect(onClientFn.mock.calls.length).toBe(1);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(2);
+    expect(onServerFn.mock.calls.length).toBe(1);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(2);
+
+    expect(serverContainer.querySelector('#count')?.textContent).toBe('2');
+    expect(clientContainer.querySelector('#count')?.textContent).toBe('2');
+  });
+
+  test('base server/client port mode in SharedTab', async () => {
+    // if (fs.existsSync(path.resolve(__dirname, '../build/index.js'))) return;
+    let run = false;
+    const fn = jest.fn();
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    useLock = fn;
+    const mockLock = (name: string, callback: Function) => {
+      if (!run) {
+        run = true;
+        return callback();
+      }
+    };
+
+    fn.mockImplementation(mockLock);
+
+    onClientFn = jest.fn();
+    subscribeOnClientFn = jest.fn();
+    onServerFn = jest.fn();
+    subscribeOnServerFn = jest.fn();
+
+    const ports = mockPairPorts();
+    const ports1 = mockPairPorts();
+
+    const sharedApp0 = await createSharedApp({
+      modules: [],
+      main: AppView,
+      render,
+      share: {
+        name: 'counter',
+        type: 'SharedTab',
+        transports: {
+          server: createTransport('Base', ports[0]),
+          client: createTransport('Base', ports1[0]),
+        },
+      },
+    });
+    expect(onClientFn.mock.calls.length).toBe(0);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(0);
+    expect(onServerFn.mock.calls.length).toBe(1);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(0);
+    act(() => {
+      sharedApp0.bootstrap(serverContainer);
+    });
+    expect(onClientFn.mock.calls.length).toBe(0);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(0);
+    expect(onServerFn.mock.calls.length).toBe(1);
+    // expect(subscribeOnServerFn.mock.calls.length).toBe(1);
+    expect(serverContainer.querySelector('#count')?.textContent).toBe('0');
+
+    const sharedApp1 = await createSharedApp({
+      modules: [],
+      main: AppView,
+      render,
+      share: {
+        name: 'counter',
+        type: 'SharedTab',
+        transports: {
+          server: createTransport('Base', ports1[0]),
+          client: createTransport('Base', ports[1]),
+        },
+      },
+    });
+
+    expect(onClientFn.mock.calls.length).toBe(1);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(0);
+    expect(onServerFn.mock.calls.length).toBe(1);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(0);
+
+    act(() => {
+      sharedApp1.bootstrap(clientContainer);
     });
     expect(onClientFn.mock.calls.length).toBe(1);
     expect(subscribeOnClientFn.mock.calls.length).toBe(0);
