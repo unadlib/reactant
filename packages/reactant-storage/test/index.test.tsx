@@ -30,6 +30,30 @@ afterEach(() => {
   container.remove();
 });
 
+class MemoryStorage {
+  constructor(public data: Record<string, any> = {}) {}
+
+  getItem(key: string): Promise<string> {
+    return new Promise((resolve) => {
+      resolve(this.data[key]);
+    });
+  }
+
+  setItem(key: string, item: string) {
+    return new Promise((resolve) => {
+      this.data[key] = item;
+      resolve(undefined);
+    });
+  }
+
+  removeItem(key: string) {
+    return new Promise((resolve) => {
+      delete this.data[key];
+      resolve(undefined);
+    });
+  }
+}
+
 describe('base API', () => {
   test('base persistence module', async () => {
     @injectable({
@@ -105,26 +129,8 @@ describe('base API', () => {
         return <this.dashboardView.component />;
       }
     }
-    const storage = {
-      data: {} as Record<string, any>,
-      getItem(key: string): Promise<string> {
-        return new Promise((resolve) => {
-          resolve(this.data[key]);
-        });
-      },
-      setItem(key: string, item: string): Promise<void> {
-        return new Promise((resolve) => {
-          this.data[key] = item;
-          resolve();
-        });
-      },
-      removeItem(key: string): Promise<void> {
-        return new Promise((resolve) => {
-          delete this.data[key];
-          resolve();
-        });
-      },
-    };
+
+    const storage = new MemoryStorage();
     const app = createApp({
       modules: [
         {
@@ -168,6 +174,7 @@ describe('base API', () => {
   });
 
   test('base persistence module without any state', async () => {
+    const storage = new MemoryStorage();
     @injectable({
       name: 'AppView',
     })
@@ -182,26 +189,6 @@ describe('base API', () => {
       }
     }
 
-    const storage = {
-      data: {} as Record<string, any>,
-      getItem(key: string): Promise<string> {
-        return new Promise((resolve) => {
-          resolve(this.data[key]);
-        });
-      },
-      setItem(key: string, item: string): Promise<void> {
-        return new Promise((resolve) => {
-          this.data[key] = item;
-          resolve();
-        });
-      },
-      removeItem(key: string): Promise<void> {
-        return new Promise((resolve) => {
-          delete this.data[key];
-          resolve();
-        });
-      },
-    };
     expect(() => {
       createApp({
         modules: [
@@ -221,6 +208,8 @@ describe('base API', () => {
   });
 
   test('base persistence module with non-string name', async () => {
+    const storage = new MemoryStorage();
+
     @injectable({
       name: Symbol('') as any,
     })
@@ -240,26 +229,6 @@ describe('base API', () => {
       }
     }
 
-    const storage = {
-      data: {} as Record<string, any>,
-      getItem(key: string): Promise<string> {
-        return new Promise((resolve) => {
-          resolve(this.data[key]);
-        });
-      },
-      setItem(key: string, item: string): Promise<void> {
-        return new Promise((resolve) => {
-          this.data[key] = item;
-          resolve();
-        });
-      },
-      removeItem(key: string): Promise<void> {
-        return new Promise((resolve) => {
-          delete this.data[key];
-          resolve();
-        });
-      },
-    };
     expect(() => {
       createApp({
         modules: [
@@ -279,6 +248,7 @@ describe('base API', () => {
   });
 
   test('base persistence module without setting name', async () => {
+    const storage = new MemoryStorage();
     @injectable()
     class AppView extends ViewModule {
       constructor(public storage: Storage) {
@@ -296,26 +266,6 @@ describe('base API', () => {
       }
     }
 
-    const storage = {
-      data: {} as Record<string, any>,
-      getItem(key: string): Promise<string> {
-        return new Promise((resolve) => {
-          resolve(this.data[key]);
-        });
-      },
-      setItem(key: string, item: string): Promise<void> {
-        return new Promise((resolve) => {
-          this.data[key] = item;
-          resolve();
-        });
-      },
-      removeItem(key: string): Promise<void> {
-        return new Promise((resolve) => {
-          delete this.data[key];
-          resolve();
-        });
-      },
-    };
     expect(() => {
       createApp({
         modules: [
@@ -331,6 +281,45 @@ describe('base API', () => {
       });
     }).toThrow(
       `Module 'AppView' is invalid for using 'setStorage', The parameter 'options.name' of the decorator '@injectable(options)' that decorates the 'AppView' module must be specified as a string.`
+    );
+  });
+
+  test('base persistence all module without setting name', async () => {
+    const storage = new MemoryStorage();
+    @injectable()
+    class AppView extends ViewModule {
+      constructor() {
+        super();
+      }
+
+      @state
+      count = 0;
+
+      component() {
+        return null;
+      }
+    }
+
+    const spy = jest.spyOn(console, 'warn').mockImplementation();
+
+    createApp({
+      modules: [
+        Storage,
+        {
+          provide: StorageOptions,
+          useValue: {
+            storage,
+            blacklist: [],
+          } as IStorageOptions,
+        },
+      ],
+      main: AppView,
+      render,
+    });
+    expect(spy.mock.calls.slice(-1)[0][0]).toMatch(
+      new RegExp(
+        `For state persistence, The '@injectable\\({ name }\\)' in the @@reactant/AppView/.+ module has not been set yet\\.`
+      )
     );
   });
 });

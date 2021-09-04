@@ -98,12 +98,25 @@ class ReactantStorage extends PluginModule {
       set();
     }
     Object.keys(reducers).forEach((key) => {
+      const isTempIdentifier = /^@@reactant\//.test(key);
+      if (isTempIdentifier) {
+        this.blacklist.push(key);
+      }
       const persistConfig = this.persistConfig[key];
       if (persistConfig) {
         const reducer = persistReducer(persistConfig, reducers[key]);
         Object.assign(reducers, {
           [key]: reducer,
         });
+      } else if (this.persistRootConfig.blacklist) {
+        // use blacklist mode
+        if (isTempIdentifier) {
+          if (__DEV__) {
+            console.warn(
+              `For state persistence, The '@injectable({ name })' in the ${key} module has not been set yet.`
+            );
+          }
+        }
       }
     });
     return reducers;
@@ -129,6 +142,7 @@ class ReactantStorage extends PluginModule {
     store.replaceReducer = (reducer: Reducer) => {
       replaceReducer(reducer);
       this.persistor = persistStore(store, null, () => {
+        // TODO: check
         this.rehydrated = true;
         this.onRehydrate?.();
       });

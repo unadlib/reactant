@@ -1,3 +1,7 @@
+/* eslint-disable import/no-extraneous-dependencies */
+import { Storage, StorageOptions, IStorageOptions } from 'reactant-storage';
+import { unmountComponentAtNode, render } from 'reactant-web';
+import { act } from 'react-dom/test-utils';
 import {
   createApp,
   injectable,
@@ -6,11 +10,24 @@ import {
   load,
   ModuleOptions,
   lazy,
+  ViewModule,
 } from '../..';
+
+let container: Element;
+
+beforeEach(() => {
+  container = document.createElement('div');
+  document.body.appendChild(container);
+});
+
+afterEach(() => {
+  unmountComponentAtNode(container);
+  container.remove();
+});
 
 test('base `lazy`', async () => {
   @injectable()
-  class Counter {
+  class Counter extends ViewModule {
     loadTodoModule<T extends ITodo>(module: ModuleOptions<T>) {
       return load(this, [module]);
     }
@@ -25,13 +42,50 @@ test('base `lazy`', async () => {
     increase() {
       this.count += 1;
     }
+
+    component() {
+      return null;
+    }
   }
 
-  const app = createApp({
-    main: Counter,
-    render: () => {
-      //
+  const storage = {
+    data: {} as Record<string, any>,
+    getItem(key: string): Promise<string> {
+      return new Promise((resolve) => {
+        resolve(this.data[key]);
+      });
     },
+    setItem(key: string, item: string): Promise<void> {
+      return new Promise((resolve) => {
+        this.data[key] = item;
+        resolve();
+      });
+    },
+    removeItem(key: string): Promise<void> {
+      return new Promise((resolve) => {
+        delete this.data[key];
+        resolve();
+      });
+    },
+  };
+
+  const app = createApp({
+    modules: [
+      Storage,
+      {
+        provide: StorageOptions,
+        useValue: {
+          storage,
+          blacklist: [],
+        } as IStorageOptions,
+      },
+    ],
+    main: Counter,
+    render,
+  });
+
+  act(() => {
+    app.bootstrap(container);
   });
 
   interface ITodo {
@@ -50,7 +104,10 @@ test('base `lazy`', async () => {
     }
   }
 
-  expect(Object.values(app.store?.getState())).toEqual([{ count: 0 }]);
+  expect(Object.values(app.store?.getState())).toEqual([
+    { count: 0 },
+    { rehydrated: false, version: -1 },
+  ]);
   expect(app.instance.todo).toBeNull();
   await app.instance.loadTodoModule({ provide: 'todo', useClass: Todo });
   expect(app.instance.todo).toBeInstanceOf(Todo);
@@ -60,6 +117,7 @@ test('base `lazy`', async () => {
     {
       list: [],
     },
+    { rehydrated: false, version: -1 },
   ]);
 });
 
