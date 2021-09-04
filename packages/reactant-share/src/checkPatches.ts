@@ -14,19 +14,14 @@ export const checkPatches = (
         oldStateTree
       );
       if (oldState && typeof oldState === 'object') {
-        const length = Array.isArray(oldState)
-          ? oldState.length
-          : Object.keys(oldState).length;
-        if (length > 0) {
-          const state = path.join('.');
-          console.warn(
-            `The state '${state}' operation in the method '${
-              options.method
-            }' of the module '${String(
-              options.type
-            )}'  is a replacement update operation, be sure to check the state '${state}' update operation and use mutation updates to ensure the minimum set of update patches.`
-          );
-        }
+        const state = path.join('.');
+        console.warn(
+          `The state '${state}' operation in the method '${
+            options.method
+          }' of the module '${String(
+            options.type
+          )}'  is a replacement update operation, be sure to check the state '${state}' update operation and use mutation updates to ensure the minimum set of update patches.`
+        );
       }
     }
   });
