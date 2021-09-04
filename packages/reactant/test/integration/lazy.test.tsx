@@ -104,8 +104,9 @@ test('base `lazy` without cache', async () => {
   class Foobar {}
   @injectable()
   class Counter {
-    loadTodoModule<T extends Todo>(module: ModuleOptions<T>) {
-      return load(this, [module]);
+    async loadTodoModule<T extends Todo>(module: ModuleOptions<T>) {
+      await new Promise((resolve) => setTimeout(resolve));
+      await load(this, [module]);
     }
 
     @lazy('todo', false)

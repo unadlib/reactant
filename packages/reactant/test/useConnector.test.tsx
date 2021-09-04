@@ -150,7 +150,10 @@ describe('useConnector', () => {
 
     const app = createApp({
       modules: [],
-      main: FooView,
+      main: {
+        provide: 'FooView',
+        useClass: FooView,
+      },
       render,
     });
     expect(() => {
