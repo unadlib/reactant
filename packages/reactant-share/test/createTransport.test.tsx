@@ -126,7 +126,7 @@ describe('base', () => {
       );
     }
   }
-  test('base server/client port mode with broadcast-channel in SharedTab', async () => {
+  test.skip('base server/client port mode with broadcast-channel in SharedTab', async () => {
     onClientFn = jest.fn();
     subscribeOnClientFn = jest.fn();
     onServerFn = jest.fn();

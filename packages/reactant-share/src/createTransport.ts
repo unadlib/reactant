@@ -10,6 +10,10 @@ export const createBroadcastTransport = (name: string) => {
       broadcastChannel.onmessage = (data) => {
         callback(data);
       };
+      return () => {
+        broadcastChannel.onmessage = null;
+        return broadcastChannel.close();
+      };
     },
     sender: (message) => broadcastChannel.postMessage(message),
     prefix: `reactant-share:${name}`,

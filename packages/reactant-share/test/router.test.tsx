@@ -492,7 +492,7 @@ describe('SharedWorker', () => {
   });
 });
 
-describe.only('ServiceWorker', () => {
+describe('ServiceWorker', () => {
   let onClientFn: jest.Mock<any, any>;
   let subscribeOnClientFn: jest.Mock<any, any>;
 
