@@ -18,18 +18,6 @@ import {
 import { render, unmountComponentAtNode } from 'reactant-web';
 import { Storage, StorageOptions, IStorageOptions } from '..';
 
-let container: Element;
-
-beforeEach(() => {
-  container = document.createElement('div');
-  document.body.appendChild(container);
-});
-
-afterEach(() => {
-  unmountComponentAtNode(container);
-  container.remove();
-});
-
 class MemoryStorage {
   constructor(public data: Record<string, any> = {}) {}
 
@@ -53,6 +41,18 @@ class MemoryStorage {
     });
   }
 }
+
+let container: Element;
+
+beforeEach(() => {
+  container = document.createElement('div');
+  document.body.appendChild(container);
+});
+
+afterEach(() => {
+  unmountComponentAtNode(container);
+  container.remove();
+});
 
 describe('base API', () => {
   test('base persistence module', async () => {
