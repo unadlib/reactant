@@ -590,10 +590,10 @@
         "title": "Routing"
       },
       "shared-app-persistence": {
-        "title": "Shared App Persistence"
+        "title": "Persistence"
       },
       "shared-app-routing": {
-        "title": "Shared App Routing"
+        "title": "Routing"
       },
       "shared-app": {
         "title": "Shared App"
