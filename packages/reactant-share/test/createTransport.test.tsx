@@ -126,6 +126,7 @@ describe('base', () => {
       );
     }
   }
+  // TODO: broadcast-channel leaks.
   test.skip('base server/client port mode with broadcast-channel in SharedTab', async () => {
     onClientFn = jest.fn();
     subscribeOnClientFn = jest.fn();

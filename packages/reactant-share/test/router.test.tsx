@@ -476,7 +476,7 @@ describe('SharedWorker', () => {
     expect(subscribeOnClientFn.mock.calls.length).toBe(2);
     expect(onServerFn.mock.calls.length).toBe(1);
     expect(subscribeOnServerFn.mock.calls.length).toBe(0);
-    expect((serverApp.instance as AppView).router.currentPath).toBe('/counter');
+    expect(serverApp.instance.router.currentPath).toBe('/counter');
     expect(clientContainer.querySelector('#content')?.textContent).toBe('0+');
 
     act(() => {
@@ -487,7 +487,7 @@ describe('SharedWorker', () => {
 
     await new Promise((resolve) => setTimeout(resolve));
 
-    expect((serverApp.instance as AppView).router.currentPath).toBe('/');
+    expect(serverApp.instance.router.currentPath).toBe('/');
     expect(clientContainer.querySelector('#content')?.textContent).toBe('home');
   });
 });
@@ -713,7 +713,7 @@ describe('ServiceWorker', () => {
     expect(subscribeOnClientFn.mock.calls.length).toBe(2);
     expect(onServerFn.mock.calls.length).toBe(1);
     expect(subscribeOnServerFn.mock.calls.length).toBe(0);
-    expect((serverApp.instance as AppView).router.currentPath).toBe('/counter');
+    expect(serverApp.instance.router.currentPath).toBe('/counter');
     expect(clientContainer.querySelector('#content')?.textContent).toBe('0+');
 
     act(() => {
@@ -722,7 +722,7 @@ describe('ServiceWorker', () => {
         .dispatchEvent(new MouseEvent('click', { bubbles: true }));
     });
     await new Promise((resolve) => setTimeout(resolve));
-    expect((serverApp.instance as AppView).router.currentPath).toBe('/');
+    expect(serverApp.instance.router.currentPath).toBe('/');
     expect(clientContainer.querySelector('#content')?.textContent).toBe('home');
 
     act(() => {
@@ -731,7 +731,7 @@ describe('ServiceWorker', () => {
         .dispatchEvent(new MouseEvent('click', { bubbles: true }));
     });
     await new Promise((resolve) => setTimeout(resolve));
-    expect((serverApp.instance as AppView).router.currentPath).toBe('/counter');
+    expect(serverApp.instance.router.currentPath).toBe('/counter');
     expect(clientContainer.querySelector('#content')?.textContent).toBe('0+');
 
     act(() => {
@@ -741,7 +741,7 @@ describe('ServiceWorker', () => {
     });
     await new Promise((resolve) => setTimeout(resolve));
     // todo: mock
-    // expect((serverApp.instance as AppView).router.currentPath).toBe('/counter');
+    // expect(serverApp.instance.router.currentPath).toBe('/counter');
     expect(clientContainer.querySelector('#content')?.textContent).toBe('0+');
 
     act(() => {
@@ -751,7 +751,7 @@ describe('ServiceWorker', () => {
     });
     await new Promise((resolve) => setTimeout(resolve));
     // todo: mock
-    // expect((serverApp.instance as AppView).router.currentPath).toBe('/');
+    // expect(serverApp.instance.router.currentPath).toBe('/');
     expect(clientContainer.querySelector('#content')?.textContent).toBe('home');
 
     act(() => {
@@ -761,7 +761,7 @@ describe('ServiceWorker', () => {
     });
     await new Promise((resolve) => setTimeout(resolve));
     // todo: mock
-    // expect((serverApp.instance as AppView).router.currentPath).toBe('/counter');
+    // expect(serverApp.instance.router.currentPath).toBe('/counter');
     expect(clientContainer.querySelector('#content')?.textContent).toBe('0+');
   });
 });

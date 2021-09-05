@@ -28,7 +28,7 @@ import { useLock } from './lock';
 const createBaseApp = <T>({
   share,
   ...options
-}: Config<T>): Promise<App<any>> => {
+}: Config<T>): Promise<App<T>> => {
   options.modules ??= [];
   options.devOptions ??= {};
   options.devOptions.enablePatches = true;
@@ -54,7 +54,7 @@ const createBaseApp = <T>({
   );
 
   return new Promise(async (resolve) => {
-    let app: App<any>;
+    let app: App<T>;
     let disposeServer: (() => void) | undefined;
     let disposeClient: (() => void) | undefined;
     const serverTransport = share.transports?.server;
@@ -140,9 +140,9 @@ const createSharedTabApp = async <T>(options: Config<T>) => {
     const app = await createBaseApp(options);
     return app;
   }
-  let app: App<any>;
+  let app: App<T>;
   app = await Promise.race([
-    new Promise<App<any>>((resolve) => {
+    new Promise<App<T>>((resolve) => {
       useLock(`reactant-share-app-lock:${options.share.name}`, async () => {
         if (!app) {
           options.share.port = 'server';
@@ -156,7 +156,7 @@ const createSharedTabApp = async <T>(options: Config<T>) => {
         });
       });
     }),
-    new Promise<App<any>>(async (resolve) => {
+    new Promise<App<T>>(async (resolve) => {
       const isClient = await options.share.transports?.client?.emit(
         isClientName
       );
@@ -242,7 +242,7 @@ const createSharedTabApp = async <T>(options: Config<T>) => {
  * ```
  */
 export const createSharedApp = async <T>(options: Config<T>) => {
-  let app: App<any>;
+  let app: App<T>;
   let transports: Transports;
   switch (options.share.type) {
     case 'BrowserExtension':
