@@ -8,7 +8,7 @@ import {
 } from 'reactant';
 import { LastAction } from 'reactant-last-action';
 import { Storage } from './storage';
-import { loadFullStateActionName, syncToClientsName } from './constants';
+import { loadFullStateActionName } from './constants';
 import {
   CallbackWithHook,
   ClientTransport,
@@ -61,19 +61,8 @@ export class PortDetector {
       });
     }
 
-    this.onClient((transport) => {
+    this.onClient(() => {
       this.syncFullState();
-      return transport.listen(syncToClientsName, async (fullState) => {
-        if (!fullState) return;
-        const store = (this as Service)[storeKey];
-        store!.dispatch({
-          type: `${actionIdentifier}_${loadFullStateActionName}`,
-          state: fullState,
-          _reactant: actionIdentifier,
-        });
-        this.lastAction.sequence =
-          fullState[this.lastAction.stateKey]._sequence;
-      });
     });
   }
 
@@ -158,20 +147,6 @@ export class PortDetector {
       } catch (e) {
         console.error(e);
       }
-    }
-  }
-
-  syncToClients() {
-    const store = (this as Service)[storeKey];
-    if (this.transports.server) {
-      this.transports.server?.emit(
-        { name: syncToClientsName, respond: false },
-        store!.getState()
-      );
-    } else {
-      throw new Error(
-        `Failed to 'syncToClients()', 'transports.server' does not exist.`
-      );
     }
   }
 

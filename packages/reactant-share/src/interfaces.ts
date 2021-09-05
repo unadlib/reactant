@@ -10,7 +10,6 @@ import {
   proxyClientActionName,
   routerChangeName,
   syncRouterName,
-  syncToClientsName,
 } from './constants';
 import type { RouterChangeNameOptions } from './router';
 
@@ -113,9 +112,6 @@ export type ActionOptions = Pick<
 export interface ServerTransport {
   [lastActionName](options: ActionOptions): Promise<void>;
   [routerChangeName](options: RouterChangeNameOptions): Promise<RouterState>;
-  [syncToClientsName](
-    options: Record<string, any> | null | undefined
-  ): Promise<void>;
 }
 
 export interface ProxyClientOptions {
