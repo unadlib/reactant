@@ -492,7 +492,7 @@ describe('SharedWorker', () => {
   });
 });
 
-describe('ServiceWorker', () => {
+describe.only('ServiceWorker', () => {
   let onClientFn: jest.Mock<any, any>;
   let subscribeOnClientFn: jest.Mock<any, any>;
 
@@ -740,7 +740,8 @@ describe('ServiceWorker', () => {
         .dispatchEvent(new MouseEvent('click', { bubbles: true }));
     });
     await new Promise((resolve) => setTimeout(resolve));
-    // expect((serverApp.instance as AppView).router.currentPath).toBe('/');
+    // todo: mock
+    // expect((serverApp.instance as AppView).router.currentPath).toBe('/counter');
     expect(clientContainer.querySelector('#content')?.textContent).toBe('0+');
 
     act(() => {
@@ -749,6 +750,7 @@ describe('ServiceWorker', () => {
         .dispatchEvent(new MouseEvent('click', { bubbles: true }));
     });
     await new Promise((resolve) => setTimeout(resolve));
+    // todo: mock
     // expect((serverApp.instance as AppView).router.currentPath).toBe('/');
     expect(clientContainer.querySelector('#content')?.textContent).toBe('home');
 
@@ -758,7 +760,8 @@ describe('ServiceWorker', () => {
         .dispatchEvent(new MouseEvent('click', { bubbles: true }));
     });
     await new Promise((resolve) => setTimeout(resolve));
-    // expect((serverApp.instance as AppView).router.currentPath).toBe('/');
+    // todo: mock
+    // expect((serverApp.instance as AppView).router.currentPath).toBe('/counter');
     expect(clientContainer.querySelector('#content')?.textContent).toBe('0+');
   });
 });
