@@ -1,4 +1,5 @@
 import { applyPatches } from 'immer';
+import { Middleware } from 'redux';
 import {
   injectable,
   createContainer,
@@ -6,9 +7,8 @@ import {
   createStore,
   action,
   getStagedState,
-  ReactantMiddleware,
-  PluginModule,
   enablePatchesKey,
+  spawnMiddlewares,
 } from '../..';
 
 describe('@action', () => {
@@ -420,15 +420,13 @@ describe('@action', () => {
 
     const actionFn = jest.fn();
 
-    class Logger extends PluginModule {
-      middleware: ReactantMiddleware = (store) => (next) => (_action) => {
-        actionFn(_action);
-        return next(_action);
-      };
-    }
+    const middleware: Middleware = (store) => (next) => (_action) => {
+      actionFn(_action);
+      return next(_action);
+    };
 
     const ServiceIdentifiers = new Map();
-    const modules = [TodoList, Logger];
+    const modules = [TodoList, spawnMiddlewares(middleware)];
     const container = createContainer({
       ServiceIdentifiers,
       modules,
