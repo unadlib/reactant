@@ -3,6 +3,7 @@ import { mockPairPorts } from 'data-transport';
 import { unmountComponentAtNode, render } from 'reactant-web';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { act } from 'react-dom/test-utils';
+import { BroadcastChannel } from 'broadcast-channel';
 import {
   injectable,
   state,
@@ -13,7 +14,6 @@ import {
   createSharedApp,
   proxy,
   PortDetector,
-  createTransport,
   optional,
 } from '..';
 
@@ -40,18 +40,11 @@ describe('base', () => {
   })
   class TodoList {
     @state
-    list: number[] = [1];
+    list: number[] = [];
 
     @action
     add(num: number) {
-      // ✅ good practice
       this.list.push(num);
-    }
-
-    @action
-    add1(num: number) {
-      // ❌ bad practice
-      this.list = [...this.list, num];
     }
   }
 
@@ -87,20 +80,11 @@ describe('base', () => {
     count = 0;
 
     @state
-    obj: Record<string, number> = {
-      c: 1,
-    };
-
-    @state
-    obj1: Record<string, number> = {};
-
-    @state
-    arr1: number[] = [];
+    obj: Record<string, number> = {};
 
     @action
     increase() {
       this.count += 1;
-      // ✅ good practice
       this.obj.number = this.count;
       this.todoList?.add(this.count);
     }
@@ -108,11 +92,6 @@ describe('base', () => {
     @action
     decrease() {
       this.count -= 1;
-      // ❌ bad practice
-      this.obj = {
-        number: this.count,
-      };
-      this.todoList?.add1(this.count);
     }
   }
 
@@ -149,27 +128,33 @@ describe('base', () => {
       );
     }
   }
-
-  test('base checkPatches', async () => {
-    const ports = mockPairPorts();
+  test('base server/client port mode with broadcast-channel in SharedTab', async () => {
+    onClientFn = jest.fn();
+    subscribeOnClientFn = jest.fn();
+    onServerFn = jest.fn();
+    subscribeOnServerFn = jest.fn();
 
     const serverApp = await createSharedApp({
-      modules: [{ provide: 'todoList', useClass: TodoList }],
+      modules: [],
       main: AppView,
       render,
       share: {
         name: 'counter',
-        type: 'Base',
+        type: 'SharedTab',
         port: 'server',
-        transports: {
-          server: createTransport('Base', ports[0]),
-        },
-        enablePatchesChecker: true,
       },
     });
+    expect(onClientFn.mock.calls.length).toBe(0);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(0);
+    expect(onServerFn.mock.calls.length).toBe(1);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(0);
     act(() => {
       serverApp.bootstrap(serverContainer);
     });
+    expect(onClientFn.mock.calls.length).toBe(0);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(0);
+    expect(onServerFn.mock.calls.length).toBe(1);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(0);
     expect(serverContainer.querySelector('#count')?.textContent).toBe('0');
 
     const clientApp = await createSharedApp({
@@ -178,41 +163,58 @@ describe('base', () => {
       render,
       share: {
         name: 'counter',
-        type: 'Base',
+        type: 'SharedTab',
         port: 'client',
-        transports: {
-          client: createTransport('Base', ports[1]),
-        },
-        enablePatchesFilter: true,
       },
     });
+
+    expect(onClientFn.mock.calls.length).toBe(1);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(0);
+    expect(onServerFn.mock.calls.length).toBe(1);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(0);
+
+    await new Promise((resolve) => setTimeout(resolve, 500));
+
     act(() => {
       clientApp.bootstrap(clientContainer);
     });
-    const spy = jest.spyOn(console, 'warn').mockImplementation();
-    expect(spy.mock.calls).toEqual([]);
+
+    expect(onClientFn.mock.calls.length).toBe(1);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(0);
+    expect(onServerFn.mock.calls.length).toBe(1);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(0);
+    expect(clientContainer.querySelector('#count')?.textContent).toBe('0');
 
     act(() => {
       serverContainer
         .querySelector('#increase')!
         .dispatchEvent(new MouseEvent('click', { bubbles: true }));
     });
+
+    await new Promise((resolve) => setTimeout(resolve, 500));
+
+    expect(onClientFn.mock.calls.length).toBe(1);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(1);
+    expect(onServerFn.mock.calls.length).toBe(1);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(1);
+
     expect(serverContainer.querySelector('#count')?.textContent).toBe('1');
-    expect(spy.mock.calls).toEqual([]);
+    expect(clientContainer.querySelector('#count')?.textContent).toBe('1');
 
     act(() => {
-      serverContainer
-        .querySelector('#decrease')!
+      clientContainer
+        .querySelector('#increase')!
         .dispatchEvent(new MouseEvent('click', { bubbles: true }));
     });
-    expect(serverContainer.querySelector('#count')?.textContent).toBe('0');
-    expect(spy.mock.calls).toEqual([
-      [
-        "The state 'counter.obj' operation in the method 'decrease' of the module 'counter'  is a replacement update operation, be sure to check the state 'counter.obj' update operation and use mutation updates to ensure the minimum set of update patches.",
-      ],
-      [
-        "The state 'todoList.list' operation in the method 'decrease' of the module 'counter'  is a replacement update operation, be sure to check the state 'todoList.list' update operation and use mutation updates to ensure the minimum set of update patches.",
-      ],
-    ]);
+
+    await new Promise((resolve) => setTimeout(resolve, 500));
+
+    expect(onClientFn.mock.calls.length).toBe(1);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(2);
+    expect(onServerFn.mock.calls.length).toBe(1);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(2);
+
+    expect(serverContainer.querySelector('#count')?.textContent).toBe('2');
+    expect(clientContainer.querySelector('#count')?.textContent).toBe('2');
   });
 });

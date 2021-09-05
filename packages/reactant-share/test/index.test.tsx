@@ -1,5 +1,3 @@
-import fs from 'fs';
-import path from 'path';
 import React from 'react';
 import { mockPairPorts } from 'data-transport';
 import { unmountComponentAtNode, render } from 'reactant-web';
@@ -18,7 +16,6 @@ import {
   createTransport,
   optional,
 } from '..';
-import { useLock } from '../src/lock';
 
 let serverContainer: Element;
 let clientContainer: Element;
@@ -167,7 +164,7 @@ describe('base', () => {
     expect(onClientFn.mock.calls.length).toBe(0);
     expect(subscribeOnClientFn.mock.calls.length).toBe(0);
     expect(onServerFn.mock.calls.length).toBe(1);
-    // expect(subscribeOnServerFn.mock.calls.length).toBe(1);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(0);
     expect(serverContainer.querySelector('#count')?.textContent).toBe('0');
 
     const clientApp = await createSharedApp({
