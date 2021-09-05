@@ -228,22 +228,6 @@ describe('base', () => {
   });
 
   test('base server/client port mode in SharedTab', async () => {
-    // if (fs.existsSync(path.resolve(__dirname, '../build/index.js'))) return;
-    let run = false;
-    const fn = jest.fn();
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    useLock = fn;
-    const mockLock = (name: string, callback: Function) => {
-      if (!run) {
-        run = true;
-        return callback();
-      }
-    };
-
-    fn.mockImplementation(mockLock);
-
     onClientFn = jest.fn();
     subscribeOnClientFn = jest.fn();
     onServerFn = jest.fn();
@@ -275,8 +259,10 @@ describe('base', () => {
     expect(onClientFn.mock.calls.length).toBe(0);
     expect(subscribeOnClientFn.mock.calls.length).toBe(0);
     expect(onServerFn.mock.calls.length).toBe(1);
-    // expect(subscribeOnServerFn.mock.calls.length).toBe(1);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(0);
     expect(serverContainer.querySelector('#count')?.textContent).toBe('0');
+
+    await new Promise((resolve) => setTimeout(resolve, 1000 * 3));
 
     const sharedApp1 = await createSharedApp({
       modules: [],
