@@ -16,7 +16,7 @@ sidebar_label: "load()"
 
 ▸ **load**(`service`: [Service](../interfaces/_interfaces_.service.md)‹object› & object, `options`: ValueProvider‹any› | FactoryProvider‹any› | ClassProvider‹any› | ModuleProvider‹any› | Module‹any›[]): *Promise‹Container›*
 
-*Defined in [packages/reactant-module/src/core/load.ts:4](https://github.com/unadlib/reactant/blob/a089af11/packages/reactant-module/src/core/load.ts#L4)*
+*Defined in [packages/reactant-module/src/core/load.ts:4](https://github.com/unadlib/reactant/blob/950d72fe/packages/reactant-module/src/core/load.ts#L4)*
 
 **Parameters:**
 

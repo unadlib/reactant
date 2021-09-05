@@ -23,7 +23,7 @@ sidebar_label: "HandleServerOptions"
 
 • **app**: *App‹any›*
 
-*Defined in [packages/reactant-share/src/interfaces.ts:120](https://github.com/unadlib/reactant/blob/a089af11/packages/reactant-share/src/interfaces.ts#L120)*
+*Defined in [packages/reactant-share/src/interfaces.ts:124](https://github.com/unadlib/reactant/blob/950d72fe/packages/reactant-share/src/interfaces.ts#L124)*
 
 ___
 
@@ -31,7 +31,7 @@ ___
 
 • **disposeClient**? : *undefined | function*
 
-*Defined in [packages/reactant-share/src/interfaces.ts:122](https://github.com/unadlib/reactant/blob/a089af11/packages/reactant-share/src/interfaces.ts#L122)*
+*Defined in [packages/reactant-share/src/interfaces.ts:126](https://github.com/unadlib/reactant/blob/950d72fe/packages/reactant-share/src/interfaces.ts#L126)*
 
 ___
 
@@ -39,7 +39,7 @@ ___
 
 • **enablePatchesChecker**? : *undefined | false | true*
 
-*Defined in [packages/reactant-share/src/interfaces.ts:123](https://github.com/unadlib/reactant/blob/a089af11/packages/reactant-share/src/interfaces.ts#L123)*
+*Defined in [packages/reactant-share/src/interfaces.ts:127](https://github.com/unadlib/reactant/blob/950d72fe/packages/reactant-share/src/interfaces.ts#L127)*
 
 ___
 
@@ -47,4 +47,4 @@ ___
 
 • **transport**: *Transports["server"]*
 
-*Defined in [packages/reactant-share/src/interfaces.ts:121](https://github.com/unadlib/reactant/blob/a089af11/packages/reactant-share/src/interfaces.ts#L121)*
+*Defined in [packages/reactant-share/src/interfaces.ts:125](https://github.com/unadlib/reactant/blob/950d72fe/packages/reactant-share/src/interfaces.ts#L125)*

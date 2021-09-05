@@ -32,7 +32,7 @@ sidebar_label: "interfaces"
 
 Ƭ **ActionOptions**: *Pick‹ILastActionState, Exclude‹keyof ILastActionState, "_inversePatches"››*
 
-*Defined in [packages/reactant-share/src/interfaces.ts:103](https://github.com/unadlib/reactant/blob/a089af11/packages/reactant-share/src/interfaces.ts#L103)*
+*Defined in [packages/reactant-share/src/interfaces.ts:107](https://github.com/unadlib/reactant/blob/950d72fe/packages/reactant-share/src/interfaces.ts#L107)*
 
 ___
 
@@ -40,7 +40,7 @@ ___
 
 Ƭ **Callback**: *function*
 
-*Defined in [packages/reactant-share/src/interfaces.ts:78](https://github.com/unadlib/reactant/blob/a089af11/packages/reactant-share/src/interfaces.ts#L78)*
+*Defined in [packages/reactant-share/src/interfaces.ts:82](https://github.com/unadlib/reactant/blob/950d72fe/packages/reactant-share/src/interfaces.ts#L82)*
 
 #### Type declaration:
 
@@ -52,7 +52,7 @@ ___
 
 Ƭ **CallbackWithHook**: *function*
 
-*Defined in [packages/reactant-share/src/interfaces.ts:80](https://github.com/unadlib/reactant/blob/a089af11/packages/reactant-share/src/interfaces.ts#L80)*
+*Defined in [packages/reactant-share/src/interfaces.ts:84](https://github.com/unadlib/reactant/blob/950d72fe/packages/reactant-share/src/interfaces.ts#L84)*
 
 #### Type declaration:
 
@@ -70,7 +70,7 @@ ___
 
 Ƭ **Port**: *"server" | "client"*
 
-*Defined in [packages/reactant-share/src/interfaces.ts:16](https://github.com/unadlib/reactant/blob/a089af11/packages/reactant-share/src/interfaces.ts#L16)*
+*Defined in [packages/reactant-share/src/interfaces.ts:16](https://github.com/unadlib/reactant/blob/950d72fe/packages/reactant-share/src/interfaces.ts#L16)*
 
 ___
 
@@ -78,7 +78,7 @@ ___
 
 Ƭ **PortApp**: *Partial‹Record‹[Port](_interfaces_.md#port), App‹any›››*
 
-*Defined in [packages/reactant-share/src/interfaces.ts:87](https://github.com/unadlib/reactant/blob/a089af11/packages/reactant-share/src/interfaces.ts#L87)*
+*Defined in [packages/reactant-share/src/interfaces.ts:91](https://github.com/unadlib/reactant/blob/950d72fe/packages/reactant-share/src/interfaces.ts#L91)*
 
 ___
 
@@ -86,7 +86,7 @@ ___
 
 Ƭ **Transform**: *function*
 
-*Defined in [packages/reactant-share/src/interfaces.ts:76](https://github.com/unadlib/reactant/blob/a089af11/packages/reactant-share/src/interfaces.ts#L76)*
+*Defined in [packages/reactant-share/src/interfaces.ts:80](https://github.com/unadlib/reactant/blob/950d72fe/packages/reactant-share/src/interfaces.ts#L80)*
 
 #### Type declaration:
 

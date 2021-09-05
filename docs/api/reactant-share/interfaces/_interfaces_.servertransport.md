@@ -21,7 +21,7 @@ sidebar_label: "ServerTransport"
 
 ▸ **[lastActionName]**(`options`: [ActionOptions](../modules/_interfaces_.md#actionoptions)): *Promise‹void›*
 
-*Defined in [packages/reactant-share/src/interfaces.ts:109](https://github.com/unadlib/reactant/blob/a089af11/packages/reactant-share/src/interfaces.ts#L109)*
+*Defined in [packages/reactant-share/src/interfaces.ts:113](https://github.com/unadlib/reactant/blob/950d72fe/packages/reactant-share/src/interfaces.ts#L113)*
 
 **Parameters:**
 
@@ -37,7 +37,7 @@ ___
 
 ▸ **[routerChangeName]**(`options`: [RouterChangeNameOptions](../modules/_router_.md#routerchangenameoptions)): *Promise‹RouterState›*
 
-*Defined in [packages/reactant-share/src/interfaces.ts:110](https://github.com/unadlib/reactant/blob/a089af11/packages/reactant-share/src/interfaces.ts#L110)*
+*Defined in [packages/reactant-share/src/interfaces.ts:114](https://github.com/unadlib/reactant/blob/950d72fe/packages/reactant-share/src/interfaces.ts#L114)*
 
 **Parameters:**
 

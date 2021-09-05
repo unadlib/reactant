@@ -25,7 +25,7 @@ sidebar_label: "ModuleProvider"
 
 • **deps**? : *string | symbol | object | Abstract‹any› | [Optional](../classes/_optional_.optional.md)‹›[]*
 
-*Defined in [packages/reactant-di/src/interfaces.ts:52](https://github.com/unadlib/reactant/blob/a089af11/packages/reactant-di/src/interfaces.ts#L52)*
+*Defined in [packages/reactant-di/src/interfaces.ts:52](https://github.com/unadlib/reactant/blob/950d72fe/packages/reactant-di/src/interfaces.ts#L52)*
 
 ___
 
@@ -33,4 +33,4 @@ ___
 
 • **provide**: *[Module](_interfaces_.module.md)‹T›*
 
-*Defined in [packages/reactant-di/src/interfaces.ts:51](https://github.com/unadlib/reactant/blob/a089af11/packages/reactant-di/src/interfaces.ts#L51)*
+*Defined in [packages/reactant-di/src/interfaces.ts:51](https://github.com/unadlib/reactant/blob/950d72fe/packages/reactant-di/src/interfaces.ts#L51)*

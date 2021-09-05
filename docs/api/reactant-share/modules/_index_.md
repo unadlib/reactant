@@ -17,6 +17,7 @@ sidebar_label: "index"
 * [Storage](_index_.md#storage)
 * [createSharedApp](_index_.md#createsharedapp)
 * [proxy](_index_.md#proxy)
+* [useLock](_index_.md#uselock)
 
 ## References
 
@@ -71,3 +72,9 @@ ___
 ###  proxy
 
 • **proxy**:
+
+___
+
+###  useLock
+
+• **useLock**:

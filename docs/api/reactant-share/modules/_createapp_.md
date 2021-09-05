@@ -16,9 +16,9 @@ sidebar_label: "createSharedApp()"
 
 ### `Const` createBaseApp
 
-▸ **createBaseApp**<**T**>(`__namedParameters`: object): *Promise‹App‹any››*
+▸ **createBaseApp**<**T**>(`__namedParameters`: object): *Promise‹App‹T››*
 
-*Defined in [packages/reactant-share/src/createApp.ts:28](https://github.com/unadlib/reactant/blob/a089af11/packages/reactant-share/src/createApp.ts#L28)*
+*Defined in [packages/reactant-share/src/createApp.ts:28](https://github.com/unadlib/reactant/blob/950d72fe/packages/reactant-share/src/createApp.ts#L28)*
 
 **Type parameters:**
 
@@ -33,15 +33,15 @@ Name | Type |
 `options` | options |
 `share` | [ISharedAppOptions](../interfaces/_interfaces_.isharedappoptions.md) |
 
-**Returns:** *Promise‹App‹any››*
+**Returns:** *Promise‹App‹T››*
 
 ___
 
 ### `Const` createSharedApp
 
-▸ **createSharedApp**<**T**>(`options`: [Config](../interfaces/_interfaces_.config.md)‹T›): *Promise‹App‹any››*
+▸ **createSharedApp**<**T**>(`options`: [Config](../interfaces/_interfaces_.config.md)‹T›): *Promise‹App‹T››*
 
-*Defined in [packages/reactant-share/src/createApp.ts:244](https://github.com/unadlib/reactant/blob/a089af11/packages/reactant-share/src/createApp.ts#L244)*
+*Defined in [packages/reactant-share/src/createApp.ts:244](https://github.com/unadlib/reactant/blob/950d72fe/packages/reactant-share/src/createApp.ts#L244)*
 
 ## Description
 
@@ -123,15 +123,15 @@ Name | Type |
 ------ | ------ |
 `options` | [Config](../interfaces/_interfaces_.config.md)‹T› |
 
-**Returns:** *Promise‹App‹any››*
+**Returns:** *Promise‹App‹T››*
 
 ___
 
 ### `Const` createSharedTabApp
 
-▸ **createSharedTabApp**<**T**>(`options`: [Config](../interfaces/_interfaces_.config.md)‹T›): *Promise‹App‹any››*
+▸ **createSharedTabApp**<**T**>(`options`: [Config](../interfaces/_interfaces_.config.md)‹T›): *Promise‹App‹T››*
 
-*Defined in [packages/reactant-share/src/createApp.ts:120](https://github.com/unadlib/reactant/blob/a089af11/packages/reactant-share/src/createApp.ts#L120)*
+*Defined in [packages/reactant-share/src/createApp.ts:120](https://github.com/unadlib/reactant/blob/950d72fe/packages/reactant-share/src/createApp.ts#L120)*
 
 **Type parameters:**
 
@@ -143,4 +143,4 @@ Name | Type |
 ------ | ------ |
 `options` | [Config](../interfaces/_interfaces_.config.md)‹T› |
 
-**Returns:** *Promise‹App‹any››*
+**Returns:** *Promise‹App‹T››*

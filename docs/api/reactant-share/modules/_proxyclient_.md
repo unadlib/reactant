@@ -16,7 +16,7 @@ sidebar_label: "proxyClient"
 
 ▸ **proxyClient**(`app`: App‹any›, `options`: object): *any*
 
-*Defined in [packages/reactant-share/src/proxyClient.ts:4](https://github.com/unadlib/reactant/blob/a089af11/packages/reactant-share/src/proxyClient.ts#L4)*
+*Defined in [packages/reactant-share/src/proxyClient.ts:4](https://github.com/unadlib/reactant/blob/950d72fe/packages/reactant-share/src/proxyClient.ts#L4)*
 
 **Parameters:**
 
