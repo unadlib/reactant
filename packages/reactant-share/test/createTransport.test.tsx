@@ -1,9 +1,7 @@
 import React from 'react';
-import { mockPairPorts } from 'data-transport';
 import { unmountComponentAtNode, render } from 'reactant-web';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { act } from 'react-dom/test-utils';
-import { BroadcastChannel } from 'broadcast-channel';
 import {
   injectable,
   state,
