@@ -6,6 +6,7 @@ import {
   ReactantStore,
   ReactantAction,
   optional,
+  actionIdentifier,
 } from 'reactant-module';
 import { ReducersMapObject } from 'redux';
 
@@ -48,28 +49,39 @@ class ReactantLastAction extends PluginModule {
       [this.stateKey]: (
         _state: ILastActionState | null = null,
         {
-          // ignore inversePatches
           _inversePatches,
           state,
           rehydrate,
           register,
           ...action
         }: ILastActionState & { rehydrate: any; register: any }
-      ) => ({
-        ...action,
+      ) => {
         // ignore redux-persist property function in the action
-        ...(typeof rehydrate === 'function' ||
-        typeof rehydrate === 'undefined' ||
-        rehydrate === null
-          ? {}
-          : { rehydrate }),
-        ...(typeof register === 'function' ||
-        typeof register === 'undefined' ||
-        register === null
-          ? {}
-          : { register }),
-        _sequence: (_state?._sequence ?? 0) + 1,
-      }),
+        const rehydrateObj =
+          typeof rehydrate === 'function' ||
+          typeof rehydrate === 'undefined' ||
+          rehydrate === null
+            ? {}
+            : { rehydrate };
+        const registerObj =
+          typeof register === 'function' ||
+          typeof register === 'undefined' ||
+          register === null
+            ? {}
+            : { register };
+        // ignore inversePatches and state
+        const reactantObj =
+          action._reactant === actionIdentifier
+            ? {}
+            : { state, _inversePatches };
+        return {
+          ...action,
+          ...rehydrateObj,
+          ...registerObj,
+          ...reactantObj,
+          _sequence: (_state?._sequence ?? 0) + 1,
+        };
+      },
     });
   }
 
