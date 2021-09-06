@@ -485,13 +485,15 @@ describe('base API', () => {
 
     @injectable()
     class HomeView1 extends ViewModule {
+      updateListAction = 'update_list';
+
       @state
-      list = createState<{ count: number }[], ReactantAction>(
-        // eslint-disable-next-line no-shadow
-        (_state = [{ count: 1 }], { type, state }) =>
-          type === (this as any)[identifierKey]
-            ? state[(this as any)[identifierKey]!].list
-            : _state
+      list = createState<{ count: number }[]>(
+        ($state = [{ count: 1 }], $action) => {
+          return $action.type === this.updateListAction
+            ? $action.state
+            : $state;
+        }
       );
 
       @state
@@ -502,14 +504,13 @@ describe('base API', () => {
 
       increase() {
         dispatch(this, {
-          state: {
-            list: [
-              {
-                count: this.list![0].count + 1,
-              },
-              ...this.list!.slice(1, -1),
-            ],
-          },
+          type: this.updateListAction,
+          state: [
+            {
+              count: this.list![0].count + 1,
+            },
+            ...this.list!.slice(1, -1),
+          ],
         });
       }
 
@@ -549,14 +550,13 @@ describe('base API', () => {
       increase() {
         super.increase();
         dispatch(this, {
-          state: {
-            list: [
-              {
-                count: this.list![0].count + 1,
-              },
-              ...this.list!.slice(1, -1),
-            ],
-          },
+          type: this.updateListAction,
+          state: [
+            {
+              count: this.list![0].count + 1,
+            },
+            ...this.list!.slice(1, -1),
+          ],
         });
       }
     }

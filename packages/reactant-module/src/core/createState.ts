@@ -12,23 +12,24 @@ import { Reducer, Action, AnyAction } from 'redux';
  * ```ts
  * const type = 'count_increase';
  *
+ * interface CountAction {
+ *  type: typeof type;
+ *  state: number;
+ * }
+ *
  * @injectable()
  * class Counter {
- *   @state
- *   count = createState<number, ReactantAction>((state = 0, action) =>
- *     action.type === type
- *       ? action.state[this[identifierKey]].count
- *       : state
- *   );
+ *  @state
+ *  count = createState<CountAction['state'], CountAction>(
+ *    ($state = 0, $action) => ($action.type === type ? $action.state : $state)
+ *  );
  *
- *   increase() {
- *     dispatch(this, {
- *       type,
- *       state: {
- *         count: this.count + 1,
- *       },
- *     });
- *   }
+ *  increase() {
+ *    dispatch<CountAction>(this, {
+ *      type,
+ *      state: this.count + 1,
+ *    });
+ *  }
  * }
  *
  * const app = createApp({

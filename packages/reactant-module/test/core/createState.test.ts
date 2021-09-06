@@ -6,18 +6,13 @@ import {
   action,
   state,
   ReactantAction,
-  identifierKey,
 } from '../..';
 
 test('`createState` with type', () => {
   @injectable()
   class Counter {
     @state
-    count = createState<number, ReactantAction>((_state = 0, _action) =>
-      _action.type === (this as any)[identifierKey]
-        ? _action.state[(this as any)[identifierKey]!].count
-        : _state
-    );
+    count = createState<number, ReactantAction>(($state = 0) => $state);
 
     @action
     increase() {

@@ -12,6 +12,8 @@ import {
   createStore as createStoreWithRedux,
   PreloadedState,
   applyMiddleware,
+  Reducer,
+  AnyAction,
 } from 'redux';
 import type {
   Container,
@@ -157,8 +159,19 @@ export function createStore<T = any>(
                 const value = initState[key];
                 // support pure reducer
                 if (typeof value === 'function') {
+                  const pureReducer: Reducer = value;
+                  const _initState = pureReducer(undefined, {} as AnyAction);
+                  const reducer = (
+                    state = _initState,
+                    action: ReactantAction
+                  ) => {
+                    return action._reactant === actionIdentifier &&
+                      action.state[identifier!]
+                      ? action.state[identifier!][key]
+                      : pureReducer(state, action);
+                  };
                   return Object.assign(serviceReducersMapObject, {
-                    [key]: value,
+                    [key]: reducer,
                   });
                 }
                 const reducer = (state = value, action: ReactantAction) => {

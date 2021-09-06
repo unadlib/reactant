@@ -1,10 +1,6 @@
-import { ThisService, ReactantAction } from '../interfaces';
-import {
-  storeKey,
-  stateKey,
-  actionIdentifier,
-  identifierKey,
-} from '../constants';
+import { AnyAction } from 'redux';
+import { ThisService } from '../interfaces';
+import { storeKey } from '../constants';
 
 /**
  * ## Description
@@ -18,23 +14,24 @@ import {
  * ```ts
  * const type = 'count_increase';
  *
+ * interface CountAction {
+ *  type: typeof type;
+ *  state: number;
+ * }
+ *
  * @injectable()
  * class Counter {
- *   @state
- *   count = createState<number, ReactantAction>((state = 0, action) =>
- *     action.type === type
- *       ? action.state[this[identifierKey]].count
- *       : state
- *   );
+ *  @state
+ *  count = createState<CountAction['state'], CountAction>(
+ *    ($state = 0, $action) => ($action.type === type ? $action.state : $state)
+ *  );
  *
- *   increase() {
- *     dispatch(this, {
- *       type,
- *       state: {
- *         count: this.count + 1,
- *       },
- *     });
- *   }
+ *  increase() {
+ *    dispatch<CountAction>(this, {
+ *      type,
+ *      state: this.count + 1,
+ *    });
+ *  }
  * }
  *
  * const app = createApp({
@@ -47,29 +44,17 @@ import {
  * expect(app.instance.count).toBe(1);
  * ```
  */
-export const dispatch = (
+export const dispatch = <T extends AnyAction = AnyAction>(
   target: ThisService,
-  action: Partial<ReactantAction>
+  action: T
 ) => {
   // the api should not be implemented as a decorator
   // (because it should return new state should get a the current new state, low performance.)
-  // TODO: type constraint.
   if (target[storeKey]) {
-    const lastState = target[storeKey]?.getState();
-    target[storeKey]!.dispatch({
-      type: target[identifierKey],
-      method: '',
-      ...action,
-      state: {
-        ...lastState,
-        [target[identifierKey]!]: {
-          ...target[stateKey],
-          ...action.state,
-        },
-      },
-      _reactant: actionIdentifier,
-    });
+    target[storeKey]!.dispatch(action);
   } else {
-    throw new Error(`${target} service should set 'state' property.`);
+    throw new Error(
+      `Store for '${target.constructor.name}' service does not exist, and make sure you have set any Redux state.`
+    );
   }
 };
