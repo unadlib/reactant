@@ -90,10 +90,10 @@ class ReactantLastAction extends PluginModule {
   }
 
   get sequence() {
-    return this._sequence ?? this.lastAction?._sequence ?? 0;
+    return this._sequence ?? this.action?._sequence ?? 0;
   }
 
-  get lastAction(): ILastActionState {
+  get action(): ILastActionState {
     return this[storeKey]?.getState()[this.stateKey] ?? null;
   }
 }

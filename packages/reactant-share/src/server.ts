@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable consistent-return */
-import { App, containerKey, Container } from 'reactant';
+import { App, containerKey, Container, actionIdentifier } from 'reactant';
 import { LastAction } from 'reactant-last-action';
 import { HandleServerOptions } from './interfaces';
 import {
@@ -58,9 +58,14 @@ export const handleServer = ({
   disposeListeners.push(
     app.store?.subscribe(() => {
       try {
-        if (lastAction.lastAction) {
-          const { _inversePatches: _, ...action } = lastAction.lastAction;
-          if (__DEV__ && enablePatchesChecker) {
+        if (lastAction.action) {
+          const { action } = lastAction;
+          if (
+            __DEV__ &&
+            action?._reactant === actionIdentifier &&
+            action._patches &&
+            enablePatchesChecker
+          ) {
             checkPatches(oldStateTree, action);
           }
           transport.emit({ name: lastActionName, respond: false }, action);

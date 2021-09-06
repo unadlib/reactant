@@ -53,7 +53,7 @@ describe('base API', () => {
       }
 
       get lastAction() {
-        return this.lastActionService.lastAction;
+        return this.lastActionService.action;
       }
 
       component() {
@@ -125,23 +125,19 @@ describe('base API', () => {
     class AppView extends ViewModule {
       constructor(
         @inject('counter') public counter: Counter,
-        public lastActionService: LastAction
+        public lastAction: LastAction
       ) {
         super();
         subscribe(this, () => {
-          subscribeFn(this.lastActionService.lastAction);
+          subscribeFn(this.lastAction.action);
         });
         watch(
           this,
-          () => this.lastActionService.lastAction,
+          () => this.lastAction.action,
           (lastAction, oldAction) => {
             watchFn(lastAction, oldAction);
           }
         );
-      }
-
-      get lastAction() {
-        return this.lastActionService.lastAction;
       }
 
       component() {
@@ -187,7 +183,7 @@ describe('base API', () => {
     act(() => {
       app.bootstrap(container);
     });
-    expect(app.instance.lastActionService.sequence).toBe(1);
+    expect(app.instance.lastAction.sequence).toBe(1);
 
     expect(app.store?.getState()[stateKey]._sequence).toBe(1);
     expect(
@@ -216,7 +212,7 @@ describe('base API', () => {
     };
 
     expect(app.store?.getState()[stateKey]).toEqual(expectedValue);
-    expect(app.instance.lastAction).toEqual(expectedValue);
+    expect(app.instance.lastAction.action).toEqual(expectedValue);
 
     expect(watchFn.mock.calls).toEqual([[expectedValue, null]]);
     expect(subscribeFn.mock.calls).toEqual([[expectedValue]]);
@@ -238,7 +234,7 @@ describe('base API', () => {
     };
 
     expect(app.store?.getState()[stateKey]).toEqual(expectedValue1);
-    expect(app.instance.lastAction).toEqual(expectedValue1);
+    expect(app.instance.lastAction.action).toEqual(expectedValue1);
 
     expect(watchFn.mock.calls).toEqual([
       [expectedValue, null],
@@ -246,8 +242,8 @@ describe('base API', () => {
     ]);
     expect(subscribeFn.mock.calls).toEqual([[expectedValue], [expectedValue1]]);
 
-    expect(app.instance.lastActionService.sequence).toBe(3);
-    app.instance.lastActionService.sequence = 10;
-    expect(app.instance.lastActionService.sequence).toBe(10);
+    expect(app.instance.lastAction.sequence).toBe(3);
+    app.instance.lastAction.sequence = 10;
+    expect(app.instance.lastAction.sequence).toBe(10);
   });
 });

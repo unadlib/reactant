@@ -4,7 +4,7 @@ export const checkPatches = (
   oldStateTree: Record<string, any>,
   options: ActionOptions
 ) => {
-  options._patches?.forEach(({ op, path, value }) => {
+  options._patches!.forEach(({ op, path, value }) => {
     if (
       op === 'replace' &&
       (toString.call(value) === '[object Object]' || Array.isArray(value))
