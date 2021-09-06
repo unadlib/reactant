@@ -93,7 +93,7 @@ const action = (
             console.warn(
               `The execution time of method '${this[
                 identifierKey
-              ]?.toString()}.${key.toString()}' is ${executionTime} ms, it's recommended to use 'dispatch' API.`
+              ]?.toString()}.${key.toString()}' is ${executionTime} ms, it's recommended to use 'dispatch()' API.`
             );
           // performance detail: https://immerjs.github.io/immer/docs/performance
         }

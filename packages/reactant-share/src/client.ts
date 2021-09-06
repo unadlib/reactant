@@ -57,18 +57,36 @@ export const handleClient = ({
     lastAction.sequence = preloadedState[lastAction.stateKey]._sequence;
   }
   disposeListeners.push(
-    transport.listen(lastActionName, async (options) => {
-      if (options._sequence && options._sequence === lastAction.sequence + 1) {
-        if (options._reactant === actionIdentifier) {
+    transport.listen(lastActionName, async (action) => {
+      if (action._sequence && action._sequence === lastAction.sequence + 1) {
+        if (action._reactant === actionIdentifier) {
+          // TODO: think about filterPatches in server port
           const patches = enablePatchesFilter
-            ? filterPatches(lastState, options)
-            : options._patches;
+            ? filterPatches(lastState, action)
+            : action._patches;
+          let time: number;
+          if (__DEV__) {
+            // performance checking
+            time = Date.now();
+          }
           const state = applyPatches(app.store!.getState(), patches!);
-          app.store!.dispatch({ ...options, state });
+          if (__DEV__) {
+            const executionTime = Date.now() - time!;
+            if (executionTime > 100)
+              console.warn(
+                `The 'applyPatches()' execution time from the method '${
+                  action.method
+                }' in '${
+                  action.type as string
+                }' is ${executionTime} ms, it's recommended to use 'dispatch()' API.`
+              );
+            // performance detail: https://immerjs.github.io/immer/docs/performance
+          }
+          app.store!.dispatch({ ...action, state });
         } else {
-          app.store!.dispatch(options);
+          app.store!.dispatch(action);
         }
-        lastAction.sequence = options._sequence;
+        lastAction.sequence = action._sequence;
       } else {
         portDetector.syncFullState();
       }

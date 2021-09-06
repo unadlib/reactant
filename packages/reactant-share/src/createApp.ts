@@ -244,6 +244,14 @@ const createSharedTabApp = async <T>(options: Config<T>) => {
 export const createSharedApp = async <T>(options: Config<T>) => {
   let app: App<T>;
   let transports: Transports;
+
+  if (typeof options.share === 'undefined') {
+    throw new Error(`'createSharedApp(options)' should be set 'share' option.`);
+  }
+
+  // Check to minimized patch.
+  options.share.enablePatchesChecker ??= __DEV__;
+
   switch (options.share.type) {
     case 'BrowserExtension':
       transports = {
