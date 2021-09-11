@@ -21,14 +21,19 @@ And for the structured design of the application's business logic, separation of
 
 ## Features
 
-* Dependency injection
-* Immutable state management
-* View module
-* Redux plug-in module
-* Test bed for unit testing and integration testing
-* Routing module
-* Persistence module
-* Module dynamics
+- Dependency injection
+- Immutable state management
+- View module
+- Redux plug-in module
+- Test bed for unit testing and integration testing
+- Routing module
+- Persistence module
+- Module dynamics
+- Shared web app support multiple browser windows
+  - Shared tab
+  - SharedWorker
+  - ServiceWorker
+  - Browser extension
 
 ## Usage
 
