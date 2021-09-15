@@ -77,6 +77,10 @@ export const handleServer = ({
       }
     })
   );
+  // app synchronizes state to all clients immediately after switching server port
+  if (portDetector.previousPort === 'client') {
+    portDetector.syncToClients();
+  }
   return () => {
     for (const dispose of disposeListeners) {
       dispose?.();
