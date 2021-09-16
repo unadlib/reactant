@@ -48,7 +48,7 @@ type SetStorageOptions<T> = Pick<
 
 @injectable()
 class ReactantStorage extends PluginModule {
-  protected blacklist: string[] = [];
+  protected blacklist: string[] = ['router', 'lastAction'];
 
   persistor?: Persistor;
 
@@ -125,11 +125,7 @@ class ReactantStorage extends PluginModule {
   afterCombineRootReducers(rootReducer: Reducer) {
     return persistReducer(
       {
-        blacklist: [
-          ...Object.keys(this.persistConfig),
-          ...this.blacklist,
-          'router',
-        ],
+        blacklist: [...Object.keys(this.persistConfig), ...this.blacklist],
         ...this.persistRootConfig,
       },
       rootReducer
