@@ -1,6 +1,6 @@
 {
   "name": "reactant",
-  "version": "0.10.1",
+  "version": "0.11.0",
   "description": "A framework for building React web applications",
   "main": "dist/index.cjs.js",
   "unpkg": "dist/index.umd.js",
@@ -32,11 +32,11 @@
   },
   "dependencies": {
     "react-redux": "^7.2.4",
-    "reactant-module": "^0.10.1"
+    "reactant-module": "^0.11.0"
   },
   "devDependencies": {
     "react": "^16.12.0",
-    "reactant-storage": "^0.10.1",
-    "reactant-web": "^0.10.1"
+    "reactant-storage": "^0.11.0",
+    "reactant-web": "^0.11.0"
   }
 }
