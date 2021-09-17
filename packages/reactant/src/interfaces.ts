@@ -15,7 +15,10 @@ export interface Config<T> {
   /**
    * As a rendering function for any React renderer.
    */
-  render: (element: JSX.Element, ...args: any[]) => Element | void;
+  render: (
+    element: JSX.Element,
+    ...args: any[]
+  ) => Element | void | JSX.Element;
   /**
    * Importing the injected dependency modules.
    */
@@ -38,7 +41,7 @@ export interface App<T> {
   instance: T;
   container: Container;
   store: ReactantStore | null;
-  bootstrap(...args: unknown[]): void | Element;
+  bootstrap(...args: unknown[]): void | Element | JSX.Element;
 }
 
 export type ShallowEqual = (

@@ -138,11 +138,17 @@ function createApp<T>({
     /**
      * Bootstrap app with a renderer.
      */
-    bootstrap(...args: unknown[]): Element | void {
+    bootstrap(...args) {
       if (!(instance instanceof ViewModule)) {
         throw new Error(`Main module should be a 'ViewModule'.`);
       }
-      const InstanceElement = <instance.component />;
+      const callback = args[0];
+      const InstanceElement =
+        typeof callback === 'function' ? (
+          (callback(instance.component) as JSX.Element)
+        ) : (
+          <instance.component />
+        );
       const RootElement = pluginHooks.provider
         .reverse()
         .reduce(
