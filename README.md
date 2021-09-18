@@ -34,6 +34,7 @@ And for the structured design of the application's business logic, separation of
   - SharedWorker
   - ServiceWorker
   - Browser extension
+- Server-side Rendering
 
 ## Usage
 

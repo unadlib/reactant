@@ -15,6 +15,7 @@
       "routing",
       "persistence",
       "dynamic-modules",
+      "server-side-rendering",
       "dev-workflow"
     ],
     "Shared App": [

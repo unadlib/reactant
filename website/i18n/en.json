@@ -589,6 +589,9 @@
       "routing": {
         "title": "Routing"
       },
+      "server-side-rendering": {
+        "title": "Server-Side Rendering"
+      },
       "shared-app-persistence": {
         "title": "Persistence"
       },
