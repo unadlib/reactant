@@ -61,8 +61,8 @@
 </ul>
 <h2><a class="anchor" aria-hidden="true" id="functions-1"></a><a href="#functions-1" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Functions</h2>
 <h3><a class="anchor" aria-hidden="true" id="const-dispatch"></a><a href="#const-dispatch" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>Const</code> dispatch</h3>
-<p>▸ <strong>dispatch</strong>(<code>target</code>: <a href="/docs/api/reactant-module/modules/_interfaces_#thisservice">ThisService</a>, <code>action</code>: Partial‹<a href="/docs/api/reactant-module/interfaces/_interfaces_.reactantaction">ReactantAction</a>›): <em>void</em></p>
-<p><em>Defined in <a href="https://github.com/unadlib/reactant/blob/950d72fe/packages/reactant-module/src/core/dispatch.ts#L50">packages/reactant-module/src/core/dispatch.ts:50</a></em></p>
+<p>▸ <strong>dispatch</strong>&lt;<strong>T</strong>&gt;(<code>target</code>: <a href="/docs/api/reactant-module/modules/_interfaces_#thisservice">ThisService</a>, <code>action</code>: T): <em>void</em></p>
+<p><em>Defined in <a href="https://github.com/unadlib/reactant/blob/5a9891fd/packages/reactant-module/src/core/dispatch.ts#L47">packages/reactant-module/src/core/dispatch.ts:47</a></em></p>
 <h2><a class="anchor" aria-hidden="true" id="description"></a><a href="#description" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Description</h2>
 <p>It is used for compatibility with redux actions,
 when a class state with actions is being migrated from the Redux boilerplate code to the Reactant.
@@ -70,34 +70,37 @@ And it's often used in conjunction with <code>createState()</code>.</p>
 <h2><a class="anchor" aria-hidden="true" id="example"></a><a href="#example" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Example</h2>
 <pre><code class="hljs css language-ts"><span class="hljs-keyword">const</span> <span class="hljs-keyword">type</span> = <span class="hljs-string">'count_increase'</span>;
 
-<span class="hljs-meta">@injectable</span>()
-<span class="hljs-keyword">class</span> Counter {
-  <span class="hljs-meta">@state</span>
-  count = createState&lt;<span class="hljs-built_in">number</span>, ReactantAction&gt;<span class="hljs-function">(<span class="hljs-params">(<span class="hljs-params">state = 0, action</span>) =&gt;
-    action.<span class="hljs-keyword">type</span> === <span class="hljs-keyword">type</span>
-      ? action.state[<span class="hljs-keyword">this</span>[identifierKey]].count
-      : state
-  </span>);
-
-  <span class="hljs-params">increase</span><span class="hljs-params">()</span> {
-    <span class="hljs-params">dispatch</span>(<span class="hljs-params"><span class="hljs-keyword">this</span>, {
-      <span class="hljs-keyword">type</span>,
-      state: {
-        count: <span class="hljs-keyword">this</span>.count + 1,
-      },
-    }</span>);
-  }
+<span class="hljs-keyword">interface</span> CountAction {
+ <span class="hljs-keyword">type</span>: <span class="hljs-keyword">typeof</span> <span class="hljs-keyword">type</span>;
+ state: <span class="hljs-built_in">number</span>;
 }
 
-<span class="hljs-params">const</span> <span class="hljs-params">app</span> = <span class="hljs-params">createApp</span>(<span class="hljs-params">{
+<span class="hljs-meta">@injectable</span>()
+<span class="hljs-keyword">class</span> Counter {
+ <span class="hljs-meta">@state</span>
+ count = createState&lt;CountAction[<span class="hljs-string">'state'</span>], CountAction&gt;(
+   <span class="hljs-function">(<span class="hljs-params">$state = 0, $action</span>) =&gt;</span> ($action.type === <span class="hljs-keyword">type</span> ? $action.state : $state)
+ );
+
+ increase() {
+   dispatch&lt;CountAction&gt;(<span class="hljs-keyword">this</span>, {
+     <span class="hljs-keyword">type</span>,
+     state: <span class="hljs-keyword">this</span>.count + <span class="hljs-number">1</span>,
+   });
+ }
+}
+
+<span class="hljs-keyword">const</span> app = createApp({
   modules: [],
   main: Counter,
-  render: (<span class="hljs-params"></span>) =&gt; {},
-}</span>);
+  render: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {},
+});
 
-<span class="hljs-params">app</span>.<span class="hljs-params">instance</span>.<span class="hljs-params">increase</span><span class="hljs-params">()</span>;
-<span class="hljs-params">expect</span>(<span class="hljs-params">app.instance.count</span>).<span class="hljs-params">toBe</span>(<span class="hljs-params">1</span>);
-</span></code></pre>
+app.instance.increase();
+expect(app.instance.count).toBe(<span class="hljs-number">1</span>);
+</code></pre>
+<p><strong>Type parameters:</strong></p>
+<p>▪ <strong>T</strong>: <em>AnyAction</em></p>
 <p><strong>Parameters:</strong></p>
 <table>
 <thead>
@@ -105,7 +108,7 @@ And it's often used in conjunction with <code>createState()</code>.</p>
 </thead>
 <tbody>
 <tr><td><code>target</code></td><td><a href="/docs/api/reactant-module/modules/_interfaces_#thisservice">ThisService</a></td></tr>
-<tr><td><code>action</code></td><td>Partial‹<a href="/docs/api/reactant-module/interfaces/_interfaces_.reactantaction">ReactantAction</a>›</td></tr>
+<tr><td><code>action</code></td><td>T</td></tr>
 </tbody>
 </table>
 <p><strong>Returns:</strong> <em>void</em></p>
