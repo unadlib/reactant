@@ -137,3 +137,7 @@ export default app.container.get(CounterView).component;
 2. Does `reactant-storage` support SSR?
 
 Yes, it works perfectly fine. In general, `reactant-share` is a different application model, so it also does not support SSR, which is supported by all other Reactant libraries.
+
+## Example
+
+- [repo](https://github.com/unadlib/reactant-examples/tree/master/server/server-side-rendering)

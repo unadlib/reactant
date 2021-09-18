@@ -4,6 +4,9 @@ import { createApp as createAppWithoutSSR } from 'reactant';
 import { AppView } from './appView';
 import { ServerConfig, ServerApp } from './interfaces';
 
+/**
+ * create a ServerApp for SSR
+ */
 export const createServerApp = (options: ServerConfig): ServerApp => {
   const { bootstrap, store, instance, container } = createAppWithoutSSR({
     ...options,
