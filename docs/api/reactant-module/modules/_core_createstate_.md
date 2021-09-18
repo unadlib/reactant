@@ -6,7 +6,7 @@ sidebar_label: "createState()"
 
 ▸ **createState**<**S**, **A**>(`reducer`: Reducer‹S, A›): *S*
 
-*Defined in [packages/reactant-module/src/core/createState.ts:44](https://github.com/unadlib/reactant/blob/950d72fe/packages/reactant-module/src/core/createState.ts#L44)*
+*Defined in [packages/reactant-module/src/core/createState.ts:45](https://github.com/unadlib/reactant/blob/5a9891fd/packages/reactant-module/src/core/createState.ts#L45)*
 
 ## Description
 
@@ -19,23 +19,24 @@ And it's often used in conjunction with `dispatch()`.
 ```ts
 const type = 'count_increase';
 
+interface CountAction {
+ type: typeof type;
+ state: number;
+}
+
 @injectable()
 class Counter {
-  @state
-  count = createState<number, ReactantAction>((state = 0, action) =>
-    action.type === type
-      ? action.state[this[identifierKey]].count
-      : state
-  );
+ @state
+ count = createState<CountAction['state'], CountAction>(
+   ($state = 0, $action) => ($action.type === type ? $action.state : $state)
+ );
 
-  increase() {
-    dispatch(this, {
-      type,
-      state: {
-        count: this.count + 1,
-      },
-    });
-  }
+ increase() {
+   dispatch<CountAction>(this, {
+     type,
+     state: this.count + 1,
+   });
+ }
 }
 
 const app = createApp({

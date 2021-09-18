@@ -14,9 +14,9 @@ sidebar_label: "dispatch()"
 
 ### `Const` dispatch
 
-▸ **dispatch**(`target`: [ThisService](_interfaces_.md#thisservice), `action`: Partial‹[ReactantAction](../interfaces/_interfaces_.reactantaction.md)›): *void*
+▸ **dispatch**<**T**>(`target`: [ThisService](_interfaces_.md#thisservice), `action`: T): *void*
 
-*Defined in [packages/reactant-module/src/core/dispatch.ts:50](https://github.com/unadlib/reactant/blob/950d72fe/packages/reactant-module/src/core/dispatch.ts#L50)*
+*Defined in [packages/reactant-module/src/core/dispatch.ts:47](https://github.com/unadlib/reactant/blob/5a9891fd/packages/reactant-module/src/core/dispatch.ts#L47)*
 
 ## Description
 
@@ -29,23 +29,24 @@ And it's often used in conjunction with `createState()`.
 ```ts
 const type = 'count_increase';
 
+interface CountAction {
+ type: typeof type;
+ state: number;
+}
+
 @injectable()
 class Counter {
-  @state
-  count = createState<number, ReactantAction>((state = 0, action) =>
-    action.type === type
-      ? action.state[this[identifierKey]].count
-      : state
-  );
+ @state
+ count = createState<CountAction['state'], CountAction>(
+   ($state = 0, $action) => ($action.type === type ? $action.state : $state)
+ );
 
-  increase() {
-    dispatch(this, {
-      type,
-      state: {
-        count: this.count + 1,
-      },
-    });
-  }
+ increase() {
+   dispatch<CountAction>(this, {
+     type,
+     state: this.count + 1,
+   });
+ }
 }
 
 const app = createApp({
@@ -58,11 +59,15 @@ app.instance.increase();
 expect(app.instance.count).toBe(1);
 ```
 
+**Type parameters:**
+
+▪ **T**: *AnyAction*
+
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
 `target` | [ThisService](_interfaces_.md#thisservice) |
-`action` | Partial‹[ReactantAction](../interfaces/_interfaces_.reactantaction.md)› |
+`action` | T |
 
 **Returns:** *void*

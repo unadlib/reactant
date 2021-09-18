@@ -14,6 +14,7 @@ sidebar_label: "ServerTransport"
 
 * [[lastActionName]](_interfaces_.servertransport.md#[lastactionname])
 * [[routerChangeName]](_interfaces_.servertransport.md#[routerchangename])
+* [[syncToClientsName]](_interfaces_.servertransport.md#[synctoclientsname])
 
 ## Methods
 
@@ -21,7 +22,7 @@ sidebar_label: "ServerTransport"
 
 ▸ **[lastActionName]**(`options`: [ActionOptions](../modules/_interfaces_.md#actionoptions)): *Promise‹void›*
 
-*Defined in [packages/reactant-share/src/interfaces.ts:113](https://github.com/unadlib/reactant/blob/950d72fe/packages/reactant-share/src/interfaces.ts#L113)*
+*Defined in [packages/reactant-share/src/interfaces.ts:114](https://github.com/unadlib/reactant/blob/5a9891fd/packages/reactant-share/src/interfaces.ts#L114)*
 
 **Parameters:**
 
@@ -37,7 +38,7 @@ ___
 
 ▸ **[routerChangeName]**(`options`: [RouterChangeNameOptions](../modules/_router_.md#routerchangenameoptions)): *Promise‹RouterState›*
 
-*Defined in [packages/reactant-share/src/interfaces.ts:114](https://github.com/unadlib/reactant/blob/950d72fe/packages/reactant-share/src/interfaces.ts#L114)*
+*Defined in [packages/reactant-share/src/interfaces.ts:115](https://github.com/unadlib/reactant/blob/5a9891fd/packages/reactant-share/src/interfaces.ts#L115)*
 
 **Parameters:**
 
@@ -46,3 +47,19 @@ Name | Type |
 `options` | [RouterChangeNameOptions](../modules/_router_.md#routerchangenameoptions) |
 
 **Returns:** *Promise‹RouterState›*
+
+___
+
+###  [syncToClientsName]
+
+▸ **[syncToClientsName]**(`options`: Record‹string, any› | null | undefined): *Promise‹void›*
+
+*Defined in [packages/reactant-share/src/interfaces.ts:116](https://github.com/unadlib/reactant/blob/5a9891fd/packages/reactant-share/src/interfaces.ts#L116)*
+
+**Parameters:**
+
+Name | Type |
+------ | ------ |
+`options` | Record‹string, any› &#124; null &#124; undefined |
+
+**Returns:** *Promise‹void›*

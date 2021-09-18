@@ -17,7 +17,7 @@ sidebar_label: "client"
 
 ▸ **handleClient**(`__namedParameters`: object): *(Anonymous function)*
 
-*Defined in [packages/reactant-share/src/client.ts:31](https://github.com/unadlib/reactant/blob/950d72fe/packages/reactant-share/src/client.ts#L31)*
+*Defined in [packages/reactant-share/src/client.ts:31](https://github.com/unadlib/reactant/blob/5a9891fd/packages/reactant-share/src/client.ts#L31)*
 
 **Parameters:**
 
@@ -39,7 +39,7 @@ ___
 
 ▸ **proxyClient**(`__namedParameters`: object): *Promise‹any›*
 
-*Defined in [packages/reactant-share/src/client.ts:13](https://github.com/unadlib/reactant/blob/950d72fe/packages/reactant-share/src/client.ts#L13)*
+*Defined in [packages/reactant-share/src/client.ts:13](https://github.com/unadlib/reactant/blob/5a9891fd/packages/reactant-share/src/client.ts#L13)*
 
 **Parameters:**
 

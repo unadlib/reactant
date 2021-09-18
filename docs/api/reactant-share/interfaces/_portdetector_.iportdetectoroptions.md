@@ -20,4 +20,4 @@ sidebar_label: "IPortDetectorOptions"
 
 • **transports**? : *[Transports](_interfaces_.transports.md)*
 
-*Defined in [packages/reactant-share/src/portDetector.ts:23](https://github.com/unadlib/reactant/blob/950d72fe/packages/reactant-share/src/portDetector.ts#L23)*
+*Defined in [packages/reactant-share/src/portDetector.ts:23](https://github.com/unadlib/reactant/blob/5a9891fd/packages/reactant-share/src/portDetector.ts#L23)*

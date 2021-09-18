@@ -36,7 +36,7 @@ sidebar_label: "lock"
 
 Ƭ **LockCallBack**: *function*
 
-*Defined in [packages/reactant-share/src/lock.ts:3](https://github.com/unadlib/reactant/blob/950d72fe/packages/reactant-share/src/lock.ts#L3)*
+*Defined in [packages/reactant-share/src/lock.ts:3](https://github.com/unadlib/reactant/blob/5a9891fd/packages/reactant-share/src/lock.ts#L3)*
 
 #### Type declaration:
 
@@ -57,7 +57,7 @@ ___
 
 Ƭ **LockId**: *string*
 
-*Defined in [packages/reactant-share/src/lock.ts:2](https://github.com/unadlib/reactant/blob/950d72fe/packages/reactant-share/src/lock.ts#L2)*
+*Defined in [packages/reactant-share/src/lock.ts:2](https://github.com/unadlib/reactant/blob/5a9891fd/packages/reactant-share/src/lock.ts#L2)*
 
 ___
 
@@ -65,7 +65,7 @@ ___
 
 Ƭ **LockName**: *string*
 
-*Defined in [packages/reactant-share/src/lock.ts:1](https://github.com/unadlib/reactant/blob/950d72fe/packages/reactant-share/src/lock.ts#L1)*
+*Defined in [packages/reactant-share/src/lock.ts:1](https://github.com/unadlib/reactant/blob/5a9891fd/packages/reactant-share/src/lock.ts#L1)*
 
 ___
 
@@ -73,7 +73,7 @@ ___
 
 Ƭ **LockQueue**: *object[]*
 
-*Defined in [packages/reactant-share/src/lock.ts:7](https://github.com/unadlib/reactant/blob/950d72fe/packages/reactant-share/src/lock.ts#L7)*
+*Defined in [packages/reactant-share/src/lock.ts:7](https://github.com/unadlib/reactant/blob/5a9891fd/packages/reactant-share/src/lock.ts#L7)*
 
 ## Variables
 
@@ -81,7 +81,7 @@ ___
 
 • **heartbeatTimer**: *number*
 
-*Defined in [packages/reactant-share/src/lock.ts:64](https://github.com/unadlib/reactant/blob/950d72fe/packages/reactant-share/src/lock.ts#L64)*
+*Defined in [packages/reactant-share/src/lock.ts:64](https://github.com/unadlib/reactant/blob/5a9891fd/packages/reactant-share/src/lock.ts#L64)*
 
 ___
 
@@ -89,7 +89,7 @@ ___
 
 • **isListenUnload**: *boolean* = false
 
-*Defined in [packages/reactant-share/src/lock.ts:37](https://github.com/unadlib/reactant/blob/950d72fe/packages/reactant-share/src/lock.ts#L37)*
+*Defined in [packages/reactant-share/src/lock.ts:37](https://github.com/unadlib/reactant/blob/5a9891fd/packages/reactant-share/src/lock.ts#L37)*
 
 ___
 
@@ -97,7 +97,7 @@ ___
 
 • **lockMap**: *Record‹[LockName](_lock_.md#lockname), Record‹[LockId](_lock_.md#lockid), [LockCallBack](_lock_.md#lockcallback)››*
 
-*Defined in [packages/reactant-share/src/lock.ts:9](https://github.com/unadlib/reactant/blob/950d72fe/packages/reactant-share/src/lock.ts#L9)*
+*Defined in [packages/reactant-share/src/lock.ts:9](https://github.com/unadlib/reactant/blob/5a9891fd/packages/reactant-share/src/lock.ts#L9)*
 
 ___
 
@@ -105,7 +105,7 @@ ___
 
 • **lockStorageKey**: *"reactant:lock"* = "reactant:lock"
 
-*Defined in [packages/reactant-share/src/lock.ts:11](https://github.com/unadlib/reactant/blob/950d72fe/packages/reactant-share/src/lock.ts#L11)*
+*Defined in [packages/reactant-share/src/lock.ts:11](https://github.com/unadlib/reactant/blob/5a9891fd/packages/reactant-share/src/lock.ts#L11)*
 
 ___
 
@@ -113,7 +113,7 @@ ___
 
 • **tabId**: *string* = Math.random().toString(36)
 
-*Defined in [packages/reactant-share/src/lock.ts:10](https://github.com/unadlib/reactant/blob/950d72fe/packages/reactant-share/src/lock.ts#L10)*
+*Defined in [packages/reactant-share/src/lock.ts:10](https://github.com/unadlib/reactant/blob/5a9891fd/packages/reactant-share/src/lock.ts#L10)*
 
 ___
 
@@ -121,7 +121,7 @@ ___
 
 • **tabStorageKey**: *"reactant:tab"* = "reactant:tab"
 
-*Defined in [packages/reactant-share/src/lock.ts:12](https://github.com/unadlib/reactant/blob/950d72fe/packages/reactant-share/src/lock.ts#L12)*
+*Defined in [packages/reactant-share/src/lock.ts:12](https://github.com/unadlib/reactant/blob/5a9891fd/packages/reactant-share/src/lock.ts#L12)*
 
 ## Functions
 
@@ -129,7 +129,7 @@ ___
 
 ▸ **addUnloadListener**(): *void*
 
-*Defined in [packages/reactant-share/src/lock.ts:39](https://github.com/unadlib/reactant/blob/950d72fe/packages/reactant-share/src/lock.ts#L39)*
+*Defined in [packages/reactant-share/src/lock.ts:39](https://github.com/unadlib/reactant/blob/5a9891fd/packages/reactant-share/src/lock.ts#L39)*
 
 **Returns:** *void*
 
@@ -139,7 +139,7 @@ ___
 
 ▸ **clearTabLocks**(`tabIds`: string[]): *void*
 
-*Defined in [packages/reactant-share/src/lock.ts:14](https://github.com/unadlib/reactant/blob/950d72fe/packages/reactant-share/src/lock.ts#L14)*
+*Defined in [packages/reactant-share/src/lock.ts:14](https://github.com/unadlib/reactant/blob/5a9891fd/packages/reactant-share/src/lock.ts#L14)*
 
 **Parameters:**
 
@@ -155,7 +155,7 @@ ___
 
 ▸ **filterExpiredTabs**(): *string[]*
 
-*Defined in [packages/reactant-share/src/lock.ts:50](https://github.com/unadlib/reactant/blob/950d72fe/packages/reactant-share/src/lock.ts#L50)*
+*Defined in [packages/reactant-share/src/lock.ts:50](https://github.com/unadlib/reactant/blob/5a9891fd/packages/reactant-share/src/lock.ts#L50)*
 
 **Returns:** *string[]*
 
@@ -165,7 +165,7 @@ ___
 
 ▸ **simpleLock**(`name`: [LockName](_lock_.md#lockname), `callback`: [LockCallBack](_lock_.md#lockcallback)): *Promise‹unknown›*
 
-*Defined in [packages/reactant-share/src/lock.ts:66](https://github.com/unadlib/reactant/blob/950d72fe/packages/reactant-share/src/lock.ts#L66)*
+*Defined in [packages/reactant-share/src/lock.ts:66](https://github.com/unadlib/reactant/blob/5a9891fd/packages/reactant-share/src/lock.ts#L66)*
 
 **Parameters:**
 
@@ -182,7 +182,7 @@ ___
 
 ▸ **useLock**(`name`: [LockName](_lock_.md#lockname), `callback`: [LockCallBack](_lock_.md#lockcallback)): *any*
 
-*Defined in [packages/reactant-share/src/lock.ts:134](https://github.com/unadlib/reactant/blob/950d72fe/packages/reactant-share/src/lock.ts#L134)*
+*Defined in [packages/reactant-share/src/lock.ts:134](https://github.com/unadlib/reactant/blob/5a9891fd/packages/reactant-share/src/lock.ts#L134)*
 
 **Parameters:**
 

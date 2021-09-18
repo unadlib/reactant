@@ -16,7 +16,7 @@ sidebar_label: "@proxy"
 
 ▸ **proxy**(`target`: object, `key`: string, `descriptor`: TypedPropertyDescriptor‹function›): *object*
 
-*Defined in [packages/reactant-share/src/decorators/proxy.ts:11](https://github.com/unadlib/reactant/blob/950d72fe/packages/reactant-share/src/decorators/proxy.ts#L11)*
+*Defined in [packages/reactant-share/src/decorators/proxy.ts:11](https://github.com/unadlib/reactant/blob/5a9891fd/packages/reactant-share/src/decorators/proxy.ts#L11)*
 
 proxy
 
