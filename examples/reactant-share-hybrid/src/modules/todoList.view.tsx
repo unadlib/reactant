@@ -1,13 +1,13 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable no-param-reassign */
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
   ViewModule,
   injectable,
   useConnector,
   action,
   state,
-  proxy,
+  spawn,
   computed,
   optional,
   Storage,
@@ -36,7 +36,7 @@ export class TodoListView extends ViewModule {
     });
     if (this.isDetachedWindow) {
       window.addEventListener('unload', () => {
-        this.setExistDetachedWindow(false);
+        spawn(this as TodoListView, 'setExistDetachedWindow', [false]);
       });
     }
   }
@@ -49,13 +49,8 @@ export class TodoListView extends ViewModule {
   existDetachedWindow = false;
 
   @action
-  _setExistDetachedWindow(value: boolean) {
+  setExistDetachedWindow(value: boolean) {
     this.existDetachedWindow = value;
-  }
-
-  @proxy
-  async setExistDetachedWindow(value: boolean) {
-    this._setExistDetachedWindow(value);
   }
 
   @computed(({ existDetachedWindow }) => [existDetachedWindow])
@@ -73,27 +68,17 @@ export class TodoListView extends ViewModule {
   ];
 
   @action
-  _add(text: string) {
+  add(text: string) {
     this.list.push({ id: Math.random().toString(), text, complete: false });
   }
 
   @action
-  _toggle(id: string) {
+  toggle(id: string) {
     const todo = this.list.find((item) => item.id === id)!;
     todo.complete = !todo.complete;
   }
 
-  @proxy
-  async add(text: string) {
-    return this._add(text);
-  }
-
-  @proxy
-  async toggle(id: string) {
-    return this._toggle(id);
-  }
-
-  component() {
+  component(this: TodoListView) {
     const [list, isDetachedWindow, shouldHidden] = useConnector(() => [
       this.list,
       this.isDetachedWindow,
@@ -106,8 +91,8 @@ export class TodoListView extends ViewModule {
         <input value={todo} onChange={(e) => setTodo(e.target.value)} />
         <button
           type="button"
-          onClick={() => {
-            this.add(todo);
+          onClick={async () => {
+            await spawn(this, 'add', [todo]);
             setTodo('');
           }}
         >
@@ -116,7 +101,7 @@ export class TodoListView extends ViewModule {
         {list.map(({ id, text, complete }) => (
           <li
             key={id}
-            onClick={() => this.toggle(id)}
+            onClick={() => spawn(this, 'toggle', [id])}
             style={complete ? { textDecoration: 'line-through' } : {}}
           >
             {text}
@@ -125,8 +110,8 @@ export class TodoListView extends ViewModule {
         {!isDetachedWindow && (
           <button
             type="button"
-            onClick={() => {
-              this.setExistDetachedWindow(true);
+            onClick={async () => {
+              await spawn(this, 'setExistDetachedWindow', [true]);
               window.open('./detached-window.html', '', 'width=300,height=600');
             }}
           >

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { mockPairPorts, createTransport } from 'data-transport';
-import { createSharedApp, injectable, state, action, proxy } from '..';
+import { createSharedApp, injectable, state, action, spawn } from '..';
 
 @injectable({
   name: 'counter',
@@ -14,9 +14,8 @@ class Counter {
     this.count += 1;
   }
 
-  @proxy
   async increase() {
-    this._increase();
+    await spawn(this as Counter, '_increase', []);
   }
 }
 

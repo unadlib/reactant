@@ -138,3 +138,18 @@ export interface HandleClientOptions {
   enablePatchesFilter?: boolean;
   preloadedState?: Record<string, any>;
 }
+
+export type FunctionKeys<T> = Exclude<
+  {
+    [K in keyof T]: T[K] extends Function ? K : never;
+  }[keyof T],
+  void
+>;
+
+export type Spawn = <T extends object, K extends FunctionKeys<T>>(
+  module: T,
+  key: K,
+  args: Parameters<T[K]>
+) => ReturnType<T[K]> extends Promise<infer R>
+  ? Promise<R>
+  : Promise<ReturnType<T[K]>>;

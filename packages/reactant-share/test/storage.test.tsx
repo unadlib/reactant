@@ -11,7 +11,7 @@ import {
   useConnector,
   subscribe,
   createSharedApp,
-  proxy,
+  spawn,
   PortDetector,
   optional,
   createTransport,
@@ -130,25 +130,23 @@ describe('base', () => {
       super();
     }
 
-    @proxy
-    async decrease() {
-      return this.counter.decrease();
-    }
-
-    @proxy
-    async increase() {
-      return this.counter.increase();
-    }
-
     component() {
       const count = useConnector(() => this.counter.count);
       return (
         <>
-          <button id="decrease" type="button" onClick={() => this.decrease()}>
+          <button
+            id="decrease"
+            type="button"
+            onClick={() => spawn(this.counter, 'decrease', [])}
+          >
             -
           </button>
           <div id="count">{count}</div>
-          <button id="increase" type="button" onClick={() => this.increase()}>
+          <button
+            id="increase"
+            type="button"
+            onClick={() => spawn(this.counter, 'increase', [])}
+          >
             +
           </button>
         </>

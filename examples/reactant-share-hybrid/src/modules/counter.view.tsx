@@ -5,7 +5,7 @@ import {
   useConnector,
   action,
   state,
-  proxy,
+  spawn,
 } from 'reactant-share';
 
 @injectable({
@@ -24,34 +24,24 @@ export class CounterView extends ViewModule {
   count = 0;
 
   @action
-  _increase() {
+  increase() {
     this.count += 1;
   }
 
   @action
-  _decrease() {
+  decrease() {
     this.count -= 1;
   }
 
-  @proxy
-  async decrease() {
-    return this._decrease();
-  }
-
-  @proxy
-  async increase() {
-    return this._increase();
-  }
-
-  component() {
+  component(this: CounterView) {
     const count = useConnector(() => this.count);
     return (
       <>
-        <button type="button" onClick={() => this.decrease()}>
+        <button type="button" onClick={() => spawn(this, 'decrease', [])}>
           -
         </button>
         <div>{count}</div>
-        <button type="button" onClick={() => this.increase()}>
+        <button type="button" onClick={() => spawn(this, 'increase', [])}>
           +
         </button>
       </>

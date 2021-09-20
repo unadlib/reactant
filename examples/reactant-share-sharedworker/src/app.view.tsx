@@ -2,7 +2,7 @@
 import React, { useState, FunctionComponent } from 'react';
 import { Switch, Route } from 'reactant-web';
 import {
-  proxy,
+  spawn,
   ViewModule,
   injectable,
   useConnector,
@@ -60,9 +60,8 @@ export class AppView extends ViewModule {
     });
   }
 
-  @proxy
   async routerChange(path: string) {
-    this.router.push(path);
+    await spawn(this.router, 'push', [path]);
   }
 
   component() {

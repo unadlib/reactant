@@ -6,7 +6,7 @@ import {
   action,
   state,
   inject,
-  proxy,
+  spawn,
   subscribe,
   PortDetector,
 } from 'reactant-share';
@@ -46,25 +46,21 @@ export class AppView extends ViewModule {
     super();
   }
 
-  @proxy
-  async decrease() {
-    return this.counter.decrease();
-  }
-
-  @proxy
-  async increase() {
-    return this.counter.increase();
-  }
-
   component() {
     const count = useConnector(() => this.counter.count);
     return (
       <>
-        <button type="button" onClick={() => this.decrease()}>
+        <button
+          type="button"
+          onClick={() => spawn(this.counter, 'decrease', [])}
+        >
           -
         </button>
         <div>{count}</div>
-        <button type="button" onClick={() => this.increase()}>
+        <button
+          type="button"
+          onClick={() => spawn(this.counter, 'increase', [])}
+        >
           +
         </button>
       </>
