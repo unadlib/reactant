@@ -1,4 +1,4 @@
-import { testBed } from 'reactant';
+import { testBed } from 'reactant-share';
 import { CounterService } from './counter.service';
 
 describe('CounterService', () => {

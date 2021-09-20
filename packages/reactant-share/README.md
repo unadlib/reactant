@@ -20,7 +20,7 @@ Here is the counter example, it uses `reactant-share` ShareWorker mode:
 
 ```tsx
 import React from 'react';
-import { ViewModule, createApp, injectable, useConnector, action, state, proxy } from 'reactant-share';
+import { ViewModule, createApp, injectable, useConnector, action, state, spawn } from 'reactant-share';
 
 @injectable()
 class Counter {
@@ -39,15 +39,10 @@ export class AppView extends ViewModule {
     super();
   }
 
-  @proxy
-  async increase() {
-    this.counter.increase();
-  }
-
   component() {
     const count = useConnector(() => this.counter.count);
     return (
-      <button type="button" onClick={() => this.increase()}>
+      <button type="button" onClick={() => spawn(this.counter, 'increase', [])}>
         {count}
       </button>
     );

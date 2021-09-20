@@ -1,4 +1,4 @@
-import { createSharedApp, injectable, state, action, proxy } from 'reactant-share';
+import { createSharedApp, injectable, state, action, spawn } from 'reactant-share';
 import { mockPairPorts, createTransport } from 'data-transport';
 
 @injectable({
@@ -9,13 +9,8 @@ class Counter {
   count = 0;
 
   @action
-  _increase() {
+  increase() {
     this.count += 1;
-  }
-
-  @proxy
-  async increase() {
-    this._increase();
   }
 }
 
@@ -50,7 +45,7 @@ class Counter {
     },
   });
 
-  await client.instance.increase();
+  await spawn(client.instance, 'increase', []);
 
   expect(client.instance.count).toBe(1);
   expect(server.instance.count).toBe(1);

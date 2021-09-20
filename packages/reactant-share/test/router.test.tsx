@@ -12,7 +12,7 @@ import {
   useConnector,
   subscribe,
   createSharedApp,
-  proxy,
+  spawn,
   PortDetector,
   createTransport,
   Router,
@@ -86,21 +86,20 @@ describe('base', () => {
     count = 0;
 
     @action
-    _increase() {
+    increase() {
       this.count += 1;
     }
 
-    @proxy
-    async increase() {
-      return this._increase();
-    }
-
-    component() {
+    component(this: CounterView) {
       const count = useConnector(() => this.count);
       return (
         <>
           <div id="count">{count}</div>
-          <button id="increase" type="button" onClick={() => this.increase()}>
+          <button
+            id="increase"
+            type="button"
+            onClick={() => spawn(this, 'increase', [])}
+          >
             +
           </button>
         </>
@@ -116,9 +115,8 @@ describe('base', () => {
       super();
     }
 
-    @proxy
     async routerChange(path: string) {
-      this.router.push(path);
+      await spawn(this.router, 'push', [path]);
     }
 
     component() {
@@ -318,21 +316,20 @@ describe('SharedWorker', () => {
     count = 0;
 
     @action
-    _increase() {
+    increase() {
       this.count += 1;
     }
 
-    @proxy
-    async increase() {
-      return this._increase();
-    }
-
-    component() {
+    component(this: CounterView) {
       const count = useConnector(() => this.count);
       return (
         <>
           <div id="count">{count}</div>
-          <button id="increase" type="button" onClick={() => this.increase()}>
+          <button
+            id="increase"
+            type="button"
+            onClick={() => spawn(this, 'increase', [])}
+          >
             +
           </button>
         </>
@@ -348,9 +345,8 @@ describe('SharedWorker', () => {
       super();
     }
 
-    @proxy
     async routerChange(path: string) {
-      this.router.push(path);
+      await spawn(this.router, 'push', [path]);
     }
 
     component() {
@@ -543,21 +539,20 @@ describe('ServiceWorker', () => {
     count = 0;
 
     @action
-    _increase() {
+    increase() {
       this.count += 1;
     }
 
-    @proxy
-    async increase() {
-      return this._increase();
-    }
-
-    component() {
+    component(this: CounterView) {
       const count = useConnector(() => this.count);
       return (
         <>
           <div id="count">{count}</div>
-          <button id="increase" type="button" onClick={() => this.increase()}>
+          <button
+            id="increase"
+            type="button"
+            onClick={() => spawn(this, 'increase', [])}
+          >
             +
           </button>
         </>
@@ -573,9 +568,8 @@ describe('ServiceWorker', () => {
       super();
     }
 
-    @proxy
     async routerChange(path: string) {
-      this.router.push(path);
+      await spawn(this.router, 'push', [path]);
     }
 
     component() {

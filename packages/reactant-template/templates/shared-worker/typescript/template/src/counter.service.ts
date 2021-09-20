@@ -8,23 +8,13 @@ class CounterService {
   count = 0;
 
   @action
-  _increase() {
+  increase() {
     this.count += 1;
   }
 
   @action
-  _decrease() {
+  decrease() {
     this.count -= 1;
-  }
-
-  @proxy
-  async increase() {
-    this._increase();
-  }
-
-  @proxy
-  async decrease() {
-    this._decrease();
   }
 }
 
