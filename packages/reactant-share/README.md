@@ -4,6 +4,14 @@
 
 A framework for building shared web applications that support multiple windows.
 
+## Support
+
+- Shared Tab
+- Browser Extension
+- Shared Worker
+- Service Worker
+- Any other data-transport based application port, such as WebRTC
+
 ## Usage
 
 ```sh

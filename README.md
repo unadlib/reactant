@@ -36,6 +36,16 @@ And for the structured design of the application's business logic, separation of
   - Browser extension
 - Server-side Rendering
 
+## Q&A
+
+1. How does it differ from Angular?
+
+It is different everywhere except for dependency injection.
+
+2. What is the biggest advantage of Reactant?
+
+It can architect a variety of large React projects. Reactant advocates a lightweight UI, separating the concerns of the application and UI to greatly enhance the maintainability of the project.
+
 ## Usage
 
 ```sh
