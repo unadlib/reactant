@@ -7,7 +7,7 @@
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/unadlib/reactant.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/unadlib/reactant/context:javascript)
 ![license](https://img.shields.io/npm/l/reactant)
 
-Reactant - A framework for building React applications, inspired by [Angular](https://angular.io/).
+Reactant - A framework for building React applications
 
 ## Motivation
 
