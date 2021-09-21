@@ -22,7 +22,7 @@ Here is the counter example, it uses `reactant-share` ShareWorker mode:
 import React from 'react';
 import { ViewModule, createApp, injectable, useConnector, action, state, spawn } from 'reactant-share';
 
-@injectable()
+@injectable({ name: 'counter'})
 class Counter {
   @state
   count = 0;
