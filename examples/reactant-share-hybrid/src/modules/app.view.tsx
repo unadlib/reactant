@@ -115,5 +115,3 @@ export class AppView extends ViewModule {
     );
   }
 }
-
-console.log('===')

@@ -140,4 +140,4 @@ Yes, it works perfectly fine. In general, `reactant-share` is a different applic
 
 ## Example
 
-- [repo](https://github.com/unadlib/reactant-examples/tree/master/server/server-side-rendering)
+- [Repo](https://github.com/unadlib/reactant-examples/tree/master/server/server-side-rendering)
