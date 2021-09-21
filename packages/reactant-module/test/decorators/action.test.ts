@@ -8,7 +8,7 @@ import {
   action,
   getStagedState,
   enablePatchesKey,
-  spawnMiddlewares,
+  applyMiddleware,
 } from '../..';
 
 describe('@action', () => {
@@ -426,7 +426,7 @@ describe('@action', () => {
     };
 
     const ServiceIdentifiers = new Map();
-    const modules = [TodoList, spawnMiddlewares(middleware)];
+    const modules = [TodoList, applyMiddleware(middleware)];
     const container = createContainer({
       ServiceIdentifiers,
       modules,

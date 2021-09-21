@@ -10,12 +10,12 @@ sidebar_label: "core/index"
 
 * [PluginModule](_core_index_.md#pluginmodule)
 * [ViewModule](_core_index_.md#viewmodule)
+* [applyMiddleware](_core_index_.md#applymiddleware)
 * [createState](_core_index_.md#createstate)
 * [createStore](_core_index_.md#createstore)
 * [dispatch](_core_index_.md#dispatch)
 * [handlePlugin](_core_index_.md#handleplugin)
 * [load](_core_index_.md#load)
-* [spawnMiddlewares](_core_index_.md#spawnmiddlewares)
 * [subscribe](_core_index_.md#subscribe)
 * [watch](_core_index_.md#watch)
 
@@ -30,6 +30,12 @@ ___
 ###  ViewModule
 
 • **ViewModule**:
+
+___
+
+###  applyMiddleware
+
+• **applyMiddleware**:
 
 ___
 
@@ -60,12 +66,6 @@ ___
 ###  load
 
 • **load**:
-
-___
-
-###  spawnMiddlewares
-
-• **spawnMiddlewares**:
 
 ___
 

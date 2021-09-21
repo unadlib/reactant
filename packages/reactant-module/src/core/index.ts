@@ -7,4 +7,4 @@ export * from './handlePlugin';
 export * from './subscribe';
 export * from './watch';
 export * from './load';
-export * from './spawnMiddlewares';
+export * from './applyMiddleware';

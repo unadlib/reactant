@@ -6,7 +6,7 @@ sidebar_label: "createState()"
 
 ▸ **createState**<**S**, **A**>(`reducer`: Reducer‹S, A›): *S*
 
-*Defined in [packages/reactant-module/src/core/createState.ts:45](https://github.com/unadlib/reactant/blob/5a9891fd/packages/reactant-module/src/core/createState.ts#L45)*
+*Defined in [packages/reactant-module/src/core/createState.ts:45](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-module/src/core/createState.ts#L45)*
 
 ## Description
 

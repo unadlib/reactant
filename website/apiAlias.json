@@ -14,7 +14,7 @@
   "api/reactant-module/modules/_core_subscribe_": "subscribe()",
   "api/reactant-module/modules/_core_watch_": "watch()",
   "api/reactant-module/modules/_core_load_": "load()",
-  "api/reactant-module/modules/_core_spawnmiddlewares_": "spawnMiddlewares()",
+  "api/reactant-module/modules/_core_applymiddleware_": "applyMiddleware()",
   "api/reactant-module/classes/_core_view_.viewmodule": "ViewModule",
   "api/reactant-module/classes/_core_plugin_.pluginmodule": "PluginModule",
   "api/reactant-module/modules/_decorators_injectable_": "@injectable()",
@@ -25,7 +25,9 @@
   "api/reactant-di/modules/_forwardref_": "forwardRef()",
   "api/reactant-share/modules/_createapp_": "createSharedApp()",
   "api/reactant-share/modules/_portdetector_": "PortDetector",
-  "api/reactant-share/modules/_decorators_proxy_": "@proxy",
+  "api/reactant-share/modules/_spawn_": "spawn()",
   "api/reactant-share/modules/_router_": "Router",
-  "api/reactant-share/modules/_storage_": "Storage"
+  "api/reactant-share/modules/_storage_": "Storage",
+  "api/reactant-redux/modules/_redux_": "redux()",
+  "api/reactant-model/modules/_model_": "model()"
 }

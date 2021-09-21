@@ -18,7 +18,7 @@ sidebar_label: "createSharedApp()"
 
 ▸ **createBaseApp**<**T**>(`__namedParameters`: object): *Promise‹App‹T››*
 
-*Defined in [packages/reactant-share/src/createApp.ts:28](https://github.com/unadlib/reactant/blob/5a9891fd/packages/reactant-share/src/createApp.ts#L28)*
+*Defined in [packages/reactant-share/src/createApp.ts:28](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-share/src/createApp.ts#L28)*
 
 **Type parameters:**
 
@@ -41,7 +41,7 @@ ___
 
 ▸ **createSharedApp**<**T**>(`options`: [Config](../interfaces/_interfaces_.config.md)‹T›): *Promise‹App‹T››*
 
-*Defined in [packages/reactant-share/src/createApp.ts:244](https://github.com/unadlib/reactant/blob/5a9891fd/packages/reactant-share/src/createApp.ts#L244)*
+*Defined in [packages/reactant-share/src/createApp.ts:239](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-share/src/createApp.ts#L239)*
 
 ## Description
 
@@ -52,7 +52,7 @@ and `bootstrap()` method(You can run `bootstrap` to start the app inject into th
 ## Example
 
 ```ts
-import { createSharedApp, injectable, state, action, proxy } from 'reactant-share';
+import { createSharedApp, injectable, state, action, spawn } from 'reactant-share';
 import { mockPairPorts, createTransport } from 'data-transport';
 
 @injectable({
@@ -63,13 +63,8 @@ class Counter {
   count = 0;
 
   @action
-  _increase() {
+  increase() {
     this.count += 1;
-  }
-
-  @proxy
-  async increase() {
-    this._increase();
   }
 }
 
@@ -104,7 +99,7 @@ class Counter {
     },
   });
 
-  await client.instance.increase();
+  await spawn(client.instance, 'increase', []);
 
   expect(client.instance.count).toBe(1);
   expect(server.instance.count).toBe(1);
@@ -131,7 +126,7 @@ ___
 
 ▸ **createSharedTabApp**<**T**>(`options`: [Config](../interfaces/_interfaces_.config.md)‹T›): *Promise‹App‹T››*
 
-*Defined in [packages/reactant-share/src/createApp.ts:120](https://github.com/unadlib/reactant/blob/5a9891fd/packages/reactant-share/src/createApp.ts#L120)*
+*Defined in [packages/reactant-share/src/createApp.ts:120](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-share/src/createApp.ts#L120)*
 
 **Type parameters:**
 

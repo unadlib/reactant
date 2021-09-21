@@ -138,8 +138,8 @@
         "sidebar_label": "index"
       },
       "api/reactant-model/modules/_model_": {
-        "title": "model",
-        "sidebar_label": "model"
+        "title": "model()",
+        "sidebar_label": "model()"
       },
       "api/reactant-module/classes/_core_plugin_.pluginmodule": {
         "title": "PluginModule",
@@ -189,6 +189,10 @@
         "title": "constants/reduxKeys",
         "sidebar_label": "constants/reduxKeys"
       },
+      "api/reactant-module/modules/_core_applymiddleware_": {
+        "title": "applyMiddleware()",
+        "sidebar_label": "applyMiddleware()"
+      },
       "api/reactant-module/modules/_core_createstate_": {
         "title": "createState()",
         "sidebar_label": "createState()"
@@ -216,10 +220,6 @@
       "api/reactant-module/modules/_core_plugin_": {
         "title": "core/plugin",
         "sidebar_label": "core/plugin"
-      },
-      "api/reactant-module/modules/_core_spawnmiddlewares_": {
-        "title": "spawnMiddlewares()",
-        "sidebar_label": "spawnMiddlewares()"
       },
       "api/reactant-module/modules/_core_subscribe_": {
         "title": "subscribe()",
@@ -318,8 +318,8 @@
         "sidebar_label": "index"
       },
       "api/reactant-redux/modules/_redux_": {
-        "title": "redux",
-        "sidebar_label": "redux"
+        "title": "redux()",
+        "sidebar_label": "redux()"
       },
       "api/reactant-router/classes/_router_.basereactantrouter": {
         "title": "BaseReactantRouter",
@@ -429,14 +429,6 @@
         "title": "createTransport",
         "sidebar_label": "createTransport"
       },
-      "api/reactant-share/modules/_decorators_index_": {
-        "title": "decorators/index",
-        "sidebar_label": "decorators/index"
-      },
-      "api/reactant-share/modules/_decorators_proxy_": {
-        "title": "@proxy",
-        "sidebar_label": "@proxy"
-      },
       "api/reactant-share/modules/_filterpatches_": {
         "title": "filterPatches",
         "sidebar_label": "filterPatches"
@@ -469,9 +461,45 @@
         "title": "server",
         "sidebar_label": "server"
       },
+      "api/reactant-share/modules/_spawn_": {
+        "title": "spawn()",
+        "sidebar_label": "spawn()"
+      },
       "api/reactant-share/modules/_storage_": {
         "title": "Storage",
         "sidebar_label": "Storage"
+      },
+      "api/reactant-ssr/classes/_appview_.appview": {
+        "title": "AppView",
+        "sidebar_label": "AppView"
+      },
+      "api/reactant-ssr/index": {
+        "title": "reactant-ssr",
+        "sidebar_label": "Globals"
+      },
+      "api/reactant-ssr/interfaces/_interfaces_.serverapp": {
+        "title": "ServerApp",
+        "sidebar_label": "ServerApp"
+      },
+      "api/reactant-ssr/interfaces/_interfaces_.serverconfig": {
+        "title": "ServerConfig",
+        "sidebar_label": "ServerConfig"
+      },
+      "api/reactant-ssr/modules/_appview_": {
+        "title": "appView",
+        "sidebar_label": "appView"
+      },
+      "api/reactant-ssr/modules/_createserverapp_": {
+        "title": "createServerApp",
+        "sidebar_label": "createServerApp"
+      },
+      "api/reactant-ssr/modules/_index_": {
+        "title": "index",
+        "sidebar_label": "index"
+      },
+      "api/reactant-ssr/modules/_interfaces_": {
+        "title": "interfaces",
+        "sidebar_label": "interfaces"
       },
       "api/reactant-storage/classes/_storage_.reactantstorage": {
         "title": "ReactantStorage",

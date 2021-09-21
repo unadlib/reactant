@@ -147,8 +147,17 @@ export type FunctionKeys<T> = Exclude<
 >;
 
 export type Spawn = <T extends object, K extends FunctionKeys<T>>(
+  /**
+   * Designate an execution module from the server side.
+   */
   module: T,
+  /**
+   * Specify the name of a method in this module.
+   */
   key: K,
+  /**
+   * Pass in the parameters for this method.
+   */
   args: Parameters<T[K]>
 ) => ReturnType<T[K]> extends Promise<infer R>
   ? Promise<R>

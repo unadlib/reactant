@@ -1,10 +1,14 @@
-import { applyMiddleware, Middleware, Store } from 'redux';
+import {
+  applyMiddleware as applyMiddlewareWithRedux,
+  Middleware,
+  Store,
+} from 'redux';
 import { PluginModule } from './plugin';
 import { storeKey } from '../constants';
 
 /**
  * ## Description
- * Compose and spawn middlewares for Redux.
+ * Apply middlewares for Redux.
  *
  * ## Example
  *
@@ -15,7 +19,7 @@ import { storeKey } from '../constants';
  * class Foo {}
  *
  * const app = createApp({
- *   modules: [spawnMiddlewares(logger)],
+ *   modules: [applyMiddleware(logger)],
  *   main: Foo,
  *   render: () => {},
  * });
@@ -23,13 +27,13 @@ import { storeKey } from '../constants';
  *
  * @param args middlewares for Redux
  */
-const spawnMiddlewares = (...args: Middleware[]) => {
+const applyMiddleware = (...args: Middleware[]) => {
   return class extends PluginModule {
     readonly [storeKey]?: Store;
 
     // eslint-disable-next-line prefer-spread
-    enhancer = applyMiddleware.apply(null, args);
+    enhancer = applyMiddlewareWithRedux.apply(null, args);
   };
 };
 
-export { spawnMiddlewares };
+export { applyMiddleware };

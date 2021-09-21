@@ -40,6 +40,7 @@ sidebar_label: "index"
 * [Watch](_index_.md#watch)
 * [action](_index_.md#action)
 * [actionIdentifier](_index_.md#actionidentifier)
+* [applyMiddleware](_index_.md#applymiddleware)
 * [areShallowEqualWithArray](_index_.md#areshallowequalwitharray)
 * [areShallowEqualWithObject](_index_.md#areshallowequalwithobject)
 * [assign](_index_.md#assign)
@@ -68,7 +69,6 @@ sidebar_label: "index"
 * [modulesKey](_index_.md#moduleskey)
 * [nameKey](_index_.md#namekey)
 * [perform](_index_.md#perform)
-* [spawnMiddlewares](_index_.md#spawnmiddlewares)
 * [state](_index_.md#state)
 * [stateKey](_index_.md#statekey)
 * [storeKey](_index_.md#storekey)
@@ -270,6 +270,12 @@ ___
 
 ___
 
+###  applyMiddleware
+
+• **applyMiddleware**:
+
+___
+
 ###  areShallowEqualWithArray
 
 • **areShallowEqualWithArray**:
@@ -435,12 +441,6 @@ ___
 ###  perform
 
 • **perform**:
-
-___
-
-###  spawnMiddlewares
-
-• **spawnMiddlewares**:
 
 ___
 

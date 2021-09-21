@@ -16,7 +16,7 @@ sidebar_label: "index"
 * [ServerTransport](_index_.md#servertransport)
 * [Storage](_index_.md#storage)
 * [createSharedApp](_index_.md#createsharedapp)
-* [proxy](_index_.md#proxy)
+* [spawn](_index_.md#spawn)
 * [useLock](_index_.md#uselock)
 
 ## References
@@ -69,9 +69,9 @@ ___
 
 ___
 
-###  proxy
+###  spawn
 
-• **proxy**:
+• **spawn**:
 
 ___
 

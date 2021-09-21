@@ -52,7 +52,7 @@ It provides port detection and client/server port switching functions.
 
 \+ **new PortDetector**(`options`: [IPortDetectorOptions](../interfaces/_portdetector_.iportdetectoroptions.md), `lastAction`: LastAction, `storage?`: [Storage](../modules/_storage_.md#storage)): *[PortDetector](_portdetector_.portdetector.md)*
 
-*Defined in [packages/reactant-share/src/portDetector.ts:49](https://github.com/unadlib/reactant/blob/5a9891fd/packages/reactant-share/src/portDetector.ts#L49)*
+*Defined in [packages/reactant-share/src/portDetector.ts:49](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-share/src/portDetector.ts#L49)*
 
 **Parameters:**
 
@@ -72,7 +72,7 @@ Name | Type |
     CallbackWithHook<Required<Transports>['server']>
   >()
 
-*Defined in [packages/reactant-share/src/portDetector.ts:41](https://github.com/unadlib/reactant/blob/5a9891fd/packages/reactant-share/src/portDetector.ts#L41)*
+*Defined in [packages/reactant-share/src/portDetector.ts:41](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-share/src/portDetector.ts#L41)*
 
 ___
 
@@ -80,7 +80,7 @@ ___
 
 • **lastAction**: *LastAction*
 
-*Defined in [packages/reactant-share/src/portDetector.ts:53](https://github.com/unadlib/reactant/blob/5a9891fd/packages/reactant-share/src/portDetector.ts#L53)*
+*Defined in [packages/reactant-share/src/portDetector.ts:53](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-share/src/portDetector.ts#L53)*
 
 ___
 
@@ -88,7 +88,7 @@ ___
 
 • **lastHooks**? : *Set‹ReturnType‹[CallbackWithHook](../modules/_interfaces_.md#callbackwithhook)››*
 
-*Defined in [packages/reactant-share/src/portDetector.ts:35](https://github.com/unadlib/reactant/blob/5a9891fd/packages/reactant-share/src/portDetector.ts#L35)*
+*Defined in [packages/reactant-share/src/portDetector.ts:35](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-share/src/portDetector.ts#L35)*
 
 ___
 
@@ -96,7 +96,7 @@ ___
 
 • **options**: *[IPortDetectorOptions](../interfaces/_portdetector_.iportdetectoroptions.md)*
 
-*Defined in [packages/reactant-share/src/portDetector.ts:52](https://github.com/unadlib/reactant/blob/5a9891fd/packages/reactant-share/src/portDetector.ts#L52)*
+*Defined in [packages/reactant-share/src/portDetector.ts:52](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-share/src/portDetector.ts#L52)*
 
 ___
 
@@ -104,7 +104,7 @@ ___
 
 • **portApp**? : *[PortApp](../modules/_interfaces_.md#portapp)*
 
-*Defined in [packages/reactant-share/src/portDetector.ts:33](https://github.com/unadlib/reactant/blob/5a9891fd/packages/reactant-share/src/portDetector.ts#L33)*
+*Defined in [packages/reactant-share/src/portDetector.ts:33](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-share/src/portDetector.ts#L33)*
 
 ___
 
@@ -112,7 +112,7 @@ ___
 
 • **previousPort**? : *[Port](../modules/_interfaces_.md#port)*
 
-*Defined in [packages/reactant-share/src/portDetector.ts:49](https://github.com/unadlib/reactant/blob/5a9891fd/packages/reactant-share/src/portDetector.ts#L49)*
+*Defined in [packages/reactant-share/src/portDetector.ts:49](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-share/src/portDetector.ts#L49)*
 
 ___
 
@@ -122,7 +122,7 @@ ___
     CallbackWithHook<Required<Transports>['server']>
   >()
 
-*Defined in [packages/reactant-share/src/portDetector.ts:37](https://github.com/unadlib/reactant/blob/5a9891fd/packages/reactant-share/src/portDetector.ts#L37)*
+*Defined in [packages/reactant-share/src/portDetector.ts:37](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-share/src/portDetector.ts#L37)*
 
 ___
 
@@ -130,7 +130,7 @@ ___
 
 • **storage**? : *[Storage](../modules/_storage_.md#storage)*
 
-*Defined in [packages/reactant-share/src/portDetector.ts:54](https://github.com/unadlib/reactant/blob/5a9891fd/packages/reactant-share/src/portDetector.ts#L54)*
+*Defined in [packages/reactant-share/src/portDetector.ts:54](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-share/src/portDetector.ts#L54)*
 
 ___
 
@@ -138,7 +138,7 @@ ___
 
 • **syncFullStatePromise**? : *ReturnType‹ClientTransport[typeof loadFullStateActionName]›*
 
-*Defined in [packages/reactant-share/src/portDetector.ts:45](https://github.com/unadlib/reactant/blob/5a9891fd/packages/reactant-share/src/portDetector.ts#L45)*
+*Defined in [packages/reactant-share/src/portDetector.ts:45](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-share/src/portDetector.ts#L45)*
 
 ## Accessors
 
@@ -146,7 +146,7 @@ ___
 
 • **get isClient**(): *boolean*
 
-*Defined in [packages/reactant-share/src/portDetector.ts:144](https://github.com/unadlib/reactant/blob/5a9891fd/packages/reactant-share/src/portDetector.ts#L144)*
+*Defined in [packages/reactant-share/src/portDetector.ts:144](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-share/src/portDetector.ts#L144)*
 
 **Returns:** *boolean*
 
@@ -156,7 +156,7 @@ ___
 
 • **get isServer**(): *boolean*
 
-*Defined in [packages/reactant-share/src/portDetector.ts:140](https://github.com/unadlib/reactant/blob/5a9891fd/packages/reactant-share/src/portDetector.ts#L140)*
+*Defined in [packages/reactant-share/src/portDetector.ts:140](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-share/src/portDetector.ts#L140)*
 
 **Returns:** *boolean*
 
@@ -166,7 +166,7 @@ ___
 
 • **get transports**(): *[Transports](../interfaces/_interfaces_.transports.md)*
 
-*Defined in [packages/reactant-share/src/portDetector.ts:148](https://github.com/unadlib/reactant/blob/5a9891fd/packages/reactant-share/src/portDetector.ts#L148)*
+*Defined in [packages/reactant-share/src/portDetector.ts:148](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-share/src/portDetector.ts#L148)*
 
 **Returns:** *[Transports](../interfaces/_interfaces_.transports.md)*
 
@@ -176,7 +176,7 @@ ___
 
 ▸ **detectPort**(`port`: [Port](../modules/_interfaces_.md#port)): *undefined | App‹any›*
 
-*Defined in [packages/reactant-share/src/portDetector.ts:104](https://github.com/unadlib/reactant/blob/5a9891fd/packages/reactant-share/src/portDetector.ts#L104)*
+*Defined in [packages/reactant-share/src/portDetector.ts:104](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-share/src/portDetector.ts#L104)*
 
 **Parameters:**
 
@@ -192,7 +192,7 @@ ___
 
 ▸ **onClient**(`callback`: [CallbackWithHook](../modules/_interfaces_.md#callbackwithhook)‹Required<Transports>["client"]›): *(Anonymous function)*
 
-*Defined in [packages/reactant-share/src/portDetector.ts:130](https://github.com/unadlib/reactant/blob/5a9891fd/packages/reactant-share/src/portDetector.ts#L130)*
+*Defined in [packages/reactant-share/src/portDetector.ts:130](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-share/src/portDetector.ts#L130)*
 
 onClient
 
@@ -213,7 +213,7 @@ ___
 
 ▸ **onRehydrate**(`callback`: function): *void*
 
-*Defined in [packages/reactant-share/src/portDetector.ts:96](https://github.com/unadlib/reactant/blob/5a9891fd/packages/reactant-share/src/portDetector.ts#L96)*
+*Defined in [packages/reactant-share/src/portDetector.ts:96](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-share/src/portDetector.ts#L96)*
 
 **Parameters:**
 
@@ -229,7 +229,7 @@ ___
 
 ▸ **onServer**(`callback`: [CallbackWithHook](../modules/_interfaces_.md#callbackwithhook)‹Required<Transports>["server"]›): *(Anonymous function)*
 
-*Defined in [packages/reactant-share/src/portDetector.ts:114](https://github.com/unadlib/reactant/blob/5a9891fd/packages/reactant-share/src/portDetector.ts#L114)*
+*Defined in [packages/reactant-share/src/portDetector.ts:114](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-share/src/portDetector.ts#L114)*
 
 onServer
 
@@ -250,7 +250,7 @@ ___
 
 ▸ **setPort**(`currentPortApp`: [PortApp](../modules/_interfaces_.md#portapp), `transport`: Required<Transports>[keyof Transports]): *void*
 
-*Defined in [packages/reactant-share/src/portDetector.ts:152](https://github.com/unadlib/reactant/blob/5a9891fd/packages/reactant-share/src/portDetector.ts#L152)*
+*Defined in [packages/reactant-share/src/portDetector.ts:152](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-share/src/portDetector.ts#L152)*
 
 **Parameters:**
 
@@ -267,7 +267,7 @@ ___
 
 ▸ **syncFullState**(): *Promise‹void›*
 
-*Defined in [packages/reactant-share/src/portDetector.ts:194](https://github.com/unadlib/reactant/blob/5a9891fd/packages/reactant-share/src/portDetector.ts#L194)*
+*Defined in [packages/reactant-share/src/portDetector.ts:194](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-share/src/portDetector.ts#L194)*
 
 **Returns:** *Promise‹void›*
 
@@ -277,6 +277,6 @@ ___
 
 ▸ **syncToClients**(): *void*
 
-*Defined in [packages/reactant-share/src/portDetector.ts:180](https://github.com/unadlib/reactant/blob/5a9891fd/packages/reactant-share/src/portDetector.ts#L180)*
+*Defined in [packages/reactant-share/src/portDetector.ts:180](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-share/src/portDetector.ts#L180)*
 
 **Returns:** *void*
