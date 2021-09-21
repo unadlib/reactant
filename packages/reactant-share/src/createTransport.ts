@@ -8,14 +8,14 @@ export const createBroadcastTransport = (name: string) => {
   const transport = createTransport('Base', {
     listener: (callback) => {
       broadcastChannel.onmessage = (data) => {
-        callback(data);
+        callback(JSON.parse(data));
       };
       return () => {
         broadcastChannel.onmessage = null;
         return broadcastChannel.close();
       };
     },
-    sender: (message) => broadcastChannel.postMessage(message),
+    sender: (message) => broadcastChannel.postMessage(JSON.stringify(message)),
     prefix: `reactant-share:${name}`,
   });
   return transport;

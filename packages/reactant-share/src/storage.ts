@@ -5,9 +5,6 @@ import {
   StorageOptions,
 } from 'reactant-storage';
 import type { IStorageOptions as IBaseStorageOptions } from 'reactant-storage';
-import { SharedAppOptions } from './constants';
-import { ISharedAppOptions } from './interfaces';
-import { PortDetector } from './portDetector';
 
 export interface IStorageOptions extends IBaseStorageOptions {
   //
@@ -17,10 +14,7 @@ export interface IStorageOptions extends IBaseStorageOptions {
 class ReactantStorage extends BaseReactantStorage {
   rehydrateCallbackSet = new Set<() => void>();
 
-  constructor(
-    @inject(StorageOptions) public options: IStorageOptions,
-    @inject(SharedAppOptions) protected sharedAppOptions: ISharedAppOptions
-  ) {
+  constructor(@inject(StorageOptions) public options: IStorageOptions) {
     super(options);
 
     this.onRehydrate = () => {
