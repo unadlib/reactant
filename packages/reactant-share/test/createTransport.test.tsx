@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import React from 'react';
 import { unmountComponentAtNode, render } from 'reactant-web';
+import { BroadcastChannel } from 'broadcast-channel';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { act } from 'react-dom/test-utils';
 import {
@@ -14,6 +16,26 @@ import {
   PortDetector,
   optional,
 } from '..';
+
+const mockBroadcastChannels: MockBroadcastChannel[] = [];
+const postMessage = (data: any) =>
+  mockBroadcastChannels.forEach((mockBroadcastChannel) => {
+    mockBroadcastChannel.onmessage(data);
+  });
+class MockBroadcastChannel {
+  onmessage!: (data: any) => void;
+
+  constructor() {
+    mockBroadcastChannels.push(this);
+  }
+
+  postMessage = postMessage;
+}
+
+jest.mock('broadcast-channel');
+
+// @ts-ignore
+BroadcastChannel = MockBroadcastChannel;
 
 let serverContainer: Element;
 let clientContainer: Element;
@@ -124,8 +146,8 @@ describe('base', () => {
       );
     }
   }
-  // TODO: broadcast-channel leaks.
-  test.skip('base server/client port mode with broadcast-channel in SharedTab', async () => {
+
+  test('base server/client port mode with broadcast-channel in SharedTab', async () => {
     onClientFn = jest.fn();
     subscribeOnClientFn = jest.fn();
     onServerFn = jest.fn();
