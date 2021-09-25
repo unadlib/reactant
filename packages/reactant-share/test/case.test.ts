@@ -1,6 +1,12 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { mockPairPorts, createTransport } from 'data-transport';
-import { createSharedApp, injectable, state, action, spawn } from '..';
+import {
+  createSharedApp,
+  injectable,
+  state,
+  action,
+  spawn,
+  mockPairTransports,
+} from '..';
 
 @injectable({
   name: 'counter',
@@ -20,7 +26,7 @@ class Counter {
 }
 
 test('base: sync up full state', async () => {
-  const ports = mockPairPorts();
+  const transports = mockPairTransports();
 
   const server = await createSharedApp({
     modules: [],
@@ -31,7 +37,7 @@ test('base: sync up full state', async () => {
       type: 'Base',
       port: 'server',
       transports: {
-        server: createTransport('Base', ports[0]),
+        server: transports[0],
       },
     },
   });
@@ -50,7 +56,7 @@ test('base: sync up full state', async () => {
       type: 'Base',
       port: 'client',
       transports: {
-        client: createTransport('Base', ports[1]),
+        client: transports[1],
       },
     },
   });
@@ -67,7 +73,7 @@ test('base: sync up full state', async () => {
 });
 
 test('sync up full state and update from server', async () => {
-  const ports = mockPairPorts();
+  const transports = mockPairTransports();
 
   const server = await createSharedApp({
     modules: [],
@@ -78,7 +84,7 @@ test('sync up full state and update from server', async () => {
       type: 'Base',
       port: 'server',
       transports: {
-        server: createTransport('Base', ports[0]),
+        server: transports[0],
       },
     },
   });
@@ -97,7 +103,7 @@ test('sync up full state and update from server', async () => {
       type: 'Base',
       port: 'client',
       transports: {
-        client: createTransport('Base', ports[1]),
+        client: transports[1],
       },
     },
   });

@@ -1,5 +1,4 @@
 import React from 'react';
-import { mockPairPorts } from 'data-transport';
 import { unmountComponentAtNode, render } from 'reactant-web';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { act } from 'react-dom/test-utils';
@@ -13,8 +12,8 @@ import {
   createSharedApp,
   spawn,
   PortDetector,
-  createTransport,
   optional,
+  mockPairTransports,
 } from '..';
 
 let serverContainer: Element;
@@ -137,7 +136,7 @@ describe('base', () => {
     onServerFn = jest.fn();
     subscribeOnServerFn = jest.fn();
 
-    const ports = mockPairPorts();
+    const transports = mockPairTransports();
 
     const serverApp = await createSharedApp({
       modules: [],
@@ -148,7 +147,7 @@ describe('base', () => {
         type,
         port: 'server',
         transports: {
-          server: createTransport('Base', ports[0]),
+          server: transports[0],
         },
       },
     });
@@ -174,7 +173,7 @@ describe('base', () => {
         type,
         port: 'client',
         transports: {
-          client: createTransport('Base', ports[1]),
+          client: transports[1],
         },
       },
     });
@@ -228,8 +227,8 @@ describe('base', () => {
     onServerFn = jest.fn();
     subscribeOnServerFn = jest.fn();
 
-    const ports = mockPairPorts();
-    const ports1 = mockPairPorts();
+    const transports = mockPairTransports();
+    const transports1 = mockPairTransports();
 
     const sharedApp0 = await createSharedApp({
       modules: [],
@@ -239,8 +238,8 @@ describe('base', () => {
         name: 'counter',
         type: 'SharedTab',
         transports: {
-          server: createTransport('Base', ports[0]),
-          client: createTransport('Base', ports1[0]),
+          server: transports[0],
+          client: transports1[0],
         },
       },
     });
@@ -267,8 +266,8 @@ describe('base', () => {
         name: 'counter',
         type: 'SharedTab',
         transports: {
-          server: createTransport('Base', ports1[0]),
-          client: createTransport('Base', ports[1]),
+          server: transports1[0],
+          client: transports[1],
         },
       },
     });
@@ -317,7 +316,7 @@ describe('base', () => {
   });
 
   test('base server/Minimal set client port mode', async () => {
-    const ports = mockPairPorts();
+    const transports = mockPairTransports();
 
     const serverApp = await createSharedApp({
       modules: [{ provide: 'todoList', useClass: TodoList }],
@@ -328,7 +327,7 @@ describe('base', () => {
         type: 'Base',
         port: 'server',
         transports: {
-          server: createTransport('Base', ports[0]),
+          server: transports[0],
         },
       },
     });
@@ -346,7 +345,7 @@ describe('base', () => {
         type: 'Base',
         port: 'client',
         transports: {
-          client: createTransport('Base', ports[1]),
+          client: transports[1],
         },
         enablePatchesFilter: true,
       },

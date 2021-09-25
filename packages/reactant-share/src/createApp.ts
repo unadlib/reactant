@@ -180,8 +180,7 @@ const createSharedTabApp = async <T>(options: Config<T>) => {
  * ## Example
  *
  * ```ts
- * import { createSharedApp, injectable, state, action, spawn } from 'reactant-share';
- * import { mockPairPorts, createTransport } from 'data-transport';
+ * import { createSharedApp, injectable, state, action, spawn, mockPairTransports } from 'reactant-share';
  *
  * @injectable({
  *   name: 'counter',
@@ -197,7 +196,7 @@ const createSharedTabApp = async <T>(options: Config<T>) => {
  * }
  *
  * (async () => {
- *   const ports = mockPairPorts();
+ *   const transports = mockPairTransports();
  *
  *   const server = await createSharedApp({
  *     modules: [],
@@ -208,7 +207,7 @@ const createSharedTabApp = async <T>(options: Config<T>) => {
  *       type: 'Base',
  *       port: 'server',
  *       transports: {
- *         server: createTransport('Base', ports[0]),
+ *         server: transports[0],
  *       },
  *     },
  *   });
@@ -222,7 +221,7 @@ const createSharedTabApp = async <T>(options: Config<T>) => {
  *       type: 'Base',
  *       port: 'client',
  *       transports: {
- *         client: createTransport('Base', ports[1]),
+ *         client: transports[1],
  *       },
  *     },
  *   });

@@ -1,6 +1,5 @@
 import React from 'react';
 import { unmountComponentAtNode, render } from 'reactant-web';
-import { mockPairPorts } from 'data-transport';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { act } from 'react-dom/test-utils';
 import {
@@ -14,10 +13,10 @@ import {
   spawn,
   PortDetector,
   optional,
-  createTransport,
   Storage,
   StorageOptions,
   IStorageOptions,
+  mockPairTransports,
 } from '..';
 
 class MemoryStorage {
@@ -161,7 +160,7 @@ describe('base', () => {
     onServerFn = jest.fn();
     subscribeOnServerFn = jest.fn();
 
-    const ports = mockPairPorts();
+    const transports = mockPairTransports();
 
     const serverApp = await createSharedApp({
       modules: [
@@ -181,7 +180,7 @@ describe('base', () => {
         type: 'Base',
         port: 'server',
         transports: {
-          server: createTransport('Base', ports[0]),
+          server: transports[0],
         },
       },
     });
@@ -210,7 +209,7 @@ describe('base', () => {
         type: 'Base',
         port: 'client',
         transports: {
-          client: createTransport('Base', ports[1]),
+          client: transports[1],
         },
       },
     });

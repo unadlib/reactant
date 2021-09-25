@@ -1,5 +1,4 @@
 import React from 'react';
-import { mockPairPorts } from 'data-transport';
 import { unmountComponentAtNode, render } from 'reactant-web';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { act } from 'react-dom/test-utils';
@@ -15,6 +14,7 @@ import {
   PortDetector,
   createTransport,
   optional,
+  mockPairTransports,
 } from '..';
 
 let serverContainer: Element;
@@ -149,7 +149,7 @@ describe('base', () => {
   }
 
   test('base checkPatches', async () => {
-    const ports = mockPairPorts();
+    const transports = mockPairTransports();
 
     const serverApp = await createSharedApp({
       modules: [{ provide: 'todoList', useClass: TodoList }],
@@ -160,7 +160,7 @@ describe('base', () => {
         type: 'Base',
         port: 'server',
         transports: {
-          server: createTransport('Base', ports[0]),
+          server: transports[0],
         },
         enablePatchesChecker: true,
       },
@@ -179,7 +179,7 @@ describe('base', () => {
         type: 'Base',
         port: 'client',
         transports: {
-          client: createTransport('Base', ports[1]),
+          client: transports[1],
         },
         enablePatchesFilter: true,
       },

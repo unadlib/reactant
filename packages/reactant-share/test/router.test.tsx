@@ -1,7 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { FunctionComponent } from 'react';
 import { unmountComponentAtNode, render, Switch, Route } from 'reactant-web';
-import { mockPairPorts } from 'data-transport';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { act } from 'react-dom/test-utils';
 import {
@@ -16,6 +15,7 @@ import {
   PortDetector,
   createTransport,
   Router,
+  mockPairTransports,
 } from '..';
 
 let serverContainer: Element;
@@ -166,7 +166,7 @@ describe('base', () => {
     onServerFn = jest.fn();
     subscribeOnServerFn = jest.fn();
 
-    const ports = mockPairPorts();
+    const transports = mockPairTransports();
 
     const serverApp = await createSharedApp({
       modules: [Router],
@@ -177,7 +177,7 @@ describe('base', () => {
         type: 'Base',
         port: 'server',
         transports: {
-          server: createTransport('Base', ports[0]),
+          server: transports[0],
         },
       },
     });
@@ -206,7 +206,7 @@ describe('base', () => {
         type: 'Base',
         port: 'client',
         transports: {
-          client: createTransport('Base', ports[1]),
+          client: transports[1],
         },
       },
     });
@@ -396,7 +396,7 @@ describe('SharedWorker', () => {
     onServerFn = jest.fn();
     subscribeOnServerFn = jest.fn();
 
-    const ports = mockPairPorts();
+    const transports = mockPairTransports();
 
     const serverApp = await createSharedApp({
       modules: [Router],
@@ -407,7 +407,7 @@ describe('SharedWorker', () => {
         type: 'SharedWorker',
         port: 'server',
         transports: {
-          server: createTransport('Base', ports[0]),
+          server: transports[0],
         },
       },
     });
@@ -432,7 +432,7 @@ describe('SharedWorker', () => {
         type: 'SharedWorker',
         port: 'client',
         transports: {
-          client: createTransport('Base', ports[1]),
+          client: transports[1],
         },
       },
     });
@@ -631,7 +631,7 @@ describe('ServiceWorker', () => {
     onServerFn = jest.fn();
     subscribeOnServerFn = jest.fn();
 
-    const ports = mockPairPorts();
+    const transports = mockPairTransports();
 
     const serverApp = await createSharedApp({
       modules: [Router],
@@ -642,7 +642,7 @@ describe('ServiceWorker', () => {
         type: 'ServiceWorker',
         port: 'server',
         transports: {
-          server: createTransport('Base', ports[0]),
+          server: transports[0],
         },
       },
     });
@@ -667,7 +667,7 @@ describe('ServiceWorker', () => {
         type: 'ServiceWorker',
         port: 'client',
         transports: {
-          client: createTransport('Base', ports[1]),
+          client: transports[1],
         },
       },
     });
