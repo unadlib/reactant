@@ -2,6 +2,7 @@ import React from 'react';
 import { unmountComponentAtNode, render } from 'reactant-web';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { act } from 'react-dom/test-utils';
+import { LastAction } from 'reactant-last-action';
 import {
   injectable,
   state,
@@ -375,5 +376,29 @@ describe('base', () => {
     expect(clientContainer.querySelector('#count')?.textContent).toBe('2');
 
     expect(clientApp.store?.getState().counter.obj.number).toBe(2);
+
+    act(() => {
+      clientContainer
+        .querySelector('#increase')!
+        .dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    });
+    // wait client receive async state
+    await new Promise((resolve) => setTimeout(resolve));
+
+    const fn = jest.fn();
+    clientApp.store!.subscribe(fn);
+    expect(fn.mock.calls.length).toBe(0);
+    await serverApp.container.get(PortDetector).syncToClients();
+    expect(fn.mock.calls.length).toBe(1);
+
+    await clientApp.container.get(PortDetector).syncFullState();
+    expect(fn.mock.calls.length).toBe(1);
+    expect(clientApp.container.get(LastAction).sequence).toBe(
+      serverApp.container.get(LastAction).sequence
+    );
+
+    clientApp.container.get(LastAction).sequence -= 1;
+    await clientApp.container.get(PortDetector).syncFullState();
+    expect(fn.mock.calls.length).toBe(2);
   });
 });
