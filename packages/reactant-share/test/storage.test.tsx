@@ -152,6 +152,7 @@ describe('base', () => {
       );
     }
   }
+
   test('base server/client port mode with storage', async () => {
     const storage = new MemoryStorage();
 
@@ -234,6 +235,8 @@ describe('base', () => {
         .dispatchEvent(new MouseEvent('click', { bubbles: true }));
     });
 
+    await new Promise((resolve) => setTimeout(resolve));
+
     expect(onClientFn.mock.calls.length).toBe(1);
     expect(subscribeOnClientFn.mock.calls.length).toBe(1);
     expect(onServerFn.mock.calls.length).toBe(1);
@@ -247,6 +250,8 @@ describe('base', () => {
         .querySelector('#increase')!
         .dispatchEvent(new MouseEvent('click', { bubbles: true }));
     });
+
+    await new Promise((resolve) => setTimeout(resolve));
 
     expect(onClientFn.mock.calls.length).toBe(1);
     expect(subscribeOnClientFn.mock.calls.length).toBe(2);

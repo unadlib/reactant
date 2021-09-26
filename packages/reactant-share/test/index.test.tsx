@@ -198,6 +198,8 @@ describe('base', () => {
         .querySelector('#increase')!
         .dispatchEvent(new MouseEvent('click', { bubbles: true }));
     });
+    // waiting for sync state
+    await new Promise((resolve) => setTimeout(resolve));
 
     expect(onClientFn.mock.calls.length).toBe(1);
     expect(subscribeOnClientFn.mock.calls.length).toBe(1);
@@ -212,6 +214,8 @@ describe('base', () => {
         .querySelector('#increase')!
         .dispatchEvent(new MouseEvent('click', { bubbles: true }));
     });
+    // waiting for sync state
+    await new Promise((resolve) => setTimeout(resolve));
 
     expect(onClientFn.mock.calls.length).toBe(1);
     expect(subscribeOnClientFn.mock.calls.length).toBe(2);
@@ -293,6 +297,9 @@ describe('base', () => {
         .dispatchEvent(new MouseEvent('click', { bubbles: true }));
     });
 
+    // waiting for sync state
+    await new Promise((resolve) => setTimeout(resolve));
+
     expect(onClientFn.mock.calls.length).toBe(1);
     expect(subscribeOnClientFn.mock.calls.length).toBe(1);
     expect(onServerFn.mock.calls.length).toBe(1);
@@ -306,6 +313,9 @@ describe('base', () => {
         .querySelector('#increase')!
         .dispatchEvent(new MouseEvent('click', { bubbles: true }));
     });
+
+    // waiting for sync state
+    await new Promise((resolve) => setTimeout(resolve));
 
     expect(onClientFn.mock.calls.length).toBe(1);
     expect(subscribeOnClientFn.mock.calls.length).toBe(2);
@@ -361,6 +371,10 @@ describe('base', () => {
         .querySelector('#increase')!
         .dispatchEvent(new MouseEvent('click', { bubbles: true }));
     });
+
+    // waiting for sync state
+    await new Promise((resolve) => setTimeout(resolve));
+
     expect(serverContainer.querySelector('#count')?.textContent).toBe('1');
     expect(clientContainer.querySelector('#count')?.textContent).toBe('1');
 
@@ -372,6 +386,9 @@ describe('base', () => {
         .dispatchEvent(new MouseEvent('click', { bubbles: true }));
     });
 
+    // waiting for sync state
+    await new Promise((resolve) => setTimeout(resolve));
+
     expect(serverContainer.querySelector('#count')?.textContent).toBe('2');
     expect(clientContainer.querySelector('#count')?.textContent).toBe('2');
 
@@ -382,7 +399,7 @@ describe('base', () => {
         .querySelector('#increase')!
         .dispatchEvent(new MouseEvent('click', { bubbles: true }));
     });
-    // wait client receive async state
+    // waiting for sync state
     await new Promise((resolve) => setTimeout(resolve));
 
     const fn = jest.fn();
@@ -397,8 +414,16 @@ describe('base', () => {
       serverApp.container.get(LastAction).sequence
     );
 
-    clientApp.container.get(LastAction).sequence -= 1;
+    clientApp.container.get(LastAction).sequence = -1;
     await clientApp.container.get(PortDetector).syncFullState();
     expect(fn.mock.calls.length).toBe(2);
+
+    await clientApp.container.get(PortDetector).syncFullState();
+    expect(fn.mock.calls.length).toBe(2);
+
+    await clientApp.container
+      .get(PortDetector)
+      .syncFullState({ forceSync: true });
+    expect(fn.mock.calls.length).toBe(3);
   });
 });

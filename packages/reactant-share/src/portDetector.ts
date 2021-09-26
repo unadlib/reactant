@@ -191,14 +191,17 @@ export class PortDetector {
     }
   }
 
-  async syncFullState() {
+  async syncFullState({ forceSync = false } = {}) {
+    if (forceSync) {
+      this.syncFullStatePromise = undefined;
+    }
     if (this.syncFullStatePromise) return;
     if (typeof this.transports.client === 'undefined') {
       throw new Error(`The current client transport does not exist.`);
     }
     this.syncFullStatePromise = this.transports.client.emit(
       loadFullStateActionName,
-      this.lastAction.sequence
+      !forceSync ? this.lastAction.sequence : -1
     );
     const fullState = await this.syncFullStatePromise;
     this.syncFullStatePromise = undefined;
@@ -207,7 +210,9 @@ export class PortDetector {
     }
     if (
       fullState === null ||
-      this.lastAction.sequence > fullState[this.lastAction.stateKey]._sequence
+      (!forceSync &&
+        this.lastAction.sequence >
+          fullState[this.lastAction.stateKey]._sequence)
     )
       return;
     const store = (this as Service)[storeKey];

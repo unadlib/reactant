@@ -625,6 +625,7 @@ describe('ServiceWorker', () => {
       );
     }
   }
+
   test('base server/client port mode with router in ServiceWorker', async () => {
     onClientFn = jest.fn();
     subscribeOnClientFn = jest.fn();

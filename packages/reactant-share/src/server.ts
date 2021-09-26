@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable consistent-return */
-import { App, containerKey, Container, actionIdentifier } from 'reactant';
+import { containerKey, actionIdentifier, modulesKey } from 'reactant';
+import type { App, ThisService, Container } from 'reactant';
 import { LastAction } from 'reactant-last-action';
 import { HandleServerOptions } from './interfaces';
 import {
@@ -11,8 +12,31 @@ import {
   proxyClientActionName,
 } from './constants';
 import { PortDetector } from './portDetector';
-import { proxyClient } from './proxyClient';
 import { checkPatches } from './checkPatches';
+
+const applyMethod = (
+  app: App<any>,
+  options: {
+    module: string;
+    method: string;
+    args: any[];
+  }
+) => {
+  const module: ThisService | undefined =
+    app.instance[modulesKey][options.module];
+  if (!module) {
+    throw new Error(
+      `The module '${options.module}' is not a multiple instances injected module, and it does not exist.`
+    );
+  }
+  const method = module[options.method];
+  if (typeof method !== 'function') {
+    throw new Error(
+      `The '${options.method}' method for module '${options.module}' does not exist.`
+    );
+  }
+  return method.apply(module, options.args);
+};
 
 export const handleServer = ({
   app,
@@ -46,7 +70,7 @@ export const handleServer = ({
   );
   disposeListeners.push(
     transport.listen(proxyClientActionName, async (options) => {
-      const result = await proxyClient(app, options);
+      const result = await applyMethod(app, options);
       return result;
     })
   );

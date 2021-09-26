@@ -195,6 +195,9 @@ describe('base', () => {
         .querySelector('#increase')!
         .dispatchEvent(new MouseEvent('click', { bubbles: true }));
     });
+
+    await new Promise((resolve) => setTimeout(resolve));
+
     expect(serverContainer.querySelector('#count')?.textContent).toBe('1');
     expect(spy.mock.calls).toEqual([]);
 
