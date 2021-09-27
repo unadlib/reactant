@@ -5,6 +5,7 @@ export const isClientName = '@@reactant:isClient';
 export const loadFullStateActionName = '@@reactant:loadFullState';
 export const syncRouterName = '@@reactant:syncRouter';
 // Server to Client
+export const proxyServerActionName = '@@reactant:proxyServer';
 export const lastActionName = '@@reactant:lastAction';
 export const routerChangeName = '@@reactant:routerChange';
 export const syncToClientsName = '@@reactant:syncToClients';

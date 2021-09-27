@@ -5,28 +5,11 @@ import {
   containerKey,
 } from 'reactant';
 import { LastAction } from 'reactant-last-action';
-import { HandleClientOptions, ProxyClientOptions } from './interfaces';
-import { lastActionName, proxyClientActionName } from './constants';
+import { HandleClientOptions } from './interfaces';
+import { lastActionName, proxyServerActionName } from './constants';
 import { PortDetector } from './portDetector';
 import { filterPatches } from './filterPatches';
-
-export const proxyClient = ({
-  module,
-  method,
-  args,
-  clientTransport,
-}: ProxyClientOptions) => {
-  if (clientTransport) {
-    return clientTransport.emit(proxyClientActionName, {
-      module,
-      method,
-      args,
-    });
-  }
-  return Promise.reject(
-    new Error(`Detected that the current port is not a client.`)
-  );
-};
+import { applyMethod } from './applyMethod';
 
 export const handleClient = ({
   app,
@@ -90,6 +73,11 @@ export const handleClient = ({
       } else {
         portDetector.syncFullState();
       }
+    })
+  );
+  disposeListeners.push(
+    transport.listen(proxyServerActionName, async (options) => {
+      await applyMethod(app, options);
     })
   );
   disposeListeners.push(() => transport.dispose());

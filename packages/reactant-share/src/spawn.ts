@@ -1,5 +1,5 @@
 import { containerKey, identifierKey, Service } from 'reactant';
-import { proxyClient } from './client';
+import { proxyClientActionName, proxyServerActionName } from './constants';
 import { Spawn } from './interfaces';
 import { PortDetector } from './portDetector';
 
@@ -7,9 +7,9 @@ import { PortDetector } from './portDetector';
  * ## Description
  *
  * `spawn()` is very similar to the actor model,
- *  which transfers the corresponding module method to the server thread for execution and returns the result as response.
+ *  which transfers the corresponding module method to the client/server thread for execution and returns the result as response.
  *
- * Note: It does not create new threads, it always runs on the server thread that has already been created.
+ * Note: It does not create new threads, it always runs on the client/server thread that has already been created.
  *
  * ## Example
  *
@@ -46,7 +46,9 @@ import { PortDetector } from './portDetector';
  * ```
  * reference: https://en.wikipedia.org/wiki/Actor_model
  */
-export const spawn: Spawn = (module, key, args) => {
+export const spawn: Spawn = (module, key, args, { port = 'client' } = {}) => {
+  // TODO: fix type
+  // TODO: think about adding transport options
   const method = module[key];
   if (typeof key !== 'string') {
     throw new Error(
@@ -62,8 +64,10 @@ export const spawn: Spawn = (module, key, args) => {
     throw new Error(`The parameters of the method '${key}' must be an array.`);
   }
   const target: Service = module;
-  const portDetector = target[containerKey]?.get(PortDetector);
-  if (portDetector?.isClient) {
+  const portDetector = target[containerKey]!.get(PortDetector);
+  const isClient = port === 'client' && portDetector.isClient;
+  const isServer = port === 'server' && portDetector.isServer;
+  if (isClient || isServer) {
     if (__DEV__) {
       const moduleName = target.constructor.name;
       if (typeof target[identifierKey] !== 'string') {
@@ -77,12 +81,34 @@ export const spawn: Spawn = (module, key, args) => {
         );
       }
     }
-    return proxyClient({
-      module: target[identifierKey]!,
-      method: key,
-      args: args ?? [],
-      clientTransport: portDetector.transports.client,
-    });
+    if (isClient) {
+      if (!portDetector.transports.client) {
+        return Promise.reject(
+          new Error(`Detected that the current port is not a client.`)
+        );
+      }
+      return portDetector.transports.client.emit(proxyClientActionName, {
+        module: target[identifierKey]!,
+        method: key,
+        args: args ?? [],
+      });
+    }
+    if (!portDetector.transports.server) {
+      return Promise.reject(
+        new Error(`Detected that the current port is not a server.`)
+      );
+    }
+    return portDetector.transports.server.emit(
+      {
+        name: proxyServerActionName,
+        respond: false,
+      },
+      {
+        module: target[identifierKey]!,
+        method: key,
+        args: args ?? [],
+      }
+    );
   }
   return (method as Function).apply(target, args);
 };

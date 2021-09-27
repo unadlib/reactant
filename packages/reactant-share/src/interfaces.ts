@@ -8,6 +8,7 @@ import {
   loadFullStateActionName,
   preloadedStateActionName,
   proxyClientActionName,
+  proxyServerActionName,
   routerChangeName,
   syncRouterName,
   syncToClientsName,
@@ -111,6 +112,11 @@ export type ActionOptions = Pick<
 >;
 
 export interface ServerTransport {
+  [proxyServerActionName](options: {
+    module: string;
+    method: string;
+    args: any[];
+  }): Promise<void>;
   [lastActionName](options: ActionOptions): Promise<void>;
   [routerChangeName](options: RouterChangeNameOptions): Promise<RouterState>;
   [syncToClientsName](
@@ -118,12 +124,6 @@ export interface ServerTransport {
   ): Promise<void>;
 }
 
-export interface ProxyClientOptions {
-  module: string;
-  method: string;
-  args: any[];
-  clientTransport: Transports['client'];
-}
 export interface HandleServerOptions {
   app: App<any>;
   transport: Transports['server'];
@@ -146,6 +146,13 @@ export type FunctionKeys<T> = Exclude<
   void
 >;
 
+interface SpawnOptions {
+  /**
+   * Spawn transport, and default transport is client
+   */
+  port?: Port;
+}
+
 export type Spawn = <T extends object, K extends FunctionKeys<T>>(
   /**
    * Designate an execution module from the server side.
@@ -158,7 +165,11 @@ export type Spawn = <T extends object, K extends FunctionKeys<T>>(
   /**
    * Pass in the parameters for this method.
    */
-  args: Parameters<T[K]>
+  args: Parameters<T[K]>,
+  /**
+   * Spawn options
+   */
+  options?: SpawnOptions
 ) => ReturnType<T[K]> extends Promise<infer R>
   ? Promise<R>
   : Promise<ReturnType<T[K]>>;
