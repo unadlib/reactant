@@ -447,22 +447,26 @@ describe('base', () => {
     await serverApp.container.get(PortDetector).syncToClients();
     expect(fn.mock.calls.length).toBe(1);
 
-    await clientApp.container.get(PortDetector).syncFullState();
+    await clientApp.container
+      .get(PortDetector)
+      .syncFullState({ forceSync: false });
     expect(fn.mock.calls.length).toBe(1);
     expect(clientApp.container.get(LastAction).sequence).toBe(
       serverApp.container.get(LastAction).sequence
     );
 
     clientApp.container.get(LastAction).sequence = -1;
-    await clientApp.container.get(PortDetector).syncFullState();
-    expect(fn.mock.calls.length).toBe(2);
-
-    await clientApp.container.get(PortDetector).syncFullState();
+    await clientApp.container
+      .get(PortDetector)
+      .syncFullState({ forceSync: false });
     expect(fn.mock.calls.length).toBe(2);
 
     await clientApp.container
       .get(PortDetector)
-      .syncFullState({ forceSync: true });
+      .syncFullState({ forceSync: false });
+    expect(fn.mock.calls.length).toBe(2);
+
+    await clientApp.container.get(PortDetector).syncFullState();
     expect(fn.mock.calls.length).toBe(3);
   });
 });

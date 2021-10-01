@@ -71,7 +71,7 @@ export const handleClient = ({
         }
         lastAction.sequence = action._sequence;
       } else {
-        portDetector.syncFullState();
+        portDetector.syncFullState({ forceSync: false });
       }
     })
   );

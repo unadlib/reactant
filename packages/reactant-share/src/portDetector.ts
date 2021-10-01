@@ -64,7 +64,7 @@ export class PortDetector {
     }
 
     this.onClient((transport) => {
-      this.syncFullState();
+      this.syncFullState({ forceSync: false });
       const disposeSyncToClients = transport.listen(
         syncToClientsName,
         async (fullState) => {
@@ -191,7 +191,7 @@ export class PortDetector {
     }
   }
 
-  async syncFullState({ forceSync = false } = {}) {
+  async syncFullState({ forceSync = true } = {}) {
     if (forceSync) {
       this.syncFullStatePromise = undefined;
     }
