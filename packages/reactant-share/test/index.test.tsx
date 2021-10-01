@@ -15,6 +15,7 @@ import {
   PortDetector,
   optional,
   mockPairTransports,
+  fork,
 } from '..';
 
 let serverContainer: Element;
@@ -74,6 +75,13 @@ describe('base', () => {
           subscribeOnServerFn?.();
         });
       });
+    }
+
+    num = 1;
+
+    setNum(num: number) {
+      this.num = num;
+      return this.num;
     }
 
     @state
@@ -224,6 +232,37 @@ describe('base', () => {
 
     expect(serverContainer.querySelector('#count')?.textContent).toBe('2');
     expect(clientContainer.querySelector('#count')?.textContent).toBe('2');
+
+    expect(clientApp.instance.counter.num).toBe(1);
+    expect(serverApp.instance.counter.num).toBe(1);
+
+    const result0 = await fork(serverApp.instance.counter, 'setNum', [2]);
+
+    expect(clientApp.instance.counter.num).toBe(2);
+    expect(serverApp.instance.counter.num).toBe(1);
+    expect(result0).toBe(2);
+
+    const result1 = await fork(serverApp.instance.counter, 'setNum', [3], {
+      respond: false,
+    });
+
+    expect(clientApp.instance.counter.num).toBe(3);
+    expect(serverApp.instance.counter.num).toBe(1);
+    expect(result1).toBeUndefined();
+
+    const result2 = await spawn(clientApp.instance.counter, 'setNum', [4]);
+
+    expect(clientApp.instance.counter.num).toBe(3);
+    expect(serverApp.instance.counter.num).toBe(4);
+    expect(result2).toBe(4);
+
+    const result3 = await spawn(clientApp.instance.counter, 'setNum', [5], {
+      respond: false,
+    });
+
+    expect(clientApp.instance.counter.num).toBe(3);
+    expect(serverApp.instance.counter.num).toBe(5);
+    expect(result3).toBeUndefined();
   });
 
   test('base server/client port mode in SharedTab', async () => {

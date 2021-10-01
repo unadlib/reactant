@@ -77,7 +77,8 @@ export const handleClient = ({
   );
   disposeListeners.push(
     transport.listen(proxyServerActionName, async (options) => {
-      await applyMethod(app, options);
+      const result = await applyMethod(app, options);
+      return result;
     })
   );
   disposeListeners.push(() => transport.dispose());

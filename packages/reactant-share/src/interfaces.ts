@@ -1,4 +1,4 @@
-import type { Transport } from 'data-transport';
+import type { EmitParameter, Transport } from 'data-transport';
 import type { Config as BaseConfig, App } from 'reactant';
 import type { ILastActionState } from 'reactant-last-action';
 import type { Router, RouterState } from 'reactant-router';
@@ -153,7 +153,7 @@ interface SpawnOptions {
   port?: Port;
 }
 
-export type Spawn = <T extends object, K extends FunctionKeys<T>>(
+export type ProxyExec = <T extends object, K extends FunctionKeys<T>>(
   /**
    * Designate an execution module from the server side.
    */
@@ -167,9 +167,9 @@ export type Spawn = <T extends object, K extends FunctionKeys<T>>(
    */
   args: Parameters<T[K]>,
   /**
-   * Spawn options
+   * proxy execution options
    */
-  options?: SpawnOptions
+  options?: Pick<EmitParameter<any>, Exclude<keyof EmitParameter<any>, 'name'>>
 ) => ReturnType<T[K]> extends Promise<infer R>
   ? Promise<R>
   : Promise<ReturnType<T[K]>>;
