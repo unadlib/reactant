@@ -6,7 +6,7 @@ sidebar_label: "testBed()"
 
 ▸ **testBed**<**T**>(`config`: PartialKeys‹[Config](../interfaces/_interfaces_.config.md)‹T›, "render"›): *[App](../interfaces/_interfaces_.app.md)‹T›*
 
-*Defined in [testBed.ts:33](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant/src/testBed.ts#L33)*
+*Defined in [testBed.ts:33](https://github.com/unadlib/reactant/blob/ae1de025/packages/reactant/src/testBed.ts#L33)*
 
 ## Description
 

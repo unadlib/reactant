@@ -18,7 +18,7 @@ sidebar_label: "createSharedApp()"
 
 ▸ **createBaseApp**<**T**>(`__namedParameters`: object): *Promise‹App‹T››*
 
-*Defined in [packages/reactant-share/src/createApp.ts:28](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-share/src/createApp.ts#L28)*
+*Defined in [packages/reactant-share/src/createApp.ts:28](https://github.com/unadlib/reactant/blob/ae1de025/packages/reactant-share/src/createApp.ts#L28)*
 
 **Type parameters:**
 
@@ -41,7 +41,7 @@ ___
 
 ▸ **createSharedApp**<**T**>(`options`: [Config](../interfaces/_interfaces_.config.md)‹T›): *Promise‹App‹T››*
 
-*Defined in [packages/reactant-share/src/createApp.ts:239](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-share/src/createApp.ts#L239)*
+*Defined in [packages/reactant-share/src/createApp.ts:238](https://github.com/unadlib/reactant/blob/ae1de025/packages/reactant-share/src/createApp.ts#L238)*
 
 ## Description
 
@@ -52,8 +52,7 @@ and `bootstrap()` method(You can run `bootstrap` to start the app inject into th
 ## Example
 
 ```ts
-import { createSharedApp, injectable, state, action, spawn } from 'reactant-share';
-import { mockPairPorts, createTransport } from 'data-transport';
+import { createSharedApp, injectable, state, action, spawn, mockPairTransports } from 'reactant-share';
 
 @injectable({
   name: 'counter',
@@ -69,7 +68,7 @@ class Counter {
 }
 
 (async () => {
-  const ports = mockPairPorts();
+  const transports = mockPairTransports();
 
   const server = await createSharedApp({
     modules: [],
@@ -80,7 +79,7 @@ class Counter {
       type: 'Base',
       port: 'server',
       transports: {
-        server: createTransport('Base', ports[0]),
+        server: transports[0],
       },
     },
   });
@@ -94,7 +93,7 @@ class Counter {
       type: 'Base',
       port: 'client',
       transports: {
-        client: createTransport('Base', ports[1]),
+        client: transports[1],
       },
     },
   });
@@ -126,7 +125,7 @@ ___
 
 ▸ **createSharedTabApp**<**T**>(`options`: [Config](../interfaces/_interfaces_.config.md)‹T›): *Promise‹App‹T››*
 
-*Defined in [packages/reactant-share/src/createApp.ts:120](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-share/src/createApp.ts#L120)*
+*Defined in [packages/reactant-share/src/createApp.ts:120](https://github.com/unadlib/reactant/blob/ae1de025/packages/reactant-share/src/createApp.ts#L120)*
 
 **Type parameters:**
 

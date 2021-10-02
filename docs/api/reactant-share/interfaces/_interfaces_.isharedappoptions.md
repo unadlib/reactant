@@ -28,7 +28,7 @@ sidebar_label: "ISharedAppOptions"
 
 • **enablePatchesChecker**? : *undefined | false | true*
 
-*Defined in [packages/reactant-share/src/interfaces.ts:67](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-share/src/interfaces.ts#L67)*
+*Defined in [packages/reactant-share/src/interfaces.ts:68](https://github.com/unadlib/reactant/blob/ae1de025/packages/reactant-share/src/interfaces.ts#L68)*
 
 Enable patches checker to support minimized patches in server port.
 
@@ -38,7 +38,7 @@ ___
 
 • **enablePatchesFilter**? : *undefined | false | true*
 
-*Defined in [packages/reactant-share/src/interfaces.ts:63](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-share/src/interfaces.ts#L63)*
+*Defined in [packages/reactant-share/src/interfaces.ts:64](https://github.com/unadlib/reactant/blob/ae1de025/packages/reactant-share/src/interfaces.ts#L64)*
 
 Enable patches filter to support minimized modules collections in client port.
 
@@ -48,7 +48,7 @@ ___
 
 • **name**: *string*
 
-*Defined in [packages/reactant-share/src/interfaces.ts:34](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-share/src/interfaces.ts#L34)*
+*Defined in [packages/reactant-share/src/interfaces.ts:35](https://github.com/unadlib/reactant/blob/ae1de025/packages/reactant-share/src/interfaces.ts#L35)*
 
 Reactant shared app name.
 
@@ -58,7 +58,7 @@ ___
 
 • **port**? : *[Port](../modules/_interfaces_.md#port)*
 
-*Defined in [packages/reactant-share/src/interfaces.ts:51](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-share/src/interfaces.ts#L51)*
+*Defined in [packages/reactant-share/src/interfaces.ts:52](https://github.com/unadlib/reactant/blob/ae1de025/packages/reactant-share/src/interfaces.ts#L52)*
 
 Specify 'client' or 'server' port.
 
@@ -68,7 +68,7 @@ ___
 
 • **transform**? : *[Transform](../modules/_interfaces_.md#transform)*
 
-*Defined in [packages/reactant-share/src/interfaces.ts:71](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-share/src/interfaces.ts#L71)*
+*Defined in [packages/reactant-share/src/interfaces.ts:72](https://github.com/unadlib/reactant/blob/ae1de025/packages/reactant-share/src/interfaces.ts#L72)*
 
 Transform client/server port
 
@@ -78,7 +78,7 @@ ___
 
 • **transports**? : *[Transports](_interfaces_.transports.md)*
 
-*Defined in [packages/reactant-share/src/interfaces.ts:47](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-share/src/interfaces.ts#L47)*
+*Defined in [packages/reactant-share/src/interfaces.ts:48](https://github.com/unadlib/reactant/blob/ae1de025/packages/reactant-share/src/interfaces.ts#L48)*
 
 Shared app's transports
 
@@ -88,7 +88,7 @@ ___
 
 • **type**: *"SharedTab" | "BrowserExtension" | "SharedWorker" | "ServiceWorker" | "Base"*
 
-*Defined in [packages/reactant-share/src/interfaces.ts:38](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-share/src/interfaces.ts#L38)*
+*Defined in [packages/reactant-share/src/interfaces.ts:39](https://github.com/unadlib/reactant/blob/ae1de025/packages/reactant-share/src/interfaces.ts#L39)*
 
 Reactant shared app type.
 
@@ -98,7 +98,7 @@ ___
 
 • **worker**? : *ServiceWorker | SharedWorker*
 
-*Defined in [packages/reactant-share/src/interfaces.ts:59](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-share/src/interfaces.ts#L59)*
+*Defined in [packages/reactant-share/src/interfaces.ts:60](https://github.com/unadlib/reactant/blob/ae1de025/packages/reactant-share/src/interfaces.ts#L60)*
 
 Specify a ServiceWorker or SharedWorker
 
@@ -108,6 +108,6 @@ ___
 
 • **workerURL**? : *undefined | string*
 
-*Defined in [packages/reactant-share/src/interfaces.ts:55](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-share/src/interfaces.ts#L55)*
+*Defined in [packages/reactant-share/src/interfaces.ts:56](https://github.com/unadlib/reactant/blob/ae1de025/packages/reactant-share/src/interfaces.ts#L56)*
 
 Specify a SharedWorker URL

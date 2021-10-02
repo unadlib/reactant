@@ -20,7 +20,7 @@ sidebar_label: "@lazy()"
 
 Ƭ **Lazy**: *function*
 
-*Defined in [packages/reactant-module/src/decorators/lazy.ts:5](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-module/src/decorators/lazy.ts#L5)*
+*Defined in [packages/reactant-module/src/decorators/lazy.ts:5](https://github.com/unadlib/reactant/blob/ae1de025/packages/reactant-module/src/decorators/lazy.ts#L5)*
 
 #### Type declaration:
 
@@ -63,4 +63,4 @@ Name | Type |
   }
 )
 
-*Defined in [packages/reactant-module/src/decorators/lazy.ts:14](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-module/src/decorators/lazy.ts#L14)*
+*Defined in [packages/reactant-module/src/decorators/lazy.ts:14](https://github.com/unadlib/reactant/blob/ae1de025/packages/reactant-module/src/decorators/lazy.ts#L14)*

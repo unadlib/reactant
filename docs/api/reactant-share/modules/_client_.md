@@ -9,7 +9,6 @@ sidebar_label: "client"
 ### Functions
 
 * [handleClient](_client_.md#const-handleclient)
-* [proxyClient](_client_.md#const-proxyclient)
 
 ## Functions
 
@@ -17,7 +16,7 @@ sidebar_label: "client"
 
 ▸ **handleClient**(`__namedParameters`: object): *(Anonymous function)*
 
-*Defined in [packages/reactant-share/src/client.ts:31](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-share/src/client.ts#L31)*
+*Defined in [packages/reactant-share/src/client.ts:14](https://github.com/unadlib/reactant/blob/ae1de025/packages/reactant-share/src/client.ts#L14)*
 
 **Parameters:**
 
@@ -32,24 +31,3 @@ Name | Type |
 `transport` | undefined &#124; Transport‹[ClientTransport](../interfaces/_interfaces_.clienttransport.md), [ServerTransport](../interfaces/_interfaces_.servertransport.md)› |
 
 **Returns:** *(Anonymous function)*
-
-___
-
-### `Const` proxyClient
-
-▸ **proxyClient**(`__namedParameters`: object): *Promise‹any›*
-
-*Defined in [packages/reactant-share/src/client.ts:13](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-share/src/client.ts#L13)*
-
-**Parameters:**
-
-▪ **__namedParameters**: *object*
-
-Name | Type |
------- | ------ |
-`args` | any[] |
-`clientTransport` | undefined &#124; Transport‹[ClientTransport](../interfaces/_interfaces_.clienttransport.md), [ServerTransport](../interfaces/_interfaces_.servertransport.md)› |
-`method` | string |
-`module` | string |
-
-**Returns:** *Promise‹any›*

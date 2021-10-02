@@ -61,6 +61,7 @@
       "api/reactant-share/modules/_createapp_",
       "api/reactant-share/modules/_portdetector_",
       "api/reactant-share/modules/_spawn_",
+      "api/reactant-share/modules/_fork_",
       "api/reactant-share/modules/_router_",
       "api/reactant-share/modules/_storage_"
     ],

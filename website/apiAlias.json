@@ -26,6 +26,7 @@
   "api/reactant-share/modules/_createapp_": "createSharedApp()",
   "api/reactant-share/modules/_portdetector_": "PortDetector",
   "api/reactant-share/modules/_spawn_": "spawn()",
+  "api/reactant-share/modules/_fork_": "fork()",
   "api/reactant-share/modules/_router_": "Router",
   "api/reactant-share/modules/_storage_": "Storage",
   "api/reactant-redux/modules/_redux_": "redux()",

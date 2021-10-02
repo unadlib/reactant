@@ -14,6 +14,7 @@ sidebar_label: "constants"
 * [loadFullStateActionName](_constants_.md#const-loadfullstateactionname)
 * [preloadedStateActionName](_constants_.md#const-preloadedstateactionname)
 * [proxyClientActionName](_constants_.md#const-proxyclientactionname)
+* [proxyServerActionName](_constants_.md#const-proxyserveractionname)
 * [routerChangeName](_constants_.md#const-routerchangename)
 * [syncRouterName](_constants_.md#const-syncroutername)
 * [syncToClientsName](_constants_.md#const-synctoclientsname)
@@ -24,7 +25,7 @@ sidebar_label: "constants"
 
 • **SharedAppOptions**: *unique symbol* = Symbol('SharedAppOptions')
 
-*Defined in [packages/reactant-share/src/constants.ts:12](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-share/src/constants.ts#L12)*
+*Defined in [packages/reactant-share/src/constants.ts:13](https://github.com/unadlib/reactant/blob/ae1de025/packages/reactant-share/src/constants.ts#L13)*
 
 ___
 
@@ -32,7 +33,7 @@ ___
 
 • **isClientName**: *"@@reactant:isClient"* = "@@reactant:isClient"
 
-*Defined in [packages/reactant-share/src/constants.ts:4](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-share/src/constants.ts#L4)*
+*Defined in [packages/reactant-share/src/constants.ts:4](https://github.com/unadlib/reactant/blob/ae1de025/packages/reactant-share/src/constants.ts#L4)*
 
 ___
 
@@ -40,7 +41,7 @@ ___
 
 • **lastActionName**: *"@@reactant:lastAction"* = "@@reactant:lastAction"
 
-*Defined in [packages/reactant-share/src/constants.ts:8](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-share/src/constants.ts#L8)*
+*Defined in [packages/reactant-share/src/constants.ts:9](https://github.com/unadlib/reactant/blob/ae1de025/packages/reactant-share/src/constants.ts#L9)*
 
 ___
 
@@ -48,7 +49,7 @@ ___
 
 • **loadFullStateActionName**: *"@@reactant:loadFullState"* = "@@reactant:loadFullState"
 
-*Defined in [packages/reactant-share/src/constants.ts:5](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-share/src/constants.ts#L5)*
+*Defined in [packages/reactant-share/src/constants.ts:5](https://github.com/unadlib/reactant/blob/ae1de025/packages/reactant-share/src/constants.ts#L5)*
 
 ___
 
@@ -56,7 +57,7 @@ ___
 
 • **preloadedStateActionName**: *"@@reactant:preloadedState"* = "@@reactant:preloadedState"
 
-*Defined in [packages/reactant-share/src/constants.ts:3](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-share/src/constants.ts#L3)*
+*Defined in [packages/reactant-share/src/constants.ts:3](https://github.com/unadlib/reactant/blob/ae1de025/packages/reactant-share/src/constants.ts#L3)*
 
 ___
 
@@ -64,7 +65,15 @@ ___
 
 • **proxyClientActionName**: *"@@reactant:proxyClient"* = "@@reactant:proxyClient"
 
-*Defined in [packages/reactant-share/src/constants.ts:2](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-share/src/constants.ts#L2)*
+*Defined in [packages/reactant-share/src/constants.ts:2](https://github.com/unadlib/reactant/blob/ae1de025/packages/reactant-share/src/constants.ts#L2)*
+
+___
+
+### `Const` proxyServerActionName
+
+• **proxyServerActionName**: *"@@reactant:proxyServer"* = "@@reactant:proxyServer"
+
+*Defined in [packages/reactant-share/src/constants.ts:8](https://github.com/unadlib/reactant/blob/ae1de025/packages/reactant-share/src/constants.ts#L8)*
 
 ___
 
@@ -72,7 +81,7 @@ ___
 
 • **routerChangeName**: *"@@reactant:routerChange"* = "@@reactant:routerChange"
 
-*Defined in [packages/reactant-share/src/constants.ts:9](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-share/src/constants.ts#L9)*
+*Defined in [packages/reactant-share/src/constants.ts:10](https://github.com/unadlib/reactant/blob/ae1de025/packages/reactant-share/src/constants.ts#L10)*
 
 ___
 
@@ -80,7 +89,7 @@ ___
 
 • **syncRouterName**: *"@@reactant:syncRouter"* = "@@reactant:syncRouter"
 
-*Defined in [packages/reactant-share/src/constants.ts:6](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-share/src/constants.ts#L6)*
+*Defined in [packages/reactant-share/src/constants.ts:6](https://github.com/unadlib/reactant/blob/ae1de025/packages/reactant-share/src/constants.ts#L6)*
 
 ___
 
@@ -88,4 +97,4 @@ ___
 
 • **syncToClientsName**: *"@@reactant:syncToClients"* = "@@reactant:syncToClients"
 
-*Defined in [packages/reactant-share/src/constants.ts:10](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-share/src/constants.ts#L10)*
+*Defined in [packages/reactant-share/src/constants.ts:11](https://github.com/unadlib/reactant/blob/ae1de025/packages/reactant-share/src/constants.ts#L11)*

@@ -13,6 +13,7 @@ sidebar_label: "ServerTransport"
 ### Methods
 
 * [[lastActionName]](_interfaces_.servertransport.md#[lastactionname])
+* [[proxyServerActionName]](_interfaces_.servertransport.md#[proxyserveractionname])
 * [[routerChangeName]](_interfaces_.servertransport.md#[routerchangename])
 * [[syncToClientsName]](_interfaces_.servertransport.md#[synctoclientsname])
 
@@ -22,7 +23,7 @@ sidebar_label: "ServerTransport"
 
 ▸ **[lastActionName]**(`options`: [ActionOptions](../modules/_interfaces_.md#actionoptions)): *Promise‹void›*
 
-*Defined in [packages/reactant-share/src/interfaces.ts:114](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-share/src/interfaces.ts#L114)*
+*Defined in [packages/reactant-share/src/interfaces.ts:120](https://github.com/unadlib/reactant/blob/ae1de025/packages/reactant-share/src/interfaces.ts#L120)*
 
 **Parameters:**
 
@@ -34,11 +35,31 @@ Name | Type |
 
 ___
 
+###  [proxyServerActionName]
+
+▸ **[proxyServerActionName]**(`options`: object): *Promise‹void›*
+
+*Defined in [packages/reactant-share/src/interfaces.ts:115](https://github.com/unadlib/reactant/blob/ae1de025/packages/reactant-share/src/interfaces.ts#L115)*
+
+**Parameters:**
+
+▪ **options**: *object*
+
+Name | Type |
+------ | ------ |
+`args` | any[] |
+`method` | string |
+`module` | string |
+
+**Returns:** *Promise‹void›*
+
+___
+
 ###  [routerChangeName]
 
 ▸ **[routerChangeName]**(`options`: [RouterChangeNameOptions](../modules/_router_.md#routerchangenameoptions)): *Promise‹RouterState›*
 
-*Defined in [packages/reactant-share/src/interfaces.ts:115](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-share/src/interfaces.ts#L115)*
+*Defined in [packages/reactant-share/src/interfaces.ts:121](https://github.com/unadlib/reactant/blob/ae1de025/packages/reactant-share/src/interfaces.ts#L121)*
 
 **Parameters:**
 
@@ -54,7 +75,7 @@ ___
 
 ▸ **[syncToClientsName]**(`options`: Record‹string, any› | null | undefined): *Promise‹void›*
 
-*Defined in [packages/reactant-share/src/interfaces.ts:116](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-share/src/interfaces.ts#L116)*
+*Defined in [packages/reactant-share/src/interfaces.ts:122](https://github.com/unadlib/reactant/blob/ae1de025/packages/reactant-share/src/interfaces.ts#L122)*
 
 **Parameters:**
 

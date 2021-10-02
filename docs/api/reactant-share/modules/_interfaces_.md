@@ -13,8 +13,8 @@ sidebar_label: "interfaces"
 * [HandleClientOptions](../interfaces/_interfaces_.handleclientoptions.md)
 * [HandleServerOptions](../interfaces/_interfaces_.handleserveroptions.md)
 * [ISharedAppOptions](../interfaces/_interfaces_.isharedappoptions.md)
-* [ProxyClientOptions](../interfaces/_interfaces_.proxyclientoptions.md)
 * [ServerTransport](../interfaces/_interfaces_.servertransport.md)
+* [SpawnOptions](../interfaces/_interfaces_.spawnoptions.md)
 * [Transports](../interfaces/_interfaces_.transports.md)
 
 ### Type aliases
@@ -25,7 +25,7 @@ sidebar_label: "interfaces"
 * [FunctionKeys](_interfaces_.md#functionkeys)
 * [Port](_interfaces_.md#port)
 * [PortApp](_interfaces_.md#portapp)
-* [Spawn](_interfaces_.md#spawn)
+* [ProxyExec](_interfaces_.md#proxyexec)
 * [Transform](_interfaces_.md#transform)
 
 ## Type aliases
@@ -34,7 +34,7 @@ sidebar_label: "interfaces"
 
 Ƭ **ActionOptions**: *Pick‹ILastActionState, Exclude‹keyof ILastActionState, "_inversePatches"››*
 
-*Defined in [packages/reactant-share/src/interfaces.ts:108](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-share/src/interfaces.ts#L108)*
+*Defined in [packages/reactant-share/src/interfaces.ts:109](https://github.com/unadlib/reactant/blob/ae1de025/packages/reactant-share/src/interfaces.ts#L109)*
 
 ___
 
@@ -42,7 +42,7 @@ ___
 
 Ƭ **Callback**: *function*
 
-*Defined in [packages/reactant-share/src/interfaces.ts:83](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-share/src/interfaces.ts#L83)*
+*Defined in [packages/reactant-share/src/interfaces.ts:84](https://github.com/unadlib/reactant/blob/ae1de025/packages/reactant-share/src/interfaces.ts#L84)*
 
 #### Type declaration:
 
@@ -54,7 +54,7 @@ ___
 
 Ƭ **CallbackWithHook**: *function*
 
-*Defined in [packages/reactant-share/src/interfaces.ts:85](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-share/src/interfaces.ts#L85)*
+*Defined in [packages/reactant-share/src/interfaces.ts:86](https://github.com/unadlib/reactant/blob/ae1de025/packages/reactant-share/src/interfaces.ts#L86)*
 
 #### Type declaration:
 
@@ -72,7 +72,7 @@ ___
 
 Ƭ **FunctionKeys**: *Exclude‹object[keyof T], void›*
 
-*Defined in [packages/reactant-share/src/interfaces.ts:142](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-share/src/interfaces.ts#L142)*
+*Defined in [packages/reactant-share/src/interfaces.ts:142](https://github.com/unadlib/reactant/blob/ae1de025/packages/reactant-share/src/interfaces.ts#L142)*
 
 ___
 
@@ -80,7 +80,7 @@ ___
 
 Ƭ **Port**: *"server" | "client"*
 
-*Defined in [packages/reactant-share/src/interfaces.ts:17](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-share/src/interfaces.ts#L17)*
+*Defined in [packages/reactant-share/src/interfaces.ts:18](https://github.com/unadlib/reactant/blob/ae1de025/packages/reactant-share/src/interfaces.ts#L18)*
 
 ___
 
@@ -88,25 +88,27 @@ ___
 
 Ƭ **PortApp**: *Partial‹Record‹[Port](_interfaces_.md#port), App‹any›››*
 
-*Defined in [packages/reactant-share/src/interfaces.ts:92](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-share/src/interfaces.ts#L92)*
+*Defined in [packages/reactant-share/src/interfaces.ts:93](https://github.com/unadlib/reactant/blob/ae1de025/packages/reactant-share/src/interfaces.ts#L93)*
 
 ___
 
-###  Spawn
+###  ProxyExec
 
-Ƭ **Spawn**: *function*
+Ƭ **ProxyExec**: *function*
 
-*Defined in [packages/reactant-share/src/interfaces.ts:149](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-share/src/interfaces.ts#L149)*
+*Defined in [packages/reactant-share/src/interfaces.ts:156](https://github.com/unadlib/reactant/blob/ae1de025/packages/reactant-share/src/interfaces.ts#L156)*
 
 #### Type declaration:
 
-▸ <**T**, **K**>(`module`: T, `key`: K, `args`: Parameters‹T[K]›): *ReturnType<T[K]> extends Promise<infer R> ? Promise<R> : Promise<ReturnType<T[K]>>*
+▸ <**T**, **K**, **O**>(`module`: T, `key`: K, `args`: Parameters‹T[K]›, `options?`: object & Pick‹EmitParameter‹any›, Exclude‹keyof EmitParameter<any>, "name" | "respond"››): *O extends false ? void : ReturnType<T[K]> extends Promise<infer R> ? Promise<R> : Promise<ReturnType<T[K]>>*
 
 **Type parameters:**
 
 ▪ **T**: *object*
 
 ▪ **K**: *[FunctionKeys](_interfaces_.md#functionkeys)‹T›*
+
+▪ **O**: *EmitParameter<any>["respond"]*
 
 **Parameters:**
 
@@ -115,6 +117,7 @@ Name | Type |
 `module` | T |
 `key` | K |
 `args` | Parameters‹T[K]› |
+`options?` | object & Pick‹EmitParameter‹any›, Exclude‹keyof EmitParameter<any>, "name" &#124; "respond"›› |
 
 ___
 
@@ -122,7 +125,7 @@ ___
 
 Ƭ **Transform**: *function*
 
-*Defined in [packages/reactant-share/src/interfaces.ts:81](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-share/src/interfaces.ts#L81)*
+*Defined in [packages/reactant-share/src/interfaces.ts:82](https://github.com/unadlib/reactant/blob/ae1de025/packages/reactant-share/src/interfaces.ts#L82)*
 
 #### Type declaration:
 

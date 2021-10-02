@@ -21,7 +21,7 @@ sidebar_label: "Transports"
 
 • **client**? : *Transport‹[ClientTransport](_interfaces_.clienttransport.md), [ServerTransport](_interfaces_.servertransport.md)›*
 
-*Defined in [packages/reactant-share/src/interfaces.ts:27](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-share/src/interfaces.ts#L27)*
+*Defined in [packages/reactant-share/src/interfaces.ts:28](https://github.com/unadlib/reactant/blob/ae1de025/packages/reactant-share/src/interfaces.ts#L28)*
 
 Client Transport
 
@@ -31,6 +31,6 @@ ___
 
 • **server**? : *Transport‹[ServerTransport](_interfaces_.servertransport.md), [ClientTransport](_interfaces_.clienttransport.md)›*
 
-*Defined in [packages/reactant-share/src/interfaces.ts:23](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-share/src/interfaces.ts#L23)*
+*Defined in [packages/reactant-share/src/interfaces.ts:24](https://github.com/unadlib/reactant/blob/ae1de025/packages/reactant-share/src/interfaces.ts#L24)*
 
 Server Transport

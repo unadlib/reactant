@@ -24,7 +24,7 @@ sidebar_label: "HandleClientOptions"
 
 • **app**: *App‹any›*
 
-*Defined in [packages/reactant-share/src/interfaces.ts:135](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-share/src/interfaces.ts#L135)*
+*Defined in [packages/reactant-share/src/interfaces.ts:135](https://github.com/unadlib/reactant/blob/ae1de025/packages/reactant-share/src/interfaces.ts#L135)*
 
 ___
 
@@ -32,7 +32,7 @@ ___
 
 • **disposeServer**? : *undefined | function*
 
-*Defined in [packages/reactant-share/src/interfaces.ts:137](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-share/src/interfaces.ts#L137)*
+*Defined in [packages/reactant-share/src/interfaces.ts:137](https://github.com/unadlib/reactant/blob/ae1de025/packages/reactant-share/src/interfaces.ts#L137)*
 
 ___
 
@@ -40,7 +40,7 @@ ___
 
 • **enablePatchesFilter**? : *undefined | false | true*
 
-*Defined in [packages/reactant-share/src/interfaces.ts:138](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-share/src/interfaces.ts#L138)*
+*Defined in [packages/reactant-share/src/interfaces.ts:138](https://github.com/unadlib/reactant/blob/ae1de025/packages/reactant-share/src/interfaces.ts#L138)*
 
 ___
 
@@ -48,7 +48,7 @@ ___
 
 • **preloadedState**? : *Record‹string, any›*
 
-*Defined in [packages/reactant-share/src/interfaces.ts:139](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-share/src/interfaces.ts#L139)*
+*Defined in [packages/reactant-share/src/interfaces.ts:139](https://github.com/unadlib/reactant/blob/ae1de025/packages/reactant-share/src/interfaces.ts#L139)*
 
 ___
 
@@ -56,4 +56,4 @@ ___
 
 • **transport**: *Transports["client"]*
 
-*Defined in [packages/reactant-share/src/interfaces.ts:136](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-share/src/interfaces.ts#L136)*
+*Defined in [packages/reactant-share/src/interfaces.ts:136](https://github.com/unadlib/reactant/blob/ae1de025/packages/reactant-share/src/interfaces.ts#L136)*

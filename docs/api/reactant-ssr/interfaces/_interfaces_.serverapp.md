@@ -22,7 +22,7 @@ sidebar_label: "ServerApp"
 
 ▸ **bootstrap**(`appProps`: AppProps): *Element*
 
-*Defined in [packages/reactant-ssr/src/interfaces.ts:11](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-ssr/src/interfaces.ts#L11)*
+*Defined in [packages/reactant-ssr/src/interfaces.ts:11](https://github.com/unadlib/reactant/blob/ae1de025/packages/reactant-ssr/src/interfaces.ts#L11)*
 
 **Parameters:**
 

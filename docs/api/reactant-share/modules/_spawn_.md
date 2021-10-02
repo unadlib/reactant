@@ -14,9 +14,11 @@ sidebar_label: "spawn()"
 
 ### `Const` spawn
 
-▸ **spawn**(`module`: T, `key`: K, `args`: undefined): *any*
+▸ **spawn**(`module`: T, `key`: K, `args`: T[K] extends function ? P : never, `options`: undefined | object & object): *any*
 
-*Defined in [packages/reactant-share/src/spawn.ts:49](https://github.com/unadlib/reactant/blob/a019d587/packages/reactant-share/src/spawn.ts#L49)*
+*Defined in [packages/reactant-share/src/spawn.ts:51](https://github.com/unadlib/reactant/blob/ae1de025/packages/reactant-share/src/spawn.ts#L51)*
+
+Proxy execute On the server side.
 
 ## Description
 
@@ -62,10 +64,11 @@ reference: https://en.wikipedia.org/wiki/Actor_model
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`module` | T |
-`key` | K |
-`args` |  |
+Name | Type | Default |
+------ | ------ | ------ |
+`module` | T | - |
+`key` | K | - |
+`args` | T[K] extends function ? P : never | - |
+`options` | undefined &#124; object & object | {} |
 
 **Returns:** *any*

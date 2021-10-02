@@ -16,6 +16,8 @@ sidebar_label: "index"
 * [ServerTransport](_index_.md#servertransport)
 * [Storage](_index_.md#storage)
 * [createSharedApp](_index_.md#createsharedapp)
+* [fork](_index_.md#fork)
+* [mockPairTransports](_index_.md#mockpairtransports)
 * [spawn](_index_.md#spawn)
 * [useLock](_index_.md#uselock)
 
@@ -66,6 +68,18 @@ ___
 ###  createSharedApp
 
 • **createSharedApp**:
+
+___
+
+###  fork
+
+• **fork**:
+
+___
+
+###  mockPairTransports
+
+• **mockPairTransports**:
 
 ___
 

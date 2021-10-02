@@ -385,13 +385,13 @@
         "title": "ISharedAppOptions",
         "sidebar_label": "ISharedAppOptions"
       },
-      "api/reactant-share/interfaces/_interfaces_.proxyclientoptions": {
-        "title": "ProxyClientOptions",
-        "sidebar_label": "ProxyClientOptions"
-      },
       "api/reactant-share/interfaces/_interfaces_.servertransport": {
         "title": "ServerTransport",
         "sidebar_label": "ServerTransport"
+      },
+      "api/reactant-share/interfaces/_interfaces_.spawnoptions": {
+        "title": "SpawnOptions",
+        "sidebar_label": "SpawnOptions"
       },
       "api/reactant-share/interfaces/_interfaces_.transports": {
         "title": "Transports",
@@ -408,6 +408,10 @@
       "api/reactant-share/interfaces/_storage_.istorageoptions": {
         "title": "IStorageOptions",
         "sidebar_label": "IStorageOptions"
+      },
+      "api/reactant-share/modules/_applymethod_": {
+        "title": "applyMethod",
+        "sidebar_label": "applyMethod"
       },
       "api/reactant-share/modules/_checkpatches_": {
         "title": "checkPatches",
@@ -433,6 +437,10 @@
         "title": "filterPatches",
         "sidebar_label": "filterPatches"
       },
+      "api/reactant-share/modules/_fork_": {
+        "title": "fork()",
+        "sidebar_label": "fork()"
+      },
       "api/reactant-share/modules/_index_": {
         "title": "index",
         "sidebar_label": "index"
@@ -445,13 +453,13 @@
         "title": "lock",
         "sidebar_label": "lock"
       },
+      "api/reactant-share/modules/_mockpairtransports_": {
+        "title": "mockPairTransports",
+        "sidebar_label": "mockPairTransports"
+      },
       "api/reactant-share/modules/_portdetector_": {
         "title": "PortDetector",
         "sidebar_label": "PortDetector"
-      },
-      "api/reactant-share/modules/_proxyclient_": {
-        "title": "proxyClient",
-        "sidebar_label": "proxyClient"
       },
       "api/reactant-share/modules/_router_": {
         "title": "Router",
