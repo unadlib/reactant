@@ -153,7 +153,11 @@ interface SpawnOptions {
   port?: Port;
 }
 
-export type ProxyExec = <T extends object, K extends FunctionKeys<T>>(
+export type ProxyExec = <
+  T extends object,
+  K extends FunctionKeys<T>,
+  O extends EmitParameter<any>['respond']
+>(
   /**
    * Designate an execution module from the server side.
    */
@@ -169,7 +173,12 @@ export type ProxyExec = <T extends object, K extends FunctionKeys<T>>(
   /**
    * proxy execution options
    */
-  options?: Pick<EmitParameter<any>, Exclude<keyof EmitParameter<any>, 'name'>>
-) => ReturnType<T[K]> extends Promise<infer R>
+  options?: { respond?: O } & Pick<
+    EmitParameter<any>,
+    Exclude<keyof EmitParameter<any>, 'name' | 'respond'>
+  >
+) => O extends false
+  ? void
+  : ReturnType<T[K]> extends Promise<infer R>
   ? Promise<R>
   : Promise<ReturnType<T[K]>>;
