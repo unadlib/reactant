@@ -22,8 +22,6 @@ npm install reactant-share
 yarn add reactant-share
 ```
 
-## Example
-
 Here is the counter example, it uses `reactant-share` ShareWorker mode:
 
 - `app.view.tsx`:
@@ -111,6 +109,14 @@ createSharedApp({
   // renderless
 });
 ```
+
+## Workflow
+
+![Workflow](./workflow.jpg)
+
+1. client App: `spawn(this.counter, 'increase', [])`
+2. server app: `this.counter.increase()`
+3. return value to current client app and sync state to all client apps
 
 ## Examples
 
