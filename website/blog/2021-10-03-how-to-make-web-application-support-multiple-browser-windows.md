@@ -175,7 +175,7 @@ The specific workflow of `increase` looks like this.
 ### Multiple modes
 
 - Shared tab - It is suitable for running in browsers that do not support SharedWorker/ServiceWorker. The server app is an instance with rendering that also runs in a browser window. In multiple browser windows, there is also only one server app, and after it is closed or refreshed, one instance of the other client apps will be converted to a server app.
-- s - If there is no [browser compatibility](https://caniuse.com/?search=sharedworker) requirement, reactant-share is highly recommended to use this mode, and reactant-share also does a graceful degradation, so if the browser does not support SharedWorker then the app will run in Shared-Tab mode.
+- SharedWorker - If there is no [browser compatibility](https://caniuse.com/?search=sharedworker) requirement, reactant-share is highly recommended to use this mode, and reactant-share also does a graceful degradation, so if the browser does not support SharedWorker then the app will run in Shared-Tab mode.
 - ServiceWorker - If Shared Web Apps are intended to be PWA (Progressive Web Apps), then using this mode would be ideal, and it also supports the automatic graceful degradation to Shared-Tab mode.
 - Browser extension - The browser extension allows a background thread, the server app of reactant-share can run in this background thread, and the UI can run in the client app.
 - Detached window - reactant-share allows sub-applications to run as Detached windows or to be quickly merged into a more complete application.
