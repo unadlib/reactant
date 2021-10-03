@@ -10,6 +10,8 @@ A framework for building shared web applications that support multiple windows.
 - Browser Extension
 - Shared Worker
 - Service Worker
+- Detached window
+- iframe
 - Any other data-transport based application port, such as WebRTC
 
 ## Usage
@@ -28,9 +30,17 @@ Here is the counter example, it uses `reactant-share` ShareWorker mode:
 
 ```tsx
 import React from 'react';
-import { ViewModule, createApp, injectable, useConnector, action, state, spawn } from 'reactant-share';
+import {
+  ViewModule,
+  createApp,
+  injectable,
+  useConnector,
+  action,
+  state,
+  spawn,
+} from 'reactant-share';
 
-@injectable({ name: 'counter'})
+@injectable({ name: 'counter' })
 class Counter {
   @state
   count = 0;
@@ -101,6 +111,13 @@ createSharedApp({
   // renderless
 });
 ```
+
+## Examples
+
+- [shared-worker](https://github.com/unadlib/reactant-examples/tree/master/reactant-share/shared-worker)
+- [shared-tab](https://github.com/unadlib/reactant-examples/tree/master/reactant-share/shared-tab)
+- [service-worker](https://github.com/unadlib/reactant-examples/tree/master/reactant-share/service-worker)
+- [dynamic-module](https://github.com/unadlib/reactant-examples/tree/master/reactant-share/dynamic-module)
 
 ## Documentation
 
