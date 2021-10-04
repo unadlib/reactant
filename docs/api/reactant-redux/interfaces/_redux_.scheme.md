@@ -28,7 +28,7 @@ sidebar_label: "Scheme"
 
 • **actions**: *A*
 
-*Defined in [redux.ts:7](https://github.com/unadlib/reactant/blob/ae1de025/packages/reactant-redux/src/redux.ts#L7)*
+*Defined in [redux.ts:7](https://github.com/unadlib/reactant/blob/03d0c8fd/packages/reactant-redux/src/redux.ts#L7)*
 
 ___
 
@@ -36,7 +36,7 @@ ___
 
 • **name**: *string*
 
-*Defined in [redux.ts:5](https://github.com/unadlib/reactant/blob/ae1de025/packages/reactant-redux/src/redux.ts#L5)*
+*Defined in [redux.ts:5](https://github.com/unadlib/reactant/blob/03d0c8fd/packages/reactant-redux/src/redux.ts#L5)*
 
 ___
 
@@ -44,4 +44,4 @@ ___
 
 • **reducers**: *S*
 
-*Defined in [redux.ts:6](https://github.com/unadlib/reactant/blob/ae1de025/packages/reactant-redux/src/redux.ts#L6)*
+*Defined in [redux.ts:6](https://github.com/unadlib/reactant/blob/03d0c8fd/packages/reactant-redux/src/redux.ts#L6)*

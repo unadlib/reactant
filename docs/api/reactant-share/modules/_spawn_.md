@@ -16,7 +16,7 @@ sidebar_label: "spawn()"
 
 ▸ **spawn**(`module`: T, `key`: K, `args`: T[K] extends function ? P : never, `options`: undefined | object & object): *any*
 
-*Defined in [packages/reactant-share/src/spawn.ts:51](https://github.com/unadlib/reactant/blob/ae1de025/packages/reactant-share/src/spawn.ts#L51)*
+*Defined in [packages/reactant-share/src/spawn.ts:51](https://github.com/unadlib/reactant/blob/03d0c8fd/packages/reactant-share/src/spawn.ts#L51)*
 
 Proxy execute On the server side.
 

@@ -25,7 +25,7 @@ sidebar_label: "redux()"
 
 Ƭ **Actions**: *object*
 
-*Defined in [redux.ts:14](https://github.com/unadlib/reactant/blob/ae1de025/packages/reactant-redux/src/redux.ts#L14)*
+*Defined in [redux.ts:14](https://github.com/unadlib/reactant/blob/03d0c8fd/packages/reactant-redux/src/redux.ts#L14)*
 
 #### Type declaration:
 
@@ -35,7 +35,7 @@ ___
 
 Ƭ **State**: *object*
 
-*Defined in [redux.ts:10](https://github.com/unadlib/reactant/blob/ae1de025/packages/reactant-redux/src/redux.ts#L10)*
+*Defined in [redux.ts:10](https://github.com/unadlib/reactant/blob/03d0c8fd/packages/reactant-redux/src/redux.ts#L10)*
 
 #### Type declaration:
 
@@ -45,7 +45,7 @@ ___
 
 ▸ **redux**<**S**, **A**>(`scheme`: [Scheme](../interfaces/_redux_.scheme.md)‹S, A›): *[Actions](_redux_.md#actions)‹A› & Service‹[State](_redux_.md#state)‹S›› & [State](_redux_.md#state)‹S›*
 
-*Defined in [redux.ts:18](https://github.com/unadlib/reactant/blob/ae1de025/packages/reactant-redux/src/redux.ts#L18)*
+*Defined in [redux.ts:18](https://github.com/unadlib/reactant/blob/03d0c8fd/packages/reactant-redux/src/redux.ts#L18)*
 
 **Type parameters:**
 

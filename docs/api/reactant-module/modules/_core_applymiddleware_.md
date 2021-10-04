@@ -16,7 +16,7 @@ sidebar_label: "applyMiddleware()"
 
 ▸ **applyMiddleware**(...`args`: Middleware[]): *(Anonymous class)*
 
-*Defined in [packages/reactant-module/src/core/applyMiddleware.ts:30](https://github.com/unadlib/reactant/blob/ae1de025/packages/reactant-module/src/core/applyMiddleware.ts#L30)*
+*Defined in [packages/reactant-module/src/core/applyMiddleware.ts:30](https://github.com/unadlib/reactant/blob/03d0c8fd/packages/reactant-module/src/core/applyMiddleware.ts#L30)*
 
 ## Description
 Apply middlewares for Redux.

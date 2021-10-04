@@ -32,7 +32,7 @@ sidebar_label: "ReactantAction"
 
 • **_inversePatches**? : *Patch[]*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:74](https://github.com/unadlib/reactant/blob/ae1de025/packages/reactant-module/src/interfaces.ts#L74)*
+*Defined in [packages/reactant-module/src/interfaces.ts:74](https://github.com/unadlib/reactant/blob/03d0c8fd/packages/reactant-module/src/interfaces.ts#L74)*
 
 ___
 
@@ -40,7 +40,7 @@ ___
 
 • **_patches**? : *Patch[]*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:73](https://github.com/unadlib/reactant/blob/ae1de025/packages/reactant-module/src/interfaces.ts#L73)*
+*Defined in [packages/reactant-module/src/interfaces.ts:73](https://github.com/unadlib/reactant/blob/03d0c8fd/packages/reactant-module/src/interfaces.ts#L73)*
 
 ___
 
@@ -48,7 +48,7 @@ ___
 
 • **_reactant**: *typeof actionIdentifier*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:72](https://github.com/unadlib/reactant/blob/ae1de025/packages/reactant-module/src/interfaces.ts#L72)*
+*Defined in [packages/reactant-module/src/interfaces.ts:72](https://github.com/unadlib/reactant/blob/03d0c8fd/packages/reactant-module/src/interfaces.ts#L72)*
 
 ___
 
@@ -56,7 +56,7 @@ ___
 
 • **method**? : *undefined | string*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:69](https://github.com/unadlib/reactant/blob/ae1de025/packages/reactant-module/src/interfaces.ts#L69)*
+*Defined in [packages/reactant-module/src/interfaces.ts:69](https://github.com/unadlib/reactant/blob/03d0c8fd/packages/reactant-module/src/interfaces.ts#L69)*
 
 ___
 
@@ -64,7 +64,7 @@ ___
 
 • **params**: *any[]*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:71](https://github.com/unadlib/reactant/blob/ae1de025/packages/reactant-module/src/interfaces.ts#L71)*
+*Defined in [packages/reactant-module/src/interfaces.ts:71](https://github.com/unadlib/reactant/blob/03d0c8fd/packages/reactant-module/src/interfaces.ts#L71)*
 
 ___
 
@@ -72,7 +72,7 @@ ___
 
 • **state**: *Record‹string, T›*
 
-*Defined in [packages/reactant-module/src/interfaces.ts:70](https://github.com/unadlib/reactant/blob/ae1de025/packages/reactant-module/src/interfaces.ts#L70)*
+*Defined in [packages/reactant-module/src/interfaces.ts:70](https://github.com/unadlib/reactant/blob/03d0c8fd/packages/reactant-module/src/interfaces.ts#L70)*
 
 ___
 

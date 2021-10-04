@@ -12,14 +12,14 @@ import { AppView } from './app.view';
 createSharedApp({
   modules: [
     Router,
-    // Storage,
-    // {
-    //   provide: StorageOptions,
-    //   useValue: {
-    //     storage: localForage,
-    //     loading: 'loading',
-    //   } as IStorageOptions,
-    // },
+    Storage,
+    {
+      provide: StorageOptions,
+      useValue: {
+        storage: localForage,
+        loading: 'loading',
+      } as IStorageOptions,
+    },
   ],
   main: AppView,
   render,
@@ -30,7 +30,5 @@ createSharedApp({
     workerURL: 'worker.bundle.js',
   },
 }).then((app) => {
-  console.log(app, '====');
   app.bootstrap(document.getElementById('app'));
-  (window as any).app = app;
 });

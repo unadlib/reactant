@@ -400,6 +400,6 @@ Front-end frameworks and architectures are always evolving. With full Worker sup
 
 This is what reactant-share wants to try and work on.
 
-If you think reactant-share is interesting, feel free to give it a star, thanks for your support.
+If you think reactant-share is interesting, feel free to give it a star.
 
 Repo: [reactant](https://github.com/unadlib/reactant)
