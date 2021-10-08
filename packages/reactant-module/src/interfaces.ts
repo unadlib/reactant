@@ -101,7 +101,13 @@ export type HandlePlugin<T = any> = (
 ) => void;
 
 export type Subscribe = (
+  /**
+   * Module instance
+   */
   service: ThisService,
+  /**
+   * Redux's store subscription
+   */
   listener: () => void
 ) => Unsubscribe;
 
@@ -109,10 +115,32 @@ type Selector<T> = () => T;
 
 type Watcher<T> = (newValue: T, oldValue: T) => void;
 
-export type Watch = <T>(
+export type Watch = <P extends boolean, T extends P extends true ? any[] : any>(
+  /**
+   * Module instance
+   */
   service: ThisService,
-  selector: Selector<T>,
-  watcher: Watcher<T>
+  /**
+   * Watched values
+   */
+  selector: Selector<P extends true ? [...T] : T>,
+  /**
+   * Watch callback with value changes
+   */
+  watcher: Watcher<T>,
+  /**
+   * Watch options
+   */
+  options?: {
+    /**
+     * Use multiple values watching
+     */
+    multiple?: P;
+    /**
+     * Define `isEqual` function as shallow comparison
+     */
+    isEqual?: (x: unknown, y: unknown) => boolean;
+  }
 ) => Unsubscribe;
 
 export interface LoadOptions<T> {
