@@ -24,7 +24,7 @@ sidebar_label: "model()"
 
 Ƭ **Actions**: *object*
 
-*Defined in [model.ts:18](https://github.com/unadlib/reactant/blob/03d0c8fd/packages/reactant-model/src/model.ts#L18)*
+*Defined in [model.ts:18](https://github.com/unadlib/reactant/blob/1f3f457d/packages/reactant-model/src/model.ts#L18)*
 
 #### Type declaration:
 
@@ -34,7 +34,7 @@ sidebar_label: "model()"
 
 ▸ **model**<**S**, **A**>(`scheme`: [Scheme](../interfaces/_model_.scheme.md)‹S, A›): *[Actions](_model_.md#actions)‹A› & Service‹S› & S*
 
-*Defined in [model.ts:22](https://github.com/unadlib/reactant/blob/03d0c8fd/packages/reactant-model/src/model.ts#L22)*
+*Defined in [model.ts:22](https://github.com/unadlib/reactant/blob/1f3f457d/packages/reactant-model/src/model.ts#L22)*
 
 **Type parameters:**
 

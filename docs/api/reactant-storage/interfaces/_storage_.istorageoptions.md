@@ -23,7 +23,7 @@ sidebar_label: "IStorageOptions"
 
 • **loading**? : *ReactNode*
 
-*Defined in [packages/reactant-storage/src/storage.tsx:32](https://github.com/unadlib/reactant/blob/03d0c8fd/packages/reactant-storage/src/storage.tsx#L32)*
+*Defined in [packages/reactant-storage/src/storage.tsx:32](https://github.com/unadlib/reactant/blob/1f3f457d/packages/reactant-storage/src/storage.tsx#L32)*
 
 define storage loading UI
 
@@ -33,6 +33,6 @@ ___
 
 • **storage**: *Storage*
 
-*Defined in [packages/reactant-storage/src/storage.tsx:28](https://github.com/unadlib/reactant/blob/03d0c8fd/packages/reactant-storage/src/storage.tsx#L28)*
+*Defined in [packages/reactant-storage/src/storage.tsx:28](https://github.com/unadlib/reactant/blob/1f3f457d/packages/reactant-storage/src/storage.tsx#L28)*
 
 define storage container

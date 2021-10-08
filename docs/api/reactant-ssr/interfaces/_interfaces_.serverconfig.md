@@ -22,4 +22,4 @@ sidebar_label: "ServerConfig"
 
 • **main**? : *Config<any>["main"]*
 
-*Defined in [packages/reactant-ssr/src/interfaces.ts:6](https://github.com/unadlib/reactant/blob/03d0c8fd/packages/reactant-ssr/src/interfaces.ts#L6)*
+*Defined in [packages/reactant-ssr/src/interfaces.ts:6](https://github.com/unadlib/reactant/blob/1f3f457d/packages/reactant-ssr/src/interfaces.ts#L6)*

@@ -24,7 +24,7 @@ sidebar_label: "ClientTransport"
 
 ▸ **[isClientName]**(): *Promise‹boolean›*
 
-*Defined in [packages/reactant-share/src/interfaces.ts:105](https://github.com/unadlib/reactant/blob/03d0c8fd/packages/reactant-share/src/interfaces.ts#L105)*
+*Defined in [packages/reactant-share/src/interfaces.ts:105](https://github.com/unadlib/reactant/blob/1f3f457d/packages/reactant-share/src/interfaces.ts#L105)*
 
 **Returns:** *Promise‹boolean›*
 
@@ -34,7 +34,7 @@ ___
 
 ▸ **[loadFullStateActionName]**(`sequence`: number): *Promise‹Record‹string, any› | null | undefined›*
 
-*Defined in [packages/reactant-share/src/interfaces.ts:102](https://github.com/unadlib/reactant/blob/03d0c8fd/packages/reactant-share/src/interfaces.ts#L102)*
+*Defined in [packages/reactant-share/src/interfaces.ts:102](https://github.com/unadlib/reactant/blob/1f3f457d/packages/reactant-share/src/interfaces.ts#L102)*
 
 **Parameters:**
 
@@ -50,7 +50,7 @@ ___
 
 ▸ **[preloadedStateActionName]**(): *Promise‹Record‹string, any››*
 
-*Defined in [packages/reactant-share/src/interfaces.ts:101](https://github.com/unadlib/reactant/blob/03d0c8fd/packages/reactant-share/src/interfaces.ts#L101)*
+*Defined in [packages/reactant-share/src/interfaces.ts:101](https://github.com/unadlib/reactant/blob/1f3f457d/packages/reactant-share/src/interfaces.ts#L101)*
 
 **Returns:** *Promise‹Record‹string, any››*
 
@@ -60,7 +60,7 @@ ___
 
 ▸ **[proxyClientActionName]**(`options`: object): *Promise‹any›*
 
-*Defined in [packages/reactant-share/src/interfaces.ts:96](https://github.com/unadlib/reactant/blob/03d0c8fd/packages/reactant-share/src/interfaces.ts#L96)*
+*Defined in [packages/reactant-share/src/interfaces.ts:96](https://github.com/unadlib/reactant/blob/1f3f457d/packages/reactant-share/src/interfaces.ts#L96)*
 
 **Parameters:**
 
@@ -80,6 +80,6 @@ ___
 
 ▸ **[syncRouterName]**(): *Promise‹Router["router"]["location"]›*
 
-*Defined in [packages/reactant-share/src/interfaces.ts:106](https://github.com/unadlib/reactant/blob/03d0c8fd/packages/reactant-share/src/interfaces.ts#L106)*
+*Defined in [packages/reactant-share/src/interfaces.ts:106](https://github.com/unadlib/reactant/blob/1f3f457d/packages/reactant-share/src/interfaces.ts#L106)*
 
 **Returns:** *Promise‹Router["router"]["location"]›*

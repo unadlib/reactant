@@ -14,9 +14,9 @@ sidebar_label: "watch()"
 
 ### `Const` watch
 
-▸ **watch**(`service`: [Service](../interfaces/_interfaces_.service.md)‹object› & object, `selector`: function, `watcher`: function): *Unsubscribe*
+▸ **watch**(`service`: [Service](../interfaces/_interfaces_.service.md)‹object› & object, `selector`: function, `watcher`: function, `__namedParameters`: object): *Unsubscribe*
 
-*Defined in [packages/reactant-module/src/core/watch.ts:38](https://github.com/unadlib/reactant/blob/03d0c8fd/packages/reactant-module/src/core/watch.ts#L38)*
+*Defined in [packages/reactant-module/src/core/watch.ts:38](https://github.com/unadlib/reactant/blob/1f3f457d/packages/reactant-module/src/core/watch.ts#L38)*
 
 ## Description
 
@@ -68,5 +68,12 @@ Name | Type |
 ------ | ------ |
 `newValue` | T |
 `oldValue` | T |
+
+▪`Default value`  **__namedParameters**: *object*= {}
+
+Name | Type | Default |
+------ | ------ | ------ |
+`isEqual` | isEqual | defaultIsEqual |
+`multiple` | false &#124; true &#124; P | false |
 
 **Returns:** *Unsubscribe*

@@ -34,7 +34,7 @@ sidebar_label: "interfaces"
 
 Ƭ **ActionOptions**: *Pick‹ILastActionState, Exclude‹keyof ILastActionState, "_inversePatches"››*
 
-*Defined in [packages/reactant-share/src/interfaces.ts:109](https://github.com/unadlib/reactant/blob/03d0c8fd/packages/reactant-share/src/interfaces.ts#L109)*
+*Defined in [packages/reactant-share/src/interfaces.ts:109](https://github.com/unadlib/reactant/blob/1f3f457d/packages/reactant-share/src/interfaces.ts#L109)*
 
 ___
 
@@ -42,7 +42,7 @@ ___
 
 Ƭ **Callback**: *function*
 
-*Defined in [packages/reactant-share/src/interfaces.ts:84](https://github.com/unadlib/reactant/blob/03d0c8fd/packages/reactant-share/src/interfaces.ts#L84)*
+*Defined in [packages/reactant-share/src/interfaces.ts:84](https://github.com/unadlib/reactant/blob/1f3f457d/packages/reactant-share/src/interfaces.ts#L84)*
 
 #### Type declaration:
 
@@ -54,7 +54,7 @@ ___
 
 Ƭ **CallbackWithHook**: *function*
 
-*Defined in [packages/reactant-share/src/interfaces.ts:86](https://github.com/unadlib/reactant/blob/03d0c8fd/packages/reactant-share/src/interfaces.ts#L86)*
+*Defined in [packages/reactant-share/src/interfaces.ts:86](https://github.com/unadlib/reactant/blob/1f3f457d/packages/reactant-share/src/interfaces.ts#L86)*
 
 #### Type declaration:
 
@@ -72,7 +72,7 @@ ___
 
 Ƭ **FunctionKeys**: *Exclude‹object[keyof T], void›*
 
-*Defined in [packages/reactant-share/src/interfaces.ts:142](https://github.com/unadlib/reactant/blob/03d0c8fd/packages/reactant-share/src/interfaces.ts#L142)*
+*Defined in [packages/reactant-share/src/interfaces.ts:142](https://github.com/unadlib/reactant/blob/1f3f457d/packages/reactant-share/src/interfaces.ts#L142)*
 
 ___
 
@@ -80,7 +80,7 @@ ___
 
 Ƭ **Port**: *"server" | "client"*
 
-*Defined in [packages/reactant-share/src/interfaces.ts:18](https://github.com/unadlib/reactant/blob/03d0c8fd/packages/reactant-share/src/interfaces.ts#L18)*
+*Defined in [packages/reactant-share/src/interfaces.ts:18](https://github.com/unadlib/reactant/blob/1f3f457d/packages/reactant-share/src/interfaces.ts#L18)*
 
 ___
 
@@ -88,7 +88,7 @@ ___
 
 Ƭ **PortApp**: *Partial‹Record‹[Port](_interfaces_.md#port), App‹any›››*
 
-*Defined in [packages/reactant-share/src/interfaces.ts:93](https://github.com/unadlib/reactant/blob/03d0c8fd/packages/reactant-share/src/interfaces.ts#L93)*
+*Defined in [packages/reactant-share/src/interfaces.ts:93](https://github.com/unadlib/reactant/blob/1f3f457d/packages/reactant-share/src/interfaces.ts#L93)*
 
 ___
 
@@ -96,7 +96,7 @@ ___
 
 Ƭ **ProxyExec**: *function*
 
-*Defined in [packages/reactant-share/src/interfaces.ts:156](https://github.com/unadlib/reactant/blob/03d0c8fd/packages/reactant-share/src/interfaces.ts#L156)*
+*Defined in [packages/reactant-share/src/interfaces.ts:156](https://github.com/unadlib/reactant/blob/1f3f457d/packages/reactant-share/src/interfaces.ts#L156)*
 
 #### Type declaration:
 
@@ -125,7 +125,7 @@ ___
 
 Ƭ **Transform**: *function*
 
-*Defined in [packages/reactant-share/src/interfaces.ts:82](https://github.com/unadlib/reactant/blob/03d0c8fd/packages/reactant-share/src/interfaces.ts#L82)*
+*Defined in [packages/reactant-share/src/interfaces.ts:82](https://github.com/unadlib/reactant/blob/1f3f457d/packages/reactant-share/src/interfaces.ts#L82)*
 
 #### Type declaration:
 

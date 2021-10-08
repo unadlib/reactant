@@ -39,7 +39,7 @@ AppView for SSR entry point
 
 *Inherited from [AppView](_appview_.appview.md).[constructor](_appview_.appview.md#constructor)*
 
-*Defined in [packages/reactant-module/src/core/view.ts:10](https://github.com/unadlib/reactant/blob/03d0c8fd/packages/reactant-module/src/core/view.ts#L10)*
+*Defined in [packages/reactant-module/src/core/view.ts:10](https://github.com/unadlib/reactant/blob/1f3f457d/packages/reactant-module/src/core/view.ts#L10)*
 
 **Returns:** *[AppView](_appview_.appview.md)*
 
@@ -51,7 +51,7 @@ AppView for SSR entry point
 
 *Inherited from [AppView](_appview_.appview.md).[[identifierKey]](_appview_.appview.md#optional-readonly-[identifierkey])*
 
-*Defined in [packages/reactant-module/src/core/view.ts:8](https://github.com/unadlib/reactant/blob/03d0c8fd/packages/reactant-module/src/core/view.ts#L8)*
+*Defined in [packages/reactant-module/src/core/view.ts:8](https://github.com/unadlib/reactant/blob/1f3f457d/packages/reactant-module/src/core/view.ts#L8)*
 
 ___
 
@@ -61,7 +61,7 @@ ___
 
 *Inherited from [AppView](_appview_.appview.md).[[storeKey]](_appview_.appview.md#optional-readonly-[storekey])*
 
-*Defined in [packages/reactant-module/src/core/view.ts:10](https://github.com/unadlib/reactant/blob/03d0c8fd/packages/reactant-module/src/core/view.ts#L10)*
+*Defined in [packages/reactant-module/src/core/view.ts:10](https://github.com/unadlib/reactant/blob/1f3f457d/packages/reactant-module/src/core/view.ts#L10)*
 
 ## Methods
 
@@ -71,7 +71,7 @@ ___
 
 *Overrides void*
 
-*Defined in [packages/reactant-ssr/src/appView.tsx:9](https://github.com/unadlib/reactant/blob/03d0c8fd/packages/reactant-ssr/src/appView.tsx#L9)*
+*Defined in [packages/reactant-ssr/src/appView.tsx:9](https://github.com/unadlib/reactant/blob/1f3f457d/packages/reactant-ssr/src/appView.tsx#L9)*
 
 **Parameters:**
 

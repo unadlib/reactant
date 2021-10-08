@@ -16,7 +16,7 @@ sidebar_label: "client"
 
 ▸ **handleClient**(`__namedParameters`: object): *(Anonymous function)*
 
-*Defined in [packages/reactant-share/src/client.ts:14](https://github.com/unadlib/reactant/blob/03d0c8fd/packages/reactant-share/src/client.ts#L14)*
+*Defined in [packages/reactant-share/src/client.ts:14](https://github.com/unadlib/reactant/blob/1f3f457d/packages/reactant-share/src/client.ts#L14)*
 
 **Parameters:**
 

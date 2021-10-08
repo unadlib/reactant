@@ -19,7 +19,7 @@ sidebar_label: "utils/isEqual"
 
 ▸ **areShallowEqualWithArray**(`prev`: any[] | null | IArguments, `next`: any[] | null | IArguments): *boolean*
 
-*Defined in [packages/reactant-module/src/utils/isEqual.ts:43](https://github.com/unadlib/reactant/blob/03d0c8fd/packages/reactant-module/src/utils/isEqual.ts#L43)*
+*Defined in [packages/reactant-module/src/utils/isEqual.ts:43](https://github.com/unadlib/reactant/blob/1f3f457d/packages/reactant-module/src/utils/isEqual.ts#L43)*
 
 **Parameters:**
 
@@ -36,7 +36,7 @@ ___
 
 ▸ **areShallowEqualWithObject**(`objA`: any, `objB`: any): *boolean*
 
-*Defined in [packages/reactant-module/src/utils/isEqual.ts:14](https://github.com/unadlib/reactant/blob/03d0c8fd/packages/reactant-module/src/utils/isEqual.ts#L14)*
+*Defined in [packages/reactant-module/src/utils/isEqual.ts:14](https://github.com/unadlib/reactant/blob/1f3f457d/packages/reactant-module/src/utils/isEqual.ts#L14)*
 
 **Parameters:**
 
@@ -53,7 +53,7 @@ ___
 
 ▸ **isEqual**(`x`: unknown, `y`: unknown): *boolean*
 
-*Defined in [packages/reactant-module/src/utils/isEqual.ts:1](https://github.com/unadlib/reactant/blob/03d0c8fd/packages/reactant-module/src/utils/isEqual.ts#L1)*
+*Defined in [packages/reactant-module/src/utils/isEqual.ts:1](https://github.com/unadlib/reactant/blob/1f3f457d/packages/reactant-module/src/utils/isEqual.ts#L1)*
 
 **Parameters:**
 
@@ -70,7 +70,7 @@ ___
 
 ▸ **isEqualExceptFunction**(`x`: unknown, `y`: unknown): *boolean*
 
-*Defined in [packages/reactant-module/src/utils/isEqual.ts:9](https://github.com/unadlib/reactant/blob/03d0c8fd/packages/reactant-module/src/utils/isEqual.ts#L9)*
+*Defined in [packages/reactant-module/src/utils/isEqual.ts:9](https://github.com/unadlib/reactant/blob/1f3f457d/packages/reactant-module/src/utils/isEqual.ts#L9)*
 
 **Parameters:**
 

@@ -16,7 +16,7 @@ sidebar_label: "mockPairTransports"
 
 ▸ **mockPairTransports**(): *Transport‹any, any›[]*
 
-*Defined in [packages/reactant-share/src/mockPairTransports.ts:6](https://github.com/unadlib/reactant/blob/03d0c8fd/packages/reactant-share/src/mockPairTransports.ts#L6)*
+*Defined in [packages/reactant-share/src/mockPairTransports.ts:6](https://github.com/unadlib/reactant/blob/1f3f457d/packages/reactant-share/src/mockPairTransports.ts#L6)*
 
 mock pair transports
 

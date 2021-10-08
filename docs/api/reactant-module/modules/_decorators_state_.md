@@ -6,7 +6,7 @@ sidebar_label: "@state"
 
 ▸ **state**(`target`: object, `key`: string | symbol, `descriptor?`: [PropertyDescriptor](../interfaces/_interfaces_.propertydescriptor.md)‹any›): *void*
 
-*Defined in [packages/reactant-module/src/decorators/state.ts:26](https://github.com/unadlib/reactant/blob/03d0c8fd/packages/reactant-module/src/decorators/state.ts#L26)*
+*Defined in [packages/reactant-module/src/decorators/state.ts:26](https://github.com/unadlib/reactant/blob/1f3f457d/packages/reactant-module/src/decorators/state.ts#L26)*
 
 ## Description
 
