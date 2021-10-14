@@ -84,7 +84,7 @@ The overall workflow of the reactant-share is shown in the figure below. Here is
 
 - First, we define a counter app module and view module in `app.view.tsx`
 
-```ts
+```tsx
 import React from "react";
 import {
   ViewModule,
