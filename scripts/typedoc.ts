@@ -27,20 +27,12 @@ const generateDocs = (project: string) => {
       `packages/${project}/src/`,
       '--plugin',
       'typedoc-plugin-markdown',
-      '--target',
-      'ES5',
-      '--module',
-      'commonjs',
       '--readme',
       `packages/${project}/README.md`,
       '--excludeExternals',
       '--theme',
-      'docusaurus',
-      '--hideBreadcrumbs',
-      '--skipSidebar',
-      '--readme',
-      'none',
-      '--ignoreCompilerErrors', // TODO: fix `Cannot find name '__DEV__'` error.
+      'markdown',
+      '--hideBreadcrumbs'
     ];
     const subprocess = spawn('typedoc', args, {
       stdio: 'inherit',

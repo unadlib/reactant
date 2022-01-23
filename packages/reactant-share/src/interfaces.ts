@@ -154,7 +154,7 @@ interface SpawnOptions {
 }
 
 export type ProxyExec = <
-  T extends object,
+  T extends Record<string | number | symbol, any>,
   K extends FunctionKeys<T>,
   O extends EmitParameter<any>['respond']
 >(

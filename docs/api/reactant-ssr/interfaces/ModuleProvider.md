@@ -1,0 +1,34 @@
+# Interface: ModuleProvider<T\>
+
+## Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `T` | `any` |
+
+## Table of contents
+
+### Properties
+
+- [deps](ModuleProvider.md#deps)
+- [provide](ModuleProvider.md#provide)
+
+## Properties
+
+### deps
+
+• `Optional` **deps**: (`ServiceIdentifier`<`any`\> \| [`Optional`](../classes/Optional.md))[]
+
+#### Defined in
+
+[packages/reactant-di/src/interfaces.ts:52](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-di/src/interfaces.ts#L52)
+
+___
+
+### provide
+
+• **provide**: `Module`<`T`\>
+
+#### Defined in
+
+[packages/reactant-di/src/interfaces.ts:51](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-di/src/interfaces.ts#L51)
