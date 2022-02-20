@@ -5,7 +5,7 @@
   "globals": {
     "__DEV__": true,
     "ts-jest": {
-      "tsConfig": {
+      "tsconfig": {
         "useDefineForClassFields": true
       }
     }

@@ -59,7 +59,7 @@ test('base `@autobind` decorate', () => {
   expect(counter.count).toBe(0);
   expect(() => {
     increase();
-  }).toThrowError("Cannot read property 'Symbol(store)' of undefined");
+  }).toThrowError();
   expect(counter.count).toBe(0);
   run();
   expect(counter.count).toBe(1);
