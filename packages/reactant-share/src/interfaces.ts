@@ -36,12 +36,7 @@ export interface ISharedAppOptions {
   /**
    * Reactant shared app type.
    */
-  type:
-    | 'SharedTab'
-    | 'BrowserExtension'
-    | 'SharedWorker'
-    | 'ServiceWorker'
-    | 'Base';
+  type: 'SharedTab' | 'SharedWorker' | 'ServiceWorker' | 'Base';
   /**
    * Shared app's transports
    */

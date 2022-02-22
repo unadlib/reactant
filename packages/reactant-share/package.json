@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "broadcast-channel": "^4.0.0",
-    "data-transport": "^2.4.0",
+    "data-transport": "^2.5.0",
     "reactant": "^0.13.1",
     "reactant-last-action": "^0.13.1",
     "reactant-router": "^0.13.1",

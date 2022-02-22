@@ -33,7 +33,6 @@ And for the structured design of the application's business logic, separation of
   - Shared tab
   - SharedWorker
   - ServiceWorker
-  - Browser extension
   - Detached window
   - iframe
 - Server-side Rendering

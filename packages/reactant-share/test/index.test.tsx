@@ -136,7 +136,6 @@ describe('base', () => {
   }
   test.each([
     { type: 'Base' },
-    { type: 'BrowserExtension' },
     { type: 'SharedWorker' },
     { type: 'ServiceWorker' },
   ])('base server/client port mode in $type', async ({ type }: any) => {

@@ -66,7 +66,7 @@ export function autobind(
       assign(this, key, boundFn, { enumerable: false });
       return boundFn;
     },
-    set(setValue: any) {
+    set(setValue: unknown) {
       assign(this, key, setValue);
     },
   };

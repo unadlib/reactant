@@ -53,7 +53,6 @@ To build such Shared Web Apps, `reactant-share` was created. reactant-share is b
   - Shared tab
   - SharedWorker
   - ServiceWorker
-  - Browser extension
   - Detached window
   - iframe
 

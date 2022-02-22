@@ -55,7 +55,6 @@ To build such Shared Web Apps, `reactant-share` was created. reactant-share is b
   - Shared tab
   - SharedWorker
   - ServiceWorker
-  - Browser extension
   - Detached window
   - iframe
 
@@ -177,7 +176,6 @@ The specific workflow of `increase` looks like this.
 - Shared tab - It is suitable for running in browsers that do not support SharedWorker/ServiceWorker. The server app is an instance with rendering that also runs in a browser window. In multiple browser windows, there is also only one server app, and after it is closed or refreshed, one instance of the other client apps will be converted to a server app.
 - SharedWorker - If there is no [browser compatibility](https://caniuse.com/?search=sharedworker) requirement, reactant-share is highly recommended to use this mode, and reactant-share also does a graceful degradation, so if the browser does not support SharedWorker then the app will run in Shared-Tab mode.
 - ServiceWorker - If Shared Web Apps are intended to be PWA (Progressive Web Apps), then using this mode would be ideal, and it also supports the automatic graceful degradation to Shared-Tab mode.
-- Browser extension - The browser extension allows a background thread, the server app of reactant-share can run in this background thread, and the UI can run in the client app.
 - Detached window - reactant-share allows sub-applications to run as Detached windows or to be quickly merged into a more complete application.
 - iframe - reactant-share allows each child application to run on an iframe.
 
@@ -191,7 +189,7 @@ The rendering-only client app will be so smooth that it will almost never freeze
 
 ### Development Experience
 
-reactant-share provides CLI and full support for Typescript, as well as support for Shared-Tab, SharedWorker, ServiceWorker and Browser extension, and other different types of runtime modes out of the box. Built-in testbed for module testing, Routing and Persistence modules, and module dynamics support for lazy loading of reactant-share applications.
+reactant-share provides CLI and full support for Typescript, as well as support for Shared-Tab, SharedWorker and ServiceWorker, and other different types of runtime modes out of the box. Built-in testbed for module testing, Routing and Persistence modules, and module dynamics support for lazy loading of reactant-share applications.
 
 ### Service Discovery / Communications
 

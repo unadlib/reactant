@@ -247,24 +247,6 @@ export const createSharedApp = async <T>(options: Config<T>) => {
   options.share.enablePatchesChecker ??= __DEV__;
 
   switch (options.share.type) {
-    case 'BrowserExtension':
-      transports = {
-        server: options.share.transports?.server,
-        client: options.share.transports?.client,
-      };
-      if (options.share.port === 'server') {
-        transports.server ??= createTransport('BrowserExtensionsMain', {
-          prefix: `reactant-share:${options.share.name}`,
-        });
-      } else if (options.share.port === 'client') {
-        transports.client ??= createTransport('BrowserExtensionsClient', {
-          prefix: `reactant-share:${options.share.name}`,
-        });
-      }
-      options.share.transports = transports;
-      app = await createBaseApp(options);
-      break;
-
     case 'ServiceWorker':
       try {
         transports = {
@@ -355,6 +337,7 @@ export const createSharedApp = async <T>(options: Config<T>) => {
         app = await createBaseApp(options);
       } catch (e) {
         console.warn(e);
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { port, workerURL, name, ...shareOptions } = options.share;
         app = await createSharedTabApp({
           ...options,
@@ -374,7 +357,7 @@ export const createSharedApp = async <T>(options: Config<T>) => {
       break;
     default:
       throw new Error(
-        `The value of 'options.share.type' be 'SharedTab', 'SharedWorker', 'BrowserExtension' or 'Base'.`
+        `The value of 'options.share.type' be 'SharedTab', 'SharedWorker' or 'Base'.`
       );
   }
   return app;
