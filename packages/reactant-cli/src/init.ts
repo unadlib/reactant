@@ -17,8 +17,6 @@ export const supportTypeMap = {
   'shared-tab': 'shared-tab',
   'shared-worker': 'shared-worker',
   'service-worker': 'service-worker',
-  // TODO: support browser-extension template
-  // 'browser-extension': 'browser-extension',
 } as const;
 
 export const supportLanguages = Array.from(
