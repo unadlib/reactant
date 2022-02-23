@@ -4,4 +4,4 @@
 - [ ] use pnpm & turborepo
 - [ ] update docs
 - [ ] upgrade React18
-
+- [ ] support upgrade cli 
