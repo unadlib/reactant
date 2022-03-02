@@ -28,9 +28,9 @@
   "author": "unadlib",
   "license": "MIT",
   "peerDependencies": {
-    "react-native": "^0.62.2"
+    "react-native": "^0.67.3"
   },
   "devDependencies": {
-    "react-native": "^0.62.2"
+    "react-native": "^0.67.3"
   }
 }
