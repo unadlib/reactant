@@ -31,14 +31,14 @@
   "license": "MIT",
   "peerDependencies": {
     "next": "^12.1.0",
-    "react": "^16.12.0 || ^17"
+    "react": "^18"
   },
   "dependencies": {
     "reactant": "^0.14.0"
   },
   "devDependencies": {
     "next": "^12.1.0",
-    "react": "^16.12.0",
+    "react": "^18.0.0-rc.1",
     "reactant-web": "^0.14.0"
   }
 }

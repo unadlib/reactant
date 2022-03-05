@@ -58,7 +58,7 @@ describe('useConnector', () => {
     const list = [
       'str',
       'string',
-      'string',
+      // 'string',
       true,
       false,
       1,
@@ -156,10 +156,12 @@ describe('useConnector', () => {
       },
       render,
     });
+    // the first rendering should be not exec `shallowEqual`.
+    act(() => {
+      app.bootstrap(container);
+    });
     expect(() => {
-      act(() => {
-        app.bootstrap(container);
-      });
+      app.instance.setValue('str');
     }).toThrow();
   });
 

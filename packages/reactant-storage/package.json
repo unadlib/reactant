@@ -13,8 +13,8 @@
   "author": "",
   "license": "MIT",
   "peerDependencies": {
-    "react": "^16.12.0 || ^17",
-    "react-redux": "^7.2.4",
+    "react": "^18",
+    "react-redux": "^8",
     "reactant-module": "*",
     "redux": "^4.1.0",
     "redux-persist": "^6.0.0"
@@ -23,8 +23,8 @@
     "redux-persist": "^6.0.0"
   },
   "devDependencies": {
-    "react": "^16.12.0",
-    "react-redux": "^7.2.4",
+    "react": "^18.0.0-rc.1",
+    "react-redux": "^8.0.0-beta.3",
     "reactant-module": "^0.14.0",
     "redux": "^4.1.0"
   }

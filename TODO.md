@@ -3,5 +3,10 @@
 - [ ] auto bind for @action
 - [ ] use pnpm & turborepo
 - [ ] update docs
-- [ ] upgrade React18
+- [x] upgrade React18
 - [ ] support upgrade cli 
+- [x] react-redux v8.0
+- [ ] refactor `render` with `ReactDOM.createRoot`
+- [ ] reactant-ssr support react18
+- [ ] reactant-native support react18
+- [ ] reactant-template support react18

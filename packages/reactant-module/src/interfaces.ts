@@ -8,7 +8,7 @@ import {
   ReducersMapObject,
 } from 'redux';
 import { Patch } from 'immer';
-import { EnhancerOptions } from 'redux-devtools-extension';
+import { EnhancerOptions } from '@redux-devtools/extension';
 import type {
   Container,
   ModuleOptions,

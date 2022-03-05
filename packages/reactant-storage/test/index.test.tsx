@@ -7,8 +7,6 @@ import {
   ViewModule,
   createApp,
   injectable,
-  inject,
-  optional,
   useConnector,
   action,
   computed,
@@ -155,6 +153,8 @@ describe('base API', () => {
         .querySelector('#increase')!
         .dispatchEvent(new MouseEvent('click', { bubbles: true }));
     });
+    // Note: It takes an async wait to make sure the action is executed.
+    await new Promise((resolve) => setTimeout(resolve));
     expect(container.querySelector('#increase')?.textContent).toBe('2');
     await new Promise((resolve) => {
       setTimeout(resolve, 100);

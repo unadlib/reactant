@@ -1,6 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/ban-ts-ignore */
 /* eslint-disable class-methods-use-this */
 import React from 'react';
 import {
@@ -21,14 +20,11 @@ import {
   computed,
   useConnector,
   dispatch,
-  ReactantAction,
   defaultProps,
-  batch,
   state,
   optional,
   inject,
   autobind,
-  identifierKey,
 } from '../..';
 
 let container: Element;
@@ -588,19 +584,6 @@ describe('base API', () => {
     });
     expect(renderFn.mock.calls.length).toEqual(2);
     expect(reduxEvent.mock.calls.length).toEqual(4);
-    batch(() => {
-      act(() => {
-        app.instance.add1();
-      });
-      act(() => {
-        app.instance.add1();
-      });
-      act(() => {
-        app.instance.add1();
-      });
-    });
-    expect(renderFn.mock.calls.length).toEqual(3);
-    expect(reduxEvent.mock.calls.length).toEqual(7);
   });
 });
 
