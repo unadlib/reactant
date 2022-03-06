@@ -1,5 +1,6 @@
-import React, { FC } from 'react';
-import { unmountComponentAtNode, render } from 'reactant-web';
+import React from 'react';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { render } from 'reactant-web';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { act } from 'react-dom/test-utils';
 import {
@@ -19,12 +20,11 @@ beforeEach(() => {
 });
 
 afterEach(() => {
-  unmountComponentAtNode(container);
   container.remove();
 });
 
 describe('useConnector', () => {
-  test('selector for object map values', () => {
+  test('selector for object map values', async () => {
     const renderFn = jest.fn();
 
     @injectable()
@@ -40,7 +40,7 @@ describe('useConnector', () => {
       component() {
         const { key } = useConnector(() => ({ key: this.key }));
         renderFn(key);
-        return null;
+        return <span>test</span>;
       }
     }
 
@@ -49,16 +49,15 @@ describe('useConnector', () => {
       main: FooView,
       render,
     });
-    act(() => {
+    await act(() => {
       app.bootstrap(container);
     });
     const subscribeFn = jest.fn();
-    const unsubscribe = app.store?.subscribe(subscribeFn);
-
+    app.store?.subscribe(subscribeFn);
     const list = [
       'str',
       'string',
-      // 'string',
+      'string',
       true,
       false,
       1,
@@ -72,14 +71,17 @@ describe('useConnector', () => {
       if (list[i] !== list[i - 1]) {
         expectedRenderCallList.push(list[i]);
       }
-      app.instance.setValue(list[i]);
+      await act(() => {
+        app.instance.setValue(list[i]);
+      });
       expect(subscribeFn.mock.calls.length).toBe(i + 1);
       expect(renderFn.mock.calls).toEqual(
         expectedRenderCallList.map((item) => [item])
       );
     }
   });
-  test('selector for primitive and null value', () => {
+
+  test('selector for primitive and null value', async () => {
     const renderFn = jest.fn();
 
     @injectable()
@@ -95,7 +97,7 @@ describe('useConnector', () => {
       component() {
         const value = useConnector(() => this.key);
         renderFn(value);
-        return null;
+        return <span>test</span>;
       }
     }
 
@@ -104,7 +106,7 @@ describe('useConnector', () => {
       main: FooView,
       render,
     });
-    act(() => {
+    await act(() => {
       app.bootstrap(container);
     });
     const subscribeFn = jest.fn();
@@ -113,7 +115,9 @@ describe('useConnector', () => {
     const list = ['str', 'string', true, false, 1, 2, Symbol(''), Symbol('')];
 
     for (let i = 0; i < list.length; i += 1) {
-      app.instance.setValue(list[i]);
+      await act(() => {
+        app.instance.setValue(list[i]);
+      });
       expect(subscribeFn.mock.calls.length).toBe(i + 1);
       expect(renderFn.mock.calls).toEqual(
         [null, ...list]
@@ -123,7 +127,8 @@ describe('useConnector', () => {
     }
   });
 
-  test('selector with custom shallowEqual', () => {
+  // todo: fix error check
+  test('selector with custom shallowEqual', async () => {
     const renderFn = jest.fn();
 
     @injectable()
@@ -144,7 +149,7 @@ describe('useConnector', () => {
           }
         );
         renderFn(value);
-        return null;
+        return <span>test</span>;
       }
     }
 
@@ -157,11 +162,13 @@ describe('useConnector', () => {
       render,
     });
     // the first rendering should be not exec `shallowEqual`.
-    act(() => {
+    await act(() => {
       app.bootstrap(container);
     });
     expect(() => {
-      app.instance.setValue('str');
+      act(() => {
+        app.instance.setValue('str');
+      });
     }).toThrow();
   });
 
@@ -179,7 +186,7 @@ describe('useConnector', () => {
       component() {
         const value = useConnector(() => this.key);
         renderFn(value);
-        return null;
+        return <span>test</span>;
       }
     }
 

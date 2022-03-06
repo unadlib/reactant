@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   ContainerOptions,
   ReactModuleOptions,
@@ -6,7 +7,9 @@ import {
   DevOptions,
   Container,
 } from 'reactant-module';
+import type { ReactChild } from 'react';
 
+export type Unmount = () => void;
 export interface Config<T> {
   /**
    * As the main start-up module.
@@ -15,10 +18,7 @@ export interface Config<T> {
   /**
    * As a rendering function for any React renderer.
    */
-  render: (
-    element: JSX.Element,
-    ...args: any[]
-  ) => Element | void | JSX.Element;
+  render: (element: ReactChild, ...args: any[]) => Unmount;
   /**
    * Importing the injected dependency modules.
    */
@@ -30,7 +30,7 @@ export interface Config<T> {
   /**
    * Preloaded state of shared state for Redux.
    */
-  preloadedState?: TypePreloadedState<any>;
+  preloadedState?: TypePreloadedState<unknown>;
   /**
    * Reactant's development setting options.
    */
@@ -41,7 +41,7 @@ export interface App<T> {
   instance: T;
   container: Container;
   store: ReactantStore | null;
-  bootstrap(...args: unknown[]): void | Element | JSX.Element;
+  bootstrap(...args: unknown[]): Unmount;
 }
 
 export type ShallowEqual = (

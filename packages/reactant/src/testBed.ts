@@ -37,6 +37,9 @@ function testBed<T>(config: PartialKeys<Config<T>, 'render'>): App<T> {
       config.render ||
       (() => {
         console.log(`No render function is configured.`);
+        return () => {
+          console.log(`No unmount function is configured.`);
+        };
       }),
   });
 }
