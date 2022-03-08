@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { FunctionComponent } from 'react';
-import { unmountComponentAtNode, render, Switch, Route } from 'reactant-web';
+import { render, Switch, Route } from 'reactant-web';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { act } from 'react-dom/test-utils';
 import {
@@ -13,7 +14,6 @@ import {
   createSharedApp,
   spawn,
   PortDetector,
-  createTransport,
   Router,
   mockPairTransports,
 } from '..';
@@ -29,9 +29,7 @@ beforeEach(() => {
 });
 
 afterEach(() => {
-  unmountComponentAtNode(serverContainer);
   serverContainer.remove();
-  unmountComponentAtNode(clientContainer);
   clientContainer.remove();
 });
 

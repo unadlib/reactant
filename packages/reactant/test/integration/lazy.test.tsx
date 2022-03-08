@@ -1,6 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { Storage, StorageOptions, IStorageOptions } from 'reactant-storage';
-import { unmountComponentAtNode, render } from 'reactant-web';
+import { render } from 'reactant-web';
 import { act } from 'react-dom/test-utils';
 import {
   createApp,
@@ -21,7 +21,6 @@ beforeEach(() => {
 });
 
 afterEach(() => {
-  unmountComponentAtNode(container);
   container.remove();
 });
 
@@ -142,7 +141,7 @@ test('base `lazy` with cache', async () => {
 
   const app = createApp({
     main: Counter,
-    render: () => {
+    render: () => () => {
       //
     },
   });
@@ -185,7 +184,7 @@ test('base `lazy` without cache', async () => {
   const app = createApp({
     modules: [Foobar],
     main: Counter,
-    render: () => {
+    render: () => () => {
       //
     },
   });

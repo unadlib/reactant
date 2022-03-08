@@ -1,8 +1,8 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable class-methods-use-this */
-import React, { FC, PropsWithChildren } from 'react';
-import { unmountComponentAtNode, render } from 'reactant-web';
+import React, { PropsWithChildren } from 'react';
+import { render } from 'reactant-web';
 import { act } from 'react-dom/test-utils';
 import { ViewModule, createApp, injectable, PluginModule, state } from '../..';
 
@@ -14,7 +14,6 @@ beforeEach(() => {
 });
 
 afterEach(() => {
-  unmountComponentAtNode(container);
   container.remove();
 });
 

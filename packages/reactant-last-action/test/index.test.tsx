@@ -13,7 +13,7 @@ import {
   subscribe,
   watch,
 } from 'reactant';
-import { render, unmountComponentAtNode } from 'reactant-web';
+import { render } from 'reactant-web';
 import { ILastActionOptions, LastAction, LastActionOptions } from '..';
 
 let container: Element;
@@ -24,7 +24,6 @@ beforeEach(() => {
 });
 
 afterEach(() => {
-  unmountComponentAtNode(container);
   container.remove();
 });
 

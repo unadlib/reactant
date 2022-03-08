@@ -2,14 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable class-methods-use-this */
 import React from 'react';
-import {
-  unmountComponentAtNode,
-  render,
-  Link,
-  Switch,
-  Route,
-  MemoryRouter,
-} from 'reactant-web';
+import { render, Link, Switch, Route, MemoryRouter } from 'reactant-web';
 import { act } from 'react-dom/test-utils';
 import {
   ViewModule,
@@ -35,7 +28,6 @@ beforeEach(() => {
 });
 
 afterEach(() => {
-  unmountComponentAtNode(container);
   container.remove();
 });
 
@@ -392,7 +384,6 @@ describe('base API', () => {
     expect(sumComputedFn.mock.calls.length).toBe(4);
     expect(sum1ComputedFn.mock.calls.length).toBe(1);
 
-    unmountComponentAtNode(container);
     container.remove();
     container = document.createElement('div');
     document.body.appendChild(container);
@@ -428,7 +419,6 @@ describe('base API', () => {
     expect(app1.instance.state.e).toEqual(1);
     expect(app1.store!.getState().homeView.state.e).toEqual(1);
 
-    unmountComponentAtNode(container);
     container.remove();
     container = document.createElement('div');
     document.body.appendChild(container);

@@ -1,5 +1,5 @@
 import React from 'react';
-import { unmountComponentAtNode, render } from 'reactant-web';
+import { render } from 'reactant-web';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { act } from 'react-dom/test-utils';
 import {
@@ -54,9 +54,7 @@ beforeEach(() => {
 });
 
 afterEach(() => {
-  unmountComponentAtNode(serverContainer);
   serverContainer.remove();
-  unmountComponentAtNode(clientContainer);
   clientContainer.remove();
 });
 
@@ -189,7 +187,7 @@ describe('base', () => {
     expect(subscribeOnClientFn.mock.calls.length).toBe(0);
     expect(onServerFn.mock.calls.length).toBe(1);
     expect(subscribeOnServerFn.mock.calls.length).toBe(0);
-    act(() => {
+    await act(() => {
       serverApp.bootstrap(serverContainer);
     });
 

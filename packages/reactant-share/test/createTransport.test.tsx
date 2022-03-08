@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import React from 'react';
-import { unmountComponentAtNode, render } from 'reactant-web';
+import { render } from 'reactant-web';
 import { BroadcastChannel } from 'broadcast-channel';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { act } from 'react-dom/test-utils';
@@ -48,9 +48,7 @@ beforeEach(() => {
 });
 
 afterEach(() => {
-  unmountComponentAtNode(serverContainer);
   serverContainer.remove();
-  unmountComponentAtNode(clientContainer);
   clientContainer.remove();
 });
 

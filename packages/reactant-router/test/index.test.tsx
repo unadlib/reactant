@@ -1,16 +1,10 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable class-methods-use-this */
-import React, { FC } from 'react';
+import React from 'react';
 import { act } from 'react-dom/test-utils';
 
-import {
-  unmountComponentAtNode,
-  render,
-  Link,
-  Switch,
-  Route,
-} from 'reactant-web';
+import { render, Link, Switch, Route } from 'reactant-web';
 import {
   ViewModule,
   createApp,
@@ -30,7 +24,6 @@ beforeEach(() => {
 });
 
 afterEach(() => {
-  unmountComponentAtNode(container);
   container.remove();
 });
 

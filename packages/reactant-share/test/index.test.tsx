@@ -1,5 +1,5 @@
 import React from 'react';
-import { unmountComponentAtNode, render } from 'reactant-web';
+import { render } from 'reactant-web';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { act } from 'react-dom/test-utils';
 import { LastAction } from 'reactant-last-action';
@@ -29,9 +29,7 @@ beforeEach(() => {
 });
 
 afterEach(() => {
-  unmountComponentAtNode(serverContainer);
   serverContainer.remove();
-  unmountComponentAtNode(clientContainer);
   clientContainer.remove();
 });
 

@@ -13,7 +13,7 @@ import {
   autobind,
   state,
 } from 'reactant';
-import { render, unmountComponentAtNode } from 'reactant-web';
+import { render } from 'reactant-web';
 import { Storage, StorageOptions, IStorageOptions } from '..';
 
 class MemoryStorage {
@@ -48,7 +48,6 @@ beforeEach(() => {
 });
 
 afterEach(() => {
-  unmountComponentAtNode(container);
   container.remove();
 });
 
@@ -141,20 +140,16 @@ describe('base API', () => {
       main: AppView,
       render,
     });
-    act(() => {
+    await act(() => {
       app.bootstrap(container);
     });
-    await new Promise((resolve) => {
-      setTimeout(resolve);
-    });
+    await new Promise((resolve) => setTimeout(resolve));
     expect(container.querySelector('#increase')?.textContent).toBe('1');
-    act(() => {
+    await act(() => {
       container
         .querySelector('#increase')!
         .dispatchEvent(new MouseEvent('click', { bubbles: true }));
     });
-    // Note: It takes an async wait to make sure the action is executed.
-    await new Promise((resolve) => setTimeout(resolve));
     expect(container.querySelector('#increase')?.textContent).toBe('2');
     await new Promise((resolve) => {
       setTimeout(resolve, 100);
