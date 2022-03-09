@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import type { ReactChild } from 'react';
 import type { Root, createRoot } from 'react-dom';
 // todo: fix types for `react-dom/client`;
@@ -6,7 +7,26 @@ import type { Root, createRoot } from 'react-dom';
 import * as ReactDOM from 'react-dom/client';
 
 export * from 'reactant-router-dom';
-export * from 'react-dom';
+
+export {
+  createRoot,
+  findDOMNode,
+  hydrate,
+  unmountComponentAtNode,
+  unstable_renderSubtreeIntoContainer,
+  version,
+  unstable_batchedUpdates,
+  flushSync,
+  createPortal,
+} from 'react-dom';
+
+export type {
+  Container,
+  HydrationOptions,
+  Renderer,
+  Root,
+  RootOptions,
+} from 'react-dom';
 
 export const render = (
   children: ReactChild,
