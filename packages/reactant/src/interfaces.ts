@@ -30,7 +30,7 @@ export interface Config<T> {
   /**
    * Preloaded state of shared state for Redux.
    */
-  preloadedState?: TypePreloadedState<unknown>;
+  preloadedState?: TypePreloadedState<any>;
   /**
    * Reactant's development setting options.
    */

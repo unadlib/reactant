@@ -37,7 +37,7 @@ import { storeKey } from '../constants';
  * const app = createApp({
  *   modules: [],
  *   main: Counter,
- *   render: () => {},
+ *   render: () => () => {},
  * });
  *
  * app.instance.increase();

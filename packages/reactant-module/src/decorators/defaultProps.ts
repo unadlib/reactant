@@ -33,7 +33,7 @@ import { PickOptional } from '../interfaces';
  * const app = createApp({
  *   modules: [],
  *   main: AppView,
- *   render: () => {},
+ *   render: () => () => {},
  * });
  * ```
  */

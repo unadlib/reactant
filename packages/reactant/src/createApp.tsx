@@ -31,7 +31,7 @@ import { Config, App } from './interfaces';
  * const app = createApp({
  *   modules: [],
  *   main: Foo,
- *   render: () => {},
+ *   render: () => () => {},
  * });
  *
  * expect(app.instance instanceof Foo).toBeTruthy();

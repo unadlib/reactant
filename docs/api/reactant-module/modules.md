@@ -716,7 +716,7 @@ class Foo {}
 const app = createApp({
   modules: [applyMiddleware(logger)],
   main: Foo,
-  render: () => {},
+  render: () => () => {},
 });
 ```
 
@@ -1495,7 +1495,7 @@ class Counter {
 const app = createApp({
   modules: [],
   main: Counter,
-  render: () => {},
+  render: () => () => {},
 });
 
 app.instance.increase();
@@ -1623,7 +1623,7 @@ class AppView extends ViewModule {
 const app = createApp({
   modules: [],
   main: AppView,
-  render: () => {},
+  render: () => () => {},
 });
 ```
 
@@ -1705,7 +1705,7 @@ class Counter {
 const app = createApp({
   modules: [],
   main: Counter,
-  render: () => {},
+  render: () => () => {},
 });
 
 app.instance.increase();

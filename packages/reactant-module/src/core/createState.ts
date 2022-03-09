@@ -35,7 +35,7 @@ import { Reducer, Action, AnyAction } from 'redux';
  * const app = createApp({
  *   modules: [],
  *   main: Counter,
- *   render: () => {},
+ *   render: () => () => {},
  * });
  *
  * app.instance.increase();

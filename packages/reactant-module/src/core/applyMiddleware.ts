@@ -21,7 +21,7 @@ import { storeKey } from '../constants';
  * const app = createApp({
  *   modules: [applyMiddleware(logger)],
  *   main: Foo,
- *   render: () => {},
+ *   render: () => () => {},
  * });
  * ```
  *

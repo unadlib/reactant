@@ -39,7 +39,7 @@ test('base `load`', async () => {
 
   const app = createApp({
     main: Counter,
-    render: () => {
+    render: () => () => {
       //
     },
   });
@@ -109,7 +109,7 @@ test('base `load` with multi-modules', async () => {
   const app = createApp({
     modules: [{ provide: 'Counter0', useClass: Counter0 }],
     main: Counter,
-    render: () => {
+    render: () => () => {
       //
     },
   });

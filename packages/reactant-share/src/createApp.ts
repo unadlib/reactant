@@ -201,7 +201,7 @@ const createSharedTabApp = async <T>(options: Config<T>) => {
  *   const server = await createSharedApp({
  *     modules: [],
  *     main: Counter,
- *     render: () => {},
+ *     render: () => () => {},
  *     share: {
  *       name: 'counter',
  *       type: 'Base',
@@ -215,7 +215,7 @@ const createSharedTabApp = async <T>(options: Config<T>) => {
  *   const client = await createSharedApp({
  *     modules: [],
  *     main: Counter,
- *     render: () => {},
+ *     render: () => () => {},
  *     share: {
  *       name: 'counter',
  *       type: 'Base',

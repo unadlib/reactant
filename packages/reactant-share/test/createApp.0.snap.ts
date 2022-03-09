@@ -19,7 +19,7 @@ class Counter {
   const server = await createSharedApp({
     modules: [],
     main: Counter,
-    render: () => {},
+    render: () => () => {},
     share: {
       name: 'counter',
       type: 'Base',
@@ -33,7 +33,7 @@ class Counter {
   const client = await createSharedApp({
     modules: [],
     main: Counter,
-    render: () => {},
+    render: () => () => {},
     share: {
       name: 'counter',
       type: 'Base',

@@ -11,9 +11,12 @@ export const createServerApp = (options: ServerConfig): ServerApp => {
   const { bootstrap, store, instance, container } = createAppWithoutSSR({
     ...options,
     main: options.main ?? AppView,
+    // @ts-ignore
     render: (element) => element,
   });
   const AppComponent = (appProps: AppProps) => {
+    // todo: fix types
+    // @ts-ignore
     return bootstrap((Component: FunctionComponent<AppProps>) => (
       <Component {...appProps} />
     )) as JSX.Element;

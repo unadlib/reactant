@@ -782,7 +782,7 @@ class Foo {}
 const app = createApp({
   modules: [applyMiddleware(logger)],
   main: Foo,
-  render: () => {},
+  render: () => () => {},
 });
 ```
 
@@ -1517,7 +1517,7 @@ class Foo {}
 const app = createApp({
   modules: [],
   main: Foo,
-  render: () => {},
+  render: () => () => {},
 });
 
 expect(app.instance instanceof Foo).toBeTruthy();
@@ -1626,7 +1626,7 @@ class Counter {
   const server = await createSharedApp({
     modules: [],
     main: Counter,
-    render: () => {},
+    render: () => () => {},
     share: {
       name: 'counter',
       type: 'Base',
@@ -1640,7 +1640,7 @@ class Counter {
   const client = await createSharedApp({
     modules: [],
     main: Counter,
-    render: () => {},
+    render: () => () => {},
     share: {
       name: 'counter',
       type: 'Base',
@@ -1720,7 +1720,7 @@ class Counter {
 const app = createApp({
   modules: [],
   main: Counter,
-  render: () => {},
+  render: () => () => {},
 });
 
 app.instance.increase();
@@ -1848,7 +1848,7 @@ class AppView extends ViewModule {
 const app = createApp({
   modules: [],
   main: AppView,
-  render: () => {},
+  render: () => () => {},
 });
 ```
 
@@ -1930,7 +1930,7 @@ class Counter {
 const app = createApp({
   modules: [],
   main: Counter,
-  render: () => {},
+  render: () => () => {},
 });
 
 app.instance.increase();

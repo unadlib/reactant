@@ -31,7 +31,7 @@ test('base: sync up full state', async () => {
   const server = await createSharedApp({
     modules: [],
     main: Counter,
-    render: () => {},
+    render: () => () => {},
     share: {
       name: 'counter',
       type: 'Base',
@@ -50,7 +50,7 @@ test('base: sync up full state', async () => {
   const client0 = await createSharedApp({
     modules: [],
     main: Counter,
-    render: () => {},
+    render: () => () => {},
     share: {
       name: 'counter',
       type: 'Base',
@@ -78,7 +78,7 @@ test('sync up full state and update from server', async () => {
   const server = await createSharedApp({
     modules: [],
     main: Counter,
-    render: () => {},
+    render: () => () => {},
     share: {
       name: 'counter',
       type: 'Base',
@@ -97,7 +97,7 @@ test('sync up full state and update from server', async () => {
   const client0 = await createSharedApp({
     modules: [],
     main: Counter,
-    render: () => {},
+    render: () => () => {},
     share: {
       name: 'counter',
       type: 'Base',

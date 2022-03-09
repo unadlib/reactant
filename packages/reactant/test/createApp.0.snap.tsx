@@ -6,7 +6,7 @@ class Foo {}
 const app = createApp({
   modules: [],
   main: Foo,
-  render: () => {},
+  render: () => () => {},
 });
 
 expect(app.instance instanceof Foo).toBeTruthy();
