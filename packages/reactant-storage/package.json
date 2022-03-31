@@ -13,19 +13,19 @@
   "author": "",
   "license": "MIT",
   "peerDependencies": {
-    "react": "^18",
+    "react": "^18.0.0",
     "react-redux": "^8",
     "reactant-module": "*",
-    "redux": "^4.1.0",
+    "redux": "^4.1.2",
     "redux-persist": "^6.0.0"
   },
   "dependencies": {
     "redux-persist": "^6.0.0"
   },
   "devDependencies": {
-    "react": "^18.0.0-rc.1",
+    "react": "^18.0.0",
     "react-redux": "^8.0.0-beta.3",
     "reactant-module": "^0.14.0",
-    "redux": "^4.1.0"
+    "redux": "^4.1.2"
   }
 }

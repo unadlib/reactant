@@ -12,18 +12,18 @@
   "keywords": [],
   "author": "",
   "peerDependencies": {
-    "react": "^18",
+    "react": "^18.0.0",
     "reactant-module": "*",
-    "redux": "^4.1.0"
+    "redux": "^4.1.2"
   },
   "dependencies": {
     "connected-react-router": "^6.9.1",
     "history": "^4.10.1"
   },
   "devDependencies": {
-    "react": "^18.0.0-rc.1",
+    "react": "^18.0.0",
     "reactant-module": "^0.14.0",
-    "redux": "^4.1.0"
+    "redux": "^4.1.2"
   },
   "license": "MIT"
 }

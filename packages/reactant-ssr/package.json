@@ -30,15 +30,15 @@
   "author": "unadlib",
   "license": "MIT",
   "peerDependencies": {
-    "next": "^12.1.0",
-    "react": "^18"
+    "next": "^12.1.4",
+    "react": "^18.0.0"
   },
   "dependencies": {
     "reactant": "^0.14.0"
   },
   "devDependencies": {
-    "next": "^12.1.0",
-    "react": "^18.0.0-rc.1",
+    "next": "^12.1.4",
+    "react": "^18.0.0",
     "reactant-web": "^0.14.0"
   }
 }
