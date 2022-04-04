@@ -1,0 +1,36 @@
+{
+  "name": "reactant-cli",
+  "version": "0.14.0",
+  "description": "A command line interface for Reactant",
+  "author": "unadlib",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/unadlib/reactant.git",
+    "directory": "packages/reactant-cli"
+  },
+  "bugs": {
+    "url": "https://github.com/unadlib/reactant/issues"
+  },
+  "homepage": "https://github.com/unadlib/reactant#readme",
+  "keywords": [
+    "React",
+    "Reactant",
+    "react",
+    "reactant"
+  ],
+  "bin": {
+    "reactant-cli": "./src/index.js",
+    "reactant": "./src/index.js"
+  },
+  "build": [
+    "cjs"
+  ],
+  "dependencies": {
+    "chalk": "3.0.0",
+    "commander": "^5.1.0",
+    "envinfo": "^7.7.3",
+    "fs-extra": "8.1.0",
+    "installation": "^0.2.18"
+  }
+}

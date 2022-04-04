@@ -1,0 +1,19 @@
+{
+  "name": "reactant-share",
+  "version": "0.14.0",
+  "description": "A framework for building shared web applications with Reactant",
+  "author": "unadlib",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/unadlib/reactant.git",
+    "directory": "packages/reactant-share"
+  },
+  "keywords": [
+    "Reactant",
+    "Reactant Shared Application"
+  ],
+  "peerDependencies": {
+    "react": "^16.12.0 || ^17"
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "root": "libs/reactant-model",
+  "sourceRoot": "libs/reactant-model/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nrwl/web:rollup",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/reactant-model",
+        "tsConfig": "libs/reactant-model/tsconfig.lib.json",
+        "project": "libs/reactant-model/package.json",
+        "entryFile": "libs/reactant-model/src/index.ts",
+        "external": ["react/jsx-runtime"],
+        "updateBuildableProjectDepsInPackageJson": false,
+        "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
+        "compiler": "babel",
+        "assets": [
+          {
+            "glob": "libs/reactant-model/README.md",
+            "input": ".",
+            "output": "."
+          }
+        ]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/reactant-model/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/reactant-model"],
+      "options": {
+        "jestConfig": "libs/reactant-model/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  }
+}

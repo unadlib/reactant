@@ -1,0 +1,73 @@
+{
+  "root": "apps/todo-list",
+  "sourceRoot": "apps/todo-list/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/web:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "compiler": "babel",
+        "outputPath": "dist/apps/todo-list",
+        "index": "apps/todo-list/src/index.html",
+        "baseHref": "/",
+        "main": "apps/todo-list/src/main.tsx",
+        "polyfills": "apps/todo-list/src/polyfills.ts",
+        "tsConfig": "apps/todo-list/tsconfig.app.json",
+        "assets": [
+          "apps/todo-list/src/favicon.ico",
+          "apps/todo-list/src/assets"
+        ],
+        "styles": ["apps/todo-list/src/styles.scss"],
+        "scripts": [],
+        "webpackConfig": "@nrwl/react/plugins/webpack"
+      },
+      "configurations": {
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/todo-list/src/environments/environment.ts",
+              "with": "apps/todo-list/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/web:dev-server",
+      "options": {
+        "buildTarget": "todo-list:build",
+        "hmr": true
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "todo-list:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/todo-list/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/todo-list"],
+      "options": {
+        "jestConfig": "apps/todo-list/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

@@ -1,0 +1,29 @@
+{
+  "name": "reactant",
+  "version": "0.14.0",
+  "description": "A framework for building React web applications",
+  "author": "unadlib",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/unadlib/reactant.git",
+    "directory": "packages/reactant-cli"
+  },
+  "bugs": {
+    "url": "https://github.com/unadlib/reactant/issues"
+  },
+  "homepage": "https://github.com/unadlib/reactant#readme",
+  "keywords": [
+    "React",
+    "Reactant",
+    "react",
+    "reactant"
+  ],
+  "peerDependencies": {
+    "react": "^16.12.0 || ^17"
+  },
+  "dependencies": {
+    "react-redux": "^7.2.4",
+    "reactant-module": "^0.14.0"
+  }
+}

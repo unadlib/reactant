@@ -1,0 +1,36 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2017", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "reactant": ["libs/reactant/src/index.ts"],
+      "reactant-di": ["libs/reactant-di/src/index.ts"],
+      "reactant-last-action": ["libs/reactant-last-action/src/index.ts"],
+      "reactant-model": ["libs/reactant-model/src/index.ts"],
+      "reactant-module": ["libs/reactant-module/src/index.ts"],
+      "reactant-native": ["libs/reactant-native/src/index.ts"],
+      "reactant-redux": ["libs/reactant-redux/src/index.ts"],
+      "reactant-router": ["libs/reactant-router/src/index.ts"],
+      "reactant-router-dom": ["libs/reactant-router-dom/src/index.ts"],
+      "reactant-router-native": ["libs/reactant-router-native/src/index.ts"],
+      "reactant-share": ["libs/reactant-share/src/index.ts"],
+      "reactant-ssr": ["libs/reactant-ssr/src/index.ts"],
+      "reactant-storage": ["libs/reactant-storage/src/index.ts"],
+      "reactant-web": ["libs/reactant-web/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"],
+  "files": ["global.d.ts"]
+}

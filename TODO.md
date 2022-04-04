@@ -1,7 +1,8 @@
 # TODO
 - [ ] update website
 - [ ] auto bind for @action
-- [ ] use pnpm & turborepo
+- [ ] use pnpm
+- [ ] use nx
 - [ ] update docs
 - [ ] upgrade React18
 - [ ] support upgrade cli 

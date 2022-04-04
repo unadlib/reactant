@@ -1,0 +1,26 @@
+{
+  "name": "reactant-di",
+  "version": "0.14.0",
+  "description": "A dependency injection lib for Reactant",
+  "author": "unadlib",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/unadlib/reactant.git",
+    "directory": "packages/reactant-cli"
+  },
+  "bugs": {
+    "url": "https://github.com/unadlib/reactant/issues"
+  },
+  "homepage": "https://github.com/unadlib/reactant#readme",
+  "keywords": [
+    "React",
+    "Reactant",
+    "react",
+    "reactant"
+  ],
+  "dependencies": {
+    "inversify": "^5.1.1",
+    "reflect-metadata": "^0.1.13"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "root": "libs/reactant-cli",
+  "sourceRoot": "libs/reactant-cli/src",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/reactant-cli",
+        "main": "libs/reactant-cli/src/index.ts",
+        "tsConfig": "libs/reactant-cli/tsconfig.lib.json",
+        "assets": [
+          "libs/reactant-cli/*.md",
+          "libs/reactant-cli/templates/**/*"
+        ],
+        "updateBuildableProjectDepsInPackageJson": false
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/reactant-cli/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/reactant-cli"],
+      "options": {
+        "jestConfig": "libs/reactant-cli/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

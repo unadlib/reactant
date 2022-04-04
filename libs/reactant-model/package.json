@@ -1,0 +1,25 @@
+{
+  "name": "reactant-model",
+  "version": "0.14.0",
+  "author": "unadlib",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/unadlib/reactant.git",
+    "directory": "packages/reactant-cli"
+  },
+  "bugs": {
+    "url": "https://github.com/unadlib/reactant/issues"
+  },
+  "homepage": "https://github.com/unadlib/reactant#readme",
+  "keywords": [
+    "React",
+    "Reactant",
+    "react",
+    "reactant"
+  ],
+  "peerDependencies": {
+    "immer": "^9.0.5",
+    "reactant-module": "*"
+  }
+}

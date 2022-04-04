@@ -1,0 +1,44 @@
+{
+  "root": "libs/reactant-native",
+  "sourceRoot": "libs/reactant-native/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nrwl/web:rollup",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/reactant-native",
+        "tsConfig": "libs/reactant-native/tsconfig.lib.json",
+        "project": "libs/reactant-native/package.json",
+        "entryFile": "libs/reactant-native/src/index.ts",
+        "external": ["react/jsx-runtime"],
+        "updateBuildableProjectDepsInPackageJson": false,
+        "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
+        "compiler": "babel",
+        "assets": [
+          {
+            "glob": "libs/reactant-native/README.md",
+            "input": ".",
+            "output": "."
+          }
+        ]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/reactant-native/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/reactant-native"],
+      "options": {
+        "jestConfig": "libs/reactant-native/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  }
+}

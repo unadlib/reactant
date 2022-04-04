@@ -1,0 +1,73 @@
+{
+  "root": "apps/ts-bookstore",
+  "sourceRoot": "apps/ts-bookstore/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/web:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "compiler": "babel",
+        "outputPath": "dist/apps/ts-bookstore",
+        "index": "apps/ts-bookstore/src/index.html",
+        "baseHref": "/",
+        "main": "apps/ts-bookstore/src/main.tsx",
+        "polyfills": "apps/ts-bookstore/src/polyfills.ts",
+        "tsConfig": "apps/ts-bookstore/tsconfig.app.json",
+        "assets": [
+          "apps/ts-bookstore/src/favicon.ico",
+          "apps/ts-bookstore/src/assets"
+        ],
+        "styles": ["apps/ts-bookstore/src/styles.scss"],
+        "scripts": [],
+        "webpackConfig": "@nrwl/react/plugins/webpack"
+      },
+      "configurations": {
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/ts-bookstore/src/environments/environment.ts",
+              "with": "apps/ts-bookstore/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/web:dev-server",
+      "options": {
+        "buildTarget": "ts-bookstore:build",
+        "hmr": true
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "ts-bookstore:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/ts-bookstore/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/ts-bookstore"],
+      "options": {
+        "jestConfig": "apps/ts-bookstore/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

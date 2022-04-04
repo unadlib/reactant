@@ -1,0 +1,25 @@
+{
+  "version": 2,
+  "projects": {
+    "reactant": "libs/reactant",
+    "reactant-cli": "libs/reactant-cli",
+    "reactant-di": "libs/reactant-di",
+    "reactant-last-action": "libs/reactant-last-action",
+    "reactant-model": "libs/reactant-model",
+    "reactant-module": "libs/reactant-module",
+    "reactant-native": "libs/reactant-native",
+    "reactant-redux": "libs/reactant-redux",
+    "reactant-router": "libs/reactant-router",
+    "reactant-router-dom": "libs/reactant-router-dom",
+    "reactant-router-native": "libs/reactant-router-native",
+    "reactant-share": "libs/reactant-share",
+    "reactant-ssr": "libs/reactant-ssr",
+    "reactant-storage": "libs/reactant-storage",
+    "reactant-template": "libs/reactant-template",
+    "reactant-web": "libs/reactant-web",
+    "todo-list": "apps/todo-list",
+    "todo-list-e2e": "apps/todo-list-e2e",
+    "ts-bookstore": "apps/ts-bookstore",
+    "ts-bookstore-e2e": "apps/ts-bookstore-e2e"
+  }
+}

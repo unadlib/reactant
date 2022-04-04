@@ -1,0 +1,44 @@
+{
+  "root": "libs/reactant-router-dom",
+  "sourceRoot": "libs/reactant-router-dom/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nrwl/web:rollup",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/reactant-router-dom",
+        "tsConfig": "libs/reactant-router-dom/tsconfig.lib.json",
+        "project": "libs/reactant-router-dom/package.json",
+        "entryFile": "libs/reactant-router-dom/src/index.ts",
+        "external": ["react/jsx-runtime"],
+        "updateBuildableProjectDepsInPackageJson": false,
+        "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
+        "compiler": "babel",
+        "assets": [
+          {
+            "glob": "libs/reactant-router-dom/README.md",
+            "input": ".",
+            "output": "."
+          }
+        ]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/reactant-router-dom/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/reactant-router-dom"],
+      "options": {
+        "jestConfig": "libs/reactant-router-dom/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  }
+}

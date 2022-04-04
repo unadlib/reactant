@@ -1,0 +1,16 @@
+{
+  "name": "reactant-template",
+  "version": "0.14.0",
+  "description": "A templates collection for Reactant",
+  "author": "unadlib",
+  "license": "MIT",
+  "homepage": "https://github.com/unadlib/reactant#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/unadlib/reactant.git",
+    "directory": "packages/reactant-storage"
+  },
+  "bugs": {
+    "url": "https://github.com/unadlib/reactant/issues"
+  }
+}

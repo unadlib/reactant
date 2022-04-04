@@ -1,0 +1,14 @@
+{
+  "root": "libs/reactant-template",
+  "sourceRoot": "libs/reactant-template/src",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/workspace:run-commands",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "command": "bash libs/reactant-template/scripts/copy.sh"
+      }
+    }
+  },
+  "tags": []
+}
