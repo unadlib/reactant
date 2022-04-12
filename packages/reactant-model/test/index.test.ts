@@ -50,15 +50,15 @@ test('base model with `useValue`', () => {
     },
   });
   const foo = container.get(Foo);
-  const store = createStore(
+  const store = createStore({
     modules,
     container,
     ServiceIdentifiers,
-    new Set(),
-    (...args: any[]) => {
+    loadedModules: new Set(),
+    load: (...args: any[]) => {
       //
     },
-    {
+    pluginHooks: {
       middleware: [],
       beforeCombineRootReducers: [],
       afterCombineRootReducers: [],
@@ -66,8 +66,8 @@ test('base model with `useValue`', () => {
       preloadedStateHandler: [],
       afterCreateStore: [],
       provider: [],
-    }
-  );
+    },
+  });
   expect(Object.values(store.getState())).toEqual([{ todoList: [] }]);
   foo.add('test');
   expect(Object.values(store.getState())).toEqual([{ todoList: ['test'] }]);
@@ -122,13 +122,13 @@ test('base model with `useFactory`', () => {
     },
   });
   const foo = container.get(Foo);
-  const store = createStore(
+  const store = createStore({
     modules,
     container,
     ServiceIdentifiers,
-    new Set(),
-    (...args: any[]) => {},
-    {
+    loadedModules: new Set(),
+    load: (...args: any[]) => {},
+    pluginHooks: {
       middleware: [],
       beforeCombineRootReducers: [],
       afterCombineRootReducers: [],
@@ -136,8 +136,8 @@ test('base model with `useFactory`', () => {
       preloadedStateHandler: [],
       afterCreateStore: [],
       provider: [],
-    }
-  );
+    },
+  });
   expect(store.getState()).toEqual({
     todos: { todoList: ['bar'] },
   });
@@ -194,15 +194,15 @@ test('base model with `useValue` and `enablePatches`', () => {
     },
   });
   const foo = container.get(Foo);
-  const store = createStore(
+  const store = createStore({
     modules,
     container,
     ServiceIdentifiers,
-    new Set(),
-    (...args: any[]) => {
+    loadedModules: new Set(),
+    load: (...args: any[]) => {
       //
     },
-    {
+    pluginHooks: {
       middleware: [],
       beforeCombineRootReducers: [],
       afterCombineRootReducers: [],
@@ -211,11 +211,10 @@ test('base model with `useValue` and `enablePatches`', () => {
       afterCreateStore: [],
       provider: [],
     },
-    undefined,
-    {
+    devOptions: {
       enablePatches: true,
-    }
-  );
+    },
+  });
   const originalTodoState = foo.todo[stateKey]!;
   expect(Object.values(store.getState())).toEqual([{ todoList: [] }]);
   expect(actionFn.mock.calls.length).toBe(0);

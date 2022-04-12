@@ -26,13 +26,15 @@ describe('createStore', () => {
       },
     });
     container.get(Counter);
-    const store = createStore(
+    const store = createStore({
       modules,
       container,
       ServiceIdentifiers,
-      new Set(),
-      (...args: any[]) => {},
-      {
+      loadedModules: new Set(),
+      load: (...args: any[]) => {
+        //
+      },
+      pluginHooks: {
         middleware: [],
         beforeCombineRootReducers: [],
         afterCombineRootReducers: [],
@@ -40,8 +42,8 @@ describe('createStore', () => {
         preloadedStateHandler: [],
         afterCreateStore: [],
         provider: [],
-      }
-    );
+      },
+    });
     expect(Object.values(store.getState())).toEqual([{ count: 0 }]);
   });
 
@@ -63,13 +65,15 @@ describe('createStore', () => {
       },
     });
     container.get(Counter);
-    const store = createStore(
+    const store = createStore({
       modules,
       container,
       ServiceIdentifiers,
-      new Set(),
-      (...args: any[]) => {},
-      {
+      loadedModules: new Set(),
+      load: (...args: any[]) => {
+        //
+      },
+      pluginHooks: {
         middleware: [],
         beforeCombineRootReducers: [],
         afterCombineRootReducers: [],
@@ -78,10 +82,10 @@ describe('createStore', () => {
         afterCreateStore: [],
         provider: [],
       },
-      {
+      preloadedState: {
         counter: { count: 18 },
-      }
-    );
+      },
+    });
     expect(Object.values(store.getState())).toEqual([{ count: 18 }]);
   });
 
@@ -118,13 +122,15 @@ describe('createStore', () => {
       },
     });
     const counter = container.get(Counter);
-    createStore(
+    createStore({
       modules,
       container,
       ServiceIdentifiers,
-      new Set(),
-      (...args: any[]) => {},
-      {
+      loadedModules: new Set(),
+      load: (...args: any[]) => {
+        //
+      },
+      pluginHooks: {
         middleware: [],
         beforeCombineRootReducers: [],
         afterCombineRootReducers: [],
@@ -132,8 +138,8 @@ describe('createStore', () => {
         preloadedStateHandler: [],
         afterCreateStore: [],
         provider: [],
-      }
-    );
+      },
+    });
     counter.increase();
     expect(actionFn.mock.calls.length).toBe(2);
     expect(actionFn.mock.calls[0]).toEqual([
@@ -177,13 +183,15 @@ describe('createStore', () => {
     });
     container.get(Counter);
     const providers: React.FunctionComponent[] = [];
-    const store = createStore(
+    const store = createStore({
       modules,
       container,
       ServiceIdentifiers,
-      new Set(),
-      (...args: any[]) => {},
-      {
+      loadedModules: new Set(),
+      load: (...args: any[]) => {
+        //
+      },
+      pluginHooks: {
         middleware: [],
         beforeCombineRootReducers: [],
         afterCombineRootReducers: [],
@@ -191,8 +199,8 @@ describe('createStore', () => {
         preloadedStateHandler: [],
         afterCreateStore: [],
         provider: providers,
-      }
-    );
+      },
+    });
     expect(providers.length).toBe(1);
     expect(providers[0]({}) === null).toBeTruthy();
   });
@@ -224,13 +232,15 @@ describe('createStore', () => {
     });
     container.get(Counter);
     const providers: React.FunctionComponent[] = [];
-    const store = createStore(
+    const store = createStore({
       modules,
       container,
       ServiceIdentifiers,
-      new Set(),
-      (...args: any[]) => {},
-      {
+      loadedModules: new Set(),
+      load: (...args: any[]) => {
+        //
+      },
+      pluginHooks: {
         middleware: [],
         beforeCombineRootReducers: [],
         afterCombineRootReducers: [],
@@ -238,8 +248,8 @@ describe('createStore', () => {
         preloadedStateHandler: [],
         afterCreateStore: [],
         provider: providers,
-      }
-    );
+      },
+    });
     expect(providers.map(({ name }) => name)).toEqual(
       [fooProvider, barProvider].map(({ name }) => `bound ${name}`)
     );
@@ -279,13 +289,15 @@ describe('createStore', () => {
       },
     });
     const counter = container.get(Counter);
-    const store = createStore(
+    const store = createStore({
       modules,
       container,
       ServiceIdentifiers,
-      new Set(),
-      (...args: any[]) => {},
-      {
+      loadedModules: new Set(),
+      load: (...args: any[]) => {
+        //
+      },
+      pluginHooks: {
         middleware: [],
         beforeCombineRootReducers: [],
         afterCombineRootReducers: [],
@@ -294,9 +306,8 @@ describe('createStore', () => {
         afterCreateStore: [],
         provider: [],
       },
-      undefined,
-      { autoFreeze: true }
-    );
+      devOptions: { autoFreeze: true },
+    });
     expect(() => {
       store.getState().counter.sum.count = 1;
     }).toThrowError(/Cannot assign to read only property/);

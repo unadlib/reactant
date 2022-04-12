@@ -1,5 +1,5 @@
-import { ServiceIdentifier } from '../interfaces';
 import { METADATA_KEY } from '../constants';
+import { ServiceIdentifier } from '../interfaces';
 
 /**
  * ## Description
@@ -43,38 +43,40 @@ export const getLazyDecorator = (
     serviceIdentifier: ServiceIdentifier<unknown>,
     target?: object
   ) => unknown
-) => (serviceIdentifier: ServiceIdentifier<unknown>, enableCache = true) => {
-  return (target: object, key: string | symbol) => {
-    function getter(this: object) {
-      if (enableCache && !Reflect.hasMetadata(METADATA_KEY.lazy, this, key)) {
-        const service = getService(serviceIdentifier, this);
-        if (service !== null) {
-          Reflect.defineMetadata(METADATA_KEY.lazy, service, this, key);
-        }
+) => (serviceIdentifier: ServiceIdentifier<unknown>, enableCache = true) => (
+  target: object,
+  key: string | symbol
+) => {
+  function getter(this: object) {
+    if (enableCache && !Reflect.hasMetadata(METADATA_KEY.lazy, this, key)) {
+      const service = getService(serviceIdentifier, this);
+      if (service !== null) {
+        Reflect.defineMetadata(METADATA_KEY.lazy, service, this, key);
       }
-      if (Reflect.hasMetadata(METADATA_KEY.lazy, this, key)) {
-        return Reflect.getMetadata(METADATA_KEY.lazy, this, key);
-      }
-      return getService(serviceIdentifier, this);
     }
+    if (Reflect.hasMetadata(METADATA_KEY.lazy, this, key)) {
+      return Reflect.getMetadata(METADATA_KEY.lazy, this, key);
+    }
+    return getService(serviceIdentifier, this);
+  }
 
-    function setter(this: object, newVal: unknown) {
-      if (enableCache) {
-        Reflect.defineMetadata(METADATA_KEY.lazy, newVal, this, key);
-      } else {
-        console.warn(`
+  function setter(this: object, newVal: unknown) {
+    if (enableCache) {
+      Reflect.defineMetadata(METADATA_KEY.lazy, newVal, this, key);
+    } else {
+      console.warn(`
           Disable cache and the property ${key.toString()} in class "${
-          this.constructor.name
-        }" instance failed to set value.
+        this.constructor.name
+      }" instance failed to set value.
         `);
-      }
     }
+  }
 
-    Object.defineProperty(target, key, {
-      configurable: true,
-      enumerable: true,
-      get: getter,
-      set: setter,
-    });
-  };
+  // It should be compatible with the TS decorator and the babel decorator
+  return {
+    configurable: true,
+    enumerable: true,
+    get: getter,
+    set: setter,
+  } as any;
 };

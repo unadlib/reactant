@@ -39,13 +39,15 @@ test('base `@autobind` decorate', () => {
     },
   });
   const counter = container.get(Counter);
-  const store = createStore(
+  const store = createStore({
     modules,
     container,
     ServiceIdentifiers,
-    new Set(),
-    (...args: any[]) => {},
-    {
+    loadedModules: new Set(),
+    load: (...args: any[]) => {
+      //
+    },
+    pluginHooks: {
       middleware: [],
       beforeCombineRootReducers: [],
       afterCombineRootReducers: [],
@@ -53,8 +55,8 @@ test('base `@autobind` decorate', () => {
       preloadedStateHandler: [],
       afterCreateStore: [],
       provider: [],
-    }
-  );
+    },
+  });
   const { increase, run, decrease } = counter;
   expect(counter.count).toBe(0);
   expect(() => {
@@ -114,13 +116,15 @@ test('`@autobind` decorate about inheritance', () => {
     },
   });
   const counter = container.get(Counter);
-  const store = createStore(
+  const store = createStore({
     modules,
     container,
     ServiceIdentifiers,
-    new Set(),
-    (...args: any[]) => {},
-    {
+    loadedModules: new Set(),
+    load: (...args: any[]) => {
+      //
+    },
+    pluginHooks: {
       middleware: [],
       beforeCombineRootReducers: [],
       afterCombineRootReducers: [],
@@ -128,8 +132,8 @@ test('`@autobind` decorate about inheritance', () => {
       preloadedStateHandler: [],
       afterCreateStore: [],
       provider: [],
-    }
-  );
+    },
+  });
   const { run, decrease } = counter;
   expect(counter.count).toBe(0);
   decrease();

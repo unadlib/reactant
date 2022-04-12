@@ -1,6 +1,7 @@
 import { getLazyDecorator, ServiceIdentifier } from 'reactant-di';
-import { containerKey } from '../constants';
-import { Service, PropertyDescriptor } from '../interfaces';
+
+import { containerKey, storeKey } from '../constants';
+import { PropertyDescriptor, Service } from '../interfaces';
 
 type Lazy = (
   serviceIdentifier: ServiceIdentifier<unknown>,
@@ -17,7 +18,7 @@ export const lazy: Lazy = getLazyDecorator(
       const services = target![containerKey]!.getAll(serviceIdentifier);
       return services.length === 1 ? services[0] : services;
     } catch (e) {
-      if (__DEV__) {
+      if (__DEV__ && target?.[storeKey]) {
         console.warn(
           `Failed to get instance of lazy loading module ${serviceIdentifier.toString()}.`
         );

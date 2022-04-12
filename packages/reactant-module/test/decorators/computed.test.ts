@@ -37,13 +37,15 @@ describe('@computed', () => {
       },
     });
     const counter = container.get(Counter);
-    const store = createStore(
+    const store = createStore({
       modules,
       container,
       ServiceIdentifiers,
-      new Set(),
-      (...args: any[]) => {},
-      {
+      loadedModules: new Set(),
+      load: (...args: any[]) => {
+        //
+      },
+      pluginHooks: {
         middleware: [],
         beforeCombineRootReducers: [],
         afterCombineRootReducers: [],
@@ -51,8 +53,8 @@ describe('@computed', () => {
         preloadedStateHandler: [],
         afterCreateStore: [],
         provider: [],
-      }
-    );
+      },
+    });
     expect(computedFn.mock.calls.length).toBe(0);
     counter.increase();
     expect(Object.values(store.getState())).toEqual([{ count: 1 }]);
@@ -120,13 +122,15 @@ describe('@computed', () => {
       },
     });
     const counter = container.get(Counter);
-    createStore(
+    createStore({
       modules,
       container,
       ServiceIdentifiers,
-      new Set(),
-      (...args: any[]) => {},
-      {
+      loadedModules: new Set(),
+      load: (...args: any[]) => {
+        //
+      },
+      pluginHooks: {
         middleware: [],
         beforeCombineRootReducers: [],
         afterCombineRootReducers: [],
@@ -134,8 +138,8 @@ describe('@computed', () => {
         preloadedStateHandler: [],
         afterCreateStore: [],
         provider: [],
-      }
-    );
+      },
+    });
     expect(computedCountFn.mock.calls.length).toBe(0);
     expect(counter.sum).toBe(0);
     expect(computedCountFn.mock.calls.length).toBe(1);
@@ -191,13 +195,15 @@ describe('@computed', () => {
         },
       });
       const counter = container.get(Counter);
-      const store = createStore(
+      const store = createStore({
         modules,
         container,
         ServiceIdentifiers,
-        new Set(),
-        (...args: any[]) => {},
-        {
+        loadedModules: new Set(),
+        load: (...args: any[]) => {
+          //
+        },
+        pluginHooks: {
           middleware: [],
           beforeCombineRootReducers: [],
           afterCombineRootReducers: [],
@@ -205,8 +211,8 @@ describe('@computed', () => {
           preloadedStateHandler: [],
           afterCreateStore: [],
           provider: [],
-        }
-      );
+        },
+      });
       expect(computedFn.mock.calls.length).toBe(0);
       counter.increase1();
       expect(counter.num).toBe(1);
@@ -254,13 +260,15 @@ describe('@computed', () => {
       },
     });
     const foo = container.get(Foo);
-    const store = createStore(
+    const store = createStore({
       modules,
       container,
       ServiceIdentifiers,
-      new Set(),
-      (...args: any[]) => {},
-      {
+      loadedModules: new Set(),
+      load: (...args: any[]) => {
+        //
+      },
+      pluginHooks: {
         middleware: [],
         beforeCombineRootReducers: [],
         afterCombineRootReducers: [],
@@ -268,8 +276,8 @@ describe('@computed', () => {
         preloadedStateHandler: [],
         afterCreateStore: [],
         provider: [],
-      }
-    );
+      },
+    });
     expect(foo.counter.computedFn.mock.calls.length).toBe(0);
     expect(foo.baseCounter.computedFn.mock.calls.length).toBe(0);
     expect(foo.counter.num).toBe(1);

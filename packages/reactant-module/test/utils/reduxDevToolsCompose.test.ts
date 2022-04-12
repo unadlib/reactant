@@ -58,15 +58,15 @@ test('base module for reduxDevToolsCompose', () => {
     },
   });
   const counter = container.get(Counter);
-  const store = createStore(
+  const store = createStore({
     modules,
     container,
     ServiceIdentifiers,
-    new Set(),
-    (...args: any[]) => {
+    loadedModules: new Set(),
+    load: (...args: any[]) => {
       //
     },
-    {
+    pluginHooks: {
       middleware: [],
       beforeCombineRootReducers: [],
       afterCombineRootReducers: [],
@@ -75,14 +75,13 @@ test('base module for reduxDevToolsCompose', () => {
       afterCreateStore: [],
       provider: [],
     },
-    undefined,
-    {
+    devOptions: {
       reduxDevTools: true,
       reduxDevToolsOptions: {
         name: 'test',
       },
-    }
-  );
+    },
+  });
   expect(counter.count).toBe(0);
   expect(counter.string).toBe('test');
   expect(Object.values(store.getState())).toEqual([
@@ -184,15 +183,15 @@ test('base module with error for reduxDevToolsCompose', () => {
     },
   });
   const counter = container.get(Counter);
-  const store = createStore(
+  const store = createStore({
     modules,
     container,
     ServiceIdentifiers,
-    new Set(),
-    (...args: any[]) => {
+    loadedModules: new Set(),
+    load: (...args: any[]) => {
       //
     },
-    {
+    pluginHooks: {
       middleware: [],
       beforeCombineRootReducers: [],
       afterCombineRootReducers: [],
@@ -201,14 +200,13 @@ test('base module with error for reduxDevToolsCompose', () => {
       afterCreateStore: [],
       provider: [],
     },
-    undefined,
-    {
+    devOptions: {
       reduxDevTools: true,
       reduxDevToolsOptions: {
         name: 'test',
       },
-    }
-  );
+    },
+  });
   expect(counter.count).toBe(0);
   expect(counter.string).toBe('test');
   expect(Object.values(store.getState())).toEqual([
