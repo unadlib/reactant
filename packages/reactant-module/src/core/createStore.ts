@@ -2,66 +2,80 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable no-loop-func */
 import {
-  setAutoFreeze,
-  produce,
   enablePatches as enablePatchesWithImmer,
+  produce,
+  setAutoFreeze,
 } from 'immer';
-import {
-  combineReducers,
-  ReducersMapObject,
-  createStore as createStoreWithRedux,
-  PreloadedState,
-  applyMiddleware,
-  Reducer,
-  AnyAction,
-} from 'redux';
 import type {
   Container,
-  ServiceIdentifiersMap,
   ModuleOptions,
+  ServiceIdentifiersMap,
 } from 'reactant-di';
 import {
-  ReactantAction,
-  PluginHooks,
-  DevOptions,
-  Subscriptions,
-  ThisService,
-  ReactantStore,
-  Loader,
-  Service as IService,
-  ModulesMap,
-} from '../interfaces';
+  AnyAction,
+  applyMiddleware,
+  combineReducers,
+  createStore as createStoreWithRedux,
+  PreloadedState,
+  Reducer,
+  ReducersMapObject,
+} from 'redux';
+
 import {
-  storeKey,
-  subscriptionsKey,
-  stateKey,
   actionIdentifier,
-  loaderKey,
-  enablePatchesKey,
   containerKey,
+  enablePatchesKey,
   identifierKey,
+  loaderKey,
   modulesKey,
   nameKey,
+  stateKey,
+  storeKey,
+  subscriptionsKey,
 } from '../constants';
-import { getStageName, perform, getComposeEnhancers } from '../utils';
-import { handlePlugin } from './handlePlugin';
 import { getStagedState } from '../decorators';
+import {
+  DevOptions,
+  Loader,
+  ModulesMap,
+  PluginHooks,
+  ReactantAction,
+  ReactantStore,
+  Service as IService,
+  Subscriptions,
+  ThisService,
+} from '../interfaces';
+import { getComposeEnhancers, getStageName, perform } from '../utils';
+import { handlePlugin } from './handlePlugin';
 
-// TODO: refactor
-export function createStore<T = any>(
-  modules: ModuleOptions[],
-  container: Container,
-  ServiceIdentifiers: ServiceIdentifiersMap,
-  loadedModules: Set<any>,
-  load: (...args: Parameters<Loader>) => void,
-  pluginHooks: PluginHooks,
+type CreateStoreParams<T> = {
+  modules: ModuleOptions[];
+  container: Container;
+  ServiceIdentifiers: ServiceIdentifiersMap;
+  loadedModules: Set<any>;
+  load: (...args: Parameters<Loader>) => void;
+  pluginHooks: PluginHooks;
   // optional
-  preloadedState?: PreloadedState<T>,
-  devOptions: DevOptions = {},
-  originalStore?: ReactantStore,
-  beforeReplaceReducer?: () => void,
-  modulesMap: ModulesMap = {}
-): ReactantStore {
+  preloadedState?: PreloadedState<T>;
+  devOptions?: DevOptions;
+  originalStore?: ReactantStore;
+  beforeReplaceReducer?: () => void;
+  modulesMap?: ModulesMap;
+};
+
+export function createStore<T = any>({
+  modules,
+  container,
+  ServiceIdentifiers,
+  loadedModules,
+  load,
+  pluginHooks,
+  preloadedState,
+  devOptions = {},
+  originalStore,
+  beforeReplaceReducer,
+  modulesMap = {},
+}: CreateStoreParams<T>): ReactantStore {
   let isExistReducer = false;
   let store: ReactantStore | undefined = originalStore;
   let reducers: ReducersMapObject = {};
@@ -84,7 +98,6 @@ export function createStore<T = any>(
       ServiceIdentifiers.set(moduleIdentifier, []);
     }
   }
-
   for (const [Service] of ServiceIdentifiers) {
     // `Service` should be bound before `createStore`.
     if (container.isBound(Service) && !loadedModules.has(Service)) {

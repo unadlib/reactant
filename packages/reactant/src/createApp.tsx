@@ -63,7 +63,6 @@ function createApp<T>({
    */
   devOptions,
 }: Config<T>): App<T> {
-  let loader: Loader;
   const ServiceIdentifiers: ServiceIdentifiersMap = new Map();
   const modulesMap: ModulesMap = new Map();
   const container = createContainer({
@@ -88,40 +87,42 @@ function createApp<T>({
     provider: [] as FunctionComponent[],
   };
   const loadedModules = new Set();
-  const store = createStore(
+
+  const loader: Loader = (loadModules, beforeReplaceReducer) => {
+    bindModules(container, loadModules);
+    createStore({
+      modules: loadModules,
+      container,
+      ServiceIdentifiers,
+      loadedModules,
+      load: loader,
+      pluginHooks,
+      preloadedState: undefined,
+      devOptions,
+      // eslint-disable-next-line no-use-before-define
+      originalStore: store,
+      beforeReplaceReducer: () => {
+        beforeReplaceReducer?.(container);
+      },
+      modulesMap,
+    });
+  };
+
+  const store = createStore({
     modules,
     container,
     ServiceIdentifiers,
     loadedModules,
-    (...args: Parameters<Loader>) => {
-      loader(...args);
-    },
+    load: loader,
     pluginHooks,
     preloadedState,
     devOptions,
-    undefined,
-    undefined,
-    modulesMap
-  );
+    originalStore: undefined,
+    beforeReplaceReducer: undefined,
+    modulesMap,
+  });
   const withoutReducers = store.getState() === null;
-  loader = (loadModules, beforeReplaceReducer) => {
-    bindModules(container, loadModules);
-    createStore(
-      loadModules,
-      container,
-      ServiceIdentifiers,
-      loadedModules,
-      loader,
-      pluginHooks,
-      undefined,
-      devOptions,
-      store,
-      () => {
-        beforeReplaceReducer?.(container);
-      },
-      modulesMap
-    );
-  };
+
   return {
     /**
      * App's main module instance.
