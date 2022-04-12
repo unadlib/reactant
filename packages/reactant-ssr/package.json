@@ -1,6 +1,6 @@
 {
   "name": "reactant-ssr",
-  "version": "0.14.0",
+  "version": "0.15.0",
   "description": "A server-side renderer for Reactant",
   "main": "dist/index.cjs.js",
   "unpkg": "dist/index.umd.js",
@@ -34,11 +34,11 @@
     "react": "^16.12.0 || ^17"
   },
   "dependencies": {
-    "reactant": "^0.14.0"
+    "reactant": "^0.15.0"
   },
   "devDependencies": {
     "next": "^12.1.0",
     "react": "^16.12.0",
-    "reactant-web": "^0.14.0"
+    "reactant-web": "^0.15.0"
   }
 }
