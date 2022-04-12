@@ -72,6 +72,7 @@ export const getLazyDecorator = (
     }
   }
 
+  // It should be compatible with the TS decorator and the babel decorator
   return {
     configurable: true,
     enumerable: true,
