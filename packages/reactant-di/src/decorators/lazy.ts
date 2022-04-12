@@ -1,5 +1,5 @@
-import { ServiceIdentifier } from '../interfaces';
 import { METADATA_KEY } from '../constants';
+import { ServiceIdentifier } from '../interfaces';
 
 /**
  * ## Description
@@ -38,13 +38,15 @@ import { METADATA_KEY } from '../constants';
  * expect(bar.foo?.test).toBe('test');
  * ```
  */
-export const getLazyDecorator = (
-  getService: (
-    serviceIdentifier: ServiceIdentifier<unknown>,
-    target?: object
-  ) => unknown
-) => (serviceIdentifier: ServiceIdentifier<unknown>, enableCache = true) => {
-  return (target: object, key: string | symbol) => {
+export const getLazyDecorator =
+  (
+    getService: (
+      serviceIdentifier: ServiceIdentifier<unknown>,
+      target?: object
+    ) => unknown
+  ) =>
+  (serviceIdentifier: ServiceIdentifier<unknown>, enableCache = true) =>
+  (target: object, key: string | symbol) => {
     function getter(this: object) {
       if (enableCache && !Reflect.hasMetadata(METADATA_KEY.lazy, this, key)) {
         const service = getService(serviceIdentifier, this);
@@ -70,11 +72,10 @@ export const getLazyDecorator = (
       }
     }
 
-    Object.defineProperty(target, key, {
+    return {
       configurable: true,
       enumerable: true,
       get: getter,
       set: setter,
-    });
+    };
   };
-};
