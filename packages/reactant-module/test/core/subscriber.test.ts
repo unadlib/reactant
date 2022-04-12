@@ -51,13 +51,15 @@ test('subscribe in constructor', () => {
     },
   });
   const foo = container.get(Foo);
-  const store = createStore(
+  const store = createStore({
     modules,
     container,
     ServiceIdentifiers,
-    new Set(),
-    (...args: any[]) => {},
-    {
+    loadedModules: new Set(),
+    load: (...args: any[]) => {
+      //
+    },
+    pluginHooks: {
       middleware: [],
       beforeCombineRootReducers: [],
       afterCombineRootReducers: [],
@@ -65,8 +67,8 @@ test('subscribe in constructor', () => {
       preloadedStateHandler: [],
       afterCreateStore: [],
       provider: [],
-    }
-  );
+    },
+  });
   store.subscribe(() => {
     storeSubscribeFn();
   });
@@ -148,13 +150,15 @@ test('subscribe in non-constructor', () => {
     },
   });
   const foo = container.get(Foo);
-  const store = createStore(
+  const store = createStore({
     modules,
     container,
     ServiceIdentifiers,
-    new Set(),
-    (...args: any[]) => {},
-    {
+    loadedModules: new Set(),
+    load: (...args: any[]) => {
+      //
+    },
+    pluginHooks: {
       middleware: [],
       beforeCombineRootReducers: [],
       afterCombineRootReducers: [],
@@ -162,8 +166,8 @@ test('subscribe in non-constructor', () => {
       preloadedStateHandler: [],
       afterCreateStore: [],
       provider: [],
-    }
-  );
+    },
+  });
   foo.init();
   store.subscribe(() => {
     storeSubscribeFn();
@@ -244,13 +248,15 @@ test('watch multiple values', () => {
     },
   });
   const counter = container.get(Counter);
-  const store = createStore(
+  const store = createStore({
     modules,
     container,
     ServiceIdentifiers,
-    new Set(),
-    (...args: any[]) => {},
-    {
+    loadedModules: new Set(),
+    load: (...args: any[]) => {
+      //
+    },
+    pluginHooks: {
       middleware: [],
       beforeCombineRootReducers: [],
       afterCombineRootReducers: [],
@@ -258,9 +264,8 @@ test('watch multiple values', () => {
       preloadedStateHandler: [],
       afterCreateStore: [],
       provider: [],
-    }
-  );
-
+    },
+  });
   expect(watchFn0.mock.calls.length).toBe(0);
   expect(watchFn1.mock.calls.length).toBe(0);
 
@@ -335,13 +340,15 @@ test('watch about define `isEqual`', () => {
     },
   });
   const counter = container.get(Counter);
-  const store = createStore(
+  const store = createStore({
     modules,
     container,
     ServiceIdentifiers,
-    new Set(),
-    (...args: any[]) => {},
-    {
+    loadedModules: new Set(),
+    load: (...args: any[]) => {
+      //
+    },
+    pluginHooks: {
       middleware: [],
       beforeCombineRootReducers: [],
       afterCombineRootReducers: [],
@@ -349,8 +356,8 @@ test('watch about define `isEqual`', () => {
       preloadedStateHandler: [],
       afterCreateStore: [],
       provider: [],
-    }
-  );
+    },
+  });
 
   expect(watchFn0.mock.calls.length).toBe(0);
   expect(watchFn1.mock.calls.length).toBe(0);

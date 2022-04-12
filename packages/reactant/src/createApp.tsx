@@ -117,8 +117,6 @@ function createApp<T>({
     pluginHooks,
     preloadedState,
     devOptions,
-    originalStore: undefined,
-    beforeReplaceReducer: undefined,
     modulesMap,
   });
   const withoutReducers = store.getState() === null;

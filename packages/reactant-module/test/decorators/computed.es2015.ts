@@ -55,13 +55,15 @@ describe('@computed', () => {
       },
     });
     const counter = container.get(Counter);
-    const store = createStore(
+    const store = createStore({
       modules,
       container,
       ServiceIdentifiers,
-      new Set(),
-      (...args: any[]) => {},
-      {
+      loadedModules: new Set(),
+      load: (...args: any[]) => {
+        //
+      },
+      pluginHooks: {
         middleware: [],
         beforeCombineRootReducers: [],
         afterCombineRootReducers: [],
@@ -69,8 +71,8 @@ describe('@computed', () => {
         preloadedStateHandler: [],
         afterCreateStore: [],
         provider: [],
-      }
-    );
+      },
+    });
     expect(computedFn.mock.calls.length).toBe(0);
     expect(computedFn1.mock.calls.length).toBe(0);
     counter.increase();

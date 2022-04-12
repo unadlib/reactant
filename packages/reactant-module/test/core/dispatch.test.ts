@@ -47,13 +47,13 @@ test('`dispatch` without action type', () => {
     },
   });
   const counter = container.get(Counter);
-  const store = createStore(
+  const store = createStore({
     modules,
     container,
     ServiceIdentifiers,
-    new Set(),
-    (...args: any[]) => {},
-    {
+    loadedModules: new Set(),
+    load: (...args: any[]) => {},
+    pluginHooks: {
       middleware: [],
       beforeCombineRootReducers: [],
       afterCombineRootReducers: [],
@@ -61,8 +61,8 @@ test('`dispatch` without action type', () => {
       preloadedStateHandler: [],
       afterCreateStore: [],
       provider: [],
-    }
-  );
+    },
+  });
   counter.increase();
   expect(counter.count).toBe(1);
   expect(Object.values(store.getState())).toEqual([{ count: 1 }]);

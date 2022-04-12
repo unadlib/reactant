@@ -48,20 +48,19 @@ import {
 import { getComposeEnhancers, getStageName, perform } from '../utils';
 import { handlePlugin } from './handlePlugin';
 
-type CreateStoreParams<T> = {
+interface CreateStoreOptions<T> {
   modules: ModuleOptions[];
   container: Container;
   ServiceIdentifiers: ServiceIdentifiersMap;
   loadedModules: Set<any>;
   load: (...args: Parameters<Loader>) => void;
   pluginHooks: PluginHooks;
-  // optional
   preloadedState?: PreloadedState<T>;
   devOptions?: DevOptions;
   originalStore?: ReactantStore;
   beforeReplaceReducer?: () => void;
   modulesMap?: ModulesMap;
-};
+}
 
 export function createStore<T = any>({
   modules,
@@ -75,7 +74,7 @@ export function createStore<T = any>({
   originalStore,
   beforeReplaceReducer,
   modulesMap = {},
-}: CreateStoreParams<T>): ReactantStore {
+}: CreateStoreOptions<T>): ReactantStore {
   let isExistReducer = false;
   let store: ReactantStore | undefined = originalStore;
   let reducers: ReducersMapObject = {};

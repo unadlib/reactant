@@ -56,15 +56,15 @@ test('base module with @state and @action', () => {
     },
   });
   const counter = container.get(Counter);
-  const store = createStore(
+  const store = createStore({
     modules,
     container,
     ServiceIdentifiers,
-    new Set(),
-    (...args: any[]) => {
+    loadedModules: new Set(),
+    load: (...args: any[]) => {
       //
     },
-    {
+    pluginHooks: {
       middleware: [],
       beforeCombineRootReducers: [],
       afterCombineRootReducers: [],
@@ -72,8 +72,8 @@ test('base module with @state and @action', () => {
       preloadedStateHandler: [],
       afterCreateStore: [],
       provider: [],
-    }
-  );
+    },
+  });
   expect(counter.count).toBe(0);
   expect(counter.string).toBe('test');
   expect(Object.values(store.getState())).toEqual([
@@ -142,13 +142,15 @@ test('module with multiple module injection with same module or others', () => {
     },
   });
   const fooBar = container.get(FooBar);
-  const store = createStore(
+  const store = createStore({
     modules,
     container,
     ServiceIdentifiers,
-    new Set(),
-    (...args: any[]) => {},
-    {
+    loadedModules: new Set(),
+    load: (...args: any[]) => {
+      //
+    },
+    pluginHooks: {
       middleware: [],
       beforeCombineRootReducers: [],
       afterCombineRootReducers: [],
@@ -156,8 +158,8 @@ test('module with multiple module injection with same module or others', () => {
       preloadedStateHandler: [],
       afterCreateStore: [],
       provider: [],
-    }
-  );
+    },
+  });
   expect(store.getState()).toEqual({
     foo: { count: 1 },
     'foo:0': { count: 1 },

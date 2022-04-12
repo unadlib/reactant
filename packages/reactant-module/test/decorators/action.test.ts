@@ -33,13 +33,15 @@ describe('@action', () => {
       },
     });
     const counter = container.get(Counter);
-    const store = createStore(
+    const store = createStore({
       modules,
       container,
       ServiceIdentifiers,
-      new Set(),
-      (...args: any[]) => {},
-      {
+      loadedModules: new Set(),
+      load: (...args: any[]) => {
+        //
+      },
+      pluginHooks: {
         middleware: [],
         beforeCombineRootReducers: [],
         afterCombineRootReducers: [],
@@ -47,8 +49,8 @@ describe('@action', () => {
         preloadedStateHandler: [],
         afterCreateStore: [],
         provider: [],
-      }
-    );
+      },
+    });
     counter.increase();
     expect(counter.count).toBe(1);
     expect((counter as any)[enablePatchesKey]).toBe(false);
@@ -89,15 +91,15 @@ describe('@action', () => {
       },
     });
     const counter = container.get(Counter);
-    const store = createStore(
+    const store = createStore({
       modules,
       container,
       ServiceIdentifiers,
-      new Set(),
-      (...args: any[]) => {
+      loadedModules: new Set(),
+      load: (...args: any[]) => {
         //
       },
-      {
+      pluginHooks: {
         middleware: [],
         beforeCombineRootReducers: [],
         afterCombineRootReducers: [],
@@ -106,9 +108,8 @@ describe('@action', () => {
         afterCreateStore: [],
         provider: [],
       },
-      undefined,
-      { autoFreeze: true }
-    );
+      devOptions: { autoFreeze: true },
+    });
     expect(() => {
       store.getState().counter.sum.count = 1;
     }).toThrowError(/Cannot assign to read only property/);
@@ -204,15 +205,15 @@ describe('@action', () => {
       },
     });
     const fooBar = container.get(FooBar);
-    const store = createStore(
+    const store = createStore({
       modules,
       container,
       ServiceIdentifiers,
-      new Set(),
-      (...args: any[]) => {
+      loadedModules: new Set(),
+      load: (...args: any[]) => {
         //
       },
-      {
+      pluginHooks: {
         middleware: [],
         beforeCombineRootReducers: [],
         afterCombineRootReducers: [],
@@ -220,8 +221,8 @@ describe('@action', () => {
         preloadedStateHandler: [],
         afterCreateStore: [],
         provider: [],
-      }
-    );
+      },
+    });
     const subscribe = jest.fn();
     store.subscribe(subscribe);
     fooBar.foo.increase();
@@ -280,15 +281,15 @@ describe('@action', () => {
       },
     });
     const counter = container.get(Counter);
-    const store = createStore(
+    const store = createStore({
       modules,
       container,
       ServiceIdentifiers,
-      new Set(),
-      (...args: any[]) => {
+      loadedModules: new Set(),
+      load: (...args: any[]) => {
         //
       },
-      {
+      pluginHooks: {
         middleware: [],
         beforeCombineRootReducers: [],
         afterCombineRootReducers: [],
@@ -296,8 +297,8 @@ describe('@action', () => {
         preloadedStateHandler: [],
         afterCreateStore: [],
         provider: [],
-      }
-    );
+      },
+    });
     const subscribeFn = jest.fn();
     store.subscribe(subscribeFn);
     counter.increase();
@@ -357,15 +358,15 @@ describe('@action', () => {
       },
     });
     const counter = container.get(Counter);
-    const store = createStore(
+    const store = createStore({
       modules,
       container,
       ServiceIdentifiers,
-      new Set(),
-      (...args: any[]) => {
+      loadedModules: new Set(),
+      load: (...args: any[]) => {
         //
       },
-      {
+      pluginHooks: {
         middleware: [],
         beforeCombineRootReducers: [],
         afterCombineRootReducers: [],
@@ -373,8 +374,8 @@ describe('@action', () => {
         preloadedStateHandler: [],
         afterCreateStore: [],
         provider: [],
-      }
-    );
+      },
+    });
     const subscribeFn = jest.fn();
     store.subscribe(subscribeFn);
     counter.increase();
@@ -435,15 +436,15 @@ describe('@action', () => {
       },
     });
     const todoList = container.get(TodoList);
-    const store = createStore(
+    const store = createStore({
       modules,
       container,
       ServiceIdentifiers,
-      new Set(),
-      (...args: any[]) => {
+      loadedModules: new Set(),
+      load: (...args: any[]) => {
         //
       },
-      {
+      pluginHooks: {
         middleware: [],
         beforeCombineRootReducers: [],
         afterCombineRootReducers: [],
@@ -452,11 +453,10 @@ describe('@action', () => {
         afterCreateStore: [],
         provider: [],
       },
-      undefined,
-      {
+      devOptions: {
         enablePatches: true,
-      }
-    );
+      },
+    });
     const originalTodoState = store.getState();
     expect(Object.values(store.getState())).toEqual([
       { list: [{ text: 'foo' }] },

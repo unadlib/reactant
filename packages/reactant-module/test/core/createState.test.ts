@@ -29,13 +29,13 @@ test('`createState` with type', () => {
     },
   });
   const counter = container.get(Counter);
-  const store = createStore(
+  const store = createStore({
     modules,
     container,
     ServiceIdentifiers,
-    new Set(),
-    (...args: any[]) => {},
-    {
+    loadedModules: new Set(),
+    load: (...args: any[]) => {},
+    pluginHooks: {
       middleware: [],
       beforeCombineRootReducers: [],
       afterCombineRootReducers: [],
@@ -43,8 +43,8 @@ test('`createState` with type', () => {
       preloadedStateHandler: [],
       afterCreateStore: [],
       provider: [],
-    }
-  );
+    },
+  });
   expect(counter.count).toBe(0);
   counter.increase();
   expect(counter.count).toBe(1);
