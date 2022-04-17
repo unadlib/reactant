@@ -13,6 +13,8 @@
   "author": "",
   "peerDependencies": {
     "react": "^16.12.0 || ^17",
+    "react-redux": "^7.2.8",
+    "react-router": "^5.3.1",
     "reactant-module": "*",
     "redux": "^4.1.0"
   },
@@ -22,6 +24,8 @@
   },
   "devDependencies": {
     "react": "^16.12.0",
+    "react-redux": "^7.2.8",
+    "react-router": "^5.3.1",
     "reactant-module": "^0.15.0",
     "redux": "^4.1.0"
   },
