@@ -10,6 +10,7 @@ import {
   loadFullStateActionName,
   preloadedStateActionName,
   proxyClientActionName,
+  proxyServerActionName,
 } from './constants';
 import { PortDetector } from './portDetector';
 import { checkPatches } from './checkPatches';
@@ -47,7 +48,17 @@ export const handleServer = ({
   );
   disposeListeners.push(
     transport.listen(proxyClientActionName, async (options) => {
-      const result = await applyMethod(app, options);
+      const result = applyMethod(app, options);
+      if (options.parallel) {
+        transport.emit(
+          { name: proxyServerActionName, respond: false },
+          options
+        );
+      }
+      if (result instanceof Promise) {
+        const value = await result;
+        return value;
+      }
       return result;
     })
   );

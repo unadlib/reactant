@@ -262,6 +262,15 @@ describe('base', () => {
     expect(clientApp.instance.counter.num).toBe(3);
     expect(serverApp.instance.counter.num).toBe(5);
     expect(result3).toBeUndefined();
+
+    const result4 = await spawn(clientApp.instance.counter, 'setNum', [6], {
+      respond: true,
+      parallel: true,
+    });
+
+    expect(clientApp.instance.counter.num).toBe(6);
+    expect(serverApp.instance.counter.num).toBe(6);
+    expect(result4).toBe(6);
   });
 
   test('base server/client port mode in SharedTab', async () => {

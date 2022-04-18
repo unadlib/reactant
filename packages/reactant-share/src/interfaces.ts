@@ -88,11 +88,7 @@ export type CallbackWithHook<T extends Transport = Transport<any, any>> = (
 export type PortApp = Partial<Record<Port, App<any>>>;
 
 export interface ClientTransport {
-  [proxyClientActionName](options: {
-    module: string;
-    method: string;
-    args: any[];
-  }): Promise<any>;
+  [proxyClientActionName](options: ProxyActionOptions): Promise<any>;
   [preloadedStateActionName](): Promise<Record<string, any>>;
   [loadFullStateActionName](
     sequence: number
@@ -107,11 +103,7 @@ export type ActionOptions = Pick<
 >;
 
 export interface ServerTransport {
-  [proxyServerActionName](options: {
-    module: string;
-    method: string;
-    args: any[];
-  }): Promise<void>;
+  [proxyServerActionName](options: ProxyActionOptions): Promise<void>;
   [lastActionName](options: ActionOptions): Promise<void>;
   [routerChangeName](options: RouterChangeNameOptions): Promise<RouterState>;
   [syncToClientsName](
@@ -148,7 +140,7 @@ interface SpawnOptions {
   port?: Port;
 }
 
-export type ProxyExec = <
+export type ProxyExec<E = {}> = <
   T extends Record<string | number | symbol, any>,
   K extends FunctionKeys<T>,
   O extends EmitParameter<any>['respond']
@@ -171,9 +163,23 @@ export type ProxyExec = <
   options?: { respond?: O } & Pick<
     EmitParameter<any>,
     Exclude<keyof EmitParameter<any>, 'name' | 'respond'>
-  >
+  > &
+    E
 ) => O extends false
   ? void
   : ReturnType<T[K]> extends Promise<infer R>
   ? Promise<R>
   : Promise<ReturnType<T[K]>>;
+
+export interface ParallelOptions {
+  /**
+   * Parallel execution to server port and all client ports
+   */
+  parallel?: boolean;
+}
+
+export interface ProxyActionOptions extends ParallelOptions {
+  module: string;
+  method: string;
+  args: any[];
+}

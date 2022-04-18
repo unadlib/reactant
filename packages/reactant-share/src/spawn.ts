@@ -1,6 +1,6 @@
 import { containerKey, identifierKey, Service } from 'reactant';
 import { proxyClientActionName } from './constants';
-import { ProxyExec } from './interfaces';
+import { ParallelOptions, ProxyExec } from './interfaces';
 import { PortDetector } from './portDetector';
 
 /**
@@ -48,7 +48,12 @@ import { PortDetector } from './portDetector';
  * ```
  * reference: https://en.wikipedia.org/wiki/Actor_model
  */
-export const spawn: ProxyExec = (module, key, args, options = {}) => {
+export const spawn: ProxyExec<ParallelOptions> = (
+  module,
+  key,
+  args,
+  options = {}
+) => {
   const method = module[key];
   if (typeof key !== 'string') {
     throw new Error(
@@ -97,6 +102,7 @@ export const spawn: ProxyExec = (module, key, args, options = {}) => {
           module: target[identifierKey]!,
           method: key,
           args: args ?? [],
+          parallel: options.parallel,
         }
       );
     }

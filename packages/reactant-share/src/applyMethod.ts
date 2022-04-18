@@ -1,14 +1,8 @@
 import { modulesKey } from 'reactant';
 import type { App, ThisService } from 'reactant';
+import type { ProxyActionOptions } from './interfaces';
 
-export const applyMethod = (
-  app: App<any>,
-  options: {
-    module: string;
-    method: string;
-    args: any[];
-  }
-) => {
+export const applyMethod = (app: App<any>, options: ProxyActionOptions) => {
   const module: ThisService | undefined =
     app.instance[modulesKey][options.module];
   if (!module) {
