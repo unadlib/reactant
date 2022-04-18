@@ -25,7 +25,7 @@
 
 #### Defined in
 
-[packages/reactant-di/src/interfaces.ts:56](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-di/src/interfaces.ts#L56)
+[packages/reactant-di/src/interfaces.ts:56](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-di/src/interfaces.ts#L56)
 
 ___
 
@@ -35,7 +35,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-di/src/interfaces.ts:57](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-di/src/interfaces.ts#L57)
+[packages/reactant-di/src/interfaces.ts:57](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-di/src/interfaces.ts#L57)
 
 ## Methods
 
@@ -55,4 +55,4 @@ ___
 
 #### Defined in
 
-[packages/reactant-di/src/interfaces.ts:58](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-di/src/interfaces.ts#L58)
+[packages/reactant-di/src/interfaces.ts:58](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-di/src/interfaces.ts#L58)

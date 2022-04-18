@@ -95,7 +95,6 @@
 - [createState](modules.md#createstate)
 - [createStore](modules.md#createstore)
 - [defaultMemoize](modules.md#defaultmemoize)
-- [defaultProps](modules.md#defaultprops)
 - [dispatch](modules.md#dispatch)
 - [fork](modules.md#fork)
 - [forwardRef](modules.md#forwardref)
@@ -131,7 +130,7 @@
 
 #### Defined in
 
-[packages/reactant-di/src/interfaces.ts:13](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-di/src/interfaces.ts#L13)
+[packages/reactant-di/src/interfaces.ts:13](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-di/src/interfaces.ts#L13)
 
 ___
 
@@ -141,7 +140,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-di/src/interfaces.ts:9](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-di/src/interfaces.ts#L9)
+[packages/reactant-di/src/interfaces.ts:9](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-di/src/interfaces.ts#L9)
 
 ___
 
@@ -157,7 +156,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-module/src/interfaces.ts:85](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/interfaces.ts#L85)
+[packages/reactant-module/src/interfaces.ts:85](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/interfaces.ts#L85)
 
 ___
 
@@ -188,7 +187,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-module/src/interfaces.ts:98](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/interfaces.ts#L98)
+[packages/reactant-module/src/interfaces.ts:98](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/interfaces.ts#L98)
 
 ___
 
@@ -212,7 +211,7 @@ type Counter = ImportClass<typeof import('./counter'), 'Counter'>;
 
 #### Defined in
 
-[packages/reactant-module/src/interfaces.ts:212](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/interfaces.ts#L212)
+[packages/reactant-module/src/interfaces.ts:212](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/interfaces.ts#L212)
 
 ___
 
@@ -235,7 +234,7 @@ type List = ImportType<typeof import('./counter'), 'list'>;
 
 #### Defined in
 
-[packages/reactant-module/src/interfaces.ts:200](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/interfaces.ts#L200)
+[packages/reactant-module/src/interfaces.ts:200](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/interfaces.ts#L200)
 
 ___
 
@@ -260,7 +259,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-module/src/interfaces.ts:156](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/interfaces.ts#L156)
+[packages/reactant-module/src/interfaces.ts:156](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/interfaces.ts#L156)
 
 ___
 
@@ -285,7 +284,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-module/src/interfaces.ts:151](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/interfaces.ts#L151)
+[packages/reactant-module/src/interfaces.ts:151](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/interfaces.ts#L151)
 
 ___
 
@@ -301,7 +300,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-di/src/interfaces.ts:61](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-di/src/interfaces.ts#L61)
+[packages/reactant-di/src/interfaces.ts:61](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-di/src/interfaces.ts#L61)
 
 ___
 
@@ -311,7 +310,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-module/src/interfaces.ts:83](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/interfaces.ts#L83)
+[packages/reactant-module/src/interfaces.ts:83](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/interfaces.ts#L83)
 
 ___
 
@@ -328,7 +327,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-module/src/interfaces.ts:190](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/interfaces.ts#L190)
+[packages/reactant-module/src/interfaces.ts:190](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/interfaces.ts#L190)
 
 ___
 
@@ -345,7 +344,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-module/src/interfaces.ts:174](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/interfaces.ts#L174)
+[packages/reactant-module/src/interfaces.ts:174](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/interfaces.ts#L174)
 
 ___
 
@@ -361,7 +360,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-module/src/interfaces.ts:188](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/interfaces.ts#L188)
+[packages/reactant-module/src/interfaces.ts:188](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/interfaces.ts#L188)
 
 ___
 
@@ -371,7 +370,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-module/src/interfaces.ts:96](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/interfaces.ts#L96)
+[packages/reactant-module/src/interfaces.ts:96](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/interfaces.ts#L96)
 
 ___
 
@@ -387,7 +386,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-module/src/interfaces.ts:60](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/interfaces.ts#L60)
+[packages/reactant-module/src/interfaces.ts:60](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/interfaces.ts#L60)
 
 ___
 
@@ -397,7 +396,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-module/src/interfaces.ts:66](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/interfaces.ts#L66)
+[packages/reactant-module/src/interfaces.ts:66](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/interfaces.ts#L66)
 
 ___
 
@@ -407,7 +406,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-module/src/interfaces.ts:62](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/interfaces.ts#L62)
+[packages/reactant-module/src/interfaces.ts:62](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/interfaces.ts#L62)
 
 ___
 
@@ -417,7 +416,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-module/src/interfaces.ts:38](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/interfaces.ts#L38)
+[packages/reactant-module/src/interfaces.ts:38](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/interfaces.ts#L38)
 
 ___
 
@@ -433,7 +432,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-di/src/interfaces.ts:19](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-di/src/interfaces.ts#L19)
+[packages/reactant-di/src/interfaces.ts:19](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-di/src/interfaces.ts#L19)
 
 ___
 
@@ -458,7 +457,7 @@ ___
 
 #### Defined in
 
-[packages/reactant/src/interfaces.ts:47](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant/src/interfaces.ts#L47)
+[packages/reactant/src/interfaces.ts:47](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant/src/interfaces.ts#L47)
 
 ___
 
@@ -474,7 +473,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-module/src/interfaces.ts:77](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/interfaces.ts#L77)
+[packages/reactant-module/src/interfaces.ts:77](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/interfaces.ts#L77)
 
 ___
 
@@ -490,7 +489,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-module/src/interfaces.ts:161](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/interfaces.ts#L161)
+[packages/reactant-module/src/interfaces.ts:161](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/interfaces.ts#L161)
 
 ___
 
@@ -515,7 +514,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-module/src/interfaces.ts:103](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/interfaces.ts#L103)
+[packages/reactant-module/src/interfaces.ts:103](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/interfaces.ts#L103)
 
 ___
 
@@ -525,7 +524,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-module/src/interfaces.ts:45](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/interfaces.ts#L45)
+[packages/reactant-module/src/interfaces.ts:45](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/interfaces.ts#L45)
 
 ___
 
@@ -535,7 +534,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-module/src/interfaces.ts:58](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/interfaces.ts#L58)
+[packages/reactant-module/src/interfaces.ts:58](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/interfaces.ts#L58)
 
 ___
 
@@ -551,7 +550,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-module/src/interfaces.ts:43](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/interfaces.ts#L43)
+[packages/reactant-module/src/interfaces.ts:43](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/interfaces.ts#L43)
 
 ___
 
@@ -587,7 +586,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-module/src/interfaces.ts:118](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/interfaces.ts#L118)
+[packages/reactant-module/src/interfaces.ts:118](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/interfaces.ts#L118)
 
 ## Variables
 
@@ -597,7 +596,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-router/src/router.tsx:21](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-router/src/router.tsx#L21)
+[packages/reactant-router/src/router.tsx:21](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-router/src/router.tsx#L21)
 
 ___
 
@@ -607,7 +606,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-storage/src/storage.tsx:22](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-storage/src/storage.tsx#L22)
+[packages/reactant-storage/src/storage.tsx:22](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-storage/src/storage.tsx#L22)
 
 ___
 
@@ -617,7 +616,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-module/src/constants/reduxKeys.ts:6](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/constants/reduxKeys.ts#L6)
+[packages/reactant-module/src/constants/reduxKeys.ts:6](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/constants/reduxKeys.ts#L6)
 
 ___
 
@@ -627,7 +626,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-module/src/constants/moduleKeys.ts:1](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/constants/moduleKeys.ts#L1)
+[packages/reactant-module/src/constants/moduleKeys.ts:1](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/constants/moduleKeys.ts#L1)
 
 ___
 
@@ -637,7 +636,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-module/src/constants/reduxKeys.ts:5](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/constants/reduxKeys.ts#L5)
+[packages/reactant-module/src/constants/reduxKeys.ts:5](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/constants/reduxKeys.ts#L5)
 
 ___
 
@@ -647,7 +646,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-module/src/constants/moduleKeys.ts:2](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/constants/moduleKeys.ts#L2)
+[packages/reactant-module/src/constants/moduleKeys.ts:2](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/constants/moduleKeys.ts#L2)
 
 ___
 
@@ -657,7 +656,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-module/src/constants/reduxKeys.ts:2](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/constants/reduxKeys.ts#L2)
+[packages/reactant-module/src/constants/reduxKeys.ts:2](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/constants/reduxKeys.ts#L2)
 
 ___
 
@@ -667,7 +666,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-module/src/constants/moduleKeys.ts:3](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/constants/moduleKeys.ts#L3)
+[packages/reactant-module/src/constants/moduleKeys.ts:3](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/constants/moduleKeys.ts#L3)
 
 ___
 
@@ -677,7 +676,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-module/src/constants/moduleKeys.ts:4](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/constants/moduleKeys.ts#L4)
+[packages/reactant-module/src/constants/moduleKeys.ts:4](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/constants/moduleKeys.ts#L4)
 
 ___
 
@@ -687,7 +686,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-module/src/constants/reduxKeys.ts:4](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/constants/reduxKeys.ts#L4)
+[packages/reactant-module/src/constants/reduxKeys.ts:4](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/constants/reduxKeys.ts#L4)
 
 ___
 
@@ -697,7 +696,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-module/src/constants/reduxKeys.ts:1](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/constants/reduxKeys.ts#L1)
+[packages/reactant-module/src/constants/reduxKeys.ts:1](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/constants/reduxKeys.ts#L1)
 
 ___
 
@@ -707,7 +706,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-module/src/constants/reduxKeys.ts:3](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/constants/reduxKeys.ts#L3)
+[packages/reactant-module/src/constants/reduxKeys.ts:3](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/constants/reduxKeys.ts#L3)
 
 ## Functions
 
@@ -760,7 +759,7 @@ expect(app.instance.count).toBe(1);
 
 #### Defined in
 
-[packages/reactant-module/src/decorators/action.ts:43](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/decorators/action.ts#L43)
+[packages/reactant-module/src/decorators/action.ts:43](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/decorators/action.ts#L43)
 
 ___
 
@@ -798,7 +797,7 @@ typeof `__class`
 
 #### Defined in
 
-[packages/reactant-module/src/core/applyMiddleware.ts:30](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/core/applyMiddleware.ts#L30)
+[packages/reactant-module/src/core/applyMiddleware.ts:30](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/core/applyMiddleware.ts#L30)
 
 ___
 
@@ -819,7 +818,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-module/src/utils/isEqual.ts:43](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/utils/isEqual.ts#L43)
+[packages/reactant-module/src/utils/isEqual.ts:43](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/utils/isEqual.ts#L43)
 
 ___
 
@@ -840,7 +839,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-module/src/utils/isEqual.ts:14](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/utils/isEqual.ts#L14)
+[packages/reactant-module/src/utils/isEqual.ts:14](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/utils/isEqual.ts#L14)
 
 ___
 
@@ -863,7 +862,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-module/src/utils/assign.ts:1](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/utils/assign.ts#L1)
+[packages/reactant-module/src/utils/assign.ts:1](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/utils/assign.ts#L1)
 
 ___
 
@@ -926,11 +925,11 @@ expect(app.instance.list).toEqual(['apple']);
 | `configurable` | `undefined` \| `boolean` |
 | `enumerable` | `undefined` \| `boolean` |
 | `get` | () => `any` |
-| `set` | (`setValue`: `any`) => `void` |
+| `set` | (`setValue`: `unknown`) => `void` |
 
 #### Defined in
 
-[packages/reactant-module/src/decorators/autobind.ts:42](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/decorators/autobind.ts#L42)
+[packages/reactant-module/src/decorators/autobind.ts:42](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/decorators/autobind.ts#L42)
 
 ___
 
@@ -950,7 +949,7 @@ ___
 
 #### Defined in
 
-[packages/reactant/src/batch.ts:3](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant/src/batch.ts#L3)
+[packages/reactant/src/batch.ts:3](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant/src/batch.ts#L3)
 
 ___
 
@@ -971,7 +970,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-di/src/createContainer.ts:96](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-di/src/createContainer.ts#L96)
+[packages/reactant-di/src/createContainer.ts:96](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-di/src/createContainer.ts#L96)
 
 ___
 
@@ -1011,7 +1010,7 @@ R function obtained by composing the argument functions from right
 
 #### Defined in
 
-[packages/reactant-module/src/utils/compose.ts:3](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/utils/compose.ts#L3)
+[packages/reactant-module/src/utils/compose.ts:3](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/utils/compose.ts#L3)
 
 ▸ `Const` **compose**<`F`\>(`f`): `F`
 
@@ -1033,7 +1032,7 @@ R function obtained by composing the argument functions from right
 
 #### Defined in
 
-[packages/reactant-module/src/utils/compose.ts:3](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/utils/compose.ts#L3)
+[packages/reactant-module/src/utils/compose.ts:3](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/utils/compose.ts#L3)
 
 ▸ `Const` **compose**<`A`, `R`\>(`f1`, `f2`): `Func0`<`R`\>
 
@@ -1057,7 +1056,7 @@ R function obtained by composing the argument functions from right
 
 #### Defined in
 
-[packages/reactant-module/src/utils/compose.ts:3](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/utils/compose.ts#L3)
+[packages/reactant-module/src/utils/compose.ts:3](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/utils/compose.ts#L3)
 
 ▸ `Const` **compose**<`A`, `T1`, `R`\>(`f1`, `f2`): `Func1`<`T1`, `R`\>
 
@@ -1082,7 +1081,7 @@ R function obtained by composing the argument functions from right
 
 #### Defined in
 
-[packages/reactant-module/src/utils/compose.ts:3](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/utils/compose.ts#L3)
+[packages/reactant-module/src/utils/compose.ts:3](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/utils/compose.ts#L3)
 
 ▸ `Const` **compose**<`A`, `T1`, `T2`, `R`\>(`f1`, `f2`): `Func2`<`T1`, `T2`, `R`\>
 
@@ -1108,7 +1107,7 @@ R function obtained by composing the argument functions from right
 
 #### Defined in
 
-[packages/reactant-module/src/utils/compose.ts:3](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/utils/compose.ts#L3)
+[packages/reactant-module/src/utils/compose.ts:3](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/utils/compose.ts#L3)
 
 ▸ `Const` **compose**<`A`, `T1`, `T2`, `T3`, `R`\>(`f1`, `f2`): `Func3`<`T1`, `T2`, `T3`, `R`\>
 
@@ -1135,7 +1134,7 @@ R function obtained by composing the argument functions from right
 
 #### Defined in
 
-[packages/reactant-module/src/utils/compose.ts:3](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/utils/compose.ts#L3)
+[packages/reactant-module/src/utils/compose.ts:3](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/utils/compose.ts#L3)
 
 ▸ `Const` **compose**<`A`, `B`, `R`\>(`f1`, `f2`, `f3`): `Func0`<`R`\>
 
@@ -1161,7 +1160,7 @@ R function obtained by composing the argument functions from right
 
 #### Defined in
 
-[packages/reactant-module/src/utils/compose.ts:3](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/utils/compose.ts#L3)
+[packages/reactant-module/src/utils/compose.ts:3](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/utils/compose.ts#L3)
 
 ▸ `Const` **compose**<`A`, `B`, `T1`, `R`\>(`f1`, `f2`, `f3`): `Func1`<`T1`, `R`\>
 
@@ -1188,7 +1187,7 @@ R function obtained by composing the argument functions from right
 
 #### Defined in
 
-[packages/reactant-module/src/utils/compose.ts:3](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/utils/compose.ts#L3)
+[packages/reactant-module/src/utils/compose.ts:3](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/utils/compose.ts#L3)
 
 ▸ `Const` **compose**<`A`, `B`, `T1`, `T2`, `R`\>(`f1`, `f2`, `f3`): `Func2`<`T1`, `T2`, `R`\>
 
@@ -1216,7 +1215,7 @@ R function obtained by composing the argument functions from right
 
 #### Defined in
 
-[packages/reactant-module/src/utils/compose.ts:3](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/utils/compose.ts#L3)
+[packages/reactant-module/src/utils/compose.ts:3](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/utils/compose.ts#L3)
 
 ▸ `Const` **compose**<`A`, `B`, `T1`, `T2`, `T3`, `R`\>(`f1`, `f2`, `f3`): `Func3`<`T1`, `T2`, `T3`, `R`\>
 
@@ -1245,7 +1244,7 @@ R function obtained by composing the argument functions from right
 
 #### Defined in
 
-[packages/reactant-module/src/utils/compose.ts:3](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/utils/compose.ts#L3)
+[packages/reactant-module/src/utils/compose.ts:3](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/utils/compose.ts#L3)
 
 ▸ `Const` **compose**<`A`, `B`, `C`, `R`\>(`f1`, `f2`, `f3`, `f4`): `Func0`<`R`\>
 
@@ -1273,7 +1272,7 @@ R function obtained by composing the argument functions from right
 
 #### Defined in
 
-[packages/reactant-module/src/utils/compose.ts:3](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/utils/compose.ts#L3)
+[packages/reactant-module/src/utils/compose.ts:3](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/utils/compose.ts#L3)
 
 ▸ `Const` **compose**<`A`, `B`, `C`, `T1`, `R`\>(`f1`, `f2`, `f3`, `f4`): `Func1`<`T1`, `R`\>
 
@@ -1302,7 +1301,7 @@ R function obtained by composing the argument functions from right
 
 #### Defined in
 
-[packages/reactant-module/src/utils/compose.ts:3](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/utils/compose.ts#L3)
+[packages/reactant-module/src/utils/compose.ts:3](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/utils/compose.ts#L3)
 
 ▸ `Const` **compose**<`A`, `B`, `C`, `T1`, `T2`, `R`\>(`f1`, `f2`, `f3`, `f4`): `Func2`<`T1`, `T2`, `R`\>
 
@@ -1332,7 +1331,7 @@ R function obtained by composing the argument functions from right
 
 #### Defined in
 
-[packages/reactant-module/src/utils/compose.ts:3](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/utils/compose.ts#L3)
+[packages/reactant-module/src/utils/compose.ts:3](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/utils/compose.ts#L3)
 
 ▸ `Const` **compose**<`A`, `B`, `C`, `T1`, `T2`, `T3`, `R`\>(`f1`, `f2`, `f3`, `f4`): `Func3`<`T1`, `T2`, `T3`, `R`\>
 
@@ -1363,7 +1362,7 @@ R function obtained by composing the argument functions from right
 
 #### Defined in
 
-[packages/reactant-module/src/utils/compose.ts:3](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/utils/compose.ts#L3)
+[packages/reactant-module/src/utils/compose.ts:3](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/utils/compose.ts#L3)
 
 ▸ `Const` **compose**<`R`\>(`f1`, ...`funcs`): (...`args`: `any`[]) => `R`
 
@@ -1398,7 +1397,7 @@ R function obtained by composing the argument functions from right
 
 #### Defined in
 
-[packages/reactant-module/src/utils/compose.ts:3](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/utils/compose.ts#L3)
+[packages/reactant-module/src/utils/compose.ts:3](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/utils/compose.ts#L3)
 
 ▸ `Const` **compose**<`R`\>(...`funcs`): (...`args`: `any`[]) => `R`
 
@@ -1432,7 +1431,7 @@ R function obtained by composing the argument functions from right
 
 #### Defined in
 
-[packages/reactant-module/src/utils/compose.ts:3](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/utils/compose.ts#L3)
+[packages/reactant-module/src/utils/compose.ts:3](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/utils/compose.ts#L3)
 
 ___
 
@@ -1492,7 +1491,7 @@ class Shop {
 
 #### Defined in
 
-[packages/reactant-module/src/decorators/computed.ts:28](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/decorators/computed.ts#L28)
+[packages/reactant-module/src/decorators/computed.ts:28](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/decorators/computed.ts#L28)
 
 ___
 
@@ -1541,7 +1540,7 @@ expect(app.instance instanceof Foo).toBeTruthy();
 
 #### Defined in
 
-[packages/reactant/src/createApp.tsx:40](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant/src/createApp.tsx#L40)
+[packages/reactant/src/createApp.tsx:40](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant/src/createApp.tsx#L40)
 
 ___
 
@@ -1561,7 +1560,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-di/src/createContainer.ts:154](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-di/src/createContainer.ts#L154)
+[packages/reactant-di/src/createContainer.ts:154](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-di/src/createContainer.ts#L154)
 
 ___
 
@@ -1588,7 +1587,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-module/src/utils/selector.ts:38](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/utils/selector.ts#L38)
+[packages/reactant-module/src/utils/selector.ts:38](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/utils/selector.ts#L38)
 
 ___
 
@@ -1678,7 +1677,7 @@ class Counter {
 
 #### Defined in
 
-[packages/reactant-share/src/createApp.ts:238](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-share/src/createApp.ts#L238)
+[packages/reactant-share/src/createApp.ts:238](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-share/src/createApp.ts#L238)
 
 ___
 
@@ -1746,13 +1745,13 @@ expect(app.instance.count).toBe(1);
 
 #### Defined in
 
-[packages/reactant-module/src/core/createState.ts:45](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/core/createState.ts#L45)
+[packages/reactant-module/src/core/createState.ts:45](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/core/createState.ts#L45)
 
 ___
 
 ### createStore
 
-▸ **createStore**<`T`\>(`modules`, `container`, `ServiceIdentifiers`, `loadedModules`, `load`, `pluginHooks`, `preloadedState?`, `devOptions?`, `originalStore?`, `beforeReplaceReducer?`, `modulesMap?`): [`ReactantStore`](modules.md#reactantstore)
+▸ **createStore**<`T`\>(`__namedParameters`): [`ReactantStore`](modules.md#reactantstore)
 
 #### Type parameters
 
@@ -1764,17 +1763,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `modules` | [`ModuleOptions`](modules.md#moduleoptions)<`any`\>[] |
-| `container` | `Container` |
-| `ServiceIdentifiers` | [`ServiceIdentifiersMap`](modules.md#serviceidentifiersmap)<`any`\> |
-| `loadedModules` | `Set`<`any`\> |
-| `load` | (...`args`: [loadModules: ReactModuleOptions<any\>[], beforeReplaceReducer?: Function]) => `void` |
-| `pluginHooks` | [`PluginHooks`](modules.md#pluginhooks) |
-| `preloadedState?` | `PreloadedState`<`T`\> |
-| `devOptions` | [`DevOptions`](interfaces/DevOptions.md) |
-| `originalStore?` | [`ReactantStore`](modules.md#reactantstore) |
-| `beforeReplaceReducer?` | () => `void` |
-| `modulesMap` | [`ModulesMap`](modules.md#modulesmap) |
+| `__namedParameters` | `CreateStoreOptions`<`T`\> |
 
 #### Returns
 
@@ -1782,7 +1771,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-module/src/core/createStore.ts:51](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/core/createStore.ts#L51)
+[packages/reactant-module/src/core/createStore.ts:65](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/core/createStore.ts#L65)
 
 ___
 
@@ -1808,87 +1797,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-module/src/utils/selector.ts:5](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/utils/selector.ts#L5)
-
-___
-
-### defaultProps
-
-▸ **defaultProps**<`P`\>(`props`): (`target`: `object`, `key`: `string` \| `symbol`, `__namedParameters`: `TypedPropertyDescriptor`<(`props`: `P`) => `Element`\>) => { `value`: `undefined` \| (`props`: `P`) => `Element`  }
-
-## Description
-
-`@defaultProps()` is used to decorate a ViewModule's function component for its default props.
-
-## Example
-
-```tsx
-@injectable()
-class CounterView extends ViewModule {
-  @defaultProps({
-    version: '0.0.1'
-  })
-  component({ version }: { version?: string }) {
-    return <span>{version}</span>;
-  }
-}
-
-@injectable()
-class AppView extends ViewModule {
-  constructor(public counterView: CounterView) {}
-
-  component() {
-    return (<>
-      <this.counterView.component />
-      <this.counterView.component version="0.1.0" />
-    </>);
-  }
-}
-
-const app = createApp({
-  modules: [],
-  main: AppView,
-  render: () => {},
-});
-```
-
-#### Type parameters
-
-| Name |
-| :------ |
-| `P` |
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `props` | `P` \| [`PickOptional`](modules.md#pickoptional)<`P`\> |
-
-#### Returns
-
-`fn`
-
-▸ (`target`, `key`, `__namedParameters`): `Object`
-
-##### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `target` | `object` |
-| `key` | `string` \| `symbol` |
-| `__namedParameters` | `TypedPropertyDescriptor`<(`props`: `P`) => `Element`\> |
-
-##### Returns
-
-`Object`
-
-| Name | Type |
-| :------ | :------ |
-| `value` | `undefined` \| (`props`: `P`) => `Element` |
-
-#### Defined in
-
-[packages/reactant-module/src/decorators/defaultProps.ts:40](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/decorators/defaultProps.ts#L40)
+[packages/reactant-module/src/utils/selector.ts:5](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/utils/selector.ts#L5)
 
 ___
 
@@ -1956,7 +1865,7 @@ expect(app.instance.count).toBe(1);
 
 #### Defined in
 
-[packages/reactant-module/src/core/dispatch.ts:47](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/core/dispatch.ts#L47)
+[packages/reactant-module/src/core/dispatch.ts:47](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/core/dispatch.ts#L47)
 
 ___
 
@@ -1998,7 +1907,7 @@ reference: https://en.wikipedia.org/wiki/Actor_model
 
 #### Defined in
 
-[packages/reactant-share/src/fork.ts:18](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-share/src/fork.ts#L18)
+[packages/reactant-share/src/fork.ts:18](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-share/src/fork.ts#L18)
 
 ___
 
@@ -2018,7 +1927,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-di/src/forwardRef.ts:4](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-di/src/forwardRef.ts#L4)
+[packages/reactant-di/src/forwardRef.ts:4](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-di/src/forwardRef.ts#L4)
 
 ___
 
@@ -2039,13 +1948,13 @@ ___
 
 #### Defined in
 
-[packages/reactant-module/src/utils/reduxDevToolsCompose.ts:5](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/utils/reduxDevToolsCompose.ts#L5)
+[packages/reactant-module/src/utils/reduxDevToolsCompose.ts:5](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/utils/reduxDevToolsCompose.ts#L5)
 
 ___
 
 ### getLazyDecorator
 
-▸ `Const` **getLazyDecorator**(`getService`): (`serviceIdentifier`: `ServiceIdentifier`<`unknown`\>, `enableCache`: `boolean`) => (`target`: `object`, `key`: `string` \| `symbol`) => `void`
+▸ `Const` **getLazyDecorator**(`getService`): (`serviceIdentifier`: `ServiceIdentifier`<`unknown`\>, `enableCache`: `boolean`) => (`target`: `object`, `key`: `string` \| `symbol`) => `any`
 
 ## Description
 
@@ -2093,7 +2002,7 @@ expect(bar.foo?.test).toBe('test');
 
 `fn`
 
-▸ (`serviceIdentifier`, `enableCache?`): (`target`: `object`, `key`: `string` \| `symbol`) => `void`
+▸ (`serviceIdentifier`, `enableCache?`): (`target`: `object`, `key`: `string` \| `symbol`) => `any`
 
 ##### Parameters
 
@@ -2106,7 +2015,7 @@ expect(bar.foo?.test).toBe('test');
 
 `fn`
 
-▸ (`target`, `key`): `void`
+▸ (`target`, `key`): `any`
 
 ##### Parameters
 
@@ -2117,11 +2026,11 @@ expect(bar.foo?.test).toBe('test');
 
 ##### Returns
 
-`void`
+`any`
 
 #### Defined in
 
-[packages/reactant-di/src/decorators/lazy.ts:41](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-di/src/decorators/lazy.ts#L41)
+[packages/reactant-di/src/decorators/lazy.ts:41](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-di/src/decorators/lazy.ts#L41)
 
 ___
 
@@ -2141,7 +2050,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-module/src/utils/getStageName.ts:1](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/utils/getStageName.ts#L1)
+[packages/reactant-module/src/utils/getStageName.ts:1](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/utils/getStageName.ts#L1)
 
 ___
 
@@ -2155,7 +2064,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-module/src/decorators/action.ts:13](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/decorators/action.ts#L13)
+[packages/reactant-module/src/decorators/action.ts:13](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/decorators/action.ts#L13)
 
 ___
 
@@ -2176,7 +2085,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-module/src/core/handlePlugin.ts:5](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/core/handlePlugin.ts#L5)
+[packages/reactant-module/src/core/handlePlugin.ts:5](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/core/handlePlugin.ts#L5)
 
 ___
 
@@ -2249,7 +2158,7 @@ expect(fooBar.instance.foo.getValue()).toBe('foo');
 
 #### Defined in
 
-[packages/reactant-di/src/decorators/inject.ts:51](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-di/src/decorators/inject.ts#L51)
+[packages/reactant-di/src/decorators/inject.ts:51](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-di/src/decorators/inject.ts#L51)
 
 ___
 
@@ -2355,7 +2264,7 @@ expect(fooBar.instance.foo.getValue()).toBe('foo');
 
 #### Defined in
 
-[packages/reactant-module/src/decorators/injectable.ts:80](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/decorators/injectable.ts#L80)
+[packages/reactant-module/src/decorators/injectable.ts:80](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/decorators/injectable.ts#L80)
 
 ___
 
@@ -2376,7 +2285,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-module/src/utils/isEqual.ts:1](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/utils/isEqual.ts#L1)
+[packages/reactant-module/src/utils/isEqual.ts:1](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/utils/isEqual.ts#L1)
 
 ___
 
@@ -2397,7 +2306,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-module/src/utils/isEqual.ts:9](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/utils/isEqual.ts#L9)
+[packages/reactant-module/src/utils/isEqual.ts:9](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/utils/isEqual.ts#L9)
 
 ___
 
@@ -2432,7 +2341,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-module/src/decorators/lazy.ts:14](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/decorators/lazy.ts#L14)
+[packages/reactant-module/src/decorators/lazy.ts:15](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/decorators/lazy.ts#L15)
 
 ___
 
@@ -2453,7 +2362,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-module/src/core/load.ts:4](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/core/load.ts#L4)
+[packages/reactant-module/src/core/load.ts:4](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/core/load.ts#L4)
 
 ___
 
@@ -2469,7 +2378,7 @@ mock pair transports
 
 #### Defined in
 
-[packages/reactant-share/src/mockPairTransports.ts:6](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-share/src/mockPairTransports.ts#L6)
+[packages/reactant-share/src/mockPairTransports.ts:6](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-share/src/mockPairTransports.ts#L6)
 
 ___
 
@@ -2503,7 +2412,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-di/src/decorators/multiInject.ts:4](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-di/src/decorators/multiInject.ts#L4)
+[packages/reactant-di/src/decorators/multiInject.ts:4](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-di/src/decorators/multiInject.ts#L4)
 
 ___
 
@@ -2537,7 +2446,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-di/src/decorators/multiOptional.ts:7](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-di/src/decorators/multiOptional.ts#L7)
+[packages/reactant-di/src/decorators/multiOptional.ts:7](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-di/src/decorators/multiOptional.ts#L7)
 
 ___
 
@@ -2610,7 +2519,7 @@ expect(fooBar.fooBar.bar).toBeUndefined();
 
 #### Defined in
 
-[packages/reactant-di/src/decorators/optional.ts:47](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-di/src/decorators/optional.ts#L47)
+[packages/reactant-di/src/decorators/optional.ts:47](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-di/src/decorators/optional.ts#L47)
 
 ___
 
@@ -2631,7 +2540,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-module/src/utils/performer.ts:1](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/utils/performer.ts#L1)
+[packages/reactant-module/src/utils/performer.ts:1](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/utils/performer.ts#L1)
 
 ___
 
@@ -2706,7 +2615,7 @@ reference: https://en.wikipedia.org/wiki/Actor_model
 
 #### Defined in
 
-[packages/reactant-share/src/spawn.ts:51](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-share/src/spawn.ts#L51)
+[packages/reactant-share/src/spawn.ts:51](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-share/src/spawn.ts#L51)
 
 ___
 
@@ -2749,7 +2658,7 @@ expect(app.instance.count).toBe(0);
 
 #### Defined in
 
-[packages/reactant-module/src/decorators/state.ts:26](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/decorators/state.ts#L26)
+[packages/reactant-module/src/decorators/state.ts:26](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/decorators/state.ts#L26)
 
 ___
 
@@ -2802,7 +2711,7 @@ const app = testBed({
 
 #### Defined in
 
-[packages/reactant-module/src/core/subscribe.ts:39](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/core/subscribe.ts#L39)
+[packages/reactant-module/src/core/subscribe.ts:39](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/core/subscribe.ts#L39)
 
 ___
 
@@ -2855,7 +2764,7 @@ expect(foo.instance.bar.getValue()).toBe('test');
 
 #### Defined in
 
-[packages/reactant/src/testBed.ts:33](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant/src/testBed.ts#L33)
+[packages/reactant/src/testBed.ts:33](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant/src/testBed.ts#L33)
 
 ___
 
@@ -2921,7 +2830,7 @@ expect(container.querySelector('span')?.textContent).toBe('str');
 
 #### Defined in
 
-[packages/reactant/src/hooks/useConnector.ts:46](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant/src/hooks/useConnector.ts#L46)
+[packages/reactant/src/hooks/useConnector.ts:46](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant/src/hooks/useConnector.ts#L46)
 
 ___
 
@@ -2942,7 +2851,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-share/src/lock.ts:133](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-share/src/lock.ts#L133)
+[packages/reactant-share/src/lock.ts:133](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-share/src/lock.ts#L133)
 
 ___
 
@@ -3006,4 +2915,4 @@ const app = testBed({
 
 #### Defined in
 
-[packages/reactant-module/src/core/watch.ts:38](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/core/watch.ts#L38)
+[packages/reactant-module/src/core/watch.ts:38](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/core/watch.ts#L38)

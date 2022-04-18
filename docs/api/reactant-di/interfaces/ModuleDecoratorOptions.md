@@ -16,4 +16,4 @@ Metadata for module dependencies
 
 #### Defined in
 
-[packages/reactant-di/src/interfaces.ts:90](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-di/src/interfaces.ts#L90)
+[packages/reactant-di/src/interfaces.ts:90](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-di/src/interfaces.ts#L90)

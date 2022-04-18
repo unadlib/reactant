@@ -33,7 +33,7 @@
 
 #### Defined in
 
-[packages/reactant-module/src/core/view.ts:12](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/core/view.ts#L12)
+[packages/reactant-module/src/core/view.ts:12](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/core/view.ts#L12)
 
 ## Properties
 
@@ -47,7 +47,7 @@
 
 #### Defined in
 
-[packages/reactant-module/src/core/view.ts:8](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/core/view.ts#L8)
+[packages/reactant-module/src/core/view.ts:8](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/core/view.ts#L8)
 
 ___
 
@@ -61,7 +61,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-module/src/core/view.ts:10](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/core/view.ts#L10)
+[packages/reactant-module/src/core/view.ts:10](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/core/view.ts#L10)
 
 ## Methods
 
@@ -83,4 +83,4 @@ React function component defined by the current ViewModule
 
 #### Defined in
 
-[packages/reactant-module/src/core/view.ts:33](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/core/view.ts#L33)
+[packages/reactant-module/src/core/view.ts:28](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/core/view.ts#L28)

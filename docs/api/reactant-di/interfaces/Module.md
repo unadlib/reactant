@@ -36,4 +36,4 @@ Function.constructor
 
 #### Defined in
 
-[packages/reactant-di/src/interfaces.ts:27](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-di/src/interfaces.ts#L27)
+[packages/reactant-di/src/interfaces.ts:27](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-di/src/interfaces.ts#L27)

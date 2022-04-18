@@ -30,7 +30,7 @@ Dependent injection container options.
 
 #### Defined in
 
-[packages/reactant/src/interfaces.ts:29](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant/src/interfaces.ts#L29)
+[packages/reactant/src/interfaces.ts:29](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant/src/interfaces.ts#L29)
 
 ___
 
@@ -42,7 +42,7 @@ Reactant's development setting options.
 
 #### Defined in
 
-[packages/reactant/src/interfaces.ts:37](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant/src/interfaces.ts#L37)
+[packages/reactant/src/interfaces.ts:37](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant/src/interfaces.ts#L37)
 
 ___
 
@@ -54,7 +54,7 @@ As the main start-up module.
 
 #### Defined in
 
-[packages/reactant/src/interfaces.ts:14](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant/src/interfaces.ts#L14)
+[packages/reactant/src/interfaces.ts:14](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant/src/interfaces.ts#L14)
 
 ___
 
@@ -66,7 +66,7 @@ Importing the injected dependency modules.
 
 #### Defined in
 
-[packages/reactant/src/interfaces.ts:25](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant/src/interfaces.ts#L25)
+[packages/reactant/src/interfaces.ts:25](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant/src/interfaces.ts#L25)
 
 ___
 
@@ -78,7 +78,7 @@ Preloaded state of shared state for Redux.
 
 #### Defined in
 
-[packages/reactant/src/interfaces.ts:33](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant/src/interfaces.ts#L33)
+[packages/reactant/src/interfaces.ts:33](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant/src/interfaces.ts#L33)
 
 ## Methods
 
@@ -101,4 +101,4 @@ As a rendering function for any React renderer.
 
 #### Defined in
 
-[packages/reactant/src/interfaces.ts:18](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant/src/interfaces.ts#L18)
+[packages/reactant/src/interfaces.ts:18](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant/src/interfaces.ts#L18)

@@ -30,4 +30,4 @@
 
 #### Defined in
 
-[packages/reactant-module/src/interfaces.ts:171](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/interfaces.ts#L171)
+[packages/reactant-module/src/interfaces.ts:171](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/interfaces.ts#L171)

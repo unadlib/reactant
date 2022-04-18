@@ -51,7 +51,7 @@ It provides port detection and client/server port switching functions.
 
 #### Defined in
 
-[packages/reactant-share/src/portDetector.ts:51](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-share/src/portDetector.ts#L51)
+[packages/reactant-share/src/portDetector.ts:51](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-share/src/portDetector.ts#L51)
 
 ## Properties
 
@@ -61,7 +61,7 @@ It provides port detection and client/server port switching functions.
 
 #### Defined in
 
-[packages/reactant-share/src/portDetector.ts:41](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-share/src/portDetector.ts#L41)
+[packages/reactant-share/src/portDetector.ts:41](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-share/src/portDetector.ts#L41)
 
 ___
 
@@ -71,7 +71,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-share/src/portDetector.ts:35](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-share/src/portDetector.ts#L35)
+[packages/reactant-share/src/portDetector.ts:35](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-share/src/portDetector.ts#L35)
 
 ___
 
@@ -81,7 +81,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-share/src/portDetector.ts:33](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-share/src/portDetector.ts#L33)
+[packages/reactant-share/src/portDetector.ts:33](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-share/src/portDetector.ts#L33)
 
 ___
 
@@ -91,7 +91,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-share/src/portDetector.ts:49](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-share/src/portDetector.ts#L49)
+[packages/reactant-share/src/portDetector.ts:49](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-share/src/portDetector.ts#L49)
 
 ___
 
@@ -101,7 +101,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-share/src/portDetector.ts:37](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-share/src/portDetector.ts#L37)
+[packages/reactant-share/src/portDetector.ts:37](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-share/src/portDetector.ts#L37)
 
 ___
 
@@ -111,7 +111,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-share/src/portDetector.ts:45](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-share/src/portDetector.ts#L45)
+[packages/reactant-share/src/portDetector.ts:45](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-share/src/portDetector.ts#L45)
 
 ## Accessors
 
@@ -125,7 +125,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-share/src/portDetector.ts:144](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-share/src/portDetector.ts#L144)
+[packages/reactant-share/src/portDetector.ts:144](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-share/src/portDetector.ts#L144)
 
 ___
 
@@ -139,7 +139,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-share/src/portDetector.ts:140](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-share/src/portDetector.ts#L140)
+[packages/reactant-share/src/portDetector.ts:140](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-share/src/portDetector.ts#L140)
 
 ___
 
@@ -153,7 +153,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-share/src/portDetector.ts:148](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-share/src/portDetector.ts#L148)
+[packages/reactant-share/src/portDetector.ts:148](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-share/src/portDetector.ts#L148)
 
 ## Methods
 
@@ -173,7 +173,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-share/src/portDetector.ts:104](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-share/src/portDetector.ts#L104)
+[packages/reactant-share/src/portDetector.ts:104](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-share/src/portDetector.ts#L104)
 
 ___
 
@@ -204,7 +204,7 @@ And allow to return a function that will be executed when the current port is sw
 
 #### Defined in
 
-[packages/reactant-share/src/portDetector.ts:130](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-share/src/portDetector.ts#L130)
+[packages/reactant-share/src/portDetector.ts:130](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-share/src/portDetector.ts#L130)
 
 ___
 
@@ -224,7 +224,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-share/src/portDetector.ts:96](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-share/src/portDetector.ts#L96)
+[packages/reactant-share/src/portDetector.ts:96](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-share/src/portDetector.ts#L96)
 
 ___
 
@@ -255,7 +255,7 @@ And allow to return a function that will be executed when the current port is sw
 
 #### Defined in
 
-[packages/reactant-share/src/portDetector.ts:114](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-share/src/portDetector.ts#L114)
+[packages/reactant-share/src/portDetector.ts:114](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-share/src/portDetector.ts#L114)
 
 ___
 
@@ -276,7 +276,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-share/src/portDetector.ts:152](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-share/src/portDetector.ts#L152)
+[packages/reactant-share/src/portDetector.ts:152](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-share/src/portDetector.ts#L152)
 
 ___
 
@@ -297,7 +297,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-share/src/portDetector.ts:194](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-share/src/portDetector.ts#L194)
+[packages/reactant-share/src/portDetector.ts:194](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-share/src/portDetector.ts#L194)
 
 ___
 
@@ -311,4 +311,4 @@ ___
 
 #### Defined in
 
-[packages/reactant-share/src/portDetector.ts:180](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-share/src/portDetector.ts#L180)
+[packages/reactant-share/src/portDetector.ts:180](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-share/src/portDetector.ts#L180)

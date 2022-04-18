@@ -32,7 +32,7 @@
 
 #### Defined in
 
-[packages/reactant-module/src/interfaces.ts:53](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/interfaces.ts#L53)
+[packages/reactant-module/src/interfaces.ts:53](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/interfaces.ts#L53)
 
 ___
 
@@ -42,7 +42,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-module/src/interfaces.ts:51](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/interfaces.ts#L51)
+[packages/reactant-module/src/interfaces.ts:51](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/interfaces.ts#L51)
 
 ___
 
@@ -52,7 +52,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-module/src/interfaces.ts:54](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/interfaces.ts#L54)
+[packages/reactant-module/src/interfaces.ts:54](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/interfaces.ts#L54)
 
 ___
 
@@ -62,7 +62,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-module/src/interfaces.ts:50](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/interfaces.ts#L50)
+[packages/reactant-module/src/interfaces.ts:50](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/interfaces.ts#L50)
 
 ___
 
@@ -72,7 +72,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-module/src/interfaces.ts:55](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/interfaces.ts#L55)
+[packages/reactant-module/src/interfaces.ts:55](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/interfaces.ts#L55)
 
 ___
 
@@ -82,7 +82,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-module/src/interfaces.ts:48](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/interfaces.ts#L48)
+[packages/reactant-module/src/interfaces.ts:48](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/interfaces.ts#L48)
 
 ___
 
@@ -92,7 +92,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-module/src/interfaces.ts:49](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/interfaces.ts#L49)
+[packages/reactant-module/src/interfaces.ts:49](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/interfaces.ts#L49)
 
 ___
 
@@ -102,4 +102,4 @@ ___
 
 #### Defined in
 
-[packages/reactant-module/src/interfaces.ts:52](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/interfaces.ts#L52)
+[packages/reactant-module/src/interfaces.ts:52](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/interfaces.ts#L52)

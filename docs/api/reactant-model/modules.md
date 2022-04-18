@@ -31,4 +31,4 @@
 
 #### Defined in
 
-[model.ts:22](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-model/src/model.ts#L22)
+[model.ts:22](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-model/src/model.ts#L22)

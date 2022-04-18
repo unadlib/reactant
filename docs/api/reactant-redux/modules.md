@@ -31,4 +31,4 @@
 
 #### Defined in
 
-[redux.ts:18](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-redux/src/redux.ts#L18)
+[redux.ts:18](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-redux/src/redux.ts#L18)

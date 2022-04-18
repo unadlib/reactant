@@ -30,7 +30,7 @@
 
 #### Defined in
 
-[packages/reactant-di/src/optional.ts:9](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-di/src/optional.ts#L9)
+[packages/reactant-di/src/optional.ts:9](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-di/src/optional.ts#L9)
 
 ## Properties
 
@@ -50,4 +50,4 @@
 
 #### Defined in
 
-[packages/reactant-di/src/optional.ts:11](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-di/src/optional.ts#L11)
+[packages/reactant-di/src/optional.ts:11](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-di/src/optional.ts#L11)

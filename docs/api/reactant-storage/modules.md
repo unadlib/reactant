@@ -22,4 +22,4 @@
 
 #### Defined in
 
-[reactant-storage/src/storage.tsx:22](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-storage/src/storage.tsx#L22)
+[reactant-storage/src/storage.tsx:22](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-storage/src/storage.tsx#L22)

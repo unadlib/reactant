@@ -17,7 +17,7 @@ Auto provider injection.
 
 #### Defined in
 
-[packages/reactant-router/src/router.tsx:32](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-router/src/router.tsx#L32)
+[packages/reactant-router/src/router.tsx:32](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-router/src/router.tsx#L32)
 
 ___
 
@@ -29,4 +29,4 @@ Define a string as Router reducer key.
 
 #### Defined in
 
-[packages/reactant-router/src/router.tsx:36](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-router/src/router.tsx#L36)
+[packages/reactant-router/src/router.tsx:36](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-router/src/router.tsx#L36)

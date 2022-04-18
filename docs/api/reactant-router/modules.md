@@ -24,4 +24,4 @@
 
 #### Defined in
 
-[packages/reactant-router/src/router.tsx:21](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-router/src/router.tsx#L21)
+[packages/reactant-router/src/router.tsx:21](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-router/src/router.tsx#L21)

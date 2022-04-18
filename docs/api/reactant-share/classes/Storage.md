@@ -53,7 +53,7 @@ BaseReactantStorage.constructor
 
 #### Defined in
 
-[packages/reactant-share/src/storage.ts:17](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-share/src/storage.ts#L17)
+[packages/reactant-share/src/storage.ts:17](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-share/src/storage.ts#L17)
 
 ## Properties
 
@@ -63,11 +63,11 @@ BaseReactantStorage.constructor
 
 #### Inherited from
 
-BaseReactantStorage.\_\_@storeKey@857
+BaseReactantStorage.\_\_@storeKey@907
 
 #### Defined in
 
-[packages/reactant-module/src/core/plugin.ts:15](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/core/plugin.ts#L15)
+[packages/reactant-module/src/core/plugin.ts:15](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/core/plugin.ts#L15)
 
 ___
 
@@ -81,7 +81,7 @@ BaseReactantStorage.blacklist
 
 #### Defined in
 
-[packages/reactant-storage/src/storage.tsx:51](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-storage/src/storage.tsx#L51)
+[packages/reactant-storage/src/storage.tsx:51](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-storage/src/storage.tsx#L51)
 
 ___
 
@@ -97,7 +97,7 @@ BaseReactantStorage.enhancer
 
 #### Defined in
 
-[packages/reactant-module/src/core/plugin.ts:26](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/core/plugin.ts#L26)
+[packages/reactant-module/src/core/plugin.ts:26](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/core/plugin.ts#L26)
 
 ___
 
@@ -113,7 +113,7 @@ BaseReactantStorage.middleware
 
 #### Defined in
 
-[packages/reactant-module/src/core/plugin.ts:23](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/core/plugin.ts#L23)
+[packages/reactant-module/src/core/plugin.ts:23](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/core/plugin.ts#L23)
 
 ___
 
@@ -135,7 +135,7 @@ BaseReactantStorage.onRehydrate
 
 #### Defined in
 
-[packages/reactant-storage/src/storage.tsx:55](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-storage/src/storage.tsx#L55)
+[packages/reactant-storage/src/storage.tsx:55](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-storage/src/storage.tsx#L55)
 
 ___
 
@@ -159,7 +159,7 @@ BaseReactantStorage.persistConfig
 
 #### Defined in
 
-[packages/reactant-storage/src/storage.tsx:63](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-storage/src/storage.tsx#L63)
+[packages/reactant-storage/src/storage.tsx:63](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-storage/src/storage.tsx#L63)
 
 ___
 
@@ -180,7 +180,7 @@ BaseReactantStorage.persistRootConfig
 
 #### Defined in
 
-[packages/reactant-storage/src/storage.tsx:65](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-storage/src/storage.tsx#L65)
+[packages/reactant-storage/src/storage.tsx:65](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-storage/src/storage.tsx#L65)
 
 ___
 
@@ -194,7 +194,7 @@ BaseReactantStorage.persistor
 
 #### Defined in
 
-[packages/reactant-storage/src/storage.tsx:53](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-storage/src/storage.tsx#L53)
+[packages/reactant-storage/src/storage.tsx:53](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-storage/src/storage.tsx#L53)
 
 ___
 
@@ -204,7 +204,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-share/src/storage.ts:15](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-share/src/storage.ts#L15)
+[packages/reactant-share/src/storage.ts:15](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-share/src/storage.ts#L15)
 
 ___
 
@@ -218,7 +218,7 @@ BaseReactantStorage.rehydrated
 
 #### Defined in
 
-[packages/reactant-storage/src/storage.tsx:57](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-storage/src/storage.tsx#L57)
+[packages/reactant-storage/src/storage.tsx:57](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-storage/src/storage.tsx#L57)
 
 ## Methods
 
@@ -242,7 +242,7 @@ BaseReactantStorage.afterCombineRootReducers
 
 #### Defined in
 
-[packages/reactant-storage/src/storage.tsx:125](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-storage/src/storage.tsx#L125)
+[packages/reactant-storage/src/storage.tsx:125](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-storage/src/storage.tsx#L125)
 
 ___
 
@@ -266,7 +266,7 @@ BaseReactantStorage.afterCreateStore
 
 #### Defined in
 
-[packages/reactant-storage/src/storage.tsx:135](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-storage/src/storage.tsx#L135)
+[packages/reactant-storage/src/storage.tsx:135](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-storage/src/storage.tsx#L135)
 
 ___
 
@@ -290,7 +290,7 @@ BaseReactantStorage.beforeCombineRootReducers
 
 #### Defined in
 
-[packages/reactant-storage/src/storage.tsx:96](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-storage/src/storage.tsx#L96)
+[packages/reactant-storage/src/storage.tsx:96](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-storage/src/storage.tsx#L96)
 
 ___
 
@@ -316,7 +316,7 @@ BaseReactantStorage.preloadedStateHandler
 
 #### Defined in
 
-[packages/reactant-module/src/core/plugin.ts:18](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-module/src/core/plugin.ts#L18)
+[packages/reactant-module/src/core/plugin.ts:18](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/core/plugin.ts#L18)
 
 ___
 
@@ -340,7 +340,7 @@ BaseReactantStorage.provider
 
 #### Defined in
 
-[packages/reactant-storage/src/storage.tsx:152](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-storage/src/storage.tsx#L152)
+[packages/reactant-storage/src/storage.tsx:152](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-storage/src/storage.tsx#L152)
 
 ___
 
@@ -371,4 +371,4 @@ BaseReactantStorage.setStorage
 
 #### Defined in
 
-[packages/reactant-storage/src/storage.tsx:72](https://github.com/unadlib/reactant/blob/f9546913/packages/reactant-storage/src/storage.tsx#L72)
+[packages/reactant-storage/src/storage.tsx:72](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-storage/src/storage.tsx#L72)
