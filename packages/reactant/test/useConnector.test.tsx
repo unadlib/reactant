@@ -125,14 +125,15 @@ describe('useConnector', () => {
 
   test('selector with custom shallowEqual', () => {
     const renderFn = jest.fn();
+    const checkFn = jest.fn();
 
     @injectable()
     class FooView extends ViewModule {
       @state
-      key = null;
+      key: string | null = null;
 
       @action
-      setValue(value: any) {
+      setValue(value: string) {
         this.key = value;
       }
 
@@ -140,6 +141,7 @@ describe('useConnector', () => {
         const value = useConnector(
           () => this.key,
           (newValue, oldValue) => {
+            checkFn();
             throw new Error(`some error`);
           }
         );
@@ -156,11 +158,18 @@ describe('useConnector', () => {
       },
       render,
     });
+    expect(checkFn).toBeCalledTimes(0);
+    expect(renderFn).toBeCalledTimes(0);
+    act(() => {
+      app.bootstrap(container);
+    });
+    expect(checkFn).toBeCalledTimes(0);
+    expect(renderFn).toBeCalledTimes(1);
     expect(() => {
-      act(() => {
-        app.bootstrap(container);
-      });
+      app.instance.setValue('str');
     }).toThrow();
+    expect(checkFn).toBeCalledTimes(3);
+    expect(renderFn).toBeCalledTimes(1);
   });
 
   test('selector without store', () => {
