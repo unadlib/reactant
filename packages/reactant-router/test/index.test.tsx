@@ -15,7 +15,6 @@ import {
   ViewModule,
   createApp,
   injectable,
-  defaultProps,
   useConnector,
   action,
   state,
@@ -71,11 +70,8 @@ test('`router` module without auto provider', () => {
       };
     }
 
-    @defaultProps({
-      version: '0.0.1',
-    })
-    component(props: { version?: string }) {
-      const data = useConnector(() => this.getProps(props.version!));
+    component({ version = '0.0.1' }) {
+      const data = useConnector(() => this.getProps(version));
       return <span id="version">{data.version}</span>;
     }
   }
@@ -186,11 +182,8 @@ test('`router` module with auto provider', () => {
       };
     }
 
-    @defaultProps({
-      version: '0.0.1',
-    })
-    component(props: { version?: string }) {
-      const data = useConnector(() => this.getProps(props.version!));
+    component({ version = '0.0.1' }) {
+      const data = useConnector(() => this.getProps(version));
       return <span id="version">{data.version}</span>;
     }
   }

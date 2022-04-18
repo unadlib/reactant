@@ -19,12 +19,7 @@ abstract class ViewModule implements Service {
         }' ViewModule 'component' property should be defined class 'method'.`
       );
     }
-    const { defaultProps } = this.component as React.FunctionComponent;
-    const component = this.component.bind(this);
-    Object.assign(component, {
-      defaultProps,
-    });
-    this.component = component;
+    this.component = this.component.bind(this);
   }
 
   /**

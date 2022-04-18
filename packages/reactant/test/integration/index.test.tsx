@@ -21,14 +21,11 @@ import {
   computed,
   useConnector,
   dispatch,
-  ReactantAction,
-  defaultProps,
   batch,
   state,
   optional,
   inject,
   autobind,
-  identifierKey,
 } from '../..';
 
 let container: Element;
@@ -79,14 +76,9 @@ describe('base API', () => {
       };
     }
 
-    @defaultProps({
-      version: '0.1.0',
-      test: 'test',
-    })
-    component(props: DashboardViewProps) {
-      // check merge props with default props.
-      expect(props.version).toBe('0.0.1');
-      expect(props.test).toBe('test');
+    component({ version = '0.1.0', test = 'test' }: DashboardViewProps) {
+      expect(version).toBe('0.0.1');
+      expect(test).toBe('test');
       const data = this.getProps();
       return <span>{data.text}</span>;
     }
@@ -529,13 +521,12 @@ describe('base API', () => {
         count1: this.count1,
       });
 
-      @defaultProps({
-        version: '0.1.0',
-        test: 'test',
-      })
-      component(props: { version?: string; test?: string }) {
+      component({ version = '0.1.0', test = 'test' }) {
         const data = useConnector(this.getData);
-        renderFn(props);
+        renderFn({
+          version,
+          test,
+        });
         return (
           <div>
             <div onClick={() => this.increase()} id="add" />
@@ -674,11 +665,8 @@ describe('multiple reactant app', () => {
         };
       }
 
-      @defaultProps({
-        version: '0.0.1',
-      })
-      component(props: { version?: string }) {
-        const data = useConnector(() => this.getProps(props.version!));
+      component({ version = '0.0.1' }) {
+        const data = useConnector(() => this.getProps(version));
         return <span id="version">{data.version}</span>;
       }
     }
