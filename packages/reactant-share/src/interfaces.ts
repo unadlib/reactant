@@ -15,6 +15,8 @@ import {
 } from './constants';
 import type { RouterChangeNameOptions } from './router';
 
+export type { Transport } from 'data-transport';
+
 export type Port = 'server' | 'client';
 
 export interface Transports {
