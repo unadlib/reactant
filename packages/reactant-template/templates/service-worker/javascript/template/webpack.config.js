@@ -31,7 +31,7 @@ module.exports = {
       directory: path.join(__dirname, 'public'),
     },
     compress: true,
-    port: 7000,
+    port: 7001,
     https: true, // TODO: use https://github.com/FiloSottile/mkcert
   },
   plugins: [
