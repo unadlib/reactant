@@ -15,6 +15,7 @@ import {
   Port,
   PortApp,
   Transports,
+  Transport,
 } from './interfaces';
 
 export const PortDetectorOptions = Symbol('PortDetectorOptions');
@@ -116,6 +117,21 @@ export class PortDetector {
       throw new Error(`'onServer' argument should be a function.`);
     }
     this.serverCallbacks.add(callback);
+
+    if (
+      this.lastHooks &&
+      this.lastHooks.size > 0 &&
+      this.isServer &&
+      this.transport
+    ) {
+      try {
+        const hook = callback(this.transport);
+        this.lastHooks.add(hook);
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
     return () => {
       this.serverCallbacks.delete(callback);
     };
@@ -132,6 +148,21 @@ export class PortDetector {
       throw new Error(`'onClient' argument should be a function.`);
     }
     this.clientCallbacks.add(callback);
+
+    if (
+      this.lastHooks &&
+      this.lastHooks.size > 0 &&
+      this.isClient &&
+      this.transport
+    ) {
+      try {
+        const hook = callback(this.transport);
+        this.lastHooks.add(hook);
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
     return () => {
       this.clientCallbacks.delete(callback);
     };
@@ -149,10 +180,13 @@ export class PortDetector {
     return this.options.transports ?? {};
   }
 
+  transport?: Transport;
+
   setPort(
     currentPortApp: PortApp,
     transport: Required<Transports>[keyof Transports]
   ) {
+    this.transport = transport;
     if (this.lastHooks) {
       for (const hook of this.lastHooks) {
         try {
