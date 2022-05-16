@@ -8,9 +8,9 @@ export {
   withRouter,
 } from 'react-router-dom';
 
-export type { BrowserRouter, Link } from 'react-router-dom';
+export { BrowserRouter, Link } from 'react-router-dom';
 
-export type {
+export {
   MemoryRouter,
   Switch,
   Route,
