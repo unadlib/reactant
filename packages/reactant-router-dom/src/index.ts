@@ -1,19 +1,14 @@
 export {
+  BrowserRouter,
+  MemoryRouter,
+  Switch,
+  Route,
+  Link,
   useRouteMatch,
   useParams,
   useHistory,
   useLocation,
   generatePath,
-  matchPath,
-  withRouter,
-} from 'react-router-dom';
-
-export type { BrowserRouter, Link } from 'react-router-dom';
-
-export type {
-  MemoryRouter,
-  Switch,
-  Route,
   Prompt,
   RedirectProps,
   Redirect,
@@ -24,5 +19,7 @@ export type {
   StaticRouter,
   SwitchProps,
   match,
+  matchPath,
+  withRouter,
   RouterChildContext,
-} from 'react-router';
+} from 'react-router-dom';
