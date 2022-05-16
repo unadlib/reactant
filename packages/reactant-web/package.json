@@ -16,6 +16,7 @@
     "react-dom": "^16.14.0 || ^17"
   },
   "dependencies": {
+    "react-router-dom": "^5.3.1",
     "reactant-router-dom": "^0.17.0"
   },
   "devDependencies": {

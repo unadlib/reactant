@@ -6,11 +6,6 @@ export {
   generatePath,
   matchPath,
   withRouter,
-} from 'react-router-dom';
-
-export { BrowserRouter, Link } from 'react-router-dom';
-
-export {
   MemoryRouter,
   Switch,
   Route,
@@ -25,4 +20,6 @@ export {
   SwitchProps,
   match,
   RouterChildContext,
-} from 'react-router';
+  BrowserRouter,
+  Link,
+} from 'react-router-dom';
