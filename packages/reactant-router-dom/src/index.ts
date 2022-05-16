@@ -16,3 +16,13 @@ export {
   matchPath,
   withRouter,
 } from 'react-router-dom';
+
+export type {
+  RedirectProps,
+  RouteChildrenProps,
+  RouteComponentProps,
+  SwitchProps,
+  match,
+  RouterChildContext,
+  RouteProps,
+} from 'react-router-dom';

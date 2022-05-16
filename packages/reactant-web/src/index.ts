@@ -15,18 +15,21 @@ export {
   useLocation,
   generatePath,
   Prompt,
-  RedirectProps,
   Redirect,
-  RouteChildrenProps,
-  RouteComponentProps,
-  RouteProps,
   Router,
   StaticRouter,
-  SwitchProps,
-  match,
   matchPath,
   withRouter,
+} from 'reactant-router-dom';
+
+export type {
+  RedirectProps,
+  RouteChildrenProps,
+  RouteComponentProps,
+  SwitchProps,
+  match,
   RouterChildContext,
+  RouteProps,
 } from 'reactant-router-dom';
 
 export const {
