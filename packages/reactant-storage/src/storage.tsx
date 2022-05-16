@@ -32,7 +32,7 @@ export interface IStorageOptions extends Partial<PersistConfig<any>> {
   loading?: ReactNode;
 }
 
-type SetStorageOptions<T> = Pick<
+export type SetStorageOptions<T> = Pick<
   Partial<PersistConfig<any>>,
   Exclude<keyof PersistConfig<any>, 'key' | 'blacklist' | 'whitelist'>
 > & {

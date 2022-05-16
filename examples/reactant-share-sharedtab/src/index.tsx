@@ -20,13 +20,13 @@ class Counter {
     this.portDetector.onClient(() => {
       console.log('client ====');
       return subscribe(this, () => {
-        console.log('client ====');
+        console.log('===> client subscribe');
       });
     });
     this.portDetector.onServer(() => {
       console.log('server ====');
       return subscribe(this, () => {
-        console.log('server ====');
+        console.log('===> server subscribe');
       });
     });
   }
