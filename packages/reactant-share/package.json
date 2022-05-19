@@ -1,6 +1,6 @@
 {
   "name": "reactant-share",
-  "version": "0.21.0",
+  "version": "0.22.0",
   "description": "A framework for building shared web applications with Reactant",
   "main": "dist/index.cjs.js",
   "unpkg": "dist/index.umd.js",
@@ -26,13 +26,13 @@
   "dependencies": {
     "broadcast-channel": "^4.0.0",
     "data-transport": "^2.5.0",
-    "reactant": "^0.21.0",
-    "reactant-last-action": "^0.21.0",
-    "reactant-router": "^0.21.0",
-    "reactant-storage": "^0.21.0"
+    "reactant": "^0.22.0",
+    "reactant-last-action": "^0.22.0",
+    "reactant-router": "^0.22.0",
+    "reactant-storage": "^0.22.0"
   },
   "devDependencies": {
     "react": "^16.12.0 || ^17",
-    "reactant-web": "^0.21.0"
+    "reactant-web": "^0.22.0"
   }
 }

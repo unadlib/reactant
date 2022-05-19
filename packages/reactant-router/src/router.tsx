@@ -11,7 +11,7 @@ import {
   onLocationChanged,
 } from 'connected-react-router';
 import {
-  createBrowserHistory,
+  createHashHistory,
   Location,
   LocationState,
   Action,
@@ -34,6 +34,14 @@ export interface IRouterOptions {
    * Define a string as Router reducer key.
    */
   stateKey?: string;
+  /**
+   * auto create history and handle middleware
+   */
+  autoCreateHistory?: boolean;
+  /**
+   * history for router, use `createHashHistory`/`createBrowserHistory`/`createMemoryHistory`
+   */
+  history?: History;
 }
 
 // TODO: support ssr and router config
@@ -64,17 +72,14 @@ abstract class BaseReactantRouter extends PluginModule {
 
   onLocationChanged = onLocationChanged;
 
-  constructor(
-    @optional(RouterOptions) protected options: IRouterOptions,
-    autoCreateHistory = true
-  ) {
+  constructor(@optional(RouterOptions) protected options?: IRouterOptions) {
     super();
     const { autoProvide = true, stateKey = 'router' } = this.options || {};
     this.autoProvide = autoProvide;
     this.stateKey = stateKey;
-    this.autoCreateHistory = autoCreateHistory;
-    if (autoCreateHistory) {
-      this.history = createBrowserHistory();
+    this.autoCreateHistory = this.options?.autoCreateHistory ?? true;
+    if (this.autoCreateHistory) {
+      this.history = this.options?.history ?? createHashHistory();
       this.middleware = (store) => (next) => (action: RouterAction) => {
         if (action.type !== CALL_HISTORY_METHOD) {
           if (
