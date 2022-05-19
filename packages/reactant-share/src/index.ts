@@ -2,7 +2,13 @@ export * from 'reactant';
 export * from 'data-transport';
 export { createSharedApp } from './createApp';
 export { PortDetector } from './portDetector';
-export { Router, RouterOptions } from './router';
+export {
+  Router,
+  RouterOptions,
+  createBrowserHistory,
+  createHashHistory,
+  createMemoryHistory,
+} from './router';
 export { Storage, StorageOptions } from './storage';
 export { useLock } from './lock';
 export { spawn } from './spawn';

@@ -13,9 +13,11 @@ import {
   createSharedApp,
   spawn,
   PortDetector,
-  createTransport,
   Router,
   mockPairTransports,
+  IRouterOptions,
+  createBrowserHistory,
+  RouterOptions,
 } from '..';
 
 let serverContainer: Element;
@@ -169,7 +171,15 @@ describe('base', () => {
     const transports = mockPairTransports();
 
     const serverApp = await createSharedApp({
-      modules: [Router],
+      modules: [
+        Router,
+        {
+          provide: RouterOptions,
+          useValue: {
+            history: createBrowserHistory(),
+          } as IRouterOptions,
+        },
+      ],
       main: AppView,
       render,
       share: {
@@ -198,7 +208,15 @@ describe('base', () => {
     expect(serverContainer.querySelector('#content')?.textContent).toBe('home');
 
     const clientApp = await createSharedApp({
-      modules: [Router],
+      modules: [
+        Router,
+        {
+          provide: RouterOptions,
+          useValue: {
+            history: createBrowserHistory(),
+          } as IRouterOptions,
+        },
+      ],
       main: AppView,
       render,
       share: {

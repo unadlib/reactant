@@ -15,6 +15,12 @@ import {
 import { ISharedAppOptions } from './interfaces';
 import { PortDetector } from './portDetector';
 
+export {
+  createBrowserHistory,
+  createHashHistory,
+  createMemoryHistory,
+} from 'reactant-router';
+
 export type RouterChangeNameOptions =
   | {
       method: 'push';
@@ -48,18 +54,18 @@ class ReactantRouter extends BaseReactantRouter {
   private _router?: RouterState;
 
   constructor(
-    @optional(RouterOptions) protected options: IRouterOptions,
     protected portDetector: PortDetector,
-    @inject(SharedAppOptions) protected sharedAppOptions: ISharedAppOptions
+    @inject(SharedAppOptions) protected sharedAppOptions: ISharedAppOptions,
+    @optional(RouterOptions) protected options: IRouterOptions
   ) {
-    super(
-      options,
-      !(
+    super({
+      ...options,
+      autoCreateHistory: !(
         (sharedAppOptions.type === 'SharedWorker' ||
           sharedAppOptions.type === 'ServiceWorker') &&
         sharedAppOptions.port === 'server'
-      )
-    );
+      ),
+    });
 
     this.portDetector.onServer((transport) => {
       return transport!.listen(

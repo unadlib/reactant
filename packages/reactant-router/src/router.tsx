@@ -18,6 +18,12 @@ import {
   History,
 } from 'history';
 
+export {
+  createHashHistory,
+  createBrowserHistory,
+  createMemoryHistory,
+} from 'history';
+
 const RouterOptions = Symbol('RouterOptions');
 
 export interface RouterState {
