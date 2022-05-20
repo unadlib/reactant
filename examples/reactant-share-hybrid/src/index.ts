@@ -2,9 +2,12 @@ import { render } from 'reactant-web';
 import {
   createSharedApp,
   Router,
+  RouterOptions,
   Storage,
   StorageOptions,
   IStorageOptions,
+  IRouterOptions,
+  createHashHistory,
 } from 'reactant-share';
 import localForage from 'localforage';
 import { AppView } from './modules/app.view';
@@ -12,6 +15,12 @@ import { AppView } from './modules/app.view';
 createSharedApp({
   modules: [
     Router,
+    {
+      provide: RouterOptions,
+      useValue: {
+        createHistory: () => createHashHistory(),
+      } as IRouterOptions,
+    },
     Storage,
     {
       provide: StorageOptions,

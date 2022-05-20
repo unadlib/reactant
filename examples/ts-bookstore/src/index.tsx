@@ -8,12 +8,23 @@ import {
   IStorageOptions,
   Storage,
 } from 'reactant-storage';
-import { Router } from 'reactant-router';
+import {
+  Router,
+  RouterOptions,
+  createHashHistory,
+  IRouterOptions,
+} from 'reactant-router';
 import { HomeView } from './views';
 
 const app = createApp({
   modules: [
     Router,
+    {
+      provide: RouterOptions,
+      useValue: {
+        createHistory: () => createHashHistory(),
+      } as IRouterOptions,
+    },
     Storage,
     {
       provide: StorageOptions,

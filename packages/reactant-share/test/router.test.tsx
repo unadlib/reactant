@@ -18,6 +18,7 @@ import {
   IRouterOptions,
   createBrowserHistory,
   RouterOptions,
+  createHashHistory,
 } from '..';
 
 let serverContainer: Element;
@@ -117,10 +118,6 @@ describe('base', () => {
       super();
     }
 
-    async routerChange(path: string) {
-      await spawn(this.router, 'push', [path]);
-    }
-
     component() {
       const currentPath = useConnector(() => this.router.currentPath);
 
@@ -130,7 +127,7 @@ describe('base', () => {
             <li>
               <Link
                 active={currentPath === '/'}
-                onClick={() => this.routerChange('/')}
+                onClick={() => this.router.push('/')}
                 id="home"
               >
                 Home
@@ -139,7 +136,7 @@ describe('base', () => {
             <li>
               <Link
                 active={currentPath === this.counterView.path}
-                onClick={() => this.routerChange(this.counterView.path)}
+                onClick={() => this.router.push(this.counterView.path)}
                 id={this.counterView.name}
               >
                 {this.counterView.name}
@@ -176,7 +173,7 @@ describe('base', () => {
         {
           provide: RouterOptions,
           useValue: {
-            history: createBrowserHistory(),
+            createHistory: () => createBrowserHistory(),
           } as IRouterOptions,
         },
       ],
@@ -213,7 +210,7 @@ describe('base', () => {
         {
           provide: RouterOptions,
           useValue: {
-            history: createBrowserHistory(),
+            createHistory: () => createBrowserHistory(),
           } as IRouterOptions,
         },
       ],
@@ -363,10 +360,6 @@ describe('SharedWorker', () => {
       super();
     }
 
-    async routerChange(path: string) {
-      await spawn(this.router, 'push', [path]);
-    }
-
     component() {
       const currentPath = useConnector(() => this.router.currentPath);
 
@@ -376,7 +369,7 @@ describe('SharedWorker', () => {
             <li>
               <Link
                 active={currentPath === '/'}
-                onClick={() => this.routerChange('/')}
+                onClick={() => this.router.push('/')}
                 id="home"
               >
                 Home
@@ -385,7 +378,7 @@ describe('SharedWorker', () => {
             <li>
               <Link
                 active={currentPath === this.counterView.path}
-                onClick={() => this.routerChange(this.counterView.path)}
+                onClick={() => this.router.push(this.counterView.path)}
                 id={this.counterView.name}
               >
                 {this.counterView.name}
@@ -417,7 +410,15 @@ describe('SharedWorker', () => {
     const transports = mockPairTransports();
 
     const serverApp = await createSharedApp({
-      modules: [Router],
+      modules: [
+        Router,
+        {
+          provide: RouterOptions,
+          useValue: {
+            createHistory: () => createHashHistory(),
+          } as IRouterOptions,
+        },
+      ],
       main: AppView,
       render,
       share: {
@@ -442,7 +443,15 @@ describe('SharedWorker', () => {
     expect(subscribeOnServerFn.mock.calls.length).toBe(0);
 
     const clientApp = await createSharedApp({
-      modules: [Router],
+      modules: [
+        Router,
+        {
+          provide: RouterOptions,
+          useValue: {
+            createHistory: () => createHashHistory(),
+          } as IRouterOptions,
+        },
+      ],
       main: AppView,
       render,
       share: {
@@ -586,17 +595,13 @@ describe('ServiceWorker', () => {
       super();
     }
 
-    async routerChange(path: string) {
-      await spawn(this.router, 'push', [path]);
-    }
-
     component() {
       const currentPath = useConnector(() => this.router.currentPath);
 
       return (
         <>
           <ul>
-            <div id="replace" onClick={() => this.routerChange('/')}>
+            <div id="replace" onClick={() => this.router.push('/')}>
               replace
             </div>
             <div id="go" onClick={() => this.router.go(-1)}>
@@ -611,7 +616,7 @@ describe('ServiceWorker', () => {
             <li>
               <Link
                 active={currentPath === '/'}
-                onClick={() => this.routerChange('/')}
+                onClick={() => this.router.push('/')}
                 id="home"
               >
                 Home
@@ -620,7 +625,7 @@ describe('ServiceWorker', () => {
             <li>
               <Link
                 active={currentPath === this.counterView.path}
-                onClick={() => this.routerChange(this.counterView.path)}
+                onClick={() => this.router.push(this.counterView.path)}
                 id={this.counterView.name}
               >
                 {this.counterView.name}
@@ -653,7 +658,15 @@ describe('ServiceWorker', () => {
     const transports = mockPairTransports();
 
     const serverApp = await createSharedApp({
-      modules: [Router],
+      modules: [
+        Router,
+        {
+          provide: RouterOptions,
+          useValue: {
+            createHistory: () => createHashHistory(),
+          } as IRouterOptions,
+        },
+      ],
       main: AppView,
       render,
       share: {
@@ -678,7 +691,15 @@ describe('ServiceWorker', () => {
     expect(subscribeOnServerFn.mock.calls.length).toBe(0);
 
     const clientApp = await createSharedApp({
-      modules: [Router],
+      modules: [
+        Router,
+        {
+          provide: RouterOptions,
+          useValue: {
+            createHistory: () => createHashHistory(),
+          } as IRouterOptions,
+        },
+      ],
       main: AppView,
       render,
       share: {

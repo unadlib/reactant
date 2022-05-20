@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-empty-interface */
-import { injectable, optional, storeKey, inject } from 'reactant';
+import { injectable, storeKey, inject } from 'reactant';
 import {
   BaseReactantRouter,
   RouterOptions,
@@ -14,6 +14,7 @@ import {
 } from './constants';
 import { ISharedAppOptions } from './interfaces';
 import { PortDetector } from './portDetector';
+import { spawn } from './spawn';
 
 export {
   createBrowserHistory,
@@ -56,7 +57,7 @@ class ReactantRouter extends BaseReactantRouter {
   constructor(
     protected portDetector: PortDetector,
     @inject(SharedAppOptions) protected sharedAppOptions: ISharedAppOptions,
-    @optional(RouterOptions) protected options: IRouterOptions
+    @inject(RouterOptions) protected options: IRouterOptions
   ) {
     super({
       ...options,
@@ -134,24 +135,44 @@ class ReactantRouter extends BaseReactantRouter {
     return this._router ?? this[storeKey]?.getState()[this.stateKey];
   }
 
-  async push(path: string, state?: Record<string, any>) {
+  private async _push(path: string, state?: Record<string, any>) {
     await this.history.push(path, state);
   }
 
-  async replace(path: string, state?: Record<string, any>) {
+  private async _replace(path: string, state?: Record<string, any>) {
     await this.history.replace(path, state);
   }
 
-  async go(n: number) {
+  private async _go(n: number) {
     await this.history.go(n);
   }
 
-  async goBack() {
+  private async _goBack() {
     await this.history.goBack();
   }
 
-  async goForward() {
+  private async _goForward() {
     await this.history.goForward();
+  }
+
+  async push(path: string, state?: Record<string, any>) {
+    await spawn(this as any, '_push', [path, state]);
+  }
+
+  async replace(path: string, state?: Record<string, any>) {
+    await spawn(this as any, '_replace', [path, state]);
+  }
+
+  async go(n: number) {
+    await spawn(this as any, '_go', [n]);
+  }
+
+  async goBack() {
+    await spawn(this as any, '_goBack', []);
+  }
+
+  async goForward() {
+    await spawn(this as any, '_goForward', []);
   }
 }
 

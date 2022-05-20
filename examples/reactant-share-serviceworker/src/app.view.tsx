@@ -60,10 +60,6 @@ export class AppView extends ViewModule {
     });
   }
 
-  async routerChange(path: string) {
-    await spawn(this.router, 'push', [path]);
-  }
-
   component() {
     const [type, setType] = useState(this.type);
     const currentPath = useConnector(() => this.router?.currentPath);
@@ -74,7 +70,7 @@ export class AppView extends ViewModule {
           <li>
             <Link
               active={currentPath === '/'}
-              onClick={() => this.routerChange('/')}
+              onClick={() => this.router.push('/')}
             >
               Home
             </Link>
@@ -82,7 +78,7 @@ export class AppView extends ViewModule {
           <li>
             <Link
               active={currentPath === this.counterView.path}
-              onClick={() => this.routerChange(this.counterView.path)}
+              onClick={() => this.router.push(this.counterView.path)}
             >
               {this.counterView.name}
             </Link>
@@ -90,7 +86,7 @@ export class AppView extends ViewModule {
           <li>
             <Link
               active={currentPath === this.todoListView.path}
-              onClick={() => this.routerChange(this.todoListView.path)}
+              onClick={() => this.router.push(this.todoListView.path)}
             >
               {this.todoListView.name}
             </Link>
@@ -98,7 +94,7 @@ export class AppView extends ViewModule {
           <li>
             <Link
               active={currentPath === '/iframe'}
-              onClick={() => this.routerChange('/iframe')}
+              onClick={() => this.router.push('/iframe')}
             >
               iFrame mode
             </Link>

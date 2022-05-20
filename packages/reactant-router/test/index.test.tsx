@@ -24,6 +24,7 @@ import {
   RouterOptions,
   IRouterOptions,
   createBrowserHistory,
+  createHashHistory,
 } from '..';
 
 let container: Element;
@@ -123,6 +124,7 @@ test('`router` module without auto provider', () => {
         provide: RouterOptions,
         useValue: {
           autoProvide: false,
+          createHistory: () => createHashHistory(),
         } as IRouterOptions,
       },
     ],
@@ -150,7 +152,7 @@ test('`router` module without auto provider', () => {
   });
 });
 
-test('`router` module with auto provider with default history', () => {
+test('`router` module with auto provider with createHashHistory history', () => {
   @injectable()
   class Count {
     @state
@@ -230,6 +232,14 @@ test('`router` module with auto provider with default history', () => {
   }
 
   const app = createApp({
+    modules: [
+      {
+        provide: RouterOptions,
+        useValue: {
+          createHistory: () => createHashHistory(),
+        } as IRouterOptions,
+      },
+    ],
     main: AppView,
     render,
     devOptions: {
@@ -348,7 +358,7 @@ test('`router` module with auto provider with createBrowserHistory', async () =>
       {
         provide: RouterOptions,
         useValue: {
-          history: createBrowserHistory(),
+          createHistory: () => createBrowserHistory(),
         } as IRouterOptions,
       },
     ],

@@ -1,6 +1,6 @@
 /* eslint-disable consistent-return */
 import React, { PropsWithChildren, FunctionComponent } from 'react';
-import { PluginModule, injectable, optional, storeKey } from 'reactant-module';
+import { PluginModule, injectable, inject, storeKey } from 'reactant-module';
 import { ReducersMapObject, Store } from 'redux';
 import {
   connectRouter,
@@ -10,13 +10,7 @@ import {
   RouterAction,
   onLocationChanged,
 } from 'connected-react-router';
-import {
-  createHashHistory,
-  Location,
-  LocationState,
-  Action,
-  History,
-} from 'history';
+import type { Location, LocationState, Action, History } from 'history';
 
 export {
   createHashHistory,
@@ -33,6 +27,10 @@ export interface RouterState {
 
 export interface IRouterOptions {
   /**
+   * create history for router, use `createHashHistory`/`createBrowserHistory`/`createMemoryHistory`
+   */
+  createHistory: () => History;
+  /**
    * Auto provider injection.
    */
   autoProvide?: boolean;
@@ -44,10 +42,6 @@ export interface IRouterOptions {
    * auto create history and handle middleware
    */
   autoCreateHistory?: boolean;
-  /**
-   * history for router, use `createHashHistory`/`createBrowserHistory`/`createMemoryHistory`
-   */
-  history?: History;
 }
 
 // TODO: support ssr and router config
@@ -78,14 +72,14 @@ abstract class BaseReactantRouter extends PluginModule {
 
   onLocationChanged = onLocationChanged;
 
-  constructor(@optional(RouterOptions) protected options?: IRouterOptions) {
+  constructor(@inject(RouterOptions) protected options: IRouterOptions) {
     super();
     const { autoProvide = true, stateKey = 'router' } = this.options || {};
     this.autoProvide = autoProvide;
     this.stateKey = stateKey;
     this.autoCreateHistory = this.options?.autoCreateHistory ?? true;
     if (this.autoCreateHistory) {
-      this.history = this.options?.history ?? createHashHistory();
+      this.history = this.options.createHistory();
       this.middleware = (store) => (next) => (action: RouterAction) => {
         if (action.type !== CALL_HISTORY_METHOD) {
           if (
@@ -138,7 +132,7 @@ abstract class BaseReactantRouter extends PluginModule {
 
 @injectable()
 class ReactantRouter extends BaseReactantRouter {
-  constructor(@optional(RouterOptions) public options: IRouterOptions) {
+  constructor(@inject(RouterOptions) public options: IRouterOptions) {
     super(options);
   }
 
