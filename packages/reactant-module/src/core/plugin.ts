@@ -37,7 +37,7 @@ abstract class PluginModule implements Service {
   afterCombineRootReducers?(rootReducer: Reducer): Reducer;
 
   /** Define a React Provider for the current PluginModule */
-  provider?: FunctionComponent;
+  provider?: FunctionComponent<any>;
 }
 
 export { PluginModule };
