@@ -27,15 +27,6 @@ export const handleClient = ({
   const portDetector = container.get(PortDetector);
   portDetector.setPort({ client: app }, transport);
   const disposeListeners: ((() => void) | undefined)[] = [];
-  let lastState: Record<string, any>;
-  if (enablePatchesFilter) {
-    lastState = app.store!.getState();
-    disposeListeners.push(() =>
-      app.store?.subscribe(() => {
-        lastState = app.store!.getState();
-      })
-    );
-  }
   if (preloadedState) {
     lastAction.sequence = preloadedState[lastAction.stateKey]._sequence;
   }
@@ -43,16 +34,17 @@ export const handleClient = ({
     transport.listen(lastActionName, async (action) => {
       if (action._sequence && action._sequence === lastAction.sequence + 1) {
         if (action._reactant === actionIdentifier) {
-          // TODO: think about filterPatches in server port
+          const currentState = app.store!.getState();
+          // support subset of modules sync up
           const patches = enablePatchesFilter
-            ? filterPatches(lastState, action)
-            : action._patches;
+            ? action._patches!.filter((item) => currentState[item.path[0]])
+            : action._patches!;
           let time: number;
           if (__DEV__) {
             // performance checking
             time = Date.now();
           }
-          const state = applyPatches(app.store!.getState(), patches!);
+          const state = applyPatches(currentState, patches);
           if (__DEV__) {
             const executionTime = Date.now() - time!;
             if (executionTime > 100)
