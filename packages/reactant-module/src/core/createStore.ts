@@ -79,7 +79,8 @@ export function createStore<T = any>({
   let store: ReactantStore | undefined = originalStore;
   let reducers: ReducersMapObject = {};
   const subscriptions: Subscriptions = [];
-  const enableAutoFreeze = devOptions.autoFreeze ?? __DEV__;
+  // TODO: replace with `mutative`
+  const enableAutoFreeze = devOptions.autoFreeze ?? true;
   const enableReduxDevTools = devOptions.reduxDevTools ?? __DEV__;
   const enablePatches = devOptions.enablePatches ?? false;
   if (typeof store === 'undefined') {
