@@ -18,6 +18,8 @@ import {
   Transport,
 } from './interfaces';
 
+export * from 'reactant-last-action';
+
 export const PortDetectorOptions = Symbol('PortDetectorOptions');
 
 export interface IPortDetectorOptions {
@@ -31,28 +33,28 @@ export interface IPortDetectorOptions {
  */
 @injectable()
 export class PortDetector {
-  private portApp?: PortApp;
+  protected portApp?: PortApp;
 
-  private lastHooks?: Set<ReturnType<CallbackWithHook>>;
+  protected lastHooks?: Set<ReturnType<CallbackWithHook>>;
 
-  private serverCallbacks = new Set<
+  protected serverCallbacks = new Set<
     CallbackWithHook<Required<Transports>['server']>
   >();
 
-  private clientCallbacks = new Set<
+  protected clientCallbacks = new Set<
     CallbackWithHook<Required<Transports>['server']>
   >();
 
-  private syncFullStatePromise?: ReturnType<
+  protected syncFullStatePromise?: ReturnType<
     ClientTransport[typeof loadFullStateActionName]
   >;
 
   previousPort?: Port;
 
   constructor(
-    @inject(PortDetectorOptions) private options: IPortDetectorOptions,
-    private lastAction: LastAction,
-    @optional(Storage) private storage?: Storage
+    @inject(PortDetectorOptions) protected options: IPortDetectorOptions,
+    protected lastAction: LastAction,
+    @optional(Storage) protected storage?: Storage
   ) {
     if (this.storage) {
       this.onServer(() => {
@@ -102,7 +104,7 @@ export class PortDetector {
     }
   }
 
-  private detectPort(port: Port) {
+  protected detectPort(port: Port) {
     return this.portApp?.[port];
   }
 
