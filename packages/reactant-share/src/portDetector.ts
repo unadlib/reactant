@@ -18,8 +18,6 @@ import {
   Transport,
 } from './interfaces';
 
-export * from 'reactant-last-action';
-
 export const PortDetectorOptions = Symbol('PortDetectorOptions');
 
 export interface IPortDetectorOptions {

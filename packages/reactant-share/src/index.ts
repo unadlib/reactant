@@ -1,7 +1,8 @@
 export * from 'reactant';
 export * from 'data-transport';
+export * from 'reactant-last-action';
 export { createSharedApp } from './createApp';
-export { PortDetector } from './portDetector';
+export { PortDetector, PortDetectorOptions } from './portDetector';
 export {
   Router,
   RouterOptions,
@@ -15,6 +16,7 @@ export { spawn } from './spawn';
 export { fork } from './fork';
 export { mockPairTransports } from './mockPairTransports';
 
+export type { IPortDetectorOptions } from './portDetector';
 export type { IRouterOptions } from './router';
 export type { IStorageOptions } from './storage';
 export type { Transport } from './createTransport';
