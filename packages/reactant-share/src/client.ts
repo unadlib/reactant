@@ -8,7 +8,6 @@ import { LastAction } from 'reactant-last-action';
 import { HandleClientOptions } from './interfaces';
 import { lastActionName, proxyServerActionName } from './constants';
 import { PortDetector } from './portDetector';
-import { filterPatches } from './filterPatches';
 import { applyMethod } from './applyMethod';
 
 export const handleClient = ({

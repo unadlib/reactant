@@ -2,7 +2,6 @@
 import React, { useState, FunctionComponent } from 'react';
 import { Switch, Route } from 'reactant-web';
 import {
-  spawn,
   ViewModule,
   injectable,
   useConnector,
