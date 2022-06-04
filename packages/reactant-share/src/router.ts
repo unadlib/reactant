@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-empty-interface */
-import { injectable, storeKey, inject } from 'reactant';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { injectable, storeKey, inject, state, action, watch } from 'reactant';
 import {
   BaseReactantRouter,
   RouterOptions,
@@ -11,6 +11,7 @@ import {
   routerChangeName,
   SharedAppOptions,
   syncRouterName,
+  syncRouterWorkerName,
 } from './constants';
 import { ISharedAppOptions } from './interfaces';
 import { PortDetector } from './portDetector';
@@ -44,6 +45,7 @@ export type RouterChangeNameOptions =
       args: [];
     };
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface IRouterOptions extends IBaseRouterOptions {
   //
 }
@@ -52,7 +54,13 @@ export interface IRouterOptions extends IBaseRouterOptions {
   name: 'reactant:router',
 })
 class ReactantRouter extends BaseReactantRouter {
-  private _router?: RouterState;
+  @state
+  private _router: RouterState | null = null;
+
+  @action
+  private _setRouter(router: RouterState) {
+    this._router = router;
+  }
 
   constructor(
     protected portDetector: PortDetector,
@@ -77,70 +85,101 @@ class ReactantRouter extends BaseReactantRouter {
     this.portDetector.onClient((transport) => {
       transport!.emit(syncRouterName).then((location) => {
         if (!location) return;
-        const action = this.onLocationChanged(location, 'REPLACE');
-        this[storeKey]?.dispatch(action!);
+        this[storeKey]?.dispatch(this.onLocationChanged(location, 'REPLACE')!);
       });
     });
 
-    if (
-      sharedAppOptions.type === 'SharedWorker' ||
-      sharedAppOptions.type === 'ServiceWorker'
-    ) {
+    if (this.isWorker) {
       this.portDetector.onServer((transport) => {
         const history: History = {
-          push: async (path: string, state?: Record<string, any>) => {
-            this._router = await transport.emit(routerChangeName, {
+          push: async (path: string, routerState?: Record<string, any>) => {
+            const router = await transport.emit(routerChangeName, {
               method: 'push',
-              args: [path, state],
+              args: [path, routerState],
             });
+            this._setRouter(router);
           },
-          replace: async (path: string, state?: Record<string, any>) => {
-            this._router = await transport.emit(routerChangeName, {
+          replace: async (path: string, routerState?: Record<string, any>) => {
+            const router = await transport.emit(routerChangeName, {
               method: 'replace',
-              args: [path, state],
+              args: [path, routerState],
             });
+            this._setRouter(router);
           },
           go: async (n: number) => {
-            this._router = await transport.emit(routerChangeName, {
+            const router = await transport.emit(routerChangeName, {
               method: 'go',
               args: [n],
             });
+            this._setRouter(router);
           },
           goBack: async () => {
-            this._router = await transport.emit(routerChangeName, {
+            const router = await transport.emit(routerChangeName, {
               method: 'goBack',
               args: [],
             });
+            this._setRouter(router);
           },
           goForward: async () => {
-            this._router = await transport.emit(routerChangeName, {
+            const router = await transport.emit(routerChangeName, {
               method: 'goForward',
               args: [],
             });
+            this._setRouter(router);
           },
         } as any;
         this.history = history;
+        transport.listen(syncRouterWorkerName, (router) => {
+          if (!this._router) {
+            this._setRouter(router);
+          }
+        });
       });
       this.portDetector.onClient((transport) => {
-        return transport.listen(routerChangeName, ({ method, args = [] }) => {
-          const fn: Function = this.history[method];
-          fn(...args);
-          return this.router;
-        });
+        transport.emit(
+          { name: syncRouterWorkerName, respond: false },
+          this.router
+        );
+        return transport.listen(
+          routerChangeName,
+          async ({ method, args = [] }) => {
+            return new Promise((resolve) => {
+              const stopWatching = watch(
+                this,
+                () => this.router,
+                () => {
+                  stopWatching();
+                  resolve(this.router);
+                }
+              );
+              const fn: Function = this.history[method];
+              fn(...args);
+            });
+          }
+        );
       });
     }
   }
 
+  private get isWorker() {
+    return (
+      this.sharedAppOptions.type === 'SharedWorker' ||
+      this.sharedAppOptions.type === 'ServiceWorker'
+    );
+  }
+
   get router() {
-    return this._router ?? this[storeKey]?.getState()[this.stateKey];
+    return this.portDetector.isServer && this.isWorker
+      ? this._router
+      : this[storeKey]?.getState()[this.stateKey];
   }
 
-  private async _push(path: string, state?: Record<string, any>) {
-    await this.history.push(path, state);
+  private async _push(path: string, routerState?: Record<string, any>) {
+    await this.history.push(path, routerState);
   }
 
-  private async _replace(path: string, state?: Record<string, any>) {
-    await this.history.replace(path, state);
+  private async _replace(path: string, routerState?: Record<string, any>) {
+    await this.history.replace(path, routerState);
   }
 
   private async _go(n: number) {
@@ -155,12 +194,12 @@ class ReactantRouter extends BaseReactantRouter {
     await this.history.goForward();
   }
 
-  async push(path: string, state?: Record<string, any>) {
-    await spawn(this as any, '_push', [path, state]);
+  async push(path: string, routerState?: Record<string, any>) {
+    await spawn(this as any, '_push', [path, routerState]);
   }
 
-  async replace(path: string, state?: Record<string, any>) {
-    await spawn(this as any, '_replace', [path, state]);
+  async replace(path: string, routerState?: Record<string, any>) {
+    await spawn(this as any, '_replace', [path, routerState]);
   }
 
   async go(n: number) {

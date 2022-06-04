@@ -467,7 +467,7 @@ describe('SharedWorker', () => {
     expect(onClientFn.mock.calls.length).toBe(1);
     expect(subscribeOnClientFn.mock.calls.length).toBe(0);
     expect(onServerFn.mock.calls.length).toBe(1);
-    expect(subscribeOnServerFn.mock.calls.length).toBe(0);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(1);
 
     act(() => {
       clientApp.bootstrap(clientContainer);
@@ -476,7 +476,7 @@ describe('SharedWorker', () => {
     expect(onClientFn.mock.calls.length).toBe(1);
     expect(subscribeOnClientFn.mock.calls.length).toBe(1);
     expect(onServerFn.mock.calls.length).toBe(1);
-    expect(subscribeOnServerFn.mock.calls.length).toBe(0);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(1);
     expect(clientContainer.querySelector('#content')?.textContent).toBe('home');
 
     await new Promise((resolve) => setTimeout(resolve));
@@ -484,7 +484,7 @@ describe('SharedWorker', () => {
     expect(onClientFn.mock.calls.length).toBe(1);
     expect(subscribeOnClientFn.mock.calls.length).toBe(1);
     expect(onServerFn.mock.calls.length).toBe(1);
-    expect(subscribeOnServerFn.mock.calls.length).toBe(0);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(1);
     expect(clientContainer.querySelector('#content')?.textContent).toBe('home');
 
     act(() => {
@@ -496,10 +496,11 @@ describe('SharedWorker', () => {
     await new Promise((resolve) => setTimeout(resolve));
 
     expect(onClientFn.mock.calls.length).toBe(1);
-    expect(subscribeOnClientFn.mock.calls.length).toBe(2);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(3);
     expect(onServerFn.mock.calls.length).toBe(1);
-    expect(subscribeOnServerFn.mock.calls.length).toBe(0);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(2);
     expect(serverApp.instance.router.currentPath).toBe('/counter');
+    expect(clientApp.instance.router.currentPath).toBe('/counter');
     expect(clientContainer.querySelector('#content')?.textContent).toBe('0+');
 
     act(() => {
@@ -511,6 +512,7 @@ describe('SharedWorker', () => {
     await new Promise((resolve) => setTimeout(resolve));
 
     expect(serverApp.instance.router.currentPath).toBe('/');
+    expect(clientApp.instance.router.currentPath).toBe('/');
     expect(clientContainer.querySelector('#content')?.textContent).toBe('home');
   });
 });
@@ -715,7 +717,8 @@ describe('ServiceWorker', () => {
     expect(onClientFn.mock.calls.length).toBe(1);
     expect(subscribeOnClientFn.mock.calls.length).toBe(0);
     expect(onServerFn.mock.calls.length).toBe(1);
-    expect(subscribeOnServerFn.mock.calls.length).toBe(0);
+    // sync up router and trigger Redux update
+    expect(subscribeOnServerFn.mock.calls.length).toBe(1);
 
     act(() => {
       clientApp.bootstrap(clientContainer);
@@ -724,7 +727,7 @@ describe('ServiceWorker', () => {
     expect(onClientFn.mock.calls.length).toBe(1);
     expect(subscribeOnClientFn.mock.calls.length).toBe(1);
     expect(onServerFn.mock.calls.length).toBe(1);
-    expect(subscribeOnServerFn.mock.calls.length).toBe(0);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(1);
     expect(clientContainer.querySelector('#content')?.textContent).toBe('home');
 
     await new Promise((resolve) => setTimeout(resolve));
@@ -732,7 +735,7 @@ describe('ServiceWorker', () => {
     expect(onClientFn.mock.calls.length).toBe(1);
     expect(subscribeOnClientFn.mock.calls.length).toBe(1);
     expect(onServerFn.mock.calls.length).toBe(1);
-    expect(subscribeOnServerFn.mock.calls.length).toBe(0);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(1);
     expect(clientContainer.querySelector('#content')?.textContent).toBe('home');
 
     act(() => {
@@ -744,10 +747,11 @@ describe('ServiceWorker', () => {
     await new Promise((resolve) => setTimeout(resolve));
 
     expect(onClientFn.mock.calls.length).toBe(1);
-    expect(subscribeOnClientFn.mock.calls.length).toBe(2);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(3);
     expect(onServerFn.mock.calls.length).toBe(1);
-    expect(subscribeOnServerFn.mock.calls.length).toBe(0);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(2);
     expect(serverApp.instance.router.currentPath).toBe('/counter');
+    expect(clientApp.instance.router.currentPath).toBe('/counter');
     expect(clientContainer.querySelector('#content')?.textContent).toBe('0+');
 
     act(() => {
@@ -757,8 +761,8 @@ describe('ServiceWorker', () => {
     });
     await new Promise((resolve) => setTimeout(resolve));
     expect(serverApp.instance.router.currentPath).toBe('/');
+    expect(clientApp.instance.router.currentPath).toBe('/');
     expect(clientContainer.querySelector('#content')?.textContent).toBe('home');
-
     act(() => {
       clientContainer
         .querySelector('#counter')!
@@ -766,6 +770,7 @@ describe('ServiceWorker', () => {
     });
     await new Promise((resolve) => setTimeout(resolve));
     expect(serverApp.instance.router.currentPath).toBe('/counter');
+    expect(clientApp.instance.router.currentPath).toBe('/counter');
     expect(clientContainer.querySelector('#content')?.textContent).toBe('0+');
 
     act(() => {
@@ -774,8 +779,8 @@ describe('ServiceWorker', () => {
         .dispatchEvent(new MouseEvent('click', { bubbles: true }));
     });
     await new Promise((resolve) => setTimeout(resolve));
-    // todo: mock
-    // expect(serverApp.instance.router.currentPath).toBe('/counter');
+    expect(serverApp.instance.router.currentPath).toBe('/counter');
+    expect(clientApp.instance.router.currentPath).toBe('/counter');
     expect(clientContainer.querySelector('#content')?.textContent).toBe('0+');
 
     act(() => {
@@ -784,8 +789,8 @@ describe('ServiceWorker', () => {
         .dispatchEvent(new MouseEvent('click', { bubbles: true }));
     });
     await new Promise((resolve) => setTimeout(resolve));
-    // todo: mock
-    // expect(serverApp.instance.router.currentPath).toBe('/');
+    expect(serverApp.instance.router.currentPath).toBe('/');
+    expect(clientApp.instance.router.currentPath).toBe('/');
     expect(clientContainer.querySelector('#content')?.textContent).toBe('home');
 
     act(() => {
@@ -794,8 +799,8 @@ describe('ServiceWorker', () => {
         .dispatchEvent(new MouseEvent('click', { bubbles: true }));
     });
     await new Promise((resolve) => setTimeout(resolve));
-    // todo: mock
-    // expect(serverApp.instance.router.currentPath).toBe('/counter');
+    expect(serverApp.instance.router.currentPath).toBe('/counter');
+    expect(clientApp.instance.router.currentPath).toBe('/counter');
     expect(clientContainer.querySelector('#content')?.textContent).toBe('0+');
   });
 });

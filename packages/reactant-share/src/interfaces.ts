@@ -11,6 +11,7 @@ import {
   proxyServerActionName,
   routerChangeName,
   syncRouterName,
+  syncRouterWorkerName,
   syncToClientsName,
 } from './constants';
 import type { RouterChangeNameOptions } from './router';
@@ -101,6 +102,7 @@ export interface ClientTransport {
   ): Promise<Record<string, any> | null | undefined>;
   [isClientName](): Promise<boolean>;
   [syncRouterName](): Promise<Router['router']['location']>;
+  [syncRouterWorkerName](router: Router['router']): void;
 }
 
 export type ActionOptions = Pick<
