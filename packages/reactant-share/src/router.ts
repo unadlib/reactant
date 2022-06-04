@@ -1,11 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { injectable, storeKey, inject, state, action, watch } from 'reactant';
-import {
-  BaseReactantRouter,
-  RouterOptions,
+import { BaseReactantRouter, RouterOptions } from 'reactant-router';
+import type {
+  IRouterOptions as IBaseRouterOptions,
   RouterState,
 } from 'reactant-router';
-import type { IRouterOptions as IBaseRouterOptions } from 'reactant-router';
 import type { History } from 'history';
 import {
   routerChangeName,
