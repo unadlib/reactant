@@ -43,20 +43,27 @@ export class AppView extends ViewModule {
   constructor(
     private todoListView: TodoListView,
     private counterView: CounterView,
-    { onServer, onClient }: PortDetector,
+    private portDetector: PortDetector,
     private router: Router
   ) {
     super();
 
-    onServer((transport: Transport<IServerTransport, ClientTransport>) => {
-      transport.listen('test', async (n) => `response '${n}' from server port`);
-    });
-    onClient((transport: Transport<ClientTransport, IServerTransport>) => {
-      this.type = 'Client';
-      transport.emit('test', 42).then((response) => {
-        console.log(response);
-      });
-    });
+    this.portDetector.onServer(
+      (transport: Transport<IServerTransport, ClientTransport>) => {
+        transport.listen(
+          'test',
+          async (n) => `response '${n}' from server port`
+        );
+      }
+    );
+    this.portDetector.onClient(
+      (transport: Transport<ClientTransport, IServerTransport>) => {
+        this.type = 'Client';
+        transport.emit('test', 42).then((response) => {
+          console.log(response);
+        });
+      }
+    );
   }
 
   component() {
