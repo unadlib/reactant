@@ -121,7 +121,7 @@ abstract class BaseReactantRouter extends PluginModule {
   }
 
   get currentPath() {
-    return this.router.location.pathname;
+    return this.router?.location.pathname;
   }
 
   provider = (props: PropsWithChildren<any>) => {
