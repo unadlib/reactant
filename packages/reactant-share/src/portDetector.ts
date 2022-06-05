@@ -17,6 +17,7 @@ import {
   Transports,
   Transport,
 } from './interfaces';
+import { createId } from './utils';
 
 export const PortDetectorOptions = Symbol('PortDetectorOptions');
 
@@ -47,7 +48,15 @@ export class PortDetector {
     ClientTransport[typeof loadFullStateActionName]
   >;
 
+  /**
+   * previous port
+   */
   previousPort?: Port;
+
+  /**
+   * client id
+   */
+  clientId: string | null = null;
 
   constructor(
     @inject(PortDetectorOptions) protected options: IPortDetectorOptions,
@@ -65,6 +74,7 @@ export class PortDetector {
     }
 
     this.onClient((transport) => {
+      this.clientId = createId();
       this.syncFullState({ forceSync: false });
       const disposeSyncToClients = transport.listen(
         syncToClientsName,
@@ -87,7 +97,7 @@ export class PortDetector {
     });
 
     this.onServer(() => {
-      //
+      this.clientId = null;
       return () => {
         this.previousPort = 'server';
       };

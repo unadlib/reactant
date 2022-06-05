@@ -1,3 +1,5 @@
+import { createId } from './utils';
+
 type LockName = string;
 type LockId = string;
 type LockCallBack = (lock: {
@@ -7,7 +9,7 @@ type LockCallBack = (lock: {
 type LockQueue = { tabId: string; lockId: string }[];
 
 const lockMap: Record<LockName, Record<LockId, LockCallBack>> = {};
-const tabId = Math.random().toString(36);
+const tabId = createId();
 const lockStorageKey = 'reactant:lock';
 const tabStorageKey = 'reactant:tab';
 let heartbeatTimer: number;
@@ -94,7 +96,7 @@ const simpleLock = (name: LockName, callback: LockCallBack) => {
   heartbeat();
 
   return new Promise((resolve, reject) => {
-    const lockId = Math.random().toString(36);
+    const lockId = createId();
     lockMap[name] ??= {};
     lockMap[name][lockId] = callback;
     const storageKey = `${lockStorageKey}:${name}`;
