@@ -114,7 +114,7 @@ export function createStore<T = any>({
         let identifier: string | undefined = service[nameKey];
         // The `options.name` property of the decorator `@injectable(options)` parameter must be specified as a string, otherwise a staged string will be generated.
         // this solution replaces the `combineReducers` need `Object.keys` get keys without `symbol` keys.
-        identifier ??= getStageName(className);
+        identifier ??= getStageName(className ?? String(Service));
         if (typeof identifier !== 'string') {
           if (__DEV__) {
             console.error(`
