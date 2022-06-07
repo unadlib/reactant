@@ -46,21 +46,13 @@ export type RouterChangeNameOptions =
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface IRouterOptions extends IBaseRouterOptions {
-  //
+  defaultRoute?: string;
 }
 
 @injectable({
   name: 'reactant:router',
 })
 class ReactantRouter extends BaseReactantRouter {
-  @state
-  private _router: RouterState | null = null;
-
-  @action
-  private _setRouter(router: RouterState) {
-    this._router = router;
-  }
-
   constructor(
     protected portDetector: PortDetector,
     @inject(SharedAppOptions) protected sharedAppOptions: ISharedAppOptions,
@@ -158,6 +150,23 @@ class ReactantRouter extends BaseReactantRouter {
         );
       });
     }
+  }
+
+  @state
+  private _router: RouterState | null = null;
+
+  @action
+  private _setRouter(router: RouterState) {
+    this._router = router;
+  }
+
+  // The server port routing state is received asynchronously, so there should be a default route.
+  protected defaultRoute() {
+    return this.options.defaultRoute ?? '/';
+  }
+
+  get currentPath() {
+    return this.router?.location.pathname ?? this.defaultRoute;
   }
 
   private get isWorker() {
