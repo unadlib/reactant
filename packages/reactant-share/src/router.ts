@@ -53,17 +53,6 @@ export interface IRouterOptions extends IBaseRouterOptions {
   name: 'reactant:router',
 })
 class ReactantRouter extends BaseReactantRouter {
-  // The server port routing state is received asynchronously, so there should be a default route.
-  protected defaultRoute: string;
-
-  @state
-  private _router: RouterState | null = null;
-
-  @action
-  private _setRouter(router: RouterState) {
-    this._router = router;
-  }
-
   constructor(
     protected portDetector: PortDetector,
     @inject(SharedAppOptions) protected sharedAppOptions: ISharedAppOptions,
@@ -77,8 +66,6 @@ class ReactantRouter extends BaseReactantRouter {
         sharedAppOptions.port === 'server'
       ),
     });
-
-    this.defaultRoute = this.options.defaultRoute ?? '/';
 
     this.portDetector.onServer((transport) => {
       return transport!.listen(
@@ -163,6 +150,19 @@ class ReactantRouter extends BaseReactantRouter {
         );
       });
     }
+  }
+
+  @state
+  private _router: RouterState | null = null;
+
+  @action
+  private _setRouter(router: RouterState) {
+    this._router = router;
+  }
+
+  // The server port routing state is received asynchronously, so there should be a default route.
+  protected defaultRoute() {
+    return this.options.defaultRoute ?? '/';
   }
 
   get currentPath() {
