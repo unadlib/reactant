@@ -691,6 +691,8 @@ describe('ServiceWorker', () => {
     expect(subscribeOnClientFn.mock.calls.length).toBe(0);
     expect(onServerFn.mock.calls.length).toBe(1);
     expect(subscribeOnServerFn.mock.calls.length).toBe(0);
+    // check for default route
+    expect(serverApp.instance.router.currentPath).toBe('/');
 
     const clientApp = await createSharedApp({
       modules: [

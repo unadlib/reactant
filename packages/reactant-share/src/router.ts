@@ -5,7 +5,7 @@ import type {
   IRouterOptions as IBaseRouterOptions,
   RouterState,
 } from 'reactant-router';
-import type { History } from 'history';
+import type { History, LocationState } from 'history';
 import {
   routerChangeName,
   SharedAppOptions,
@@ -25,11 +25,11 @@ export {
 export type RouterChangeNameOptions =
   | {
       method: 'push';
-      args: [string, Record<string, any>?];
+      args: [string, LocationState?];
     }
   | {
       method: 'replace';
-      args: [string, Record<string, any>?];
+      args: [string, LocationState?];
     }
   | {
       method: 'go';
@@ -83,17 +83,17 @@ class ReactantRouter extends BaseReactantRouter {
     if (this.isWorker) {
       this.portDetector.onServer((transport) => {
         const history: History = {
-          push: async (path: string, routerState?: Record<string, any>) => {
+          push: async (path: string, locationState?: LocationState) => {
             const router = await transport.emit(routerChangeName, {
               method: 'push',
-              args: [path, routerState],
+              args: [path, locationState],
             });
             this._setRouter(router);
           },
-          replace: async (path: string, routerState?: Record<string, any>) => {
+          replace: async (path: string, locationState?: LocationState) => {
             const router = await transport.emit(routerChangeName, {
               method: 'replace',
-              args: [path, routerState],
+              args: [path, locationState],
             });
             this._setRouter(router);
           },
@@ -161,11 +161,11 @@ class ReactantRouter extends BaseReactantRouter {
   }
 
   // The server port routing state is received asynchronously, so there should be a default route.
-  protected defaultRoute() {
+  protected get defaultRoute() {
     return this.options.defaultRoute ?? '/';
   }
 
-  get currentPath() {
+  get currentPath(): string {
     return this.router?.location.pathname ?? this.defaultRoute;
   }
 
@@ -176,18 +176,18 @@ class ReactantRouter extends BaseReactantRouter {
     );
   }
 
-  get router() {
+  get router(): RouterState {
     return this.portDetector.isServer && this.isWorker
       ? this._router
       : this[storeKey]?.getState()[this.stateKey];
   }
 
-  private async _push(path: string, routerState?: Record<string, any>) {
-    await this.history.push(path, routerState);
+  private async _push(path: string, locationState?: LocationState) {
+    await this.history.push(path, locationState);
   }
 
-  private async _replace(path: string, routerState?: Record<string, any>) {
-    await this.history.replace(path, routerState);
+  private async _replace(path: string, locationState?: LocationState) {
+    await this.history.replace(path, locationState);
   }
 
   private async _go(n: number) {
@@ -202,12 +202,12 @@ class ReactantRouter extends BaseReactantRouter {
     await this.history.goForward();
   }
 
-  async push(path: string, routerState?: Record<string, any>) {
-    await spawn(this as any, '_push', [path, routerState]);
+  async push(path: string, locationState?: LocationState) {
+    await spawn(this as any, '_push', [path, locationState]);
   }
 
-  async replace(path: string, routerState?: Record<string, any>) {
-    await spawn(this as any, '_replace', [path, routerState]);
+  async replace(path: string, locationState?: LocationState) {
+    await spawn(this as any, '_replace', [path, locationState]);
   }
 
   async go(n: number) {

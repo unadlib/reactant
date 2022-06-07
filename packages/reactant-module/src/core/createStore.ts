@@ -98,11 +98,14 @@ export function createStore<T = any>({
       ServiceIdentifiers.set(moduleIdentifier, []);
     }
   }
-  for (const [Service] of ServiceIdentifiers) {
+  for (const [ServiceIdentifier] of ServiceIdentifiers) {
     // `Service` should be bound before `createStore`.
-    if (container.isBound(Service) && !loadedModules.has(Service)) {
-      const services: IService[] = container.getAll(Service);
-      loadedModules.add(Service);
+    if (
+      container.isBound(ServiceIdentifier) &&
+      !loadedModules.has(ServiceIdentifier)
+    ) {
+      const services: IService[] = container.getAll(ServiceIdentifier);
+      loadedModules.add(ServiceIdentifier);
       services.forEach((service, index) => {
         if (typeof service !== 'object' || service === null) {
           return;
@@ -110,11 +113,11 @@ export function createStore<T = any>({
         handlePlugin(service, pluginHooks);
         const isPlainObject =
           toString.call(service[stateKey]) === '[object Object]';
-        const className = (Service as Function).name;
+        const className = (ServiceIdentifier as Function).name;
         let identifier: string | undefined = service[nameKey];
         // The `options.name` property of the decorator `@injectable(options)` parameter must be specified as a string, otherwise a staged string will be generated.
         // this solution replaces the `combineReducers` need `Object.keys` get keys without `symbol` keys.
-        identifier ??= getStageName(className ?? String(Service));
+        identifier ??= getStageName(className ?? String(ServiceIdentifier));
         if (typeof identifier !== 'string') {
           if (__DEV__) {
             console.error(`
