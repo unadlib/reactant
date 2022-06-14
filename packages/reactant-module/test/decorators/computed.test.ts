@@ -12,9 +12,22 @@ describe('@computed', () => {
     const computedFn = jest.fn();
 
     @injectable()
-    class Counter {
+    class Counter0 {
       @state
       count = 0;
+
+      @computed(({ count }: Counter) => [count])
+      get num() {
+        return this.count + 1;
+      }
+    }
+
+    @injectable()
+    class Counter {
+      constructor(public counter0: Counter0) {}
+
+      @state
+      count = this.counter0.num - 1;
 
       @action
       increase() {
@@ -57,7 +70,7 @@ describe('@computed', () => {
     });
     expect(computedFn.mock.calls.length).toBe(0);
     counter.increase();
-    expect(Object.values(store.getState())).toEqual([{ count: 1 }]);
+    expect(Object.values(store.getState())[0]).toEqual({ count: 1 });
     expect(counter.num).toBe(2);
     expect(computedFn.mock.calls.length).toBe(1);
     expect(counter.num).toBe(2);
@@ -157,7 +170,7 @@ describe('@computed', () => {
     expect(counter.sum).toBe(2);
     expect(computedCountFn.mock.calls.length).toBe(3);
   });
-  test('more type vale', () => {
+  test('more type value', () => {
     for (const getValue of [
       () => [],
       () => ({}),
