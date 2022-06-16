@@ -138,7 +138,9 @@ export function createStore<T = any>({
         }
         if (modulesMap[identifier]) {
           throw new Error(
-            `'${className}' module name '${identifier}' property and other module conflicts.`
+            `Unexpected multiple instances, provider: '${
+              className ?? ServiceIdentifier
+            }' module '${identifier}' property and other module conflicts. Please check the token for dependency injection.`
           );
         }
         Object.assign(modulesMap, {

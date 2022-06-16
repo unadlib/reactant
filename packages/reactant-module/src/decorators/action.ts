@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable func-names */
 import { produce, produceWithPatches, Patch } from 'immer';
 import { ReactantAction, Service } from '../interfaces';
@@ -84,16 +85,19 @@ const action = (
         }
         stagedState = undefined;
         if (__DEV__) {
+          const methodName = `${this[
+            identifierKey
+          ]?.toString()}.${key.toString()}`;
           if (lastState === state) {
-            console.warn(`There are no state updates to method '${fn.name}'`);
+            console.warn(
+              `There are no state updates to method '${methodName}'`
+            );
           }
           // performance checking
           const executionTime = Date.now() - time!;
           if (executionTime > 100)
             console.warn(
-              `The execution time of method '${this[
-                identifierKey
-              ]?.toString()}.${key.toString()}' is ${executionTime} ms, it's recommended to use 'dispatch()' API.`
+              `The execution time of method '${methodName}' is ${executionTime} ms, it's recommended to use 'dispatch()' API.`
             );
           // performance detail: https://immerjs.github.io/immer/docs/performance
         }
