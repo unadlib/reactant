@@ -81,31 +81,27 @@ const createBaseApp = <T>({
       }
       transform?.(changedPort);
     };
+    app = createReactantApp(options);
     if (isServer) {
       if (!serverTransport) {
         throw new Error(`'transports.server' does not exist.`);
       }
-      app = createReactantApp(options);
       disposeServer = handleServer({
         app,
         transport: serverTransport,
         enablePatchesChecker: share.enablePatchesChecker,
       });
-      resolve(app);
     } else {
       if (!clientTransport) {
         throw new Error(`'transports.client' does not exist.`);
       }
-      app = createReactantApp({
-        ...options,
-      });
       disposeClient = handleClient({
         app,
         transport: clientTransport,
         enablePatchesFilter: share.enablePatchesFilter,
       });
-      resolve(app);
     }
+    resolve(app);
   });
 };
 
