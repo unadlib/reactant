@@ -8,7 +8,6 @@ import {
   isClientName,
   lastActionName,
   loadFullStateActionName,
-  preloadedStateActionName,
   proxyClientActionName,
 } from './constants';
 import { PortDetector } from './portDetector';
@@ -31,15 +30,6 @@ export const handleServer = ({
   portDetector.setPort({ server: app }, transport);
   const disposeListeners: ((() => void) | undefined)[] = [];
   disposeListeners.push(transport.listen(isClientName, async () => true));
-  disposeListeners.push(
-    transport.listen(
-      preloadedStateActionName,
-      () =>
-        new Promise((resolve) => {
-          portDetector.onRehydrate(() => resolve(app.store?.getState()));
-        })
-    )
-  );
   disposeListeners.push(
     transport.listen(loadFullStateActionName, async (sequence) =>
       lastAction.sequence > sequence ? app.store?.getState() : null

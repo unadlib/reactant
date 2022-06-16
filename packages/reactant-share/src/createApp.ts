@@ -13,11 +13,7 @@ import { Config, ISharedAppOptions, Port, Transports } from './interfaces';
 import { handleServer } from './server';
 import { handleClient } from './client';
 import { createBroadcastTransport } from './createTransport';
-import {
-  isClientName,
-  preloadedStateActionName,
-  SharedAppOptions,
-} from './constants';
+import { isClientName, SharedAppOptions } from './constants';
 import {
   IPortDetectorOptions,
   PortDetector,
@@ -85,35 +81,27 @@ const createBaseApp = <T>({
       }
       transform?.(changedPort);
     };
+    app = createReactantApp(options);
     if (isServer) {
       if (!serverTransport) {
         throw new Error(`'transports.server' does not exist.`);
       }
-      app = createReactantApp(options);
       disposeServer = handleServer({
         app,
         transport: serverTransport,
         enablePatchesChecker: share.enablePatchesChecker,
       });
-      resolve(app);
     } else {
       if (!clientTransport) {
         throw new Error(`'transports.client' does not exist.`);
       }
-      clientTransport.emit(preloadedStateActionName).then((preloadedState) => {
-        app = createReactantApp({
-          ...options,
-          preloadedState,
-        });
-        disposeClient = handleClient({
-          app,
-          transport: clientTransport,
-          enablePatchesFilter: share.enablePatchesFilter,
-          preloadedState,
-        });
-        resolve(app);
+      disposeClient = handleClient({
+        app,
+        transport: clientTransport,
+        enablePatchesFilter: share.enablePatchesFilter,
       });
     }
+    resolve(app);
   });
 };
 
@@ -359,6 +347,10 @@ export const createSharedApp = async <T>(options: Config<T>) => {
       throw new Error(
         `The value of 'options.share.type' be 'SharedTab', 'SharedWorker' or 'Base'.`
       );
+  }
+  const portDetector = app.container.get(PortDetector);
+  if (portDetector.isClient) {
+    await portDetector.syncFullStatePromise;
   }
   return app;
 };

@@ -44,7 +44,7 @@ export class PortDetector {
     CallbackWithHook<Required<Transports>['server']>
   >();
 
-  protected syncFullStatePromise?: ReturnType<
+  syncFullStatePromise?: ReturnType<
     ClientTransport[typeof loadFullStateActionName]
   >;
 
@@ -66,6 +66,7 @@ export class PortDetector {
     if (this.storage) {
       this.onServer(() => {
         this.storage!.persistor!.persist();
+        this.onRehydrate(() => this.syncToClients());
       });
 
       this.onClient(() => {
