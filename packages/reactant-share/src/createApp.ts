@@ -2,7 +2,7 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-shadow */
 /* eslint-disable no-async-promise-executor */
-import { App, createApp as createReactantApp } from 'reactant';
+import { App, createApp as createReactantApp, Renderer } from 'reactant';
 import { createTransport } from 'data-transport';
 import {
   LastAction,
@@ -21,10 +21,10 @@ import {
 } from './portDetector';
 import { useLock } from './lock';
 
-const createBaseApp = <T>({
+const createBaseApp = <T, S extends any[], R extends Renderer<S>>({
   share,
   ...options
-}: Config<T>): Promise<App<T>> => {
+}: Config<T, S, R>): Promise<App<T, S, R>> => {
   options.modules ??= [];
   options.devOptions ??= {};
   options.devOptions.enablePatches = true;
@@ -50,7 +50,7 @@ const createBaseApp = <T>({
   );
 
   return new Promise(async (resolve) => {
-    let app: App<T>;
+    let app: App<T, S, R>;
     let disposeServer: (() => void) | undefined;
     let disposeClient: (() => void) | undefined;
     const serverTransport = share.transports?.server;
@@ -105,7 +105,9 @@ const createBaseApp = <T>({
   });
 };
 
-const createSharedTabApp = async <T>(options: Config<T>) => {
+const createSharedTabApp = async <T, S extends any[], R extends Renderer<S>>(
+  options: Config<T, S, R>
+) => {
   /**
    * Performance issue with broadcast-channel repo in Safari.
    */
@@ -128,9 +130,9 @@ const createSharedTabApp = async <T>(options: Config<T>) => {
     const app = await createBaseApp(options);
     return app;
   }
-  let app: App<T>;
+  let app: App<T, S, R>;
   app = await Promise.race([
-    new Promise<App<T>>((resolve) => {
+    new Promise<App<T, S, R>>((resolve) => {
       useLock(`reactant-share-app-lock:${options.share.name}`, async () => {
         if (!app) {
           options.share.port = 'server';
@@ -144,7 +146,7 @@ const createSharedTabApp = async <T>(options: Config<T>) => {
         });
       });
     }),
-    new Promise<App<T>>(async (resolve) => {
+    new Promise<App<T, S, R>>(async (resolve) => {
       const isClient = await options.share.transports?.client?.emit(
         isClientName
       );
@@ -223,8 +225,14 @@ const createSharedTabApp = async <T>(options: Config<T>) => {
  * })();
  * ```
  */
-export const createSharedApp = async <T>(options: Config<T>) => {
-  let app: App<T>;
+export const createSharedApp = async <
+  T,
+  S extends any[],
+  R extends Renderer<S>
+>(
+  options: Config<T, S, R>
+): Promise<App<T, S, R>> => {
+  let app: App<T, S, R>;
   let transports: Transports;
 
   if (typeof options.share === 'undefined') {
@@ -351,12 +359,13 @@ export const createSharedApp = async <T>(options: Config<T>) => {
   const { bootstrap } = app;
   return {
     ...app,
-    bootstrap: async (...args: any) => {
-      bootstrap(...args);
+    bootstrap: async (...args: S) => {
+      const result = bootstrap(...args);
       const portDetector = app.container.get(PortDetector);
       if (portDetector.isClient) {
         await portDetector.syncFullStatePromise;
       }
+      return result;
     },
   };
 };

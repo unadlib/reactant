@@ -2,7 +2,7 @@ import { modulesKey } from 'reactant';
 import type { App, ThisService } from 'reactant';
 
 export const applyMethod = (
-  app: App<any>,
+  app: App<any, any, any>,
   options: {
     module: string;
     method: string;
