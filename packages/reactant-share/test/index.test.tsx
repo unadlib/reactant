@@ -134,132 +134,131 @@ describe('base', () => {
       );
     }
   }
-  test.each([
-    { type: 'Base' },
-    { type: 'SharedWorker' },
-    { type: 'ServiceWorker' },
-  ])('base server/client port mode in $type', async ({ type }: any) => {
-    onClientFn = jest.fn();
-    subscribeOnClientFn = jest.fn();
-    onServerFn = jest.fn();
-    subscribeOnServerFn = jest.fn();
+  test.each([{ type: 'Base' }, { type: 'SharedWorker' }])(
+    'base server/client port mode in $type',
+    async ({ type }: any) => {
+      onClientFn = jest.fn();
+      subscribeOnClientFn = jest.fn();
+      onServerFn = jest.fn();
+      subscribeOnServerFn = jest.fn();
 
-    const transports = mockPairTransports();
+      const transports = mockPairTransports();
 
-    const serverApp = await createSharedApp({
-      modules: [],
-      main: AppView,
-      render,
-      share: {
-        name: 'counter',
-        type,
-        port: 'server',
-        transports: {
-          server: transports[0],
+      const serverApp = await createSharedApp({
+        modules: [],
+        main: AppView,
+        render,
+        share: {
+          name: 'counter',
+          type,
+          port: 'server',
+          transports: {
+            server: transports[0],
+          },
         },
-      },
-    });
-    expect(onClientFn.mock.calls.length).toBe(0);
-    expect(subscribeOnClientFn.mock.calls.length).toBe(0);
-    expect(onServerFn.mock.calls.length).toBe(1);
-    expect(subscribeOnServerFn.mock.calls.length).toBe(0);
-    await serverApp.bootstrap(serverContainer);
-    expect(onClientFn.mock.calls.length).toBe(0);
-    expect(subscribeOnClientFn.mock.calls.length).toBe(0);
-    expect(onServerFn.mock.calls.length).toBe(1);
-    expect(subscribeOnServerFn.mock.calls.length).toBe(0);
-    expect(serverContainer.querySelector('#count')?.textContent).toBe('0');
+      });
+      expect(onClientFn.mock.calls.length).toBe(0);
+      expect(subscribeOnClientFn.mock.calls.length).toBe(0);
+      expect(onServerFn.mock.calls.length).toBe(1);
+      expect(subscribeOnServerFn.mock.calls.length).toBe(0);
+      await serverApp.bootstrap(serverContainer);
+      expect(onClientFn.mock.calls.length).toBe(0);
+      expect(subscribeOnClientFn.mock.calls.length).toBe(0);
+      expect(onServerFn.mock.calls.length).toBe(1);
+      expect(subscribeOnServerFn.mock.calls.length).toBe(0);
+      expect(serverContainer.querySelector('#count')?.textContent).toBe('0');
 
-    const clientApp = await createSharedApp({
-      modules: [],
-      main: AppView,
-      render,
-      share: {
-        name: 'counter',
-        type,
-        port: 'client',
-        transports: {
-          client: transports[1],
+      const clientApp = await createSharedApp({
+        modules: [],
+        main: AppView,
+        render,
+        share: {
+          name: 'counter',
+          type,
+          port: 'client',
+          transports: {
+            client: transports[1],
+          },
         },
-      },
-    });
+      });
 
-    expect(onClientFn.mock.calls.length).toBe(1);
-    expect(subscribeOnClientFn.mock.calls.length).toBe(0);
-    expect(onServerFn.mock.calls.length).toBe(1);
-    expect(subscribeOnServerFn.mock.calls.length).toBe(0);
+      expect(onClientFn.mock.calls.length).toBe(1);
+      expect(subscribeOnClientFn.mock.calls.length).toBe(0);
+      expect(onServerFn.mock.calls.length).toBe(1);
+      expect(subscribeOnServerFn.mock.calls.length).toBe(0);
 
-    await clientApp.bootstrap(clientContainer);
+      await clientApp.bootstrap(clientContainer);
 
-    expect(onClientFn.mock.calls.length).toBe(1);
-    expect(subscribeOnClientFn.mock.calls.length).toBe(0);
-    expect(onServerFn.mock.calls.length).toBe(1);
-    expect(subscribeOnServerFn.mock.calls.length).toBe(0);
-    expect(clientContainer.querySelector('#count')?.textContent).toBe('0');
+      expect(onClientFn.mock.calls.length).toBe(1);
+      expect(subscribeOnClientFn.mock.calls.length).toBe(0);
+      expect(onServerFn.mock.calls.length).toBe(1);
+      expect(subscribeOnServerFn.mock.calls.length).toBe(0);
+      expect(clientContainer.querySelector('#count')?.textContent).toBe('0');
 
-    act(() => {
-      serverContainer
-        .querySelector('#increase')!
-        .dispatchEvent(new MouseEvent('click', { bubbles: true }));
-    });
-    // waiting for sync state
-    await new Promise((resolve) => setTimeout(resolve));
+      act(() => {
+        serverContainer
+          .querySelector('#increase')!
+          .dispatchEvent(new MouseEvent('click', { bubbles: true }));
+      });
+      // waiting for sync state
+      await new Promise((resolve) => setTimeout(resolve));
 
-    expect(onClientFn.mock.calls.length).toBe(1);
-    expect(subscribeOnClientFn.mock.calls.length).toBe(1);
-    expect(onServerFn.mock.calls.length).toBe(1);
-    expect(subscribeOnServerFn.mock.calls.length).toBe(1);
+      expect(onClientFn.mock.calls.length).toBe(1);
+      expect(subscribeOnClientFn.mock.calls.length).toBe(1);
+      expect(onServerFn.mock.calls.length).toBe(1);
+      expect(subscribeOnServerFn.mock.calls.length).toBe(1);
 
-    expect(serverContainer.querySelector('#count')?.textContent).toBe('1');
-    expect(clientContainer.querySelector('#count')?.textContent).toBe('1');
+      expect(serverContainer.querySelector('#count')?.textContent).toBe('1');
+      expect(clientContainer.querySelector('#count')?.textContent).toBe('1');
 
-    act(() => {
-      clientContainer
-        .querySelector('#increase')!
-        .dispatchEvent(new MouseEvent('click', { bubbles: true }));
-    });
-    // waiting for sync state
-    await new Promise((resolve) => setTimeout(resolve));
+      act(() => {
+        clientContainer
+          .querySelector('#increase')!
+          .dispatchEvent(new MouseEvent('click', { bubbles: true }));
+      });
+      // waiting for sync state
+      await new Promise((resolve) => setTimeout(resolve));
 
-    expect(onClientFn.mock.calls.length).toBe(1);
-    expect(subscribeOnClientFn.mock.calls.length).toBe(2);
-    expect(onServerFn.mock.calls.length).toBe(1);
-    expect(subscribeOnServerFn.mock.calls.length).toBe(2);
+      expect(onClientFn.mock.calls.length).toBe(1);
+      expect(subscribeOnClientFn.mock.calls.length).toBe(2);
+      expect(onServerFn.mock.calls.length).toBe(1);
+      expect(subscribeOnServerFn.mock.calls.length).toBe(2);
 
-    expect(serverContainer.querySelector('#count')?.textContent).toBe('2');
-    expect(clientContainer.querySelector('#count')?.textContent).toBe('2');
+      expect(serverContainer.querySelector('#count')?.textContent).toBe('2');
+      expect(clientContainer.querySelector('#count')?.textContent).toBe('2');
 
-    expect(clientApp.instance.counter.num).toBe(1);
-    expect(serverApp.instance.counter.num).toBe(1);
+      expect(clientApp.instance.counter.num).toBe(1);
+      expect(serverApp.instance.counter.num).toBe(1);
 
-    const result0 = await fork(serverApp.instance.counter, 'setNum', [2]);
+      const result0 = await fork(serverApp.instance.counter, 'setNum', [2]);
 
-    expect(clientApp.instance.counter.num).toBe(2);
-    expect(serverApp.instance.counter.num).toBe(1);
-    expect(result0).toBe(2);
+      expect(clientApp.instance.counter.num).toBe(2);
+      expect(serverApp.instance.counter.num).toBe(1);
+      expect(result0).toBe(2);
 
-    const result1 = await fork(serverApp.instance.counter, 'setNum', [3], {
-      respond: false,
-    });
+      const result1 = await fork(serverApp.instance.counter, 'setNum', [3], {
+        respond: false,
+      });
 
-    expect(clientApp.instance.counter.num).toBe(3);
-    expect(serverApp.instance.counter.num).toBe(1);
-    expect(result1).toBeUndefined();
+      expect(clientApp.instance.counter.num).toBe(3);
+      expect(serverApp.instance.counter.num).toBe(1);
+      expect(result1).toBeUndefined();
 
-    const result2 = await spawn(clientApp.instance.counter, 'setNum', [4]);
+      const result2 = await spawn(clientApp.instance.counter, 'setNum', [4]);
 
-    expect(clientApp.instance.counter.num).toBe(3);
-    expect(serverApp.instance.counter.num).toBe(4);
-    expect(result2).toBe(4);
+      expect(clientApp.instance.counter.num).toBe(3);
+      expect(serverApp.instance.counter.num).toBe(4);
+      expect(result2).toBe(4);
 
-    const result3 = await spawn(clientApp.instance.counter, 'setNum', [5], {
-      respond: false,
-    });
+      const result3 = await spawn(clientApp.instance.counter, 'setNum', [5], {
+        respond: false,
+      });
 
-    expect(clientApp.instance.counter.num).toBe(3);
-    expect(serverApp.instance.counter.num).toBe(5);
-    expect(result3).toBeUndefined();
-  });
+      expect(clientApp.instance.counter.num).toBe(3);
+      expect(serverApp.instance.counter.num).toBe(5);
+      expect(result3).toBeUndefined();
+    }
+  );
 
   test('base server/client port mode in SharedTab', async () => {
     onClientFn = jest.fn();

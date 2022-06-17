@@ -16,7 +16,6 @@ export const supportTypeMap = {
   web: 'web',
   'shared-tab': 'shared-tab',
   'shared-worker': 'shared-worker',
-  'service-worker': 'service-worker',
 } as const;
 
 export const supportLanguages = Array.from(

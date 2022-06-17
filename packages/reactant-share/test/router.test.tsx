@@ -508,7 +508,7 @@ describe('SharedWorker', () => {
   });
 });
 
-describe('ServiceWorker', () => {
+describe('Worker', () => {
   let onClientFn: jest.Mock<any, any>;
   let subscribeOnClientFn: jest.Mock<any, any>;
 
@@ -642,7 +642,7 @@ describe('ServiceWorker', () => {
     }
   }
 
-  test('base server/client port mode with router in ServiceWorker', async () => {
+  test('base server/client port mode with router in SharedWorker', async () => {
     onClientFn = jest.fn();
     subscribeOnClientFn = jest.fn();
     onServerFn = jest.fn();
@@ -664,7 +664,7 @@ describe('ServiceWorker', () => {
       render,
       share: {
         name: 'counter',
-        type: 'ServiceWorker',
+        type: 'SharedWorker',
         port: 'server',
         transports: {
           server: transports[0],
@@ -699,7 +699,7 @@ describe('ServiceWorker', () => {
       render,
       share: {
         name: 'counter',
-        type: 'ServiceWorker',
+        type: 'SharedWorker',
         port: 'client',
         transports: {
           client: transports[1],

@@ -39,7 +39,7 @@ export interface ISharedAppOptions {
   /**
    * Reactant shared app type.
    */
-  type: 'SharedTab' | 'SharedWorker' | 'ServiceWorker' | 'Base';
+  type: 'SharedTab' | 'SharedWorker' | 'Base';
   /**
    * Shared app's transports
    */
@@ -53,9 +53,9 @@ export interface ISharedAppOptions {
    */
   workerURL?: string;
   /**
-   * Specify a ServiceWorker or SharedWorker
+   * Specify a SharedWorker
    */
-  worker?: ServiceWorker | SharedWorker;
+  worker?: SharedWorker;
   /**
    * Enable patches filter to support minimized modules collections in client port.
    */

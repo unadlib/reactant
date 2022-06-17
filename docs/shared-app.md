@@ -52,7 +52,6 @@ To build such Shared Web Apps, `reactant-share` was created. reactant-share is b
 - Shared web app support multiple browser windows
   - Shared tab
   - SharedWorker
-  - ServiceWorker
   - Detached window
   - iframe
 
@@ -64,7 +63,7 @@ You can use `reactant-cli` to quickly create a `reactant-share` project.
 
 ```sh
 npx reactant-cli init shared-app-demo -t shared-worker
-# support type: service-worker, shared-tab & shared-worker
+# support type: shared-tab & shared-worker
 ```
 
 ## How it works

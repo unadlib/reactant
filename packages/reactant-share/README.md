@@ -121,7 +121,6 @@ createSharedApp({
 
 - [shared-worker](https://github.com/unadlib/reactant-examples/tree/master/reactant-share/shared-worker)
 - [shared-tab](https://github.com/unadlib/reactant-examples/tree/master/reactant-share/shared-tab)
-- [service-worker](https://github.com/unadlib/reactant-examples/tree/master/reactant-share/service-worker)
 - [dynamic-module](https://github.com/unadlib/reactant-examples/tree/master/reactant-share/dynamic-module)
 
 ## Documentation

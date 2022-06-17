@@ -61,8 +61,7 @@ class ReactantRouter extends BaseReactantRouter {
     super({
       ...options,
       autoCreateHistory: !(
-        (sharedAppOptions.type === 'SharedWorker' ||
-          sharedAppOptions.type === 'ServiceWorker') &&
+        sharedAppOptions.type === 'SharedWorker' &&
         sharedAppOptions.port === 'server'
       ),
     });
@@ -170,10 +169,7 @@ class ReactantRouter extends BaseReactantRouter {
   }
 
   private get isWorker() {
-    return (
-      this.sharedAppOptions.type === 'SharedWorker' ||
-      this.sharedAppOptions.type === 'ServiceWorker'
-    );
+    return this.sharedAppOptions.type === 'SharedWorker';
   }
 
   get router(): RouterState {

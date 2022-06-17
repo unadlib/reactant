@@ -243,63 +243,6 @@ export const createSharedApp = async <
   options.share.enablePatchesChecker ??= __DEV__;
 
   switch (options.share.type) {
-    case 'ServiceWorker':
-      try {
-        transports = {
-          server: options.share.transports?.server,
-          client: options.share.transports?.client,
-        };
-
-        if (options.share.port === 'client' && options.share.worker) {
-          transports.client ??= createTransport('ServiceWorkerClient', {
-            worker: options.share.worker as ServiceWorker,
-            prefix: `reactant-share:${options.share.name}`,
-          });
-        }
-
-        if (options.share.port === 'server') {
-          transports.server ??= createTransport('ServiceWorkerService', {
-            prefix: `reactant-share:${options.share.name}`,
-          });
-        } else if (options.share.port === 'client' && !transports.client) {
-          if (typeof options.share.workerURL !== 'string') {
-            throw new Error(
-              `The value of 'options.share.workerURL' should be a string.`
-            );
-          }
-
-          if ('serviceWorker' in navigator) {
-            await new Promise((resolve) => {
-              navigator.serviceWorker.register(options.share.workerURL!);
-              navigator.serviceWorker.ready.then((registration) => {
-                transports.client = createTransport('ServiceWorkerClient', {
-                  worker: registration.active!,
-                  prefix: `reactant-share:${options.share.name}`,
-                });
-                resolve(null);
-              });
-            });
-          } else {
-            throw new Error(
-              `The current browser does not support ServiceWorker.`
-            );
-          }
-        }
-        options.share.transports = transports;
-        app = await createBaseApp(options);
-      } catch (e) {
-        console.warn(e);
-        const { port, workerURL, name, ...shareOptions } = options.share;
-        app = await createSharedTabApp({
-          ...options,
-          share: {
-            ...shareOptions,
-            type: 'SharedTab',
-            name,
-          },
-        });
-      }
-      break;
     case 'SharedWorker':
       try {
         transports = {
