@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
+import { ReactElement, JSXElementConstructor } from 'react';
 import {
   createSharedApp,
   injectable,
@@ -6,12 +7,13 @@ import {
   action,
   spawn,
   mockPairTransports,
+  ViewModule,
 } from '..';
 
 @injectable({
   name: 'counter',
 })
-class Counter {
+class Counter extends ViewModule {
   @state
   count = 0;
 
@@ -22,6 +24,10 @@ class Counter {
 
   async increase() {
     await spawn(this as Counter, '_increase', []);
+  }
+
+  component() {
+    return null;
   }
 }
 
@@ -60,6 +66,8 @@ test('base: sync up full state', async () => {
       },
     },
   });
+  await client0.bootstrap();
+
   expect(client0.instance.count).toBe(2);
   expect(server.instance.count).toBe(2);
 
@@ -107,6 +115,7 @@ test('sync up full state and update from server', async () => {
       },
     },
   });
+  await client0.bootstrap();
   expect(client0.instance.count).toBe(2);
   expect(server.instance.count).toBe(2);
 

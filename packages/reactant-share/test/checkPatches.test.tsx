@@ -165,9 +165,7 @@ describe('base', () => {
         enablePatchesChecker: true,
       },
     });
-    act(() => {
-      serverApp.bootstrap(serverContainer);
-    });
+    await serverApp.bootstrap(serverContainer);
     expect(serverContainer.querySelector('#count')?.textContent).toBe('0');
 
     const clientApp = await createSharedApp({
@@ -184,9 +182,7 @@ describe('base', () => {
         enablePatchesFilter: true,
       },
     });
-    act(() => {
-      clientApp.bootstrap(clientContainer);
-    });
+    await clientApp.bootstrap(clientContainer);
     const spy = jest.spyOn(console, 'warn').mockImplementation();
     expect(spy.mock.calls).toEqual([]);
 

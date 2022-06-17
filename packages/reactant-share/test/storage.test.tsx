@@ -189,9 +189,7 @@ describe('base', () => {
     expect(subscribeOnClientFn.mock.calls.length).toBe(0);
     expect(onServerFn.mock.calls.length).toBe(1);
     expect(subscribeOnServerFn.mock.calls.length).toBe(0);
-    act(() => {
-      serverApp.bootstrap(serverContainer);
-    });
+    await serverApp.bootstrap(serverContainer);
 
     await new Promise((resolve) => setTimeout(resolve));
 
@@ -216,13 +214,11 @@ describe('base', () => {
     });
 
     expect(onClientFn.mock.calls.length).toBe(1);
-    expect(subscribeOnClientFn.mock.calls.length).toBe(1);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(0);
     expect(onServerFn.mock.calls.length).toBe(1);
     expect(subscribeOnServerFn.mock.calls.length).toBe(1);
 
-    act(() => {
-      clientApp.bootstrap(clientContainer);
-    });
+    await clientApp.bootstrap(clientContainer);
     expect(onClientFn.mock.calls.length).toBe(1);
     expect(subscribeOnClientFn.mock.calls.length).toBe(1);
     expect(onServerFn.mock.calls.length).toBe(1);

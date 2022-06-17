@@ -348,9 +348,15 @@ export const createSharedApp = async <T>(options: Config<T>) => {
         `The value of 'options.share.type' be 'SharedTab', 'SharedWorker' or 'Base'.`
       );
   }
-  const portDetector = app.container.get(PortDetector);
-  if (portDetector.isClient) {
-    await portDetector.syncFullStatePromise;
-  }
-  return app;
+  const { bootstrap } = app;
+  return {
+    ...app,
+    bootstrap: async (...args: any) => {
+      bootstrap(...args);
+      const portDetector = app.container.get(PortDetector);
+      if (portDetector.isClient) {
+        await portDetector.syncFullStatePromise;
+      }
+    },
+  };
 };

@@ -41,7 +41,9 @@ export interface App<T> {
   instance: T;
   container: Container;
   store: ReactantStore | null;
-  bootstrap(...args: unknown[]): void | Element | JSX.Element;
+  bootstrap(
+    ...args: unknown[]
+  ): void | Element | JSX.Element | Promise<void | Element | JSX.Element>;
 }
 
 export type ShallowEqual = (

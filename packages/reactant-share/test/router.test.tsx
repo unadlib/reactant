@@ -192,12 +192,7 @@ describe('base', () => {
     expect(subscribeOnClientFn.mock.calls.length).toBe(0);
     expect(onServerFn.mock.calls.length).toBe(1);
     expect(subscribeOnServerFn.mock.calls.length).toBe(0);
-    act(() => {
-      serverApp.bootstrap(serverContainer);
-    });
-
-    await new Promise((resolve) => setTimeout(resolve));
-
+    await serverApp.bootstrap(serverContainer);
     expect(onClientFn.mock.calls.length).toBe(0);
     expect(subscribeOnClientFn.mock.calls.length).toBe(0);
     expect(onServerFn.mock.calls.length).toBe(1);
@@ -227,16 +222,14 @@ describe('base', () => {
     });
 
     expect(onClientFn.mock.calls.length).toBe(1);
-    expect(subscribeOnClientFn.mock.calls.length).toBe(2);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(0);
     expect(onServerFn.mock.calls.length).toBe(1);
     expect(subscribeOnServerFn.mock.calls.length).toBe(1);
 
-    act(() => {
-      clientApp.bootstrap(clientContainer);
-    });
+    await clientApp.bootstrap(clientContainer);
 
     expect(onClientFn.mock.calls.length).toBe(1);
-    expect(subscribeOnClientFn.mock.calls.length).toBe(3);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(4);
     expect(onServerFn.mock.calls.length).toBe(1);
     expect(subscribeOnServerFn.mock.calls.length).toBe(1);
     expect(clientContainer.querySelector('#content')?.textContent).toBe('home');
@@ -250,7 +243,7 @@ describe('base', () => {
     await new Promise((resolve) => setTimeout(resolve));
 
     expect(onClientFn.mock.calls.length).toBe(1);
-    expect(subscribeOnClientFn.mock.calls.length).toBe(5);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(6);
     expect(onServerFn.mock.calls.length).toBe(1);
     expect(subscribeOnServerFn.mock.calls.length).toBe(2);
     expect(serverContainer.querySelector('#content')?.textContent).toBe('0+');
@@ -264,7 +257,7 @@ describe('base', () => {
     await new Promise((resolve) => setTimeout(resolve));
 
     expect(onClientFn.mock.calls.length).toBe(1);
-    expect(subscribeOnClientFn.mock.calls.length).toBe(7);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(8);
     expect(onServerFn.mock.calls.length).toBe(1);
     expect(subscribeOnServerFn.mock.calls.length).toBe(3);
 
@@ -469,9 +462,7 @@ describe('SharedWorker', () => {
     expect(onServerFn.mock.calls.length).toBe(1);
     expect(subscribeOnServerFn.mock.calls.length).toBe(1);
 
-    act(() => {
-      clientApp.bootstrap(clientContainer);
-    });
+    await clientApp.bootstrap(clientContainer);
 
     expect(onClientFn.mock.calls.length).toBe(1);
     expect(subscribeOnClientFn.mock.calls.length).toBe(1);
