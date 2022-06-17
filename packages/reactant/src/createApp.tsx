@@ -11,7 +11,7 @@ import {
   PluginHooks,
   ModulesMap,
 } from 'reactant-module';
-import { Config, App } from './interfaces';
+import { Config, App, Renderer } from './interfaces';
 
 /**
  * ## Description
@@ -37,7 +37,7 @@ import { Config, App } from './interfaces';
  * expect(app.instance instanceof Foo).toBeTruthy();
  * ```
  */
-function createApp<T>({
+function createApp<T, S extends any[], R extends Renderer<S>>({
   /**
    * As the main start-up module.
    */
@@ -62,7 +62,7 @@ function createApp<T>({
    * Reactant's development setting options.
    */
   devOptions,
-}: Config<T>): App<T> {
+}: Config<T, S, R>): App<T, S, R> {
   const ServiceIdentifiers: ServiceIdentifiersMap = new Map();
   const modulesMap: ModulesMap = new Map();
   const container = createContainer({

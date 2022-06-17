@@ -1,5 +1,5 @@
 import type { EmitParameter, Transport } from 'data-transport';
-import type { Config as BaseConfig, App } from 'reactant';
+import type { Config as BaseConfig, App, Renderer } from 'reactant';
 import type { ILastActionState } from 'reactant-last-action';
 import type { Router, RouterState } from 'reactant-router';
 import {
@@ -70,7 +70,8 @@ export interface ISharedAppOptions {
   transform?: Transform;
 }
 
-export interface Config<T> extends BaseConfig<T> {
+export interface Config<T, S extends any[], R extends Renderer<S>>
+  extends BaseConfig<T, S, R> {
   /**
    * Reactant shared app options.
    */
@@ -88,7 +89,7 @@ export type CallbackWithHook<T extends Transport = Transport<any, any>> = (
   transport: T
 ) => void | (() => void);
 
-export type PortApp = Partial<Record<Port, App<any>>>;
+export type PortApp = Partial<Record<Port, App<any, any, any>>>;
 
 export interface ClientTransport {
   [proxyClientActionName](options: {
@@ -124,14 +125,14 @@ export interface ServerTransport {
 }
 
 export interface HandleServerOptions {
-  app: App<any>;
+  app: App<any, any, any>;
   transport: Transports['server'];
   disposeClient?: () => void;
   enablePatchesChecker?: boolean;
 }
 
 export interface HandleClientOptions {
-  app: App<any>;
+  app: App<any, any, any>;
   transport: Transports['client'];
   disposeServer?: () => void;
   enablePatchesFilter?: boolean;

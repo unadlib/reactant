@@ -7,7 +7,12 @@ import {
   Container,
 } from 'reactant-module';
 
-export interface Config<T> {
+export type Renderer<T extends any[]> = (
+  element: JSX.Element,
+  ...args: T
+) => any;
+
+export interface Config<T, S extends any[], R extends Renderer<S>> {
   /**
    * As the main start-up module.
    */
@@ -15,10 +20,7 @@ export interface Config<T> {
   /**
    * As a rendering function for any React renderer.
    */
-  render: (
-    element: JSX.Element,
-    ...args: any[]
-  ) => Element | void | JSX.Element;
+  render: (element: JSX.Element, ...args: S) => ReturnType<R>;
   /**
    * Importing the injected dependency modules.
    */
@@ -37,11 +39,11 @@ export interface Config<T> {
   devOptions?: DevOptions;
 }
 
-export interface App<T> {
+export interface App<T, S extends any[], R extends Renderer<S>> {
   instance: T;
   container: Container;
   store: ReactantStore | null;
-  bootstrap(...args: unknown[]): void | Element | JSX.Element;
+  bootstrap(...args: S): ReturnType<R> | Promise<R>;
 }
 
 export type ShallowEqual = (

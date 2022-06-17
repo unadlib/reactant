@@ -1,6 +1,6 @@
 import { PartialKeys } from 'reactant-module';
 import { createApp } from './createApp';
-import { Config, App } from './interfaces';
+import { Config, App, Renderer } from './interfaces';
 
 /**
  * ## Description
@@ -30,14 +30,16 @@ import { Config, App } from './interfaces';
  * expect(foo.instance.bar.getValue()).toBe('test');
  * ```
  */
-function testBed<T>(config: PartialKeys<Config<T>, 'render'>): App<T> {
-  return createApp<T>({
+function testBed<T, S extends any[], R extends Renderer<S>>(
+  config: PartialKeys<Config<T, S, R>, 'render'>
+): App<T, S, R> {
+  return createApp<T, S, R>({
     ...config,
     render:
       config.render ||
-      (() => {
+      ((() => {
         console.log(`No render function is configured.`);
-      }),
+      }) as any),
   });
 }
 
