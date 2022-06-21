@@ -64,19 +64,16 @@ function createApp<T, S extends any[], R extends Renderer<S>>({
   devOptions,
 }: Config<T, S, R>): App<T, S, R> {
   const ServiceIdentifiers: ServiceIdentifiersMap = new Map();
-  const modulesMap: ModulesMap = new Map();
+  const modulesMap: ModulesMap = {};
   const container = createContainer({
     ServiceIdentifiers,
-    modules: [main, ...modules],
+    modules: [...modules, main],
     options: {
       defaultScope: 'Singleton',
       ...containerOptions,
       skipBaseClassChecks: true,
     },
   });
-  const instance = container.get<T>(
-    typeof main === 'object' ? main.provide : main
-  );
   const pluginHooks: PluginHooks = {
     middleware: [],
     beforeCombineRootReducers: [],
@@ -120,7 +117,9 @@ function createApp<T, S extends any[], R extends Renderer<S>>({
     modulesMap,
   });
   const withoutReducers = store.getState() === null;
-
+  const instance = container.get<T>(
+    typeof main === 'object' ? main.provide : main
+  );
   return {
     /**
      * App's main module instance.
