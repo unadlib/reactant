@@ -49,7 +49,7 @@ function createApp<T, S extends any[], R extends Renderer<S>>({
   /**
    * Importing the injected dependency modules.
    */
-  modules = [],
+  modules: _modules = [],
   /**
    * Dependent injection container options.
    */
@@ -63,11 +63,12 @@ function createApp<T, S extends any[], R extends Renderer<S>>({
    */
   devOptions,
 }: Config<T, S, R>): App<T, S, R> {
+  const modules = [..._modules, main];
   const ServiceIdentifiers: ServiceIdentifiersMap = new Map();
   const modulesMap: ModulesMap = {};
   const container = createContainer({
     ServiceIdentifiers,
-    modules: [...modules, main],
+    modules,
     options: {
       defaultScope: 'Singleton',
       ...containerOptions,

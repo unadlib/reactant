@@ -205,10 +205,10 @@ describe('base', () => {
     expect(serverContainer.querySelector('#count')?.textContent).toBe('0');
     expect(spy.mock.calls).toEqual([
       [
-        "The state 'counter.obj' operation in the method 'decrease' of the module 'counter'  is a replacement update operation, be sure to check the state 'counter.obj' update operation and use mutation updates to ensure the minimum set of update patches.",
+        "The state 'todoList.list' operation in the method 'decrease' of the module 'counter'  is a replacement update operation, be sure to check the state 'todoList.list' update operation and use mutation updates to ensure the minimum set of update patches.",
       ],
       [
-        "The state 'todoList.list' operation in the method 'decrease' of the module 'counter'  is a replacement update operation, be sure to check the state 'todoList.list' update operation and use mutation updates to ensure the minimum set of update patches.",
+        "The state 'counter.obj' operation in the method 'decrease' of the module 'counter'  is a replacement update operation, be sure to check the state 'counter.obj' update operation and use mutation updates to ensure the minimum set of update patches.",
       ],
     ]);
   });

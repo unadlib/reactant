@@ -155,8 +155,8 @@ test('base `load` with multi-modules', async () => {
     }
   }
   expect(Object.values(app.store?.getState())).toEqual([
-    { count: 0 },
     { count0: 0 },
+    { count: 0 },
   ]);
   expect(app.instance.todo).toBeUndefined();
   await app.instance.loadTodoModule([
@@ -166,8 +166,8 @@ test('base `load` with multi-modules', async () => {
   expect(app.instance.todo).toBeInstanceOf(Todo);
   expect(app.instance.todoModule).toBe(app.instance.todo);
   expect(Object.values(app.store?.getState())).toEqual([
-    { count: 0 },
     { count0: 0 },
+    { count: 0 },
     {
       list: [],
     },
