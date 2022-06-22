@@ -135,7 +135,7 @@ class ReactantRouter extends BaseReactantRouter {
           async ({ method, args = [] }) => {
             return new Promise((resolve) => {
               if (this.portDetector.disableSyncClient) {
-                this.toBeRouted = () => {
+                this.lastRouterFn = () => {
                   const fn: Function = this.history[method];
                   fn(...args);
                 };
@@ -158,7 +158,7 @@ class ReactantRouter extends BaseReactantRouter {
     }
   }
 
-  toBeRouted: (() => void) | null = null;
+  lastRouterFn: (() => void) | null = null;
 
   @state
   private _router: RouterState | null = null;

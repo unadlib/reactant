@@ -36,9 +36,9 @@ export const handleClient = ({
       if (document.visibilityState === 'visible') {
         portDetector.syncFullState({ forceSync: false });
         await portDetector.syncFullStatePromise;
-        if (router?.toBeRouted) {
-          const fn = router.toBeRouted;
-          router.toBeRouted = null;
+        if (router?.lastRouterFn) {
+          const fn = router.lastRouterFn;
+          router.lastRouterFn = null;
           fn();
         }
       }
