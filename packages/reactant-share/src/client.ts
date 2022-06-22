@@ -25,20 +25,20 @@ export const handleClient = ({
   const container: Container = app.instance[containerKey];
   const lastAction = container.get(LastAction);
   const portDetector = container.get(PortDetector);
-  const router = container.isBound(Router) ? container.get(Router) : null;
   portDetector.setPort({ client: app }, transport);
   const disposeListeners: ((() => void) | undefined)[] = [];
   if (preloadedState) {
     lastAction.sequence = preloadedState[lastAction.stateKey]._sequence;
   }
   if (!portDetector.options.forcedSyncClient) {
+    const router: Router = container.get(Router);
     const visibilitychange = async () => {
       if (document.visibilityState === 'visible') {
         portDetector.syncFullState({ forceSync: false });
         await portDetector.syncFullStatePromise;
-        if (router?.lastRouterFn) {
-          const fn = router.lastRouterFn;
-          router.lastRouterFn = null;
+        if (router.toBeRouted) {
+          const fn = router.toBeRouted;
+          router.toBeRouted = null;
           fn();
         }
       }
