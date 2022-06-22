@@ -37,6 +37,7 @@ createSharedApp({
     port: 'client',
     type: 'SharedWorker',
     workerURL: 'worker.bundle.js',
+    forcedSyncClient: false,
   },
 }).then((app) => {
   console.log(app, '====');

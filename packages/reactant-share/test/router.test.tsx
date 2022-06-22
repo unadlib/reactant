@@ -796,4 +796,113 @@ describe('Worker', () => {
     expect(clientApp.instance.router.currentPath).toBe('/counter');
     expect(clientContainer.querySelector('#content')?.textContent).toBe('0+');
   });
+
+  test('forcedSyncClient for server/client port mode with router in SharedWorker', async () => {
+    onClientFn = jest.fn();
+    subscribeOnClientFn = jest.fn();
+    onServerFn = jest.fn();
+    subscribeOnServerFn = jest.fn();
+
+    const transports = mockPairTransports();
+
+    const serverApp = await createSharedApp({
+      modules: [
+        Router,
+        {
+          provide: RouterOptions,
+          useValue: {
+            createHistory: () => createHashHistory(),
+          } as IRouterOptions,
+        },
+      ],
+      main: AppView,
+      render,
+      share: {
+        name: 'counter',
+        type: 'SharedWorker',
+        port: 'server',
+        transports: {
+          server: transports[0],
+        },
+      },
+    });
+    await new Promise((resolve) => setTimeout(resolve));
+    // check for default route
+    expect(serverApp.instance.router.currentPath).toBe('/');
+
+    const clientApp = await createSharedApp({
+      modules: [
+        Router,
+        {
+          provide: RouterOptions,
+          useValue: {
+            createHistory: () => createHashHistory(),
+          } as IRouterOptions,
+        },
+      ],
+      main: AppView,
+      render,
+      share: {
+        name: 'counter',
+        type: 'SharedWorker',
+        port: 'client',
+        transports: {
+          client: transports[1],
+        },
+        forcedSyncClient: false,
+      },
+    });
+
+    act(() => {
+      clientApp.bootstrap(clientContainer);
+    });
+
+    await new Promise((resolve) => setTimeout(resolve));
+    expect(clientContainer.querySelector('#content')?.textContent).toBe('home');
+
+    serverApp.instance.counterView.increase();
+    await new Promise((resolve) => setTimeout(resolve));
+    expect(clientApp.instance.counterView.count).toBe(
+      serverApp.instance.counterView.count
+    );
+    let visibilityState: 'visible' | 'hidden' = 'hidden';
+    Object.defineProperty(document, 'visibilityState', {
+      configurable: true,
+      get() {
+        return visibilityState;
+      },
+    });
+    document.dispatchEvent(new Event('visibilitychange'));
+
+    await new Promise((resolve) => setTimeout(resolve));
+
+    serverApp.instance.counterView.increase();
+    await new Promise((resolve) => setTimeout(resolve));
+    expect(clientApp.instance.counterView.count).not.toBe(
+      serverApp.instance.counterView.count
+    );
+
+    visibilityState = 'visible';
+    document.dispatchEvent(new Event('visibilitychange'));
+
+    await new Promise((resolve) => setTimeout(resolve));
+    expect(clientApp.instance.counterView.count).toBe(
+      serverApp.instance.counterView.count
+    );
+
+    visibilityState = 'hidden';
+    document.dispatchEvent(new Event('visibilitychange'));
+
+    expect(serverApp.instance.router.currentPath).toBe('/');
+    serverApp.instance.router.push('/counter');
+    await new Promise((resolve) => setTimeout(resolve));
+
+    expect(clientApp.instance.router.currentPath).toBe('/');
+
+    visibilityState = 'visible';
+    document.dispatchEvent(new Event('visibilitychange'));
+
+    await new Promise((resolve) => setTimeout(resolve));
+    expect(clientApp.instance.router.currentPath).toBe('/counter');
+  });
 });

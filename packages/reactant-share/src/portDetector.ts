@@ -23,6 +23,7 @@ export const PortDetectorOptions = Symbol('PortDetectorOptions');
 
 export interface IPortDetectorOptions {
   transports?: Transports;
+  forcedSyncClient?: boolean;
 }
 
 /**
@@ -58,8 +59,13 @@ export class PortDetector {
    */
   clientId: string | null = null;
 
+  /**
+   * allow Disable Sync
+   */
+  allowDisableSync = () => true;
+
   constructor(
-    @inject(PortDetectorOptions) protected options: IPortDetectorOptions,
+    @inject(PortDetectorOptions) public options: IPortDetectorOptions,
     protected lastAction: LastAction,
     @optional(Storage) protected storage?: Storage
   ) {
@@ -103,6 +109,14 @@ export class PortDetector {
         this.previousPort = 'server';
       };
     });
+  }
+
+  get disableSyncClient() {
+    return (
+      document.visibilityState === 'hidden' &&
+      !this.options.forcedSyncClient &&
+      this.allowDisableSync()
+    );
   }
 
   onRehydrate(callback: () => void) {

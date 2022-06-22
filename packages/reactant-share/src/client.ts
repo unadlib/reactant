@@ -8,6 +8,7 @@ import { LastAction } from 'reactant-last-action';
 import { HandleClientOptions } from './interfaces';
 import { lastActionName, proxyServerActionName } from './constants';
 import { PortDetector } from './portDetector';
+import { Router } from './router';
 import { applyMethod } from './applyMethod';
 
 export const handleClient = ({
@@ -29,8 +30,27 @@ export const handleClient = ({
   if (preloadedState) {
     lastAction.sequence = preloadedState[lastAction.stateKey]._sequence;
   }
+  if (!portDetector.options.forcedSyncClient) {
+    const router: Router = container.get(Router);
+    const visibilitychange = async () => {
+      if (document.visibilityState === 'visible') {
+        portDetector.syncFullState({ forceSync: false });
+        await portDetector.syncFullStatePromise;
+        if (router.toBeRouted) {
+          const fn = router.toBeRouted;
+          router.toBeRouted = null;
+          fn();
+        }
+      }
+    };
+    document.addEventListener('visibilitychange', visibilitychange);
+    disposeListeners.push(() => {
+      document.removeEventListener('visibilitychange', visibilitychange);
+    });
+  }
   disposeListeners.push(
     transport.listen(lastActionName, async (action) => {
+      if (portDetector.disableSyncClient) return;
       if (action._sequence && action._sequence === lastAction.sequence + 1) {
         if (action._reactant === actionIdentifier) {
           const currentState = app.store!.getState();
