@@ -35,6 +35,7 @@ export const handleClient = ({
     const visibilitychange = async () => {
       if (document.visibilityState === 'visible') {
         portDetector.syncFullState({ forceSync: false });
+        await portDetector.syncFullStatePromise;
         if (router?.toBeRouted) {
           const fn = router.toBeRouted;
           router.toBeRouted = null;
