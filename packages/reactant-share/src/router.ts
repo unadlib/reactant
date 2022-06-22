@@ -134,6 +134,13 @@ class ReactantRouter extends BaseReactantRouter {
           routerChangeName,
           async ({ method, args = [] }) => {
             return new Promise((resolve) => {
+              if (this.portDetector.disableSyncClient) {
+                this.toBeRouted = () => {
+                  const fn: Function = this.history[method];
+                  fn(...args);
+                };
+                return;
+              }
               const stopWatching = watch(
                 this,
                 () => this.router,
@@ -150,6 +157,8 @@ class ReactantRouter extends BaseReactantRouter {
       });
     }
   }
+
+  toBeRouted: (() => void) | null = null;
 
   @state
   private _router: RouterState | null = null;

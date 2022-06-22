@@ -68,6 +68,12 @@ export interface ISharedAppOptions {
    * Transform client/server port
    */
   transform?: Transform;
+  /**
+   * Forced Sync for all client, enabled by default.
+   *
+   * If forcedSyncClient is false, then only the client's visibilityState is visible will the state be synchronized from server port.
+   */
+  forcedSyncClient?: boolean;
 }
 
 export interface Config<T, S extends any[], R extends Renderer<S>>

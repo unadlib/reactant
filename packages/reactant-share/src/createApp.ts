@@ -40,6 +40,7 @@ const createBaseApp = <T, S extends any[], R extends Renderer<S>>({
       provide: PortDetectorOptions,
       useValue: {
         transports: share.transports,
+        forcedSyncClient: share.forcedSyncClient,
       } as IPortDetectorOptions,
     },
     {
@@ -108,6 +109,10 @@ const createBaseApp = <T, S extends any[], R extends Renderer<S>>({
 const createSharedTabApp = async <T, S extends any[], R extends Renderer<S>>(
   options: Config<T, S, R>
 ) => {
+  if (__DEV__ && options.share.forcedSyncClient === false) {
+    console.warn(`'forcedSyncClient' must be enabled in 'SharedTab' mode`);
+  }
+  options.share.forcedSyncClient = true;
   /**
    * Performance issue with broadcast-channel repo in Safari.
    */
@@ -242,6 +247,9 @@ export const createSharedApp = async <
   // Check to minimized patch.
   options.share.enablePatchesChecker ??= __DEV__;
 
+  // force Sync for all client
+  options.share.forcedSyncClient ??= true;
+
   switch (options.share.type) {
     case 'SharedWorker':
       try {
@@ -284,6 +292,7 @@ export const createSharedApp = async <
             ...shareOptions,
             type: 'SharedTab',
             name,
+            forcedSyncClient: true,
           },
         });
       }
