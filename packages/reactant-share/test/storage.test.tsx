@@ -257,4 +257,74 @@ describe('base', () => {
     expect(serverContainer.querySelector('#count')?.textContent).toBe('2');
     expect(clientContainer.querySelector('#count')?.textContent).toBe('2');
   });
+  test('base SPA mode with storage', async () => {
+    const storage = new MemoryStorage();
+
+    onClientFn = jest.fn();
+    subscribeOnClientFn = jest.fn();
+    onServerFn = jest.fn();
+    subscribeOnServerFn = jest.fn();
+
+    const app = await createSharedApp({
+      modules: [
+        Storage,
+        {
+          provide: StorageOptions,
+          useValue: {
+            storage,
+            blacklist: [],
+          } as IStorageOptions,
+        },
+      ],
+      main: AppView,
+      render,
+      share: {
+        name: 'counter',
+        type: 'Base',
+      },
+    });
+    expect(onClientFn.mock.calls.length).toBe(0);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(0);
+    expect(onServerFn.mock.calls.length).toBe(0);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(0);
+    await app.bootstrap(serverContainer);
+
+    await new Promise((resolve) => setTimeout(resolve));
+
+    expect(onClientFn.mock.calls.length).toBe(0);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(0);
+    expect(onServerFn.mock.calls.length).toBe(0);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(0);
+    expect(serverContainer.querySelector('#count')?.textContent).toBe('0');
+
+    act(() => {
+      serverContainer
+        .querySelector('#increase')!
+        .dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    });
+
+    await new Promise((resolve) => setTimeout(resolve));
+
+    expect(onClientFn.mock.calls.length).toBe(0);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(0);
+    expect(onServerFn.mock.calls.length).toBe(0);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(0);
+
+    expect(serverContainer.querySelector('#count')?.textContent).toBe('1');
+
+    act(() => {
+      serverContainer
+        .querySelector('#increase')!
+        .dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    });
+
+    await new Promise((resolve) => setTimeout(resolve));
+
+    expect(onClientFn.mock.calls.length).toBe(0);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(0);
+    expect(onServerFn.mock.calls.length).toBe(0);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(0);
+
+    expect(serverContainer.querySelector('#count')?.textContent).toBe('2');
+  });
 });

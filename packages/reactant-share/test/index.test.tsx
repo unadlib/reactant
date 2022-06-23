@@ -60,7 +60,7 @@ describe('base', () => {
   })
   class Counter {
     constructor(
-      private portDetector: PortDetector,
+      public portDetector: PortDetector,
       @optional('todoList') private todoList: TodoList
     ) {
       this.portDetector.onClient(() => {
@@ -157,6 +157,8 @@ describe('base', () => {
           },
         },
       });
+      expect(serverApp.instance.counter.portDetector.shared).toBe(true);
+
       expect(onClientFn.mock.calls.length).toBe(0);
       expect(subscribeOnClientFn.mock.calls.length).toBe(0);
       expect(onServerFn.mock.calls.length).toBe(1);
@@ -282,6 +284,8 @@ describe('base', () => {
         },
       },
     });
+    expect(sharedApp0.instance.counter.portDetector.shared).toBe(true);
+
     expect(onClientFn.mock.calls.length).toBe(0);
     expect(subscribeOnClientFn.mock.calls.length).toBe(0);
     expect(onServerFn.mock.calls.length).toBe(1);
@@ -457,5 +461,48 @@ describe('base', () => {
 
     await clientApp.container.get(PortDetector).syncFullState();
     expect(fn.mock.calls.length).toBe(3);
+  });
+
+  test('base SPA mode', async () => {
+    onServerFn = jest.fn();
+    subscribeOnServerFn = jest.fn();
+    onClientFn = jest.fn();
+    subscribeOnClientFn = jest.fn();
+
+    const app = await createSharedApp({
+      modules: [],
+      main: AppView,
+      render,
+      share: {
+        name: 'counter',
+        type: 'Base',
+      },
+    });
+
+    expect(app.instance.counter.portDetector.shared).toBe(false);
+
+    expect(onClientFn.mock.calls.length).toBe(0);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(0);
+    expect(onServerFn.mock.calls.length).toBe(0);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(0);
+    await app.bootstrap(serverContainer);
+    expect(onClientFn.mock.calls.length).toBe(0);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(0);
+    expect(onServerFn.mock.calls.length).toBe(0);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(0);
+    expect(serverContainer.querySelector('#count')?.textContent).toBe('0');
+    act(() => {
+      serverContainer
+        .querySelector('#increase')!
+        .dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    });
+
+    await new Promise((resolve) => setTimeout(resolve));
+    expect(serverContainer.querySelector('#count')?.textContent).toBe('1');
+
+    expect(onClientFn.mock.calls.length).toBe(0);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(0);
+    expect(onServerFn.mock.calls.length).toBe(0);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(0);
   });
 });

@@ -25,6 +25,7 @@ let serverContainer: Element;
 let clientContainer: Element;
 
 beforeEach(() => {
+  window.location.href = 'http://localhost/';
   serverContainer = document.createElement('div');
   document.body.appendChild(serverContainer);
   clientContainer = document.createElement('div');
@@ -904,5 +905,109 @@ describe('Worker', () => {
 
     await new Promise((resolve) => setTimeout(resolve));
     expect(clientApp.instance.router.currentPath).toBe('/counter');
+  });
+
+  test('base SPA mode with router', async () => {
+    onClientFn = jest.fn();
+    subscribeOnClientFn = jest.fn();
+    onServerFn = jest.fn();
+    subscribeOnServerFn = jest.fn();
+
+    const app = await createSharedApp({
+      modules: [
+        Router,
+        {
+          provide: RouterOptions,
+          useValue: {
+            createHistory: () => createHashHistory(),
+          } as IRouterOptions,
+        },
+      ],
+      main: AppView,
+      render,
+      share: {
+        name: 'counter',
+        type: 'Base',
+      },
+    });
+
+    expect(onClientFn.mock.calls.length).toBe(0);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(0);
+    expect(onServerFn.mock.calls.length).toBe(0);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(0);
+
+    act(() => {
+      app.bootstrap(clientContainer);
+    });
+
+    expect(onClientFn.mock.calls.length).toBe(0);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(0);
+    expect(onServerFn.mock.calls.length).toBe(0);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(0);
+    expect(clientContainer.querySelector('#content')?.textContent).toBe('home');
+
+    await new Promise((resolve) => setTimeout(resolve));
+
+    expect(clientContainer.querySelector('#content')?.textContent).toBe('home');
+
+    act(() => {
+      clientContainer
+        .querySelector('#counter')!
+        .dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    });
+
+    await new Promise((resolve) => setTimeout(resolve));
+
+    expect(onClientFn.mock.calls.length).toBe(0);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(0);
+    expect(onServerFn.mock.calls.length).toBe(0);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(0);
+    expect(app.instance.router.currentPath).toBe('/counter');
+    expect(app.instance.router.currentPath).toBe('/counter');
+    expect(clientContainer.querySelector('#content')?.textContent).toBe('0+');
+
+    act(() => {
+      clientContainer
+        .querySelector('#replace')!
+        .dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    });
+    await new Promise((resolve) => setTimeout(resolve));
+    expect(app.instance.router.currentPath).toBe('/');
+    expect(clientContainer.querySelector('#content')?.textContent).toBe('home');
+    act(() => {
+      clientContainer
+        .querySelector('#counter')!
+        .dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    });
+    await new Promise((resolve) => setTimeout(resolve));
+    expect(app.instance.router.currentPath).toBe('/counter');
+    expect(clientContainer.querySelector('#content')?.textContent).toBe('0+');
+
+    act(() => {
+      clientContainer
+        .querySelector('#goBack')!
+        .dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    });
+    await new Promise((resolve) => setTimeout(resolve));
+    expect(app.instance.router.currentPath).toBe('/counter');
+    expect(clientContainer.querySelector('#content')?.textContent).toBe('0+');
+
+    act(() => {
+      clientContainer
+        .querySelector('#goForward')!
+        .dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    });
+    await new Promise((resolve) => setTimeout(resolve));
+    expect(app.instance.router.currentPath).toBe('/');
+    expect(clientContainer.querySelector('#content')?.textContent).toBe('home');
+
+    act(() => {
+      clientContainer
+        .querySelector('#go')!
+        .dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    });
+    await new Promise((resolve) => setTimeout(resolve));
+    expect(app.instance.router.currentPath).toBe('/counter');
+    expect(clientContainer.querySelector('#content')?.textContent).toBe('0+');
   });
 });

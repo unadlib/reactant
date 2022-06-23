@@ -8,7 +8,11 @@ import {
 } from 'reactant';
 import { LastAction } from 'reactant-last-action';
 import { Storage } from './storage';
-import { loadFullStateActionName, syncToClientsName } from './constants';
+import {
+  loadFullStateActionName,
+  SharedAppOptions,
+  syncToClientsName,
+} from './constants';
 import {
   CallbackWithHook,
   ClientTransport,
@@ -16,15 +20,9 @@ import {
   PortApp,
   Transports,
   Transport,
+  ISharedAppOptions,
 } from './interfaces';
 import { createId } from './utils';
-
-export const PortDetectorOptions = Symbol('PortDetectorOptions');
-
-export interface IPortDetectorOptions {
-  transports?: Transports;
-  forcedSyncClient?: boolean;
-}
 
 /**
  * Port Detector
@@ -65,7 +63,7 @@ export class PortDetector {
   allowDisableSync = () => true;
 
   constructor(
-    @inject(PortDetectorOptions) public options: IPortDetectorOptions,
+    @inject(SharedAppOptions) public sharedAppOptions: ISharedAppOptions,
     protected lastAction: LastAction,
     @optional(Storage) protected storage?: Storage
   ) {
@@ -111,10 +109,14 @@ export class PortDetector {
     });
   }
 
+  get shared() {
+    return !!(this.sharedAppOptions.port && this.sharedAppOptions.type);
+  }
+
   get disableSyncClient() {
     return (
       document.visibilityState === 'hidden' &&
-      !this.options.forcedSyncClient &&
+      !this.sharedAppOptions.forcedSyncClient &&
       this.allowDisableSync()
     );
   }
@@ -202,7 +204,7 @@ export class PortDetector {
   }
 
   get transports() {
-    return this.options.transports ?? {};
+    return this.sharedAppOptions.transports ?? {};
   }
 
   transport?: Transport;

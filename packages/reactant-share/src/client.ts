@@ -30,7 +30,7 @@ export const handleClient = ({
   if (preloadedState) {
     lastAction.sequence = preloadedState[lastAction.stateKey]._sequence;
   }
-  if (!portDetector.options.forcedSyncClient) {
+  if (!portDetector.sharedAppOptions.forcedSyncClient) {
     const router: Router = container.get(Router);
     const visibilitychange = async () => {
       if (document.visibilityState === 'visible') {

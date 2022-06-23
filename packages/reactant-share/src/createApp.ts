@@ -14,11 +14,7 @@ import { handleServer } from './server';
 import { handleClient } from './client';
 import { createBroadcastTransport } from './createTransport';
 import { isClientName, SharedAppOptions } from './constants';
-import {
-  IPortDetectorOptions,
-  PortDetector,
-  PortDetectorOptions,
-} from './portDetector';
+import { PortDetector } from './portDetector';
 import { useLock } from './lock';
 
 const createBaseApp = <T, S extends any[], R extends Renderer<S>>({
@@ -35,13 +31,6 @@ const createBaseApp = <T, S extends any[], R extends Renderer<S>>({
       useValue: {
         stateKey: `lastAction-${share.name}`,
       } as ILastActionOptions,
-    },
-    {
-      provide: PortDetectorOptions,
-      useValue: {
-        transports: share.transports,
-        forcedSyncClient: share.forcedSyncClient,
-      } as IPortDetectorOptions,
     },
     {
       provide: SharedAppOptions,
@@ -83,24 +72,26 @@ const createBaseApp = <T, S extends any[], R extends Renderer<S>>({
       transform?.(changedPort);
     };
     app = createReactantApp(options);
-    if (isServer) {
-      if (!serverTransport) {
-        throw new Error(`'transports.server' does not exist.`);
+    if (share.port) {
+      if (isServer) {
+        if (!serverTransport) {
+          throw new Error(`'transports.server' does not exist.`);
+        }
+        disposeServer = handleServer({
+          app,
+          transport: serverTransport,
+          enablePatchesChecker: share.enablePatchesChecker,
+        });
+      } else {
+        if (!clientTransport) {
+          throw new Error(`'transports.client' does not exist.`);
+        }
+        disposeClient = handleClient({
+          app,
+          transport: clientTransport,
+          enablePatchesFilter: share.enablePatchesFilter,
+        });
       }
-      disposeServer = handleServer({
-        app,
-        transport: serverTransport,
-        enablePatchesChecker: share.enablePatchesChecker,
-      });
-    } else {
-      if (!clientTransport) {
-        throw new Error(`'transports.client' does not exist.`);
-      }
-      disposeClient = handleClient({
-        app,
-        transport: clientTransport,
-        enablePatchesFilter: share.enablePatchesFilter,
-      });
     }
     resolve(app);
   });
