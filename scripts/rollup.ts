@@ -46,9 +46,11 @@ const generateBundledModules = async ({
   plugins.push(
     replacePlugin({
       __DEV__: isUmd ? 'false' : "process.env.NODE_ENV !== 'production'",
-    }),
-    terserPlugin()
+    })
   );
+  if (isUmd) {
+    plugins.push(terserPlugin());
+  }
   try {
     const { dependencies = {}, devDependencies = {} } = require(path.resolve(
       outputFile,

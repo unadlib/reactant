@@ -28,9 +28,25 @@ import {
 import { PluginModule } from './core';
 
 export interface DevOptions {
+  /**
+   * Enable react strict mode.
+   */
+  strict?: boolean;
+  /**
+   * Enable state update patches.
+   */
   enablePatches?: boolean;
+  /**
+   * Enable state auto freeze.
+   */
   autoFreeze?: boolean;
+  /**
+   * Enable redux dev tools.
+   */
   reduxDevTools?: boolean;
+  /**
+   * Redux dev tools enhancer options.
+   */
   reduxDevToolsOptions?: ReduxDevToolsOptions;
   // TODO: use `redux-immutable-state-invariant` for checking immutable?
 }

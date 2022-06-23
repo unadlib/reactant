@@ -1,5 +1,5 @@
 /* eslint-disable no-shadow */
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, StrictMode } from 'react';
 import { Provider } from 'react-redux';
 import {
   createContainer,
@@ -161,7 +161,10 @@ function createApp<T, S extends any[], R extends Renderer<S>>({
       ) : (
         <Provider store={store}>{RootElement}</Provider>
       );
-      return render(element, ...args);
+      return render(
+        devOptions?.strict ? <StrictMode>{element}</StrictMode> : element,
+        ...args
+      );
     },
   };
 }
