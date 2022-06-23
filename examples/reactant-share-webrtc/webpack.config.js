@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
+const { DefinePlugin } = require('webpack');
 
 module.exports = {
   entry: {
@@ -48,4 +49,10 @@ module.exports = {
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist'),
   },
+  plugins: [
+    new DefinePlugin({
+      __DEV__: JSON.stringify(true),
+    }),
+  ],
+  devtool: 'source-map',
 };

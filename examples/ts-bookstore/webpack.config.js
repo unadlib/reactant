@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
+const { DefinePlugin } = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
@@ -42,5 +44,11 @@ module.exports = {
     port: 7001,
     open: true,
   },
-  plugins: [new CopyWebpackPlugin([path.join(__dirname, './src/index.html')])],
+  plugins: [
+    new DefinePlugin({
+      __DEV__: JSON.stringify(true),
+    }),
+    new CopyWebpackPlugin([path.join(__dirname, './src/index.html')]),
+  ],
+  devtool: 'source-map',
 };
