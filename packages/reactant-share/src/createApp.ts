@@ -109,9 +109,9 @@ const createSharedTabApp = async <T, S extends any[], R extends Renderer<S>>(
    */
   const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
   if (isSafari) {
-    options.share.transports ??= {};
-    options.share.transports.server = { emit() {}, listen() {} } as any;
-    options.share.port = 'server';
+    options.share.transports = {};
+    options.share.port = undefined;
+    options.share.type = 'Base';
     const app = createBaseApp(options);
     return app;
   }
