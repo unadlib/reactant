@@ -7,13 +7,14 @@ import {
   state,
   computed,
   inject,
+  ModuleRef,
 } from '..';
 
 test('base module with @state and @action', () => {
   @injectable()
   class Todos {
     @state
-    list = [];
+    list: string[] = [];
   }
 
   @injectable()
@@ -38,6 +39,14 @@ test('base module with @state and @action', () => {
       this.others.list.push(this.others.list.length);
     }
   }
+
+  @injectable()
+  class Foo {
+    constructor(public moduleRef: ModuleRef) {
+      const foolist = this.moduleRef.get(Todos).list;
+    }
+  }
+
   const ServiceIdentifiers = new Map();
   const modules = [
     Counter,
@@ -47,6 +56,7 @@ test('base module with @state and @action', () => {
     { provide: 'symbol', useValue: Symbol('test') },
     { provide: 'null', useValue: null },
     { provide: 'undefined', useValue: undefined },
+    Foo,
   ];
   const container = createContainer({
     ServiceIdentifiers,
@@ -87,6 +97,71 @@ test('base module with @state and @action', () => {
   expect(Object.values(store.getState())).toEqual([
     { count: 1, others: { list: [0] } },
     { list: [] },
+  ]);
+});
+
+test('base module with ModuleRef', () => {
+  @injectable()
+  class Todos {
+    @state
+    list: string[] = [];
+
+    @action
+    add(todo: string) {
+      this.list.push(todo);
+    }
+  }
+
+  @injectable()
+  class Foo {
+    list = this.moduleRef.get(Todos).list;
+
+    constructor(public moduleRef: ModuleRef) {
+      this.list.push('coding');
+    }
+  }
+
+  const ServiceIdentifiers = new Map();
+  const modules = [Todos, Foo];
+  const container = createContainer({
+    ServiceIdentifiers,
+    modules,
+    options: {
+      defaultScope: 'Singleton',
+    },
+  });
+  const todos = container.get(Todos);
+  expect(() => {
+    todos.add('testing');
+  }).toThrowError();
+  todos.list.push('reading');
+  const store = createStore({
+    modules,
+    container,
+    ServiceIdentifiers,
+    loadedModules: new Set(),
+    load: (...args: any[]) => {
+      //
+    },
+    pluginHooks: {
+      middleware: [],
+      beforeCombineRootReducers: [],
+      afterCombineRootReducers: [],
+      enhancer: [],
+      preloadedStateHandler: [],
+      afterCreateStore: [],
+      provider: [],
+    },
+    devOptions: {
+      autoFreeze: false,
+    },
+  });
+  expect(Object.values(store.getState())).toEqual([
+    { list: ['reading', 'coding'] },
+  ]);
+  todos.add('testing');
+  expect(Object.values(store.getState())).toEqual([
+    { list: ['reading', 'coding', 'testing'] },
   ]);
 });
 

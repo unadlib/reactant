@@ -218,8 +218,8 @@ export function createStore<T = any>({
                 get() {
                   const stagedState = getStagedState();
                   if (stagedState) return stagedState[identifier!];
-
-                  const currentState = store!.getState()[identifier!];
+                  if (!store) return initState;
+                  const currentState = store.getState()[identifier!];
                   if (enableAutoFreeze && !Object.isFrozen(currentState)) {
                     return Object.freeze(currentState);
                   }
