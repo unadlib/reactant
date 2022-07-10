@@ -322,4 +322,142 @@ describe('base API', () => {
       )
     );
   });
+
+  test('base persistence module with onRehydrated', async () => {
+    @injectable({
+      name: 'bar',
+    })
+    class Bar {
+      promiseRehydrated = new Promise((resolve) => {
+        this.storage.onRehydrated(() => {
+          resolve(null);
+        });
+      });
+
+      constructor(public storage: Storage) {
+        this.storage.setStorage(this, {
+          whitelist: ['test'],
+        });
+      }
+
+      @state
+      test = 'test';
+    }
+
+    @injectable({
+      name: 'count',
+    })
+    class Count {
+      constructor(public storage: Storage) {
+        this.storage.setStorage(this, {
+          blacklist: ['num'],
+        });
+      }
+
+      @state
+      num = 0;
+
+      @state
+      num1 = 0;
+
+      @autobind
+      @action
+      increase() {
+        this.num += 1;
+      }
+    }
+
+    @injectable()
+    class DashboardView extends ViewModule {
+      constructor(public count: Count) {
+        super();
+      }
+
+      @computed((that: DashboardView) => [that.count.num])
+      get num() {
+        return this.count.num + 1;
+      }
+
+      getData = () => ({
+        num: this.num,
+        increase: this.count.increase,
+      });
+
+      component() {
+        const data = useConnector(this.getData);
+        return (
+          <div onClick={data.increase} id="increase">
+            {data.num}
+          </div>
+        );
+      }
+    }
+
+    @injectable()
+    class AppView extends ViewModule {
+      constructor(public bar: Bar, public dashboardView: DashboardView) {
+        super();
+      }
+
+      component() {
+        return <this.dashboardView.component />;
+      }
+    }
+
+    class AsyncMemoryStorage extends MemoryStorage {
+      getItem(key: string): Promise<string> {
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            resolve(this.data[key]);
+          }, 1000);
+        });
+      }
+    }
+
+    const storage = new AsyncMemoryStorage();
+    const app = createApp({
+      modules: [
+        {
+          provide: StorageOptions,
+          useValue: {
+            storage,
+          } as IStorageOptions,
+        },
+      ],
+      main: AppView,
+      render,
+    });
+    act(() => {
+      app.bootstrap(container);
+    });
+    await new Promise((resolve) => {
+      setTimeout(resolve);
+    });
+    expect(container.querySelector('#increase')?.textContent).toBeUndefined();
+    expect(app.instance.bar.storage.rehydrated).toBe(false);
+    await app.instance.bar.promiseRehydrated;
+    expect(container.querySelector('#increase')?.textContent).toBe('1');
+    expect(app.instance.bar.storage.rehydrated).toBe(true);
+    act(() => {
+      container
+        .querySelector('#increase')!
+        .dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    });
+    expect(container.querySelector('#increase')?.textContent).toBe('2');
+    await new Promise((resolve) => {
+      setTimeout(resolve, 100);
+    });
+    expect(app.store?.getState()).toEqual({
+      bar: { test: 'test', _persist: { version: -1, rehydrated: true } },
+      count: { num: 1, num1: 0, _persist: { version: -1, rehydrated: true } },
+      _persist: { version: -1, rehydrated: true },
+    });
+    expect(storage.data).toEqual({
+      'persist:root': '{"_persist":"{\\"version\\":-1,\\"rehydrated\\":true}"}',
+      'persist:bar':
+        '{"test":"\\"test\\"","_persist":"{\\"version\\":-1,\\"rehydrated\\":true}"}',
+      'persist:count':
+        '{"num1":"0","_persist":"{\\"version\\":-1,\\"rehydrated\\":true}"}',
+    });
+  });
 });

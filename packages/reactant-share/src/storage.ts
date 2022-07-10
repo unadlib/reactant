@@ -3,8 +3,13 @@ import { injectable, inject } from 'reactant';
 import {
   Storage as BaseReactantStorage,
   StorageOptions,
+  REHYDRATE,
 } from 'reactant-storage';
-import type { IStorageOptions as IBaseStorageOptions } from 'reactant-storage';
+import type {
+  IStorageOptions as IBaseStorageOptions,
+  SetStorageOptions,
+} from 'reactant-storage';
+import { PortDetector } from './portDetector';
 
 export interface IStorageOptions extends IBaseStorageOptions {
   //
@@ -12,19 +17,27 @@ export interface IStorageOptions extends IBaseStorageOptions {
 
 @injectable()
 class ReactantStorage extends BaseReactantStorage {
-  rehydrateCallbackSet = new Set<() => void>();
+  manualPersist = this.portDetector.shared;
 
-  constructor(@inject(StorageOptions) public options: IStorageOptions) {
+  constructor(
+    protected portDetector: PortDetector,
+    @inject(StorageOptions) public options: IStorageOptions
+  ) {
     super(options);
+    this.portDetector.onServer(() => {
+      this.persistor!.persist();
+      this.onRehydrated(() => this.portDetector.syncToClients());
+    });
 
-    this.onRehydrate = () => {
-      const callbacks = Array.from(this.rehydrateCallbackSet);
-      this.rehydrateCallbackSet.clear();
-      for (const callback of callbacks) {
-        callback();
-      }
-    };
+    this.portDetector.onClient(() => {
+      this.persistor!.pause();
+    });
   }
 }
 
-export { ReactantStorage as Storage, StorageOptions };
+export {
+  ReactantStorage as Storage,
+  StorageOptions,
+  REHYDRATE,
+  SetStorageOptions,
+};

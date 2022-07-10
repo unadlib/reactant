@@ -16,6 +16,7 @@ import {
   Storage,
   PersistConfig,
   Persistor,
+  REHYDRATE,
 } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
 
@@ -51,8 +52,6 @@ class ReactantStorage extends PluginModule {
   protected blacklist: string[] = ['router', 'lastAction'];
 
   persistor?: Persistor;
-
-  onRehydrate?: () => void;
 
   rehydrated = false;
 
@@ -132,21 +131,61 @@ class ReactantStorage extends PluginModule {
     );
   }
 
+  manualPersist = false;
+
   afterCreateStore(store: Store) {
     const { replaceReducer } = store;
     // eslint-disable-next-line no-param-reassign
     store.replaceReducer = (reducer: Reducer) => {
+      this.rehydrated = false;
       replaceReducer(reducer);
-      this.persistor = persistStore(store, null, () => {
-        // TODO: check
-        this.rehydrated = true;
-        this.onRehydrate?.();
-      });
+      this.persistor = persistStore(
+        store,
+        // TODO: fix type https://github.com/rt2zz/redux-persist/pull/1247
+        {
+          manualPersist: this.manualPersist,
+        } as any,
+        () => {
+          this.rehydrated = true;
+          this._onRehydrated?.();
+        }
+      );
     };
-    this.persistor = persistStore(store, null, () => {
-      this.rehydrated = true;
-      this.onRehydrate?.();
-    });
+    this.persistor = persistStore(
+      store,
+      // TODO: fix type https://github.com/rt2zz/redux-persist/pull/1247
+      {
+        manualPersist: this.manualPersist,
+      } as any,
+      () => {
+        this.rehydrated = true;
+        this._onRehydrated?.();
+      }
+    );
+  }
+
+  rehydrateCallbackSet = new Set<() => void>();
+
+  protected _onRehydrated() {
+    if (!this.rehydrateCallbackSet.size) return;
+    const callbacks = Array.from(this.rehydrateCallbackSet);
+    this.rehydrateCallbackSet.clear();
+    for (const callback of callbacks) {
+      callback();
+    }
+  }
+
+  /**
+   *  onRehydrated
+   *
+   * callback function will be called after rehydration is finished.
+   */
+  onRehydrated(callback: () => void) {
+    if (this.rehydrated) {
+      callback();
+    } else {
+      this.rehydrateCallbackSet.add(callback);
+    }
   }
 
   provider = (props: PropsWithChildren<{}>) => {
@@ -161,4 +200,4 @@ class ReactantStorage extends PluginModule {
   };
 }
 
-export { ReactantStorage as Storage, StorageOptions };
+export { ReactantStorage as Storage, StorageOptions, REHYDRATE };

@@ -10,13 +10,13 @@ export {
   createHashHistory,
   createMemoryHistory,
 } from './router';
-export { Storage, StorageOptions } from './storage';
+export { Storage, StorageOptions, REHYDRATE } from './storage';
 export { useLock } from './lock';
 export { spawn } from './spawn';
 export { fork } from './fork';
 export { mockPairTransports } from './mockPairTransports';
 
 export type { IRouterOptions } from './router';
-export type { IStorageOptions } from './storage';
+export type { IStorageOptions, SetStorageOptions } from './storage';
 export type { Transport } from './createTransport';
 export type { ClientTransport, ServerTransport } from './interfaces';

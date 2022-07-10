@@ -4,10 +4,8 @@ import {
   actionIdentifier,
   storeKey,
   Service,
-  optional,
 } from 'reactant';
 import { LastAction } from 'reactant-last-action';
-import { Storage } from './storage';
 import {
   loadFullStateActionName,
   SharedAppOptions,
@@ -64,20 +62,8 @@ export class PortDetector {
 
   constructor(
     @inject(SharedAppOptions) public sharedAppOptions: ISharedAppOptions,
-    protected lastAction: LastAction,
-    @optional(Storage) protected storage?: Storage
+    public lastAction: LastAction
   ) {
-    if (this.storage) {
-      this.onServer(() => {
-        this.storage!.persistor!.persist();
-        this.onRehydrate(() => this.syncToClients());
-      });
-
-      this.onClient(() => {
-        this.storage!.persistor!.pause();
-      });
-    }
-
     this.onClient((transport) => {
       this.clientId = createId();
       this.syncFullState({ forceSync: false });
@@ -119,14 +105,6 @@ export class PortDetector {
       !this.sharedAppOptions.forcedSyncClient &&
       this.allowDisableSync()
     );
-  }
-
-  onRehydrate(callback: () => void) {
-    if (!this.storage || this.storage.rehydrated) {
-      callback();
-    } else {
-      this.storage.rehydrateCallbackSet.add(callback);
-    }
   }
 
   protected detectPort(port: Port) {
