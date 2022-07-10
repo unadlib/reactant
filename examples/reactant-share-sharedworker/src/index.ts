@@ -34,7 +34,10 @@ createSharedApp({
   render,
   share: {
     name: 'SharedWorkerApp',
-    type: 'Base',
+    port: 'client',
+    type: 'SharedWorker',
+    workerURL: 'worker.bundle.js',
+    forcedSyncClient: false,
   },
 }).then((app) => {
   app.bootstrap(document.getElementById('app'));

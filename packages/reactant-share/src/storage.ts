@@ -17,20 +17,21 @@ export interface IStorageOptions extends IBaseStorageOptions {
 
 @injectable()
 class ReactantStorage extends BaseReactantStorage {
-  manualPersist = this.portDetector.shared;
-
   constructor(
     protected portDetector: PortDetector,
     @inject(StorageOptions) public options: IStorageOptions
   ) {
     super(options);
-    this.portDetector.onServer(() => {
-      this.persistor!.persist();
-      this.onRehydrated(() => this.portDetector.syncToClients());
-    });
-
-    this.portDetector.onClient(() => {
-      this.persistor!.pause();
+    this.onRehydrated(() => {
+      this.portDetector.onServer(() => {
+        this.persistor!.persist();
+      });
+      this.portDetector.onClient(() => {
+        this.persistor!.pause();
+      });
+      if (this.portDetector.isServer) {
+        this.portDetector.syncToClients();
+      }
     });
   }
 }
