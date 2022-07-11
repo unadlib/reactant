@@ -131,9 +131,18 @@ class ReactantStorage extends PluginModule {
     );
   }
 
+  /**
+   * manual persist
+   */
   manualPersist = false;
 
+  /**
+   * persistence paused
+   */
+  paused = false;
+
   afterCreateStore(store: Store) {
+    this.paused = this.manualPersist;
     const { replaceReducer } = store;
     // eslint-disable-next-line no-param-reassign
     store.replaceReducer = (reducer: Reducer) => {
@@ -150,6 +159,7 @@ class ReactantStorage extends PluginModule {
           this._onRehydrated?.();
         }
       );
+      this._enhancePersistor();
     };
     this.persistor = persistStore(
       store,
@@ -162,6 +172,26 @@ class ReactantStorage extends PluginModule {
         this._onRehydrated?.();
       }
     );
+    this._enhancePersistor();
+  }
+
+  private _enhancePersistor() {
+    if (!this.persistor) {
+      throw new Error(`Persistor is not created yet.`);
+    }
+    const { pause, persist } = this.persistor;
+    this.persistor.pause = () => {
+      if (!this.paused) {
+        this.paused = true;
+        pause();
+      }
+    };
+    this.persistor.persist = () => {
+      if (this.paused) {
+        this.paused = false;
+        persist();
+      }
+    };
   }
 
   rehydrateCallbackSet = new Set<() => void>();
