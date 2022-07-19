@@ -159,7 +159,7 @@ export function createStore<T = any>({
               });
               descriptors[key] = {
                 enumerable: true,
-                configurable: false,
+                configurable: true,
                 get(this: ThisService) {
                   return this[stateKey]![key];
                 },
