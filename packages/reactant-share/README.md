@@ -8,7 +8,6 @@ A framework for building shared web applications that support multiple windows.
 
 - Shared Tab
 - Shared Worker
-- Service Worker
 - Detached window
 - iframe
 - Any other data-transport based application port, such as WebRTC
