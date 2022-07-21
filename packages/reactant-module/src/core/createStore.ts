@@ -24,6 +24,7 @@ import {
 import {
   actionIdentifier,
   containerKey,
+  defaultStateKey,
   enablePatchesKey,
   identifierKey,
   loaderKey,
@@ -174,7 +175,12 @@ export function createStore<T = any>({
               : service[stateKey]!;
             const serviceReducers = Object.keys(initState).reduce(
               (serviceReducersMapObject: ReducersMapObject, key) => {
-                const value = initState[key];
+                const value =
+                  service[defaultStateKey] &&
+                  // for custom default
+                  Object.hasOwnProperty.call(service[defaultStateKey], key)
+                    ? service[defaultStateKey]![key]
+                    : initState[key];
                 // support pure reducer
                 if (typeof value === 'function') {
                   const pureReducer: Reducer = value;

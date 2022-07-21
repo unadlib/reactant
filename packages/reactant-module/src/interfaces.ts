@@ -18,6 +18,7 @@ import {
   storeKey,
   subscriptionsKey,
   stateKey,
+  defaultStateKey,
   actionIdentifier,
   loaderKey,
   enablePatchesKey,
@@ -62,6 +63,7 @@ export type Subscriptions = (() => void)[];
 
 export interface Service<T extends Record<string, any> = Record<string, any>> {
   readonly [stateKey]?: T;
+  readonly [defaultStateKey]?: T;
   readonly [storeKey]?: Store;
   readonly [loaderKey]?: Loader;
   readonly [enablePatchesKey]?: boolean;
