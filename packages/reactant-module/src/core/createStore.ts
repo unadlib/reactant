@@ -177,7 +177,7 @@ export function createStore<T = any>({
               (serviceReducersMapObject: ReducersMapObject, key) => {
                 const value =
                   service[defaultStateKey] &&
-                  // for custom default
+                  // for custom reducer default state
                   Object.hasOwnProperty.call(service[defaultStateKey], key)
                     ? service[defaultStateKey]![key]
                     : initState[key];
