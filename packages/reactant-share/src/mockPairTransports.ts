@@ -1,12 +1,9 @@
-import { createTransport, mockPairPorts } from 'data-transport';
+import { createTransport, mockPorts } from 'data-transport';
 
 /**
  * mock pair transports
  */
 export const mockPairTransports = () => {
-  const [serverPort, clientPort] = mockPairPorts();
-  return [
-    createTransport('Base', serverPort),
-    createTransport('Base', clientPort),
-  ];
+  const { create, main } = mockPorts();
+  return [createTransport('Base', main), createTransport('Base', create())];
 };

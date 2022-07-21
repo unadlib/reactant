@@ -12,7 +12,6 @@ import {
   createSharedApp,
   spawn,
   PortDetector,
-  createTransport,
   optional,
   mockPairTransports,
 } from '..';

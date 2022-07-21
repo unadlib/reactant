@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { ReactElement, JSXElementConstructor } from 'react';
 import {
   createSharedApp,
   injectable,
