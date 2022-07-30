@@ -1,11 +1,11 @@
 /* eslint-disable lines-between-class-members */
-import { handlePlugin, PluginModule } from '../..';
+import { handlePlugin, PluginModule, Store } from '../..';
 
 test('base `handlePlugin` with invalid service', () => {
   for (const item of [
     {},
     [],
-    function() {
+    function () {
       //
     },
     () => {
@@ -37,7 +37,7 @@ test('base `handlePlugin` with valid service', () => {
         afterCombineRootReducers = () => () => null;
         enhancer = () => null;
         preloadedStateHandler = () => ({});
-        afterCreateStore = () => null;
+        afterCreateStore = (store: Store) => store;
         provider = () => null;
       })(),
       length: {

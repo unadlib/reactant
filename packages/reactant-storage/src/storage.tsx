@@ -173,6 +173,7 @@ class ReactantStorage extends PluginModule {
       }
     );
     this._enhancePersistor();
+    return store;
   }
 
   private _enhancePersistor() {

@@ -1,5 +1,5 @@
-import {
-  Store,
+import type {
+  Store as ReduxStore,
   PreloadedState,
   AnyAction,
   Middleware,
@@ -7,8 +7,8 @@ import {
   Unsubscribe,
   ReducersMapObject,
 } from 'redux';
-import { Patch } from 'immer';
-import { EnhancerOptions } from 'redux-devtools-extension';
+import type { Patch } from 'immer';
+import type { EnhancerOptions } from 'redux-devtools-extension';
 import type {
   Container,
   ModuleOptions,
@@ -64,7 +64,7 @@ export type Subscriptions = (() => void)[];
 export interface Service<T extends Record<string, any> = Record<string, any>> {
   readonly [stateKey]?: T;
   readonly [defaultStateKey]?: T;
-  readonly [storeKey]?: Store;
+  readonly [storeKey]?: ReduxStore;
   readonly [loaderKey]?: Loader;
   readonly [enablePatchesKey]?: boolean;
   readonly [subscriptionsKey]?: Subscriptions;
@@ -77,7 +77,7 @@ export type ThisService = Service & { [P: string]: any };
 
 export type ReactModuleOptions<T = any> = ModuleOptions<T>;
 
-export type ReactantStore = Store<any, AnyAction> & {
+export type ReactantStore = ReduxStore<any, AnyAction> & {
   reducers?: ReducersMapObject;
 };
 
@@ -232,3 +232,4 @@ export type ImportClass<T, K extends keyof T> = T extends Record<K, infer S>
     ? R
     : never
   : never;
+export type Store = ReduxStore;

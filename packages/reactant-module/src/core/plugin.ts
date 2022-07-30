@@ -34,7 +34,7 @@ abstract class PluginModule implements Service {
   /**
    * As hook after createStore
    */
-  afterCreateStore?(store: Store): void;
+  afterCreateStore?(store: Store): Store;
 
   /**
    * As hook before combine rootReducers
