@@ -1,6 +1,8 @@
 /* eslint-disable no-console */
+import { useContext } from 'react';
 import { useSelector, useStore } from 'react-redux';
-import { areShallowEqualWithObject } from 'reactant-module';
+import { areShallowEqualWithObject, Container } from 'reactant-module';
+import { ContainerContext } from '../createApp';
 import { ShallowEqual } from '../interfaces';
 
 /**
@@ -44,12 +46,13 @@ import { ShallowEqual } from '../interfaces';
  * ```
  */
 export function useConnector<T>(
-  selector: () => T,
+  selector: (container: Container) => T,
   shallowEqual?: ShallowEqual
 ) {
   try {
+    const container = useContext(ContainerContext);
     return useSelector(
-      selector,
+      () => selector(container!),
       shallowEqual || areShallowEqualWithObject
     ) as T;
   } catch (e) {

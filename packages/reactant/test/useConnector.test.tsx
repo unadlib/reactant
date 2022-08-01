@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 import React, { FC } from 'react';
 import { unmountComponentAtNode, render } from 'reactant-web';
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -200,5 +201,40 @@ describe('useConnector', () => {
         app.bootstrap(container);
       });
     }).toThrow();
+  });
+
+  test('selector with container getter', () => {
+    const renderFn = jest.fn();
+
+    @injectable()
+    class FooView extends ViewModule {
+      @state
+      key: string | null = null;
+
+      @action
+      setValue(value: string) {
+        this.key = value;
+      }
+
+      component() {
+        const value = useConnector((container) => container.get(FooView).key);
+        renderFn(value);
+        return null;
+      }
+    }
+
+    const app = createApp({
+      modules: [],
+      main: FooView,
+      render,
+    });
+    expect(renderFn).toBeCalledTimes(0);
+    act(() => {
+      app.bootstrap(container);
+    });
+    expect(renderFn).toBeCalledTimes(1);
+    app.instance.setValue('str');
+    expect(renderFn).toBeCalledTimes(2);
+    expect(renderFn.mock.calls).toEqual([[null], ['str']]);
   });
 });
