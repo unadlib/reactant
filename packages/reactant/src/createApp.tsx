@@ -10,8 +10,11 @@ import {
   Loader,
   PluginHooks,
   ModulesMap,
+  Container,
 } from 'reactant-module';
 import { Config, App, Renderer } from './interfaces';
+
+export const ContainerContext = React.createContext<Container | null>(null);
 
 /**
  * ## Description
@@ -157,9 +160,13 @@ function createApp<T, S extends any[], R extends Renderer<S>>({
           InstanceElement
         );
       const element = withoutReducers ? (
-        RootElement
+        <ContainerContext.Provider value={container}>
+          {RootElement}
+        </ContainerContext.Provider>
       ) : (
-        <Provider store={store}>{RootElement}</Provider>
+        <ContainerContext.Provider value={container}>
+          <Provider store={store}>{RootElement}</Provider>
+        </ContainerContext.Provider>
       );
       return render(
         devOptions?.strict ? <StrictMode>{element}</StrictMode> : element,
