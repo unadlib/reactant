@@ -31,7 +31,7 @@
 
 #### Defined in
 
-[packages/reactant-module/src/interfaces.ts:74](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/interfaces.ts#L74)
+[packages/reactant-module/src/interfaces.ts:92](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-module/src/interfaces.ts#L92)
 
 ___
 
@@ -41,7 +41,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-module/src/interfaces.ts:73](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/interfaces.ts#L73)
+[packages/reactant-module/src/interfaces.ts:91](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-module/src/interfaces.ts#L91)
 
 ___
 
@@ -51,7 +51,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-module/src/interfaces.ts:72](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/interfaces.ts#L72)
+[packages/reactant-module/src/interfaces.ts:90](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-module/src/interfaces.ts#L90)
 
 ___
 
@@ -61,7 +61,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-module/src/interfaces.ts:69](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/interfaces.ts#L69)
+[packages/reactant-module/src/interfaces.ts:87](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-module/src/interfaces.ts#L87)
 
 ___
 
@@ -71,7 +71,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-module/src/interfaces.ts:71](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/interfaces.ts#L71)
+[packages/reactant-module/src/interfaces.ts:89](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-module/src/interfaces.ts#L89)
 
 ___
 
@@ -81,4 +81,4 @@ ___
 
 #### Defined in
 
-[packages/reactant-module/src/interfaces.ts:70](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/interfaces.ts#L70)
+[packages/reactant-module/src/interfaces.ts:88](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-module/src/interfaces.ts#L88)

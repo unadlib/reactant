@@ -22,7 +22,7 @@
 
 #### Defined in
 
-[packages/reactant-di/src/interfaces.ts:47](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-di/src/interfaces.ts#L47)
+[packages/reactant-di/src/interfaces.ts:47](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-di/src/interfaces.ts#L47)
 
 ___
 
@@ -32,7 +32,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-di/src/interfaces.ts:45](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-di/src/interfaces.ts#L45)
+[packages/reactant-di/src/interfaces.ts:45](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-di/src/interfaces.ts#L45)
 
 ___
 
@@ -42,4 +42,4 @@ ___
 
 #### Defined in
 
-[packages/reactant-di/src/interfaces.ts:46](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-di/src/interfaces.ts#L46)
+[packages/reactant-di/src/interfaces.ts:46](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-di/src/interfaces.ts#L46)

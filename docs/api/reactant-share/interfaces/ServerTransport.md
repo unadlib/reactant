@@ -27,7 +27,7 @@
 
 #### Defined in
 
-[packages/reactant-share/src/interfaces.ts:115](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-share/src/interfaces.ts#L115)
+[packages/reactant-share/src/interfaces.ts:126](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-share/src/interfaces.ts#L126)
 
 ___
 
@@ -50,7 +50,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-share/src/interfaces.ts:110](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-share/src/interfaces.ts#L110)
+[packages/reactant-share/src/interfaces.ts:121](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-share/src/interfaces.ts#L121)
 
 ___
 
@@ -70,7 +70,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-share/src/interfaces.ts:116](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-share/src/interfaces.ts#L116)
+[packages/reactant-share/src/interfaces.ts:127](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-share/src/interfaces.ts#L127)
 
 ___
 
@@ -90,4 +90,4 @@ ___
 
 #### Defined in
 
-[packages/reactant-share/src/interfaces.ts:117](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-share/src/interfaces.ts#L117)
+[packages/reactant-share/src/interfaces.ts:128](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-share/src/interfaces.ts#L128)

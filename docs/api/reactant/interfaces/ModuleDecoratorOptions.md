@@ -27,7 +27,7 @@ IModuleDecoratorOptions.deps
 
 #### Defined in
 
-[packages/reactant-di/src/interfaces.ts:90](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-di/src/interfaces.ts#L90)
+[packages/reactant-di/src/interfaces.ts:90](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-di/src/interfaces.ts#L90)
 
 ___
 
@@ -39,4 +39,4 @@ string identifier of the current module, which is used for module word maps inde
 
 #### Defined in
 
-[packages/reactant-module/src/interfaces.ts:167](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/interfaces.ts#L167)
+[packages/reactant-module/src/interfaces.ts:185](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-module/src/interfaces.ts#L185)

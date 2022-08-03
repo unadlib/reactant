@@ -1,5 +1,11 @@
 # Class: PluginModule
 
+## Hierarchy
+
+- **`PluginModule`**
+
+  ↳ [`LastAction`](LastAction.md)
+
 ## Implements
 
 - [`Service`](../interfaces/Service.md)
@@ -42,7 +48,7 @@
 
 #### Defined in
 
-[packages/reactant-module/src/core/plugin.ts:15](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/core/plugin.ts#L15)
+[packages/reactant-module/src/core/plugin.ts:15](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-module/src/core/plugin.ts#L15)
 
 ___
 
@@ -54,7 +60,7 @@ inject enhancer for Redux
 
 #### Defined in
 
-[packages/reactant-module/src/core/plugin.ts:26](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/core/plugin.ts#L26)
+[packages/reactant-module/src/core/plugin.ts:32](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-module/src/core/plugin.ts#L32)
 
 ___
 
@@ -66,19 +72,19 @@ inject middleware for Redux
 
 #### Defined in
 
-[packages/reactant-module/src/core/plugin.ts:23](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/core/plugin.ts#L23)
+[packages/reactant-module/src/core/plugin.ts:27](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-module/src/core/plugin.ts#L27)
 
 ___
 
 ### provider
 
-• `Optional` **provider**: `FunctionComponent`<{}\>
+• `Optional` **provider**: `FunctionComponent`<`any`\>
 
 Define a React Provider for the current PluginModule
 
 #### Defined in
 
-[packages/reactant-module/src/core/plugin.ts:40](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/core/plugin.ts#L40)
+[packages/reactant-module/src/core/plugin.ts:52](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-module/src/core/plugin.ts#L52)
 
 ## Methods
 
@@ -100,13 +106,13 @@ As hook after combine rootReducers
 
 #### Defined in
 
-[packages/reactant-module/src/core/plugin.ts:37](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/core/plugin.ts#L37)
+[packages/reactant-module/src/core/plugin.ts:47](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-module/src/core/plugin.ts#L47)
 
 ___
 
 ### afterCreateStore
 
-▸ `Optional` **afterCreateStore**(`store`): `void`
+▸ `Optional` **afterCreateStore**(`store`): `Store`<`any`, `AnyAction`\>
 
 As hook after createStore
 
@@ -118,11 +124,11 @@ As hook after createStore
 
 #### Returns
 
-`void`
+`Store`<`any`, `AnyAction`\>
 
 #### Defined in
 
-[packages/reactant-module/src/core/plugin.ts:29](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/core/plugin.ts#L29)
+[packages/reactant-module/src/core/plugin.ts:37](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-module/src/core/plugin.ts#L37)
 
 ___
 
@@ -144,7 +150,7 @@ As hook before combine rootReducers
 
 #### Defined in
 
-[packages/reactant-module/src/core/plugin.ts:34](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/core/plugin.ts#L34)
+[packages/reactant-module/src/core/plugin.ts:42](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-module/src/core/plugin.ts#L42)
 
 ___
 
@@ -166,4 +172,4 @@ preloaded state handler for Redux
 
 #### Defined in
 
-[packages/reactant-module/src/core/plugin.ts:18](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/core/plugin.ts#L18)
+[packages/reactant-module/src/core/plugin.ts:20](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-module/src/core/plugin.ts#L20)

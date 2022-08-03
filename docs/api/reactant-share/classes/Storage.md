@@ -17,20 +17,24 @@
 - [[storeKey]](Storage.md#[storekey])
 - [blacklist](Storage.md#blacklist)
 - [enhancer](Storage.md#enhancer)
+- [manualPersist](Storage.md#manualpersist)
 - [middleware](Storage.md#middleware)
-- [onRehydrate](Storage.md#onrehydrate)
 - [options](Storage.md#options)
+- [paused](Storage.md#paused)
 - [persistConfig](Storage.md#persistconfig)
 - [persistRootConfig](Storage.md#persistrootconfig)
 - [persistor](Storage.md#persistor)
+- [portDetector](Storage.md#portdetector)
 - [rehydrateCallbackSet](Storage.md#rehydratecallbackset)
 - [rehydrated](Storage.md#rehydrated)
 
 ### Methods
 
+- [\_onRehydrated](Storage.md#_onrehydrated)
 - [afterCombineRootReducers](Storage.md#aftercombinerootreducers)
 - [afterCreateStore](Storage.md#aftercreatestore)
 - [beforeCombineRootReducers](Storage.md#beforecombinerootreducers)
+- [onRehydrated](Storage.md#onrehydrated)
 - [preloadedStateHandler](Storage.md#preloadedstatehandler)
 - [provider](Storage.md#provider)
 - [setStorage](Storage.md#setstorage)
@@ -39,12 +43,13 @@
 
 ### constructor
 
-• **new Storage**(`options`)
+• **new Storage**(`portDetector`, `options`)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
+| `portDetector` | [`PortDetector`](PortDetector.md) |
 | `options` | [`IStorageOptions`](../interfaces/IStorageOptions.md) |
 
 #### Overrides
@@ -53,7 +58,7 @@ BaseReactantStorage.constructor
 
 #### Defined in
 
-[packages/reactant-share/src/storage.ts:17](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-share/src/storage.ts#L17)
+[packages/reactant-share/src/storage.ts:20](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-share/src/storage.ts#L20)
 
 ## Properties
 
@@ -63,11 +68,11 @@ BaseReactantStorage.constructor
 
 #### Inherited from
 
-BaseReactantStorage.\_\_@storeKey@907
+BaseReactantStorage.\_\_@storeKey@969
 
 #### Defined in
 
-[packages/reactant-module/src/core/plugin.ts:15](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/core/plugin.ts#L15)
+[packages/reactant-module/src/core/plugin.ts:15](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-module/src/core/plugin.ts#L15)
 
 ___
 
@@ -81,7 +86,7 @@ BaseReactantStorage.blacklist
 
 #### Defined in
 
-[packages/reactant-storage/src/storage.tsx:51](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-storage/src/storage.tsx#L51)
+[packages/reactant-storage/src/storage.tsx:52](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-storage/src/storage.tsx#L52)
 
 ___
 
@@ -97,7 +102,23 @@ BaseReactantStorage.enhancer
 
 #### Defined in
 
-[packages/reactant-module/src/core/plugin.ts:26](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/core/plugin.ts#L26)
+[packages/reactant-module/src/core/plugin.ts:32](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-module/src/core/plugin.ts#L32)
+
+___
+
+### manualPersist
+
+• **manualPersist**: `boolean` = `false`
+
+manual persist
+
+#### Inherited from
+
+BaseReactantStorage.manualPersist
+
+#### Defined in
+
+[packages/reactant-storage/src/storage.tsx:137](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-storage/src/storage.tsx#L137)
 
 ___
 
@@ -113,29 +134,7 @@ BaseReactantStorage.middleware
 
 #### Defined in
 
-[packages/reactant-module/src/core/plugin.ts:23](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/core/plugin.ts#L23)
-
-___
-
-### onRehydrate
-
-• `Optional` **onRehydrate**: () => `void`
-
-#### Type declaration
-
-▸ (): `void`
-
-##### Returns
-
-`void`
-
-#### Inherited from
-
-BaseReactantStorage.onRehydrate
-
-#### Defined in
-
-[packages/reactant-storage/src/storage.tsx:55](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-storage/src/storage.tsx#L55)
+[packages/reactant-module/src/core/plugin.ts:27](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-module/src/core/plugin.ts#L27)
 
 ___
 
@@ -149,6 +148,22 @@ BaseReactantStorage.options
 
 ___
 
+### paused
+
+• **paused**: `boolean` = `false`
+
+persistence paused
+
+#### Inherited from
+
+BaseReactantStorage.paused
+
+#### Defined in
+
+[packages/reactant-storage/src/storage.tsx:142](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-storage/src/storage.tsx#L142)
+
+___
+
 ### persistConfig
 
 • `Protected` **persistConfig**: `Record`<`string`, `PersistConfig`<`any`, `any`, `any`, `any`\>\> = `{}`
@@ -159,7 +174,7 @@ BaseReactantStorage.persistConfig
 
 #### Defined in
 
-[packages/reactant-storage/src/storage.tsx:63](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-storage/src/storage.tsx#L63)
+[packages/reactant-storage/src/storage.tsx:62](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-storage/src/storage.tsx#L62)
 
 ___
 
@@ -180,7 +195,7 @@ BaseReactantStorage.persistRootConfig
 
 #### Defined in
 
-[packages/reactant-storage/src/storage.tsx:65](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-storage/src/storage.tsx#L65)
+[packages/reactant-storage/src/storage.tsx:64](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-storage/src/storage.tsx#L64)
 
 ___
 
@@ -194,7 +209,13 @@ BaseReactantStorage.persistor
 
 #### Defined in
 
-[packages/reactant-storage/src/storage.tsx:53](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-storage/src/storage.tsx#L53)
+[packages/reactant-storage/src/storage.tsx:54](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-storage/src/storage.tsx#L54)
+
+___
+
+### portDetector
+
+• `Protected` **portDetector**: [`PortDetector`](PortDetector.md)
 
 ___
 
@@ -202,9 +223,13 @@ ___
 
 • **rehydrateCallbackSet**: `Set`<() => `void`\>
 
+#### Inherited from
+
+BaseReactantStorage.rehydrateCallbackSet
+
 #### Defined in
 
-[packages/reactant-share/src/storage.ts:15](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-share/src/storage.ts#L15)
+[packages/reactant-storage/src/storage.tsx:198](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-storage/src/storage.tsx#L198)
 
 ___
 
@@ -218,9 +243,27 @@ BaseReactantStorage.rehydrated
 
 #### Defined in
 
-[packages/reactant-storage/src/storage.tsx:57](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-storage/src/storage.tsx#L57)
+[packages/reactant-storage/src/storage.tsx:56](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-storage/src/storage.tsx#L56)
 
 ## Methods
+
+### \_onRehydrated
+
+▸ `Protected` **_onRehydrated**(): `void`
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+BaseReactantStorage.\_onRehydrated
+
+#### Defined in
+
+[packages/reactant-storage/src/storage.tsx:200](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-storage/src/storage.tsx#L200)
+
+___
 
 ### afterCombineRootReducers
 
@@ -242,13 +285,13 @@ BaseReactantStorage.afterCombineRootReducers
 
 #### Defined in
 
-[packages/reactant-storage/src/storage.tsx:125](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-storage/src/storage.tsx#L125)
+[packages/reactant-storage/src/storage.tsx:124](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-storage/src/storage.tsx#L124)
 
 ___
 
 ### afterCreateStore
 
-▸ **afterCreateStore**(`store`): `void`
+▸ **afterCreateStore**(`store`): `Store`<`any`, `AnyAction`\>
 
 #### Parameters
 
@@ -258,7 +301,7 @@ ___
 
 #### Returns
 
-`void`
+`Store`<`any`, `AnyAction`\>
 
 #### Inherited from
 
@@ -266,7 +309,7 @@ BaseReactantStorage.afterCreateStore
 
 #### Defined in
 
-[packages/reactant-storage/src/storage.tsx:135](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-storage/src/storage.tsx#L135)
+[packages/reactant-storage/src/storage.tsx:144](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-storage/src/storage.tsx#L144)
 
 ___
 
@@ -290,7 +333,35 @@ BaseReactantStorage.beforeCombineRootReducers
 
 #### Defined in
 
-[packages/reactant-storage/src/storage.tsx:96](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-storage/src/storage.tsx#L96)
+[packages/reactant-storage/src/storage.tsx:95](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-storage/src/storage.tsx#L95)
+
+___
+
+### onRehydrated
+
+▸ **onRehydrated**(`callback`): `void`
+
+ onRehydrated
+
+callback function will be called after rehydration is finished.
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `callback` | () => `void` |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+BaseReactantStorage.onRehydrated
+
+#### Defined in
+
+[packages/reactant-storage/src/storage.tsx:214](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-storage/src/storage.tsx#L214)
 
 ___
 
@@ -316,7 +387,7 @@ BaseReactantStorage.preloadedStateHandler
 
 #### Defined in
 
-[packages/reactant-module/src/core/plugin.ts:18](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/core/plugin.ts#L18)
+[packages/reactant-module/src/core/plugin.ts:20](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-module/src/core/plugin.ts#L20)
 
 ___
 
@@ -340,7 +411,7 @@ BaseReactantStorage.provider
 
 #### Defined in
 
-[packages/reactant-storage/src/storage.tsx:152](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-storage/src/storage.tsx#L152)
+[packages/reactant-storage/src/storage.tsx:222](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-storage/src/storage.tsx#L222)
 
 ___
 
@@ -359,7 +430,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `target` | `T` |
-| `options` | `SetStorageOptions`<`T`\> |
+| `options` | [`SetStorageOptions`](../modules.md#setstorageoptions)<`T`\> |
 
 #### Returns
 
@@ -371,4 +442,4 @@ BaseReactantStorage.setStorage
 
 #### Defined in
 
-[packages/reactant-storage/src/storage.tsx:72](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-storage/src/storage.tsx#L72)
+[packages/reactant-storage/src/storage.tsx:71](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-storage/src/storage.tsx#L71)

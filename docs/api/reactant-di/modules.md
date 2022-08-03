@@ -50,7 +50,7 @@
 
 #### Defined in
 
-[packages/reactant-di/src/interfaces.ts:13](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-di/src/interfaces.ts#L13)
+[packages/reactant-di/src/interfaces.ts:13](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-di/src/interfaces.ts#L13)
 
 ___
 
@@ -60,7 +60,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-di/src/interfaces.ts:9](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-di/src/interfaces.ts#L9)
+[packages/reactant-di/src/interfaces.ts:9](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-di/src/interfaces.ts#L9)
 
 ___
 
@@ -70,7 +70,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-di/src/interfaces.ts:35](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-di/src/interfaces.ts#L35)
+[packages/reactant-di/src/interfaces.ts:35](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-di/src/interfaces.ts#L35)
 
 ___
 
@@ -80,7 +80,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-di/src/interfaces.ts:76](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-di/src/interfaces.ts#L76)
+[packages/reactant-di/src/interfaces.ts:76](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-di/src/interfaces.ts#L76)
 
 ___
 
@@ -90,7 +90,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-di/src/interfaces.ts:24](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-di/src/interfaces.ts#L24)
+[packages/reactant-di/src/interfaces.ts:24](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-di/src/interfaces.ts#L24)
 
 ___
 
@@ -106,7 +106,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-di/src/interfaces.ts:61](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-di/src/interfaces.ts#L61)
+[packages/reactant-di/src/interfaces.ts:61](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-di/src/interfaces.ts#L61)
 
 ___
 
@@ -122,7 +122,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-di/src/interfaces.ts:14](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-di/src/interfaces.ts#L14)
+[packages/reactant-di/src/interfaces.ts:14](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-di/src/interfaces.ts#L14)
 
 ___
 
@@ -138,7 +138,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-di/src/interfaces.ts:15](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-di/src/interfaces.ts#L15)
+[packages/reactant-di/src/interfaces.ts:15](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-di/src/interfaces.ts#L15)
 
 ___
 
@@ -154,7 +154,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-di/src/interfaces.ts:19](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-di/src/interfaces.ts#L19)
+[packages/reactant-di/src/interfaces.ts:19](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-di/src/interfaces.ts#L19)
 
 ## Functions
 
@@ -175,7 +175,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-di/src/createContainer.ts:96](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-di/src/createContainer.ts#L96)
+[packages/reactant-di/src/createContainer.ts:96](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-di/src/createContainer.ts#L96)
 
 ___
 
@@ -195,7 +195,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-di/src/createContainer.ts:154](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-di/src/createContainer.ts#L154)
+[packages/reactant-di/src/createContainer.ts:154](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-di/src/createContainer.ts#L154)
 
 ___
 
@@ -215,7 +215,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-di/src/forwardRef.ts:4](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-di/src/forwardRef.ts#L4)
+[packages/reactant-di/src/forwardRef.ts:4](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-di/src/forwardRef.ts#L4)
 
 ___
 
@@ -297,7 +297,7 @@ expect(bar.foo?.test).toBe('test');
 
 #### Defined in
 
-[packages/reactant-di/src/decorators/lazy.ts:41](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-di/src/decorators/lazy.ts#L41)
+[packages/reactant-di/src/decorators/lazy.ts:41](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-di/src/decorators/lazy.ts#L41)
 
 ___
 
@@ -370,7 +370,7 @@ expect(fooBar.instance.foo.getValue()).toBe('foo');
 
 #### Defined in
 
-[packages/reactant-di/src/decorators/inject.ts:51](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-di/src/decorators/inject.ts#L51)
+[packages/reactant-di/src/decorators/inject.ts:51](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-di/src/decorators/inject.ts#L51)
 
 ___
 
@@ -475,7 +475,7 @@ expect(fooBar.instance.foo.getValue()).toBe('foo');
 
 #### Defined in
 
-[packages/reactant-di/src/decorators/injectable.ts:84](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-di/src/decorators/injectable.ts#L84)
+[packages/reactant-di/src/decorators/injectable.ts:84](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-di/src/decorators/injectable.ts#L84)
 
 ___
 
@@ -509,7 +509,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-di/src/decorators/multiInject.ts:4](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-di/src/decorators/multiInject.ts#L4)
+[packages/reactant-di/src/decorators/multiInject.ts:4](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-di/src/decorators/multiInject.ts#L4)
 
 ___
 
@@ -543,7 +543,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-di/src/decorators/multiOptional.ts:7](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-di/src/decorators/multiOptional.ts#L7)
+[packages/reactant-di/src/decorators/multiOptional.ts:7](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-di/src/decorators/multiOptional.ts#L7)
 
 ___
 
@@ -616,4 +616,4 @@ expect(fooBar.fooBar.bar).toBeUndefined();
 
 #### Defined in
 
-[packages/reactant-di/src/decorators/optional.ts:47](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-di/src/decorators/optional.ts#L47)
+[packages/reactant-di/src/decorators/optional.ts:47](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-di/src/decorators/optional.ts#L47)

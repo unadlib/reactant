@@ -15,7 +15,7 @@
 
 #### Defined in
 
-[packages/reactant-router/src/router.tsx:24](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-router/src/router.tsx#L24)
+[packages/reactant-router/src/router.tsx:24](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-router/src/router.tsx#L24)
 
 ___
 
@@ -25,4 +25,4 @@ ___
 
 #### Defined in
 
-[packages/reactant-router/src/router.tsx:25](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-router/src/router.tsx#L25)
+[packages/reactant-router/src/router.tsx:25](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-router/src/router.tsx#L25)

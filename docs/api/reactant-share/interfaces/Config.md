@@ -1,10 +1,12 @@
-# Interface: Config<T\>
+# Interface: Config<T, S, R\>
 
 ## Type parameters
 
-| Name |
-| :------ |
-| `T` |
+| Name | Type |
+| :------ | :------ |
+| `T` | `T` |
+| `S` | extends `any`[] |
+| `R` | extends [`Renderer`](../modules.md#renderer)<`S`\> |
 
 ## Table of contents
 
@@ -30,7 +32,7 @@ Dependent injection container options.
 
 #### Defined in
 
-[packages/reactant/src/interfaces.ts:29](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant/src/interfaces.ts#L29)
+[packages/reactant/src/interfaces.ts:31](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant/src/interfaces.ts#L31)
 
 ___
 
@@ -42,7 +44,7 @@ Reactant's development setting options.
 
 #### Defined in
 
-[packages/reactant/src/interfaces.ts:37](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant/src/interfaces.ts#L37)
+[packages/reactant/src/interfaces.ts:39](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant/src/interfaces.ts#L39)
 
 ___
 
@@ -54,7 +56,7 @@ As the main start-up module.
 
 #### Defined in
 
-[packages/reactant/src/interfaces.ts:14](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant/src/interfaces.ts#L14)
+[packages/reactant/src/interfaces.ts:19](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant/src/interfaces.ts#L19)
 
 ___
 
@@ -66,7 +68,7 @@ Importing the injected dependency modules.
 
 #### Defined in
 
-[packages/reactant/src/interfaces.ts:25](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant/src/interfaces.ts#L25)
+[packages/reactant/src/interfaces.ts:27](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant/src/interfaces.ts#L27)
 
 ___
 
@@ -78,13 +80,13 @@ Preloaded state of shared state for Redux.
 
 #### Defined in
 
-[packages/reactant/src/interfaces.ts:33](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant/src/interfaces.ts#L33)
+[packages/reactant/src/interfaces.ts:35](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant/src/interfaces.ts#L35)
 
 ## Methods
 
 ### render
 
-▸ **render**(`element`, ...`args`): `void` \| `Element` \| `Element`
+▸ **render**(`element`, ...`args`): `ReturnType`<`R`\>
 
 As a rendering function for any React renderer.
 
@@ -93,12 +95,12 @@ As a rendering function for any React renderer.
 | Name | Type |
 | :------ | :------ |
 | `element` | `Element` |
-| `...args` | `any`[] |
+| `...args` | `S` |
 
 #### Returns
 
-`void` \| `Element` \| `Element`
+`ReturnType`<`R`\>
 
 #### Defined in
 
-[packages/reactant/src/interfaces.ts:18](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant/src/interfaces.ts#L18)
+[packages/reactant/src/interfaces.ts:23](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant/src/interfaces.ts#L23)

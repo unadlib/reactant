@@ -35,7 +35,7 @@ AppView for SSR entry point
 
 #### Defined in
 
-[packages/reactant-module/src/core/view.ts:12](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/core/view.ts#L12)
+[packages/reactant-module/src/core/view.ts:12](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-module/src/core/view.ts#L12)
 
 ## Properties
 
@@ -49,7 +49,7 @@ AppView for SSR entry point
 
 #### Defined in
 
-[packages/reactant-module/src/core/view.ts:8](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/core/view.ts#L8)
+[packages/reactant-module/src/core/view.ts:8](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-module/src/core/view.ts#L8)
 
 ___
 
@@ -63,7 +63,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-module/src/core/view.ts:10](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/core/view.ts#L10)
+[packages/reactant-module/src/core/view.ts:10](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-module/src/core/view.ts#L10)
 
 ## Methods
 
@@ -89,4 +89,4 @@ React function component defined by the current ViewModule
 
 #### Defined in
 
-[packages/reactant-ssr/src/appView.tsx:9](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-ssr/src/appView.tsx#L9)
+[packages/reactant-ssr/src/appView.tsx:9](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-ssr/src/appView.tsx#L9)

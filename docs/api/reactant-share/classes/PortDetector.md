@@ -13,23 +13,29 @@ It provides port detection and client/server port switching functions.
 ### Properties
 
 - [clientCallbacks](PortDetector.md#clientcallbacks)
+- [clientId](PortDetector.md#clientid)
+- [lastAction](PortDetector.md#lastaction)
 - [lastHooks](PortDetector.md#lasthooks)
 - [portApp](PortDetector.md#portapp)
 - [previousPort](PortDetector.md#previousport)
 - [serverCallbacks](PortDetector.md#servercallbacks)
+- [sharedAppOptions](PortDetector.md#sharedappoptions)
 - [syncFullStatePromise](PortDetector.md#syncfullstatepromise)
+- [transport](PortDetector.md#transport)
 
 ### Accessors
 
+- [disableSyncClient](PortDetector.md#disablesyncclient)
 - [isClient](PortDetector.md#isclient)
 - [isServer](PortDetector.md#isserver)
+- [shared](PortDetector.md#shared)
 - [transports](PortDetector.md#transports)
 
 ### Methods
 
+- [allowDisableSync](PortDetector.md#allowdisablesync)
 - [detectPort](PortDetector.md#detectport)
 - [onClient](PortDetector.md#onclient)
-- [onRehydrate](PortDetector.md#onrehydrate)
 - [onServer](PortDetector.md#onserver)
 - [setPort](PortDetector.md#setport)
 - [syncFullState](PortDetector.md#syncfullstate)
@@ -39,49 +45,66 @@ It provides port detection and client/server port switching functions.
 
 ### constructor
 
-• **new PortDetector**(`options`, `lastAction`, `storage?`)
+• **new PortDetector**(`sharedAppOptions`, `lastAction`)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `options` | `IPortDetectorOptions` |
-| `lastAction` | `ReactantLastAction` |
-| `storage?` | [`Storage`](Storage.md) |
+| `sharedAppOptions` | `ISharedAppOptions` |
+| `lastAction` | [`LastAction`](LastAction.md) |
 
 #### Defined in
 
-[packages/reactant-share/src/portDetector.ts:51](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-share/src/portDetector.ts#L51)
+[packages/reactant-share/src/portDetector.ts:63](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-share/src/portDetector.ts#L63)
 
 ## Properties
 
 ### clientCallbacks
 
-• `Private` **clientCallbacks**: `Set`<`CallbackWithHook`<`Transport`<[`ServerTransport`](../interfaces/ServerTransport.md), [`ClientTransport`](../interfaces/ClientTransport.md)\>\>\>
+• `Protected` **clientCallbacks**: `Set`<`CallbackWithHook`<`Transport`<[`ServerTransport`](../interfaces/ServerTransport.md), [`ClientTransport`](../interfaces/ClientTransport.md)\>\>\>
 
 #### Defined in
 
-[packages/reactant-share/src/portDetector.ts:41](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-share/src/portDetector.ts#L41)
+[packages/reactant-share/src/portDetector.ts:40](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-share/src/portDetector.ts#L40)
+
+___
+
+### clientId
+
+• **clientId**: ``null`` \| `string` = `null`
+
+client id
+
+#### Defined in
+
+[packages/reactant-share/src/portDetector.ts:56](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-share/src/portDetector.ts#L56)
+
+___
+
+### lastAction
+
+• **lastAction**: [`LastAction`](LastAction.md)
 
 ___
 
 ### lastHooks
 
-• `Private` `Optional` **lastHooks**: `Set`<`void` \| () => `void`\>
+• `Protected` `Optional` **lastHooks**: `Set`<`void` \| () => `void`\>
 
 #### Defined in
 
-[packages/reactant-share/src/portDetector.ts:35](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-share/src/portDetector.ts#L35)
+[packages/reactant-share/src/portDetector.ts:34](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-share/src/portDetector.ts#L34)
 
 ___
 
 ### portApp
 
-• `Private` `Optional` **portApp**: `Partial`<`Record`<`Port`, [`App`](../interfaces/App.md)<`any`\>\>\>
+• `Protected` `Optional` **portApp**: `Partial`<`Record`<`Port`, [`App`](../interfaces/App.md)<`any`, `any`, `any`\>\>\>
 
 #### Defined in
 
-[packages/reactant-share/src/portDetector.ts:33](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-share/src/portDetector.ts#L33)
+[packages/reactant-share/src/portDetector.ts:32](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-share/src/portDetector.ts#L32)
 
 ___
 
@@ -89,31 +112,63 @@ ___
 
 • `Optional` **previousPort**: `Port`
 
+previous port
+
 #### Defined in
 
-[packages/reactant-share/src/portDetector.ts:49](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-share/src/portDetector.ts#L49)
+[packages/reactant-share/src/portDetector.ts:51](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-share/src/portDetector.ts#L51)
 
 ___
 
 ### serverCallbacks
 
-• `Private` **serverCallbacks**: `Set`<`CallbackWithHook`<`Transport`<[`ServerTransport`](../interfaces/ServerTransport.md), [`ClientTransport`](../interfaces/ClientTransport.md)\>\>\>
+• `Protected` **serverCallbacks**: `Set`<`CallbackWithHook`<`Transport`<[`ServerTransport`](../interfaces/ServerTransport.md), [`ClientTransport`](../interfaces/ClientTransport.md)\>\>\>
 
 #### Defined in
 
-[packages/reactant-share/src/portDetector.ts:37](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-share/src/portDetector.ts#L37)
+[packages/reactant-share/src/portDetector.ts:36](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-share/src/portDetector.ts#L36)
+
+___
+
+### sharedAppOptions
+
+• **sharedAppOptions**: `ISharedAppOptions`
 
 ___
 
 ### syncFullStatePromise
 
-• `Private` `Optional` **syncFullStatePromise**: `Promise`<`undefined` \| ``null`` \| `Record`<`string`, `any`\>\>
+• `Optional` **syncFullStatePromise**: `Promise`<`undefined` \| ``null`` \| `Record`<`string`, `any`\>\>
 
 #### Defined in
 
-[packages/reactant-share/src/portDetector.ts:45](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-share/src/portDetector.ts#L45)
+[packages/reactant-share/src/portDetector.ts:44](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-share/src/portDetector.ts#L44)
+
+___
+
+### transport
+
+• `Optional` **transport**: `Transport`<`any`, `any`\>
+
+#### Defined in
+
+[packages/reactant-share/src/portDetector.ts:188](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-share/src/portDetector.ts#L188)
 
 ## Accessors
+
+### disableSyncClient
+
+• `get` **disableSyncClient**(): `boolean`
+
+#### Returns
+
+`boolean`
+
+#### Defined in
+
+[packages/reactant-share/src/portDetector.ts:102](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-share/src/portDetector.ts#L102)
+
+___
 
 ### isClient
 
@@ -125,7 +180,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-share/src/portDetector.ts:144](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-share/src/portDetector.ts#L144)
+[packages/reactant-share/src/portDetector.ts:180](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-share/src/portDetector.ts#L180)
 
 ___
 
@@ -139,7 +194,21 @@ ___
 
 #### Defined in
 
-[packages/reactant-share/src/portDetector.ts:140](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-share/src/portDetector.ts#L140)
+[packages/reactant-share/src/portDetector.ts:176](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-share/src/portDetector.ts#L176)
+
+___
+
+### shared
+
+• `get` **shared**(): `boolean`
+
+#### Returns
+
+`boolean`
+
+#### Defined in
+
+[packages/reactant-share/src/portDetector.ts:98](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-share/src/portDetector.ts#L98)
 
 ___
 
@@ -153,13 +222,29 @@ ___
 
 #### Defined in
 
-[packages/reactant-share/src/portDetector.ts:148](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-share/src/portDetector.ts#L148)
+[packages/reactant-share/src/portDetector.ts:184](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-share/src/portDetector.ts#L184)
 
 ## Methods
 
+### allowDisableSync
+
+▸ **allowDisableSync**(): `boolean`
+
+allow Disable Sync
+
+#### Returns
+
+`boolean`
+
+#### Defined in
+
+[packages/reactant-share/src/portDetector.ts:61](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-share/src/portDetector.ts#L61)
+
+___
+
 ### detectPort
 
-▸ `Private` **detectPort**(`port`): `undefined` \| [`App`](../interfaces/App.md)<`any`\>
+▸ `Protected` **detectPort**(`port`): `undefined` \| [`App`](../interfaces/App.md)<`any`, `any`, `any`\>
 
 #### Parameters
 
@@ -169,11 +254,11 @@ ___
 
 #### Returns
 
-`undefined` \| [`App`](../interfaces/App.md)<`any`\>
+`undefined` \| [`App`](../interfaces/App.md)<`any`, `any`, `any`\>
 
 #### Defined in
 
-[packages/reactant-share/src/portDetector.ts:104](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-share/src/portDetector.ts#L104)
+[packages/reactant-share/src/portDetector.ts:110](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-share/src/portDetector.ts#L110)
 
 ___
 
@@ -204,27 +289,7 @@ And allow to return a function that will be executed when the current port is sw
 
 #### Defined in
 
-[packages/reactant-share/src/portDetector.ts:130](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-share/src/portDetector.ts#L130)
-
-___
-
-### onRehydrate
-
-▸ **onRehydrate**(`callback`): `void`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `callback` | () => `void` |
-
-#### Returns
-
-`void`
-
-#### Defined in
-
-[packages/reactant-share/src/portDetector.ts:96](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-share/src/portDetector.ts#L96)
+[packages/reactant-share/src/portDetector.ts:151](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-share/src/portDetector.ts#L151)
 
 ___
 
@@ -255,7 +320,7 @@ And allow to return a function that will be executed when the current port is sw
 
 #### Defined in
 
-[packages/reactant-share/src/portDetector.ts:114](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-share/src/portDetector.ts#L114)
+[packages/reactant-share/src/portDetector.ts:120](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-share/src/portDetector.ts#L120)
 
 ___
 
@@ -267,7 +332,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `currentPortApp` | `Partial`<`Record`<`Port`, [`App`](../interfaces/App.md)<`any`\>\>\> |
+| `currentPortApp` | `Partial`<`Record`<`Port`, [`App`](../interfaces/App.md)<`any`, `any`, `any`\>\>\> |
 | `transport` | `Transport`<[`ServerTransport`](../interfaces/ServerTransport.md), [`ClientTransport`](../interfaces/ClientTransport.md)\> \| `Transport`<[`ClientTransport`](../interfaces/ClientTransport.md), [`ServerTransport`](../interfaces/ServerTransport.md)\> |
 
 #### Returns
@@ -276,7 +341,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-share/src/portDetector.ts:152](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-share/src/portDetector.ts#L152)
+[packages/reactant-share/src/portDetector.ts:190](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-share/src/portDetector.ts#L190)
 
 ___
 
@@ -297,7 +362,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-share/src/portDetector.ts:194](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-share/src/portDetector.ts#L194)
+[packages/reactant-share/src/portDetector.ts:233](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-share/src/portDetector.ts#L233)
 
 ___
 
@@ -311,4 +376,4 @@ ___
 
 #### Defined in
 
-[packages/reactant-share/src/portDetector.ts:180](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-share/src/portDetector.ts#L180)
+[packages/reactant-share/src/portDetector.ts:219](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-share/src/portDetector.ts#L219)

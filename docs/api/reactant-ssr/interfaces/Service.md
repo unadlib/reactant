@@ -16,6 +16,7 @@
 ### Properties
 
 - [[containerKey]](Service.md#[containerkey])
+- [[defaultStateKey]](Service.md#[defaultstatekey])
 - [[enablePatchesKey]](Service.md#[enablepatcheskey])
 - [[identifierKey]](Service.md#[identifierkey])
 - [[loaderKey]](Service.md#[loaderkey])
@@ -32,7 +33,17 @@
 
 #### Defined in
 
-[packages/reactant-module/src/interfaces.ts:53](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/interfaces.ts#L53)
+[packages/reactant-module/src/interfaces.ts:71](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-module/src/interfaces.ts#L71)
+
+___
+
+### [defaultStateKey]
+
+• `Optional` `Readonly` **[defaultStateKey]**: `T`
+
+#### Defined in
+
+[packages/reactant-module/src/interfaces.ts:66](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-module/src/interfaces.ts#L66)
 
 ___
 
@@ -42,7 +53,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-module/src/interfaces.ts:51](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/interfaces.ts#L51)
+[packages/reactant-module/src/interfaces.ts:69](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-module/src/interfaces.ts#L69)
 
 ___
 
@@ -52,7 +63,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-module/src/interfaces.ts:54](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/interfaces.ts#L54)
+[packages/reactant-module/src/interfaces.ts:72](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-module/src/interfaces.ts#L72)
 
 ___
 
@@ -62,7 +73,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-module/src/interfaces.ts:50](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/interfaces.ts#L50)
+[packages/reactant-module/src/interfaces.ts:68](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-module/src/interfaces.ts#L68)
 
 ___
 
@@ -72,7 +83,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-module/src/interfaces.ts:55](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/interfaces.ts#L55)
+[packages/reactant-module/src/interfaces.ts:73](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-module/src/interfaces.ts#L73)
 
 ___
 
@@ -82,7 +93,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-module/src/interfaces.ts:48](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/interfaces.ts#L48)
+[packages/reactant-module/src/interfaces.ts:65](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-module/src/interfaces.ts#L65)
 
 ___
 
@@ -92,7 +103,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-module/src/interfaces.ts:49](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/interfaces.ts#L49)
+[packages/reactant-module/src/interfaces.ts:67](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-module/src/interfaces.ts#L67)
 
 ___
 
@@ -102,4 +113,4 @@ ___
 
 #### Defined in
 
-[packages/reactant-module/src/interfaces.ts:52](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/interfaces.ts#L52)
+[packages/reactant-module/src/interfaces.ts:70](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-module/src/interfaces.ts#L70)

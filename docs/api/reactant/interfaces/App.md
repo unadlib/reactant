@@ -1,10 +1,12 @@
-# Interface: App<T\>
+# Interface: App<T, S, R\>
 
 ## Type parameters
 
-| Name |
-| :------ |
-| `T` |
+| Name | Type |
+| :------ | :------ |
+| `T` | `T` |
+| `S` | extends `any`[] |
+| `R` | extends [`Renderer`](../modules.md#renderer)<`S`\> |
 
 ## Table of contents
 
@@ -26,7 +28,7 @@
 
 #### Defined in
 
-[packages/reactant/src/interfaces.ts:42](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant/src/interfaces.ts#L42)
+[packages/reactant/src/interfaces.ts:44](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant/src/interfaces.ts#L44)
 
 ___
 
@@ -36,7 +38,7 @@ ___
 
 #### Defined in
 
-[packages/reactant/src/interfaces.ts:41](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant/src/interfaces.ts#L41)
+[packages/reactant/src/interfaces.ts:43](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant/src/interfaces.ts#L43)
 
 ___
 
@@ -46,24 +48,24 @@ ___
 
 #### Defined in
 
-[packages/reactant/src/interfaces.ts:43](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant/src/interfaces.ts#L43)
+[packages/reactant/src/interfaces.ts:45](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant/src/interfaces.ts#L45)
 
 ## Methods
 
 ### bootstrap
 
-▸ **bootstrap**(...`args`): `void` \| `Element` \| `Element`
+▸ **bootstrap**(...`args`): `ReturnType`<`R`\> \| `Promise`<`R`\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `...args` | `unknown`[] |
+| `...args` | `S` |
 
 #### Returns
 
-`void` \| `Element` \| `Element`
+`ReturnType`<`R`\> \| `Promise`<`R`\>
 
 #### Defined in
 
-[packages/reactant/src/interfaces.ts:44](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant/src/interfaces.ts#L44)
+[packages/reactant/src/interfaces.ts:46](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant/src/interfaces.ts#L46)

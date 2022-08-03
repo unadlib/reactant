@@ -17,20 +17,25 @@
 - [[storeKey]](Storage.md#[storekey])
 - [blacklist](Storage.md#blacklist)
 - [enhancer](Storage.md#enhancer)
+- [manualPersist](Storage.md#manualpersist)
 - [middleware](Storage.md#middleware)
-- [onRehydrate](Storage.md#onrehydrate)
 - [options](Storage.md#options)
+- [paused](Storage.md#paused)
 - [persistConfig](Storage.md#persistconfig)
 - [persistRootConfig](Storage.md#persistrootconfig)
 - [persistor](Storage.md#persistor)
+- [rehydrateCallbackSet](Storage.md#rehydratecallbackset)
 - [rehydrated](Storage.md#rehydrated)
 - [storageSettingMap](Storage.md#storagesettingmap)
 
 ### Methods
 
+- [\_enhancePersistor](Storage.md#_enhancepersistor)
+- [\_onRehydrated](Storage.md#_onrehydrated)
 - [afterCombineRootReducers](Storage.md#aftercombinerootreducers)
 - [afterCreateStore](Storage.md#aftercreatestore)
 - [beforeCombineRootReducers](Storage.md#beforecombinerootreducers)
+- [onRehydrated](Storage.md#onrehydrated)
 - [preloadedStateHandler](Storage.md#preloadedstatehandler)
 - [provider](Storage.md#provider)
 - [setStorage](Storage.md#setstorage)
@@ -53,7 +58,7 @@ PluginModule.constructor
 
 #### Defined in
 
-[reactant-storage/src/storage.tsx:59](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-storage/src/storage.tsx#L59)
+[reactant-storage/src/storage.tsx:58](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-storage/src/storage.tsx#L58)
 
 ## Properties
 
@@ -63,11 +68,11 @@ PluginModule.constructor
 
 #### Inherited from
 
-PluginModule.\_\_@storeKey@907
+PluginModule.\_\_@storeKey@969
 
 #### Defined in
 
-[reactant-module/src/core/plugin.ts:15](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/core/plugin.ts#L15)
+[reactant-module/src/core/plugin.ts:15](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-module/src/core/plugin.ts#L15)
 
 ___
 
@@ -77,7 +82,7 @@ ___
 
 #### Defined in
 
-[reactant-storage/src/storage.tsx:51](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-storage/src/storage.tsx#L51)
+[reactant-storage/src/storage.tsx:52](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-storage/src/storage.tsx#L52)
 
 ___
 
@@ -93,7 +98,19 @@ PluginModule.enhancer
 
 #### Defined in
 
-[reactant-module/src/core/plugin.ts:26](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/core/plugin.ts#L26)
+[reactant-module/src/core/plugin.ts:32](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-module/src/core/plugin.ts#L32)
+
+___
+
+### manualPersist
+
+• **manualPersist**: `boolean` = `false`
+
+manual persist
+
+#### Defined in
+
+[reactant-storage/src/storage.tsx:137](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-storage/src/storage.tsx#L137)
 
 ___
 
@@ -109,25 +126,7 @@ PluginModule.middleware
 
 #### Defined in
 
-[reactant-module/src/core/plugin.ts:23](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/core/plugin.ts#L23)
-
-___
-
-### onRehydrate
-
-• `Optional` **onRehydrate**: () => `void`
-
-#### Type declaration
-
-▸ (): `void`
-
-##### Returns
-
-`void`
-
-#### Defined in
-
-[reactant-storage/src/storage.tsx:55](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-storage/src/storage.tsx#L55)
+[reactant-module/src/core/plugin.ts:27](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-module/src/core/plugin.ts#L27)
 
 ___
 
@@ -137,13 +136,25 @@ ___
 
 ___
 
+### paused
+
+• **paused**: `boolean` = `false`
+
+persistence paused
+
+#### Defined in
+
+[reactant-storage/src/storage.tsx:142](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-storage/src/storage.tsx#L142)
+
+___
+
 ### persistConfig
 
 • `Protected` **persistConfig**: `Record`<`string`, `PersistConfig`<`any`, `any`, `any`, `any`\>\> = `{}`
 
 #### Defined in
 
-[reactant-storage/src/storage.tsx:63](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-storage/src/storage.tsx#L63)
+[reactant-storage/src/storage.tsx:62](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-storage/src/storage.tsx#L62)
 
 ___
 
@@ -160,7 +171,7 @@ ___
 
 #### Defined in
 
-[reactant-storage/src/storage.tsx:65](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-storage/src/storage.tsx#L65)
+[reactant-storage/src/storage.tsx:64](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-storage/src/storage.tsx#L64)
 
 ___
 
@@ -170,7 +181,17 @@ ___
 
 #### Defined in
 
-[reactant-storage/src/storage.tsx:53](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-storage/src/storage.tsx#L53)
+[reactant-storage/src/storage.tsx:54](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-storage/src/storage.tsx#L54)
+
+___
+
+### rehydrateCallbackSet
+
+• **rehydrateCallbackSet**: `Set`<() => `void`\>
+
+#### Defined in
+
+[reactant-storage/src/storage.tsx:198](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-storage/src/storage.tsx#L198)
 
 ___
 
@@ -180,7 +201,7 @@ ___
 
 #### Defined in
 
-[reactant-storage/src/storage.tsx:57](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-storage/src/storage.tsx#L57)
+[reactant-storage/src/storage.tsx:56](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-storage/src/storage.tsx#L56)
 
 ___
 
@@ -190,9 +211,37 @@ ___
 
 #### Defined in
 
-[reactant-storage/src/storage.tsx:70](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-storage/src/storage.tsx#L70)
+[reactant-storage/src/storage.tsx:69](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-storage/src/storage.tsx#L69)
 
 ## Methods
+
+### \_enhancePersistor
+
+▸ `Private` **_enhancePersistor**(): `void`
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[reactant-storage/src/storage.tsx:179](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-storage/src/storage.tsx#L179)
+
+___
+
+### \_onRehydrated
+
+▸ `Protected` **_onRehydrated**(): `void`
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[reactant-storage/src/storage.tsx:200](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-storage/src/storage.tsx#L200)
+
+___
 
 ### afterCombineRootReducers
 
@@ -214,13 +263,13 @@ PluginModule.afterCombineRootReducers
 
 #### Defined in
 
-[reactant-storage/src/storage.tsx:125](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-storage/src/storage.tsx#L125)
+[reactant-storage/src/storage.tsx:124](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-storage/src/storage.tsx#L124)
 
 ___
 
 ### afterCreateStore
 
-▸ **afterCreateStore**(`store`): `void`
+▸ **afterCreateStore**(`store`): `Store`<`any`, `AnyAction`\>
 
 #### Parameters
 
@@ -230,7 +279,7 @@ ___
 
 #### Returns
 
-`void`
+`Store`<`any`, `AnyAction`\>
 
 #### Overrides
 
@@ -238,7 +287,7 @@ PluginModule.afterCreateStore
 
 #### Defined in
 
-[reactant-storage/src/storage.tsx:135](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-storage/src/storage.tsx#L135)
+[reactant-storage/src/storage.tsx:144](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-storage/src/storage.tsx#L144)
 
 ___
 
@@ -262,7 +311,31 @@ PluginModule.beforeCombineRootReducers
 
 #### Defined in
 
-[reactant-storage/src/storage.tsx:96](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-storage/src/storage.tsx#L96)
+[reactant-storage/src/storage.tsx:95](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-storage/src/storage.tsx#L95)
+
+___
+
+### onRehydrated
+
+▸ **onRehydrated**(`callback`): `void`
+
+ onRehydrated
+
+callback function will be called after rehydration is finished.
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `callback` | () => `void` |
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[reactant-storage/src/storage.tsx:214](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-storage/src/storage.tsx#L214)
 
 ___
 
@@ -288,7 +361,7 @@ PluginModule.preloadedStateHandler
 
 #### Defined in
 
-[reactant-module/src/core/plugin.ts:18](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-module/src/core/plugin.ts#L18)
+[reactant-module/src/core/plugin.ts:20](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-module/src/core/plugin.ts#L20)
 
 ___
 
@@ -312,7 +385,7 @@ PluginModule.provider
 
 #### Defined in
 
-[reactant-storage/src/storage.tsx:152](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-storage/src/storage.tsx#L152)
+[reactant-storage/src/storage.tsx:222](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-storage/src/storage.tsx#L222)
 
 ___
 
@@ -331,7 +404,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `target` | `T` |
-| `options` | `SetStorageOptions`<`T`\> |
+| `options` | [`SetStorageOptions`](../modules.md#setstorageoptions)<`T`\> |
 
 #### Returns
 
@@ -339,4 +412,4 @@ ___
 
 #### Defined in
 
-[reactant-storage/src/storage.tsx:72](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-storage/src/storage.tsx#L72)
+[reactant-storage/src/storage.tsx:71](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-storage/src/storage.tsx#L71)

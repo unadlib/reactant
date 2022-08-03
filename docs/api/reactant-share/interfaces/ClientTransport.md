@@ -9,6 +9,7 @@
 - [@@reactant:preloadedState](ClientTransport.md#@@reactant:preloadedstate)
 - [@@reactant:proxyClient](ClientTransport.md#@@reactant:proxyclient)
 - [@@reactant:syncRouter](ClientTransport.md#@@reactant:syncrouter)
+- [@@reactant:syncRouterWorker](ClientTransport.md#@@reactant:syncrouterworker)
 
 ## Methods
 
@@ -22,7 +23,7 @@
 
 #### Defined in
 
-[packages/reactant-share/src/interfaces.ts:100](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-share/src/interfaces.ts#L100)
+[packages/reactant-share/src/interfaces.ts:110](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-share/src/interfaces.ts#L110)
 
 ___
 
@@ -42,7 +43,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-share/src/interfaces.ts:97](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-share/src/interfaces.ts#L97)
+[packages/reactant-share/src/interfaces.ts:107](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-share/src/interfaces.ts#L107)
 
 ___
 
@@ -56,7 +57,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-share/src/interfaces.ts:96](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-share/src/interfaces.ts#L96)
+[packages/reactant-share/src/interfaces.ts:106](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-share/src/interfaces.ts#L106)
 
 ___
 
@@ -79,7 +80,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-share/src/interfaces.ts:91](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-share/src/interfaces.ts#L91)
+[packages/reactant-share/src/interfaces.ts:101](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-share/src/interfaces.ts#L101)
 
 ___
 
@@ -93,4 +94,24 @@ ___
 
 #### Defined in
 
-[packages/reactant-share/src/interfaces.ts:101](https://github.com/unadlib/reactant/blob/53894a85/packages/reactant-share/src/interfaces.ts#L101)
+[packages/reactant-share/src/interfaces.ts:111](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-share/src/interfaces.ts#L111)
+
+___
+
+### @@reactant:syncRouterWorker
+
+▸ **@@reactant:syncRouterWorker**(`router`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `router` | `RouterState` |
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[packages/reactant-share/src/interfaces.ts:112](https://github.com/unadlib/reactant/blob/3696addb/packages/reactant-share/src/interfaces.ts#L112)
