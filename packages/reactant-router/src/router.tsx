@@ -1,6 +1,13 @@
 /* eslint-disable consistent-return */
 import React, { PropsWithChildren, FunctionComponent } from 'react';
-import { PluginModule, injectable, inject, storeKey } from 'reactant-module';
+import {
+  PluginModule,
+  injectable,
+  inject,
+  storeKey,
+  identifierKey,
+  Service,
+} from 'reactant-module';
 import { ReducersMapObject, Store } from 'redux';
 import {
   connectRouter,
@@ -35,23 +42,19 @@ export interface IRouterOptions {
    */
   autoProvide?: boolean;
   /**
-   * Define a string as Router reducer key.
-   */
-  stateKey?: string;
-  /**
    * auto create history and handle middleware
    */
   autoCreateHistory?: boolean;
 }
 
 // TODO: support ssr and router config
-@injectable()
+@injectable({
+  name: 'Router',
+})
 abstract class BaseReactantRouter extends PluginModule {
   readonly [storeKey]?: Store;
 
   autoProvide: boolean;
-
-  stateKey: string;
 
   protected history!: History;
 
@@ -72,11 +75,12 @@ abstract class BaseReactantRouter extends PluginModule {
 
   onLocationChanged = onLocationChanged;
 
+  protected readonly stateKey = 'router';
+
   constructor(@inject(RouterOptions) protected options: IRouterOptions) {
     super();
-    const { autoProvide = true, stateKey = 'router' } = this.options || {};
+    const { autoProvide = true } = this.options || {};
     this.autoProvide = autoProvide;
-    this.stateKey = stateKey;
     this.autoCreateHistory = this.options?.autoCreateHistory ?? true;
     if (this.autoCreateHistory) {
       this.history = this.options.createHistory();

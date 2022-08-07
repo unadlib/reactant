@@ -55,16 +55,28 @@ class ReactantStorage extends PluginModule {
 
   rehydrated = false;
 
-  constructor(@inject(StorageOptions) public options: IStorageOptions) {
+  constructor(@inject(StorageOptions) options: IStorageOptions) {
     super();
+    this.options = {
+      ...options,
+      whitelist: options.whitelist ?? [],
+    };
+    this.persistRootConfig = {
+      key: 'root',
+      ...this.options,
+    };
   }
 
   protected persistConfig: Record<string, PersistConfig<any>> = {};
 
-  protected persistRootConfig = {
-    key: 'root',
-    ...this.options,
+  protected persistRootConfig: Pick<
+    IStorageOptions,
+    Exclude<keyof IStorageOptions, 'key'>
+  > & {
+    key: string;
   };
+
+  public options: IStorageOptions;
 
   private storageSettingMap = new Map<object, Function>();
 

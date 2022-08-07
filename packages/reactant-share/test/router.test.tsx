@@ -230,7 +230,7 @@ describe('base', () => {
     await clientApp.bootstrap(clientContainer);
 
     expect(onClientFn.mock.calls.length).toBe(1);
-    expect(subscribeOnClientFn.mock.calls.length).toBe(4);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(2);
     expect(onServerFn.mock.calls.length).toBe(1);
     expect(subscribeOnServerFn.mock.calls.length).toBe(1);
     expect(clientContainer.querySelector('#content')?.textContent).toBe('home');
@@ -244,7 +244,7 @@ describe('base', () => {
     await new Promise((resolve) => setTimeout(resolve));
 
     expect(onClientFn.mock.calls.length).toBe(1);
-    expect(subscribeOnClientFn.mock.calls.length).toBe(6);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(4);
     expect(onServerFn.mock.calls.length).toBe(1);
     expect(subscribeOnServerFn.mock.calls.length).toBe(2);
     expect(serverContainer.querySelector('#content')?.textContent).toBe('0+');
@@ -258,7 +258,7 @@ describe('base', () => {
     await new Promise((resolve) => setTimeout(resolve));
 
     expect(onClientFn.mock.calls.length).toBe(1);
-    expect(subscribeOnClientFn.mock.calls.length).toBe(8);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(6);
     expect(onServerFn.mock.calls.length).toBe(1);
     expect(subscribeOnServerFn.mock.calls.length).toBe(3);
 

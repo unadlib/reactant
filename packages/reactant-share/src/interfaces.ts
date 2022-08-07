@@ -108,8 +108,8 @@ export interface ClientTransport {
     sequence: number
   ): Promise<Record<string, any> | null | undefined>;
   [isClientName](): Promise<boolean>;
-  [syncRouterName](): Promise<Router['router']['location']>;
-  [syncRouterWorkerName](router: Router['router']): void;
+  [syncRouterName](name: string): Promise<RouterState>;
+  [syncRouterWorkerName](router: Router['router'], name: string): void;
 }
 
 export type ActionOptions = Pick<
@@ -124,7 +124,9 @@ export interface ServerTransport {
     args: any[];
   }): Promise<void>;
   [lastActionName](options: ActionOptions): Promise<void>;
-  [routerChangeName](options: RouterChangeNameOptions): Promise<RouterState>;
+  [routerChangeName](
+    options: RouterChangeNameOptions
+  ): Promise<RouterState | null>;
   [syncToClientsName](
     options: Record<string, any> | null | undefined
   ): Promise<void>;

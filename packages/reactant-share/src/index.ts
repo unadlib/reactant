@@ -1,6 +1,7 @@
 export * from 'reactant';
 export * from 'data-transport';
 export * from 'reactant-last-action';
+export * from './constants';
 export { createSharedApp } from './createApp';
 export { PortDetector } from './portDetector';
 export {
@@ -19,4 +20,8 @@ export { mockPairTransports } from './mockPairTransports';
 export type { IRouterOptions } from './router';
 export type { IStorageOptions, SetStorageOptions } from './storage';
 export type { Transport } from './createTransport';
-export type { ClientTransport, ServerTransport } from './interfaces';
+export type {
+  ClientTransport,
+  ServerTransport,
+  ISharedAppOptions,
+} from './interfaces';
