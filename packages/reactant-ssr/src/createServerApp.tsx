@@ -10,7 +10,13 @@ import { ServerConfig, ServerApp } from './interfaces';
 export const createServerApp = <T, S extends any[], R extends Renderer<S>>(
   options: ServerConfig<T, S, R>
 ): ServerApp<T, S, R> => {
-  const { bootstrap, store, instance, container } = createAppWithoutSSR({
+  const {
+    bootstrap,
+    store,
+    instance,
+    container,
+    modules,
+  } = createAppWithoutSSR({
     ...options,
     // TODO: fix types
     // @ts-ignore
@@ -26,6 +32,7 @@ export const createServerApp = <T, S extends any[], R extends Renderer<S>>(
     store,
     instance,
     container,
+    modules,
     bootstrap: AppComponent,
   };
 };
