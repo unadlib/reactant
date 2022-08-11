@@ -95,7 +95,7 @@ class ReactantRouter extends BaseReactantRouter {
       });
     });
 
-    if (this.isWorker) {
+    if (this.portDetector.isWorkerMode) {
       this.portDetector.onServer((transport) => {
         const history: History = {
           push: async (path: string, locationState?: LocationState) => {
@@ -219,12 +219,8 @@ class ReactantRouter extends BaseReactantRouter {
     return this.router?.location.pathname ?? this.defaultRoute;
   }
 
-  private get isWorker() {
-    return this.sharedAppOptions.type === 'SharedWorker';
-  }
-
   get router(): RouterState {
-    return this.portDetector.isServer && this.isWorker
+    return this.portDetector.isServer && this.portDetector.isWorkerMode
       ? this._router
       : this[storeKey]?.getState().router;
   }

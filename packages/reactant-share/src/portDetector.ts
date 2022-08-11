@@ -173,6 +173,10 @@ export class PortDetector {
     };
   };
 
+  get isWorkerMode() {
+    return this.sharedAppOptions.type === 'SharedWorker';
+  }
+
   get isServer() {
     return !!this.detectPort('server');
   }
