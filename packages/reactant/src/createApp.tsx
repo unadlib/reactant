@@ -11,6 +11,8 @@ import {
   PluginHooks,
   ModulesMap,
   Container,
+  modulesKey,
+  Service,
 } from 'reactant-module';
 import { Config, App, Renderer } from './interfaces';
 
@@ -137,6 +139,10 @@ function createApp<T, S extends any[], R extends Renderer<S>>({
      * Redux store.
      */
     store: withoutReducers ? null : store,
+    /**
+     * all modules collection
+     */
+    modules: ((instance as any) as Service)[modulesKey]!,
     /**
      * Bootstrap app with a renderer.
      */
