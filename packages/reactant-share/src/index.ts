@@ -16,6 +16,7 @@ export { useLock } from './lock';
 export { spawn } from './spawn';
 export { fork } from './fork';
 export { mockPairTransports } from './mockPairTransports';
+export { createBroadcastTransport } from './createTransport';
 
 export type { IRouterOptions } from './router';
 export type { IStorageOptions, SetStorageOptions } from './storage';

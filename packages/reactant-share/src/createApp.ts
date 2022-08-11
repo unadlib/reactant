@@ -48,11 +48,13 @@ const createBaseApp = <T, S extends any[], R extends Renderer<S>>({
     const isServer = share.port === 'server';
     const { transform } = share;
     share.transform = (changedPort: Port) => {
+      const serverTransport = share.transports?.server;
+      const clientTransport = share.transports?.client;
       if (changedPort === 'server') {
         if (!serverTransport) {
           throw new Error(`'transports.server' does not exist.`);
         }
-        handleServer({
+        disposeServer = handleServer({
           app,
           transport: serverTransport,
           disposeClient,
@@ -62,7 +64,7 @@ const createBaseApp = <T, S extends any[], R extends Renderer<S>>({
         if (!clientTransport) {
           throw new Error(`'transports.client' does not exist.`);
         }
-        handleClient({
+        disposeClient = handleClient({
           app,
           transport: clientTransport,
           disposeServer,

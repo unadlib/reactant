@@ -44,6 +44,7 @@ export class AppView extends ViewModule {
     });
     this.portDetector.onClient(() => {
       this.type = 'Client';
+      this.setType?.('Client');
     });
   }
 
