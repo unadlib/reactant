@@ -23,9 +23,12 @@
   },
   "keywords": [
     "React",
+    "React Native",
     "Reactant"
   ],
-  "author": "unadlib",
+  "authors": [
+    "Michael Lin <unadlib@gmail.com> (https://github.com/unadlib)"
+  ],
   "license": "MIT",
   "peerDependencies": {
     "react-native": "^0.67.3"

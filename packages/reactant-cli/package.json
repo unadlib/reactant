@@ -18,9 +18,11 @@
     "directory": "packages/reactant-cli"
   },
   "keywords": [
-    "reactant"
+    "Reactant"
   ],
-  "author": "unadlib",
+  "authors": [
+    "Michael Lin <unadlib@gmail.com> (https://github.com/unadlib)"
+  ],
   "license": "MIT",
   "dependencies": {
     "chalk": "3.0.0",

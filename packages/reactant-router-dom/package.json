@@ -9,10 +9,19 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "Reactant",
+    "Router",
+    "History",
+    "Link",
+    "React"
+  ],
+  "authors": [
+    "Michael Lin <unadlib@gmail.com> (https://github.com/unadlib)"
+  ],
   "license": "MIT",
   "dependencies": {
+    "@types/react-router-dom": "^5.3.3",
     "react-router": "^5.3.1",
     "react-router-dom": "^5.3.1"
   }

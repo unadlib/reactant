@@ -27,7 +27,9 @@
     "Reactant SSR",
     "Reactant Server-Side Rendering"
   ],
-  "author": "unadlib",
+  "authors": [
+    "Michael Lin <unadlib@gmail.com> (https://github.com/unadlib)"
+  ],
   "license": "MIT",
   "peerDependencies": {
     "next": "^12.1.0",

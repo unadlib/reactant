@@ -13,7 +13,9 @@
     "Reactant",
     "Reactant Last Action"
   ],
-  "author": "unadlib",
+  "authors": [
+    "Michael Lin <unadlib@gmail.com> (https://github.com/unadlib)"
+  ],
   "license": "MIT",
   "peerDependencies": {
     "reactant-module": "*",

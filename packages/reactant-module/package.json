@@ -18,7 +18,9 @@
     "Reactant",
     "Reactant Module"
   ],
-  "author": "unadlib",
+  "authors": [
+    "Michael Lin <unadlib@gmail.com> (https://github.com/unadlib)"
+  ],
   "license": "MIT",
   "dependencies": {
     "immer": "^9.0.5",
