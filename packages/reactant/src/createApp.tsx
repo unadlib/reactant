@@ -1,5 +1,5 @@
 /* eslint-disable no-shadow */
-import React, { FunctionComponent, StrictMode } from 'react';
+import React, { FunctionComponent, StrictMode, Context } from 'react';
 import { Provider } from 'react-redux';
 import {
   createContainer,
@@ -16,7 +16,9 @@ import {
 } from 'reactant-module';
 import { Config, App, Renderer } from './interfaces';
 
-export const ContainerContext = React.createContext<Container | null>(null);
+export const ContainerContext: Context<Container | null> = React.createContext<Container | null>(
+  null
+);
 
 /**
  * ## Description
