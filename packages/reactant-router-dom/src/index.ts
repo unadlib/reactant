@@ -4,6 +4,7 @@ export {
   Switch,
   Route,
   Link,
+  NavLink,
   useRouteMatch,
   useParams,
   useHistory,
