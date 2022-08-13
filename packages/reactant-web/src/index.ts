@@ -8,6 +8,7 @@ export {
   MemoryRouter,
   Switch,
   Route,
+  NavLink,
   Link,
   useRouteMatch,
   useParams,
