@@ -8,7 +8,7 @@ type LockCallBack = (lock: {
 }) => Promise<void>;
 type LockQueue = { tabId: string; lockId: string }[];
 
-const lockMap: Record<LockName, Record<LockId, LockCallBack>> = {};
+const lockMap: Map<LockName, Map<LockId, LockCallBack>> = new Map();
 const tabId = createId();
 const lockStorageKey = 'reactant:lock';
 const tabStorageKey = 'reactant:tab';
@@ -97,8 +97,8 @@ const simpleLock = (name: LockName, callback: LockCallBack) => {
 
   return new Promise((resolve, reject) => {
     const lockId = createId();
-    lockMap[name] ??= {};
-    lockMap[name][lockId] = callback;
+    lockMap.set(name, lockMap.get(name) ?? new Map());
+    lockMap.get(name)!.set(lockId, callback);
     const storageKey = `${lockStorageKey}:${name}`;
     const oldStorageValue = localStorage.getItem(storageKey);
     const lockQueue: LockQueue = JSON.parse(oldStorageValue ?? '[]');
@@ -109,7 +109,7 @@ const simpleLock = (name: LockName, callback: LockCallBack) => {
         if (lock?.tabId === tabId && lock?.lockId === lockId) {
           window.removeEventListener('storage', listener);
           try {
-            const result = await lockMap[name][lockId]({
+            const result = await lockMap.get(name)!.get(lockId)!({
               name,
               mode: 'exclusive',
             });
@@ -117,7 +117,7 @@ const simpleLock = (name: LockName, callback: LockCallBack) => {
           } catch (e) {
             reject(e);
           }
-          delete lockMap[name][lockId];
+          lockMap.get(name)!.delete(lockId);
           const currentLockQueue: LockQueue = JSON.parse(
             localStorage.getItem(storageKey) ?? '[]'
           );
