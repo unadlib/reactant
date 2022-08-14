@@ -5,7 +5,7 @@ import type {
   IRouterOptions as IBaseRouterOptions,
   RouterState,
 } from 'reactant-router';
-import type { History, LocationState } from 'history';
+import type { LocationState } from 'history';
 import {
   routerChangeName,
   SharedAppOptions,
@@ -95,105 +95,83 @@ class ReactantRouter extends BaseReactantRouter {
       });
     });
 
-    if (this.portDetector.isWorkerMode) {
-      this.portDetector.onServer((transport) => {
-        const history: History = {
-          push: async (path: string, locationState?: LocationState) => {
-            const { currentName } = this;
-            const router = await transport.emit(routerChangeName, {
-              method: 'push',
-              args: [path, locationState],
-              currentName,
-            });
-            if (router && currentName) {
-              this._setRouters(currentName, router);
-            }
-          },
-          replace: async (path: string, locationState?: LocationState) => {
-            const { currentName } = this;
-            const router = await transport.emit(routerChangeName, {
-              method: 'replace',
-              args: [path, locationState],
-              currentName,
-            });
-            if (router && currentName) {
-              this._setRouters(currentName, router);
-            }
-          },
-          go: async (n: number) => {
-            const { currentName } = this;
-            const router = await transport.emit(routerChangeName, {
-              method: 'go',
-              args: [n],
-              currentName,
-            });
-            if (router && currentName) {
-              this._setRouters(currentName, router);
-            }
-          },
-          goBack: async () => {
-            const { currentName } = this;
-            const router = await transport.emit(routerChangeName, {
-              method: 'goBack',
-              args: [],
-              currentName,
-            });
-            if (router && currentName) {
-              this._setRouters(currentName, router);
-            }
-          },
-          goForward: async () => {
-            const { currentName } = this;
-            const router = await transport.emit(routerChangeName, {
-              method: 'goForward',
-              args: [],
-              currentName,
-            });
-            if (router && currentName) {
-              this._setRouters(currentName, router);
-            }
-          },
-        } as any;
-        this.history = history;
-        transport.listen(syncRouterWorkerName, (router, name) => {
-          if (!this._router && router && name === this.name) {
-            this._setRouters(name, router);
-          }
-        });
+    this.portDetector.onServer((transport) => {
+      return transport.listen(syncRouterWorkerName, (router, name) => {
+        if (!this.router && router && name === this.name) {
+          this._setRouters(name, router);
+        }
       });
-      this.portDetector.onClient((transport) => {
-        transport.emit(
-          { name: syncRouterWorkerName, respond: false },
-          this.router,
-          this.name
-        );
-        return transport.listen(
-          routerChangeName,
-          async ({ method, args = [], currentName }) => {
-            return new Promise((resolve) => {
-              if (currentName !== this.name) return;
-              if (this.portDetector.disableSyncClient) {
-                this.toBeRouted = () => {
-                  const fn: Function = this.history[method];
-                  fn(...args);
-                };
-                return;
+    });
+    this.portDetector.onClient((transport) => {
+      transport.emit(
+        { name: syncRouterWorkerName, respond: false },
+        this._router,
+        this.name
+      );
+      return transport.listen(
+        routerChangeName,
+        async ({ method, args = [], currentName }) => {
+          return new Promise((resolve) => {
+            if (currentName !== this.name) return;
+            if (this.portDetector.disableSyncClient) {
+              this.toBeRouted = () => {
+                const fn: Function = this.history[method];
+                fn(...args);
+              };
+              return;
+            }
+            const stopWatching = watch(
+              this,
+              () => this._router,
+              () => {
+                stopWatching();
+                resolve(this._router);
               }
-              const stopWatching = watch(
-                this,
-                () => this.router,
-                () => {
-                  stopWatching();
-                  resolve(this.router);
-                }
-              );
+            );
+            if (this.portDetector.isWorkerMode) {
               const fn: Function = this.history[method];
               fn(...args);
-            });
+            }
+          });
+        }
+      );
+    });
+  }
+
+  private async _route({ method, args, currentName }: RouterChangeNameOptions) {
+    if (!this.portDetector.isWorkerMode) {
+      if (!currentName || currentName === this.name) {
+        const stopWatching = watch(
+          this,
+          () => this._router,
+          () => {
+            stopWatching();
+            this._setRouters(currentName ?? this.name, this._router);
           }
         );
-      });
+        const fn: Function = this.history[method];
+        fn(...args);
+      }
     }
+
+    const routingPromise = this.portDetector.transports.server!.emit(
+      routerChangeName,
+      {
+        method,
+        args,
+        currentName: currentName ?? this.name,
+      } as RouterChangeNameOptions
+    );
+    if (currentName || this.portDetector.isWorkerMode) {
+      const router = await routingPromise;
+      if (router) {
+        this._setRouters(currentName ?? this.name, router);
+      }
+    }
+  }
+
+  private get _router(): RouterState {
+    return this[storeKey]?.getState().router;
   }
 
   toBeRouted: (() => void) | null = null;
@@ -206,10 +184,6 @@ class ReactantRouter extends BaseReactantRouter {
     this._routers[name] = router;
   }
 
-  private get _router() {
-    return this._routers[this.name];
-  }
-
   // The server port routing state is received asynchronously, so there should be a default route.
   protected get defaultRoute() {
     return this.options.defaultRoute ?? '/';
@@ -220,22 +194,19 @@ class ReactantRouter extends BaseReactantRouter {
   }
 
   get router(): RouterState {
-    return this.portDetector.isServer && this.portDetector.isWorkerMode
-      ? this._router
-      : this[storeKey]?.getState().router;
+    return this._routers[this.name];
   }
-
-  private currentName?: string;
 
   private async _push(
     path: string,
     locationState: LocationState,
     name: string
   ) {
-    if (this.portDetector.isServer) {
-      this.currentName = name;
-    }
-    await this.history.push(path, locationState);
+    await this._route({
+      method: 'push',
+      args: [path, locationState],
+      currentName: name,
+    });
   }
 
   private async _replace(
@@ -243,51 +214,63 @@ class ReactantRouter extends BaseReactantRouter {
     locationState: LocationState,
     name: string
   ) {
-    if (this.portDetector.isServer) {
-      this.currentName = name;
-    }
-    await this.history.replace(path, locationState);
+    await this._route({
+      method: 'replace',
+      args: [path, locationState],
+      currentName: name,
+    });
   }
 
   private async _go(n: number, name: string) {
-    if (this.portDetector.isServer) {
-      this.currentName = name;
-    }
-    await this.history.go(n);
+    await this._route({
+      method: 'go',
+      args: [n],
+      currentName: name,
+    });
   }
 
   private async _goBack(name: string) {
-    if (this.portDetector.isServer) {
-      this.currentName = name;
-    }
-    await this.history.goBack();
+    await this._route({
+      method: 'goBack',
+      args: [],
+      currentName: name,
+    });
   }
 
   private async _goForward(name: string) {
-    if (this.portDetector.isServer) {
-      this.currentName = name;
-    }
-    await this.history.goForward();
+    await this._route({
+      method: 'goForward',
+      args: [],
+      currentName: name,
+    });
   }
 
   async push(path: string, locationState?: LocationState) {
-    await spawn(this as any, '_push', [path, locationState, this.name]);
+    await spawn(this as any, '_push', [path, locationState, this.clientName]);
   }
 
   async replace(path: string, locationState?: LocationState) {
-    await spawn(this as any, '_replace', [path, locationState, this.name]);
+    await spawn(this as any, '_replace', [
+      path,
+      locationState,
+      this.clientName,
+    ]);
   }
 
   async go(n: number) {
-    await spawn(this as any, '_go', [n, this.name]);
+    await spawn(this as any, '_go', [n, this.clientName]);
   }
 
   async goBack() {
-    await spawn(this as any, '_goBack', [this.name]);
+    await spawn(this as any, '_goBack', [this.clientName]);
   }
 
   async goForward() {
-    await spawn(this as any, '_goForward', [this.name]);
+    await spawn(this as any, '_goForward', [this.clientName]);
+  }
+
+  get clientName() {
+    return this.portDetector.isClient ? this.name : null;
   }
 }
 

@@ -13,7 +13,11 @@ export const checkPatches = (
         (state, _path) => state?.[_path],
         oldStateTree
       );
-      if (oldState && typeof oldState === 'object') {
+      if (
+        oldState &&
+        typeof oldState === 'object' &&
+        path[0] !== 'reactant:router'
+      ) {
         const state = path.join('.');
         console.warn(
           `The state '${state}' operation in the method '${

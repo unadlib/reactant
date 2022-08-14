@@ -1,13 +1,6 @@
 /* eslint-disable consistent-return */
 import React, { PropsWithChildren, FunctionComponent } from 'react';
-import {
-  PluginModule,
-  injectable,
-  inject,
-  storeKey,
-  identifierKey,
-  Service,
-} from 'reactant-module';
+import { PluginModule, injectable, inject, storeKey } from 'reactant-module';
 import { ReducersMapObject, Store } from 'redux';
 import {
   connectRouter,
@@ -24,6 +17,8 @@ export {
   createBrowserHistory,
   createMemoryHistory,
 } from 'history';
+
+export { LOCATION_CHANGE } from 'connected-react-router';
 
 const RouterOptions = Symbol('RouterOptions');
 

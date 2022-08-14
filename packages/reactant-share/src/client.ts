@@ -5,6 +5,7 @@ import {
   containerKey,
 } from 'reactant';
 import { LastAction } from 'reactant-last-action';
+import { LOCATION_CHANGE } from 'reactant-router';
 import { HandleClientOptions } from './interfaces';
 import { lastActionName, proxyServerActionName } from './constants';
 import { PortDetector } from './portDetector';
@@ -30,8 +31,8 @@ export const handleClient = ({
   if (preloadedState) {
     lastAction.sequence = preloadedState[lastAction.stateKey]._sequence;
   }
+  const router: Router = container.get(Router);
   if (!portDetector.sharedAppOptions.forcedSyncClient) {
-    const router: Router = container.get(Router);
     const visibilitychange = async () => {
       if (document.visibilityState === 'visible') {
         portDetector.syncFullState({ forceSync: false });
@@ -77,6 +78,11 @@ export const handleClient = ({
             // performance detail: https://immerjs.github.io/immer/docs/performance
           }
           app.store!.dispatch({ ...action, state });
+        } else if (action.type === LOCATION_CHANGE) {
+          const payload = action as any;
+          app.store!.dispatch(
+            router.onLocationChanged(payload.location, payload.action)!
+          );
         } else {
           app.store!.dispatch(action);
         }
