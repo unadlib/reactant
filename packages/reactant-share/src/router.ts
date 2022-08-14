@@ -117,6 +117,13 @@ class ReactantRouter extends BaseReactantRouter {
               this.toBeRouted = () => {
                 const fn: Function = this.history[method];
                 fn(...args);
+                // it ensure that the router is updated if all clients are hidden.
+                if (
+                  JSON.stringify(this._router) !==
+                  JSON.stringify(this._routers[this.name])
+                ) {
+                  spawn(this as any, '_setRouters', [this.name, this._router]);
+                }
               };
               return;
             }
@@ -128,10 +135,8 @@ class ReactantRouter extends BaseReactantRouter {
                 resolve(this._router);
               }
             );
-            if (this.portDetector.isWorkerMode) {
-              const fn: Function = this.history[method];
-              fn(...args);
-            }
+            const fn: Function = this.history[method];
+            fn(...args);
           });
         }
       );
@@ -139,6 +144,20 @@ class ReactantRouter extends BaseReactantRouter {
   }
 
   private async _route({ method, args, currentName }: RouterChangeNameOptions) {
+    // support common SPA mode without any transports
+    if (!this.portDetector.transports.server) {
+      const fn: Function = this.history[method];
+      fn(...args);
+      const stopWatching = watch(
+        this,
+        () => this._router,
+        () => {
+          stopWatching();
+          this._setRouters(currentName ?? this.name, this._router);
+        }
+      );
+      return;
+    }
     if (!this.portDetector.isWorkerMode) {
       if (!currentName || currentName === this.name) {
         const stopWatching = watch(
@@ -154,7 +173,7 @@ class ReactantRouter extends BaseReactantRouter {
       }
     }
 
-    const routingPromise = this.portDetector.transports.server!.emit(
+    const routingPromise = this.portDetector.transports.server.emit(
       routerChangeName,
       {
         method,
@@ -162,10 +181,23 @@ class ReactantRouter extends BaseReactantRouter {
         currentName: currentName ?? this.name,
       } as RouterChangeNameOptions
     );
-    if (currentName || this.portDetector.isWorkerMode) {
+    // worker mode
+    if (this.portDetector.isWorkerMode) {
       const router = await routingPromise;
       if (router) {
         this._setRouters(currentName ?? this.name, router);
+      }
+    }
+
+    // non-worker mode and just route anther name nav from client
+    if (
+      !this.portDetector.isWorkerMode &&
+      currentName &&
+      currentName !== this.name
+    ) {
+      const router = await routingPromise;
+      if (router) {
+        this._setRouters(currentName, router);
       }
     }
   }
@@ -194,7 +226,7 @@ class ReactantRouter extends BaseReactantRouter {
   }
 
   get router(): RouterState {
-    return this._routers[this.name];
+    return this._routers[this.name] ?? this._router;
   }
 
   private async _push(

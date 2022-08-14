@@ -1,9 +1,22 @@
 import { render } from 'reactant-web';
-import { createSharedApp } from 'reactant-share';
+import {
+  createSharedApp,
+  RouterOptions,
+  createHashHistory,
+  IRouterOptions,
+} from 'reactant-share';
 import { CounterView } from './modules/counter.view';
 
 createSharedApp({
-  modules: [],
+  modules: [
+    {
+      provide: RouterOptions,
+      useValue: {
+        createHistory: () => createHashHistory(),
+        name: global.location.pathname === '/index.html' ? 'other' : 'default',
+      } as IRouterOptions,
+    },
+  ],
   main: CounterView,
   render,
   share: {

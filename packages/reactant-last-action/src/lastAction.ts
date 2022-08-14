@@ -17,6 +17,10 @@ export interface ILastActionOptions {
    * Define a string as LastAction reducer key.
    */
   stateKey?: string;
+  /**
+   * ignore action tracking
+   */
+  ignoreAction?: (action: ReactantAction) => boolean;
 }
 
 export interface ILastActionState<T = any> extends ReactantAction<T> {
@@ -74,12 +78,16 @@ class ReactantLastAction extends PluginModule {
           action._reactant === actionIdentifier
             ? {}
             : { state, _inversePatches };
+        const sequence = _state?._sequence ?? 0;
+        const shouldIgnore = this.options?.ignoreAction?.(
+          action as ReactantAction
+        );
         return {
           ...action,
           ...rehydrateObj,
           ...registerObj,
           ...reactantObj,
-          _sequence: (_state?._sequence ?? 0) + 1,
+          _sequence: shouldIgnore ? sequence : sequence + 1,
         };
       },
     });

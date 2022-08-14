@@ -9,6 +9,7 @@ import {
   LastActionOptions,
   ILastActionOptions,
 } from 'reactant-last-action';
+import { LOCATION_CHANGE } from 'reactant-router';
 import { Config, ISharedAppOptions, Port, Transports } from './interfaces';
 import { handleServer } from './server';
 import { handleClient } from './client';
@@ -30,6 +31,7 @@ const createBaseApp = <T, S extends any[], R extends Renderer<S>>({
       provide: LastActionOptions,
       useValue: {
         stateKey: `lastAction-${share.name}`,
+        ignoreAction: (action) => action.type === LOCATION_CHANGE,
       } as ILastActionOptions,
     },
     {

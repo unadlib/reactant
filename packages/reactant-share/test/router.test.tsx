@@ -230,7 +230,7 @@ describe('base', () => {
     await clientApp.bootstrap(clientContainer);
 
     expect(onClientFn.mock.calls.length).toBe(1);
-    expect(subscribeOnClientFn.mock.calls.length).toBe(2);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(1);
     expect(onServerFn.mock.calls.length).toBe(1);
     expect(subscribeOnServerFn.mock.calls.length).toBe(1);
     expect(clientContainer.querySelector('#content')?.textContent).toBe('home');
@@ -244,9 +244,9 @@ describe('base', () => {
     await new Promise((resolve) => setTimeout(resolve));
 
     expect(onClientFn.mock.calls.length).toBe(1);
-    expect(subscribeOnClientFn.mock.calls.length).toBe(4);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(3);
     expect(onServerFn.mock.calls.length).toBe(1);
-    expect(subscribeOnServerFn.mock.calls.length).toBe(2);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(3);
     expect(serverContainer.querySelector('#content')?.textContent).toBe('0+');
     // expect(clientContainer.querySelector('#content')?.textContent).toBe('0+');
     act(() => {
@@ -258,9 +258,9 @@ describe('base', () => {
     await new Promise((resolve) => setTimeout(resolve));
 
     expect(onClientFn.mock.calls.length).toBe(1);
-    expect(subscribeOnClientFn.mock.calls.length).toBe(6);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(5);
     expect(onServerFn.mock.calls.length).toBe(1);
-    expect(subscribeOnServerFn.mock.calls.length).toBe(3);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(5);
 
     expect(serverContainer.querySelector('#content')?.textContent).toBe('0+');
     expect(clientContainer.querySelector('#content')?.textContent).toBe('0+');
@@ -488,7 +488,7 @@ describe('SharedWorker', () => {
     await new Promise((resolve) => setTimeout(resolve));
 
     expect(onClientFn.mock.calls.length).toBe(1);
-    expect(subscribeOnClientFn.mock.calls.length).toBe(2);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(3);
     expect(onServerFn.mock.calls.length).toBe(1);
     expect(subscribeOnServerFn.mock.calls.length).toBe(2);
     expect(serverApp.instance.router.currentPath).toBe('/counter');
@@ -741,7 +741,7 @@ describe('Worker', () => {
     await new Promise((resolve) => setTimeout(resolve));
 
     expect(onClientFn.mock.calls.length).toBe(1);
-    expect(subscribeOnClientFn.mock.calls.length).toBe(2);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(3);
     expect(onServerFn.mock.calls.length).toBe(1);
     expect(subscribeOnServerFn.mock.calls.length).toBe(2);
     expect(serverApp.instance.router.currentPath).toBe('/counter');
@@ -904,6 +904,11 @@ describe('Worker', () => {
     document.dispatchEvent(new Event('visibilitychange'));
 
     await new Promise((resolve) => setTimeout(resolve));
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    expect(clientApp.instance.router._router.location.pathname).toBe(
+      '/counter'
+    );
     expect(clientApp.instance.router.currentPath).toBe('/counter');
   });
 

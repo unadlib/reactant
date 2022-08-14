@@ -51,15 +51,17 @@ export const handleServer = ({
       try {
         if (lastAction.action) {
           const { action } = lastAction;
-          if (
-            __DEV__ &&
-            action?._reactant === actionIdentifier &&
-            action._patches &&
-            enablePatchesChecker
-          ) {
-            checkPatches(oldStateTree, action);
+          if (!portDetector.lastAction.options?.ignoreAction?.(action)) {
+            if (
+              __DEV__ &&
+              action?._reactant === actionIdentifier &&
+              action._patches &&
+              enablePatchesChecker
+            ) {
+              checkPatches(oldStateTree, action);
+            }
+            transport.emit({ name: lastActionName, respond: false }, action);
           }
-          transport.emit({ name: lastActionName, respond: false }, action);
         }
       } finally {
         if (__DEV__) {
