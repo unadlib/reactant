@@ -31,6 +31,7 @@ const createBaseApp = <T, S extends any[], R extends Renderer<S>>({
       provide: LastActionOptions,
       useValue: {
         stateKey: `lastAction-${share.name}`,
+        // ignore router state sync for last action
         ignoreAction: (action) => action.type === LOCATION_CHANGE,
       } as ILastActionOptions,
     },

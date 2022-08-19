@@ -17,6 +17,7 @@ createSharedApp({
     name: 'SharedApp',
     type: 'SharedTab',
     port: 'client',
+    enablePatchesFilter: true,
   },
 }).then((app) => {
   console.log(app, '====');

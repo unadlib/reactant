@@ -18,6 +18,7 @@ createSharedApp({
     type: 'SharedWorker',
     port: 'client',
     workerURL: 'worker.bundle.js',
+    enablePatchesFilter: true,
   },
 }).then((app) => {
   console.log(app, '====');

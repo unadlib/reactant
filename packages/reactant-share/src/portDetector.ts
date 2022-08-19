@@ -74,7 +74,11 @@ export class PortDetector {
           const store = (this as Service)[storeKey];
           store!.dispatch({
             type: `${actionIdentifier}_${loadFullStateActionName}`,
-            state: fullState,
+            state: {
+              ...fullState,
+              // ignore router state sync for last action
+              router: store!.getState().router,
+            },
             _reactant: actionIdentifier,
           });
           this.lastAction.sequence =
@@ -261,7 +265,8 @@ export class PortDetector {
     const store = (this as Service)[storeKey];
     store!.dispatch({
       type: `${actionIdentifier}_${loadFullStateActionName}`,
-      state: fullState,
+      // ignore router state sync for last action
+      state: { ...fullState, router: store!.getState().router },
       _reactant: actionIdentifier,
     });
     this.lastAction.sequence = fullState[this.lastAction.stateKey]._sequence;
