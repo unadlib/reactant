@@ -271,4 +271,16 @@ export class PortDetector {
     });
     this.lastAction.sequence = fullState[this.lastAction.stateKey]._sequence;
   }
+
+  /**
+   * transform port with new transport
+   */
+  transform(port: Port, transport?: Transport) {
+    if (port !== 'server' && port !== 'client') {
+      throw new Error(`The port '${port}' is not supported.`);
+    }
+    this.sharedAppOptions.transports![port] =
+      transport ?? this.sharedAppOptions.transports![port];
+    this.sharedAppOptions.transform!(port);
+  }
 }

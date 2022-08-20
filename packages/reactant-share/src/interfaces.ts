@@ -136,6 +136,7 @@ export interface HandleServerOptions {
   app: App<any, any, any>;
   transport: Transports['server'];
   disposeClient?: () => void;
+  disposeServer?: () => void;
   enablePatchesChecker?: boolean;
 }
 
@@ -143,6 +144,7 @@ export interface HandleClientOptions {
   app: App<any, any, any>;
   transport: Transports['client'];
   disposeServer?: () => void;
+  disposeClient?: () => void;
   enablePatchesFilter?: boolean;
   preloadedState?: Record<string, any>;
 }

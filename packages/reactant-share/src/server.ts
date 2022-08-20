@@ -17,12 +17,14 @@ import { applyMethod } from './applyMethod';
 export const handleServer = ({
   app,
   transport,
+  disposeServer,
   disposeClient,
   enablePatchesChecker,
 }: HandleServerOptions) => {
   if (!transport) {
     throw new Error(`The server transport does not exist.`);
   }
+  disposeServer?.();
   disposeClient?.();
   const container: Container = app.instance[containerKey];
   const lastAction = container.get(LastAction);

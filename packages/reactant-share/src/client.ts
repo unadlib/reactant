@@ -15,6 +15,7 @@ export const handleClient = ({
   app,
   transport,
   disposeServer,
+  disposeClient,
   enablePatchesFilter,
   preloadedState,
 }: HandleClientOptions) => {
@@ -22,6 +23,7 @@ export const handleClient = ({
     throw new Error(`The client transport does not exist.`);
   }
   disposeServer?.();
+  disposeClient?.();
   const container: Container = app.instance[containerKey];
   const lastAction = container.get(LastAction);
   const portDetector = container.get(PortDetector);

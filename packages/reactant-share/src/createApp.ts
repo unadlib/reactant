@@ -60,6 +60,7 @@ const createBaseApp = <T, S extends any[], R extends Renderer<S>>({
         disposeServer = handleServer({
           app,
           transport: serverTransport,
+          disposeServer,
           disposeClient,
           enablePatchesChecker: share.enablePatchesChecker,
         });
@@ -71,6 +72,7 @@ const createBaseApp = <T, S extends any[], R extends Renderer<S>>({
           app,
           transport: clientTransport,
           disposeServer,
+          disposeClient,
           enablePatchesFilter: share.enablePatchesFilter,
         });
       }
