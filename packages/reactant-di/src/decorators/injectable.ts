@@ -88,6 +88,13 @@ export function injectable(options: ModuleDecoratorOptions = {}) {
       if (typeof option === 'function') {
         decorate(inject(option) as ClassDecorator, target, index);
       } else if (toString.call(option) === '[object Object]') {
+        if (typeof option.provide === 'undefined' || option.provide === null) {
+          throw new Error(
+            `@injectable ${
+              option ? JSON.stringify(option) : option
+            } option error, please set a valid value for 'provide'`
+          );
+        }
         if (option.optional && !option.multi) {
           decorate(optional(option.provide) as ClassDecorator, target, index);
         } else if (option.multi && !option.optional) {
@@ -102,13 +109,11 @@ export function injectable(options: ModuleDecoratorOptions = {}) {
             target,
             index
           );
-        } else if (option.provide) {
-          decorate(inject(option.provide) as ClassDecorator, target, index);
         } else {
-          throw new Error(`@injectable ${option} option error`);
+          decorate(inject(option.provide) as ClassDecorator, target, index);
         }
       } else {
-        throw new Error(`@injectable ${option} option error`);
+        throw new Error(`@injectable ${option?.toString()} option error`);
       }
     });
     // it has to use `Reflect.getMetadata` with metadata, it just get all injectable deps.

@@ -123,6 +123,43 @@ describe('@injectable', () => {
     expect(bar.fooBar instanceof FooBar).toBeTruthy();
   });
 
+  test('injectable error', () => {
+    @injectable()
+    class Foo {}
+
+    for (const item of [
+      { provide1: 'OptionalFoos', multi: true, optional: true },
+      '',
+      undefined,
+      null,
+      true,
+      false,
+      0,
+      {},
+      [],
+    ]) {
+      expect(() => {
+        @injectable({
+          deps: [
+            // @ts-ignore
+            item,
+          ],
+        })
+        class Bar {
+          public optionalFoos: Foo[];
+
+          constructor(optionalFoos: any[]) {
+            this.optionalFoos = optionalFoos;
+          }
+        }
+        const bar = createContainer({
+          ServiceIdentifiers: new Map(),
+          modules: [],
+        }).get(Bar);
+      }).toThrowError(/option error/);
+    }
+  });
+
   test('multi-deps', () => {
     @injectable()
     class Foo {}
