@@ -48,13 +48,14 @@ export const dispatch = <T extends AnyAction = AnyAction>(
   target: ThisService,
   action: T
 ) => {
+  const store = target[storeKey];
   // the api should not be implemented as a decorator
   // (because it should return new state should get a the current new state, low performance.)
-  if (target[storeKey]) {
-    target[storeKey]!.dispatch(action);
+  if (store) {
+    store.dispatch(action);
   } else {
     throw new Error(
-      `Store for '${target.constructor.name}' service does not exist, and make sure you have set any Redux state.`
+      `Store for '${target.constructor.name}' service does not exist. Please make sure you have set any Redux state, or it should not be executed synchronously in class constructor.`
     );
   }
 };

@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { Action } from 'redux';
 import {
   injectable,
   createContainer,
@@ -69,4 +68,49 @@ test('`dispatch` without action type', () => {
   counter.decrease();
   expect(counter.count).toBe(0);
   expect(Object.values(store.getState())).toEqual([{ count: 0 }]);
+});
+
+test('`dispatch` error', () => {
+  const type = 'count_increase';
+
+  interface CountAction {
+    type: typeof type;
+    state: number;
+  }
+
+  @injectable()
+  class Counter {
+    constructor() {
+      this.increase();
+    }
+
+    @state
+    count = createState<CountAction['state'], CountAction>(
+      ($state = 0, $action) => ($action.type === type ? $action.state : $state)
+    );
+
+    increase() {
+      dispatch<CountAction>(this, {
+        type,
+        state: this.count + 1,
+      });
+    }
+
+    @action
+    decrease() {
+      this.count -= 1;
+    }
+  }
+  const ServiceIdentifiers = new Map();
+  const modules = [Counter];
+  const container = createContainer({
+    ServiceIdentifiers,
+    modules,
+    options: {
+      defaultScope: 'Singleton',
+    },
+  });
+  expect(() => {
+    const counter = container.get(Counter);
+  }).toThrowError();
 });
