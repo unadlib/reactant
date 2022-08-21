@@ -11,6 +11,8 @@ import {
   PortDetector,
 } from '..';
 
+const increaseSymbol = Symbol('increase');
+
 @injectable({
   name: 'counter',
 })
@@ -23,9 +25,22 @@ class Counter extends ViewModule {
     this.count += 1;
   }
 
+  @action
+  add(num: number) {
+    this.count += num;
+  }
+
   async increase() {
     await spawn(this as Counter, '_increase', []);
   }
+
+  [increaseSymbol]() {
+    this._increase();
+  }
+
+  increaseFunc = () => {
+    this._increase();
+  };
 
   component() {
     return null;
@@ -259,4 +274,260 @@ test('switch diff port', async () => {
   await client0.instance.increase();
   expect(server.instance.count).toBe(6);
   expect(client0.instance.count).toBe(6);
+});
+
+test('spawn error case0', async () => {
+  const transports = mockPairTransports();
+
+  const server = await createSharedApp({
+    modules: [],
+    main: Counter,
+    render: () => {},
+    share: {
+      name: 'counter',
+      type: 'Base',
+      port: 'server',
+      transports: {
+        server: transports[0],
+      },
+    },
+  });
+
+  await server.instance.increase();
+  expect(server.instance.count).toBe(1);
+  await server.instance.increase();
+  expect(server.instance.count).toBe(2);
+
+  const client0 = await createSharedApp({
+    modules: [],
+    main: Counter,
+    render: () => {},
+    share: {
+      name: 'counter',
+      type: 'Base',
+      port: 'client',
+      transports: {
+        client: transports[1],
+      },
+    },
+  });
+  await client0.bootstrap();
+  expect(client0.instance.count).toBe(2);
+  expect(server.instance.count).toBe(2);
+
+  await server.instance.increase();
+  expect(server.instance.count).toBe(3);
+  expect(client0.instance.count).toBe(3);
+
+  await spawn(client0.instance, 'increaseFunc', []);
+  expect(server.instance.count).toBe(4);
+  expect(client0.instance.count).toBe(4);
+
+  expect(() => {
+    spawn(client0.instance, increaseSymbol, []);
+  }).toThrowError();
+
+  expect(() => {
+    spawn(client0.instance, 'count' as any, []);
+  }).toThrowError();
+
+  expect(() => {
+    // @ts-ignore
+    spawn(client0.instance, 'increaseFunc');
+  }).toThrowError();
+
+  const portDetector1 = client0.container.get(PortDetector);
+  portDetector1.transports.client = null as any;
+
+  spawn(client0.instance, 'increaseFunc', [], { respond: true }).catch((e) => {
+    expect(e).toEqual(
+      new Error('Detected that the current client transport does not exist.')
+    );
+  });
+});
+
+test('spawn error case1', async () => {
+  @injectable()
+  class Counter1 extends ViewModule {
+    @state
+    count = 0;
+
+    @action
+    _increase() {
+      this.count += 1;
+    }
+
+    async increase() {
+      await spawn(this as Counter1, '_increase', []);
+    }
+
+    [increaseSymbol]() {
+      this._increase();
+    }
+
+    increaseFunc = () => {
+      this._increase();
+    };
+
+    component() {
+      return null;
+    }
+  }
+
+  const transports = mockPairTransports();
+
+  const server = await createSharedApp({
+    modules: [],
+    main: Counter1,
+    render: () => {},
+    share: {
+      name: 'counter',
+      type: 'Base',
+      port: 'server',
+      transports: {
+        server: transports[0],
+      },
+    },
+  });
+
+  expect(() => {
+    spawn(server.instance, 'increaseFunc', [], { respond: true });
+  }).toThrowError(/a temporary string/);
+
+  const client0 = await createSharedApp({
+    modules: [],
+    main: Counter1,
+    render: () => {},
+    share: {
+      name: 'counter',
+      type: 'Base',
+      port: 'client',
+      transports: {
+        client: transports[1],
+      },
+    },
+  });
+  await client0.bootstrap();
+
+  expect(() => {
+    spawn(client0.instance, 'increaseFunc', [], { respond: true });
+  }).toThrowError(/a temporary string/);
+});
+
+test('spawn error case2', async () => {
+  @injectable({
+    name: Symbol('counter') as any,
+  })
+  class Counter1 extends ViewModule {
+    @state
+    count = 0;
+
+    @action
+    _increase() {
+      this.count += 1;
+    }
+
+    async increase() {
+      await spawn(this as Counter1, '_increase', []);
+    }
+
+    [increaseSymbol]() {
+      this._increase();
+    }
+
+    increaseFunc = () => {
+      this._increase();
+    };
+
+    component() {
+      return null;
+    }
+  }
+
+  const transports = mockPairTransports();
+
+  const server = await createSharedApp({
+    modules: [],
+    main: Counter1,
+    render: () => {},
+    share: {
+      name: 'counter',
+      type: 'Base',
+      port: 'server',
+      transports: {
+        server: transports[0],
+      },
+    },
+  });
+
+  expect(() => {
+    spawn(server.instance, 'increaseFunc', [], { respond: true });
+  }).toThrowError(/a temporary string/);
+
+  const client0 = await createSharedApp({
+    modules: [],
+    main: Counter1,
+    render: () => {},
+    share: {
+      name: 'counter',
+      type: 'Base',
+      port: 'client',
+      transports: {
+        client: transports[1],
+      },
+    },
+  });
+  await client0.bootstrap();
+
+  expect(() => {
+    spawn(client0.instance, 'increaseFunc', [], { respond: true });
+  }).toThrowError(/a temporary string/);
+});
+
+test('spawn with args', async () => {
+  const transports = mockPairTransports();
+
+  const server = await createSharedApp({
+    modules: [],
+    main: Counter,
+    render: () => {},
+    share: {
+      name: 'counter',
+      type: 'Base',
+      port: 'server',
+      transports: {
+        server: transports[0],
+      },
+    },
+  });
+
+  await spawn(server.instance, 'add', [1]);
+  expect(server.instance.count).toBe(1);
+  await server.instance.increase();
+  expect(server.instance.count).toBe(2);
+
+  const client0 = await createSharedApp({
+    modules: [],
+    main: Counter,
+    render: () => {},
+    share: {
+      name: 'counter',
+      type: 'Base',
+      port: 'client',
+      transports: {
+        client: transports[1],
+      },
+    },
+  });
+  await client0.bootstrap();
+  expect(client0.instance.count).toBe(2);
+  expect(server.instance.count).toBe(2);
+
+  await server.instance.increase();
+  expect(server.instance.count).toBe(3);
+  expect(client0.instance.count).toBe(3);
+
+  await spawn(client0.instance, 'add', [1]);
+  expect(server.instance.count).toBe(4);
+  expect(client0.instance.count).toBe(4);
 });

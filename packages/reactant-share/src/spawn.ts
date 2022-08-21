@@ -66,21 +66,16 @@ export const spawn: ProxyExec = (module, key, args, options = {}) => {
   const target: Service = module;
   if (target[containerKey]?.isBound(PortDetector)) {
     const portDetector = target[containerKey]!.get(PortDetector);
+    if (__DEV__) {
+      const moduleName = target.constructor.name;
+      if (/^@@reactant/.test(target[identifierKey]!)) {
+        throw new Error(
+          `The identifier '${target[identifierKey]}' is a temporary string, please set 'provide' for the module '${moduleName}' or the 'name' field of the module '${moduleName}'.`
+        );
+      }
+    }
     // if the port is not a client, it just run the method in server port.
     if (portDetector.isClient) {
-      if (__DEV__) {
-        const moduleName = target.constructor.name;
-        if (typeof target[identifierKey] !== 'string') {
-          throw new Error(
-            `The identifier of module '${moduleName}' should be a string, please check 'provide' for the module or the 'name' field of the module.`
-          );
-        }
-        if (/^@@reactant/.test(target[identifierKey]!)) {
-          throw new Error(
-            `The identifier '${target[identifierKey]}' is a temporary string, please set 'provide' for the module '${moduleName}' or the 'name' field of the module '${moduleName}'.`
-          );
-        }
-      }
       if (!portDetector.transports.client) {
         return Promise.reject(
           new Error(
@@ -96,7 +91,7 @@ export const spawn: ProxyExec = (module, key, args, options = {}) => {
         {
           module: target[identifierKey]!,
           method: key,
-          args: args ?? [],
+          args,
         }
       );
     }
