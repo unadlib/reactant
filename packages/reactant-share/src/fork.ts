@@ -36,11 +36,6 @@ export const fork: ProxyExec = (module, key, args, options = {}) => {
     }
     if (__DEV__) {
       const moduleName = target.constructor.name;
-      if (typeof target[identifierKey] !== 'string') {
-        throw new Error(
-          `The identifier of module '${moduleName}' should be a string, please check 'provide' for the module or the 'name' field of the module.`
-        );
-      }
       if (/^@@reactant/.test(target[identifierKey]!)) {
         throw new Error(
           `The identifier '${target[identifierKey]}' is a temporary string, please set 'provide' for the module '${moduleName}' or the 'name' field of the module '${moduleName}'.`
@@ -60,7 +55,7 @@ export const fork: ProxyExec = (module, key, args, options = {}) => {
       {
         module: target[identifierKey]!,
         method: key,
-        args: args ?? [],
+        args,
       }
     );
   }

@@ -9,6 +9,7 @@ import {
   mockPairTransports,
   ViewModule,
   PortDetector,
+  fork,
 } from '..';
 
 const increaseSymbol = Symbol('increase');
@@ -17,6 +18,12 @@ const increaseSymbol = Symbol('increase');
   name: 'counter',
 })
 class Counter extends ViewModule {
+  setValue = 0;
+
+  set(setValue: number) {
+    this.setValue = setValue;
+  }
+
   @state
   count = 0;
 
@@ -529,5 +536,263 @@ test('spawn with args', async () => {
 
   await spawn(client0.instance, 'add', [1]);
   expect(server.instance.count).toBe(4);
+  expect(client0.instance.count).toBe(4);
+});
+
+test('fork error case0', async () => {
+  const transports = mockPairTransports();
+
+  const server = await createSharedApp({
+    modules: [],
+    main: Counter,
+    render: () => {},
+    share: {
+      name: 'counter',
+      type: 'Base',
+      port: 'server',
+      transports: {
+        server: transports[0],
+      },
+    },
+  });
+
+  const client0 = await createSharedApp({
+    modules: [],
+    main: Counter,
+    render: () => {},
+    share: {
+      name: 'counter',
+      type: 'Base',
+      port: 'client',
+      transports: {
+        client: transports[1],
+      },
+    },
+  });
+  await client0.bootstrap();
+  expect(client0.instance.count).toBe(0);
+  expect(server.instance.count).toBe(0);
+
+  await server.instance.increase();
+  expect(server.instance.count).toBe(1);
+  expect(client0.instance.count).toBe(1);
+
+  await fork(server.instance, 'add', [1]);
+  expect(server.instance.count).toBe(1);
+  expect(client0.instance.count).toBe(2);
+
+  await fork(server.instance, 'set', [1]);
+  expect(server.instance.setValue).toBe(0);
+  expect(client0.instance.setValue).toBe(1);
+
+  expect(() => {
+    fork(server.instance, increaseSymbol, []);
+  }).toThrowError();
+
+  expect(() => {
+    fork(server.instance, 'count' as any, []);
+  }).toThrowError();
+
+  expect(() => {
+    // @ts-ignore
+    fork(server.instance, 'increaseFunc');
+  }).toThrowError();
+
+  const portDetector1 = server.container.get(PortDetector);
+  portDetector1.transports.server = null as any;
+
+  fork(server.instance, 'increaseFunc', [], { respond: true }).catch((e) => {
+    expect(e).toEqual(
+      new Error('Detected that the current server transport does not exist.')
+    );
+  });
+});
+
+test('fork error case1', async () => {
+  @injectable()
+  class Counter1 extends ViewModule {
+    @state
+    count = 0;
+
+    @action
+    _increase() {
+      this.count += 1;
+    }
+
+    async increase() {
+      await fork(this as Counter1, '_increase', []);
+    }
+
+    [increaseSymbol]() {
+      this._increase();
+    }
+
+    increaseFunc = () => {
+      this._increase();
+    };
+
+    component() {
+      return null;
+    }
+  }
+
+  const transports = mockPairTransports();
+
+  const server = await createSharedApp({
+    modules: [],
+    main: Counter1,
+    render: () => {},
+    share: {
+      name: 'counter',
+      type: 'Base',
+      port: 'server',
+      transports: {
+        server: transports[0],
+      },
+    },
+  });
+
+  expect(() => {
+    fork(server.instance, 'increaseFunc', [], { respond: true });
+  }).toThrowError(/a temporary string/);
+
+  const client0 = await createSharedApp({
+    modules: [],
+    main: Counter1,
+    render: () => {},
+    share: {
+      name: 'counter',
+      type: 'Base',
+      port: 'client',
+      transports: {
+        client: transports[1],
+      },
+    },
+  });
+  await client0.bootstrap();
+
+  expect(() => {
+    fork(server.instance, 'increaseFunc', [], { respond: true });
+  }).toThrowError(/a temporary string/);
+
+  expect(() => {
+    fork(client0.instance, 'increaseFunc', [], { respond: true });
+  }).toThrowError(/should be running in server port/);
+});
+
+test('fork error case2', async () => {
+  @injectable({
+    name: Symbol('counter') as any,
+  })
+  class Counter1 extends ViewModule {
+    @state
+    count = 0;
+
+    @action
+    _increase() {
+      this.count += 1;
+    }
+
+    async increase() {
+      await fork(this as Counter1, '_increase', []);
+    }
+
+    [increaseSymbol]() {
+      this._increase();
+    }
+
+    increaseFunc = () => {
+      this._increase();
+    };
+
+    component() {
+      return null;
+    }
+  }
+
+  const transports = mockPairTransports();
+
+  const server = await createSharedApp({
+    modules: [],
+    main: Counter1,
+    render: () => {},
+    share: {
+      name: 'counter',
+      type: 'Base',
+      port: 'server',
+      transports: {
+        server: transports[0],
+      },
+    },
+  });
+
+  expect(() => {
+    fork(server.instance, 'increaseFunc', [], { respond: true });
+  }).toThrowError(/a temporary string/);
+
+  const client0 = await createSharedApp({
+    modules: [],
+    main: Counter1,
+    render: () => {},
+    share: {
+      name: 'counter',
+      type: 'Base',
+      port: 'client',
+      transports: {
+        client: transports[1],
+      },
+    },
+  });
+  await client0.bootstrap();
+
+  expect(() => {
+    fork(server.instance, 'increaseFunc', [], { respond: true });
+  }).toThrowError(/a temporary string/);
+});
+
+test('fork with args', async () => {
+  const transports = mockPairTransports();
+
+  const server = await createSharedApp({
+    modules: [],
+    main: Counter,
+    render: () => {},
+    share: {
+      name: 'counter',
+      type: 'Base',
+      port: 'server',
+      transports: {
+        server: transports[0],
+      },
+    },
+  });
+
+  await server.instance.increase();
+  expect(server.instance.count).toBe(1);
+
+  const client0 = await createSharedApp({
+    modules: [],
+    main: Counter,
+    render: () => {},
+    share: {
+      name: 'counter',
+      type: 'Base',
+      port: 'client',
+      transports: {
+        client: transports[1],
+      },
+    },
+  });
+  await client0.bootstrap();
+  await server.instance.increase();
+  expect(client0.instance.count).toBe(2);
+  expect(server.instance.count).toBe(2);
+
+  await server.instance.increase();
+  expect(server.instance.count).toBe(3);
+  expect(client0.instance.count).toBe(3);
+
+  await fork(server.instance, 'add', [1]);
+  expect(server.instance.count).toBe(3);
   expect(client0.instance.count).toBe(4);
 });
