@@ -6,7 +6,7 @@ A react router dom for Reactant
 
 ## Usage
 
-```sh
+```bash
 npm install reactant-router-dom
 # or
 yarn add reactant-router-dom

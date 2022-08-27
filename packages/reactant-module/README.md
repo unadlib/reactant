@@ -6,7 +6,7 @@ A module model for Reactant
 
 ## Usage
 
-```sh
+```bash
 npm install reactant-module
 # or
 yarn add reactant-module

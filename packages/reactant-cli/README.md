@@ -8,13 +8,13 @@ A command line interface for Reactant
 
 * Create a Reactant project:
 
-```sh
+```bash
 npx reactant-cli init my-app
 ```
 
 * Generate a service file:
 
-```sh
+```bash
 npx reactant-cli generate service Foo
 # or
 npx reactant-cli g s FooBarView
@@ -22,7 +22,7 @@ npx reactant-cli g s FooBarView
 
 * Generate a view file:
 
-```sh
+```bash
 npx reactant-cli generate view FooBarView
 # or
 npx reactant-cli g v FooBarView
@@ -32,13 +32,13 @@ npx reactant-cli g v FooBarView
 
 We recommend you install `reactant-cli` globally to use it.
 
-```sh
+```bash
 npm install -g reactant-cli
 ```
 
 or you can install `reactant-cli` to your project.
 
-```sh
+```bash
 yarn add -D reactant-cli
 ```
 

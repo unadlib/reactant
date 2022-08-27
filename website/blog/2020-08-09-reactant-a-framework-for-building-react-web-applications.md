@@ -1,7 +1,7 @@
 ---
 title: Reactant - A framework for building React web applications
-author: Michael Lin
-authorURL: http://twitter.com/unadlib
+author: unadlib
+tags: [reactant]
 ---
 
 ## Motivation

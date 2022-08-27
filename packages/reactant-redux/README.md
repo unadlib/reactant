@@ -6,7 +6,7 @@ A redux lib for Reactant
 
 ## Usage
 
-```sh
+```bash
 npm install reactant-redux
 # or
 yarn add reactant-redux

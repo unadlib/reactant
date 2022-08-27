@@ -6,7 +6,7 @@ A Web application with react-dom for Reactant
 
 ## Usage
 
-```sh
+```bash
 npm install reactant-web
 yarn add reactant-web
 ```

@@ -6,7 +6,7 @@ A dependency injection lib for Reactant
 
 ## Usage
 
-```sh
+```bash
 npm install reactant-di
 # or
 yarn add reactant-di

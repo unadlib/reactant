@@ -8,20 +8,20 @@ SSR (Server-Side Rendering) can greatly improve the first rendering time, the mo
 
 - Build a Next.js application project using the `create-next-app` cli.
 
-```sh
+```bash
 npx create-next-app reactant-ts-ssr --ts
 cd reactant-ts-ssr
 ```
 
 - Install `reactant-ssr`.
 
-```sh
+```bash
 yarn add reactant-ssr
 ```
 
 - Install other `Babel` development dependencies.
 
-```sh
+```bash
 yarn add -D @babel/core @babel/plugin-proposal-class-properties @babel/plugin-proposal-decorators babel-plugin-parameter-decorator babel-plugin-transform-typescript-metadata
 ```
 

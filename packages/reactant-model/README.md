@@ -6,7 +6,7 @@ A model lib for Reactant
 
 ## Usage
 
-```sh
+```bash
 npm install reactant-model
 # or
 yarn add reactant-model

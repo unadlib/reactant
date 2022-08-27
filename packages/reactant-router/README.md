@@ -6,7 +6,7 @@ A router plugin for Reactant
 
 ## Usage
 
-```sh
+```bash
 npm install reactant-router
 # or
 yarn add reactant-router

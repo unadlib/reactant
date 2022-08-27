@@ -48,7 +48,7 @@ It can architect a variety of large React projects. Reactant advocates a lightwe
 
 ## Usage
 
-```sh
+```bash
 npx reactant-cli init my-app
 cd my-app
 yarn start

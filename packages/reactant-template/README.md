@@ -6,7 +6,7 @@ A templates collection for Reactant
 
 ## Usage
 
-```sh
+```bash
 npm install -D reactant-template
 # or
 yarn add -D reactant-template

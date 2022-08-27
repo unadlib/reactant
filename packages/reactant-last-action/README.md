@@ -6,7 +6,7 @@ A Reactant plugin for staging last action
 
 ## Usage
 
-```sh
+```bash
 npm install reactant-last-action
 # or
 yarn add reactant-last-action

@@ -6,7 +6,7 @@ A framework for building React applications
 
 ## Usage
 
-```sh
+```bash
 npx reactant-cli init my-app
 cd my-app
 yarn start

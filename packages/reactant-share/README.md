@@ -14,7 +14,7 @@ A framework for building shared web applications that support multiple windows.
 
 ## Usage
 
-```sh
+```bash
 npm install reactant-share
 # or
 yarn add reactant-share

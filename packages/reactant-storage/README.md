@@ -6,7 +6,7 @@ A persistence storage plugin for Reactant
 
 ## Usage
 
-```sh
+```bash
 npm install reactant-storage
 # or
 yarn add reactant-storage

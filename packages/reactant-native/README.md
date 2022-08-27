@@ -6,7 +6,7 @@ A mobile application with react-native for Reactant
 
 ## Usage
 
-```sh
+```bash
 npm install reactant-native
 yarn add reactant-native
 ```

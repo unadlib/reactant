@@ -2,7 +2,7 @@
 
 Make sure the root directory is running `yarn install && yarn build`.
 
-```sh
+```bash
 cd examples/reactant-share-sharedworker
 yarn install
 yarn start
