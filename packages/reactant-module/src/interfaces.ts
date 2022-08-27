@@ -178,7 +178,7 @@ export type Load = (
   loadModules: ReactModuleOptions[]
 ) => Promise<Container>;
 
-export type StateService<T> = Service<T>;
+export type StateService<T extends Record<string, any>> = Service<T>;
 
 export interface ModuleDecoratorOptions extends IModuleDecoratorOptions {
   /**

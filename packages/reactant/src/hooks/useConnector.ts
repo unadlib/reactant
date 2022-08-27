@@ -52,7 +52,7 @@ export function useConnector<T>(
   try {
     const container = useContext(ContainerContext);
     return useSelector(
-      () => selector(container!),
+      () => selector(container!) as Record<string, any>,
       shallowEqual || areShallowEqualWithObject
     ) as T;
   } catch (e) {

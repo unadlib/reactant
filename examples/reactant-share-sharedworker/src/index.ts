@@ -19,7 +19,8 @@ createSharedApp({
       provide: RouterOptions,
       useValue: {
         createHistory: () => createHashHistory(),
-        name: global.location.pathname === '/index.html' ? 'other' : 'default',
+        name:
+          globalThis.location.pathname === '/index.html' ? 'other' : 'default',
       } as IRouterOptions,
     },
     Storage,

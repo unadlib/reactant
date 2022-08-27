@@ -6,6 +6,9 @@
   "unpkg": "dist/index.umd.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
+  "typedoc": {
+    "entryPoint": "src/index.ts"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
