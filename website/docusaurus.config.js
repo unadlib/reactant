@@ -54,15 +54,24 @@ const config = {
     ],
   ],
   plugins: [
-    // [
-    //   'docusaurus-plugin-typedoc',
-    //   {
-    //     entryPoints: ['../packages/reactant/src/index.ts'],
-    //     tsconfig: '../packages/reactant/tsconfig.json',
-    //     out: 'api/reactant',
-    //     id: 'reactant',
-    //   },
-    // ],
+    [
+      'docusaurus-plugin-typedoc',
+      {
+        readme: 'none',
+        sidebar: {
+          categoryLabel: 'Reactant',
+          position: 1,
+        },
+        entryPoints: [
+          '../packages/reactant/src/createApp.tsx',
+          '../packages/reactant/src/testBed.ts',
+          '../packages/reactant/src/hooks/useConnector.ts',
+        ],
+        tsconfig: '../packages/reactant/tsconfig.json',
+        out: 'api/reactant',
+        id: 'api',
+      },
+    ],
   ],
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
@@ -80,18 +89,18 @@ const config = {
             position: 'left',
             label: 'Docs',
           },
+          {
+            label: 'API',
+            position: 'left',
+            sidebarId: 'api',
+            type: 'docSidebar',
+          },
           { to: '/blog', label: 'Blog', position: 'left' },
           {
             href: 'https://github.com/unadlib/reactant',
             label: 'GitHub',
             position: 'right',
           },
-          // {
-          //   to: 'docs/api',
-          //   activeBasePath: 'docs',
-          //   label: 'API',
-          //   position: 'left',
-          // },
         ],
       },
       footer: {
