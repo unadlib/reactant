@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { injectable, storeKey, inject, state, action, watch } from 'reactant';
 import { BaseReactantRouter, RouterOptions } from 'reactant-router';
 import type {
@@ -12,7 +11,7 @@ import {
   syncRouterName,
   syncRouterWorkerName,
 } from './constants';
-import { ISharedAppOptions } from './interfaces';
+import type { ISharedAppOptions } from './interfaces';
 import { PortDetector } from './portDetector';
 import { spawn } from './spawn';
 
@@ -65,7 +64,10 @@ export interface IRouterOptions extends IBaseRouterOptions {
   name: 'reactant:router',
 })
 class ReactantRouter extends BaseReactantRouter {
-  protected name = this.options.name ?? 'default';
+  /**
+   * router type name
+   */
+  name = this.options.name ?? 'default';
 
   constructor(
     protected portDetector: PortDetector,
@@ -80,12 +82,9 @@ class ReactantRouter extends BaseReactantRouter {
       ),
     });
 
-    this.portDetector.onServer((transport) => {
-      return transport!.listen(
-        syncRouterName,
-        async (name) => this._routers[name]
-      );
-    });
+    this.portDetector.onServer((transport) =>
+      transport!.listen(syncRouterName, async (name) => this._routers[name])
+    );
     this.portDetector.onClient((transport) => {
       transport!.emit(syncRouterName, this.name).then((router) => {
         if (!router) return;
@@ -95,13 +94,13 @@ class ReactantRouter extends BaseReactantRouter {
       });
     });
 
-    this.portDetector.onServer((transport) => {
-      return transport.listen(syncRouterWorkerName, (router, name) => {
+    this.portDetector.onServer((transport) =>
+      transport.listen(syncRouterWorkerName, (router, name) => {
         if (!this.router && router && name === this.name) {
           this._setRouters(name, router);
         }
-      });
-    });
+      })
+    );
     this.portDetector.onClient((transport) => {
       transport.emit(
         { name: syncRouterWorkerName, respond: false },
@@ -110,8 +109,8 @@ class ReactantRouter extends BaseReactantRouter {
       );
       return transport.listen(
         routerChangeName,
-        async ({ method, args = [], currentName }) => {
-          return new Promise((resolve) => {
+        async ({ method, args = [], currentName }) =>
+          new Promise((resolve) => {
             if (currentName !== this.name) return;
             if (this.portDetector.disableSyncClient) {
               this.toBeRouted = () => {
@@ -137,8 +136,7 @@ class ReactantRouter extends BaseReactantRouter {
             );
             const fn: Function = this.history[method];
             fn(...args);
-          });
-        }
+          })
       );
     });
   }

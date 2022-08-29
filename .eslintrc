@@ -23,13 +23,11 @@
       "jsx": true
     },
     "ecmaVersion": 2019,
-    "sourceType": "module"
+    "sourceType": "module",
+    "project": "./tsconfig.json",
+    "emitDecoratorMetadata": true
   },
-  "plugins": [
-    "prettier",
-    "react",
-    "@typescript-eslint"
-  ],
+  "plugins": ["prettier", "react", "@typescript-eslint"],
   "rules": {
     "no-useless-constructor": 0,
     "class-methods-use-this": 0,
@@ -55,9 +53,7 @@
       }
     ],
     "import/prefer-default-export": "off",
-    "prettier/prettier": [
-      "error"
-    ],
+    "prettier/prettier": ["error"],
     "import/extensions": [
       "error",
       "ignorePackages",
@@ -72,12 +68,7 @@
   "settings": {
     "import/resolver": {
       "node": {
-        "extensions": [
-          ".js",
-          ".jsx",
-          ".ts",
-          ".tsx"
-        ]
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
       }
     }
   }
