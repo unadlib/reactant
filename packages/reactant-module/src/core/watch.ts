@@ -35,12 +35,8 @@ import { isEqual as defaultIsEqual } from '../utils';
  * });
  * ```
  */
-const watch: Watch = (
-  service,
-  selector,
-  watcher,
-  { multiple = false, isEqual = defaultIsEqual } = {}
-) => {
+const watch: Watch = (service, selector, watcher, options = {}) => {
+  const { multiple = false, isEqual = defaultIsEqual } = options;
   if (typeof watcher !== 'function') {
     const className = Object.getPrototypeOf(service).constructor.name;
     throw new Error(
@@ -48,6 +44,20 @@ const watch: Watch = (
     );
   }
   let oldValue = selector();
+  let ongoing = false;
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  const callback: typeof watcher = options?.awaitPromise
+    ? async (...args) => {
+        if (ongoing) return;
+        ongoing = true;
+        try {
+          await watcher(...args);
+        } finally {
+          ongoing = false;
+        }
+      }
+    : watcher;
   if (multiple) {
     if (!Array.isArray(oldValue)) {
       const className = Object.getPrototypeOf(service).constructor.name;
@@ -62,8 +72,8 @@ const watch: Watch = (
         if (!isEqual(newValue[i], oldValue[i])) {
           const lastValues = oldValue;
           oldValue = newValue;
-          watcher(newValue, lastValues);
-          break;
+          callback(newValue, lastValues);
+          return;
         }
       }
     });
@@ -73,7 +83,7 @@ const watch: Watch = (
     if (!isEqual(newValue, oldValue)) {
       const lastValue = oldValue;
       oldValue = newValue;
-      watcher(newValue, lastValue);
+      callback(newValue, lastValue);
     }
   });
 };

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable no-use-before-define */
 import type {
   Store as ReduxStore,
   PreloadedState,
@@ -120,7 +122,7 @@ export type HandlePlugin<T = any> = (
   pluginHooks: PluginHooks
 ) => void;
 
-export type Subscribe = (
+export type Subscribe = <R extends void | Promise<void>>(
   /**
    * Module instance
    */
@@ -128,14 +130,40 @@ export type Subscribe = (
   /**
    * Redux's store subscription
    */
-  listener: () => void
+  listener: () => R,
+  /**
+   * Watch options
+   */
+  options?: R extends Promise<void>
+    ? {
+        /**
+         * Wait for each async subscriber callback to complete before executing the next subscriber callback
+         */
+        awaitPromise?: boolean;
+      }
+    : void
 ) => Unsubscribe;
 
 type Selector<T> = () => T;
 
-type Watcher<T> = (newValue: T, oldValue: T) => void;
+type Watcher<T, R> = (newValue: T, oldValue: T) => R;
 
-export type Watch = <P extends boolean, T extends P extends true ? any[] : any>(
+interface WatcherOptions<P extends boolean> {
+  /**
+   * Use multiple values watching
+   */
+  multiple?: P;
+  /**
+   * Define `isEqual` function as shallow comparison
+   */
+  isEqual?: (x: unknown, y: unknown) => boolean;
+}
+
+export type Watch = <
+  P extends boolean,
+  T extends P extends true ? any[] : any,
+  R extends void | Promise<void>
+>(
   /**
    * Module instance
    */
@@ -147,20 +175,18 @@ export type Watch = <P extends boolean, T extends P extends true ? any[] : any>(
   /**
    * Watch callback with value changes
    */
-  watcher: Watcher<T>,
+  watcher: Watcher<T, R>,
   /**
    * Watch options
    */
-  options?: {
-    /**
-     * Use multiple values watching
-     */
-    multiple?: P;
-    /**
-     * Define `isEqual` function as shallow comparison
-     */
-    isEqual?: (x: unknown, y: unknown) => boolean;
-  }
+  options?: R extends Promise<void>
+    ? WatcherOptions<P> & {
+        /**
+         * Wait for each async watcher callback to complete before executing the next watcher callback
+         */
+        awaitPromise?: boolean;
+      }
+    : WatcherOptions<P>
 ) => Unsubscribe;
 
 export interface LoadOptions<T> {
