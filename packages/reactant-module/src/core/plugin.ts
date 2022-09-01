@@ -1,5 +1,5 @@
-import { FunctionComponent } from 'react';
-import {
+import type { FunctionComponent } from 'react';
+import type {
   ReducersMapObject,
   Middleware,
   PreloadedState,

@@ -609,6 +609,7 @@ test('fork error case0', async () => {
 });
 
 test('fork error case1', async () => {
+  jest.spyOn(console, 'error').mockImplementation(() => {});
   @injectable()
   class Counter1 extends ViewModule {
     @state
@@ -651,6 +652,17 @@ test('fork error case1', async () => {
       },
     },
   });
+
+  expect(console.error).toHaveBeenCalled();
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  expect(console.error.mock.calls[0][0]).toContain(
+    `The decorator for class Counter1 should set "@injectable({ name: 'Counter1' })".`
+  );
+
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  console.error.mockRestore();
 
   expect(() => {
     fork(server.instance, 'increaseFunc', [], { respond: true });

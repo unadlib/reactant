@@ -19,10 +19,10 @@ import {
   action,
   state,
 } from 'reactant';
+import type { IRouterOptions } from '..';
 import {
   Router,
   RouterOptions,
-  IRouterOptions,
   createBrowserHistory,
   createHashHistory,
 } from '..';

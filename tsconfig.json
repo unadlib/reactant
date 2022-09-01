@@ -73,7 +73,9 @@
     "emitDecoratorMetadata": true,         /* Enables experimental support for emitting type metadata for decorators. */
     "useDefineForClassFields": false,
     "skipLibCheck": true,
-
+    "paths": {
+      "react": [ "./node_modules/@types/react" ]
+    },
     /* Advanced Options */
     "forceConsistentCasingInFileNames": true  /* Disallow inconsistently-cased references to the same file. */
   }

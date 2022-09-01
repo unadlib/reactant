@@ -17,6 +17,7 @@ import { createBroadcastTransport } from './createTransport';
 import { isClientName, SharedAppOptions } from './constants';
 import { PortDetector } from './portDetector';
 import { useLock } from './lock';
+import { IdentifierChecker } from './IdentifierChecker';
 
 const createBaseApp = <T, S extends any[], R extends Renderer<S>>({
   share,
@@ -41,6 +42,9 @@ const createBaseApp = <T, S extends any[], R extends Renderer<S>>({
     },
     PortDetector
   );
+  if (__DEV__) {
+    options.modules.push(IdentifierChecker);
+  }
 
   return new Promise(async (resolve) => {
     let app: App<T, S, R>;
