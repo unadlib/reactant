@@ -17,7 +17,7 @@ import { createBroadcastTransport } from './createTransport';
 import { isClientName, SharedAppOptions } from './constants';
 import { PortDetector } from './portDetector';
 import { useLock } from './lock';
-import { IdentifierChecker } from './IdentifierChecker';
+import { IdentifierChecker } from './checkIdentifier';
 
 const createBaseApp = <T, S extends any[], R extends Renderer<S>>({
   share,
