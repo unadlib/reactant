@@ -1,3 +1,4 @@
+/* eslint-disable react/function-component-definition */
 /* eslint-disable react/jsx-one-expression-per-line */
 import React, { FunctionComponent, PropsWithChildren } from 'react';
 import { unmountComponentAtNode, render } from 'reactant-web';
@@ -23,9 +24,9 @@ test('base', () => {
   const app = createServerApp({
     modules: [
       class extends PluginModule {
-        provider = (props: PropsWithChildren<any>) => {
-          return <div>{props.children}</div>;
-        };
+        provider = (props: PropsWithChildren<any>) => (
+          <div>{props.children}</div>
+        );
       },
     ],
   });
@@ -54,9 +55,9 @@ test('base with custom AppView', () => {
   const app = createServerApp({
     modules: [
       class extends PluginModule {
-        provider = (props: PropsWithChildren<any>) => {
-          return <div>{props.children}</div>;
-        };
+        provider = (props: PropsWithChildren<any>) => (
+          <div>{props.children}</div>
+        );
       },
     ],
     main: class extends AppView {

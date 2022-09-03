@@ -26,12 +26,12 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "immer": "^9.0.5",
+    "immer": "^9.0.15",
     "reactant-di": "^0.52.0",
     "redux": "^4.1.0"
   },
   "devDependencies": {
-    "react": "^16.12.0",
+    "react": "^17.0.2",
     "redux-devtools-extension": "^2.13.8"
   }
 }

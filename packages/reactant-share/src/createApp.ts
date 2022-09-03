@@ -22,7 +22,7 @@ import { IdentifierChecker } from './checkIdentifier';
 const createBaseApp = <T, S extends any[], R extends Renderer<S>>({
   share,
   ...options
-}: Config<T, S, R>): Promise<App<T, S, R>> => {
+}: Config<T, S, R>): App<T, S, R> => {
   options.modules ??= [];
   options.devOptions ??= {};
   options.devOptions.enablePatches = true;
@@ -46,66 +46,64 @@ const createBaseApp = <T, S extends any[], R extends Renderer<S>>({
     options.modules.push(IdentifierChecker);
   }
 
-  return new Promise(async (resolve) => {
-    let app: App<T, S, R>;
-    let disposeServer: (() => void) | undefined;
-    let disposeClient: (() => void) | undefined;
+  let app: App<T, S, R>;
+  let disposeServer: (() => void) | undefined;
+  let disposeClient: (() => void) | undefined;
+  const serverTransport = share.transports?.server;
+  const clientTransport = share.transports?.client;
+  const isServer = share.port === 'server';
+  const { transform } = share;
+  share.transform = (changedPort: Port) => {
     const serverTransport = share.transports?.server;
     const clientTransport = share.transports?.client;
-    const isServer = share.port === 'server';
-    const { transform } = share;
-    share.transform = (changedPort: Port) => {
-      const serverTransport = share.transports?.server;
-      const clientTransport = share.transports?.client;
-      if (changedPort === 'server') {
-        if (!serverTransport) {
-          throw new Error(`'transports.server' does not exist.`);
-        }
-        disposeServer = handleServer({
-          app,
-          transport: serverTransport,
-          disposeServer,
-          disposeClient,
-          enablePatchesChecker: share.enablePatchesChecker,
-        });
-      } else {
-        if (!clientTransport) {
-          throw new Error(`'transports.client' does not exist.`);
-        }
-        disposeClient = handleClient({
-          app,
-          transport: clientTransport,
-          disposeServer,
-          disposeClient,
-          enablePatchesFilter: share.enablePatchesFilter,
-        });
+    if (changedPort === 'server') {
+      if (!serverTransport) {
+        throw new Error(`'transports.server' does not exist.`);
       }
-      transform?.(changedPort);
-    };
-    app = createReactantApp(options);
-    if (share.port) {
-      if (isServer) {
-        if (!serverTransport) {
-          throw new Error(`'transports.server' does not exist.`);
-        }
-        disposeServer = handleServer({
-          app,
-          transport: serverTransport,
-          enablePatchesChecker: share.enablePatchesChecker,
-        });
-      } else {
-        if (!clientTransport) {
-          throw new Error(`'transports.client' does not exist.`);
-        }
-        disposeClient = handleClient({
-          app,
-          transport: clientTransport,
-          enablePatchesFilter: share.enablePatchesFilter,
-        });
+      disposeServer = handleServer({
+        app,
+        transport: serverTransport,
+        disposeServer,
+        disposeClient,
+        enablePatchesChecker: share.enablePatchesChecker,
+      });
+    } else {
+      if (!clientTransport) {
+        throw new Error(`'transports.client' does not exist.`);
       }
+      disposeClient = handleClient({
+        app,
+        transport: clientTransport,
+        disposeServer,
+        disposeClient,
+        enablePatchesFilter: share.enablePatchesFilter,
+      });
     }
-    resolve(app);
-  });
+    transform?.(changedPort);
+  };
+  app = createReactantApp(options);
+  if (share.port) {
+    if (isServer) {
+      if (!serverTransport) {
+        throw new Error(`'transports.server' does not exist.`);
+      }
+      disposeServer = handleServer({
+        app,
+        transport: serverTransport,
+        enablePatchesChecker: share.enablePatchesChecker,
+      });
+    } else {
+      if (!clientTransport) {
+        throw new Error(`'transports.client' does not exist.`);
+      }
+      disposeClient = handleClient({
+        app,
+        transport: clientTransport,
+        enablePatchesFilter: share.enablePatchesFilter,
+      });
+    }
+  }
+  return app;
 };
 
 const createSharedTabApp = async <T, S extends any[], R extends Renderer<S>>(
@@ -134,7 +132,7 @@ const createSharedTabApp = async <T, S extends any[], R extends Renderer<S>>(
     options.share.name
   );
   if (options.share.port) {
-    const app = await createBaseApp(options);
+    const app = createBaseApp(options);
     return app;
   }
   let app: App<T, S, R>;
@@ -143,7 +141,7 @@ const createSharedTabApp = async <T, S extends any[], R extends Renderer<S>>(
       useLock(`reactant-share-app-lock:${options.share.name}`, async () => {
         if (!app) {
           options.share.port = 'server';
-          app = await createBaseApp(options);
+          app = createBaseApp(options);
         } else {
           options.share.transform?.('server');
         }
@@ -159,7 +157,7 @@ const createSharedTabApp = async <T, S extends any[], R extends Renderer<S>>(
       );
       if (isClient) {
         options.share.port = 'client';
-        const app = await createBaseApp(options);
+        const app = createBaseApp(options);
         resolve(app);
       }
     }),
@@ -283,7 +281,7 @@ export const createSharedApp = async <
           });
         }
         options.share.transports = transports;
-        app = await createBaseApp(options);
+        app = createBaseApp(options);
       } catch (e) {
         console.warn(e);
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -303,7 +301,7 @@ export const createSharedApp = async <
       app = await createSharedTabApp(options);
       break;
     case 'Base':
-      app = await createBaseApp(options);
+      app = createBaseApp(options);
       break;
     default:
       throw new Error(
