@@ -124,7 +124,7 @@ abstract class BaseReactantRouter extends PluginModule {
   }
 
   provider = (props: PropsWithChildren<any>) => {
-    if (!this.autoProvide) return <>{props.children}</>;
+    if (!this.autoProvide) return props.children;
     return <this.ConnectedRouter>{props.children}</this.ConnectedRouter>;
   };
 }

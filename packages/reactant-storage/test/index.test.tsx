@@ -7,13 +7,12 @@ import {
   ViewModule,
   createApp,
   injectable,
-  inject,
-  optional,
   useConnector,
   action,
   computed,
   autobind,
   state,
+  subscribe,
 } from 'reactant';
 import { render, unmountComponentAtNode } from 'reactant-web';
 import { Storage, StorageOptions, IStorageOptions } from '..';
@@ -60,9 +59,15 @@ describe('base API', () => {
       name: 'bar',
     })
     class Bar {
+      arrRehydrated: boolean[] = [];
+
       constructor(public storage: Storage) {
         this.storage.setStorage(this, {
           whitelist: ['test'],
+        });
+        subscribe(this, () => {
+          const rehydrated = this.storage.getRehydrated(this);
+          this.arrRehydrated.push(rehydrated);
         });
       }
 
@@ -149,6 +154,11 @@ describe('base API', () => {
     await new Promise((resolve) => {
       setTimeout(resolve);
     });
+    // just wait for async rehydration
+    expect(
+      app.instance.bar.arrRehydrated.filter((i) => i === false).length
+    ).toBe(1);
+    expect(app.instance.bar.arrRehydrated.slice(-1)[0]).toBe(true);
     expect(container.querySelector('#increase')?.textContent).toBe('1');
     act(() => {
       container
@@ -317,9 +327,7 @@ describe('base API', () => {
       render,
     });
     expect(spy.mock.calls.slice(-1)[0][0]).toMatch(
-      new RegExp(
-        `For state persistence, The '@injectable\\({ name }\\)' in the @@reactant/AppView/.+ module has not been set yet\\.`
-      )
+      /For state persistence, The '@injectable\({ name }\)' in the @@reactant\/AppView\/.+ module has not been set yet\./
     );
   });
 

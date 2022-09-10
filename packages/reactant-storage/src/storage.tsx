@@ -80,6 +80,9 @@ class ReactantStorage extends PluginModule {
 
   private storageSettingMap = new Map<object, Function>();
 
+  /**
+   * set module to storage persistent
+   */
   setStorage<T extends object>(target: T, options: SetStorageOptions<T>) {
     const module: Service = target;
     if (typeof module[nameKey] !== 'string') {
@@ -102,6 +105,20 @@ class ReactantStorage extends PluginModule {
         [module[identifierKey]!]: persistConfig,
       });
     });
+  }
+
+  /**
+   * get every module rehydrated
+   */
+  getRehydrated(target: object) {
+    const module: Service = target;
+    if (!this.storageSettingMap.has(module)) {
+      throw new Error(
+        `Module '${module.constructor.name}' is not set to storage persistent.`
+      );
+    }
+    const state = module[stateKey]!;
+    return state._persist.rehydrated;
   }
 
   beforeCombineRootReducers(reducers: ReducersMapObject): ReducersMapObject {
@@ -167,6 +184,7 @@ class ReactantStorage extends PluginModule {
           manualPersist: this.manualPersist,
         } as any,
         () => {
+          // after redux-persist action rehydrate
           this.rehydrated = true;
           this._onRehydrated?.();
         }
@@ -180,6 +198,7 @@ class ReactantStorage extends PluginModule {
         manualPersist: this.manualPersist,
       } as any,
       () => {
+        // after redux-persist action rehydrate
         this.rehydrated = true;
         this._onRehydrated?.();
       }
@@ -207,7 +226,7 @@ class ReactantStorage extends PluginModule {
     };
   }
 
-  rehydrateCallbackSet = new Set<() => void>();
+  protected rehydrateCallbackSet = new Set<() => void>();
 
   protected _onRehydrated() {
     if (!this.rehydrateCallbackSet.size) return;
