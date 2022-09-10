@@ -39,6 +39,109 @@ afterEach(() => {
   container.remove();
 });
 
+test('base', () => {
+  @injectable()
+  class Count {
+    @state
+    num = 0;
+
+    @action
+    increase() {
+      this.num += 1;
+    }
+  }
+
+  @injectable()
+  class DashboardView extends ViewModule {
+    constructor(public count: Count) {
+      super();
+    }
+
+    component() {
+      const num = useConnector(() => this.count.num);
+      return (
+        <div onClick={() => this.count.increase()} id="increase">
+          {num}
+        </div>
+      );
+    }
+  }
+  @injectable()
+  class HomeView extends ViewModule {
+    text = 'app';
+
+    getProps(version: string) {
+      return {
+        version: `${this.text} v${version}`,
+      };
+    }
+
+    component({ version = '0.0.1' }) {
+      const data = useConnector(() => this.getProps(version));
+      return <span id="version">{data.version}</span>;
+    }
+  }
+
+  @injectable()
+  class AppView extends ViewModule {
+    constructor(
+      public homeView: HomeView,
+      public dashboardView: DashboardView,
+      public router: Router
+    ) {
+      super();
+    }
+
+    component() {
+      const { ConnectedRouter } = this.router;
+      return (
+        <ConnectedRouter>
+          <Switch>
+            <Route exact path="/">
+              <this.homeView.component version="0.1.0" />
+            </Route>
+            <Route path="/a">
+              <this.dashboardView.component />
+            </Route>
+            <Route path="/b">
+              <this.dashboardView.component />
+            </Route>
+          </Switch>
+        </ConnectedRouter>
+      );
+    }
+  }
+
+  const app = createApp({
+    modules: [
+      {
+        provide: RouterOptions,
+        useValue: {
+          autoProvide: false,
+          createHistory: () => createHashHistory(),
+        } as IRouterOptions,
+      },
+    ],
+    main: AppView,
+    render,
+    devOptions: {
+      reduxDevTools: true,
+    },
+  });
+  act(() => {
+    app.bootstrap(container);
+  });
+  expect(app.instance.router.currentPath).toBe('/');
+  app.instance.router.push('/a');
+  expect(app.instance.router.currentPath).toBe('/a');
+  app.instance.router.replace('/b');
+  expect(app.instance.router.currentPath).toBe('/b');
+  expect(app.instance.dashboardView.count.num).toBe(0);
+  app.instance.dashboardView.count.increase();
+  expect(app.instance.dashboardView.count.num).toBe(1);
+  app.instance.router.replace('/');
+});
+
 test('`router` module without auto provider', () => {
   @injectable()
   class Count {
