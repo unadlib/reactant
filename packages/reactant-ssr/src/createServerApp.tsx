@@ -1,8 +1,10 @@
-import React, { FunctionComponent } from 'react';
+import React from 'react';
+import type { FunctionComponent } from 'react';
 import { AppProps } from 'next/app';
-import { createApp as createAppWithoutSSR, Renderer } from 'reactant';
+import { createApp as createBaseApp } from 'reactant';
+import type { Config, Renderer } from 'reactant';
 import { AppView } from './appView';
-import { ServerConfig, ServerApp } from './interfaces';
+import type { ServerConfig, ServerApp } from './interfaces';
 
 /**
  * create a ServerApp for SSR
@@ -10,21 +12,15 @@ import { ServerConfig, ServerApp } from './interfaces';
 export const createServerApp = <T, S extends any[], R extends Renderer<S>>(
   options: ServerConfig<T, S, R>
 ): ServerApp<T, S, R> => {
-  const {
-    bootstrap,
-    store,
-    instance,
-    container,
-    modules,
-  } = createAppWithoutSSR({
+  const { bootstrap, store, instance, container, modules } = createBaseApp({
     ...options,
-    // TODO: fix types
-    // @ts-ignore
-    main: options.main ?? AppView,
+    main: options.main ?? (AppView as Config<T, S, R>['main']),
     render: (element) => element,
   });
   const AppComponent = (appProps: AppProps) => {
-    return bootstrap((Component: FunctionComponent<AppProps>) => (
+    return (bootstrap as (
+      Component: FunctionComponent<any>
+    ) => JSX.Element)((Component: FunctionComponent<AppProps>) => (
       <Component {...appProps} />
     )) as JSX.Element;
   };
