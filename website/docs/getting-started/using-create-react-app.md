@@ -19,24 +19,24 @@ cd my-app
 
 Because `create-react-app` uses `react-scripts` CLI by default, it needs to be ejected.
 
-```bash
-yarn eject
+```bash npm2yarn
+npm run eject
 ```
 
 ## Install Reactant
 
 You need to install `reactant`(Core API) and `reactant-web`(for Web API).
 
-```bash
-yarn add reactant reactant-web
+```bash npm2yarn
+npm install reactant reactant-web
 ```
 
 ## Add the babel configuration
 
 Reactant development need `@babel/plugin-proposal-decorators` and `@babel/plugin-proposal-class-properties`. If you find that they are not installed, you need to install them:
 
-```bash
-yarn add -D @babel/plugin-proposal-decorators @babel/plugin-proposal-class-properties
+```bash npm2yarn
+npm install -D @babel/plugin-proposal-decorators @babel/plugin-proposal-class-properties
 ```
 
 And then add babel config in `package.json`:
@@ -122,8 +122,8 @@ app.bootstrap(document.getElementById('root'));
 
 ## Run the app
 
-```bash
-yarn start
+```bash npm2yarn
+npm install start
 ```
 
 > Note: If you need to create files quickly, you can visit [reactant-cli](../tooling/cli.md) for more information.

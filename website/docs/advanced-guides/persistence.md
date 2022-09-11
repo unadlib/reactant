@@ -13,8 +13,8 @@ Reactant provides a plugin for persistence: `reactant-storage`.
 
 ## Installation
 
-```bash
-yarn add reactant-storage
+```bash npm2yarn
+npm install reactant-storage
 ```
 
 ## Example

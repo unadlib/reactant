@@ -27,7 +27,7 @@ IBaseRouterOptions.autoCreateHistory
 
 #### Defined in
 
-[packages/reactant-router/src/router.tsx:42](https://github.com/unadlib/reactant/blob/94ce5c78/packages/reactant-router/src/router.tsx#L42)
+[packages/reactant-router/src/router.tsx:42](https://github.com/unadlib/reactant/blob/5459ef00/packages/reactant-router/src/router.tsx#L42)
 
 ___
 
@@ -43,7 +43,7 @@ IBaseRouterOptions.autoProvide
 
 #### Defined in
 
-[packages/reactant-router/src/router.tsx:38](https://github.com/unadlib/reactant/blob/94ce5c78/packages/reactant-router/src/router.tsx#L38)
+[packages/reactant-router/src/router.tsx:38](https://github.com/unadlib/reactant/blob/5459ef00/packages/reactant-router/src/router.tsx#L38)
 
 ___
 
@@ -67,7 +67,7 @@ IBaseRouterOptions.createHistory
 
 #### Defined in
 
-[packages/reactant-router/src/router.tsx:34](https://github.com/unadlib/reactant/blob/94ce5c78/packages/reactant-router/src/router.tsx#L34)
+[packages/reactant-router/src/router.tsx:34](https://github.com/unadlib/reactant/blob/5459ef00/packages/reactant-router/src/router.tsx#L34)
 
 ___
 
@@ -79,7 +79,7 @@ default initial route
 
 #### Defined in
 
-[packages/reactant-share/src/router.ts:56](https://github.com/unadlib/reactant/blob/94ce5c78/packages/reactant-share/src/router.ts#L56)
+[packages/reactant-share/src/router.ts:56](https://github.com/unadlib/reactant/blob/5459ef00/packages/reactant-share/src/router.ts#L56)
 
 ___
 
@@ -91,4 +91,4 @@ name of router
 
 #### Defined in
 
-[packages/reactant-share/src/router.ts:60](https://github.com/unadlib/reactant/blob/94ce5c78/packages/reactant-share/src/router.ts#L60)
+[packages/reactant-share/src/router.ts:60](https://github.com/unadlib/reactant/blob/5459ef00/packages/reactant-share/src/router.ts#L60)

@@ -17,14 +17,14 @@ cd reactant-ts-ssr
 
 - Install `reactant-ssr`.
 
-```bash
-yarn add reactant-ssr
+```bash npm2yarn
+npm install reactant-ssr
 ```
 
 - Install other `Babel` development dependencies.
 
-```bash
-yarn add -D @babel/core @babel/plugin-proposal-class-properties @babel/plugin-proposal-decorators babel-plugin-parameter-decorator babel-plugin-transform-typescript-metadata
+```bash npm2yarn
+npm install -D @babel/core @babel/plugin-proposal-class-properties @babel/plugin-proposal-decorators babel-plugin-parameter-decorator babel-plugin-transform-typescript-metadata
 ```
 
 ## Configuration
@@ -127,7 +127,13 @@ import { app } from "./_app";
 export default app.container.get(CounterView).component;
 ```
 
-4. run `yarn dev` and visit `http://localhost:3000`.
+4. Start the project.
+
+```bash npm2yarn
+npm dev
+```
+
+and visit `http://localhost:3000`.
 
 ## Q&A
 

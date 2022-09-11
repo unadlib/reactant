@@ -19,16 +19,16 @@ cd MyApp
 
 You need to install `reactant`(Core API) and `reactant-native`(for Native API).
 
-```bash
-yarn add reactant reactant-native
+```bash npm2yarn
+npm install reactant reactant-native
 ```
 
 ## Add the babel configuration
 
 Reactant development need `@babel/plugin-proposal-decorators` and `@babel/plugin-proposal-class-properties`. If you find that they are not installed, you need to install them:
 
-```bash
-yarn add -D @babel/plugin-proposal-decorators @babel/plugin-proposal-class-properties
+```bash npm2yarn
+npm install -D @babel/plugin-proposal-decorators @babel/plugin-proposal-class-properties
 ```
 
 And then add babel config in `babel.config.js`:

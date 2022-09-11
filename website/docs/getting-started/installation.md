@@ -8,11 +8,11 @@ We recommend using the reactant-cli to quickly create a brand new Reactant proje
 
 ## Using reactant-cli
 
-```bash
+```bash npm2yarn
 npx reactant-cli init my-app # default use TypeScript
 # use `npx reactant-cli init my-app --language javascript` for creating a Javascript project.
 cd my-app
-yarn start
+npm run start
 ```
 
 ## Customize the creation of an Reactant project

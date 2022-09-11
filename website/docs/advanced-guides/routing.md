@@ -13,8 +13,8 @@ Reactant provides a plugin for routing: reactant-router.
 
 ## Installation
 
-```bash
-yarn add reactant-router
+```bash npm2yarn
+npm install reactant-router
 ```
 
 ## Example

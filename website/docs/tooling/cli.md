@@ -4,16 +4,10 @@ sidebar_position: 1
 
 # Reactant CLI
 
-We recommend you install `reactant-cli` globally to use it.
+We recommend that you use `npx` to create Reactant projects.
 
 ```bash
-npm install -g reactant-cli
-```
-
-or you can install `reactant-cli` to your project.
-
-```bash
-yarn add -D reactant-cli
+npx reactant-cli
 ```
 
 ## Create a Reactant project
