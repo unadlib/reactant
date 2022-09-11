@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkwebsite=self.webpackChunkwebsite||[]).push([[3896],{9527:e=>{e.exports=JSON.parse('{"title":"Shared App","slug":"/category/shared-app","permalink":"/docs/category/shared-app","navigation":{"previous":{"title":"Dev Workflow","permalink":"/docs/advanced-guides/dev-workflow"},"next":{"title":"Shared App","permalink":"/docs/shared-app/"}}}')}}]);
