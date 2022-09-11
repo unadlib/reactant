@@ -77,4 +77,4 @@ expect(fooBar.instance.foo.getValue()).toBe('foo');
 
 #### Defined in
 
-[packages/reactant-di/src/decorators/inject.ts:51](https://github.com/unadlib/reactant/blob/e1649c86/packages/reactant-di/src/decorators/inject.ts#L51)
+[packages/reactant-di/src/decorators/inject.ts:51](https://github.com/unadlib/reactant/blob/94ce5c78/packages/reactant-di/src/decorators/inject.ts#L51)

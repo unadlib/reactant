@@ -79,7 +79,7 @@ See [`ViewModule`](../api/reactant-module/classes/core_view.ViewModule.md) for m
 
 ## Bootstrap
 
-Finally, use `createApp` and `bootstrap` to run the project. Reactant configures different dependency injection configurations via `createApp`, which also supports other configurations such as **middleware** and Reactant **plugins**. See more [advanced guides](../advanced-guides) about Reactant.
+Finally, use `createApp` and `bootstrap` to run the project. Reactant configures different dependency injection configurations via `createApp`, which also supports other configurations such as **middleware** and Reactant **plugins**. See more [advanced guides](../advanced-guides/hooks.md) about Reactant.
 
 ```ts
 import { render } from 'reactant-web';

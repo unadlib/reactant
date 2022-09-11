@@ -77,4 +77,4 @@ expect(fooBar.fooBar.bar).toBeUndefined();
 
 #### Defined in
 
-[packages/reactant-di/src/decorators/optional.ts:47](https://github.com/unadlib/reactant/blob/e1649c86/packages/reactant-di/src/decorators/optional.ts#L47)
+[packages/reactant-di/src/decorators/optional.ts:47](https://github.com/unadlib/reactant/blob/94ce5c78/packages/reactant-di/src/decorators/optional.ts#L47)

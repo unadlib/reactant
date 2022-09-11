@@ -86,4 +86,4 @@ expect(bar.foo?.test).toBe('test');
 
 #### Defined in
 
-[packages/reactant-di/src/decorators/lazy.ts:41](https://github.com/unadlib/reactant/blob/e1649c86/packages/reactant-di/src/decorators/lazy.ts#L41)
+[packages/reactant-di/src/decorators/lazy.ts:41](https://github.com/unadlib/reactant/blob/94ce5c78/packages/reactant-di/src/decorators/lazy.ts#L41)

@@ -71,4 +71,4 @@ expect(app.instance.list).toEqual(['apple']);
 
 #### Defined in
 
-[packages/reactant-module/src/decorators/autobind.ts:42](https://github.com/unadlib/reactant/blob/e1649c86/packages/reactant-module/src/decorators/autobind.ts#L42)
+[packages/reactant-module/src/decorators/autobind.ts:42](https://github.com/unadlib/reactant/blob/94ce5c78/packages/reactant-module/src/decorators/autobind.ts#L42)
