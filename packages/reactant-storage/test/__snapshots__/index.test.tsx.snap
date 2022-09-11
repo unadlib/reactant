@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`base API base persistence module with non-string name 1`] = `"Module 'AppView' is invalid for using 'setStorage', the parameter 'options.name' of the decorator '@injectable(options)' that decorates the 'AppView' module must be specified as a string."`;
+
+exports[`base API base persistence module without any state 1`] = `"Module 'AppView' is invalid for using 'setStorage', the current module does not have any global state that is decorated with '@state'."`;
+
+exports[`base API base persistence module without setting name 1`] = `"Module 'AppView' is invalid for using 'setStorage', the parameter 'options.name' of the decorator '@injectable(options)' that decorates the 'AppView' module must be specified as a string."`;
+
+exports[`check with error base persistence module with \`_persist\` state 1`] = `"Module 'AppView' is invalid for using 'setStorage', the current module should not customize the state with the key '_persist'."`;
+
+exports[`check with error base persistence with \`_persist\` module 1`] = `"Storage module conflict with the names of other modules, make sure that no module has a name of '_persist'."`;

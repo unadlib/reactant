@@ -212,9 +212,7 @@ describe('base API', () => {
         main: AppView,
         render,
       });
-    }).toThrow(
-      `Module 'AppView' is invalid for using 'setStorage', The current module does not have any global state that is decorated with '@state'.`
-    );
+    }).toThrowErrorMatchingSnapshot();
   });
 
   test('base persistence module with non-string name', async () => {
@@ -252,9 +250,7 @@ describe('base API', () => {
         main: AppView,
         render,
       });
-    }).toThrow(
-      `Module 'AppView' is invalid for using 'setStorage', The parameter 'options.name' of the decorator '@injectable(options)' that decorates the 'AppView' module must be specified as a string.`
-    );
+    }).toThrowErrorMatchingSnapshot();
   });
 
   test('base persistence module without setting name', async () => {
@@ -289,9 +285,7 @@ describe('base API', () => {
         main: AppView,
         render,
       });
-    }).toThrow(
-      `Module 'AppView' is invalid for using 'setStorage', The parameter 'options.name' of the decorator '@injectable(options)' that decorates the 'AppView' module must be specified as a string.`
-    );
+    }).toThrowErrorMatchingSnapshot();
   });
 
   test('base persistence all module without setting name', async () => {
@@ -467,5 +461,76 @@ describe('base API', () => {
       'persist:count':
         '{"num1":"0","_persist":"{\\"version\\":-1,\\"rehydrated\\":true}"}',
     });
+  });
+});
+
+describe('check with error', () => {
+  test('base persistence module with `_persist` state', async () => {
+    const storage = new MemoryStorage();
+    @injectable({
+      name: 'AppView',
+    })
+    class AppView extends ViewModule {
+      constructor(public storage: Storage) {
+        super();
+        this.storage.setStorage(this, {});
+      }
+
+      @state
+      _persist = {};
+
+      component() {
+        return null;
+      }
+    }
+
+    expect(() => {
+      createApp({
+        modules: [
+          {
+            provide: StorageOptions,
+            useValue: {
+              storage,
+            } as IStorageOptions,
+          },
+        ],
+        main: AppView,
+        render,
+      });
+    }).toThrowErrorMatchingSnapshot();
+  });
+
+  test('base persistence with `_persist` module', async () => {
+    const storage = new MemoryStorage();
+    @injectable({
+      name: '_persist',
+    })
+    class AppView extends ViewModule {
+      constructor(public storage: Storage) {
+        super();
+      }
+
+      @state
+      count = 0;
+
+      component() {
+        return null;
+      }
+    }
+
+    expect(() => {
+      createApp({
+        modules: [
+          {
+            provide: StorageOptions,
+            useValue: {
+              storage,
+            } as IStorageOptions,
+          },
+        ],
+        main: AppView,
+        render,
+      });
+    }).toThrowErrorMatchingSnapshot();
   });
 });

@@ -85,15 +85,22 @@ class ReactantStorage extends PluginModule {
    */
   setStorage<T extends object>(target: T, options: SetStorageOptions<T>) {
     const module: Service = target;
-    if (typeof module[nameKey] !== 'string') {
-      throw new Error(
-        `Module '${module.constructor.name}' is invalid for using 'setStorage', The parameter 'options.name' of the decorator '@injectable(options)' that decorates the '${module.constructor.name}' module must be specified as a string.`
-      );
-    }
-    if (typeof module[stateKey] !== 'object') {
-      throw new Error(
-        `Module '${module.constructor.name}' is invalid for using 'setStorage', The current module does not have any global state that is decorated with '@state'.`
-      );
+    if (__DEV__) {
+      if (typeof module[nameKey] !== 'string') {
+        throw new Error(
+          `Module '${module.constructor.name}' is invalid for using 'setStorage', the parameter 'options.name' of the decorator '@injectable(options)' that decorates the '${module.constructor.name}' module must be specified as a string.`
+        );
+      }
+      if (typeof module[stateKey] !== 'object') {
+        throw new Error(
+          `Module '${module.constructor.name}' is invalid for using 'setStorage', the current module does not have any global state that is decorated with '@state'.`
+        );
+      }
+      if (Object.prototype.hasOwnProperty.call(module[stateKey], '_persist')) {
+        throw new Error(
+          `Module '${module.constructor.name}' is invalid for using 'setStorage', the current module should not customize the state with the key '_persist'.`
+        );
+      }
     }
     this.storageSettingMap.set(module, () => {
       const persistConfig = {
@@ -124,6 +131,13 @@ class ReactantStorage extends PluginModule {
   beforeCombineRootReducers(reducers: ReducersMapObject): ReducersMapObject {
     for (const [_, set] of this.storageSettingMap) {
       set();
+    }
+    if (__DEV__) {
+      if (reducers._persist) {
+        throw new Error(
+          `Storage module conflict with the names of other modules, make sure that no module has a name of '_persist'.`
+        );
+      }
     }
     Object.keys(reducers).forEach((key) => {
       const isTempIdentifier = /^@@reactant\//.test(key);
