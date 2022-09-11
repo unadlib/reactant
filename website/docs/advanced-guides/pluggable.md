@@ -8,7 +8,7 @@ sidebar_position: 3
 
 ## API
 
-* [Pluggable](#)
+* [Pluggable](../api/reactant-module/classes/core_plugin.PluginModule.md)
 
 ## Example
 

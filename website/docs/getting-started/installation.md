@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Installation
 
-We recommend using the reactant-cli to quickly create a brand new Reactant project. See more information about [reactant-cli](#).
+We recommend using the reactant-cli to quickly create a brand new Reactant project. See more information about [reactant-cli](../tooling/cli.md).
 
 ## Using reactant-cli
 
@@ -25,8 +25,8 @@ First, build a React project and you can visit [here](https://reactjs.org/docs/c
 
 then install Reactant dependencies:
 
-```bash
-yarn add reactant reactant-web
+```bash npm2yarn
+npm install reactant reactant-web
 ```
 
 And set up the following related configuration.

@@ -262,7 +262,7 @@ Since the client app only renders and receives synchronized state. So the client
 
 > Notebook: 1 GHz Intel Core M / 8 GB 1600 MHz DDR3
 
-benchmarking of the reactant-share module with [derived data cache](#)
+benchmarking of the reactant-share module with [derived data cache](/docs/api/reactant-module/modules/decorators_computed)
 
 | Number of modules and states | Total number of states | Each state update |
 | ---------------------------- | ---------------------- | ----------------- |

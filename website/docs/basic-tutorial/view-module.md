@@ -6,7 +6,7 @@ sidebar_position: 3
 
 We can be used to implement a module with a View by inheriting the `ViewModule` and defining the `component` method (a React function component).
 
-It is possible to inject any method of the current `ViewModule` in its `component`, and also to inject the current shared module state or other dependent module state using [useConnector](#):
+It is possible to inject any method of the current `ViewModule` in its `component`, and also to inject the current shared module state or other dependent module state using [useConnector](../api/reactant/modules/hooks_useConnector.md):
 
 
 ```tsx

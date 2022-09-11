@@ -14,7 +14,7 @@ In addition to the basics of React, Reactant introduces two new concepts, [`View
 
 `@injectable` is used to decorate a module that can be injected. While Reactant also supports modules that do not require `@injectable` decoration in advance, we recommend `@injectable` decoration for any module that requires dependency injection.
 
-> `@injectable` parameters in TypeScript and JavaScript are completely different, See [@injectable](#) for more details.
+> `@injectable` parameters in TypeScript and JavaScript are completely different, See [@injectable](../api/reactant-module/modules/decorators_injectable.md) for more details.
 
 For Example, `Counter` project set up with `TypeScript`.
 
@@ -42,7 +42,7 @@ class Counter {
 }
 ```
 
-> Reactant provides dependency injection features, see [dependency injection](#).
+> Reactant provides dependency injection features, see [dependency injection](../advanced-guides//di.md).
 
 ## View Module
 
@@ -75,11 +75,11 @@ class AppView extends ViewModule {
 
 > `ViewModule`can also use `@state` and `@action`, and generally it will use `@computed` for computing derived data.
 
-See [`ViewModule`](#) for more information.
+See [`ViewModule`](../api/reactant-module/classes/core_view.ViewModule.md) for more information.
 
 ## Bootstrap
 
-Finally, use `createApp` and `bootstrap` to run the project. Reactant configures different dependency injection configurations via `createApp`, which also supports other configurations such as **middleware** and Reactant **plugins**. See more [advanced guides](#) about Reactant.
+Finally, use `createApp` and `bootstrap` to run the project. Reactant configures different dependency injection configurations via `createApp`, which also supports other configurations such as **middleware** and Reactant **plugins**. See more [advanced guides](../advanced-guides) about Reactant.
 
 ```ts
 import { render } from 'reactant-web';
@@ -157,4 +157,4 @@ const app = createApp({
 });
 ```
 
-See [`PluginModule`](#) for more information.
+See [`PluginModule`](../api/reactant-module/classes/core_plugin.PluginModule.md) for more information.

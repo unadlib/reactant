@@ -42,7 +42,7 @@ class CounterService {
 export { CounterService };
 ```
 
-2. We can use utility type `ImportClass` for definition as an interface type, and then using the standard dynamic import of API `import()` and `@lazy()`, and the [`load()`](#) provided by Reactant, this will allow us to fully implement the Reactant dynamic module imports.
+2. We can use utility type `ImportClass` for definition as an interface type, and then using the standard dynamic import of API `import()` and `@lazy()`, and the [`load()`](../api/reactant-module/modules/core_load.md) provided by Reactant, this will allow us to fully implement the Reactant dynamic module imports.
 
 ```tsx
 @injectable()
@@ -120,4 +120,4 @@ app.bootstrap(document.getElementById('app'));
 
 [Visit here to see the example source code.](https://github.com/unadlib/reactant-examples/tree/master/web/dynamic-module)
 
-In brief, we can split the code and build a minimally modular App that dynamically loads modules via the [`load()`](#) API so we can run the app more efficiently and lightly. It usually works with `Suspense` as well. You visit [here](https://reactjs.org/docs/code-splitting.html) for more information on the component code-splitting.
+In brief, we can split the code and build a minimally modular App that dynamically loads modules via the [`load()`](../api/reactant-module/modules/core_load.md) API so we can run the app more efficiently and lightly. It usually works with `Suspense` as well. You visit [here](https://reactjs.org/docs/code-splitting.html) for more information on the component code-splitting.

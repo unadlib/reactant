@@ -126,4 +126,4 @@ app.bootstrap(document.getElementById('root'));
 yarn start
 ```
 
-> Note: If you need to create files quickly, you can visit [reactant-cli](#) for more information.
+> Note: If you need to create files quickly, you can visit [reactant-cli](../tooling/cli.md) for more information.

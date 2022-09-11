@@ -8,7 +8,7 @@ Reactant provides `useConnector` for injecting the component props in the `ViewM
 
 ## API
 
-* [useConnector](#)
+* [useConnector](../api/reactant/modules/hooks_useConnector.md)
 
 ## Example
 

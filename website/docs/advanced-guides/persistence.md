@@ -8,8 +8,8 @@ Reactant provides a plugin for persistence: `reactant-storage`.
 
 ## API
 
-* [Storage](#)
-* [IStorageOptions](#)
+* [Storage](../api/reactant-storage/classes/Storage.md)
+* [IStorageOptions](../api/reactant-storage/interfaces/IStorageOptions.md)
 
 ## Installation
 

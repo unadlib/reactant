@@ -8,8 +8,8 @@ Reactant provides a plugin for routing: reactant-router.
 
 ## API
 
-* [ReactantRouter](#)
-* [IRouterOptions](#)
+* [ReactantRouter](../api/reactant-router/classes/Router.md)
+* [IRouterOptions](../api/reactant-router/interfaces/IRouterOptions.md)
 
 ## Installation
 

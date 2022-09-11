@@ -41,7 +41,7 @@ class Foo {
 }
 ```
 
-> If a method is NOT decorated with `@action` but attempts to change the state value, it will NOT be automatically updated to the UI by default, but if `devOptions` is set to `{ autoFreeze: true }` in the [createApp](#) interface, then any method that is NOT decorated with `@action` that attempts to update the state will throw an error.
+> If a method is NOT decorated with `@action` but attempts to change the state value, it will NOT be automatically updated to the UI by default, but if `devOptions` is set to `{ autoFreeze: true }` in the [createApp](../api/reactant/modules/createApp.md) interface, then any method that is NOT decorated with `@action` that attempts to update the state will throw an error.
 
 > Therefore, it is recommended to enable `autoFreeze` in development mode and disable `autoFreeze` in production mode (If it is NOT disabled, then it will likely bring some performance loss).
 

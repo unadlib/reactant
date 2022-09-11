@@ -14,7 +14,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[createApp.tsx:19](https://github.com/unadlib/reactant/blob/6e1f4770/packages/reactant/src/createApp.tsx#L19)
+[createApp.tsx:19](https://github.com/unadlib/reactant/blob/e1649c86/packages/reactant/src/createApp.tsx#L19)
 
 ## Functions
 
@@ -30,7 +30,7 @@ and `bootstrap()` method(You can run `bootstrap` to start the app inject into th
 
 ## Example
 
-```ts
+```typescript
 import { createApp, injectable } from 'reactant';
 
 @injectable()
@@ -65,4 +65,4 @@ expect(app.instance instanceof Foo).toBeTruthy();
 
 #### Defined in
 
-[createApp.tsx:47](https://github.com/unadlib/reactant/blob/6e1f4770/packages/reactant/src/createApp.tsx#L47)
+[createApp.tsx:47](https://github.com/unadlib/reactant/blob/e1649c86/packages/reactant/src/createApp.tsx#L47)

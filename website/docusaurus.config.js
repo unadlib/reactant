@@ -1,3 +1,4 @@
+/* eslint-disable global-require */
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 
@@ -40,12 +41,18 @@ const config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl: 'https://github.com/unadlib/reactant/tree/master/website/',
+          remarkPlugins: [
+            [require('@docusaurus/remark-plugin-npm2yarn'), { sync: true }],
+          ],
         },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl: 'https://github.com/unadlib/reactant/tree/master/website/',
+          remarkPlugins: [
+            [require('@docusaurus/remark-plugin-npm2yarn'), { sync: true }],
+          ],
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -59,7 +66,7 @@ const config = {
       {
         readme: 'none',
         sidebar: {
-          categoryLabel: 'Reactant',
+          categoryLabel: 'Base',
           position: 1,
         },
         entryPoints: [
@@ -67,9 +74,111 @@ const config = {
           '../packages/reactant/src/testBed.ts',
           '../packages/reactant/src/hooks/useConnector.ts',
         ],
-        tsconfig: '../packages/reactant/tsconfig.json',
+        tsconfig: '../tsconfig.json',
         out: 'api/reactant',
-        id: 'api',
+        id: 'api/reactant',
+      },
+    ],
+    [
+      'docusaurus-plugin-typedoc',
+      {
+        readme: 'none',
+        sidebar: {
+          categoryLabel: 'Dependency Injection',
+          position: 2,
+        },
+        entryPoints: [
+          '../packages/reactant-di/src/decorators/injectable.ts',
+          '../packages/reactant-di/src/decorators/optional.ts',
+          '../packages/reactant-di/src/decorators/inject.ts',
+          '../packages/reactant-di/src/decorators/lazy.ts',
+          '../packages/reactant-di/src/decorators/multiInject.ts',
+          '../packages/reactant-di/src/decorators/multiOptional.ts',
+          '../packages/reactant-di/src/moduleRef.ts',
+          '../packages/reactant-di/src/forwardRef.ts',
+          '../packages/reactant-di/src/optional.ts',
+        ],
+        tsconfig: '../tsconfig.json',
+        out: 'api/reactant-di',
+        id: 'api/reactant-di',
+      },
+    ],
+    [
+      'docusaurus-plugin-typedoc',
+      {
+        readme: 'none',
+        sidebar: {
+          categoryLabel: 'Module Model',
+          position: 3,
+        },
+        entryPoints: [
+          '../packages/reactant-module/src/decorators/state.ts',
+          '../packages/reactant-module/src/decorators/action.ts',
+          '../packages/reactant-module/src/decorators/computed.ts',
+          '../packages/reactant-module/src/decorators/autobind.ts',
+          '../packages/reactant-module/src/core/subscribe.ts',
+          '../packages/reactant-module/src/core/watch.ts',
+          '../packages/reactant-module/src/core/view.ts',
+          '../packages/reactant-module/src/core/plugin.ts',
+          '../packages/reactant-module/src/core/load.ts',
+          '../packages/reactant-module/src/core/applyMiddleware.ts',
+          '../packages/reactant-module/src/core/createState.ts',
+          '../packages/reactant-module/src/core/dispatch.ts',
+          '../packages/reactant-module/src/decorators/injectable.ts',
+          '../packages/reactant-module/src/decorators/lazy.ts',
+        ],
+        tsconfig: '../tsconfig.json',
+        out: 'api/reactant-module',
+        id: 'api/reactant-module',
+      },
+    ],
+    [
+      'docusaurus-plugin-typedoc',
+      {
+        readme: 'none',
+        sidebar: {
+          categoryLabel: 'Shared App',
+          position: 4,
+        },
+        entryPoints: [
+          '../packages/reactant-share/src/createApp.ts',
+          '../packages/reactant-share/src/portDetector.ts',
+          '../packages/reactant-share/src/spawn.ts',
+          '../packages/reactant-share/src/fork.ts',
+          '../packages/reactant-share/src/router.ts',
+          '../packages/reactant-share/src/storage.ts',
+        ],
+        tsconfig: '../tsconfig.json',
+        out: 'api/reactant-share',
+        id: 'api/reactant-share',
+      },
+    ],
+    [
+      'docusaurus-plugin-typedoc',
+      {
+        readme: 'none',
+        sidebar: {
+          categoryLabel: 'Router',
+          position: 5,
+        },
+        entryPoints: ['../packages/reactant-router/src/router.tsx'],
+        tsconfig: '../tsconfig.json',
+        out: 'api/reactant-router',
+        id: 'api/reactant-router',
+      },
+    ],
+    [
+      'docusaurus-plugin-typedoc',
+      {
+        readme: 'none',
+        sidebar: {
+          categoryLabel: 'Storage',
+          position: 6,
+        },
+        entryPoints: ['../packages/reactant-storage/src/storage.tsx'],
+        tsconfig: '../tsconfig.json',
+        out: 'api/reactant-storage',
+        id: 'api/reactant-storage',
       },
     ],
   ],

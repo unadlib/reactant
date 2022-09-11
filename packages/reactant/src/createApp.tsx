@@ -29,7 +29,7 @@ export const ContainerContext: Context<Container | null> = React.createContext<C
  *
  * ## Example
  *
- * ```ts
+ * ```typescript
  * import { createApp, injectable } from 'reactant';
  *
  * @injectable()

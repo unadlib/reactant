@@ -8,17 +8,17 @@ sidebar_position: 2
 
 ### Class Decorators
 
-* [@injectable()](#)
+* [@injectable()](../api/reactant-module/modules/decorators_injectable.md)
 
 ### Parameter Decorators
 
-* [@inject()](#)
-* [@multiInject()](#)
-* [@multiOptional()](#)
-* [@optional()](#)
+* [@inject()](../api/reactant-di/modules//decorators_inject.md)
+* [@optional()](../api/reactant-di/modules/decorators_optional.md)
+* [@multiInject()](../api/reactant-di/modules/decorators_multiInject.md)
+* [@multiOptional()](../api/reactant-di/modules/decorators_multiOptional.md)
 
 ### Utilities
 
-* [forwardRef()](#)
-* [ModuleRef](#)
-* [Optional](#)
+* [ModuleRef](../api/reactant-di/classes/moduleRef.ModuleRef.md)
+* [forwardRef()](../api/reactant-di/modules/forwardRef.md)
+* [Optional](../api/reactant-di/classes/optional.Optional.md)
