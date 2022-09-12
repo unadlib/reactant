@@ -23,7 +23,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[packages/reactant-di/src/optional.ts:9](https://github.com/unadlib/reactant/blob/a9a6e065/packages/reactant-di/src/optional.ts#L9)
+[packages/reactant-di/src/optional.ts:9](https://github.com/unadlib/reactant/blob/a797b664/packages/reactant-di/src/optional.ts#L9)
 
 ## Properties
 
@@ -33,7 +33,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[packages/reactant-di/src/optional.ts:9](https://github.com/unadlib/reactant/blob/a9a6e065/packages/reactant-di/src/optional.ts#L9)
+[packages/reactant-di/src/optional.ts:9](https://github.com/unadlib/reactant/blob/a797b664/packages/reactant-di/src/optional.ts#L9)
 
 ## Accessors
 
@@ -47,4 +47,4 @@ custom_edit_url: null
 
 #### Defined in
 
-[packages/reactant-di/src/optional.ts:11](https://github.com/unadlib/reactant/blob/a9a6e065/packages/reactant-di/src/optional.ts#L11)
+[packages/reactant-di/src/optional.ts:11](https://github.com/unadlib/reactant/blob/a797b664/packages/reactant-di/src/optional.ts#L11)
