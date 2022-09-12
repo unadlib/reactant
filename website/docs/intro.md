@@ -17,3 +17,5 @@ And for applications of business logic, separation of concern is a good idea. It
 **In order to solve these problems, Reactant was created. It's a framework for React.**
 
 Reactant provides `dependency injection`, `modular models`, `immutable state management`, `dynamic module`, and more. It's `pluggable` and `testable`. Not only is it able to quickly build a React application (Web and Native Mobile), it also brings some new React development experiences.
+
+<iframe width="100%" height="800" src="https://stackblitz.com/edit/reactant-ts?embed=1&file=index.tsx&hideNavigation=1"></iframe>

@@ -130,7 +130,7 @@ export default app.container.get(CounterView).component;
 4. Start the project.
 
 ```bash npm2yarn
-npm dev
+npm run dev
 ```
 
 and visit `http://localhost:3000`.

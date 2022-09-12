@@ -22,7 +22,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[packages/reactant-share/src/router.ts:24](https://github.com/unadlib/reactant/blob/5459ef00/packages/reactant-share/src/router.ts#L24)
+[packages/reactant-share/src/router.ts:24](https://github.com/unadlib/reactant/blob/8297bb80/packages/reactant-share/src/router.ts#L24)
 
 ## Variables
 
@@ -32,7 +32,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[packages/reactant-router/src/router.tsx:23](https://github.com/unadlib/reactant/blob/5459ef00/packages/reactant-router/src/router.tsx#L23)
+[packages/reactant-router/src/router.tsx:23](https://github.com/unadlib/reactant/blob/8297bb80/packages/reactant-router/src/router.tsx#L23)
 
 ## Functions
 

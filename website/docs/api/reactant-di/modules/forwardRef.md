@@ -24,4 +24,4 @@ custom_edit_url: null
 
 #### Defined in
 
-[packages/reactant-di/src/forwardRef.ts:4](https://github.com/unadlib/reactant/blob/5459ef00/packages/reactant-di/src/forwardRef.ts#L4)
+[packages/reactant-di/src/forwardRef.ts:4](https://github.com/unadlib/reactant/blob/8297bb80/packages/reactant-di/src/forwardRef.ts#L4)
