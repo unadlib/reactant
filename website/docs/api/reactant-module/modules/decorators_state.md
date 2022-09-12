@@ -47,4 +47,4 @@ expect(app.instance.count).toBe(0);
 
 #### Defined in
 
-[packages/reactant-module/src/decorators/state.ts:26](https://github.com/unadlib/reactant/blob/8297bb80/packages/reactant-module/src/decorators/state.ts#L26)
+[packages/reactant-module/src/decorators/state.ts:26](https://github.com/unadlib/reactant/blob/a9a6e065/packages/reactant-module/src/decorators/state.ts#L26)

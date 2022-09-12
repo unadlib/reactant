@@ -28,7 +28,7 @@
     "update:version": "lerna version --amend --no-git-tag-version",
     "publish": "lerna exec --no-private --no-bail -- npm publish",
     "publish:docs": "cd website && GIT_USER=unadlib USE_SSH=true yarn run deploy",
-    "state:docs": "cd website && yarn run start"
+    "start:docs": "cd website && yarn run start"
   },
   "repository": {
     "type": "git",

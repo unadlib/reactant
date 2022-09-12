@@ -29,7 +29,7 @@ Service.\_\_@storeKey@101340
 
 #### Defined in
 
-[packages/reactant-module/src/core/plugin.ts:15](https://github.com/unadlib/reactant/blob/8297bb80/packages/reactant-module/src/core/plugin.ts#L15)
+[packages/reactant-module/src/core/plugin.ts:15](https://github.com/unadlib/reactant/blob/a9a6e065/packages/reactant-module/src/core/plugin.ts#L15)
 
 ___
 
@@ -41,7 +41,7 @@ inject enhancer for Redux
 
 #### Defined in
 
-[packages/reactant-module/src/core/plugin.ts:32](https://github.com/unadlib/reactant/blob/8297bb80/packages/reactant-module/src/core/plugin.ts#L32)
+[packages/reactant-module/src/core/plugin.ts:32](https://github.com/unadlib/reactant/blob/a9a6e065/packages/reactant-module/src/core/plugin.ts#L32)
 
 ___
 
@@ -53,7 +53,7 @@ inject middleware for Redux
 
 #### Defined in
 
-[packages/reactant-module/src/core/plugin.ts:27](https://github.com/unadlib/reactant/blob/8297bb80/packages/reactant-module/src/core/plugin.ts#L27)
+[packages/reactant-module/src/core/plugin.ts:27](https://github.com/unadlib/reactant/blob/a9a6e065/packages/reactant-module/src/core/plugin.ts#L27)
 
 ___
 
@@ -65,7 +65,7 @@ Define a React Provider for the current PluginModule
 
 #### Defined in
 
-[packages/reactant-module/src/core/plugin.ts:52](https://github.com/unadlib/reactant/blob/8297bb80/packages/reactant-module/src/core/plugin.ts#L52)
+[packages/reactant-module/src/core/plugin.ts:52](https://github.com/unadlib/reactant/blob/a9a6e065/packages/reactant-module/src/core/plugin.ts#L52)
 
 ## Methods
 
@@ -87,7 +87,7 @@ As hook after combine rootReducers
 
 #### Defined in
 
-[packages/reactant-module/src/core/plugin.ts:47](https://github.com/unadlib/reactant/blob/8297bb80/packages/reactant-module/src/core/plugin.ts#L47)
+[packages/reactant-module/src/core/plugin.ts:47](https://github.com/unadlib/reactant/blob/a9a6e065/packages/reactant-module/src/core/plugin.ts#L47)
 
 ___
 
@@ -109,7 +109,7 @@ As hook after createStore
 
 #### Defined in
 
-[packages/reactant-module/src/core/plugin.ts:37](https://github.com/unadlib/reactant/blob/8297bb80/packages/reactant-module/src/core/plugin.ts#L37)
+[packages/reactant-module/src/core/plugin.ts:37](https://github.com/unadlib/reactant/blob/a9a6e065/packages/reactant-module/src/core/plugin.ts#L37)
 
 ___
 
@@ -131,7 +131,7 @@ As hook before combine rootReducers
 
 #### Defined in
 
-[packages/reactant-module/src/core/plugin.ts:42](https://github.com/unadlib/reactant/blob/8297bb80/packages/reactant-module/src/core/plugin.ts#L42)
+[packages/reactant-module/src/core/plugin.ts:42](https://github.com/unadlib/reactant/blob/a9a6e065/packages/reactant-module/src/core/plugin.ts#L42)
 
 ___
 
@@ -153,4 +153,4 @@ preloaded state handler for Redux
 
 #### Defined in
 
-[packages/reactant-module/src/core/plugin.ts:20](https://github.com/unadlib/reactant/blob/8297bb80/packages/reactant-module/src/core/plugin.ts#L20)
+[packages/reactant-module/src/core/plugin.ts:20](https://github.com/unadlib/reactant/blob/a9a6e065/packages/reactant-module/src/core/plugin.ts#L20)
