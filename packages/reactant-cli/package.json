@@ -3,7 +3,7 @@
   "version": "0.53.0",
   "description": "A command line interface for Reactant",
   "engines": {
-    "node": ">=8"
+    "node": ">=14"
   },
   "bin": {
     "reactant-cli": "./dist/index.cjs.js",

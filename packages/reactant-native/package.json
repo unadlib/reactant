@@ -19,7 +19,7 @@
     "directory": "packages/reactant-native"
   },
   "engines": {
-    "node": ">=0.8.0"
+    "node": ">=14"
   },
   "keywords": [
     "React",
@@ -31,9 +31,9 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "react-native": "^0.67.3"
+    "react-native": "^0.70.0"
   },
   "devDependencies": {
-    "react-native": "^0.67.3"
+    "react-native": "^0.70.0"
   }
 }

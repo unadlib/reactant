@@ -22,7 +22,7 @@
     "directory": "packages/reactant"
   },
   "engines": {
-    "node": ">=0.8.0"
+    "node": ">=14"
   },
   "keywords": [
     "React",
