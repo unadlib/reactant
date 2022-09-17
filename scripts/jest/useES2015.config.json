@@ -3,12 +3,15 @@
   "testEnvironment": "jsdom",
   "rootDir": "../../",
   "globals": {
-    "__DEV__": true,
-    "ts-jest": {
-      "tsconfig": {
+    "__DEV__": true
+  },
+  "transform": {
+    "^.+\\.tsx?$": [
+      "ts-jest",
+      {
         "target": "ES2015"
       }
-    }
+    ]
   },
   "testMatch": ["**/?(*.)+(es2015).[jt]s?(x)"],
   "testPathIgnorePatterns": [

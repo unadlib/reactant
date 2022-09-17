@@ -3,12 +3,15 @@
   "testEnvironment": "jsdom",
   "rootDir": "../../",
   "globals": {
-    "__DEV__": true,
-    "ts-jest": {
-      "tsconfig": {
+    "__DEV__": true
+  },
+  "transform": {
+    "^.+\\.tsx?$": [
+      "ts-jest",
+      {
         "useDefineForClassFields": true
       }
-    }
+    ]
   },
   "testPathIgnorePatterns": [
     "examples",

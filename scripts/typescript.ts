@@ -7,7 +7,7 @@ import chalk from 'chalk';
 import { array } from 'yargs';
 import { handleWorkspaces, Package } from './workspaces';
 
-const projects = array('p').argv.p;
+const { p: projects } = array('p').argv as { p: string[] };
 
 type CompileOption = {
   currentPath: string;
@@ -58,7 +58,7 @@ const compileTypeScript = ({
   if (result.emitSkipped) {
     const message = result.diagnostics
       .map(
-        diagnostic =>
+        (diagnostic) =>
           `${ts.DiagnosticCategory[diagnostic.category]} ${diagnostic.code} (${
             diagnostic.file
           }:${diagnostic.start}): ${diagnostic.messageText}`

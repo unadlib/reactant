@@ -5,6 +5,9 @@
   "globals": {
     "__DEV__": true
   },
+  "transform": {
+    "^.+\\.tsx?$": "ts-jest"
+  },
   "testPathIgnorePatterns": [
     "examples",
     "packages/reactant-cli/templates",
