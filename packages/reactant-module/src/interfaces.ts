@@ -52,7 +52,6 @@ export interface DevOptions {
    * Redux dev tools enhancer options.
    */
   reduxDevToolsOptions?: ReduxDevToolsOptions;
-  // TODO: use `redux-immutable-state-invariant` for checking immutable?
 }
 
 export type ReduxDevToolsOptions = Pick<
