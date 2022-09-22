@@ -8,6 +8,7 @@ import {
   computed,
   inject,
   ModuleRef,
+  initStateKey,
 } from '..';
 
 test('base module with @state and @action', () => {
@@ -98,6 +99,7 @@ test('base module with @state and @action', () => {
     { count: 1, others: { list: [0] } },
     { list: [] },
   ]);
+  expect((counter as any)[initStateKey].count).toBe(0);
 });
 
 test('base module with ModuleRef', () => {
