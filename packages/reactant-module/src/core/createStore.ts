@@ -1,3 +1,4 @@
+/* eslint-disable default-param-last */
 /* eslint-disable guard-for-in */
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable no-loop-func */
@@ -32,6 +33,7 @@ import {
   nameKey,
   stateKey,
   storeKey,
+  initStateKey,
   subscriptionsKey,
 } from '../constants';
 import { getStagedState } from '../decorators';
@@ -173,6 +175,14 @@ export function createStore<T = any>({
             const initState = enableAutoFreeze
               ? produce({ ...service[stateKey] }, () => {}) // freeze init state
               : service[stateKey]!;
+            Object.assign(descriptors, {
+              [initStateKey]: {
+                enumerable: false,
+                configurable: false,
+                writable: false,
+                value: initState,
+              },
+            });
             const serviceReducers = Object.keys(initState).reduce(
               (serviceReducersMapObject: ReducersMapObject, key) => {
                 const value =
