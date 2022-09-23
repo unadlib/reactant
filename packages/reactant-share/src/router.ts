@@ -61,7 +61,7 @@ export interface IRouterOptions extends IBaseRouterOptions {
 }
 
 @injectable({
-  name: 'reactant:router',
+  name: 'Router',
 })
 class ReactantRouter extends BaseReactantRouter {
   /**

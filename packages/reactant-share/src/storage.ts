@@ -15,7 +15,9 @@ export interface IStorageOptions extends IBaseStorageOptions {
   //
 }
 
-@injectable()
+@injectable({
+  name: 'Storage',
+})
 class ReactantStorage extends BaseReactantStorage {
   constructor(
     protected portDetector: PortDetector,

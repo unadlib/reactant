@@ -108,11 +108,10 @@ app.bootstrap(document.getElementById('app'));
 
 ## Documentation
 
-* [Getting Started](https://reactant.js.org/docs/introduction)
-* [Tutorial](https://reactant.js.org/docs/state-action)
-* [Concepts](https://reactant.js.org/docs/concepts)
-* [Advanced Guides](https://reactant.js.org/docs/hooks)
-* [API Reference](https://reactant.js.org/docs/api/reactant/modules/_createapp_)
-* [Contributing Guide](https://reactant.js.org/help)
+* [Getting Started](https://reactant.js.org/docs/intro)
+* [Tutorial](https://reactant.js.org/docs/category/basic-tutorial)
+* [Concepts](https://reactant.js.org/docs/getting-started/concepts)
+* [Advanced Guides](https://reactant.js.org/docs/category/advanced-guides)
+* [API Reference](https://reactant.js.org/docs/api/reactant/modules/createApp)
 
 You can visit [reactant.js.org](https://reactant.js.org/) for more documentation.
