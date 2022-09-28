@@ -44,6 +44,7 @@ export interface App<T, S extends any[], R extends Renderer<S>> {
   container: Container;
   store: ReactantStore | null;
   modules: Record<string, any>;
+  destroy: () => void;
   bootstrap(...args: S): ReturnType<R> | Promise<R>;
 }
 

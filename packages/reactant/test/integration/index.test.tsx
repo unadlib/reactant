@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/ban-ts-ignore */
@@ -26,6 +27,8 @@ import {
   optional,
   inject,
   autobind,
+  subscribe,
+  watch,
 } from '../..';
 
 let container: Element;
@@ -168,6 +171,9 @@ describe('base API', () => {
     const sum1ComputedFn = jest.fn();
     const getPropsFn = jest.fn();
 
+    const subscribeFn = jest.fn();
+    const watchFn = jest.fn();
+
     interface HomeView1Props {
       version?: string;
       text?: string;
@@ -236,6 +242,12 @@ describe('base API', () => {
       name: 'homeView',
     })
     class HomeView extends HomeView1 {
+      constructor() {
+        super();
+        subscribe(this, subscribeFn);
+        watch(this, () => this.state.list[0].count, watchFn);
+      }
+
       @action
       increase(num: number) {
         super.increase(num);
@@ -392,6 +404,32 @@ describe('base API', () => {
     container.remove();
     container = document.createElement('div');
     document.body.appendChild(container);
+
+    const subscribeFn1 = jest.fn();
+    const watchFn1 = jest.fn();
+
+    subscribe(app.instance.homeView, subscribeFn1);
+    watch(
+      app.instance.homeView,
+      () => app.instance.homeView.state.list[0].count,
+      watchFn1
+    );
+
+    expect(subscribeFn).toBeCalledTimes(4);
+    expect(watchFn).toBeCalledTimes(3);
+    expect(subscribeFn1).toBeCalledTimes(0);
+    expect(watchFn1).toBeCalledTimes(0);
+    app.instance.homeView.increase(1);
+    expect(subscribeFn).toBeCalledTimes(5);
+    expect(watchFn).toBeCalledTimes(4);
+    expect(subscribeFn1).toBeCalledTimes(1);
+    expect(watchFn1).toBeCalledTimes(1);
+    app.destroy();
+    app.instance.homeView.increase(1);
+    expect(subscribeFn).toBeCalledTimes(5);
+    expect(watchFn).toBeCalledTimes(4);
+    expect(subscribeFn1).toBeCalledTimes(1);
+    expect(watchFn1).toBeCalledTimes(1);
 
     const app1 = createApp({
       main: HomeView,

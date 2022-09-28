@@ -13,6 +13,7 @@ import {
   Container,
   modulesKey,
   Service,
+  unsubscriptionsKey,
 } from 'reactant-module';
 import { Config, App, Renderer } from './interfaces';
 
@@ -128,6 +129,7 @@ function createApp<T, S extends any[], R extends Renderer<S>>({
   const instance = container.get<T>(
     typeof main === 'object' ? main.provide : main
   );
+
   return {
     /**
      * App's main module instance.
@@ -145,6 +147,21 @@ function createApp<T, S extends any[], R extends Renderer<S>>({
      * all modules collection
      */
     modules: ((instance as any) as Service)[modulesKey]!,
+    /**
+     * destroy all subscriptions
+     */
+    destroy: () => {
+      const modulesMap = ((instance as any) as Service)[modulesKey]!;
+      Object.keys(modulesMap).forEach((key) => {
+        const module = modulesMap[key] as Service | null | undefined;
+        const unsubscriptions = module?.[unsubscriptionsKey];
+        if (unsubscriptions) {
+          for (const unsubscribe of unsubscriptions) {
+            unsubscribe();
+          }
+        }
+      });
+    },
     /**
      * Bootstrap app with a renderer.
      */

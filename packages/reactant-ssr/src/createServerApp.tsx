@@ -12,7 +12,7 @@ import type { ServerConfig, ServerApp } from './interfaces';
 export const createServerApp = <T, S extends any[], R extends Renderer<S>>(
   options: ServerConfig<T, S, R>
 ): ServerApp<T, S, R> => {
-  const { bootstrap, store, instance, container, modules } = createBaseApp({
+  const { bootstrap, ...rest } = createBaseApp({
     ...options,
     main: options.main ?? (AppView as Config<T, S, R>['main']),
     render: (element) => element,
@@ -25,10 +25,7 @@ export const createServerApp = <T, S extends any[], R extends Renderer<S>>(
     )) as JSX.Element;
   };
   return {
-    store,
-    instance,
-    container,
-    modules,
     bootstrap: AppComponent,
+    ...rest,
   };
 };

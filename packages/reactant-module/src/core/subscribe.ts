@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 import { Unsubscribe } from 'redux';
 import { Subscribe } from '../interfaces';
-import { storeKey, subscriptionsKey } from '../constants';
+import { storeKey, subscriptionsKey, unsubscriptionsKey } from '../constants';
 
 /**
  * ## Description
@@ -57,17 +57,30 @@ const subscribe: Subscribe = (service, listener, options) => {
     unsubscribe = service[storeKey]?.subscribe(callback)!;
   } else {
     // When constructing
-    const subscriptions = service[subscriptionsKey] || [];
+    const subscriptions = service[subscriptionsKey] ?? [];
     let _unsubscribe: Unsubscribe;
     subscriptions.push(() => {
       _unsubscribe = service[storeKey]?.subscribe(callback)!;
     });
-    unsubscribe = () => _unsubscribe();
+    unsubscribe = () => {
+      return _unsubscribe();
+    };
     Object.assign(service, {
       [subscriptionsKey]: subscriptions,
     });
   }
-  return unsubscribe!;
+  const unsubscriptions = service[unsubscriptionsKey] ?? new Set();
+  const fn = () => {
+    unsubscribe();
+    unsubscriptions.delete(fn);
+  };
+  unsubscriptions.add(fn);
+  if (!service[unsubscriptionsKey]) {
+    Object.assign(service, {
+      [unsubscriptionsKey]: unsubscriptions,
+    });
+  }
+  return fn;
 };
 
 export { subscribe };
