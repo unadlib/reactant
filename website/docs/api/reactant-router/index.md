@@ -24,7 +24,7 @@ custom_edit_url: null
 
 #### Defined in
 
-node_modules/connected-react-router/index.d.ts:38
+node_modules/connected-react-router/index.d.ts:39
 
 ___
 
@@ -34,7 +34,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-router/src/router.tsx:23](https://github.com/unadlib/reactant/blob/a797b664/packages/reactant-router/src/router.tsx#L23)
+[packages/reactant-router/src/router.tsx:23](https://github.com/unadlib/reactant/blob/9c19923e/packages/reactant-router/src/router.tsx#L23)
 
 ## Functions
 

@@ -81,5 +81,5 @@
     /* Advanced Options */
     "forceConsistentCasingInFileNames": true /* Disallow inconsistently-cased references to the same file. */
   },
-  "exclude": ["website/**/*"]
+  "exclude": ["website/**/*", "scripts/performance/**/*"]
 }

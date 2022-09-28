@@ -70,4 +70,4 @@ expect(container.querySelector('span')?.textContent).toBe('str');
 
 #### Defined in
 
-[hooks/useConnector.ts:48](https://github.com/unadlib/reactant/blob/a797b664/packages/reactant/src/hooks/useConnector.ts#L48)
+[hooks/useConnector.ts:48](https://github.com/unadlib/reactant/blob/9c19923e/packages/reactant/src/hooks/useConnector.ts#L48)

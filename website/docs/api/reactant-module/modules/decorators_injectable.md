@@ -110,4 +110,4 @@ expect(fooBar.instance.foo.getValue()).toBe('foo');
 
 #### Defined in
 
-[packages/reactant-module/src/decorators/injectable.ts:80](https://github.com/unadlib/reactant/blob/a797b664/packages/reactant-module/src/decorators/injectable.ts#L80)
+[packages/reactant-module/src/decorators/injectable.ts:80](https://github.com/unadlib/reactant/blob/9c19923e/packages/reactant-module/src/decorators/injectable.ts#L80)
