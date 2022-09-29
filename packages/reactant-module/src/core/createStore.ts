@@ -35,6 +35,7 @@ import {
   storeKey,
   initStateKey,
   subscriptionsKey,
+  enableInspectorKey,
 } from '../constants';
 import { getStagedState } from '../decorators';
 import {
@@ -86,6 +87,7 @@ export function createStore<T = any>({
   const enableAutoFreeze = devOptions.autoFreeze ?? true;
   const enableReduxDevTools = devOptions.reduxDevTools ?? __DEV__;
   const enablePatches = devOptions.enablePatches ?? false;
+  const enableInspector = devOptions.enableInspector ?? false;
   if (typeof store === 'undefined') {
     setAutoFreeze(enableAutoFreeze);
     if (enablePatches) {
@@ -293,6 +295,12 @@ export function createStore<T = any>({
             enumerable: false,
             configurable: false,
             value: enablePatches,
+          },
+          // enableInspector options for state changing check before dispatching
+          [enableInspectorKey]: {
+            enumerable: false,
+            configurable: false,
+            value: enableInspector,
           },
         });
       });

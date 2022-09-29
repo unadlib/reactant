@@ -7,6 +7,7 @@ import {
   actionIdentifier,
   enablePatchesKey,
   identifierKey,
+  enableInspectorKey,
 } from '../constants';
 
 let stagedState: Record<string, unknown> | undefined;
@@ -88,7 +89,7 @@ const action = (
           const methodName = `${this[
             identifierKey
           ]?.toString()}.${key.toString()}`;
-          if (lastState === state) {
+          if (this[enableInspectorKey] && lastState === state) {
             console.warn(
               `There are no state updates to method '${methodName}'`
             );

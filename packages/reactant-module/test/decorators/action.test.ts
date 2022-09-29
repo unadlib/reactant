@@ -13,7 +13,9 @@ import {
 
 describe('@action', () => {
   test('base', () => {
-    @injectable()
+    @injectable({
+      name: 'counter',
+    })
     class Counter {
       @state
       count = 0;
@@ -21,6 +23,12 @@ describe('@action', () => {
       @action
       increase() {
         this.count += 1;
+      }
+
+      @action
+      noChange() {
+        const { count } = this;
+        this.count = count;
       }
     }
     const ServiceIdentifiers = new Map();
@@ -55,6 +63,14 @@ describe('@action', () => {
     expect(counter.count).toBe(1);
     expect((counter as any)[enablePatchesKey]).toBe(false);
     expect(Object.values(store.getState())).toEqual([{ count: 1 }]);
+    const warn = jest.spyOn(console, 'warn').mockImplementation(() => {
+      //
+    });
+    counter.noChange();
+    expect(warn).not.toBeCalledWith(
+      `There are no state updates to method 'counter.noChange'`
+    );
+    warn.mockReset();
   });
 
   test('enable `autoFreeze` in devOptions', () => {
@@ -503,5 +519,80 @@ describe('@action', () => {
     expect(
       applyPatches(store.getState(), actionFn.mock.calls[0][0]._inversePatches)
     ).toEqual(originalTodoState);
+  });
+
+  test('base with `enableInspector`', () => {
+    interface Todo {
+      text: string;
+    }
+    @injectable({
+      name: 'todo',
+    })
+    class TodoList {
+      @state
+      list: Todo[] = [
+        {
+          text: 'foo',
+        },
+      ];
+
+      @action
+      add(text: string) {
+        this.list.slice(-1)[0].text = text;
+        this.list.push({ text });
+      }
+
+      @action
+      noChange() {
+        this.list.slice(-1)[0].text = this.list.slice(-1)[0].text;
+      }
+    }
+
+    const actionFn = jest.fn();
+
+    const middleware: Middleware = (store) => (next) => (_action) => {
+      actionFn(_action);
+      return next(_action);
+    };
+
+    const ServiceIdentifiers = new Map();
+    const modules = [TodoList, applyMiddleware(middleware)];
+    const container = createContainer({
+      ServiceIdentifiers,
+      modules,
+      options: {
+        defaultScope: 'Singleton',
+      },
+    });
+    const todoList = container.get(TodoList);
+    const store = createStore({
+      modules,
+      container,
+      ServiceIdentifiers,
+      loadedModules: new Set(),
+      load: (...args: any[]) => {
+        //
+      },
+      pluginHooks: {
+        middleware: [],
+        beforeCombineRootReducers: [],
+        afterCombineRootReducers: [],
+        enhancer: [],
+        preloadedStateHandler: [],
+        afterCreateStore: [],
+        provider: [],
+      },
+      devOptions: {
+        enableInspector: true,
+      },
+    });
+    const warn = jest.spyOn(console, 'warn').mockImplementation(() => {
+      //
+    });
+    todoList.noChange();
+    expect(warn).toBeCalledWith(
+      `There are no state updates to method 'todo.noChange'`
+    );
+    warn.mockReset();
   });
 });

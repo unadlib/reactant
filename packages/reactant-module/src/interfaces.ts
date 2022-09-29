@@ -30,6 +30,7 @@ import {
   modulesKey,
   initStateKey,
   unsubscriptionsKey,
+  enableInspectorKey,
 } from './constants';
 import { PluginModule } from './core';
 
@@ -42,6 +43,10 @@ export interface DevOptions {
    * Enable state update patches.
    */
   enablePatches?: boolean;
+  /**
+   * Enable inspector for state changing.
+   */
+  enableInspector?: boolean;
   /**
    * Enable state auto freeze.
    */
@@ -71,6 +76,7 @@ export interface Service<T extends Record<string, any> = Record<string, any>> {
   readonly [storeKey]?: ReduxStore;
   readonly [loaderKey]?: Loader;
   readonly [enablePatchesKey]?: boolean;
+  readonly [enableInspectorKey]?: boolean;
   readonly [subscriptionsKey]?: Subscriptions;
   readonly [unsubscriptionsKey]?: Set<Unsubscribe>;
   readonly [containerKey]?: Container;
