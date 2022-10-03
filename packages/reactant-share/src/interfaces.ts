@@ -1,7 +1,8 @@
+/* eslint-disable no-use-before-define */
 import type { EmitParameter, Transport } from 'data-transport';
 import type { Config as BaseConfig, App, Renderer } from 'reactant';
 import type { ILastActionState } from 'reactant-last-action';
-import type { Router, RouterState } from 'reactant-router';
+import type { RouterState } from 'reactant-router';
 import {
   isClientName,
   lastActionName,
@@ -9,12 +10,10 @@ import {
   preloadedStateActionName,
   proxyClientActionName,
   proxyServerActionName,
-  routerChangeName,
   syncRouterName,
-  syncRouterWorkerName,
+  syncWorkerRouterName,
   syncToClientsName,
 } from './constants';
-import type { RouterChangeNameOptions } from './router';
 
 export type { Transport } from 'data-transport';
 
@@ -72,6 +71,8 @@ export interface ISharedAppOptions {
    * Forced Sync for all client, enabled by default.
    *
    * If forcedSyncClient is false, then only the client's visibilityState is visible will the state be synchronized from server port.
+   *
+   * `forcedSyncClient` is only true in `SharedTab` type.
    */
   forcedSyncClient?: boolean;
 }
@@ -108,8 +109,7 @@ export interface ClientTransport {
     sequence: number
   ): Promise<Record<string, any> | null | undefined>;
   [isClientName](): Promise<boolean>;
-  [syncRouterName](name: string): Promise<RouterState>;
-  [syncRouterWorkerName](router: Router['router'], name: string): void;
+  [syncRouterName](name: string, router?: RouterState): Promise<RouterState>;
 }
 
 export type ActionOptions = Pick<
@@ -124,12 +124,10 @@ export interface ServerTransport {
     args: any[];
   }): Promise<void>;
   [lastActionName](options: ActionOptions): Promise<void>;
-  [routerChangeName](
-    options: RouterChangeNameOptions
-  ): Promise<RouterState | null>;
   [syncToClientsName](
     options: Record<string, any> | null | undefined
   ): Promise<void>;
+  [syncWorkerRouterName](name: string): Promise<RouterState | undefined>;
 }
 
 export interface HandleServerOptions {
@@ -155,13 +153,6 @@ export type FunctionKeys<T> = Exclude<
   }[keyof T],
   void
 >;
-
-interface SpawnOptions {
-  /**
-   * Spawn transport, and default transport is client
-   */
-  port?: Port;
-}
 
 export type ProxyExec = <
   T extends Record<string | number | symbol, any>,
