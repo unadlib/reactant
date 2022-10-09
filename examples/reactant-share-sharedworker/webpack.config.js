@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
 const { DefinePlugin } = require('webpack');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -43,6 +44,7 @@ module.exports = {
   },
   mode: 'development',
   devServer: {
+    static: path.join(__dirname, 'dist'),
     compress: true,
     port: 7001,
     open: true,
@@ -54,6 +56,13 @@ module.exports = {
   plugins: [
     new DefinePlugin({
       __DEV__: JSON.stringify(true),
+    }),
+    new CopyWebpackPlugin({
+      patterns: [
+        path.join(__dirname, './index.html'),
+        path.join(__dirname, './iframe.html'),
+        path.join(__dirname, './detached-window.html'),
+      ],
     }),
   ],
   devtool: 'source-map',

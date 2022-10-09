@@ -14,16 +14,6 @@ custom_edit_url: null
 
 - [IRouterOptions](../interfaces/router.IRouterOptions.md)
 
-## Type Aliases
-
-### RouterChangeNameOptions
-
-Ƭ **RouterChangeNameOptions**: { `args`: [`string`, LocationState?] ; `currentName?`: `string` ; `method`: ``"push"``  } \| { `args`: [`string`, LocationState?] ; `currentName?`: `string` ; `method`: ``"replace"``  } \| { `args`: [`number`] ; `currentName?`: `string` ; `method`: ``"go"``  } \| { `args`: [] ; `currentName?`: `string` ; `method`: ``"goBack"``  } \| { `args`: [] ; `currentName?`: `string` ; `method`: ``"goForward"``  }
-
-#### Defined in
-
-[packages/reactant-share/src/router.ts:24](https://github.com/unadlib/reactant/blob/9c19923e/packages/reactant-share/src/router.ts#L24)
-
 ## Variables
 
 ### RouterOptions
@@ -32,7 +22,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[packages/reactant-router/src/router.tsx:23](https://github.com/unadlib/reactant/blob/9c19923e/packages/reactant-router/src/router.tsx#L23)
+[packages/reactant-router/src/router.tsx:23](https://github.com/unadlib/reactant/blob/58d171db/packages/reactant-router/src/router.tsx#L23)
 
 ## Functions
 

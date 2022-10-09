@@ -8,7 +8,6 @@ custom_edit_url: null
 
 ## Classes
 
-- [BaseReactantRouter](classes/BaseReactantRouter.md)
 - [Router](classes/Router.md)
 
 ## Interfaces
@@ -34,7 +33,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-router/src/router.tsx:23](https://github.com/unadlib/reactant/blob/9c19923e/packages/reactant-router/src/router.tsx#L23)
+[packages/reactant-router/src/router.tsx:23](https://github.com/unadlib/reactant/blob/58d171db/packages/reactant-router/src/router.tsx#L23)
 
 ## Functions
 

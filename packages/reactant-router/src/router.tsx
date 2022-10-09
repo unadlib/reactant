@@ -46,7 +46,7 @@ export interface IRouterOptions {
 @injectable({
   name: 'Router',
 })
-abstract class ReactantRouter extends PluginModule {
+class ReactantRouter extends PluginModule {
   autoProvide: boolean;
 
   protected history!: History;

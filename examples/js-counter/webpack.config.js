@@ -40,7 +40,7 @@ module.exports = {
   },
   mode: 'development',
   devServer: {
-    contentBase: path.join(__dirname, 'dist'),
+    static: path.join(__dirname, 'dist'),
     compress: true,
     port: 7001,
     open: true,
@@ -49,7 +49,9 @@ module.exports = {
     new DefinePlugin({
       __DEV__: JSON.stringify(true),
     }),
-    new CopyWebpackPlugin([path.join(__dirname, './src/index.html')]),
+    new CopyWebpackPlugin({
+      patterns: [path.join(__dirname, './src/index.html')],
+    }),
   ],
   devtool: 'source-map',
 };

@@ -14,7 +14,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[createApp.tsx:20](https://github.com/unadlib/reactant/blob/9c19923e/packages/reactant/src/createApp.tsx#L20)
+[createApp.tsx:20](https://github.com/unadlib/reactant/blob/58d171db/packages/reactant/src/createApp.tsx#L20)
 
 ## Functions
 
@@ -65,4 +65,4 @@ expect(app.instance instanceof Foo).toBeTruthy();
 
 #### Defined in
 
-[createApp.tsx:48](https://github.com/unadlib/reactant/blob/9c19923e/packages/reactant/src/createApp.tsx#L48)
+[createApp.tsx:48](https://github.com/unadlib/reactant/blob/58d171db/packages/reactant/src/createApp.tsx#L48)

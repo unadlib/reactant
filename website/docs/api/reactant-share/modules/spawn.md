@@ -71,7 +71,7 @@ reference: https://en.wikipedia.org/wiki/Actor_model
 | `module` | `T` | Designate an execution module from the server side. |
 | `key` | `K` | Specify the name of a method in this module. |
 | `args` | `Parameters`<`T`[`K`]\> | Pass in the parameters for this method. |
-| `options?` | { `respond?`: `O`  } & `Pick`<`EmitParameter`<`any`\>, ``"timeout"``\> | proxy execution options |
+| `options?` | { `clientIds?`: `string`[] ; `portName?`: `string` ; `respond?`: `O`  } & `Pick`<`EmitParameter`<`any`\>, ``"timeout"``\> | proxy execution options |
 
 #### Returns
 
@@ -79,4 +79,4 @@ reference: https://en.wikipedia.org/wiki/Actor_model
 
 #### Defined in
 
-[packages/reactant-share/src/interfaces.ts:166](https://github.com/unadlib/reactant/blob/9c19923e/packages/reactant-share/src/interfaces.ts#L166)
+[packages/reactant-share/src/interfaces.ts:163](https://github.com/unadlib/reactant/blob/58d171db/packages/reactant-share/src/interfaces.ts#L163)

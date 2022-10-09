@@ -72,4 +72,4 @@ expect(app.instance.count).toBe(1);
 
 #### Defined in
 
-[packages/reactant-module/src/core/dispatch.ts:47](https://github.com/unadlib/reactant/blob/9c19923e/packages/reactant-module/src/core/dispatch.ts#L47)
+[packages/reactant-module/src/core/dispatch.ts:47](https://github.com/unadlib/reactant/blob/58d171db/packages/reactant-module/src/core/dispatch.ts#L47)
