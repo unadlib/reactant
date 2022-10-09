@@ -2,6 +2,7 @@
 const path = require('path');
 const { DefinePlugin } = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -57,6 +58,7 @@ module.exports = {
     new DefinePlugin({
       __DEV__: JSON.stringify(true),
     }),
+    new NodePolyfillPlugin(),
     new CopyWebpackPlugin({
       patterns: [
         path.join(__dirname, './index.html'),
