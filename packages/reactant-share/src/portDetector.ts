@@ -181,6 +181,10 @@ export class PortDetector {
     return this.sharedAppOptions.type === 'SharedWorker';
   }
 
+  get isServerWorker() {
+    return this.isWorkerMode && this.isServer;
+  }
+
   get isServer() {
     return !!this.detectPort('server');
   }

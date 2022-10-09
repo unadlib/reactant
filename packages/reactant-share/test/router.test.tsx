@@ -1,6 +1,10 @@
+/* eslint-disable react/require-default-props */
+/* eslint-disable react/function-component-definition */
+/* eslint-disable no-promise-executor-return */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { FunctionComponent } from 'react';
 import { unmountComponentAtNode, render, Switch, Route } from 'reactant-web';
+import type { History, LocationListener } from 'history';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { act } from 'react-dom/test-utils';
 import {
@@ -244,9 +248,9 @@ describe('base', () => {
     await new Promise((resolve) => setTimeout(resolve));
 
     expect(onClientFn.mock.calls.length).toBe(1);
-    expect(subscribeOnClientFn.mock.calls.length).toBe(3);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(1);
     expect(onServerFn.mock.calls.length).toBe(1);
-    expect(subscribeOnServerFn.mock.calls.length).toBe(3);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(2);
     expect(serverContainer.querySelector('#content')?.textContent).toBe('0+');
     // expect(clientContainer.querySelector('#content')?.textContent).toBe('0+');
     act(() => {
@@ -258,9 +262,9 @@ describe('base', () => {
     await new Promise((resolve) => setTimeout(resolve));
 
     expect(onClientFn.mock.calls.length).toBe(1);
-    expect(subscribeOnClientFn.mock.calls.length).toBe(5);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(2);
     expect(onServerFn.mock.calls.length).toBe(1);
-    expect(subscribeOnServerFn.mock.calls.length).toBe(5);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(2);
 
     expect(serverContainer.querySelector('#content')?.textContent).toBe('0+');
     expect(clientContainer.querySelector('#content')?.textContent).toBe('0+');
@@ -271,6 +275,103 @@ describe('base', () => {
         .dispatchEvent(new MouseEvent('click', { bubbles: true }));
     });
     expect(clientContainer.querySelector('#content')?.textContent).toBe('home');
+  });
+
+  test('base server/client port mode with router with go/back button', async () => {
+    onClientFn = jest.fn();
+    subscribeOnClientFn = jest.fn();
+    onServerFn = jest.fn();
+    subscribeOnServerFn = jest.fn();
+
+    const transports = mockPairTransports();
+    // TODO: Error: Not implemented: navigation https://github.com/jsdom/jsdom/issues/2112
+    const historyListeners = new Set<LocationListener>();
+    const MockRouterHistory = {
+      provide: 'MockRouterHistory',
+      useFactory: (router: Router) => {
+        // eslint-disable-next-line prefer-destructuring
+        const history: History = (router as any).history;
+        const { listen } = history;
+        history.listen = (callback) => {
+          historyListeners.add(callback);
+          return listen.call(history, (_location, _action) => {
+            callback(_location, _action);
+          });
+        };
+      },
+      deps: [Router],
+    };
+
+    const serverApp = await createSharedApp({
+      modules: [
+        Router,
+        {
+          provide: RouterOptions,
+          useValue: {
+            createHistory: () => createBrowserHistory(),
+          } as IRouterOptions,
+        },
+      ],
+      main: AppView,
+      render,
+      share: {
+        name: 'counter',
+        type: 'Base',
+        port: 'server',
+        transports: {
+          server: transports[0],
+        },
+      },
+    });
+
+    await serverApp.bootstrap(serverContainer);
+
+    const clientApp = await createSharedApp({
+      modules: [
+        Router,
+        {
+          provide: RouterOptions,
+          useValue: {
+            createHistory: () => createBrowserHistory(),
+          } as IRouterOptions,
+        },
+        MockRouterHistory,
+      ],
+      main: AppView,
+      render,
+      share: {
+        name: 'counter',
+        type: 'Base',
+        port: 'client',
+        transports: {
+          client: transports[1],
+        },
+      },
+    });
+
+    await clientApp.bootstrap(clientContainer);
+
+    expect(clientApp.instance.router.currentPath).toBe('/');
+    expect(serverApp.instance.router.currentPath).toBe('/');
+
+    act(() => {
+      clientContainer
+        .querySelector('#counter')!
+        .dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    });
+
+    await new Promise((resolve) => setTimeout(resolve));
+    expect(clientApp.instance.router.currentPath).toBe('/counter');
+    expect(serverApp.instance.router.currentPath).toBe('/counter');
+    // mock go back
+    for (const callback of historyListeners) {
+      callback(
+        { pathname: '/', search: '', hash: '', state: undefined },
+        'POP'
+      );
+    }
+    expect(clientApp.instance.router.currentPath).toBe('/');
+    expect(serverApp.instance.router.currentPath).toBe('/');
   });
 });
 
@@ -488,7 +589,7 @@ describe('SharedWorker', () => {
     await new Promise((resolve) => setTimeout(resolve));
 
     expect(onClientFn.mock.calls.length).toBe(1);
-    expect(subscribeOnClientFn.mock.calls.length).toBe(3);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(2);
     expect(onServerFn.mock.calls.length).toBe(1);
     expect(subscribeOnServerFn.mock.calls.length).toBe(2);
     expect(serverApp.instance.router.currentPath).toBe('/counter');
@@ -741,7 +842,7 @@ describe('Worker', () => {
     await new Promise((resolve) => setTimeout(resolve));
 
     expect(onClientFn.mock.calls.length).toBe(1);
-    expect(subscribeOnClientFn.mock.calls.length).toBe(3);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(2);
     expect(onServerFn.mock.calls.length).toBe(1);
     expect(subscribeOnServerFn.mock.calls.length).toBe(2);
     expect(serverApp.instance.router.currentPath).toBe('/counter');
@@ -904,9 +1005,7 @@ describe('Worker', () => {
     document.dispatchEvent(new Event('visibilitychange'));
 
     await new Promise((resolve) => setTimeout(resolve));
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    expect(clientApp.instance.router._router.location.pathname).toBe(
+    expect(clientApp.instance.router.router!.location.pathname).toBe(
       '/counter'
     );
     expect(clientApp.instance.router.currentPath).toBe('/counter');

@@ -1,4 +1,4 @@
-import { Reducer, Action, AnyAction } from 'redux';
+import type { Reducer, Action, AnyAction } from 'redux';
 
 /**
  * ## Description

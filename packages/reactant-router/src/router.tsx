@@ -6,9 +6,9 @@ import {
   connectRouter,
   ConnectedRouter,
   CALL_HISTORY_METHOD,
-  LOCATION_CHANGE,
   RouterAction,
   onLocationChanged,
+  routerActions,
 } from 'connected-react-router';
 import type { Location, LocationState, Action, History } from 'history';
 
@@ -46,29 +46,16 @@ export interface IRouterOptions {
 @injectable({
   name: 'Router',
 })
-abstract class BaseReactantRouter extends PluginModule {
-  readonly [storeKey]?: Store;
-
+abstract class ReactantRouter extends PluginModule {
   autoProvide: boolean;
 
   protected history!: History;
 
-  abstract push(path: string, state?: Record<string, any>): void;
-
-  abstract replace(
-    path: string,
-    state?: Record<string, any>
-  ): Promise<void> | void;
-
-  abstract go(n: number): Promise<void> | void;
-
-  abstract goBack(): Promise<void> | void;
-
-  abstract goForward(): Promise<void> | void;
-
   autoCreateHistory: boolean;
 
   onLocationChanged = onLocationChanged;
+
+  routerActions = routerActions;
 
   protected readonly stateKey = 'router';
 
@@ -81,15 +68,9 @@ abstract class BaseReactantRouter extends PluginModule {
       this.history = this.options.createHistory();
       this.middleware = (store) => (next) => (action: RouterAction) => {
         if (action.type !== CALL_HISTORY_METHOD) {
-          if (
-            action.type === LOCATION_CHANGE &&
-            action?.payload?.isFirstRendering === false &&
-            this.history.location !== action.payload.location
-          ) {
-            this.history.replace(action.payload.location);
-          }
           return next(action);
         }
+        // Just call `history` method and `history` will change routing, then trigger `history.listen`, and dispatch LOCATION_CHANGE action
         const {
           payload: { method, args = [] },
         } = action;
@@ -99,28 +80,56 @@ abstract class BaseReactantRouter extends PluginModule {
     }
   }
 
+  get store() {
+    return this[storeKey];
+  }
+
   beforeCombineRootReducers(reducers: ReducersMapObject): ReducersMapObject {
-    if (!this.autoCreateHistory) return reducers;
     if (Object.prototype.hasOwnProperty.call(reducers, this.stateKey)) {
       throw new Error(
         `The identifier '${this.stateKey}' has a duplicate name, please reset the option 'stateKey' of 'ReactantRouter' module.`
       );
     }
     return Object.assign(reducers, {
-      [this.stateKey]: connectRouter(this.history),
+      [this.stateKey]: connectRouter(this.history ?? this.defaultHistory),
     });
   }
+
+  protected defaultHistory?: {
+    location: History['location'];
+    action: string;
+  };
 
   ConnectedRouter: FunctionComponent = (props) => (
     <ConnectedRouter history={this.history}>{props.children}</ConnectedRouter>
   );
 
-  get router(): RouterState {
-    return this[storeKey]?.getState()[this.stateKey];
+  get router(): RouterState | undefined {
+    return this.store?.getState()[this.stateKey];
   }
 
   get currentPath() {
     return this.router?.location.pathname;
+  }
+
+  push(path: string, state?: LocationState) {
+    this.store?.dispatch(this.routerActions.push(path, state));
+  }
+
+  replace(path: string, state?: LocationState) {
+    this.store?.dispatch(this.routerActions.replace(path, state));
+  }
+
+  go(n: number) {
+    this.store?.dispatch(this.routerActions.go(n));
+  }
+
+  goBack() {
+    this.store?.dispatch(this.routerActions.goBack());
+  }
+
+  goForward() {
+    this.store?.dispatch(this.routerActions.goForward());
   }
 
   provider = (props: PropsWithChildren<any>) => {
@@ -129,31 +138,4 @@ abstract class BaseReactantRouter extends PluginModule {
   };
 }
 
-@injectable()
-class ReactantRouter extends BaseReactantRouter {
-  constructor(@inject(RouterOptions) public options: IRouterOptions) {
-    super(options);
-  }
-
-  push(path: string, state?: Record<string, any>) {
-    this.history.push(path, state);
-  }
-
-  replace(path: string, state?: Record<string, any>) {
-    this.history.replace(path, state);
-  }
-
-  go(n: number) {
-    this.history.go(n);
-  }
-
-  goBack() {
-    this.history.goBack();
-  }
-
-  goForward() {
-    this.history.goForward();
-  }
-}
-
-export { ReactantRouter as Router, RouterOptions, BaseReactantRouter };
+export { ReactantRouter as Router, RouterOptions };
