@@ -23,6 +23,7 @@ import {
   createBrowserHistory,
   RouterOptions,
   createHashHistory,
+  fork,
 } from '..';
 
 let serverContainer: Element;
@@ -37,6 +38,9 @@ beforeEach(() => {
 });
 
 afterEach(() => {
+  clientContainer
+    .querySelector('#home')
+    ?.dispatchEvent(new MouseEvent('click', { bubbles: true }));
   unmountComponentAtNode(serverContainer);
   serverContainer.remove();
   unmountComponentAtNode(clientContainer);
@@ -70,7 +74,7 @@ describe('base', () => {
     name: 'counterView',
   })
   class CounterView extends ViewModule {
-    constructor(private portDetector: PortDetector) {
+    constructor(public portDetector: PortDetector) {
       super();
       this.portDetector.onClient(() => {
         onClientFn?.();
@@ -85,6 +89,8 @@ describe('base', () => {
         });
       });
     }
+
+    increase1?: () => void;
 
     name = 'counter';
 
@@ -372,6 +378,277 @@ describe('base', () => {
     }
     expect(clientApp.instance.router.currentPath).toBe('/');
     expect(serverApp.instance.router.currentPath).toBe('/');
+  });
+
+  test('base server/client port mode in SharedTab', async () => {
+    onClientFn = jest.fn();
+    subscribeOnClientFn = jest.fn();
+    onServerFn = jest.fn();
+    subscribeOnServerFn = jest.fn();
+
+    const transports = mockPairTransports();
+    const transports1 = mockPairTransports();
+
+    const sharedApp0 = await createSharedApp({
+      modules: [
+        Router,
+        {
+          provide: RouterOptions,
+          useValue: {
+            createHistory: () => createBrowserHistory(),
+          } as IRouterOptions,
+        },
+      ],
+      main: AppView,
+      render,
+      share: {
+        name: 'counter',
+        type: 'SharedTab',
+        transports: {
+          server: transports[0],
+          client: transports1[0],
+        },
+      },
+    });
+    expect(sharedApp0.instance.counterView.portDetector.shared).toBe(true);
+    await sharedApp0.bootstrap(serverContainer);
+
+    expect(sharedApp0.instance.router.currentPath).toBe('/');
+
+    const sharedApp1 = await createSharedApp({
+      modules: [
+        Router,
+        {
+          provide: RouterOptions,
+          useValue: {
+            createHistory: () => createBrowserHistory(),
+          } as IRouterOptions,
+        },
+      ],
+      main: AppView,
+      render,
+      share: {
+        name: 'counter',
+        type: 'SharedTab',
+        transports: {
+          server: transports1[0],
+          client: transports[1],
+        },
+      },
+    });
+
+    await sharedApp1.bootstrap(clientContainer);
+
+    expect(sharedApp0.instance.router.currentPath).toBe('/');
+    expect(sharedApp1.instance.router.currentPath).toBe('/');
+
+    act(() => {
+      clientContainer
+        .querySelector('#counter')!
+        .dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    });
+
+    await new Promise((resolve) => setTimeout(resolve));
+    expect(sharedApp0.instance.router.currentPath).toBe('/counter');
+    expect(sharedApp1.instance.router.currentPath).toBe('/counter');
+
+    expect(clientContainer.querySelector('#count')!.textContent).toBe('0');
+
+    act(() => {
+      serverContainer
+        .querySelector('#increase')!
+        .dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    });
+
+    // waiting for sync state
+    await new Promise((resolve) => setTimeout(resolve));
+
+    expect(serverContainer.querySelector('#count')?.textContent).toBe('1');
+    expect(clientContainer.querySelector('#count')?.textContent).toBe('1');
+
+    act(() => {
+      clientContainer
+        .querySelector('#increase')!
+        .dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    });
+
+    // waiting for sync state
+    await new Promise((resolve) => setTimeout(resolve));
+
+    expect(serverContainer.querySelector('#count')?.textContent).toBe('2');
+    expect(clientContainer.querySelector('#count')?.textContent).toBe('2');
+  });
+
+  test('base server/client port mode with different port name in SharedTab', async () => {
+    onClientFn = jest.fn();
+    subscribeOnClientFn = jest.fn();
+    onServerFn = jest.fn();
+    subscribeOnServerFn = jest.fn();
+
+    const transports = mockPairTransports();
+    const transports1 = mockPairTransports();
+
+    const sharedApp0 = await createSharedApp({
+      modules: [
+        Router,
+        {
+          provide: RouterOptions,
+          useValue: {
+            createHistory: () => createBrowserHistory(),
+          } as IRouterOptions,
+        },
+      ],
+      main: AppView,
+      render,
+      share: {
+        name: 'counter-demo',
+        type: 'SharedTab',
+        portName: 'server-tab',
+        transports: {
+          server: transports[0],
+          client: transports1[0],
+        },
+      },
+    });
+    expect(sharedApp0.instance.counterView.portDetector.shared).toBe(true);
+
+    await sharedApp0.bootstrap(serverContainer);
+
+    expect(sharedApp0.instance.router.currentPath).toBe('/');
+    const sharedApp1 = await createSharedApp({
+      modules: [
+        Router,
+        {
+          provide: RouterOptions,
+          useValue: {
+            createHistory: () => createBrowserHistory(),
+          } as IRouterOptions,
+        },
+      ],
+      main: AppView,
+      render,
+      share: {
+        name: 'counter-demo',
+        type: 'SharedTab',
+        portName: 'client-tab',
+        transports: {
+          server: transports1[0],
+          client: transports[1],
+        },
+      },
+    });
+
+    await sharedApp1.bootstrap(clientContainer);
+
+    expect(sharedApp0.instance.router.currentPath).toBe('/');
+    expect(sharedApp1.instance.router.currentPath).toBe('/');
+
+    act(() => {
+      clientContainer
+        .querySelector('#counter')!
+        .dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    });
+
+    await new Promise((resolve) => setTimeout(resolve));
+    expect(sharedApp0.instance.router.currentPath).toBe('/');
+    expect(sharedApp1.instance.router.currentPath).toBe('/counter');
+
+    expect(clientContainer.querySelector('#count')!.textContent).toBe('0');
+
+    act(() => {
+      serverContainer
+        .querySelector('#counter')!
+        .dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    });
+
+    await new Promise((resolve) => setTimeout(resolve));
+    expect(sharedApp0.instance.router.currentPath).toBe('/counter');
+    expect(sharedApp1.instance.router.currentPath).toBe('/counter');
+
+    expect(serverContainer.querySelector('#count')!.textContent).toBe('0');
+
+    act(() => {
+      serverContainer
+        .querySelector('#increase')!
+        .dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    });
+
+    // waiting for sync state
+    await new Promise((resolve) => setTimeout(resolve));
+
+    expect(serverContainer.querySelector('#count')?.textContent).toBe('1');
+    expect(clientContainer.querySelector('#count')?.textContent).toBe('1');
+
+    act(() => {
+      clientContainer
+        .querySelector('#increase')!
+        .dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    });
+
+    // waiting for sync state
+    await new Promise((resolve) => setTimeout(resolve));
+
+    expect(serverContainer.querySelector('#count')?.textContent).toBe('2');
+    expect(clientContainer.querySelector('#count')?.textContent).toBe('2');
+
+    const sharedApp0Fn = jest.fn();
+    const sharedApp1Fn = jest.fn();
+
+    sharedApp0.instance.counterView.increase1 = () => {
+      sharedApp0Fn();
+    };
+
+    sharedApp1.instance.counterView.increase1 = () => {
+      sharedApp1Fn();
+    };
+
+    fork(sharedApp0.instance.counterView, 'increase1' as any, [], {
+      clientIds: [Math.random().toString()],
+    });
+
+    await new Promise((resolve) => setTimeout(resolve));
+
+    expect(sharedApp0Fn).toBeCalledTimes(0);
+    expect(sharedApp1Fn).toBeCalledTimes(0);
+
+    fork(sharedApp0.instance.counterView, 'increase1' as any, [], {
+      clientIds: [sharedApp1.instance.counterView.portDetector.clientId!],
+    });
+
+    await new Promise((resolve) => setTimeout(resolve));
+
+    expect(sharedApp0Fn).toBeCalledTimes(0);
+    expect(sharedApp1Fn).toBeCalledTimes(1);
+
+    fork(sharedApp0.instance.counterView, 'increase1' as any, [], {
+      clientIds: [sharedApp1.instance.counterView.portDetector.clientId!],
+      portName: Math.random().toString(),
+    });
+
+    await new Promise((resolve) => setTimeout(resolve));
+
+    expect(sharedApp0Fn).toBeCalledTimes(0);
+    expect(sharedApp1Fn).toBeCalledTimes(1);
+
+    fork(sharedApp0.instance.counterView, 'increase1' as any, [], {
+      clientIds: [sharedApp1.instance.counterView.portDetector.clientId!],
+      portName: sharedApp1.instance.counterView.portDetector.name,
+    });
+
+    await new Promise((resolve) => setTimeout(resolve));
+
+    expect(sharedApp0Fn).toBeCalledTimes(0);
+    expect(sharedApp1Fn).toBeCalledTimes(2);
+
+    fork(sharedApp0.instance.counterView, 'increase1' as any, [], {
+      clientIds: [Math.random().toString()],
+      portName: sharedApp1.instance.counterView.portDetector.name,
+    });
+
+    await new Promise((resolve) => setTimeout(resolve));
+
+    expect(sharedApp0Fn).toBeCalledTimes(0);
+    expect(sharedApp1Fn).toBeCalledTimes(2);
   });
 });
 

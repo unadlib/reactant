@@ -19,8 +19,6 @@ createSharedApp({
       provide: RouterOptions,
       useValue: {
         createHistory: () => createHashHistory(),
-        name:
-          globalThis.location.pathname === '/index.html' ? 'other' : 'default',
       } as IRouterOptions,
     },
     Storage,
@@ -40,6 +38,8 @@ createSharedApp({
     type: 'SharedWorker',
     workerURL: 'worker.bundle.js',
     forcedSyncClient: false,
+    portName:
+      globalThis.location.pathname === '/index.html' ? 'other' : 'default',
   },
 }).then((app) => {
   app.bootstrap(document.getElementById('app'));

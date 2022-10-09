@@ -138,6 +138,7 @@ const createSharedTabApp = async <T, S extends any[], R extends Renderer<S>>(
   let app: App<T, S, R>;
   app = await Promise.race([
     new Promise<App<T, S, R>>((resolve) => {
+      // TODO: clear locks for testing in SharedTab mode
       useLock(`reactant-share-app-lock:${options.share.name}`, async () => {
         if (!app) {
           options.share.port = 'server';

@@ -26,6 +26,7 @@ So what does it mean for Web applications to be "multi-threaded" with Worker?
 "[The State Of Web Workers In 2021](https://www.smashingmagazine.com/2021/06/web-workers-2021/)" post covers a number of unpredictable performance issues. With these browser workers we will likely be better able to deal with computationally complex and slow-running JS code to keep web applications smooth.
 
 It's time to rethink why we can't make web applications support multiple browser windows and improve the performance of web applications. New architectural requirements bring new framework requirements, and such applications we call it **`Shared Web Apps`**.
+
 ## What's Shared Web App?
 
 Even though we want users to open as few application windows as possible, the fact remains that many users will open the same application in multiple browser windows.
@@ -84,7 +85,7 @@ The overall workflow of the reactant-share is shown in the figure below. Here is
 - First, we define a counter app module and view module in `app.view.tsx`
 
 ```tsx
-import React from "react";
+import React from 'react';
 import {
   ViewModule,
   createApp,
@@ -93,9 +94,9 @@ import {
   action,
   state,
   spawn,
-} from "reactant-share";
+} from 'reactant-share';
 
-@injectable({ name: "counter" })
+@injectable({ name: 'counter' })
 class Counter {
   @state
   count = 0;
@@ -115,7 +116,7 @@ export class AppView extends ViewModule {
   component() {
     const count = useConnector(() => this.counter.count);
     return (
-      <button type="button" onClick={() => spawn(this.counter, "increase", [])}>
+      <button type="button" onClick={() => spawn(this.counter, 'increase', [])}>
         {count}
       </button>
     );
@@ -126,31 +127,31 @@ export class AppView extends ViewModule {
 - Next, we use `createSharedApp()` to create the client app, whose options must contain `workerURL`, the worker url that will create a shared worker (if it hasn't been created yet).
 
 ```tsx
-import { render } from "reactant-web";
-import { createSharedApp } from "reactant-share";
-import { AppView } from "./app.view";
+import { render } from 'reactant-web';
+import { createSharedApp } from 'reactant-share';
+import { AppView } from './app.view';
 
 createSharedApp({
   modules: [],
   main: AppView,
   render,
   share: {
-    name: "SharedWorkerApp",
-    port: "client",
-    type: "SharedWorker",
-    workerURL: "worker.bundle.js",
+    name: 'SharedWorkerApp',
+    port: 'client',
+    type: 'SharedWorker',
+    workerURL: 'worker.bundle.js',
   },
 }).then((app) => {
   // render only
-  app.bootstrap(document.getElementById("app"));
+  app.bootstrap(document.getElementById('app'));
 });
 ```
 
 - Finally, we just create the worker file `worker.tsx` and build it as `worker.bundle.js` for the `workerURL` option.
 
 ```tsx
-import { createSharedApp } from "reactant-share";
-import { AppView } from "./app.view";
+import { createSharedApp } from 'reactant-share';
+import { AppView } from './app.view';
 
 createSharedApp({
   modules: [],
@@ -159,9 +160,9 @@ createSharedApp({
     //
   },
   share: {
-    name: "SharedWorkerApp",
-    port: "server",
-    type: "SharedWorker",
+    name: 'SharedWorkerApp',
+    port: 'server',
+    type: 'SharedWorker',
   },
 }).then((app) => {
   // render less
@@ -175,6 +176,12 @@ The specific workflow of `increase` looks like this.
 3. The server app will execute `this.counter.increase()`, and sync the updated state back to each client apps.
 
 `spawn()` in reactant-share is inspired by the [actor model](https://en.wikipedia.org/wiki/Actor_model).
+
+## Browser Compatibility in SharedWorker mode
+
+| Browser | Chrome | Edge v79+ | Safari v16+ | Opera | IE  |
+| :------ | :----: | :-------: | :---------: | :---: | :-: |
+| Status  |   ✅   |    ✅     |     ✅      |  ✅   | 🚫  |
 
 ## FAQ
 

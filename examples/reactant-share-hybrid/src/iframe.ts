@@ -13,8 +13,6 @@ createSharedApp({
       provide: RouterOptions,
       useValue: {
         createHistory: () => createHashHistory(),
-        name:
-          globalThis.location.pathname === '/index.html' ? 'other' : 'default',
       } as IRouterOptions,
     },
   ],
@@ -24,6 +22,8 @@ createSharedApp({
     name: 'SharedApp',
     type: 'SharedTab',
     port: 'client',
+    portName:
+      globalThis.location.pathname === '/index.html' ? 'other' : 'default',
   },
 }).then((app) => {
   console.log(app, '====');

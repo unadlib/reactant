@@ -48,6 +48,10 @@ export interface ISharedAppOptions {
    */
   port?: Port;
   /**
+   * Specify a port name for routing and fork() args.
+   */
+  portName?: string;
+  /**
    * Specify a SharedWorker URL
    */
   workerURL?: string;
@@ -122,6 +126,8 @@ export interface ServerTransport {
     module: string;
     method: string;
     args: any[];
+    portName?: string;
+    clientIds?: string[];
   }): Promise<void>;
   [lastActionName](options: ActionOptions): Promise<void>;
   [syncToClientsName](
@@ -174,7 +180,7 @@ export type ProxyExec = <
   /**
    * proxy execution options
    */
-  options?: { respond?: O } & Pick<
+  options?: { respond?: O; portName?: string; clientIds?: string[] } & Pick<
     EmitParameter<any>,
     Exclude<keyof EmitParameter<any>, 'name' | 'respond'>
   >

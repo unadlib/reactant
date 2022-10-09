@@ -103,6 +103,10 @@ export class PortDetector {
     return !!(this.sharedAppOptions.port && this.sharedAppOptions.type);
   }
 
+  get name() {
+    return this.sharedAppOptions.portName ?? 'default';
+  }
+
   get disableSyncClient() {
     return (
       document.visibilityState === 'hidden' &&

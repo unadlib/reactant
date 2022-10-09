@@ -89,10 +89,23 @@ export const handleClient = ({
     })
   );
   disposeListeners.push(
-    transport.listen(proxyServerActionName, async (options) => {
-      const result = await applyMethod(app, options);
-      return result;
-    })
+    transport.listen(
+      proxyServerActionName,
+      async ({ clientIds, portName, ...options }) => {
+        // ignore non-specified id or name of client
+        if (
+          (Array.isArray(clientIds) &&
+            portDetector.clientId &&
+            !clientIds.includes(portDetector.clientId)) ||
+          (portName && portName !== portDetector.name)
+        )
+          return new Promise(() => {
+            // never resolve
+          });
+        const result = await applyMethod(app, options);
+        return result;
+      }
+    )
   );
   disposeListeners.push(() => transport.dispose());
   return () => {

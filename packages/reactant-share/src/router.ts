@@ -28,21 +28,12 @@ export interface IRouterOptions extends IBaseRouterOptions {
    * default initial route
    */
   defaultRoute?: string;
-  /**
-   * name of router
-   */
-  name?: string;
 }
 
 @injectable({
   name: 'Router',
 })
 class ReactantRouter extends BaseReactantRouter {
-  /**
-   * router type name
-   */
-  name = this.options.name ?? 'default';
-
   constructor(
     protected portDetector: PortDetector,
     @inject(SharedAppOptions) protected sharedAppOptions: ISharedAppOptions,
@@ -59,17 +50,19 @@ class ReactantRouter extends BaseReactantRouter {
     // #region sync init router from clients in Worker mode
     this.portDetector.onServer((transport) => {
       if (this.portDetector.isWorkerMode) {
-        transport.emit(syncWorkerRouterName, this.name).then((router) => {
-          if (router) {
-            this._changeRoutingOnSever(this.name, router);
-          }
-        });
+        transport
+          .emit(syncWorkerRouterName, this.portDetector.name)
+          .then((router) => {
+            if (router) {
+              this._changeRoutingOnSever(this.portDetector.name, router);
+            }
+          });
       }
     });
     this.portDetector.onClient((transport) => {
       if (this.portDetector.isWorkerMode) {
         return transport.listen(syncWorkerRouterName, async (name) => {
-          if (name === this.name) {
+          if (name === this.portDetector.name) {
             return this.router;
           }
         });
@@ -83,7 +76,10 @@ class ReactantRouter extends BaseReactantRouter {
         this,
         () => this.router,
         () => {
-          spawn(this as any, '_changeRoutingOnSever', [this.name, this.router]);
+          spawn(this as any, '_changeRoutingOnSever', [
+            this.portDetector.name,
+            this.router,
+          ]);
         }
       );
     });
@@ -94,12 +90,12 @@ class ReactantRouter extends BaseReactantRouter {
         () => {
           if (this.router) {
             // just update the current router to routers mapping by name
-            this._setRouters(this.name, this.router);
+            this._setRouters(this.portDetector.name, this.router);
           }
           if (!this.portDetector.isWorkerMode) {
             fork(this as any, '_changeRoutingOnClient', [
               this.router,
-              this.name,
+              this.portDetector.name,
             ]);
           }
         }
@@ -118,17 +114,19 @@ class ReactantRouter extends BaseReactantRouter {
       });
     });
     this.portDetector.onClient((transport) => {
-      transport!.emit(syncRouterName, this.name, this.router).then((router) => {
-        if (!router) return;
-        this.history.push(router.location);
-      });
+      transport!
+        .emit(syncRouterName, this.portDetector.name, this.router)
+        .then((router) => {
+          if (!router) return;
+          this.history.push(router.location);
+        });
     });
     // #endregion
   }
 
   protected _changeRoutingOnSever(name: string, router: RouterState) {
     this._setRouters(name, router);
-    if (name === this.name) {
+    if (name === this.portDetector.name) {
       if (this.portDetector.isWorkerMode) {
         this.dispatchChanged(router);
       } else if (
@@ -137,14 +135,17 @@ class ReactantRouter extends BaseReactantRouter {
       ) {
         this.history.push(router.location);
       }
-      fork(this as any, '_changeRoutingOnClient', [this.name, this.router]);
+      fork(this as any, '_changeRoutingOnClient', [
+        this.portDetector.name,
+        this.router,
+      ]);
     } else {
       fork(this as any, '_changeRoutingOnClient', [name, router]);
     }
   }
 
   protected _changeRoutingOnClient(name: string, router: RouterState) {
-    if (name !== this.name) return;
+    if (name !== this.portDetector.name) return;
     const route = () => {
       if (
         this.history &&
@@ -172,7 +173,7 @@ class ReactantRouter extends BaseReactantRouter {
   }) {
     return new Promise((resolve) => {
       const route = () => {
-        if (name === this.name) {
+        if (name === this.portDetector.name) {
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
           super[action](...args);
@@ -190,7 +191,7 @@ class ReactantRouter extends BaseReactantRouter {
   toBeRouted: (() => void) | null = null;
 
   protected _routers: Record<string, RouterState | undefined> = {
-    [this.name]: this.router,
+    [this.portDetector.name]: this.router,
   };
 
   protected _setRouters(name: string, router: RouterState) {
@@ -231,7 +232,7 @@ class ReactantRouter extends BaseReactantRouter {
           {
             args: [path, locationState],
             action: 'push',
-            name: this.name,
+            name: this.portDetector.name,
           },
         ]
       );
@@ -250,7 +251,7 @@ class ReactantRouter extends BaseReactantRouter {
           {
             args: [path, locationState],
             action: 'replace',
-            name: this.name,
+            name: this.portDetector.name,
           },
         ]
       );
@@ -269,7 +270,7 @@ class ReactantRouter extends BaseReactantRouter {
           {
             args: [n],
             action: 'go',
-            name: this.name,
+            name: this.portDetector.name,
           },
         ]
       );
@@ -288,7 +289,7 @@ class ReactantRouter extends BaseReactantRouter {
           {
             args: [],
             action: 'goBack',
-            name: this.name,
+            name: this.portDetector.name,
           },
         ]
       );
@@ -307,7 +308,7 @@ class ReactantRouter extends BaseReactantRouter {
           {
             args: [],
             action: 'goForward',
-            name: this.name,
+            name: this.portDetector.name,
           },
         ]
       );
