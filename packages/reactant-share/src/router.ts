@@ -95,8 +95,8 @@ class ReactantRouter extends BaseReactantRouter {
           }
           if (!this.portDetector.isWorkerMode) {
             fork(this as any, '_changeRoutingOnClient', [
-              this.router,
               this.portDetector.name,
+              this.router,
             ]);
           }
         }
