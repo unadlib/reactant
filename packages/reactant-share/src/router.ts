@@ -1,6 +1,7 @@
+/* eslint-disable no-shadow */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable consistent-return */
-import { injectable, inject, watch } from 'reactant';
+import { injectable, inject, watch, state, action } from 'reactant';
 import { Router as BaseReactantRouter, RouterOptions } from 'reactant-router';
 import type {
   IRouterOptions as IBaseRouterOptions,
@@ -190,10 +191,12 @@ class ReactantRouter extends BaseReactantRouter {
 
   toBeRouted: (() => void) | null = null;
 
+  @state
   protected _routers: Record<string, RouterState | undefined> = {
     [this.portDetector.name]: this.router,
   };
 
+  @action
   protected _setRouters(name: string, router: RouterState) {
     this._routers[name] = router;
   }

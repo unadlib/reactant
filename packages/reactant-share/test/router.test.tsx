@@ -235,14 +235,14 @@ describe('base', () => {
     expect(onClientFn.mock.calls.length).toBe(1);
     expect(subscribeOnClientFn.mock.calls.length).toBe(0);
     expect(onServerFn.mock.calls.length).toBe(1);
-    expect(subscribeOnServerFn.mock.calls.length).toBe(1);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(2);
 
     await clientApp.bootstrap(clientContainer);
 
     expect(onClientFn.mock.calls.length).toBe(1);
     expect(subscribeOnClientFn.mock.calls.length).toBe(1);
     expect(onServerFn.mock.calls.length).toBe(1);
-    expect(subscribeOnServerFn.mock.calls.length).toBe(1);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(2);
     expect(clientContainer.querySelector('#content')?.textContent).toBe('home');
 
     act(() => {
@@ -254,9 +254,9 @@ describe('base', () => {
     await new Promise((resolve) => setTimeout(resolve));
 
     expect(onClientFn.mock.calls.length).toBe(1);
-    expect(subscribeOnClientFn.mock.calls.length).toBe(1);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(2);
     expect(onServerFn.mock.calls.length).toBe(1);
-    expect(subscribeOnServerFn.mock.calls.length).toBe(2);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(4);
     expect(serverContainer.querySelector('#content')?.textContent).toBe('0+');
     // expect(clientContainer.querySelector('#content')?.textContent).toBe('0+');
     act(() => {
@@ -268,9 +268,9 @@ describe('base', () => {
     await new Promise((resolve) => setTimeout(resolve));
 
     expect(onClientFn.mock.calls.length).toBe(1);
-    expect(subscribeOnClientFn.mock.calls.length).toBe(2);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(4);
     expect(onServerFn.mock.calls.length).toBe(1);
-    expect(subscribeOnServerFn.mock.calls.length).toBe(2);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(5);
 
     expect(serverContainer.querySelector('#content')?.textContent).toBe('0+');
     expect(clientContainer.querySelector('#content')?.textContent).toBe('0+');
@@ -839,14 +839,14 @@ describe('SharedWorker', () => {
     expect(onClientFn.mock.calls.length).toBe(1);
     expect(subscribeOnClientFn.mock.calls.length).toBe(0);
     expect(onServerFn.mock.calls.length).toBe(1);
-    expect(subscribeOnServerFn.mock.calls.length).toBe(1);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(3);
 
     await clientApp.bootstrap(clientContainer);
 
     expect(onClientFn.mock.calls.length).toBe(1);
     expect(subscribeOnClientFn.mock.calls.length).toBe(1);
     expect(onServerFn.mock.calls.length).toBe(1);
-    expect(subscribeOnServerFn.mock.calls.length).toBe(1);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(3);
     expect(clientContainer.querySelector('#content')?.textContent).toBe('home');
 
     await new Promise((resolve) => setTimeout(resolve));
@@ -854,7 +854,7 @@ describe('SharedWorker', () => {
     expect(onClientFn.mock.calls.length).toBe(1);
     expect(subscribeOnClientFn.mock.calls.length).toBe(1);
     expect(onServerFn.mock.calls.length).toBe(1);
-    expect(subscribeOnServerFn.mock.calls.length).toBe(1);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(3);
     expect(clientContainer.querySelector('#content')?.textContent).toBe('home');
 
     act(() => {
@@ -866,9 +866,9 @@ describe('SharedWorker', () => {
     await new Promise((resolve) => setTimeout(resolve));
 
     expect(onClientFn.mock.calls.length).toBe(1);
-    expect(subscribeOnClientFn.mock.calls.length).toBe(2);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(3);
     expect(onServerFn.mock.calls.length).toBe(1);
-    expect(subscribeOnServerFn.mock.calls.length).toBe(2);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(6);
     expect(serverApp.instance.router.currentPath).toBe('/counter');
     expect(clientApp.instance.router.currentPath).toBe('/counter');
     expect(clientContainer.querySelector('#content')?.textContent).toBe('0+');
@@ -1090,7 +1090,7 @@ describe('Worker', () => {
     expect(subscribeOnClientFn.mock.calls.length).toBe(0);
     expect(onServerFn.mock.calls.length).toBe(1);
     // sync up router and trigger Redux update
-    expect(subscribeOnServerFn.mock.calls.length).toBe(1);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(3);
 
     act(() => {
       clientApp.bootstrap(clientContainer);
@@ -1099,7 +1099,7 @@ describe('Worker', () => {
     expect(onClientFn.mock.calls.length).toBe(1);
     expect(subscribeOnClientFn.mock.calls.length).toBe(1);
     expect(onServerFn.mock.calls.length).toBe(1);
-    expect(subscribeOnServerFn.mock.calls.length).toBe(1);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(3);
     expect(clientContainer.querySelector('#content')?.textContent).toBe('home');
 
     await new Promise((resolve) => setTimeout(resolve));
@@ -1107,7 +1107,7 @@ describe('Worker', () => {
     expect(onClientFn.mock.calls.length).toBe(1);
     expect(subscribeOnClientFn.mock.calls.length).toBe(1);
     expect(onServerFn.mock.calls.length).toBe(1);
-    expect(subscribeOnServerFn.mock.calls.length).toBe(1);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(3);
     expect(clientContainer.querySelector('#content')?.textContent).toBe('home');
 
     act(() => {
@@ -1119,9 +1119,9 @@ describe('Worker', () => {
     await new Promise((resolve) => setTimeout(resolve));
 
     expect(onClientFn.mock.calls.length).toBe(1);
-    expect(subscribeOnClientFn.mock.calls.length).toBe(2);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(3);
     expect(onServerFn.mock.calls.length).toBe(1);
-    expect(subscribeOnServerFn.mock.calls.length).toBe(2);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(6);
     expect(serverApp.instance.router.currentPath).toBe('/counter');
     expect(clientApp.instance.router.currentPath).toBe('/counter');
     expect(clientContainer.querySelector('#content')?.textContent).toBe('0+');
