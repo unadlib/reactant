@@ -49,14 +49,14 @@ class ReactantRouter extends BaseReactantRouter {
     });
 
     this.portDetector.onClient(() => {
-      if (!portDetector.sharedAppOptions.forcedSyncClient) {
+      if (!this.portDetector.sharedAppOptions.forcedSyncClient) {
         const visibilitychange = async () => {
           if (document.visibilityState === 'visible') {
-            portDetector.syncFullState({ forceSync: false });
-            await portDetector.syncFullStatePromise;
-            if (this.toBeRouted) {
-              const fn = this.toBeRouted;
-              this.toBeRouted = null;
+            this.portDetector.syncFullState({ forceSync: false });
+            await this.portDetector.syncFullStatePromise;
+            if (this._toBeRouted) {
+              const fn = this._toBeRouted;
+              this._toBeRouted = null;
               fn();
             }
           }
@@ -177,7 +177,7 @@ class ReactantRouter extends BaseReactantRouter {
       }
     };
     if (this.portDetector.disableSyncClient) {
-      this.toBeRouted = route;
+      this._toBeRouted = route;
     } else {
       route();
     }
@@ -202,14 +202,14 @@ class ReactantRouter extends BaseReactantRouter {
         }
       };
       if (this.portDetector.disableSyncClient) {
-        this.toBeRouted = route;
+        this._toBeRouted = route;
       } else {
         route();
       }
     });
   }
 
-  toBeRouted: (() => void) | null = null;
+  protected _toBeRouted: (() => void) | null = null;
 
   @state
   protected _routers: Record<string, RouterState | undefined> = {
