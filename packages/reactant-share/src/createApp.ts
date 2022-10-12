@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-shadow */
@@ -310,6 +311,7 @@ export const createSharedApp = async <
       );
   }
   const { bootstrap } = app;
+  // todo: app.destroy with transport destroy
   return {
     ...app,
     bootstrap: async (...args: S) => {

@@ -251,9 +251,13 @@ export function createStore<T = any>({
           `);
           }
         }
-        if (Array.isArray(service[subscriptionsKey])) {
-          subscriptions.push(service[subscriptionsKey]!);
+        if (!Array.isArray(service[subscriptionsKey])) {
+          // support any subscriptions with ref
+          Object.assign(service, {
+            [subscriptionsKey]: [],
+          });
         }
+        subscriptions.push(service[subscriptionsKey]!);
         Object.defineProperties(service, {
           [modulesKey]: {
             enumerable: false,
