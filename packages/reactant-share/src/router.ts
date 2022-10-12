@@ -54,9 +54,9 @@ class ReactantRouter extends BaseReactantRouter {
           if (document.visibilityState === 'visible') {
             this.portDetector.syncFullState({ forceSync: false });
             await this.portDetector.syncFullStatePromise;
-            if (this._toBeRouted) {
-              const fn = this._toBeRouted;
-              this._toBeRouted = null;
+            if (this.toBeRouted) {
+              const fn = this.toBeRouted;
+              this.toBeRouted = null;
               fn();
             }
           }
@@ -177,7 +177,7 @@ class ReactantRouter extends BaseReactantRouter {
       }
     };
     if (this.portDetector.disableSyncClient) {
-      this._toBeRouted = route;
+      this.toBeRouted = route;
     } else {
       route();
     }
@@ -202,14 +202,14 @@ class ReactantRouter extends BaseReactantRouter {
         }
       };
       if (this.portDetector.disableSyncClient) {
-        this._toBeRouted = route;
+        this.toBeRouted = route;
       } else {
         route();
       }
     });
   }
 
-  protected _toBeRouted: (() => void) | null = null;
+  toBeRouted: (() => void) | null = null;
 
   @state
   protected _routers: Record<string, RouterState | undefined> = {
