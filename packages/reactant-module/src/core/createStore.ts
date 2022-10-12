@@ -82,7 +82,7 @@ export function createStore<T = any>({
   let isExistReducer = false;
   let store: ReactantStore | undefined = originalStore;
   let reducers: ReducersMapObject = {};
-  const subscriptions: Subscriptions = [];
+  const subscriptions: Subscriptions[] = [];
   // TODO: replace with `mutative`
   const enableAutoFreeze = devOptions.autoFreeze ?? true;
   const enableReduxDevTools = devOptions.reduxDevTools ?? __DEV__;
@@ -252,7 +252,7 @@ export function createStore<T = any>({
           }
         }
         if (Array.isArray(service[subscriptionsKey])) {
-          subscriptions.push(...service[subscriptionsKey]!);
+          subscriptions.push(service[subscriptionsKey]!);
         }
         Object.defineProperties(service, {
           [modulesKey]: {
@@ -360,6 +360,6 @@ export function createStore<T = any>({
     // TODO: refactor hook
     beforeReplaceReducer();
   }
-  perform(subscriptions);
+  perform(Array.prototype.concat.apply([], subscriptions));
   return store;
 }

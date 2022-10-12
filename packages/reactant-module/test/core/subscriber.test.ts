@@ -111,10 +111,22 @@ test('subscribe in constructor', () => {
 test('subscribe in non-constructor', () => {
   const storeSubscribeFn = jest.fn();
   const subscribeFn = jest.fn();
+  const subscribeFn0 = jest.fn();
   const whenFn = jest.fn();
 
   @injectable()
+  class Foo0 {
+    useSubscribe() {
+      subscribe(this, subscribeFn0);
+    }
+  }
+
+  @injectable()
   class Foo {
+    constructor(private foo0: Foo0) {
+      this.foo0.useSubscribe();
+    }
+
     unsubscribe?: () => void;
 
     dispose?: () => void;
@@ -175,11 +187,14 @@ test('subscribe in non-constructor', () => {
   foo.increase();
   expect(storeSubscribeFn.mock.calls.length).toBe(1);
   expect(subscribeFn.mock.calls.length).toBe(1);
+  expect(subscribeFn0.mock.calls.length).toBe(1);
   expect(subscribeFn.mock.calls).toEqual([[]]);
+  expect(subscribeFn0.mock.calls).toEqual([[]]);
   expect(whenFn.mock.calls).toEqual([[2, 1]]);
   foo.increase();
   expect(storeSubscribeFn.mock.calls.length).toBe(2);
   expect(subscribeFn.mock.calls.length).toBe(2);
+  expect(subscribeFn0.mock.calls.length).toBe(2);
   expect(whenFn.mock.calls).toEqual([
     [2, 1],
     [3, 2],
@@ -187,6 +202,7 @@ test('subscribe in non-constructor', () => {
   foo.increase1();
   expect(storeSubscribeFn.mock.calls.length).toBe(3);
   expect(subscribeFn.mock.calls.length).toBe(3);
+  expect(subscribeFn0.mock.calls.length).toBe(3);
   expect(whenFn.mock.calls).toEqual([
     [2, 1],
     [3, 2],
@@ -194,12 +210,14 @@ test('subscribe in non-constructor', () => {
   foo.increase1();
   expect(storeSubscribeFn.mock.calls.length).toBe(4);
   expect(subscribeFn.mock.calls.length).toBe(4);
+  expect(subscribeFn0.mock.calls.length).toBe(4);
   expect(whenFn.mock.calls.length).toEqual(2);
 
   foo.unsubscribe!();
   foo.increase();
   expect(storeSubscribeFn.mock.calls.length).toBe(5);
   expect(subscribeFn.mock.calls.length).toBe(4);
+  expect(subscribeFn0.mock.calls.length).toBe(5);
   expect(whenFn.mock.calls.length).toEqual(3);
 
   foo.dispose!();
