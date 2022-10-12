@@ -48,6 +48,26 @@ class ReactantRouter extends BaseReactantRouter {
       ),
     });
 
+    this.portDetector.onClient(() => {
+      if (!portDetector.sharedAppOptions.forcedSyncClient) {
+        const visibilitychange = async () => {
+          if (document.visibilityState === 'visible') {
+            portDetector.syncFullState({ forceSync: false });
+            await portDetector.syncFullStatePromise;
+            if (this.toBeRouted) {
+              const fn = this.toBeRouted;
+              this.toBeRouted = null;
+              fn();
+            }
+          }
+        };
+        document.addEventListener('visibilitychange', visibilitychange);
+        return () => {
+          document.removeEventListener('visibilitychange', visibilitychange);
+        };
+      }
+    });
+
     // #region sync init router from clients in Worker mode
     this.portDetector.onServer((transport) => {
       if (this.portDetector.isWorkerMode) {
