@@ -808,3 +808,89 @@ test('fork with args', async () => {
   expect(server.instance.count).toBe(3);
   expect(client0.instance.count).toBe(4);
 });
+
+test('fork with args with destroy on Client', async () => {
+  const transports = mockPairTransports();
+
+  const server = await createSharedApp({
+    modules: [],
+    main: Counter,
+    render: () => {},
+    share: {
+      name: 'counter',
+      type: 'Base',
+      port: 'server',
+      transports: {
+        server: transports[0],
+      },
+    },
+  });
+
+  expect(server.instance.count).toBe(0);
+
+  const client0 = await createSharedApp({
+    modules: [],
+    main: Counter,
+    render: () => {},
+    share: {
+      name: 'counter',
+      type: 'Base',
+      port: 'client',
+      transports: {
+        client: transports[1],
+      },
+    },
+  });
+  await client0.bootstrap();
+  expect(client0.instance.count).toBe(0);
+
+  client0.destroy();
+  await server.instance.increase();
+
+  expect(server.instance.count).toBe(1);
+  expect(client0.instance.count).toBe(0);
+});
+
+test('fork with args with destroy on Server', async () => {
+  const transports = mockPairTransports();
+
+  const server = await createSharedApp({
+    modules: [],
+    main: Counter,
+    render: () => {},
+    share: {
+      name: 'counter',
+      type: 'Base',
+      port: 'server',
+      transports: {
+        server: transports[0],
+      },
+    },
+  });
+
+  expect(server.instance.count).toBe(0);
+
+  const client0 = await createSharedApp({
+    modules: [],
+    main: Counter,
+    render: () => {},
+    share: {
+      name: 'counter',
+      type: 'Base',
+      port: 'client',
+      transports: {
+        client: transports[1],
+      },
+    },
+  });
+  await client0.bootstrap();
+  expect(client0.instance.count).toBe(0);
+
+  server.destroy();
+  await server.instance.increase();
+  // jest can send message to client after server destroyed
+  expect(server.instance.count).toBe(1);
+  expect(client0.instance.count).toBe(1);
+
+  await expect(client0.instance.increase()).rejects.toThrowError();
+});

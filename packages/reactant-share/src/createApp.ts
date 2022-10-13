@@ -311,9 +311,13 @@ export const createSharedApp = async <
       );
   }
   const { bootstrap } = app;
-  // todo: app.destroy with transport destroy
   return {
     ...app,
+    destroy: () => {
+      app.destroy();
+      options.share.transports?.client?.dispose();
+      options.share.transports?.server?.dispose();
+    },
     bootstrap: async (...args: S) => {
       const result = bootstrap(...args);
       const portDetector = app.container.get(PortDetector);
