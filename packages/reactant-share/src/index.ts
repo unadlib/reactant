@@ -25,4 +25,5 @@ export type {
   ClientTransport,
   ServerTransport,
   ISharedAppOptions,
+  Config as SharedAppConfig,
 } from './interfaces';
