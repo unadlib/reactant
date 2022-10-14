@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`multiInject Unexpected multi-Inject 1`] = `"Ambiguous match found for serviceIdentifier: Foo"`;

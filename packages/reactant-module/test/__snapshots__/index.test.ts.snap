@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Unexpected multi-inject: module with multiple module injection with same module or others 1`] = `
+"Ambiguous match found for serviceIdentifier: FooIdentifier
+Registered bindings:
+ Foo
+ Foo
+ FooTest"
+`;

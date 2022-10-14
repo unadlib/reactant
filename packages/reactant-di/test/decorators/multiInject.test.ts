@@ -54,4 +54,25 @@ describe('multiInject', () => {
     expect(bar.length).toBe(2);
     expect(bar.foos[1]).toBe('test');
   });
+
+  test('Unexpected multi-Inject', () => {
+    @injectable()
+    class Foo {
+      public get test() {
+        return 'test';
+      }
+    }
+
+    @injectable()
+    class Bar {
+      constructor(public foos: Foo) {}
+    }
+
+    expect(() => {
+      createContainer({
+        ServiceIdentifiers: new Map(),
+        modules: [Foo, Foo],
+      }).get(Bar);
+    }).toThrowErrorMatchingSnapshot();
+  });
 });

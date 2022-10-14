@@ -265,3 +265,56 @@ test('module with multiple module injection with same module or others', () => {
   expect(fooBar.foos[0].num).toBe(3);
   expect(computedFn.mock.calls.length).toBe(3);
 });
+
+test('Unexpected multi-inject: module with multiple module injection with same module or others', () => {
+  const computedFn = jest.fn();
+  @injectable({
+    name: 'foo',
+  })
+  class Foo {
+    @state
+    count = 1;
+
+    @action
+    increase() {
+      this.count += 1;
+    }
+
+    @computed(({ count }: Foo) => [count])
+    get num() {
+      computedFn();
+      return this.count + 1;
+    }
+  }
+
+  @injectable({
+    name: 'fooTest',
+  })
+  class FooTest {
+    @state
+    count = 1;
+  }
+
+  @injectable()
+  class FooBar {
+    constructor(@inject('FooIdentifier') public foos: Foo, public foo: Foo) {}
+  }
+
+  const ServiceIdentifiers = new Map();
+  const modules = [
+    FooBar,
+    { provide: 'FooIdentifier', useClass: Foo },
+    { provide: 'FooIdentifier', useClass: Foo },
+    { provide: 'FooIdentifier', useClass: FooTest },
+  ];
+  const container = createContainer({
+    ServiceIdentifiers,
+    modules,
+    options: {
+      defaultScope: 'Singleton',
+    },
+  });
+  expect(() => {
+    container.get(FooBar);
+  }).toThrowErrorMatchingSnapshot();
+});
