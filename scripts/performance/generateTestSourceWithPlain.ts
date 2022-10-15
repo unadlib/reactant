@@ -3,34 +3,37 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable no-unused-expressions */
 import { writeFileSync } from 'fs';
-import { argv } from 'yargs';
+import yargs from 'yargs';
+
+const argv = yargs.argv as any;
 
 const {
   classAmount = 50,
   oneClassReducerAmount = 10,
   computedTime = (50000 / classAmount) | 0, // 1000 -> Run out of memory
   allCheckedState = true,
-} = argv.mode ? {
-  small: {
-    classAmount: 100,
-    oneClassReducerAmount: 20,
-    computedTime: 1000,
-    allCheckedState: true,
-  },
-  big: {
-    classAmount: 200,
-    oneClassReducerAmount: 30,
-    computedTime: 1000,
-    allCheckedState: true,
-  },
-  huge: {
-    classAmount: 300,
-    oneClassReducerAmount: 100,
-    computedTime: 1000,
-    allCheckedState: true,
-  },
-  // @ts-ignore
-}[argv.mode] : (argv as any);
+} = argv.mode
+  ? ({
+      small: {
+        classAmount: 100,
+        oneClassReducerAmount: 20,
+        computedTime: 1000,
+        allCheckedState: true,
+      },
+      big: {
+        classAmount: 200,
+        oneClassReducerAmount: 30,
+        computedTime: 1000,
+        allCheckedState: true,
+      },
+      huge: {
+        classAmount: 300,
+        oneClassReducerAmount: 100,
+        computedTime: 1000,
+        allCheckedState: true,
+      },
+    } as any)[argv.mode]
+  : argv;
 
 // const checkedState = allCheckedState ? '' : '(this as any)[storeKey].getState()';
 const source = `
@@ -79,7 +82,7 @@ class Service${i} {
 
     ${(() => {
       let stateStr = '';
-      for (let j = 0; j < oneClassReducerAmount; j+=1) {
+      for (let j = 0; j < oneClassReducerAmount; j += 1) {
         stateStr += `
           test${j} = ${j};
         `;
@@ -101,7 +104,7 @@ class Service${i} {
     return (this.service${i - 1}.props.sum
     ${(() => {
       let stateStr = '';
-      for (let j = 0; j < oneClassReducerAmount; j+=1) {
+      for (let j = 0; j < oneClassReducerAmount; j += 1) {
         stateStr += `
           + this.test${j}
         `;
@@ -111,15 +114,16 @@ class Service${i} {
     );
   }
 }
-const service${i} = new Service${i}(service${i-1});
+const service${i} = new Service${i}(service${i - 1});
     `;
   }
   return classStr;
 })()}
 const app = {};
 class App extends ViewModule {
-  constructor(public service${classAmount - 1}: Service${classAmount -
-  1}, public service0: Service0) {
+  constructor(public service${classAmount - 1}: Service${
+  classAmount - 1
+}, public service0: Service0) {
     super();
   }
 
@@ -140,7 +144,7 @@ const bootstrap = Date.now() - time;
 time = Date.now();
 ${(() => {
   let computedStr = '';
-  for (let i = 0; i < computedTime; i+=1) {
+  for (let i = 0; i < computedTime; i += 1) {
     computedStr += `
       app.instance.service0.decrease();
       app.instance.props.sum;
@@ -152,7 +156,7 @@ const computed = Date.now() - time;
 time = Date.now();
 ${(() => {
   let computedStr = '';
-  for (let i = 0; i < computedTime; i+=1) {
+  for (let i = 0; i < computedTime; i += 1) {
     computedStr += `
       app.instance.props.sum;
     `;
@@ -161,6 +165,7 @@ ${(() => {
 })()}
 const cache = Date.now() - time;
 console.log('Result:', { bootstrap, update: computed, computedGetter: cache });
+process.exit();
 `;
 
 writeFileSync('./packages/reactant/test/performance.tsx', source);
