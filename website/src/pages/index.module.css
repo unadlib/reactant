@@ -21,3 +21,12 @@
   align-items: center;
   justify-content: center;
 }
+
+.particlesContainer {
+  position: absolute;
+  width: 100%;
+}
+
+.container {
+  position: relative;
+}

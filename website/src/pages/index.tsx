@@ -5,13 +5,17 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import HomepageFeatures from '@site/src/components/HomepageFeatures';
 
+import ParticlesContainer from './ParticlesContainer';
 import styles from './index.module.css';
 
 function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext();
   return (
     <header className={clsx('hero hero--primary', styles.heroBanner)}>
-      <div className="container">
+      <div className={styles.particlesContainer}>
+        <ParticlesContainer />
+      </div>
+      <div className={clsx('container', styles.container)}>
         <h1 className="hero__title">{siteConfig.title}</h1>
         <p className="hero__subtitle">{siteConfig.tagline}</p>
         <div className={styles.buttons}>
@@ -30,7 +34,10 @@ function HomepageHeader() {
 export default function Home(): JSX.Element {
   const { siteConfig } = useDocusaurusContext();
   return (
-    <Layout title={`${siteConfig.tagline}`} description={`${siteConfig.tagline}`}>
+    <Layout
+      title={`${siteConfig.tagline}`}
+      description={`${siteConfig.tagline}`}
+    >
       <HomepageHeader />
       <main>
         <HomepageFeatures />

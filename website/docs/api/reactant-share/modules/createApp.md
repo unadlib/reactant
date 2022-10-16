@@ -96,4 +96,4 @@ class Counter {
 
 #### Defined in
 
-[packages/reactant-share/src/createApp.ts:234](https://github.com/unadlib/reactant/blob/58d171db/packages/reactant-share/src/createApp.ts#L234)
+[packages/reactant-share/src/createApp.ts:235](https://github.com/unadlib/reactant/blob/ac1dea6f/packages/reactant-share/src/createApp.ts#L235)
