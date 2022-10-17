@@ -250,7 +250,10 @@ export class PortDetector {
     if (forceSync) {
       this.syncFullStatePromise = undefined;
     }
-    if (this.syncFullStatePromise) return;
+    if (this.syncFullStatePromise) {
+      await this.syncFullStatePromise;
+      return;
+    }
     if (typeof this.transports.client === 'undefined') {
       throw new Error(`The current client transport does not exist.`);
     }

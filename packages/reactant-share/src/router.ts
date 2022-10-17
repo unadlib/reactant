@@ -52,8 +52,7 @@ class ReactantRouter extends BaseReactantRouter {
       if (!this.portDetector.sharedAppOptions.forcedSyncClient) {
         const visibilitychange = async () => {
           if (document.visibilityState === 'visible') {
-            this.portDetector.syncFullState({ forceSync: false });
-            await this.portDetector.syncFullStatePromise;
+            await this.portDetector.syncFullState({ forceSync: false });
             if (this.toBeRouted) {
               const fn = this.toBeRouted;
               this.toBeRouted = null;

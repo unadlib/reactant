@@ -60,8 +60,7 @@ yarn start
 
 ---
 
-Reactant is very easy to get Started.
-You can try Reactant by visiting the [online project](https://stackblitz.com/edit/reactant-ts).
+Reactant is very easy to get started. You can try Reactant by visiting the [online demo](https://stackblitz.com/edit/reactant-ts).
 
 Here is the counter example:
 
