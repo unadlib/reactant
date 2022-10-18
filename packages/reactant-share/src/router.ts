@@ -59,7 +59,7 @@ class ReactantRouter extends BaseReactantRouter {
     });
 
     if (!this.portDetector.shared) {
-      this.watchRehydratedRouting();
+      const stopWatching = this.watchRehydratedRouting();
       watch(
         this,
         () => this.router,
@@ -67,6 +67,9 @@ class ReactantRouter extends BaseReactantRouter {
           if (this.router) {
             // just update the current router to routers mapping by name
             this._setRouters(this.portDetector.name, this.router);
+          }
+          if (!this.enableCacheRouting) {
+            stopWatching();
           }
         }
       );
@@ -102,7 +105,7 @@ class ReactantRouter extends BaseReactantRouter {
             }
           });
       } else if (this.enableCacheRouting) {
-        this.watchRehydratedRouting();
+        return this.watchRehydratedRouting();
       }
     });
     this.portDetector.onClient((transport) => {
@@ -200,6 +203,7 @@ class ReactantRouter extends BaseReactantRouter {
         }
       }
     );
+    return stopWatching;
   }
 
   protected _changeRoutingOnSever(name: string, router: RouterState) {
