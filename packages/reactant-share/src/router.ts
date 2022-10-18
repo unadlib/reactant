@@ -1,7 +1,15 @@
 /* eslint-disable no-shadow */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable consistent-return */
-import { injectable, inject, watch, state, action } from 'reactant';
+import {
+  injectable,
+  inject,
+  watch,
+  state,
+  action,
+  stateKey,
+  modulesKey,
+} from 'reactant';
 import { Router as BaseReactantRouter, RouterOptions } from 'reactant-router';
 import type {
   IRouterOptions as IBaseRouterOptions,
@@ -48,6 +56,20 @@ class ReactantRouter extends BaseReactantRouter {
       ),
     });
 
+    if (!this.portDetector.shared) {
+      this.watchRehydratedRouting();
+      watch(
+        this,
+        () => this.router,
+        () => {
+          if (this.router) {
+            // just update the current router to routers mapping by name
+            this._setRouters(this.portDetector.name, this.router);
+          }
+        }
+      );
+    }
+
     this.portDetector.onClient(() => {
       if (!this.portDetector.sharedAppOptions.forcedSyncClient) {
         const visibilitychange = async () => {
@@ -69,7 +91,7 @@ class ReactantRouter extends BaseReactantRouter {
 
     // #region sync init router from clients in Worker mode
     this.portDetector.onServer((transport) => {
-      if (this.portDetector.isWorkerMode) {
+      if (this.portDetector.isWorkerMode && !this.enableCacheRouting) {
         transport
           .emit(syncWorkerRouterName, this.portDetector.name)
           .then((router) => {
@@ -77,6 +99,8 @@ class ReactantRouter extends BaseReactantRouter {
               this._changeRoutingOnSever(this.portDetector.name, router);
             }
           });
+      } else if (this.enableCacheRouting) {
+        this.watchRehydratedRouting();
       }
     });
     this.portDetector.onClient((transport) => {
@@ -125,7 +149,22 @@ class ReactantRouter extends BaseReactantRouter {
 
     // #region sync init router from server port in all modes
     this.portDetector.onServer((transport) => {
+      const rehydratedPromise = this.enableCacheRouting
+        ? new Promise<void>((resolve) => {
+            const stopWatching = watch(
+              this,
+              () => (this as any)[stateKey]._persist?.rehydrated,
+              (rehydrated) => {
+                if (rehydrated) {
+                  stopWatching();
+                  resolve();
+                }
+              }
+            );
+          })
+        : Promise.resolve();
       return transport!.listen(syncRouterName, async (name, router) => {
+        await rehydratedPromise;
         const currentRouter = this._routers[name]!;
         if (!currentRouter && router) {
           this._changeRoutingOnSever(name, router);
@@ -144,6 +183,22 @@ class ReactantRouter extends BaseReactantRouter {
     // #endregion
   }
 
+  watchRehydratedRouting() {
+    const stopWatching = watch(
+      this,
+      () => (this as any)[stateKey]._persist?.rehydrated,
+      (rehydrated) => {
+        if (rehydrated) {
+          stopWatching();
+          const router = this._routers[this.portDetector.name];
+          if (router) {
+            this._changeRoutingOnSever(this.portDetector.name, router);
+          }
+        }
+      }
+    );
+  }
+
   protected _changeRoutingOnSever(name: string, router: RouterState) {
     this._setRouters(name, router);
     if (name === this.portDetector.name) {
@@ -155,11 +210,13 @@ class ReactantRouter extends BaseReactantRouter {
       ) {
         this.history.push(router.location);
       }
-      fork(this as any, '_changeRoutingOnClient', [
-        this.portDetector.name,
-        this.router,
-      ]);
-    } else {
+      if (this.portDetector.shared) {
+        fork(this as any, '_changeRoutingOnClient', [
+          this.portDetector.name,
+          this.router,
+        ]);
+      }
+    } else if (this.portDetector.shared) {
       fork(this as any, '_changeRoutingOnClient', [name, router]);
     }
   }
@@ -217,12 +274,26 @@ class ReactantRouter extends BaseReactantRouter {
 
   @action
   protected _setRouters(name: string, router: RouterState) {
-    this._routers[name] = router;
+    if (
+      !this.enableCacheRouting ||
+      (this.enableCacheRouting && (this as any)[stateKey]._persist?.rehydrated)
+    ) {
+      this._routers[name] = router;
+    }
   }
 
   // The server port routing state is received asynchronously, so there should be a default route.
   protected get defaultRoute() {
     return this.options.defaultRoute ?? '/';
+  }
+
+  protected get enableCacheRouting() {
+    const { Storage } = (this as any)[modulesKey];
+    return (
+      Storage?.persistConfig.Router &&
+      (Storage.persistConfig.Router!.whitelist?.includes('_routers') ||
+        Storage.persistConfig.Router!.blacklist?.includes('_routers') === false)
+    );
   }
 
   protected defaultHistory = {
