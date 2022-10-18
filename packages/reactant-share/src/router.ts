@@ -17,7 +17,9 @@ import type {
 } from 'reactant-router';
 import type { LocationState } from 'history';
 import {
+  routerModuleName,
   SharedAppOptions,
+  storageModuleName,
   syncRouterName,
   syncWorkerRouterName,
 } from './constants';
@@ -40,7 +42,7 @@ export interface IRouterOptions extends IBaseRouterOptions {
 }
 
 @injectable({
-  name: 'Router',
+  name: routerModuleName,
 })
 class ReactantRouter extends BaseReactantRouter {
   constructor(
@@ -191,9 +193,10 @@ class ReactantRouter extends BaseReactantRouter {
         if (rehydrated) {
           stopWatching();
           const router = this._routers[this.portDetector.name];
-          if (router) {
-            this._changeRoutingOnSever(this.portDetector.name, router);
-          }
+          this._changeRoutingOnSever(
+            this.portDetector.name,
+            router ?? this.defaultHistory
+          );
         }
       }
     );
@@ -288,11 +291,12 @@ class ReactantRouter extends BaseReactantRouter {
   }
 
   protected get enableCacheRouting() {
-    const { Storage } = (this as any)[modulesKey];
+    const Storage = (this as any)[modulesKey][storageModuleName];
+    const routerPersistConfig = Storage?.persistConfig[routerModuleName];
     return (
-      Storage?.persistConfig.Router &&
-      (Storage.persistConfig.Router!.whitelist?.includes('_routers') ||
-        Storage.persistConfig.Router!.blacklist?.includes('_routers') === false)
+      routerPersistConfig &&
+      (routerPersistConfig!.whitelist?.includes('_routers') ||
+        routerPersistConfig!.blacklist?.includes('_routers') === false)
     );
   }
 
@@ -304,7 +308,7 @@ class ReactantRouter extends BaseReactantRouter {
       hash: '',
       state: undefined,
     },
-  };
+  } as RouterState;
 
   protected dispatchChanged(router: RouterState) {
     this.store?.dispatch(

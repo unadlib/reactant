@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 /* eslint-disable react/require-default-props */
 /* eslint-disable react/function-component-definition */
 /* eslint-disable no-promise-executor-return */
@@ -24,7 +25,12 @@ import {
   RouterOptions,
   createHashHistory,
   fork,
+  StorageOptions,
+  IStorageOptions,
+  Storage,
+  optional,
 } from '..';
+import { MemoryStorage } from './MemoryStorage';
 
 let serverContainer: Element;
 let clientContainer: Element;
@@ -233,14 +239,14 @@ describe('base', () => {
     });
 
     expect(onClientFn.mock.calls.length).toBe(1);
-    expect(subscribeOnClientFn.mock.calls.length).toBe(0);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(1);
     expect(onServerFn.mock.calls.length).toBe(1);
     expect(subscribeOnServerFn.mock.calls.length).toBe(2);
 
     await clientApp.bootstrap(clientContainer);
 
     expect(onClientFn.mock.calls.length).toBe(1);
-    expect(subscribeOnClientFn.mock.calls.length).toBe(1);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(2);
     expect(onServerFn.mock.calls.length).toBe(1);
     expect(subscribeOnServerFn.mock.calls.length).toBe(2);
     expect(clientContainer.querySelector('#content')?.textContent).toBe('home');
@@ -254,7 +260,7 @@ describe('base', () => {
     await new Promise((resolve) => setTimeout(resolve));
 
     expect(onClientFn.mock.calls.length).toBe(1);
-    expect(subscribeOnClientFn.mock.calls.length).toBe(3);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(5);
     expect(onServerFn.mock.calls.length).toBe(1);
     expect(subscribeOnServerFn.mock.calls.length).toBe(5);
     expect(serverContainer.querySelector('#content')?.textContent).toBe('0+');
@@ -268,7 +274,7 @@ describe('base', () => {
     await new Promise((resolve) => setTimeout(resolve));
 
     expect(onClientFn.mock.calls.length).toBe(1);
-    expect(subscribeOnClientFn.mock.calls.length).toBe(5);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(7);
     expect(onServerFn.mock.calls.length).toBe(1);
     expect(subscribeOnServerFn.mock.calls.length).toBe(6);
 
@@ -837,14 +843,14 @@ describe('SharedWorker', () => {
     });
 
     expect(onClientFn.mock.calls.length).toBe(1);
-    expect(subscribeOnClientFn.mock.calls.length).toBe(0);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(2);
     expect(onServerFn.mock.calls.length).toBe(1);
     expect(subscribeOnServerFn.mock.calls.length).toBe(3);
 
     await clientApp.bootstrap(clientContainer);
 
     expect(onClientFn.mock.calls.length).toBe(1);
-    expect(subscribeOnClientFn.mock.calls.length).toBe(1);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(3);
     expect(onServerFn.mock.calls.length).toBe(1);
     expect(subscribeOnServerFn.mock.calls.length).toBe(3);
     expect(clientContainer.querySelector('#content')?.textContent).toBe('home');
@@ -852,7 +858,7 @@ describe('SharedWorker', () => {
     await new Promise((resolve) => setTimeout(resolve));
 
     expect(onClientFn.mock.calls.length).toBe(1);
-    expect(subscribeOnClientFn.mock.calls.length).toBe(1);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(3);
     expect(onServerFn.mock.calls.length).toBe(1);
     expect(subscribeOnServerFn.mock.calls.length).toBe(3);
     expect(clientContainer.querySelector('#content')?.textContent).toBe('home');
@@ -866,7 +872,7 @@ describe('SharedWorker', () => {
     await new Promise((resolve) => setTimeout(resolve));
 
     expect(onClientFn.mock.calls.length).toBe(1);
-    expect(subscribeOnClientFn.mock.calls.length).toBe(3);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(6);
     expect(onServerFn.mock.calls.length).toBe(1);
     expect(subscribeOnServerFn.mock.calls.length).toBe(6);
     expect(serverApp.instance.router.currentPath).toBe('/counter');
@@ -1087,7 +1093,7 @@ describe('Worker', () => {
     });
 
     expect(onClientFn.mock.calls.length).toBe(1);
-    expect(subscribeOnClientFn.mock.calls.length).toBe(0);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(2);
     expect(onServerFn.mock.calls.length).toBe(1);
     // sync up router and trigger Redux update
     expect(subscribeOnServerFn.mock.calls.length).toBe(3);
@@ -1097,7 +1103,7 @@ describe('Worker', () => {
     });
 
     expect(onClientFn.mock.calls.length).toBe(1);
-    expect(subscribeOnClientFn.mock.calls.length).toBe(1);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(3);
     expect(onServerFn.mock.calls.length).toBe(1);
     expect(subscribeOnServerFn.mock.calls.length).toBe(3);
     expect(clientContainer.querySelector('#content')?.textContent).toBe('home');
@@ -1105,7 +1111,7 @@ describe('Worker', () => {
     await new Promise((resolve) => setTimeout(resolve));
 
     expect(onClientFn.mock.calls.length).toBe(1);
-    expect(subscribeOnClientFn.mock.calls.length).toBe(1);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(3);
     expect(onServerFn.mock.calls.length).toBe(1);
     expect(subscribeOnServerFn.mock.calls.length).toBe(3);
     expect(clientContainer.querySelector('#content')?.textContent).toBe('home');
@@ -1119,7 +1125,7 @@ describe('Worker', () => {
     await new Promise((resolve) => setTimeout(resolve));
 
     expect(onClientFn.mock.calls.length).toBe(1);
-    expect(subscribeOnClientFn.mock.calls.length).toBe(3);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(6);
     expect(onServerFn.mock.calls.length).toBe(1);
     expect(subscribeOnServerFn.mock.calls.length).toBe(6);
     expect(serverApp.instance.router.currentPath).toBe('/counter');
@@ -1390,5 +1396,533 @@ describe('Worker', () => {
     await new Promise((resolve) => setTimeout(resolve));
     expect(app.instance.router.currentPath).toBe('/counter');
     expect(clientContainer.querySelector('#content')?.textContent).toBe('0+');
+  });
+});
+
+describe('base with storage and router', () => {
+  @injectable({
+    name: 'todoList',
+  })
+  class TodoList {
+    @state
+    list: number[] = [];
+
+    @action
+    add(num: number) {
+      this.list.push(num);
+    }
+  }
+
+  let onClientFn: jest.Mock<any, any>;
+  let subscribeOnClientFn: jest.Mock<any, any>;
+
+  let onServerFn: jest.Mock<any, any>;
+  let subscribeOnServerFn: jest.Mock<any, any>;
+
+  const Link: FunctionComponent<{
+    active: boolean;
+    onClick: () => any;
+    id?: string;
+  }> = ({ active, children, onClick, id }) => {
+    return (
+      <div
+        onClick={onClick}
+        style={{ color: active ? 'red' : 'black' }}
+        id={id}
+      >
+        {children}
+      </div>
+    );
+  };
+
+  @injectable({
+    name: 'counter',
+  })
+  class Counter {
+    constructor(
+      private portDetector: PortDetector,
+      @optional('todoList') private todoList: TodoList
+    ) {
+      this.portDetector.onClient(() => {
+        onClientFn?.();
+        return subscribe(this, () => {
+          subscribeOnClientFn?.();
+        });
+      });
+      this.portDetector.onServer(() => {
+        onServerFn?.();
+        return subscribe(this, () => {
+          subscribeOnServerFn?.();
+        });
+      });
+    }
+
+    @state
+    count = 0;
+
+    @state
+    obj: Record<string, number> = {};
+
+    @action
+    increase() {
+      this.count += 1;
+      this.obj.number = this.count;
+      this.todoList?.add(this.count);
+    }
+
+    @action
+    decrease() {
+      this.count -= 1;
+    }
+  }
+
+  @injectable({
+    name: 'CounterView',
+  })
+  class CounterView extends ViewModule {
+    constructor(public counter: Counter) {
+      super();
+    }
+
+    name = 'counter';
+
+    path = '/counter';
+
+    component() {
+      const count = useConnector(() => this.counter.count);
+      return (
+        <>
+          <button
+            id="decrease"
+            type="button"
+            onClick={() => spawn(this.counter, 'decrease', [])}
+          >
+            -
+          </button>
+          <div id="count">{count}</div>
+          <button
+            id="increase"
+            type="button"
+            onClick={() => spawn(this.counter, 'increase', [])}
+          >
+            +
+          </button>
+        </>
+      );
+    }
+  }
+
+  @injectable({
+    name: 'appView',
+  })
+  class AppView extends ViewModule {
+    constructor(public counterView: CounterView, public router: Router) {
+      super();
+    }
+
+    component() {
+      const currentPath = useConnector(() => this.router.currentPath);
+
+      return (
+        <>
+          <ul>
+            <li>
+              <Link
+                active={currentPath === '/'}
+                onClick={() => this.router.push('/')}
+                id="home"
+              >
+                Home
+              </Link>
+            </li>
+            <li>
+              <Link
+                active={currentPath === this.counterView.path}
+                onClick={() => this.router.push(this.counterView.path)}
+                id={this.counterView.name}
+              >
+                {this.counterView.name}
+              </Link>
+            </li>
+          </ul>
+
+          <div id="content">
+            <Switch>
+              <Route exact path="/">
+                <h2>home</h2>
+              </Route>
+              <Route
+                path={this.counterView.path}
+                component={this.counterView.component}
+              />
+            </Switch>
+          </div>
+        </>
+      );
+    }
+  }
+
+  test('base server/client port mode with storage and cache routing in "Base" mode', async () => {
+    const storage = new MemoryStorage({
+      'persist:root': '{"_persist":"{\\"version\\":-1,\\"rehydrated\\":true}"}',
+      'persist:Router':
+        '{"_routers":"{\\"default\\":{\\"location\\":{\\"pathname\\":\\"/counter\\",\\"search\\":\\"\\",\\"hash\\":\\"\\",\\"key\\":\\"w8w2qv\\",\\"query\\":{}},\\"action\\":\\"PUSH\\"}}","_persist":"{\\"version\\":-1,\\"rehydrated\\":true}"}',
+    });
+
+    onClientFn = jest.fn();
+    subscribeOnClientFn = jest.fn();
+    onServerFn = jest.fn();
+    subscribeOnServerFn = jest.fn();
+
+    const transports = mockPairTransports();
+
+    const serverApp = await createSharedApp({
+      modules: [
+        Router,
+        {
+          provide: RouterOptions,
+          useValue: {
+            createHistory: () => createBrowserHistory(),
+          } as IRouterOptions,
+        },
+        Storage,
+        {
+          provide: StorageOptions,
+          useValue: {
+            storage,
+            blacklist: [],
+          } as IStorageOptions,
+        },
+        {
+          provide: 'EnableCacheRouting',
+          useFactory: (router: Router, storage: Storage) => {
+            storage.setStorage(router, {
+              whitelist: ['_routers'] as any,
+            });
+          },
+          deps: [Router, Storage],
+        },
+      ],
+      main: AppView,
+      render,
+      share: {
+        name: 'counter',
+        type: 'Base',
+        port: 'server',
+        transports: {
+          server: transports[0],
+        },
+      },
+    });
+    expect(onClientFn.mock.calls.length).toBe(0);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(0);
+    expect(onServerFn.mock.calls.length).toBe(1);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(0);
+
+    await serverApp.bootstrap(serverContainer);
+    await Promise.resolve();
+
+    expect(onClientFn.mock.calls.length).toBe(0);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(0);
+    expect(onServerFn.mock.calls.length).toBe(1);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(6);
+
+    const clientApp = await createSharedApp({
+      modules: [
+        Router,
+        {
+          provide: RouterOptions,
+          useValue: {
+            createHistory: () => createBrowserHistory(),
+          } as IRouterOptions,
+        },
+      ],
+      main: AppView,
+      render,
+      share: {
+        name: 'counter',
+        type: 'Base',
+        port: 'client',
+        transports: {
+          client: transports[1],
+        },
+      },
+    });
+
+    expect(onClientFn.mock.calls.length).toBe(1);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(0);
+    expect(onServerFn.mock.calls.length).toBe(1);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(6);
+
+    await clientApp.bootstrap(clientContainer);
+
+    expect(onClientFn.mock.calls.length).toBe(1);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(2);
+    expect(onServerFn.mock.calls.length).toBe(1);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(6);
+    expect(clientContainer.querySelector('#content')?.textContent).toBe('-0+');
+
+    await Promise.resolve();
+
+    expect(onClientFn.mock.calls.length).toBe(1);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(4);
+    expect(onServerFn.mock.calls.length).toBe(1);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(7);
+
+    expect(serverContainer.querySelector('#content')?.textContent).toBe('-0+');
+    expect(clientContainer.querySelector('#content')?.textContent).toBe('-0+');
+
+    act(() => {
+      serverContainer
+        .querySelector('#home')!
+        .dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    });
+
+    await Promise.resolve();
+
+    expect(onClientFn.mock.calls.length).toBe(1);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(7);
+    expect(onServerFn.mock.calls.length).toBe(1);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(10);
+
+    expect(serverApp.instance.router.currentPath).toBe('/');
+    expect(clientApp.instance.router.currentPath).toBe('/');
+    expect(clientContainer.querySelector('#content')?.textContent).toBe('home');
+    expect(serverContainer.querySelector('#content')?.textContent).toBe('home');
+  });
+
+  test('base server/client port mode with storage and cache routing in "SharedWorker" mode', async () => {
+    const storage = new MemoryStorage({
+      'persist:root': '{"_persist":"{\\"version\\":-1,\\"rehydrated\\":true}"}',
+      'persist:Router':
+        '{"_routers":"{\\"default\\":{\\"location\\":{\\"pathname\\":\\"/counter\\",\\"search\\":\\"\\",\\"hash\\":\\"\\",\\"key\\":\\"w8w2qv\\",\\"query\\":{}},\\"action\\":\\"PUSH\\"}}","_persist":"{\\"version\\":-1,\\"rehydrated\\":true}"}',
+    });
+
+    onClientFn = jest.fn();
+    subscribeOnClientFn = jest.fn();
+    onServerFn = jest.fn();
+    subscribeOnServerFn = jest.fn();
+
+    const transports = mockPairTransports();
+
+    const serverApp = await createSharedApp({
+      modules: [
+        Router,
+        {
+          provide: RouterOptions,
+          useValue: {
+            createHistory: () => createHashHistory(),
+          } as IRouterOptions,
+        },
+        Storage,
+        {
+          provide: StorageOptions,
+          useValue: {
+            storage,
+            blacklist: [],
+          } as IStorageOptions,
+        },
+        {
+          provide: 'EnableCacheRouting',
+          useFactory: (router: Router, storage: Storage) => {
+            storage.setStorage(router, {
+              whitelist: ['_routers'] as any,
+            });
+          },
+          deps: [Router, Storage],
+        },
+      ],
+      main: AppView,
+      render,
+      share: {
+        name: 'counter',
+        type: 'SharedWorker',
+        port: 'server',
+        transports: {
+          server: transports[0],
+        },
+      },
+    });
+    expect(onClientFn.mock.calls.length).toBe(0);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(0);
+    expect(onServerFn.mock.calls.length).toBe(1);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(0);
+
+    await Promise.resolve();
+
+    expect(onClientFn.mock.calls.length).toBe(0);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(0);
+    expect(onServerFn.mock.calls.length).toBe(1);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(0);
+
+    const clientApp = await createSharedApp({
+      modules: [
+        Router,
+        {
+          provide: RouterOptions,
+          useValue: {
+            createHistory: () => createHashHistory(),
+          } as IRouterOptions,
+        },
+      ],
+      main: AppView,
+      render,
+      share: {
+        name: 'counter',
+        type: 'SharedWorker',
+        port: 'client',
+        transports: {
+          client: transports[1],
+        },
+      },
+    });
+
+    expect(onClientFn.mock.calls.length).toBe(1);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(1);
+    expect(onServerFn.mock.calls.length).toBe(1);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(5);
+
+    await clientApp.bootstrap(clientContainer);
+
+    expect(onClientFn.mock.calls.length).toBe(1);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(2);
+    expect(onServerFn.mock.calls.length).toBe(1);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(5);
+    expect(clientContainer.querySelector('#content')?.textContent).toBe('home');
+
+    await Promise.resolve();
+
+    expect(onClientFn.mock.calls.length).toBe(1);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(5);
+    expect(onServerFn.mock.calls.length).toBe(1);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(8);
+    expect(clientContainer.querySelector('#content')?.textContent).toBe('-0+');
+
+    act(() => {
+      clientContainer
+        .querySelector('#counter')!
+        .dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    });
+
+    await new Promise((resolve) => setTimeout(resolve));
+
+    expect(onClientFn.mock.calls.length).toBe(1);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(8);
+    expect(onServerFn.mock.calls.length).toBe(1);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(11);
+    expect(serverApp.instance.router.currentPath).toBe('/counter');
+    expect(clientApp.instance.router.currentPath).toBe('/counter');
+    expect(clientContainer.querySelector('#content')?.textContent).toBe('-0+');
+
+    act(() => {
+      clientContainer
+        .querySelector('#home')!
+        .dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    });
+
+    await Promise.resolve();
+
+    expect(serverApp.instance.router.currentPath).toBe('/');
+    expect(clientApp.instance.router.currentPath).toBe('/');
+    expect(clientContainer.querySelector('#content')?.textContent).toBe('home');
+  });
+  test('base SPA mode with storage and cache routing', async () => {
+    const storage = new MemoryStorage({
+      'persist:root': '{"_persist":"{\\"version\\":-1,\\"rehydrated\\":true}"}',
+      'persist:Router':
+        '{"_routers":"{\\"default\\":{\\"location\\":{\\"pathname\\":\\"/counter\\",\\"search\\":\\"\\",\\"hash\\":\\"\\",\\"key\\":\\"w8w2qv\\",\\"query\\":{}},\\"action\\":\\"PUSH\\"}}","_persist":"{\\"version\\":-1,\\"rehydrated\\":true}"}',
+    });
+
+    onClientFn = jest.fn();
+    subscribeOnClientFn = jest.fn();
+    onServerFn = jest.fn();
+    subscribeOnServerFn = jest.fn();
+
+    const app = await createSharedApp({
+      modules: [
+        Router,
+        {
+          provide: RouterOptions,
+          useValue: {
+            createHistory: () => createBrowserHistory(),
+          } as IRouterOptions,
+        },
+        Storage,
+        {
+          provide: StorageOptions,
+          useValue: {
+            storage,
+            blacklist: [],
+          } as IStorageOptions,
+        },
+        {
+          provide: 'EnableCacheRouting',
+          useFactory: (router: Router, storage: Storage) => {
+            storage.setStorage(router, {
+              whitelist: ['_routers'] as any,
+            });
+          },
+          deps: [Router, Storage],
+        },
+      ],
+      main: AppView,
+      render,
+      share: {
+        name: 'counter',
+        type: 'Base',
+      },
+    });
+    expect(onClientFn.mock.calls.length).toBe(0);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(0);
+    expect(onServerFn.mock.calls.length).toBe(0);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(0);
+    await app.bootstrap(serverContainer);
+
+    await Promise.resolve();
+
+    expect(app.instance.router.currentPath).toBe('/counter');
+
+    expect(onClientFn.mock.calls.length).toBe(0);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(0);
+    expect(onServerFn.mock.calls.length).toBe(0);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(0);
+    expect(serverContainer.querySelector('#content')?.textContent).toBe('-0+');
+
+    await Promise.resolve();
+
+    expect(onClientFn.mock.calls.length).toBe(0);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(0);
+    expect(onServerFn.mock.calls.length).toBe(0);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(0);
+
+    expect(serverContainer.querySelector('#content')?.textContent).toBe('-0+');
+
+    act(() => {
+      serverContainer
+        .querySelector('#increase')!
+        .dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    });
+
+    await Promise.resolve();
+
+    expect(onClientFn.mock.calls.length).toBe(0);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(0);
+    expect(onServerFn.mock.calls.length).toBe(0);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(0);
+
+    expect(serverContainer.querySelector('#content')?.textContent).toBe('-1+');
+
+    act(() => {
+      serverContainer
+        .querySelector('#home')!
+        .dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    });
+
+    await Promise.resolve();
+    expect(serverContainer.querySelector('#content')?.textContent).toBe('home');
+    expect(app.instance.router.currentPath).toBe('/');
+    expect(
+      app.store?.getState().Router._routers.default.location.pathname
+    ).toBe('/');
   });
 });

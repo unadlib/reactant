@@ -11,3 +11,6 @@ export const syncToClientsName = '@@reactant:syncToClients';
 export const syncWorkerRouterName = '@@reactant:syncWorkerRouter';
 
 export const SharedAppOptions = Symbol('SharedAppOptions');
+
+export const storageModuleName = 'Storage';
+export const routerModuleName = 'Router';

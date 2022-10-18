@@ -1,3 +1,4 @@
+import { routerModuleName } from './constants';
 import { ActionOptions } from './interfaces';
 
 export const checkPatches = (
@@ -16,7 +17,7 @@ export const checkPatches = (
       if (
         oldState &&
         typeof oldState === 'object' &&
-        path[0] !== 'reactant:router'
+        path[0] !== routerModuleName
       ) {
         const state = path.join('.');
         console.warn(

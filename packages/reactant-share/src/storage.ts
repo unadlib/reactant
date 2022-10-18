@@ -10,13 +10,14 @@ import type {
   SetStorageOptions,
 } from 'reactant-storage';
 import { PortDetector } from './portDetector';
+import { storageModuleName } from './constants';
 
 export interface IStorageOptions extends IBaseStorageOptions {
   //
 }
 
 @injectable({
-  name: 'Storage',
+  name: storageModuleName,
 })
 class ReactantStorage extends BaseReactantStorage {
   constructor(
