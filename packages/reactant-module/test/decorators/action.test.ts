@@ -30,6 +30,16 @@ describe('@action', () => {
         const { count } = this;
         this.count = count;
       }
+
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      @action
+      unexpectedChange(): any {
+        this.count = 0;
+        return this.returnValue;
+      }
+
+      returnValue: any = 0;
     }
     const ServiceIdentifiers = new Map();
     const modules = [Counter];
@@ -71,6 +81,30 @@ describe('@action', () => {
       `There are no state updates to method 'counter.noChange'`
     );
     warn.mockReset();
+
+    for (const value of [
+      0,
+      1,
+      null,
+      true,
+      false,
+      new Promise(() => {
+        //
+      }),
+      function a() {
+        //
+      },
+      {},
+      [],
+      Symbol(''),
+    ]) {
+      expect(() => {
+        counter.returnValue = value;
+        counter.unexpectedChange();
+      }).toThrowError(
+        /The return value of the method 'unexpectedChange' is not allowed./
+      );
+    }
   });
 
   test('enable `autoFreeze` in devOptions', () => {

@@ -76,12 +76,22 @@ const action = (
             Record<string, unknown>
           >(lastState, (draftState) => {
             stagedState = draftState;
-            fn.apply(this, args);
+            const result = fn.apply(this, args);
+            if (__DEV__ && result !== undefined) {
+              throw new Error(
+                `The return value of the method '${key}' is not allowed.`
+              );
+            }
           });
         } else {
           state = produce<Record<string, unknown>>(lastState, (draftState) => {
             stagedState = draftState;
-            fn.apply(this, args);
+            const result = fn.apply(this, args);
+            if (__DEV__ && result !== undefined) {
+              throw new Error(
+                `The return value of the method '${key}' is not allowed.`
+              );
+            }
           });
         }
         stagedState = undefined;
