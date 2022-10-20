@@ -309,7 +309,9 @@ export function createStore<T = any>({
             },
           });
         } catch (e) {
-          console.error(`${service} has unexpected errors.`);
+          console.error(
+            `provide: '${ServiceIdentifier.toString()}' has unexpected errors.`
+          );
           throw e;
         }
       });

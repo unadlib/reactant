@@ -318,3 +318,51 @@ test('Unexpected multi-inject: module with multiple module injection with same m
     container.get(FooBar);
   }).toThrowErrorMatchingSnapshot();
 });
+
+test('check defineProperties error', () => {
+  const options = { foo: 'bar' };
+
+  @injectable()
+  class Todos {
+    @state
+    list: string[] = [];
+  }
+
+  const create = () => {
+    const ServiceIdentifiers = new Map();
+    const modules = [Todos, { provide: 'options', useValue: options }];
+    const container = createContainer({
+      ServiceIdentifiers,
+      modules,
+      options: {
+        defaultScope: 'Singleton',
+      },
+    });
+    container.get(Todos);
+    createStore({
+      modules,
+      container,
+      ServiceIdentifiers,
+      loadedModules: new Set(),
+      load: (...args: any[]) => {
+        //
+      },
+      pluginHooks: {
+        middleware: [],
+        beforeCombineRootReducers: [],
+        afterCombineRootReducers: [],
+        enhancer: [],
+        preloadedStateHandler: [],
+        afterCreateStore: [],
+        provider: [],
+      },
+    });
+  };
+  create();
+  jest.spyOn(global.console, 'error');
+
+  expect(create).toThrowError();
+  expect(console.error).toBeCalledWith(
+    "provide: 'options' has unexpected errors."
+  );
+});
