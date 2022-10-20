@@ -258,55 +258,60 @@ export function createStore<T = any>({
           });
         }
         subscriptions.push(service[subscriptionsKey]!);
-        Object.defineProperties(service, {
-          [modulesKey]: {
-            enumerable: false,
-            configurable: false,
-            writable: false,
-            value: modulesMap,
-          },
-          [identifierKey]: {
-            enumerable: false,
-            configurable: false,
-            writable: false,
-            value: identifier,
-          },
-          // in order to support multiple instances for stores.
-          [storeKey]: {
-            enumerable: false,
-            configurable: false,
-            get() {
-              return store;
+        try {
+          Object.defineProperties(service, {
+            [modulesKey]: {
+              enumerable: false,
+              configurable: false,
+              writable: false,
+              value: modulesMap,
             },
-          },
-          [containerKey]: {
-            enumerable: false,
-            configurable: false,
-            get() {
-              return container;
+            [identifierKey]: {
+              enumerable: false,
+              configurable: false,
+              writable: false,
+              value: identifier,
             },
-          },
-          // loader for dynamic modules.
-          [loaderKey]: {
-            enumerable: false,
-            configurable: false,
-            value(...args: Parameters<Loader>) {
-              load(...args);
+            // in order to support multiple instances for stores.
+            [storeKey]: {
+              enumerable: false,
+              configurable: false,
+              get() {
+                return store;
+              },
             },
-          },
-          // enablePatches options for immer
-          [enablePatchesKey]: {
-            enumerable: false,
-            configurable: false,
-            value: enablePatches,
-          },
-          // enableInspector options for state changing check before dispatching
-          [enableInspectorKey]: {
-            enumerable: false,
-            configurable: false,
-            value: enableInspector,
-          },
-        });
+            [containerKey]: {
+              enumerable: false,
+              configurable: false,
+              get() {
+                return container;
+              },
+            },
+            // loader for dynamic modules.
+            [loaderKey]: {
+              enumerable: false,
+              configurable: false,
+              value(...args: Parameters<Loader>) {
+                load(...args);
+              },
+            },
+            // enablePatches options for immer
+            [enablePatchesKey]: {
+              enumerable: false,
+              configurable: false,
+              value: enablePatches,
+            },
+            // enableInspector options for state changing check before dispatching
+            [enableInspectorKey]: {
+              enumerable: false,
+              configurable: false,
+              value: enableInspector,
+            },
+          });
+        } catch (e) {
+          console.error(`${service} has unexpected errors.`);
+          throw e;
+        }
       });
     }
   }
