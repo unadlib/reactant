@@ -47,7 +47,7 @@
   "homepage": "https://github.com/unadlib/reactant#readme",
   "devDependencies": {
     "@rollup/plugin-commonjs": "^11.0.2",
-    "@rollup/plugin-node-resolve": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^15.0.1",
     "@rollup/plugin-replace": "^2.3.0",
     "@types/fs-extra": "^8.0.1",
     "@types/glob-parent": "^5.1.0",
