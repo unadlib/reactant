@@ -892,5 +892,12 @@ test('fork with args with destroy on Server', async () => {
   expect(server.instance.count).toBe(1);
   expect(client0.instance.count).toBe(1);
 
-  await expect(client0.instance.increase()).rejects.toThrowError();
+  await expect(
+    Promise.race([
+      client0.instance.increase(),
+      new Promise((resolve) => {
+        setTimeout(() => resolve('timeout'), 100);
+      }),
+    ])
+  ).resolves.toBe('timeout');
 });
