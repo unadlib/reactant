@@ -1,6 +1,6 @@
 {
   "name": "reactant-cli",
-  "version": "0.65.0",
+  "version": "0.66.0",
   "description": "A command line interface for Reactant",
   "engines": {
     "node": ">=14"
