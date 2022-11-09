@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { interfaces, LazyServiceIdentifer } from 'inversify';
 import { METADATA_KEY } from './constants';
 import { Optional } from './optional';
+import type { Container as IContainer } from './createContainer';
 
 type PickByKey<T, P extends keyof T> = {
   [K in Exclude<keyof T, P>]: T[K];
@@ -10,7 +12,7 @@ export type ContainerOptions = PickByKey<
   interfaces.ContainerOptions,
   'skipBaseClassChecks'
 >;
-export type Container = interfaces.Container;
+export type Container = IContainer;
 export type ServiceIdentifier<T> = interfaces.ServiceIdentifier<T>;
 export type ServiceIdentifierOrFunc<T> =
   | ServiceIdentifier<T>
@@ -20,12 +22,11 @@ export type ServiceIdentifiersMap<T = any> = Map<
   ServiceIdentifier<T>,
   ServiceIdentifier<T>[]
 >;
-
-export type MetadataMap = Map<ServiceIdentifier<any>, Module<any>>;
-
 export interface Module<T> extends Function {
   new (...args: any[]): T;
 }
+
+export type MetadataMap = Map<ServiceIdentifier<any>, Module<any>>;
 
 export interface DependencyProviderOption {
   provide: ServiceIdentifier<any>;
