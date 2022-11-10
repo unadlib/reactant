@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
-  Container,
+  Container as BaseContainer,
   MetadataReader,
   interfaces,
   ContainerModule,
@@ -93,6 +94,38 @@ function autoDecorateParams(target: object) {
   });
 }
 
+export class Container extends BaseContainer {
+  constructor(
+    options: interfaces.ContainerOptions,
+    private _serviceIdentifiers: Map<
+      interfaces.ServiceIdentifier<any>,
+      interfaces.ServiceIdentifier<any>[]
+    >
+  ) {
+    super(options);
+  }
+
+  /**
+   * get the loaded module
+   */
+  got<T>(serviceIdentifier: interfaces.ServiceIdentifier<T>): T | undefined {
+    return this._serviceIdentifiers.has(serviceIdentifier)
+      ? this.get(serviceIdentifier)
+      : undefined;
+  }
+
+  /**
+   * get loaded modules
+   */
+  gotAll<T>(
+    serviceIdentifier: interfaces.ServiceIdentifier<T>
+  ): T[] | undefined {
+    return this._serviceIdentifiers.has(serviceIdentifier)
+      ? this.getAll(serviceIdentifier)
+      : undefined;
+  }
+}
+
 export function bindModules(container: Container, modules: ModuleOptions[]) {
   const provideMeta = getMetadata(METADATA_KEY.provide);
   for (const module of modules) {
@@ -157,7 +190,7 @@ export function createContainer({
   options,
 }: ContainerConfig) {
   setModulesDeps(modules);
-  const container = new Container(options);
+  const container = new Container(options!, ServiceIdentifiers);
   container.applyCustomMetadataReader(new CustomMetadataReader());
   bindModules(container, modules);
   container.applyMiddleware(createCollector(ServiceIdentifiers));

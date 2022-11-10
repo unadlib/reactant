@@ -1,4 +1,4 @@
-import { injectable, createContainer, inject, optional } from '..';
+import { injectable, createContainer, inject, optional, multiInject } from '..';
 
 test('decoration for interface', () => {
   interface FooInterface {
@@ -161,4 +161,50 @@ test('mix @optional/@inject about inheritance', () => {
 
   expect(bar.foo instanceof Foo).toBeTruthy();
   expect(bar.foo1 instanceof Foo1).toBeTruthy();
+});
+
+test('Container APIs: got/gotAll', () => {
+  @injectable()
+  class Foo {
+    public get test() {
+      return 'test';
+    }
+  }
+
+  @injectable()
+  class FooBar {}
+
+  @injectable()
+  class FooBar1 {}
+
+  @injectable()
+  class Bar {
+    constructor(@multiInject(Foo) public foos: Foo[], public fooBar: FooBar) {}
+
+    public get length() {
+      return this.foos.length;
+    }
+  }
+
+  const ServiceIdentifiers = new Map();
+
+  const container = createContainer({
+    ServiceIdentifiers,
+    modules: [Foo, Foo, FooBar],
+    options: {
+      defaultScope: 'Singleton',
+    },
+  });
+
+  const bar = container.get(Bar);
+  const fooBar = container.get(FooBar);
+
+  expect(bar.length).toBe(2);
+  expect(bar.fooBar instanceof FooBar).toBeTruthy();
+  expect(bar.fooBar).toBe(fooBar);
+  expect(container.got(FooBar)).toBe(fooBar);
+  expect(container.gotAll(Foo)!.length).toBe(2);
+  expect(container.gotAll(Foo)).toEqual(bar.foos);
+  expect(container.got(FooBar1)).toBeUndefined();
+  expect(container.gotAll(FooBar1)).toBeUndefined();
 });
