@@ -59,4 +59,4 @@ expect(foo.instance.bar.getValue()).toBe('test');
 
 #### Defined in
 
-[testBed.ts:33](https://github.com/unadlib/reactant/blob/ac1dea6f/packages/reactant/src/testBed.ts#L33)
+[testBed.ts:33](https://github.com/unadlib/reactant/blob/08d8ea8a/packages/reactant/src/testBed.ts#L33)
