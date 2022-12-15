@@ -4993,12 +4993,12 @@ dargs@^7.0.0:
   resolved "https://registry.yarnpkg.com/dargs/-/dargs-7.0.0.tgz#04015c41de0bcb69ec84050f3d9be0caf8d6d5cc"
   integrity sha512-2iy1EkLdlBzQGvbweYRFxmFath8+K7+AKB0TlhHWkNuH+TmovaMH/Wp7V7R4u7f4SnX3OgLsU9t1NI9ioDnUpg==
 
-data-transport@^3.1.2:
-  version "3.1.2"
-  resolved "https://registry.yarnpkg.com/data-transport/-/data-transport-3.1.2.tgz#fb0642fd21769ad009d0b2433ae3e03d7a8a05be"
-  integrity sha512-Yi5Xh+hNOgYJ5t9GqkhKIm1hfxpBuJB357zBwHJLmDPpEO+F5wwlATj/2wNuPy+WwQuDyD+oeCPg+4bHexzWLw==
+data-transport@^3.3.3:
+  version "3.3.3"
+  resolved "https://registry.yarnpkg.com/data-transport/-/data-transport-3.3.3.tgz#73891802095ca2a70e44d5d79558297fb5c3aded"
+  integrity sha512-FGZj1tnFnv9btD/B8Lv5tV6nTMgvtyOPwh8pjYOQRLbXj6iLPaFj9FGBvApD/aK231Ie/6mKlDq8XU5Qr9PIHQ==
   dependencies:
-    uuid "^8.3.0"
+    uuid "^9.0.0"
 
 data-urls@^3.0.2:
   version "3.0.2"
@@ -12046,10 +12046,15 @@ utils-merge@1.0.1:
   resolved "https://registry.yarnpkg.com/utils-merge/-/utils-merge-1.0.1.tgz#9f95710f50a267947b2ccc124741c1028427e713"
   integrity sha1-n5VxD1CiZ5R7LMwSR0HBAoQn5xM=
 
-uuid@^8.3.0, uuid@^8.3.2:
+uuid@^8.3.2:
   version "8.3.2"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.3.2.tgz#80d5b5ced271bb9af6c445f21a1a04c606cefbe2"
   integrity sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==
+
+uuid@^9.0.0:
+  version "9.0.0"
+  resolved "https://registry.yarnpkg.com/uuid/-/uuid-9.0.0.tgz#592f550650024a38ceb0c562f2f6aa435761efb5"
+  integrity sha512-MXcSTerfPa4uqyzStbRoTgt5XIe3x5+42+q1sDuy3R5MDk66URdLMOZe5aPX/SQd+kuYAh0FdP/pO28IkQyTeg==
 
 v8-compile-cache-lib@^3.0.1:
   version "3.0.1"
