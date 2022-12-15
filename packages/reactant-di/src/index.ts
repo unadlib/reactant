@@ -12,4 +12,6 @@ export {
 export { Optional } from './optional';
 export { forwardRef } from './forwardRef';
 export { ModuleRef } from './moduleRef';
+export { METADATA_KEY } from './constants';
+export { getMetadata } from './util';
 export * from './interfaces';

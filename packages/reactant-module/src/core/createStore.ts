@@ -7,8 +7,10 @@ import {
   produce,
   setAutoFreeze,
 } from 'immer';
-import type {
+import {
   Container,
+  getMetadata,
+  METADATA_KEY,
   ModuleOptions,
   ServiceIdentifiersMap,
 } from 'reactant-di';
@@ -103,16 +105,23 @@ export function createStore<T = any>({
       ServiceIdentifiers.set(moduleIdentifier, []);
     }
   }
+  const multipleInjectMap = getMetadata(METADATA_KEY.multiple);
   for (const [ServiceIdentifier] of ServiceIdentifiers) {
     // `Service` should be bound before `createStore`.
-    if (
+    const isMultipleInjection = multipleInjectMap.has(ServiceIdentifier);
+    const shouldInstantiate =
       container.isBound(ServiceIdentifier) &&
-      !loadedModules.has(ServiceIdentifier)
-    ) {
+      (isMultipleInjection ||
+        (!isMultipleInjection && !loadedModules.has(ServiceIdentifier)));
+    if (shouldInstantiate) {
       const services: IService[] = container.getAll(ServiceIdentifier);
       loadedModules.add(ServiceIdentifier);
       services.forEach((service, index) => {
-        if (typeof service !== 'object' || service === null) {
+        if (
+          typeof service !== 'object' ||
+          service === null ||
+          (service[modulesKey] && isMultipleInjection)
+        ) {
           return;
         }
         handlePlugin(service, pluginHooks);

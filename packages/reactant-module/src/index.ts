@@ -10,6 +10,8 @@ export {
   Optional,
   forwardRef,
   ModuleRef,
+  getMetadata,
+  METADATA_KEY,
 } from 'reactant-di';
 
 export type {

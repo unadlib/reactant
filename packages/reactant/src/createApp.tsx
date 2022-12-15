@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable no-shadow */
 import React, { FunctionComponent, StrictMode, Context } from 'react';
 import { Provider } from 'react-redux';
@@ -14,6 +15,8 @@ import {
   modulesKey,
   Service,
   unsubscriptionsKey,
+  getMetadata,
+  METADATA_KEY,
 } from 'reactant-module';
 import { Config, App, Renderer } from './interfaces';
 
@@ -95,9 +98,26 @@ function createApp<T, S extends any[], R extends Renderer<S>>({
   const loadedModules = new Set();
 
   const loader: Loader = (loadModules, beforeReplaceReducer) => {
-    bindModules(container, loadModules);
+    const multipleInjectMap = getMetadata(METADATA_KEY.multiple);
+    const filteredModules = loadModules.filter((module) => {
+      const serviceIdentifier =
+        typeof module === 'function'
+          ? module
+          : typeof module === 'object'
+          ? module.provide
+          : undefined;
+      if (serviceIdentifier) {
+        return (
+          multipleInjectMap.has(serviceIdentifier) ||
+          (!multipleInjectMap.has(serviceIdentifier) &&
+            !container.isBound(serviceIdentifier))
+        );
+      }
+      return true;
+    });
+    bindModules(container, filteredModules);
     createStore({
-      modules: loadModules,
+      modules: filteredModules,
       container,
       ServiceIdentifiers,
       loadedModules,
