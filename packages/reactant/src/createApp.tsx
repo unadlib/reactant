@@ -17,6 +17,7 @@ import {
   unsubscriptionsKey,
   getMetadata,
   METADATA_KEY,
+  DynamicModules,
 } from 'reactant-module';
 import { Config, App, Renderer } from './interfaces';
 
@@ -76,6 +77,7 @@ function createApp<T, S extends any[], R extends Renderer<S>>({
 }: Config<T, S, R>): App<T, S, R> {
   const modules = [..._modules, main];
   const ServiceIdentifiers: ServiceIdentifiersMap = new Map();
+  const dynamicModules: DynamicModules = new Map();
   const modulesMap: ModulesMap = {};
   const container = createContainer({
     ServiceIdentifiers,
@@ -122,6 +124,7 @@ function createApp<T, S extends any[], R extends Renderer<S>>({
       ServiceIdentifiers,
       loadedModules,
       load: loader,
+      dynamicModules,
       pluginHooks,
       preloadedState: undefined,
       devOptions,
@@ -140,6 +143,7 @@ function createApp<T, S extends any[], R extends Renderer<S>>({
     ServiceIdentifiers,
     loadedModules,
     load: loader,
+    dynamicModules,
     pluginHooks,
     preloadedState,
     devOptions,

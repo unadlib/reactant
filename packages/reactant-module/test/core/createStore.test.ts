@@ -34,6 +34,7 @@ describe('createStore', () => {
       load: (...args: any[]) => {
         //
       },
+      dynamicModules: new Map(),
       pluginHooks: {
         middleware: [],
         beforeCombineRootReducers: [],
@@ -73,6 +74,7 @@ describe('createStore', () => {
       load: (...args: any[]) => {
         //
       },
+      dynamicModules: new Map(),
       pluginHooks: {
         middleware: [],
         beforeCombineRootReducers: [],
@@ -130,6 +132,7 @@ describe('createStore', () => {
       load: (...args: any[]) => {
         //
       },
+      dynamicModules: new Map(),
       pluginHooks: {
         middleware: [],
         beforeCombineRootReducers: [],
@@ -191,6 +194,7 @@ describe('createStore', () => {
       load: (...args: any[]) => {
         //
       },
+      dynamicModules: new Map(),
       pluginHooks: {
         middleware: [],
         beforeCombineRootReducers: [],
@@ -240,6 +244,7 @@ describe('createStore', () => {
       load: (...args: any[]) => {
         //
       },
+      dynamicModules: new Map(),
       pluginHooks: {
         middleware: [],
         beforeCombineRootReducers: [],
@@ -297,6 +302,7 @@ describe('createStore', () => {
       load: (...args: any[]) => {
         //
       },
+      dynamicModules: new Map(),
       pluginHooks: {
         middleware: [],
         beforeCombineRootReducers: [],

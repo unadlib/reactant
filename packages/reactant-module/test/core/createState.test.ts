@@ -35,6 +35,7 @@ test('`createState` with type', () => {
     ServiceIdentifiers,
     loadedModules: new Set(),
     load: (...args: any[]) => {},
+    dynamicModules: new Map(),
     pluginHooks: {
       middleware: [],
       beforeCombineRootReducers: [],

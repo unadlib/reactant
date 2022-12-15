@@ -59,6 +59,7 @@ test('subscribe in constructor', () => {
     load: (...args: any[]) => {
       //
     },
+    dynamicModules: new Map(),
     pluginHooks: {
       middleware: [],
       beforeCombineRootReducers: [],
@@ -170,6 +171,7 @@ test('subscribe in non-constructor', () => {
     load: (...args: any[]) => {
       //
     },
+    dynamicModules: new Map(),
     pluginHooks: {
       middleware: [],
       beforeCombineRootReducers: [],
@@ -274,6 +276,7 @@ test('watch multiple values', () => {
     load: (...args: any[]) => {
       //
     },
+    dynamicModules: new Map(),
     pluginHooks: {
       middleware: [],
       beforeCombineRootReducers: [],
@@ -366,6 +369,7 @@ test('watch about define `isEqual`', () => {
     load: (...args: any[]) => {
       //
     },
+    dynamicModules: new Map(),
     pluginHooks: {
       middleware: [],
       beforeCombineRootReducers: [],
@@ -490,6 +494,7 @@ test('async subscribe and watch', async () => {
     load: (...args: any[]) => {
       //
     },
+    dynamicModules: new Map(),
     pluginHooks: {
       middleware: [],
       beforeCombineRootReducers: [],

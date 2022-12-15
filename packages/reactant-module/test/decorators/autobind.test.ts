@@ -47,6 +47,7 @@ test('base `@autobind` decorate', () => {
     load: (...args: any[]) => {
       //
     },
+    dynamicModules: new Map(),
     pluginHooks: {
       middleware: [],
       beforeCombineRootReducers: [],
@@ -124,6 +125,7 @@ test('`@autobind` decorate about inheritance', () => {
     load: (...args: any[]) => {
       //
     },
+    dynamicModules: new Map(),
     pluginHooks: {
       middleware: [],
       beforeCombineRootReducers: [],

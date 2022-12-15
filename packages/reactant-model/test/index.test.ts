@@ -58,6 +58,7 @@ test('base model with `useValue`', () => {
     load: (...args: any[]) => {
       //
     },
+    dynamicModules: new Map(),
     pluginHooks: {
       middleware: [],
       beforeCombineRootReducers: [],
@@ -128,6 +129,7 @@ test('base model with `useFactory`', () => {
     ServiceIdentifiers,
     loadedModules: new Set(),
     load: (...args: any[]) => {},
+    dynamicModules: new Map(),
     pluginHooks: {
       middleware: [],
       beforeCombineRootReducers: [],
@@ -202,6 +204,7 @@ test('base model with `useValue` and `enablePatches`', () => {
     load: (...args: any[]) => {
       //
     },
+    dynamicModules: new Map(),
     pluginHooks: {
       middleware: [],
       beforeCombineRootReducers: [],

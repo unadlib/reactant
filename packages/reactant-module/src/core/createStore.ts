@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable default-param-last */
 /* eslint-disable guard-for-in */
 /* eslint-disable @typescript-eslint/no-empty-function */
@@ -38,10 +39,12 @@ import {
   initStateKey,
   subscriptionsKey,
   enableInspectorKey,
+  dynamicModulesKey,
 } from '../constants';
 import { getStagedState } from '../decorators';
-import {
+import type {
   DevOptions,
+  DynamicModules,
   Loader,
   ModulesMap,
   PluginHooks,
@@ -60,6 +63,7 @@ interface CreateStoreOptions<T> {
   ServiceIdentifiers: ServiceIdentifiersMap;
   loadedModules: Set<any>;
   load: (...args: Parameters<Loader>) => void;
+  dynamicModules: DynamicModules;
   pluginHooks: PluginHooks;
   preloadedState?: PreloadedState<T>;
   devOptions?: DevOptions;
@@ -74,6 +78,7 @@ export function createStore<T = any>({
   ServiceIdentifiers,
   loadedModules,
   load,
+  dynamicModules,
   pluginHooks,
   preloadedState,
   devOptions = {},
@@ -96,6 +101,15 @@ export function createStore<T = any>({
       enablePatchesWithImmer();
     }
   }
+
+  dynamicModules.forEach((module, key) => {
+    try {
+      const services = container!.getAll(key);
+      module.value = !module.multiple ? services[0] : services;
+    } catch (e) {
+      //
+    }
+  });
 
   // add Non-dependent `modules` to ServiceIdentifiers config.
   for (const module of modules) {
@@ -296,7 +310,13 @@ export function createStore<T = any>({
                 return container;
               },
             },
-            // loader for dynamic modules.
+            // dynamic modules cache
+            [dynamicModulesKey]: {
+              enumerable: false,
+              configurable: false,
+              value: dynamicModules,
+            },
+            // loader for dynamic modules
             [loaderKey]: {
               enumerable: false,
               configurable: false,

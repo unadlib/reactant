@@ -270,3 +270,5 @@ export type ImportClass<T, K extends keyof T> = T extends Record<K, infer S>
     : never
   : never;
 export type Store = ReduxStore;
+
+export type DynamicModules = Map<any, { multiple: boolean; value: any }>;

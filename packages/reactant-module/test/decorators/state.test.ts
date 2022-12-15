@@ -30,6 +30,7 @@ describe('@state', () => {
       load: (...args: any[]) => {
         //
       },
+      dynamicModules: new Map(),
       pluginHooks: {
         middleware: [],
         beforeCombineRootReducers: [],
@@ -96,6 +97,7 @@ describe('@state', () => {
       ServiceIdentifiers,
       loadedModules: new Set(),
       load: (...args: any[]) => {},
+      dynamicModules: new Map(),
       pluginHooks: {
         middleware: [],
         beforeCombineRootReducers: [],

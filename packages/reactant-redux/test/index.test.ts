@@ -1,3 +1,4 @@
+/* eslint-disable default-param-last */
 import {
   injectable,
   inject,
@@ -76,6 +77,7 @@ test('base redux with `useValue`', () => {
     load: (...args: any[]) => {
       //
     },
+    dynamicModules: new Map(),
     pluginHooks: {
       middleware: [],
       beforeCombineRootReducers: [],
@@ -174,6 +176,7 @@ test('base redux with `useFactory`', () => {
     load: (...args: any[]) => {
       //
     },
+    dynamicModules: new Map(),
     pluginHooks: {
       middleware: [],
       beforeCombineRootReducers: [],

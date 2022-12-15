@@ -66,6 +66,7 @@ test('base module for reduxDevToolsCompose', () => {
     load: (...args: any[]) => {
       //
     },
+    dynamicModules: new Map(),
     pluginHooks: {
       middleware: [],
       beforeCombineRootReducers: [],
@@ -191,6 +192,7 @@ test('base module with error for reduxDevToolsCompose', () => {
     load: (...args: any[]) => {
       //
     },
+    dynamicModules: new Map(),
     pluginHooks: {
       middleware: [],
       beforeCombineRootReducers: [],

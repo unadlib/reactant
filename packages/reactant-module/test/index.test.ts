@@ -75,6 +75,7 @@ test('base module with @state and @action', () => {
     load: (...args: any[]) => {
       //
     },
+    dynamicModules: new Map(),
     pluginHooks: {
       middleware: [],
       beforeCombineRootReducers: [],
@@ -145,6 +146,7 @@ test('base module with ModuleRef', () => {
     load: (...args: any[]) => {
       //
     },
+    dynamicModules: new Map(),
     pluginHooks: {
       middleware: [],
       beforeCombineRootReducers: [],
@@ -227,6 +229,7 @@ test('module with multiple module injection with same module or others', () => {
     load: (...args: any[]) => {
       //
     },
+    dynamicModules: new Map(),
     pluginHooks: {
       middleware: [],
       beforeCombineRootReducers: [],
@@ -347,6 +350,7 @@ test('check defineProperties error', () => {
       load: (...args: any[]) => {
         //
       },
+      dynamicModules: new Map(),
       pluginHooks: {
         middleware: [],
         beforeCombineRootReducers: [],

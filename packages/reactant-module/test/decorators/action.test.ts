@@ -59,6 +59,7 @@ describe('@action', () => {
       load: (...args: any[]) => {
         //
       },
+      dynamicModules: new Map(),
       pluginHooks: {
         middleware: [],
         beforeCombineRootReducers: [],
@@ -149,6 +150,7 @@ describe('@action', () => {
       load: (...args: any[]) => {
         //
       },
+      dynamicModules: new Map(),
       pluginHooks: {
         middleware: [],
         beforeCombineRootReducers: [],
@@ -263,6 +265,7 @@ describe('@action', () => {
       load: (...args: any[]) => {
         //
       },
+      dynamicModules: new Map(),
       pluginHooks: {
         middleware: [],
         beforeCombineRootReducers: [],
@@ -339,6 +342,7 @@ describe('@action', () => {
       load: (...args: any[]) => {
         //
       },
+      dynamicModules: new Map(),
       pluginHooks: {
         middleware: [],
         beforeCombineRootReducers: [],
@@ -416,6 +420,7 @@ describe('@action', () => {
       load: (...args: any[]) => {
         //
       },
+      dynamicModules: new Map(),
       pluginHooks: {
         middleware: [],
         beforeCombineRootReducers: [],
@@ -494,6 +499,7 @@ describe('@action', () => {
       load: (...args: any[]) => {
         //
       },
+      dynamicModules: new Map(),
       pluginHooks: {
         middleware: [],
         beforeCombineRootReducers: [],
@@ -607,6 +613,7 @@ describe('@action', () => {
       load: (...args: any[]) => {
         //
       },
+      dynamicModules: new Map(),
       pluginHooks: {
         middleware: [],
         beforeCombineRootReducers: [],
