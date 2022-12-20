@@ -192,7 +192,7 @@ const createSharedTabApp = async <T, S extends any[], R extends Renderer<S>>(
  *   }
  * }
  *
- * (async () => {
+ * export default async () => {
  *   const transports = mockPairTransports();
  *
  *   const server = await createSharedApp({
@@ -227,9 +227,7 @@ const createSharedTabApp = async <T, S extends any[], R extends Renderer<S>>(
  *
  *   expect(client.instance.count).toBe(1);
  *   expect(server.instance.count).toBe(1);
- *
- *   global.done();
- * })();
+ * };
  * ```
  */
 export const createSharedApp = async <

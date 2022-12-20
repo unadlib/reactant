@@ -7830,10 +7830,10 @@ jscodeshift@^0.13.1:
     temp "^0.8.4"
     write-file-atomic "^2.3.0"
 
-jsdoc-tests@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/jsdoc-tests/-/jsdoc-tests-0.1.0.tgz#0b5b1d57a796245f8a43f4a02fd635017927f6d7"
-  integrity sha512-qjDlZ9BgVC/Y4egflxGqqofLMJn3BBz79zKwW8eXd82dSXdv+Q95731SzMRjA4j9VbaSPx7ZWL6Aj6T7SsrcGA==
+jsdoc-tests@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/jsdoc-tests/-/jsdoc-tests-1.1.0.tgz#e353b65f284df07d1ff15ca1a43be951bce1c5fd"
+  integrity sha512-kXWJm517vOlAHResJ813eyDpC32pGsfOfzlx+2ftJAAsiAp6eSBdiOBEU6Oa5PDALR+FmOc8WJ2kYRYgT35isw==
   dependencies:
     "@babel/parser" "^7.12.7"
     markdown-it "^12.0.2"

@@ -13,7 +13,7 @@ class Counter {
   }
 }
 
-(async () => {
+export default async () => {
   const transports = mockPairTransports();
 
   const server = await createSharedApp({
@@ -48,6 +48,4 @@ class Counter {
 
   expect(client.instance.count).toBe(1);
   expect(server.instance.count).toBe(1);
-
-  global.done();
-})();
+};

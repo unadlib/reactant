@@ -75,7 +75,7 @@
     "glob-parent": "^5.1.0",
     "jest": "^29.0.3",
     "jest-environment-jsdom": "^29.0.3",
-    "jsdoc-tests": "^0.1.0",
+    "jsdoc-tests": "^1.1.0",
     "lerna": "^5.5.1",
     "mobx": "^5.15.4",
     "prettier": "^2.1.0",

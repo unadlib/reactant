@@ -2,5 +2,5 @@
 import { jsdocTests } from 'jsdoc-tests';
 
 test('base "createApp" function', () => {
-  jsdocTests('../src/createApp.tsx', __dirname, require);
+  jsdocTests('../src/createApp.tsx', __dirname);
 });
