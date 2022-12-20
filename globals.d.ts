@@ -5,6 +5,6 @@ interface Window {
 
 declare namespace NodeJS {
   interface Global {
-    done: () => void;
+    //
   }
 }

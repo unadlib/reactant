@@ -36,7 +36,7 @@ class Counter {
   }
 }
 
-(async () => {
+export default async () => {
   const transports = mockPairTransports();
 
   const server = await createSharedApp({
@@ -71,9 +71,7 @@ class Counter {
 
   expect(client.instance.count).toBe(1);
   expect(server.instance.count).toBe(1);
-
-  global.done();
-})();
+};
 ```
 
 #### Type parameters
@@ -96,4 +94,4 @@ class Counter {
 
 #### Defined in
 
-[packages/reactant-share/src/createApp.ts:235](https://github.com/unadlib/reactant/blob/08d8ea8a/packages/reactant-share/src/createApp.ts#L235)
+[packages/reactant-share/src/createApp.ts:233](https://github.com/unadlib/reactant/blob/0168c3f1/packages/reactant-share/src/createApp.ts#L233)

@@ -22,7 +22,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[packages/reactant-router/src/router.tsx:23](https://github.com/unadlib/reactant/blob/08d8ea8a/packages/reactant-router/src/router.tsx#L23)
+[packages/reactant-router/src/router.tsx:23](https://github.com/unadlib/reactant/blob/0168c3f1/packages/reactant-router/src/router.tsx#L23)
 
 ## Functions
 
