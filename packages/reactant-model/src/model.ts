@@ -1,10 +1,11 @@
-import { produce, produceWithPatches, Patch, Immutable } from 'immer';
+import { create, Patch, Immutable } from 'mutative';
 import {
   storeKey,
   Service,
   stateKey,
   actionIdentifier,
   enablePatchesKey,
+  enableAutoFreezeKey,
   identifierKey,
   nameKey,
 } from 'reactant-module';
@@ -34,16 +35,26 @@ export const model = <
         let patches: Patch[] | undefined;
         let inversePatches: Patch[] | undefined;
         if (module[enablePatchesKey]) {
-          [state, patches, inversePatches] = produceWithPatches(
-            module[stateKey],
+          [state, patches, inversePatches] = create(
+            module[stateKey] as S,
             (draftState: S) => {
               fn(...args)(draftState);
+            },
+            {
+              enablePatches: true,
+              enableAutoFreeze: module[enableAutoFreezeKey],
             }
           );
         } else {
-          state = produce(module[stateKey], (draftState: S) => {
-            fn(...args)(draftState);
-          });
+          state = create(
+            module[stateKey] as S,
+            (draftState: S) => {
+              fn(...args)(draftState);
+            },
+            {
+              enableAutoFreeze: module[enableAutoFreezeKey],
+            }
+          );
         }
         const lastState = module[storeKey]?.getState();
         module[storeKey]!.dispatch({

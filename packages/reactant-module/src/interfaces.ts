@@ -9,7 +9,7 @@ import type {
   Unsubscribe,
   ReducersMapObject,
 } from 'redux';
-import type { Patch } from 'immer';
+import type { Patch } from 'mutative';
 import type { EnhancerOptions } from 'redux-devtools-extension';
 import type {
   Container,
@@ -24,6 +24,7 @@ import {
   actionIdentifier,
   loaderKey,
   enablePatchesKey,
+  enableAutoFreezeKey,
   containerKey,
   identifierKey,
   nameKey,
@@ -76,6 +77,7 @@ export interface Service<T extends Record<string, any> = Record<string, any>> {
   readonly [storeKey]?: ReduxStore;
   readonly [loaderKey]?: Loader;
   readonly [enablePatchesKey]?: boolean;
+  readonly [enableAutoFreezeKey]?: boolean;
   readonly [enableInspectorKey]?: boolean;
   readonly [subscriptionsKey]?: Subscriptions;
   readonly [unsubscriptionsKey]?: Set<Unsubscribe>;

@@ -1,4 +1,4 @@
-export { applyPatches } from 'immer';
+export { apply as applyPatches } from 'mutative';
 export {
   inject,
   optional,
