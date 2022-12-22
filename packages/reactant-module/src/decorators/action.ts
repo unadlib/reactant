@@ -1,11 +1,12 @@
 /* eslint-disable no-console */
 /* eslint-disable func-names */
-import { produce, produceWithPatches, Patch } from 'immer';
+import { create, Patch } from 'mutative';
 import { ReactantAction, Service } from '../interfaces';
 import {
   storeKey,
   actionIdentifier,
   enablePatchesKey,
+  enableAutoFreezeKey,
   identifierKey,
   enableInspectorKey,
 } from '../constants';
@@ -61,10 +62,6 @@ const action = (
         }' decorated by '@action' must be bound to the current class instance.`
       );
     }
-    let time: number;
-    if (__DEV__) {
-      time = Date.now();
-    }
     if (typeof stagedState === 'undefined') {
       try {
         const lastState = this[storeKey]?.getState();
@@ -72,27 +69,38 @@ const action = (
         let patches: Patch[] | undefined;
         let inversePatches: Patch[] | undefined;
         if (this[enablePatchesKey]) {
-          [state, patches, inversePatches] = produceWithPatches<
-            Record<string, unknown>
-          >(lastState, (draftState) => {
-            stagedState = draftState;
-            const result = fn.apply(this, args);
-            if (__DEV__ && result !== undefined) {
-              throw new Error(
-                `The return value of the method '${key}' is not allowed.`
-              );
+          [state, patches, inversePatches] = create(
+            lastState,
+            (draftState) => {
+              stagedState = draftState;
+              const result = fn.apply(this, args);
+              if (__DEV__ && result !== undefined) {
+                throw new Error(
+                  `The return value of the method '${key}' is not allowed.`
+                );
+              }
+            },
+            {
+              enablePatches: true,
+              enableAutoFreeze: this[enableAutoFreezeKey],
             }
-          });
+          );
         } else {
-          state = produce<Record<string, unknown>>(lastState, (draftState) => {
-            stagedState = draftState;
-            const result = fn.apply(this, args);
-            if (__DEV__ && result !== undefined) {
-              throw new Error(
-                `The return value of the method '${key}' is not allowed.`
-              );
+          state = create(
+            lastState,
+            (draftState) => {
+              stagedState = draftState;
+              const result = fn.apply(this, args);
+              if (__DEV__ && result !== undefined) {
+                throw new Error(
+                  `The return value of the method '${key}' is not allowed.`
+                );
+              }
+            },
+            {
+              enableAutoFreeze: this[enableAutoFreezeKey],
             }
-          });
+          );
         }
         stagedState = undefined;
         if (__DEV__) {
@@ -104,13 +112,6 @@ const action = (
               `There are no state updates to method '${methodName}'`
             );
           }
-          // performance checking
-          const executionTime = Date.now() - time!;
-          if (executionTime > 100)
-            console.warn(
-              `The execution time of method '${methodName}' is ${executionTime} ms, it's recommended to use 'dispatch()' API.`
-            );
-          // performance detail: https://immerjs.github.io/immer/docs/performance
         }
         this[storeKey]!.dispatch<ReactantAction>({
           type: this[identifierKey]!,

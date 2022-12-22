@@ -21,11 +21,11 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "immer": "^9.0.15",
+    "mutative": "^0.2.1",
     "reactant-module": "*"
   },
   "devDependencies": {
-    "immer": "^9.0.15",
-    "reactant-module": "^0.71.0"
+    "mutative": "^0.2.1",
+    "reactant-module": "^0.70.0"
   }
 }

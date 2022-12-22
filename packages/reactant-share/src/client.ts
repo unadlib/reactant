@@ -41,24 +41,7 @@ export const handleClient = ({
           const patches = enablePatchesFilter
             ? action._patches!.filter((item) => currentState[item.path[0]])
             : action._patches!;
-          let time: number;
-          if (__DEV__) {
-            // performance checking
-            time = Date.now();
-          }
           const state = applyPatches(currentState, patches);
-          if (__DEV__) {
-            const executionTime = Date.now() - time!;
-            if (executionTime > 100)
-              console.warn(
-                `The 'applyPatches()' execution time from the method '${
-                  action.method
-                }' in '${
-                  action.type as string
-                }' is ${executionTime} ms, it's recommended to use 'dispatch()' API.`
-              );
-            // performance detail: https://immerjs.github.io/immer/docs/performance
-          }
           app.store!.dispatch({ ...action, state });
         } else {
           app.store!.dispatch(action);

@@ -6716,11 +6716,6 @@ image-size@^0.6.0:
   resolved "https://registry.yarnpkg.com/image-size/-/image-size-0.6.3.tgz#e7e5c65bb534bd7cdcedd6cb5166272a85f75fb2"
   integrity sha512-47xSUiQioGaB96nqtp5/q55m0aBQSQdyIloMOc/x+QVTDZLNmXE892IIDrJ0hM1A5vcNUDD5tDffkSP5lCaIIA==
 
-immer@^9.0.15:
-  version "9.0.15"
-  resolved "https://registry.yarnpkg.com/immer/-/immer-9.0.15.tgz#0b9169e5b1d22137aba7d43f8a81a495dd1b62dc"
-  integrity sha512-2eB/sswms9AEUSkOm4SbV5Y7Vmt/bKRwByd52jfLkW4OLYeaTP3EEiJ9agqU0O/tq6Dk62Zfj+TJSqfm1rLVGQ==
-
 "immutable@^3.8.1 || ^4.0.0":
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/immutable/-/immutable-4.1.0.tgz#f795787f0db780183307b9eb2091fcac1f6fafef"
@@ -9054,6 +9049,11 @@ multimatch@^5.0.0:
     array-union "^2.1.0"
     arrify "^2.0.1"
     minimatch "^3.0.4"
+
+mutative@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/mutative/-/mutative-0.2.1.tgz#f22fbb7f02d563ec0be4410ec73e84a68af25c04"
+  integrity sha512-1W5D+k0wa8RMqnKrtXCmUOj16ywoJSs/9FQUw2PlPMGvFcAMIP4/N2kbIylEq5juCVNgfAwjocK4+H1/Fvttlg==
 
 mute-stream@0.0.7:
   version "0.0.7"

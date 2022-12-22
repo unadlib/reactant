@@ -1,4 +1,4 @@
-import { applyPatches } from 'immer';
+import { apply as applyPatches } from 'mutative';
 import { Middleware } from 'redux';
 import {
   injectable,

@@ -3,11 +3,7 @@
 /* eslint-disable guard-for-in */
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable no-loop-func */
-import {
-  enablePatches as enablePatchesWithImmer,
-  produce,
-  setAutoFreeze,
-} from 'immer';
+import { create } from 'mutative';
 import {
   Container,
   getMetadata,
@@ -30,6 +26,7 @@ import {
   containerKey,
   defaultStateKey,
   enablePatchesKey,
+  enableAutoFreezeKey,
   identifierKey,
   loaderKey,
   modulesKey,
@@ -90,17 +87,10 @@ export function createStore<T = any>({
   let store: ReactantStore | undefined = originalStore;
   let reducers: ReducersMapObject = {};
   const subscriptions: Subscriptions[] = [];
-  // TODO: replace with `mutative`
-  const enableAutoFreeze = devOptions.autoFreeze ?? true;
+  const enableAutoFreeze = devOptions.autoFreeze ?? false;
   const enableReduxDevTools = devOptions.reduxDevTools ?? __DEV__;
   const enablePatches = devOptions.enablePatches ?? false;
   const enableInspector = devOptions.enableInspector ?? false;
-  if (typeof store === 'undefined') {
-    setAutoFreeze(enableAutoFreeze);
-    if (enablePatches) {
-      enablePatchesWithImmer();
-    }
-  }
 
   dynamicModules.forEach((module, key) => {
     try {
@@ -198,7 +188,7 @@ export function createStore<T = any>({
             }
 
             const initState = enableAutoFreeze
-              ? produce({ ...service[stateKey] }, () => {}) // freeze init state
+              ? create({ ...service[stateKey] }, () => {}, { enableAutoFreeze }) // freeze init state
               : service[stateKey]!;
             Object.assign(descriptors, {
               [initStateKey]: {
@@ -324,7 +314,13 @@ export function createStore<T = any>({
                 load(...args);
               },
             },
-            // enablePatches options for immer
+            // enableAutoFreeze options for mutative
+            [enableAutoFreezeKey]: {
+              enumerable: false,
+              configurable: false,
+              value: enableAutoFreeze,
+            },
+            // enablePatches options for mutative
             [enablePatchesKey]: {
               enumerable: false,
               configurable: false,

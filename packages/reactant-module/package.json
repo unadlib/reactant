@@ -26,8 +26,8 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "immer": "^9.0.15",
-    "reactant-di": "^0.71.0",
+    "mutative": "^0.2.1",
+    "reactant-di": "^0.70.0",
     "redux": "^4.1.0"
   },
   "devDependencies": {

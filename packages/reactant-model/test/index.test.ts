@@ -9,7 +9,7 @@ import {
   PluginModule,
   stateKey,
 } from 'reactant-module';
-import { applyPatches } from 'immer';
+import { apply as applyPatches } from 'mutative';
 import { model } from '..';
 
 test('base model with `useValue`', () => {
