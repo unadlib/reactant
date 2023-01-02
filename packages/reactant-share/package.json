@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "broadcast-channel": "^4.0.0",
-    "data-transport": "^3.3.4",
+    "data-transport": "^3.3.5",
     "reactant": "^0.70.0",
     "reactant-last-action": "^0.70.0",
     "reactant-router": "^0.70.0",
