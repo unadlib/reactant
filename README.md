@@ -4,7 +4,6 @@
 
 ![Node CI](https://github.com/unadlib/reactant/workflows/Node%20CI/badge.svg)
 [![npm version](https://badge.fury.io/js/reactant.svg)](http://badge.fury.io/js/reactant)
-[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/unadlib/reactant.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/unadlib/reactant/context:javascript)
 ![license](https://img.shields.io/npm/l/reactant)
 
 Reactant - A framework for building React applications
