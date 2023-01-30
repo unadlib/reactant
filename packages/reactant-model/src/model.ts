@@ -32,8 +32,8 @@ export const model = <
     Object.assign(scheme.actions, {
       [key]: (...args: any[]) => {
         let state: Immutable<S> | S | undefined;
-        let patches: Patch[] | undefined;
-        let inversePatches: Patch[] | undefined;
+        let patches: Patch<true>[] | undefined;
+        let inversePatches: Patch<true>[] | undefined;
         if (module[enablePatchesKey]) {
           [state, patches, inversePatches] = create(
             module[stateKey] as S,
