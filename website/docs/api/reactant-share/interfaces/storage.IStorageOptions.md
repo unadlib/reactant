@@ -119,7 +119,7 @@ IBaseStorageOptions.loading
 
 #### Defined in
 
-[packages/reactant-storage/src/storage.tsx:33](https://github.com/unadlib/reactant/blob/0168c3f1/packages/reactant-storage/src/storage.tsx#L33)
+[packages/reactant-storage/src/storage.tsx:33](https://github.com/unadlib/reactant/blob/4ec91913/packages/reactant-storage/src/storage.tsx#L33)
 
 ___
 
@@ -177,7 +177,7 @@ IBaseStorageOptions.storage
 
 #### Defined in
 
-[packages/reactant-storage/src/storage.tsx:29](https://github.com/unadlib/reactant/blob/0168c3f1/packages/reactant-storage/src/storage.tsx#L29)
+[packages/reactant-storage/src/storage.tsx:29](https://github.com/unadlib/reactant/blob/4ec91913/packages/reactant-storage/src/storage.tsx#L29)
 
 ___
 

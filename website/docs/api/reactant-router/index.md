@@ -33,7 +33,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-router/src/router.tsx:23](https://github.com/unadlib/reactant/blob/0168c3f1/packages/reactant-router/src/router.tsx#L23)
+[packages/reactant-router/src/router.tsx:23](https://github.com/unadlib/reactant/blob/4ec91913/packages/reactant-router/src/router.tsx#L23)
 
 ## Functions
 
