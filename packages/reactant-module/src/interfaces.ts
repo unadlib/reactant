@@ -9,7 +9,7 @@ import type {
   Unsubscribe,
   ReducersMapObject,
 } from 'redux';
-import type { Patch } from 'mutative';
+import type { Patch as IPatch, Patches as IPatches } from 'mutative';
 import type { EnhancerOptions } from 'redux-devtools-extension';
 import type {
   Container,
@@ -32,12 +32,17 @@ import {
   initStateKey,
   unsubscriptionsKey,
   enableInspectorKey,
+  strictKey,
 } from './constants';
 import { PluginModule } from './core';
 
+export type Patch = IPatch<true>;
+
+export type Patches = IPatches<true>;
+
 export interface DevOptions {
   /**
-   * Enable react strict mode.
+   * Enable strict mode for React and Mutative.
    */
   strict?: boolean;
   /**
@@ -78,6 +83,7 @@ export interface Service<T extends Record<string, any> = Record<string, any>> {
   readonly [loaderKey]?: Loader;
   readonly [enablePatchesKey]?: boolean;
   readonly [enableAutoFreezeKey]?: boolean;
+  readonly [strictKey]?: boolean;
   readonly [enableInspectorKey]?: boolean;
   readonly [subscriptionsKey]?: Subscriptions;
   readonly [unsubscriptionsKey]?: Set<Unsubscribe>;
@@ -103,8 +109,8 @@ export interface ReactantAction<T = any> extends Action<string | symbol> {
   state: Record<string, T>;
   params: any[];
   _reactant: typeof actionIdentifier;
-  _patches?: Patch<true>[];
-  _inversePatches?: Patch<true>[];
+  _patches?: Patch[];
+  _inversePatches?: Patch[];
 }
 
 export type StateMapObject<T extends Record<string, Function>> = {

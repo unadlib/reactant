@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 /* eslint-disable func-names */
-import { create, Patch } from 'mutative';
-import { ReactantAction, Service } from '../interfaces';
+import { create } from 'mutative';
+import { Patch, ReactantAction, Service } from '../interfaces';
 import {
   storeKey,
   actionIdentifier,
@@ -9,6 +9,7 @@ import {
   enableAutoFreezeKey,
   identifierKey,
   enableInspectorKey,
+  strictKey,
 } from '../constants';
 
 let stagedState: Record<string, unknown> | undefined;
@@ -82,6 +83,7 @@ const action = (
             },
             {
               enablePatches: true,
+              strict: this[strictKey],
               enableAutoFreeze: this[enableAutoFreezeKey],
             }
           );
@@ -98,6 +100,7 @@ const action = (
               }
             },
             {
+              strict: this[strictKey],
               enableAutoFreeze: this[enableAutoFreezeKey],
             }
           );

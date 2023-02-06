@@ -6,5 +6,6 @@ export const stateKey: unique symbol = Symbol('state');
 export const defaultStateKey: unique symbol = Symbol('defaultState');
 export const enablePatchesKey: unique symbol = Symbol('enablePatches');
 export const enableAutoFreezeKey: unique symbol = Symbol('enableAutoFreeze');
+export const strictKey: unique symbol = Symbol('strict');
 export const enableInspectorKey: unique symbol = Symbol('enableInspector');
 export const actionIdentifier = 'REACTANT_ACTION' as const;

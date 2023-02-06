@@ -1,4 +1,5 @@
-export { apply as applyPatches } from 'mutative';
+export { apply as applyPatches, current, original, unsafe } from 'mutative';
+
 export {
   inject,
   optional,

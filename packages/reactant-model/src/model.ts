@@ -1,4 +1,4 @@
-import { create, Patch, Immutable } from 'mutative';
+import { create, Immutable } from 'mutative';
 import {
   storeKey,
   Service,
@@ -8,6 +8,8 @@ import {
   enableAutoFreezeKey,
   identifierKey,
   nameKey,
+  strictKey,
+  Patch,
 } from 'reactant-module';
 
 interface Scheme<S, A> {
@@ -32,8 +34,8 @@ export const model = <
     Object.assign(scheme.actions, {
       [key]: (...args: any[]) => {
         let state: Immutable<S> | S | undefined;
-        let patches: Patch<true>[] | undefined;
-        let inversePatches: Patch<true>[] | undefined;
+        let patches: Patch[] | undefined;
+        let inversePatches: Patch[] | undefined;
         if (module[enablePatchesKey]) {
           [state, patches, inversePatches] = create(
             module[stateKey] as S,
@@ -42,6 +44,7 @@ export const model = <
             },
             {
               enablePatches: true,
+              strict: module[strictKey],
               enableAutoFreeze: module[enableAutoFreezeKey],
             }
           );
@@ -52,6 +55,7 @@ export const model = <
               fn(...args)(draftState);
             },
             {
+              strict: module[strictKey],
               enableAutoFreeze: module[enableAutoFreezeKey],
             }
           );

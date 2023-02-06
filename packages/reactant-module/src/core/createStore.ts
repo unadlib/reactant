@@ -37,6 +37,7 @@ import {
   subscriptionsKey,
   enableInspectorKey,
   dynamicModulesKey,
+  strictKey,
 } from '../constants';
 import { getStagedState } from '../decorators';
 import type {
@@ -91,6 +92,7 @@ export function createStore<T = any>({
   const enableReduxDevTools = devOptions.reduxDevTools ?? __DEV__;
   const enablePatches = devOptions.enablePatches ?? false;
   const enableInspector = devOptions.enableInspector ?? false;
+  const strict = devOptions.strict ?? false;
 
   dynamicModules.forEach((module, key) => {
     try {
@@ -314,6 +316,12 @@ export function createStore<T = any>({
                 load(...args);
               },
             },
+            // use strict mode for mutative
+            [strictKey]: {
+              enumerable: false,
+              configurable: false,
+              value: strict,
+            },
             // enableAutoFreeze options for mutative
             [enableAutoFreezeKey]: {
               enumerable: false,
@@ -326,6 +334,7 @@ export function createStore<T = any>({
               configurable: false,
               value: enablePatches,
             },
+
             // enableInspector options for state changing check before dispatching
             [enableInspectorKey]: {
               enumerable: false,
