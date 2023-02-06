@@ -195,6 +195,6 @@ But in terms of module model and shared model, reactant-share already provides a
 
 reactant-share is a framework for building Shared Web Apps. But such a model is not free, and it will face performance issues with data transfer (The high maintenance cost of the SharedArrayBuffer has forced us to abandon it for now as well. In fact this is a problem caused by the fact that JS "multithreading" does not share memory efficiently).
 
-Although Shared Web Apps lets the client App run in a render-only client thread, it introduces the additional overhead of synchronous state transfer. We must ensure that it is lightweight and efficient enough. While reactant-share does state patch based on Immer, it is always difficult to ensure that each patch is minimally updated.
+Although Shared Web Apps lets the client App run in a render-only client thread, it introduces the additional overhead of synchronous state transfer. We must ensure that it is lightweight and efficient enough. While reactant-share does state patch based on [Mutative](https://github.com/unadlib/mutative), it is always difficult to ensure that each patch is minimally updated.
 
 reactant-share provides a development option `enablePatchesChecker`. In development mode, it is enabled by default. Any mutation operation that is not a valid mutation will be alerted, usually eliminating the alert, and reactant-share will try to keep the update size as minimal as possible.

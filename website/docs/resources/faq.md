@@ -14,7 +14,7 @@ In fact, using concepts such as Reactant's `PluginModule`, you can encapsulate a
 
 ## Why is Reactant's state management immutable, but the updated `@action` does mutation?
 
-Because Reactant's state management is based on `Redux` and `Immer`, `Redux` ensures that Reactant's default shared state is immutable, and `Immer` allows immutable shared states to be updated succinctly by mutation.
+Because Reactant's state management is based on `Redux` and `Mutative`, `Redux` ensures that Reactant's default shared state is immutable, and `Mutative` allows immutable shared states to be updated succinctly by mutation.
 
 ## Reactant integrates Redux as a state management library, so can I use other state management libraries?
 

@@ -30,7 +30,7 @@ Reactant is a progressive framework. In the process of developing applications f
 
 ### Better Immutable State Management
 
-React advocates immutable state type management, and Redux clearly fits this. But the fact is that simple mutation update operations like MobX are increasingly in line with current trends. Therefore Reactant provides a new immutable state management model based on Redux and Immer, which incorporates similar API elements of MobX. And more importantly, it still maintains the immutability of state.
+React advocates immutable state type management, and Redux clearly fits this. But the fact is that simple mutation update operations like MobX are increasingly in line with current trends. Therefore Reactant provides a new immutable state management model based on Redux and [Mutative](https://github.com/unadlib/mutative), which incorporates similar API elements of MobX. And more importantly, it still maintains the immutability of state.
 
 ```ts
 @injectable()
@@ -93,7 +93,7 @@ Reactant will do more features that improve the development experience.
 
 ### Benchmark Performance
 
-In benchmark performance tests between Reactant and MobX+React, Reactant has the edge in startup time and derived computing, while MobX+React has the edge in value updates. And overall, the performance difference is not particularly significant. Because Reactant is based on Immer, Reactant also provides a performance-optimized solution when encountering a very few extreme performance bottlenecks. 
+In benchmark performance tests between Reactant and MobX+React, Reactant has the edge in startup time and derived computing, while MobX+React has the edge in value updates. And overall, the performance difference is not particularly significant. Because Reactant is based on [Mutative](https://github.com/unadlib/mutative), Reactant also provides a performance-optimized solution when encountering a very few extreme performance bottlenecks. 
 
 Reactant is committed to maintaining good performance while continuing to build a productive React framework.
 

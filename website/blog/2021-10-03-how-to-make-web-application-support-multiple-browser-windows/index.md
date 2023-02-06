@@ -252,7 +252,7 @@ With that, we can quickly turn SharedWorker mode into SharedTab mode.
 
 ### Transport/Performance
 
-Since the client app only renders and receives synchronized state. So the client app keeps running smoothly when the size of each dispatch update state does not exceed 50M. reactant uses [Immer patch](https://immerjs.github.io/immer/patches/) to update, usually this patch will be very small and reactant also does DEV checking for patch minimization updates. In fact, in most scenarios, the patch will not be that large.
+Since the client app only renders and receives synchronized state. So the client app keeps running smoothly when the size of each dispatch update state does not exceed 50M. reactant uses [Mutative Patch](https://github.com/unadlib/mutative) to update, usually this patch will be very small and reactant also does DEV checking for patch minimization updates. In fact, in most scenarios, the patch will not be that large.
 
 | Update state size         | Volume of data | Deserialization |
 | ------------------------- | -------------- | --------------- |
@@ -388,7 +388,7 @@ But in terms of module model and shared model, reactant-share already provides a
 
 reactant-share is a framework for building Shared Web Apps. But such a model is not free, and it will face performance issues with data transfer (The high maintenance cost of the SharedArrayBuffer has forced us to abandon it for now as well. In fact this is a problem caused by the fact that JS "multithreading" does not share memory efficiently).
 
-Although Shared Web Apps lets the client App run in a render-only client thread, it introduces the additional overhead of synchronous state transfer. We must ensure that it is lightweight and efficient enough. While reactant-share does state patch based on Immer, it is always difficult to ensure that each patch is minimally updated.
+Although Shared Web Apps lets the client App run in a render-only client thread, it introduces the additional overhead of synchronous state transfer. We must ensure that it is lightweight and efficient enough. While reactant-share does state patch based on [Mutative](https://github.com/unadlib/mutative), it is always difficult to ensure that each patch is minimally updated.
 
 reactant-share provides a development option `enablePatchesChecker`. In development mode, it is enabled by default. Any mutation operation that is not a valid mutation will be alerted, usually eliminating the alert, and reactant-share will try to keep the update size as minimal as possible.
 
