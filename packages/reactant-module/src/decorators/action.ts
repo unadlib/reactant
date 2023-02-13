@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 /* eslint-disable func-names */
 import { create } from 'mutative';
-import { Patch, ReactantAction, Service } from '../interfaces';
+import { Patch, Patches, ReactantAction, Service } from '../interfaces';
 import {
   storeKey,
   actionIdentifier,
@@ -67,8 +67,8 @@ const action = (
       try {
         const lastState = this[storeKey]?.getState();
         let state: Record<string, unknown>;
-        let patches: Patch[] | undefined;
-        let inversePatches: Patch[] | undefined;
+        let patches: Patches | undefined;
+        let inversePatches: Patches | undefined;
         if (this[enablePatchesKey]) {
           [state, patches, inversePatches] = create(
             lastState,

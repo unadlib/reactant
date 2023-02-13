@@ -10,6 +10,7 @@ import {
   nameKey,
   strictKey,
   Patch,
+  Patches,
 } from 'reactant-module';
 
 interface Scheme<S, A> {
@@ -34,8 +35,8 @@ export const model = <
     Object.assign(scheme.actions, {
       [key]: (...args: any[]) => {
         let state: Immutable<S> | S | undefined;
-        let patches: Patch[] | undefined;
-        let inversePatches: Patch[] | undefined;
+        let patches: Patches | undefined;
+        let inversePatches: Patches | undefined;
         if (module[enablePatchesKey]) {
           [state, patches, inversePatches] = create(
             module[stateKey] as S,

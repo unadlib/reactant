@@ -99,6 +99,10 @@ export class PortDetector {
     });
   }
 
+  get id() {
+    return this.clientId ?? '__SERVER__';
+  }
+
   get shared() {
     return !!(this.sharedAppOptions.port && this.sharedAppOptions.type);
   }

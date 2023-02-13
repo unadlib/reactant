@@ -109,8 +109,8 @@ export interface ReactantAction<T = any> extends Action<string | symbol> {
   state: Record<string, T>;
   params: any[];
   _reactant: typeof actionIdentifier;
-  _patches?: Patch[];
-  _inversePatches?: Patch[];
+  _patches?: Patches;
+  _inversePatches?: Patches;
 }
 
 export type StateMapObject<T extends Record<string, Function>> = {
