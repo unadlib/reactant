@@ -21,9 +21,8 @@ import {
 } from 'reactant-module';
 import { Config, App, Renderer } from './interfaces';
 
-export const ContainerContext: Context<Container | null> = React.createContext<Container | null>(
-  null
-);
+export const ContainerContext: Context<Container | null> =
+  React.createContext<Container | null>(null);
 
 /**
  * ## Description
@@ -170,12 +169,12 @@ function createApp<T, S extends any[], R extends Renderer<S>>({
     /**
      * all modules collection
      */
-    modules: ((instance as any) as Service)[modulesKey]!,
+    modules: (instance as any as Service)[modulesKey]!,
     /**
      * destroy all subscriptions
      */
     destroy: () => {
-      const modulesMap = ((instance as any) as Service)[modulesKey]!;
+      const modulesMap = (instance as any as Service)[modulesKey]!;
       Object.keys(modulesMap).forEach((key) => {
         const module = modulesMap[key] as Service | null | undefined;
         const unsubscriptions = module?.[unsubscriptionsKey];
