@@ -31,7 +31,7 @@
     "redux": "^4.1.0"
   },
   "devDependencies": {
-    "react": "^17.0.2",
+    "react": "^18.2.0",
     "redux-devtools-extension": "^2.13.8"
   }
 }
