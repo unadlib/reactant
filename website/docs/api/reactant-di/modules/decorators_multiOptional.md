@@ -38,4 +38,4 @@ custom_edit_url: null
 
 #### Defined in
 
-[packages/reactant-di/src/decorators/multiOptional.ts:7](https://github.com/unadlib/reactant/blob/30b550e1/packages/reactant-di/src/decorators/multiOptional.ts#L7)
+[packages/reactant-di/src/decorators/multiOptional.ts:7](https://github.com/unadlib/reactant/blob/5cb51d4e/packages/reactant-di/src/decorators/multiOptional.ts#L7)
