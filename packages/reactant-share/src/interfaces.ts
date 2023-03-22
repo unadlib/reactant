@@ -23,11 +23,11 @@ export interface Transports {
   /**
    * Server Transport
    */
-  server?: Transport<ServerTransport, ClientTransport>;
+  server?: Transport<{ listen: ServerEvents; emit: ClientEvents }>;
   /**
    * Client Transport
    */
-  client?: Transport<ClientTransport, ServerTransport>;
+  client?: Transport<{ listen: ClientEvents; emit: ServerEvents }>;
 }
 
 export interface ISharedAppOptions {
@@ -102,7 +102,7 @@ export type CallbackWithHook<T extends Transport = Transport<any, any>> = (
 
 export type PortApp = Partial<Record<Port, App<any, any, any>>>;
 
-export interface ClientTransport {
+export interface ClientEvents {
   [proxyClientActionName](options: {
     module: string;
     method: string;
@@ -121,7 +121,7 @@ export type ActionOptions = Pick<
   Exclude<keyof ILastActionState, '_inversePatches'>
 >;
 
-export interface ServerTransport {
+export interface ServerEvents {
   [proxyServerActionName](options: {
     module: string;
     method: string;

@@ -13,7 +13,7 @@ import {
 } from './constants';
 import {
   CallbackWithHook,
-  ClientTransport,
+  ClientEvents,
   Port,
   PortApp,
   Transports,
@@ -42,7 +42,7 @@ export class PortDetector {
   >();
 
   syncFullStatePromise?: ReturnType<
-    ClientTransport[typeof loadFullStateActionName]
+    ClientEvents[typeof loadFullStateActionName]
   >;
 
   /**

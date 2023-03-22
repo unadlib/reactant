@@ -22,8 +22,8 @@ export type { IRouterOptions } from './router';
 export type { IStorageOptions, SetStorageOptions } from './storage';
 export type { Transport } from './createTransport';
 export type {
-  ClientTransport,
-  ServerTransport,
+  ClientEvents as ClientTransport,
+  ServerEvents as ServerTransport,
   ISharedAppOptions,
   Config as SharedAppConfig,
 } from './interfaces';
