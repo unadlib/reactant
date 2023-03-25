@@ -1,7 +1,7 @@
 import { containerKey, identifierKey, Service } from 'reactant';
 import { proxyClientActionName } from './constants';
 import { ProxyExec } from './interfaces';
-import { PortDetector } from './services/portDetector';
+import { PortDetector } from './modules/portDetector';
 
 /**
  * Proxy execute On the server side.

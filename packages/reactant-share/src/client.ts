@@ -7,7 +7,7 @@ import {
 import { LastAction } from 'reactant-last-action';
 import { HandleClientOptions } from './interfaces';
 import { lastActionName, proxyServerActionName } from './constants';
-import { PortDetector } from './services/portDetector';
+import { PortDetector } from './modules/portDetector';
 import { applyMethod } from './applyMethod';
 
 export const handleClient = ({
