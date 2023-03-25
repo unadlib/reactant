@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+/* eslint-disable react/function-component-definition */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-// @ts-nocheck
 import React, { useState, FunctionComponent } from 'react';
+// @ts-ignore
 import { Switch, Route } from 'reactant-web';
 import {
   ViewModule,
@@ -11,6 +13,7 @@ import {
   ClientTransport as IClientTransport,
   ServerTransport as IServerTransport,
   Transport,
+  // @ts-ignore
 } from 'reactant-share';
 import { TodoListView } from './todoList.view';
 import { CounterView } from './counter.view';
@@ -29,9 +32,9 @@ const Link: FunctionComponent<{ active: boolean; onClick: () => any }> = ({
   );
 };
 
-interface ClientTransport extends IClientTransport {
+type ClientTransport = IClientTransport & {
   test(n: number): Promise<string>;
-}
+};
 
 @injectable({
   name: 'appView',
@@ -52,16 +55,28 @@ export class AppView extends ViewModule {
     super();
 
     this.portDetector.onServer(
-      (transport: Transport<IServerTransport, ClientTransport>) => {
+      (
+        transport: Transport<{
+          listen: IServerTransport;
+          emit: ClientTransport;
+        }>
+      ) => {
         transport.listen(
           'test',
+          // @ts-ignore
           async (n) => `response '${n}' from server port`
         );
       }
     );
     this.portDetector.onClient(
-      (transport: Transport<ClientTransport, IServerTransport>) => {
+      (
+        transport: Transport<{
+          listen: ClientTransport;
+          emit: IServerTransport;
+        }>
+      ) => {
         this.type = 'Client';
+        // @ts-ignore
         transport.emit('test', 42).then((response) => {
           console.log(response);
         });

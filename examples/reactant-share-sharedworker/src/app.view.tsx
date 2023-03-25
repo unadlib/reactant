@@ -1,3 +1,4 @@
+/* eslint-disable react/function-component-definition */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, FunctionComponent } from 'react';
 import { Switch, Route } from 'reactant-web';
@@ -26,9 +27,9 @@ const Link: FunctionComponent<{ active: boolean; onClick: () => any }> = ({
   );
 };
 
-interface ClientTransport extends IClientTransport {
+type ClientTransport = IClientTransport & {
   test(n: number): Promise<string>;
-}
+};
 
 @injectable({
   name: 'appView',
@@ -49,7 +50,12 @@ export class AppView extends ViewModule {
     super();
 
     this.portDetector.onServer(
-      (transport: Transport<IServerTransport, ClientTransport>) => {
+      (
+        transport: Transport<{
+          listen: IServerTransport;
+          emit: ClientTransport;
+        }>
+      ) => {
         transport.listen(
           'test',
           async (n) => `response '${n}' from server port`
@@ -57,7 +63,12 @@ export class AppView extends ViewModule {
       }
     );
     this.portDetector.onClient(
-      (transport: Transport<ClientTransport, IServerTransport>) => {
+      (
+        transport: Transport<{
+          listen: ClientTransport;
+          emit: IServerTransport;
+        }>
+      ) => {
         this.type = 'Client';
         transport.emit('test', 42).then((response) => {
           console.log(response);
