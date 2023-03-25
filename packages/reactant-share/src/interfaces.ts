@@ -93,7 +93,7 @@ export type Transform = (changedPort: Port) => void;
 
 export type Callback = () => void | Promise<void>;
 
-export type CallbackWithHook<T extends Transport = Transport<any, any>> = (
+export type CallbackWithHook<T extends Transport = Transport<any>> = (
   /**
    * Shared app's transport
    */
@@ -102,7 +102,7 @@ export type CallbackWithHook<T extends Transport = Transport<any, any>> = (
 
 export type PortApp = Partial<Record<Port, App<any, any, any>>>;
 
-export interface ClientEvents {
+export type ClientEvents = {
   [proxyClientActionName](options: {
     module: string;
     method: string;
@@ -114,14 +114,14 @@ export interface ClientEvents {
   ): Promise<Record<string, any> | null | undefined>;
   [isClientName](): Promise<boolean>;
   [syncRouterName](name: string, router?: RouterState): Promise<RouterState>;
-}
+};
 
 export type ActionOptions = Pick<
   ILastActionState,
   Exclude<keyof ILastActionState, '_inversePatches'>
 >;
 
-export interface ServerEvents {
+export type ServerEvents = {
   [proxyServerActionName](options: {
     module: string;
     method: string;
@@ -134,7 +134,7 @@ export interface ServerEvents {
     options: Record<string, any> | null | undefined
   ): Promise<void>;
   [syncWorkerRouterName](name: string): Promise<RouterState | undefined>;
-}
+};
 
 export interface HandleServerOptions {
   app: App<any, any, any>;

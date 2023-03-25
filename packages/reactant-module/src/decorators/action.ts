@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 /* eslint-disable func-names */
 import { create } from 'mutative';
-import { Patch, Patches, ReactantAction, Service } from '../interfaces';
+import { Patches, ReactantAction, Service } from '../interfaces';
 import {
   storeKey,
   actionIdentifier,
@@ -49,8 +49,8 @@ const action = (
   key: string,
   descriptor: TypedPropertyDescriptor<(...args: any[]) => void>
 ) => {
-  const fn = descriptor.value;
-  if (typeof fn !== 'function') {
+  const fn = descriptor.value!;
+  if (__DEV__ && typeof fn !== 'function') {
     throw new Error(
       `${String(key)} can only be decorated by '@action' as a class method.`
     );

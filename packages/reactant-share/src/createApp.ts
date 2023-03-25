@@ -16,9 +16,9 @@ import { handleServer } from './server';
 import { handleClient } from './client';
 import { createBroadcastTransport } from './createTransport';
 import { isClientName, SharedAppOptions } from './constants';
-import { PortDetector } from './portDetector';
+import { PortDetector } from './services/portDetector';
 import { useLock } from './lock';
-import { IdentifierChecker } from './checkIdentifier';
+import { IdentifierChecker } from './services/checkIdentifier';
 
 const createBaseApp = <T, S extends any[], R extends Renderer<S>>({
   share,

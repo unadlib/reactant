@@ -38,45 +38,45 @@ import { ServiceIdentifier } from '../interfaces';
  * expect(bar.foo?.test).toBe('test');
  * ```
  */
-export const getLazyDecorator = (
-  getService: (
-    serviceIdentifier: ServiceIdentifier<unknown>,
-    target?: object
-  ) => unknown
-) => (serviceIdentifier: ServiceIdentifier<unknown>, enableCache = true) => (
-  target: object,
-  key: string | symbol
-) => {
-  function getter(this: object) {
-    if (enableCache && !Reflect.hasMetadata(METADATA_KEY.lazy, this, key)) {
-      const service = getService(serviceIdentifier, this);
-      if (service !== null) {
-        Reflect.defineMetadata(METADATA_KEY.lazy, service, this, key);
+export const getLazyDecorator =
+  (
+    getService: (
+      serviceIdentifier: ServiceIdentifier<unknown>,
+      target?: object
+    ) => unknown
+  ) =>
+  (serviceIdentifier: ServiceIdentifier<unknown>, enableCache = true) =>
+  (target: object, key: string | symbol) => {
+    function getter(this: object) {
+      if (enableCache && !Reflect.hasMetadata(METADATA_KEY.lazy, this, key)) {
+        const service = getService(serviceIdentifier, this);
+        if (service !== null) {
+          Reflect.defineMetadata(METADATA_KEY.lazy, service, this, key);
+        }
+      }
+      if (Reflect.hasMetadata(METADATA_KEY.lazy, this, key)) {
+        return Reflect.getMetadata(METADATA_KEY.lazy, this, key);
+      }
+      return getService(serviceIdentifier, this);
+    }
+
+    function setter(this: object, newVal: unknown) {
+      if (enableCache) {
+        Reflect.defineMetadata(METADATA_KEY.lazy, newVal, this, key);
+      } else {
+        console.warn(`
+          Disable cache and the property ${key.toString()} in class "${
+          this.constructor.name
+        }" instance failed to set value.
+        `);
       }
     }
-    if (Reflect.hasMetadata(METADATA_KEY.lazy, this, key)) {
-      return Reflect.getMetadata(METADATA_KEY.lazy, this, key);
-    }
-    return getService(serviceIdentifier, this);
-  }
 
-  function setter(this: object, newVal: unknown) {
-    if (enableCache) {
-      Reflect.defineMetadata(METADATA_KEY.lazy, newVal, this, key);
-    } else {
-      console.warn(`
-          Disable cache and the property ${key.toString()} in class "${
-        this.constructor.name
-      }" instance failed to set value.
-        `);
-    }
-  }
-
-  // It should be compatible with the TS decorator and the babel decorator
-  return {
-    configurable: true,
-    enumerable: true,
-    get: getter,
-    set: setter,
-  } as any;
-};
+    // It should be compatible with the TS decorator and the babel decorator
+    return {
+      configurable: true,
+      enumerable: true,
+      get: getter,
+      set: setter,
+    } as any;
+  };

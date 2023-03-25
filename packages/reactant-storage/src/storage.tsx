@@ -9,7 +9,7 @@ import {
   identifierKey,
   nameKey,
 } from 'reactant-module';
-import { Reducer, ReducersMapObject, Store } from 'redux';
+import type { Reducer, ReducersMapObject, Store } from 'redux';
 import {
   persistStore,
   persistReducer,

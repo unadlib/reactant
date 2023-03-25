@@ -10,7 +10,7 @@ import {
   loadFullStateActionName,
   proxyClientActionName,
 } from './constants';
-import { PortDetector } from './portDetector';
+import { PortDetector } from './services/portDetector';
 import { checkPatches } from './checkPatches';
 import { applyMethod } from './applyMethod';
 

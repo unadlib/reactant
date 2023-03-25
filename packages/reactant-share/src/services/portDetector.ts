@@ -10,8 +10,8 @@ import {
   loadFullStateActionName,
   SharedAppOptions,
   syncToClientsName,
-} from './constants';
-import {
+} from '../constants';
+import type {
   CallbackWithHook,
   ClientEvents,
   Port,
@@ -19,8 +19,8 @@ import {
   Transports,
   Transport,
   ISharedAppOptions,
-} from './interfaces';
-import { createId } from './utils';
+} from '../interfaces';
+import { createId } from '../utils';
 
 /**
  * Port Detector

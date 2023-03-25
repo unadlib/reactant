@@ -29,7 +29,7 @@ export function state(
   descriptor?: PropertyDescriptor<any>
 ) {
   const service: Service = target;
-  if (typeof key !== 'string') {
+  if (__DEV__ && typeof key !== 'string') {
     throw new Error(
       `'@state' decorate ${key.toString()} error in ${
         target.constructor.name

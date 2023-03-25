@@ -44,7 +44,7 @@ export function autobind(
   key: string | symbol,
   { value, configurable, enumerable }: TypedPropertyDescriptor<any>
 ) {
-  if (typeof value !== 'function') {
+  if (__DEV__ && typeof value !== 'function') {
     throw new SyntaxError(
       `@autobind decorator must be applied to functions not: ${typeof value}`
     );

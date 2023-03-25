@@ -22,11 +22,11 @@ import {
   storageModuleName,
   syncRouterName,
   syncWorkerRouterName,
-} from './constants';
-import type { ISharedAppOptions } from './interfaces';
+} from '../constants';
+import type { ISharedAppOptions } from '../interfaces';
 import { PortDetector } from './portDetector';
-import { spawn } from './spawn';
-import { fork } from './fork';
+import { spawn } from '../spawn';
+import { fork } from '../fork';
 
 export {
   createBrowserHistory,
