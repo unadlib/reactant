@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-useless-fragment */
 /* eslint-disable consistent-return */
 import React, { PropsWithChildren, ReactNode } from 'react';
 import {
@@ -8,6 +9,7 @@ import {
   stateKey,
   identifierKey,
   nameKey,
+  storeKey,
 } from 'reactant-module';
 import type { Reducer, ReducersMapObject, Store } from 'redux';
 import {
@@ -174,6 +176,10 @@ class ReactantStorage extends PluginModule {
     );
   }
 
+  get store() {
+    return (this as Service)[storeKey];
+  }
+
   /**
    * manual persist
    */
@@ -265,6 +271,8 @@ class ReactantStorage extends PluginModule {
   }
 
   provider = (props: PropsWithChildren<{}>) => {
+    if (this.store?.getState()._persist?.rehydrated)
+      return <>{props.children}</>;
     return (
       <PersistGate
         loading={this.options.loading || null}
