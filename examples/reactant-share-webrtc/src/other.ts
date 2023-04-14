@@ -37,7 +37,7 @@ peer.on('connect', () => {
     },
   }).then((app) => {
     console.log(app, '====');
-    (window as any).app = app;
+    window.app = app;
     app.bootstrap(document.getElementById('app'));
   });
 });

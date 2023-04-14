@@ -1,6 +1,5 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable no-param-reassign */
-// @ts-nocheck
 import React, { useState } from 'react';
 import {
   ViewModule,

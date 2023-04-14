@@ -52,8 +52,8 @@ export class AppView extends ViewModule {
     this.portDetector.onServer(
       (
         transport: Transport<{
-          listen: IServerTransport;
-          emit: ClientTransport;
+          emit: IServerTransport;
+          listen: ClientTransport;
         }>
       ) => {
         transport.listen(
@@ -65,8 +65,8 @@ export class AppView extends ViewModule {
     this.portDetector.onClient(
       (
         transport: Transport<{
-          listen: ClientTransport;
-          emit: IServerTransport;
+          emit: ClientTransport;
+          listen: IServerTransport;
         }>
       ) => {
         this.type = 'Client';

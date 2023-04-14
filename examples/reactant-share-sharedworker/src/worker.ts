@@ -41,7 +41,5 @@ createSharedApp({
   },
 }).then((app) => {
   console.log(app, '====');
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  (self as any).app = app;
+  self.app = app;
 });

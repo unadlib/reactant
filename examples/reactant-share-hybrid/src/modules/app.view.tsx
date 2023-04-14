@@ -1,3 +1,4 @@
+/* eslint-disable react/function-component-definition */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, FunctionComponent } from 'react';
 import { Switch, Route } from 'reactant-web';

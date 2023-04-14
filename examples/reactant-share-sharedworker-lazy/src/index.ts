@@ -1,5 +1,4 @@
 /* eslint-disable no-new */
-// @ts-nocheck
 import { render } from 'reactant-web';
 import {
   createSharedApp,
@@ -16,6 +15,8 @@ import { AppView } from './app.view';
 
 const a = () => {
   new SharedWorker(
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     new URL(/* webpackChunkName: "worker" */ './worker.ts', import.meta.url)
   );
 };
@@ -44,7 +45,6 @@ createSharedApp({
     name: 'SharedWorkerApp',
     port: 'client',
     type: 'SharedWorker',
-    // @ts-ignore
     worker: global.__worker__,
     forcedSyncClient: false,
     portName:

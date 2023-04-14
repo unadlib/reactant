@@ -23,11 +23,11 @@ export interface Transports {
   /**
    * Server Transport
    */
-  server?: Transport<{ listen: ServerEvents; emit: ClientEvents }>;
+  server?: Transport<{ emit: ServerEvents; listen: ClientEvents }>;
   /**
    * Client Transport
    */
-  client?: Transport<{ listen: ClientEvents; emit: ServerEvents }>;
+  client?: Transport<{ emit: ClientEvents; listen: ServerEvents }>;
 }
 
 export interface ISharedAppOptions {

@@ -2,7 +2,6 @@
 /* eslint-disable react/function-component-definition */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, FunctionComponent } from 'react';
-// @ts-ignore
 import { Switch, Route } from 'reactant-web';
 import {
   ViewModule,
@@ -13,11 +12,9 @@ import {
   ClientTransport as IClientTransport,
   ServerTransport as IServerTransport,
   Transport,
-  // @ts-ignore
 } from 'reactant-share';
 import { TodoListView } from './todoList.view';
 import { CounterView } from './counter.view';
-// @ts-ignore
 import style from './style.css';
 
 const Link: FunctionComponent<{ active: boolean; onClick: () => any }> = ({
@@ -57,13 +54,12 @@ export class AppView extends ViewModule {
     this.portDetector.onServer(
       (
         transport: Transport<{
-          listen: IServerTransport;
-          emit: ClientTransport;
+          emit: IServerTransport;
+          listen: ClientTransport;
         }>
       ) => {
         transport.listen(
           'test',
-          // @ts-ignore
           async (n) => `response '${n}' from server port`
         );
       }
@@ -71,12 +67,11 @@ export class AppView extends ViewModule {
     this.portDetector.onClient(
       (
         transport: Transport<{
-          listen: ClientTransport;
-          emit: IServerTransport;
+          emit: ClientTransport;
+          listen: IServerTransport;
         }>
       ) => {
         this.type = 'Client';
-        // @ts-ignore
         transport.emit('test', 42).then((response) => {
           console.log(response);
         });

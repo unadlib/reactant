@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { render } from 'reactant-web';
 import { createSharedApp } from 'reactant-share';
 import { TodoListView } from './todoList.view';
@@ -23,6 +22,6 @@ createSharedApp({
   },
 }).then((app) => {
   console.log(app, '====');
-  (window as any).app = app;
+  window.app = app;
   app.bootstrap(document.getElementById('app'));
 });

@@ -1,7 +1,6 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "module": "esnext",
     "baseUrl": ".",
     "paths": {
       "reactant": ["../../node_modules/reactant"],
