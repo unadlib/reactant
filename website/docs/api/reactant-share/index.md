@@ -11,7 +11,4 @@ custom_edit_url: null
 
 - [createApp](modules/createApp.md)
 - [fork](modules/fork.md)
-- [portDetector](modules/portDetector.md)
-- [router](modules/router.md)
 - [spawn](modules/spawn.md)
-- [storage](modules/storage.md)

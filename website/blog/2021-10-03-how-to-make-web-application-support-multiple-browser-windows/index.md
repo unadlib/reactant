@@ -19,7 +19,7 @@ So what does it mean to have applications that supports multiple browser windows
 
 But it's not easy to keep large Web applications running smoothly.
 
-Web applications are still primarily built in JavaScript, which is a single-threaded programming language, and slow JavaScript code can prevent the browser’s rendering. The good news is that mainstream browsers are gradually supporting more different types of workers, especially Service Workers, which are used to implement PWAs (Progressive Web Apps) that greatly enhance the user experience. And the latest modern browsers also provide Web Worker, Shared Worker. With IE becoming deprecated this year, there is [good support for these workers](https://caniuse.com/?search=worker). Currently, only [Safari lacks support for Shared Worker](https://bugs.webkit.org/show_bug.cgi?id=149850) among modern browsers.
+Web applications are still primarily built in JavaScript, which is a single-threaded programming language, and slow JavaScript code can prevent the browser’s rendering. The good news is that mainstream browsers are gradually supporting more different types of workers, especially Service Workers, which are used to implement PWAs (Progressive Web Apps) that greatly enhance the user experience. And the latest modern browsers also provide Web Worker, Shared Worker. With IE becoming deprecated this year, there is [good support for these workers](https://caniuse.com/?search=worker).
 
 So what does it mean for Web applications to be "multi-threaded" with Worker?
 

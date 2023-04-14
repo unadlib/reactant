@@ -45,6 +45,8 @@ createSharedApp({
     name: 'SharedWorkerApp',
     port: 'client',
     type: 'SharedWorker',
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     worker: global.__worker__,
     forcedSyncClient: false,
     portName:
