@@ -53,8 +53,11 @@ export type SetStorageOptions<T> = Pick<
 class ReactantStorage extends PluginModule {
   protected blacklist: string[] = ['router', 'lastAction'];
 
-  persistor?: Persistor;
+  protected persistor?: Persistor;
 
+  /**
+   * all modules rehydrated
+   */
   rehydrated = false;
 
   constructor(@inject(StorageOptions) options: IStorageOptions) {
@@ -286,9 +289,7 @@ class ReactantStorage extends PluginModule {
   }
 
   /**
-   *  onRehydrated
-   *
-   * callback function will be called after rehydration is finished.
+   * callback when rehydrated
    */
   onRehydrated(callback: () => void) {
     if (this.rehydrated) {
