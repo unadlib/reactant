@@ -8,6 +8,7 @@ import {
 import type {
   IStorageOptions as IBaseStorageOptions,
   SetStorageOptions,
+  getRehydrated,
 } from 'reactant-storage';
 import { PortDetector } from './portDetector';
 import { storageModuleName } from '../constants';
@@ -44,4 +45,5 @@ export {
   StorageOptions,
   REHYDRATE,
   SetStorageOptions,
+  getRehydrated,
 };

@@ -12,7 +12,12 @@ export {
   createHashHistory,
   createMemoryHistory,
 } from './modules/router';
-export { Storage, StorageOptions, REHYDRATE } from './modules/storage';
+export {
+  Storage,
+  StorageOptions,
+  REHYDRATE,
+  getRehydrated,
+} from './modules/storage';
 export { useLock } from './lock';
 export { spawn } from './spawn';
 export { fork } from './fork';

@@ -24,6 +24,12 @@ import { PersistGate } from 'redux-persist/integration/react';
 
 const StorageOptions = Symbol('StorageOptions');
 
+export const getRehydrated = (target: object): undefined | boolean => {
+  const module: Service = target;
+  const state = module[stateKey];
+  return state?._persist?.rehydrated;
+};
+
 export interface IStorageOptions extends Partial<PersistConfig<any>> {
   /**
    * define storage container
@@ -123,14 +129,12 @@ class ReactantStorage extends PluginModule {
    * get every module rehydrated
    */
   getRehydrated(target: object) {
-    const module: Service = target;
-    if (!this.storageSettingMap.has(module)) {
+    if (!this.storageSettingMap.has(target)) {
       throw new Error(
-        `Module '${module.constructor.name}' is not set to storage persistent.`
+        `Module '${target.constructor.name}' is not set to storage persistent.`
       );
     }
-    const state = module[stateKey]!;
-    return state._persist.rehydrated;
+    return getRehydrated(target);
   }
 
   beforeCombineRootReducers(reducers: ReducersMapObject): ReducersMapObject {
