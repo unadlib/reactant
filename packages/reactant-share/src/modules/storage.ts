@@ -27,10 +27,10 @@ class ReactantStorage extends BaseReactantStorage {
     super(options);
     this.onRehydrated(() => {
       this.portDetector.onServer(() => {
-        this.persistor!.persist();
+        this.persist();
       });
       this.portDetector.onClient(() => {
-        this.persistor!.pause();
+        this.pause();
       });
       if (this.portDetector.isServer) {
         this.portDetector.syncToClients();

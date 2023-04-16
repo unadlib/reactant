@@ -246,6 +246,34 @@ class ReactantStorage extends PluginModule {
     };
   }
 
+  /**
+   * pauses persistence until persist() is called
+   */
+  pause() {
+    return this.persistor?.pause();
+  }
+
+  /**
+   * resumes persistence
+   */
+  persist() {
+    return this.persistor?.persist();
+  }
+
+  /**
+   * immediately writes all pending state to disk and returns a promise
+   */
+  flush() {
+    return this.persistor?.flush();
+  }
+
+  /**
+   * purges state from disk and returns a promise
+   */
+  purge() {
+    return this.persistor?.purge();
+  }
+
   protected rehydrateCallbackSet = new Set<() => void>();
 
   protected _onRehydrated() {
