@@ -59,7 +59,7 @@ describe('base API', () => {
       name: 'bar',
     })
     class Bar {
-      arrRehydrated: boolean[] = [];
+      arrRehydrated: (boolean | undefined)[] = [];
 
       constructor(public storage: Storage) {
         this.storage.setStorage(this, {
@@ -67,7 +67,7 @@ describe('base API', () => {
         });
         subscribe(this, () => {
           const rehydrated = this.storage.getRehydrated(this);
-          this.arrRehydrated.push(!rehydrated);
+          this.arrRehydrated.push(rehydrated);
         });
       }
 
