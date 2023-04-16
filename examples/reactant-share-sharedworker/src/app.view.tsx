@@ -8,8 +8,8 @@ import {
   useConnector,
   Router,
   PortDetector,
-  ClientTransport as IClientTransport,
-  ServerTransport as IServerTransport,
+  ClientTransport,
+  ServerTransport,
   Transport,
 } from 'reactant-share';
 import { TodoListView } from './todoList.view';
@@ -27,7 +27,7 @@ const Link: FunctionComponent<{ active: boolean; onClick: () => any }> = ({
   );
 };
 
-type ClientTransport = IClientTransport & {
+type ClientToServer = {
   test(n: number): Promise<string>;
 };
 
@@ -51,9 +51,8 @@ export class AppView extends ViewModule {
 
     this.portDetector.onServer(
       (
-        transport: Transport<{
-          emit: IServerTransport;
-          listen: ClientTransport;
+        transport: ClientTransport<{
+          listen: ClientToServer;
         }>
       ) => {
         transport.listen(
@@ -64,9 +63,8 @@ export class AppView extends ViewModule {
     );
     this.portDetector.onClient(
       (
-        transport: Transport<{
-          emit: ClientTransport;
-          listen: IServerTransport;
+        transport: ClientTransport<{
+          emit: ClientToServer;
         }>
       ) => {
         this.type = 'Client';

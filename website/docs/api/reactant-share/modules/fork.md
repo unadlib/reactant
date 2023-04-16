@@ -46,4 +46,4 @@ reference: https://en.wikipedia.org/wiki/Actor_model
 
 #### Defined in
 
-[interfaces.ts:163](https://github.com/unadlib/reactant/blob/d7abf375/packages/reactant-share/src/interfaces.ts#L163)
+[interfaces.ts:182](https://github.com/unadlib/reactant/blob/8deee953/packages/reactant-share/src/interfaces.ts#L182)
