@@ -1,5 +1,5 @@
 import { injectable, action, state } from 'reactant';
-// import { Storage } from 'reactant-storage';
+import { Storage } from 'reactant-storage';
 
 interface IListItem {
   id: string;
@@ -12,11 +12,11 @@ type IList = IListItem[];
   name: 'shoppingCart',
 })
 class ShoppingCart {
-  // constructor(public storage: Storage) {
-  //   this.storage.setStorage(this, {
-  //     whitelist: ['list'],
-  //   });
-  // }
+  constructor(public storage: Storage) {
+    this.storage.setStorage(this, {
+      whitelist: ['list'],
+    });
+  }
 
   @state
   list: IList = [];
