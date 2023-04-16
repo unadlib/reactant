@@ -1,5 +1,10 @@
 /* eslint-disable no-use-before-define */
-import type { EmitParameter, Transport } from 'data-transport';
+import type {
+  BaseInteraction,
+  EmitParameter,
+  MergeInteraction,
+  Transport,
+} from 'data-transport';
 import type { Config as BaseConfig, App, Renderer } from 'reactant';
 import type { ILastActionState } from 'reactant-last-action';
 import type { RouterState } from 'reactant-router';
@@ -23,12 +28,26 @@ export interface Transports {
   /**
    * Server Transport
    */
-  server?: Transport<{ emit: ServerEvents; listen: ClientEvents }>;
+  server?: ServerTransport;
   /**
    * Client Transport
    */
-  client?: Transport<{ emit: ClientEvents; listen: ServerEvents }>;
+  client?: ClientTransport;
 }
+
+export type ServerTransport<T extends BaseInteraction = {}> = Transport<
+  MergeInteraction<{ emit: ServerEvents; listen: ClientEvents }, T>
+>;
+
+export type ClientTransport<T extends BaseInteraction = {}> = Transport<
+  MergeInteraction<
+    {
+      emit: ClientEvents;
+      listen: ServerEvents;
+    },
+    T
+  >
+>;
 
 export interface ISharedAppOptions {
   /**

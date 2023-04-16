@@ -2,6 +2,7 @@ export * from 'reactant';
 export * from 'data-transport';
 export * from 'reactant-last-action';
 export * from './constants';
+
 export { createSharedApp } from './createApp';
 export { PortDetector } from './modules/portDetector';
 export {
@@ -22,8 +23,10 @@ export type { IRouterOptions } from './modules/router';
 export type { IStorageOptions, SetStorageOptions } from './modules/storage';
 export type { Transport } from './createTransport';
 export type {
-  ClientEvents as ClientTransport,
-  ServerEvents as ServerTransport,
+  ClientEvents,
+  ClientTransport,
+  ServerEvents,
+  ServerTransport,
   ISharedAppOptions,
   Config as SharedAppConfig,
 } from './interfaces';
