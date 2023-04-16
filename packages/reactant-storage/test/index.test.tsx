@@ -67,7 +67,7 @@ describe('base API', () => {
         });
         subscribe(this, () => {
           const rehydrated = this.storage.getRehydrated(this);
-          this.arrRehydrated.push(rehydrated);
+          this.arrRehydrated.push(!rehydrated);
         });
       }
 
