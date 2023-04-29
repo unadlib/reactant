@@ -20,18 +20,17 @@ function lookupServiceIdentifiers(
 }
 
 export function createCollector(ServiceIdentifiers: ServiceIdentifiersMap) {
-  return (planAndResolve: interfaces.Next): interfaces.Next => (
-    args: interfaces.NextArgs
-  ) => {
-    const nextContextInterceptor = args.contextInterceptor;
-    const contextInterceptor = (context: interfaces.Context) => {
-      lookupServiceIdentifiers(context.plan.rootRequest, ServiceIdentifiers);
-      return nextContextInterceptor(context);
+  return (planAndResolve: interfaces.Next): interfaces.Next =>
+    (args: interfaces.NextArgs) => {
+      const nextContextInterceptor = args.contextInterceptor;
+      const contextInterceptor = (context: interfaces.Context) => {
+        lookupServiceIdentifiers(context.plan.rootRequest, ServiceIdentifiers);
+        return nextContextInterceptor(context);
+      };
+      const result = planAndResolve({
+        ...args,
+        contextInterceptor,
+      });
+      return result;
     };
-    const result = planAndResolve({
-      ...args,
-      contextInterceptor,
-    });
-    return result;
-  };
 }

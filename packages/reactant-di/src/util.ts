@@ -67,7 +67,7 @@ const lookupOptionalIdentifier = (
         Object.keys(modulesDep).length === 2)
     ) {
       return !!deps.filter(
-        dep => dep instanceof Optional && dep.identifier === serviceIdentifier
+        (dep) => dep instanceof Optional && dep.identifier === serviceIdentifier
       ).length;
     }
   }
