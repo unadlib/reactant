@@ -97,7 +97,6 @@ class AppView extends ViewModule {
 
 const app = createApp({
   main: AppView,
-  modules: [],
   render,
 });
 
