@@ -58,7 +58,7 @@ Use `@inject()` and bring its corresponding identifier parameter as dependency i
 
 ```ts
 interface Bar {
-  text: string
+  text: string;
 }
 
 @injectable()
@@ -88,6 +88,42 @@ class Foo {
 }
 ```
 
+> When you need to depend on injecting multiple instances of the same class, you can consider using different injection tokens, for example
+
+```ts
+@injectable()
+class Bar {}
+
+@injectable()
+class Foo {
+  constructor(@inject('Bar0') public bar: Bar) {}
+}
+
+@injectable()
+class AppView extends ViewModule {
+  constructor(@inject('Bar1') public bar: Bar, public foo: Foo) {}
+}
+
+const app = createApp({
+  main: AppView,
+  modules: [
+    {
+      provide: 'Bar0',
+      useClass: Bar,
+    },
+    {
+      provide: 'Bar1',
+      useClass: Bar,
+    },
+  ]
+  render,
+});
+
+expect(app.instance.bar !== app.instance.foo.bar).toBe(true);
+```
+
+`AppView` dependency bar is a different instance from `Foo` dependency bar
+
 ## @optional()
 
 Use `optional()` with a dependency identifier that you can use to inject an optional module.
@@ -96,7 +132,7 @@ Use `optional()` with a dependency identifier that you can use to inject an opti
 
 ```ts
 interface Bar {
-  text: string
+  text: string;
 }
 
 @injectable()
@@ -121,7 +157,9 @@ class Foo {
   }
 
   get text() {
-    return this.bar === null || this.bar === undefined ? undefined : this.bar.text;
+    return this.bar === null || this.bar === undefined
+      ? undefined
+      : this.bar.text;
   }
 }
 ```
