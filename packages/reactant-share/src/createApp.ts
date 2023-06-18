@@ -3,7 +3,12 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-shadow */
 /* eslint-disable no-async-promise-executor */
-import { App, createApp as createReactantApp, Renderer } from 'reactant';
+import {
+  App,
+  createApp as createReactantApp,
+  Renderer,
+  ModuleRef,
+} from 'reactant';
 import { createTransport } from 'data-transport';
 import {
   LastAction,
@@ -18,7 +23,8 @@ import { createBroadcastTransport } from './createTransport';
 import { isClientName, SharedAppOptions } from './constants';
 import { PortDetector } from './modules/portDetector';
 import { useLock } from './lock';
-import { IdentifierChecker } from './modules/checkIdentifier';
+import { IdentifierChecker } from './modules/identifierChecker';
+import { PatchesChecker } from './modules/patchesChecker';
 
 const createBaseApp = <T, S extends any[], R extends Renderer<S>>({
   share,
@@ -31,11 +37,24 @@ const createBaseApp = <T, S extends any[], R extends Renderer<S>>({
     LastAction,
     {
       provide: LastActionOptions,
-      useValue: {
-        stateKey: `lastAction-${share.name}`,
-        // ignore router state sync for last action
-        ignoreAction: (action) => action.type === LOCATION_CHANGE,
-      } as ILastActionOptions,
+      useFactory: (moduleRef: ModuleRef) => {
+        let portDetector: PortDetector;
+        return {
+          stateKey: `lastAction-${share.name}`,
+          // ignore router state and isolated state sync for last action
+          ignoreAction: (action) => {
+            if (!portDetector) {
+              portDetector = moduleRef.get(PortDetector);
+            }
+            const firstPath = action._patches?.[0].path[0];
+            return (
+              action.type === LOCATION_CHANGE ||
+              (firstPath && portDetector.hasIsolatedState(`${firstPath}`))
+            );
+          },
+        } as ILastActionOptions;
+      },
+      deps: [ModuleRef],
     },
     {
       provide: SharedAppOptions,
@@ -45,6 +64,9 @@ const createBaseApp = <T, S extends any[], R extends Renderer<S>>({
   );
   if (__DEV__) {
     options.modules.push(IdentifierChecker);
+  }
+  if (share.enablePatchesChecker) {
+    options.modules.push(PatchesChecker);
   }
 
   let app: App<T, S, R>;

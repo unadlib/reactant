@@ -11,7 +11,7 @@ import {
   proxyClientActionName,
 } from './constants';
 import { PortDetector } from './modules/portDetector';
-import { checkPatches } from './checkPatches';
+import { PatchesChecker } from './modules/patchesChecker';
 import { applyMethod } from './applyMethod';
 
 export const handleServer = ({
@@ -29,6 +29,9 @@ export const handleServer = ({
   const container: Container = app.instance[containerKey];
   const lastAction = container.get(LastAction);
   const portDetector = container.get(PortDetector);
+  const patchesChecker: PatchesChecker | null = enablePatchesChecker
+    ? container.get(PatchesChecker)
+    : null;
   portDetector.setPort({ server: app }, transport);
   const disposeListeners: ((() => void) | undefined)[] = [];
   disposeListeners.push(transport.listen(isClientName, async () => true));
@@ -56,11 +59,12 @@ export const handleServer = ({
           if (!portDetector.lastAction.options?.ignoreAction?.(action)) {
             if (
               __DEV__ &&
+              enablePatchesChecker &&
+              patchesChecker &&
               action?._reactant === actionIdentifier &&
-              action._patches &&
-              enablePatchesChecker
+              action._patches
             ) {
-              checkPatches(oldStateTree, action);
+              patchesChecker.checkPatches(oldStateTree, action);
             }
             transport.emit({ name: lastActionName, respond: false }, action);
           }
