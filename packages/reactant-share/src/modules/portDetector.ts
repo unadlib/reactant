@@ -96,13 +96,23 @@ export class PortDetector {
     });
   }
 
-  protected isolatedInstances: Service[] = [];
+  isolatedModules: Service[] = [];
 
   /**
    * all isolated instances state will not be sync to other clients or server.
    */
-  stateIsolate(instance: Service) {
-    this.isolatedInstances = [...this.isolatedInstances, instance];
+  disableShare(instance: Service) {
+    if (__DEV__) {
+      if (!this.shared) {
+        console.warn(`The app is not shared, so it cannot be isolated.`);
+      }
+      if (this.isolatedModules.includes(instance)) {
+        console.warn(
+          `This module "${instance.constructor.name}" has been disabled for state sharing.`
+        );
+      }
+    }
+    this.isolatedModules = this.isolatedModules.concat(instance);
   }
 
   protected lastIsolatedInstances?: Service[];
@@ -110,8 +120,8 @@ export class PortDetector {
   protected lastIsolatedInstanceKeys?: (string | undefined)[];
 
   get isolatedInstanceKeys() {
-    if (this.lastIsolatedInstances !== this.isolatedInstances) {
-      this.lastIsolatedInstanceKeys = this.isolatedInstances.map(
+    if (this.lastIsolatedInstances !== this.isolatedModules) {
+      this.lastIsolatedInstanceKeys = this.isolatedModules.map(
         (instance) => instance[identifierKey]
       );
     }

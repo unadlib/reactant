@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
 import { unmountComponentAtNode, render } from 'reactant-web';
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -191,6 +192,7 @@ describe('base', () => {
         .dispatchEvent(new MouseEvent('click', { bubbles: true }));
     });
 
+    // eslint-disable-next-line no-promise-executor-return
     await new Promise((resolve) => setTimeout(resolve));
 
     expect(serverContainer.querySelector('#count')?.textContent).toBe('1');

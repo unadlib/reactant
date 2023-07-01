@@ -89,7 +89,7 @@ class ReactantStorage extends PluginModule {
 
   public options: IStorageOptions;
 
-  private storageSettingMap = new Map<object, Function>();
+  storageSettingMap = new Map<object, Function>();
 
   /**
    * set module to storage persistent
