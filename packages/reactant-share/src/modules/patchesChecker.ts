@@ -1,7 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { PluginModule, ReactantAction, Store, injectable } from 'reactant';
+import {
+  PluginModule,
+  ReactantAction,
+  Store,
+  injectable,
+  optional,
+} from 'reactant';
 import type { Middleware } from 'redux';
 import { routerModuleName } from '../constants';
 import type { ActionOptions } from '../interfaces';
@@ -12,12 +18,12 @@ import { PortDetector } from './portDetector';
 export class PatchesChecker extends PluginModule {
   constructor(
     protected portDetector: PortDetector,
-    protected storage: Storage
+    @optional() protected storage?: Storage
   ) {
     super();
-    if (__DEV__) {
+    if (__DEV__ && this.storage) {
       this.afterCreateStore = (store: Store) => {
-        this.storage.storageSettingMap.forEach((_, module) => {
+        this.storage!.storageSettingMap.forEach((_, module) => {
           if (this.portDetector.isolatedModules.includes(module)) {
             throw new Error(
               `The module "${module.constructor.name}" has been disabled for state sharing, its module state cannot be enabled for storage.`

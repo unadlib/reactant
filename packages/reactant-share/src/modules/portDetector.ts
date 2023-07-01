@@ -101,7 +101,7 @@ export class PortDetector {
   /**
    * all isolated instances state will not be sync to other clients or server.
    */
-  disableShare(instance: Service) {
+  disableShare(instance: object) {
     if (__DEV__) {
       if (!this.shared) {
         console.warn(`The app is not shared, so it cannot be isolated.`);

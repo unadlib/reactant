@@ -46,7 +46,7 @@ const createBaseApp = <T, S extends any[], R extends Renderer<S>>({
             if (!portDetector) {
               portDetector = moduleRef.get(PortDetector);
             }
-            const firstPath = action._patches?.[0].path[0];
+            const firstPath = action._patches?.[0]?.path[0];
             return (
               action.type === LOCATION_CHANGE ||
               (firstPath && portDetector.hasIsolatedState(`${firstPath}`))
