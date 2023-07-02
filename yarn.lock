@@ -4746,10 +4746,10 @@ dargs@^7.0.0:
   resolved "https://registry.yarnpkg.com/dargs/-/dargs-7.0.0.tgz#04015c41de0bcb69ec84050f3d9be0caf8d6d5cc"
   integrity sha512-2iy1EkLdlBzQGvbweYRFxmFath8+K7+AKB0TlhHWkNuH+TmovaMH/Wp7V7R4u7f4SnX3OgLsU9t1NI9ioDnUpg==
 
-data-transport@^4.1.1:
-  version "4.1.1"
-  resolved "https://registry.yarnpkg.com/data-transport/-/data-transport-4.1.1.tgz#26044476056df2b2edc6eb80e4f9fdfe37ad2082"
-  integrity sha512-dn/NIWzkLIh3Z9XlkY2ZlzTayTt2bIBrtVz1HynIhTcb9bXuoyE8oVxOfYZkU2iOoos4Brx1bHoUvX3pZXaG0Q==
+data-transport@^4.2.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/data-transport/-/data-transport-4.2.0.tgz#80243fda0bb2cf6089d7928ec26dbb38eba44d53"
+  integrity sha512-B2co6KjPlnw9SM20r6PcKOPqNCXYM/+Awnvd/O2mo/icdsFdlkg6bxMeQaGYcGMuRm8ygXwx3/yY0W7ZyWsyXQ==
   dependencies:
     uuid "^9.0.0"
 
@@ -6581,12 +6581,7 @@ html-escaper@^2.0.0:
   resolved "https://registry.yarnpkg.com/html-escaper/-/html-escaper-2.0.2.tgz#dfd60027da36a36dfcbe236262c00a5822681453"
   integrity sha512-H2iMtd0I4Mt5eYiapRdIDjp+XzelXQ0tFE4JS7YFwFevXXMmOp9myNrUvCg0D6ws8iqkRPBfKHgbwig1SmlLfg==
 
-http-cache-semantics@^4.1.0:
-  version "4.1.1"
-  resolved "https://registry.yarnpkg.com/http-cache-semantics/-/http-cache-semantics-4.1.1.tgz#abe02fcb2985460bf0323be664436ec3476a6d5a"
-  integrity sha512-er295DKPVsV82j5kw1Gjt+ADA/XYHsajl82cGNQG2eyoPkvgUhX+nDIyelzhIWbbsXP39EHcI6l5tYs2FYqYXQ==
-
-http-cache-semantics@^4.1.1:
+http-cache-semantics@^4.1.0, http-cache-semantics@^4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/http-cache-semantics/-/http-cache-semantics-4.1.1.tgz#abe02fcb2985460bf0323be664436ec3476a6d5a"
   integrity sha512-er295DKPVsV82j5kw1Gjt+ADA/XYHsajl82cGNQG2eyoPkvgUhX+nDIyelzhIWbbsXP39EHcI6l5tYs2FYqYXQ==
