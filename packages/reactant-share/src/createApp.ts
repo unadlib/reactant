@@ -281,7 +281,7 @@ export const createSharedApp = async <
         };
 
         if (options.share.port === 'client' && options.share.worker) {
-          transports.client ??= createTransport('SharedWorkerMain', {
+          transports.client ??= createTransport('SharedWorkerClient', {
             worker: options.share.worker as SharedWorker,
             prefix: `reactant-share:${options.share.name}`,
           });
@@ -297,7 +297,7 @@ export const createSharedApp = async <
               `The value of 'options.share.workerURL' should be a string.`
             );
           }
-          transports.client = createTransport('SharedWorkerMain', {
+          transports.client = createTransport('SharedWorkerClient', {
             worker: new SharedWorker(options.share.workerURL),
             prefix: `reactant-share:${options.share.name}`,
           });

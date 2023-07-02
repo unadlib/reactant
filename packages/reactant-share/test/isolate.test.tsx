@@ -447,9 +447,13 @@ describe('base', () => {
       expect(subscribeOnServerFn.mock.calls.length).toBe(0);
       expect(serverContainer.querySelector('#count')?.textContent).toBe('0');
 
+      expect(serverApp.container.get(PortDetector).lastAction.sequence).toBe(1);
+
       expect(serverApp.container.get(Counter0).count).toBe(0);
       serverApp.container.get(Counter0).increase();
       expect(serverApp.container.get(Counter0).count).toBe(1);
+
+      expect(serverApp.container.get(PortDetector).lastAction.sequence).toBe(1);
 
       expect(onClientFn.mock.calls.length).toBe(0);
       expect(subscribeOnClientFn.mock.calls.length).toBe(0);
@@ -482,6 +486,9 @@ describe('base', () => {
       expect(onServerFn.mock.calls.length).toBe(1);
       expect(subscribeOnServerFn.mock.calls.length).toBe(1);
       expect(clientContainer.querySelector('#count')?.textContent).toBe('0');
+
+      expect(serverApp.container.get(PortDetector).lastAction.sequence).toBe(1);
+      expect(clientApp.container.get(PortDetector).lastAction.sequence).toBe(1);
 
       act(() => {
         serverContainer
@@ -542,6 +549,9 @@ describe('base', () => {
         respond: false,
       });
 
+      expect(serverApp.container.get(PortDetector).lastAction.sequence).toBe(3);
+      expect(clientApp.container.get(PortDetector).lastAction.sequence).toBe(3);
+
       expect(clientApp.instance.counter.num).toBe(3);
       expect(serverApp.instance.counter.num).toBe(5);
       expect(result3).toBeUndefined();
@@ -572,6 +582,9 @@ describe('base', () => {
       expect(subscribeOnClientFn.mock.calls.length).toBe(4);
       expect(onServerFn.mock.calls.length).toBe(1);
       expect(subscribeOnServerFn.mock.calls.length).toBe(4);
+
+      expect(serverApp.container.get(PortDetector).lastAction.sequence).toBe(3);
+      expect(clientApp.container.get(PortDetector).lastAction.sequence).toBe(3);
 
       expect(() => {
         clientApp.container.get(Counter1).increase();
