@@ -4,6 +4,7 @@ import {
   actionIdentifier,
   storeKey,
   Service,
+  identifierKey,
 } from 'reactant';
 import { LastAction } from 'reactant-last-action';
 import {
@@ -74,11 +75,7 @@ export class PortDetector {
           const store = (this as Service)[storeKey];
           store!.dispatch({
             type: `${actionIdentifier}_${loadFullStateActionName}`,
-            state: {
-              ...fullState,
-              // ignore router state sync for last action
-              router: store!.getState().router,
-            },
+            state: this.getNextState(fullState),
             _reactant: actionIdentifier,
           });
           this.lastAction.sequence =
@@ -97,6 +94,42 @@ export class PortDetector {
         this.previousPort = 'server';
       };
     });
+  }
+
+  isolatedModules: Service[] = [];
+
+  /**
+   * all isolated instances state will not be sync to other clients or server.
+   */
+  disableShare(instance: object) {
+    if (__DEV__) {
+      if (!this.shared) {
+        console.warn(`The app is not shared, so it cannot be isolated.`);
+      }
+      if (this.isolatedModules.includes(instance)) {
+        console.warn(
+          `This module "${instance.constructor.name}" has been disabled for state sharing.`
+        );
+      }
+    }
+    this.isolatedModules = this.isolatedModules.concat(instance);
+  }
+
+  protected lastIsolatedInstances?: Service[];
+
+  protected lastIsolatedInstanceKeys?: (string | undefined)[];
+
+  get isolatedInstanceKeys() {
+    if (this.lastIsolatedInstances !== this.isolatedModules) {
+      this.lastIsolatedInstanceKeys = this.isolatedModules.map(
+        (instance) => instance[identifierKey]
+      );
+    }
+    return this.lastIsolatedInstanceKeys ?? [];
+  }
+
+  hasIsolatedState(key: string) {
+    return this.isolatedInstanceKeys.includes(key);
   }
 
   get id() {
@@ -280,11 +313,30 @@ export class PortDetector {
     const store = (this as Service)[storeKey];
     store!.dispatch({
       type: `${actionIdentifier}_${loadFullStateActionName}`,
-      // ignore router state sync for last action
-      state: { ...fullState, router: store!.getState().router },
+      state: this.getNextState(fullState),
       _reactant: actionIdentifier,
     });
     this.lastAction.sequence = fullState[this.lastAction.stateKey]._sequence;
+  }
+
+  /**
+   * ignore router state and isolated state sync for last action
+   */
+  protected getNextState(fullState: Record<string, any>) {
+    const store = (this as Service)[storeKey];
+    const currentFullState = store!.getState();
+    const nextState: Record<string, any> = {
+      ...fullState,
+      router: currentFullState.router,
+    };
+    if (this.isolatedInstanceKeys.length) {
+      this.isolatedInstanceKeys.forEach((key) => {
+        if (key) {
+          nextState[key] = currentFullState[key];
+        }
+      });
+    }
+    return nextState;
   }
 
   /**

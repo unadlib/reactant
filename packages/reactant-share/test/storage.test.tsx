@@ -1,3 +1,7 @@
+/* eslint-disable no-shadow */
+/* eslint-disable prettier/prettier */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable no-promise-executor-return */
 import React from 'react';
 import { unmountComponentAtNode, render } from 'reactant-web';
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -303,5 +307,176 @@ describe('base', () => {
     expect(subscribeOnServerFn.mock.calls.length).toBe(0);
 
     expect(serverContainer.querySelector('#count')?.textContent).toBe('2');
+  });
+
+  test('base server/client port mode with storage for checking error', async () => {
+    const storage = new MemoryStorage();
+
+    onClientFn = jest.fn();
+    subscribeOnClientFn = jest.fn();
+    onServerFn = jest.fn();
+    subscribeOnServerFn = jest.fn();
+
+    const transports = mockPairTransports();
+
+    @injectable()
+    class Counter0 {
+      constructor(
+        private portDetector: PortDetector,
+        private storage: Storage
+      ) {
+        // All state within this module will not be shared with any clients.
+        this.portDetector.disableShare(this);
+        this.storage.setStorage(this, {
+          whitelist: ['count'],
+        });
+      }
+
+      @state
+      count = 0;
+
+      @action
+      increase() {
+        this.count += 1;
+      }
+    }
+
+    @injectable({
+      name: 'Counter1',
+    })
+    class Counter1 {
+      constructor(
+        private portDetector: PortDetector,
+        private storage: Storage
+      ) {
+        // All state within this module will not be shared with any clients.
+        this.portDetector.disableShare(this);
+        this.storage.setStorage(this, {
+          whitelist: ['count'],
+        });
+      }
+
+      @state
+      count = 0;
+
+      @action
+      increase() {
+        this.count += 1;
+      }
+    }
+
+    @injectable({
+      name: 'Counter2',
+    })
+    class Counter2 {
+      constructor(
+        private portDetector: PortDetector,
+        private storage: Storage
+      ) {
+        this.storage.setStorage(this, {
+          whitelist: ['count'],
+        });
+        // All state within this module will not be shared with any clients.
+        this.portDetector.disableShare(this);
+      }
+
+      @state
+      count = 0;
+
+      @action
+      increase() {
+        this.count += 1;
+      }
+    }
+
+    await expect(() =>
+      createSharedApp({
+        modules: [
+          Counter0,
+          Storage,
+          {
+            provide: StorageOptions,
+            useValue: {
+              storage,
+              blacklist: [],
+            } as IStorageOptions,
+          },
+        ],
+        main: AppView,
+        render,
+        share: {
+          name: 'counter',
+          type: 'Base',
+          port: 'server',
+          transports: {
+            server: transports[0],
+          },
+        },
+      })
+    ).rejects.toEqual(
+      new Error(
+        `Module 'Counter0' is invalid for using 'setStorage', the parameter 'options.name' of the decorator '@injectable(options)' that decorates the 'Counter0' module must be specified as a string.`
+      )
+    );
+
+    await expect(() =>
+      createSharedApp({
+        modules: [
+          Counter1,
+          Storage,
+          {
+            provide: StorageOptions,
+            useValue: {
+              storage,
+              blacklist: [],
+            } as IStorageOptions,
+          },
+        ],
+        main: AppView,
+        render,
+        share: {
+          name: 'counter',
+          type: 'Base',
+          port: 'server',
+          transports: {
+            server: transports[0],
+          },
+        },
+      })
+    ).rejects.toEqual(
+      new Error(
+        `The module "Counter1" has been disabled for state sharing, its module state cannot be enabled for storage.`
+      )
+    );
+
+    await expect(() =>
+      createSharedApp({
+        modules: [
+          Counter2,
+          Storage,
+          {
+            provide: StorageOptions,
+            useValue: {
+              storage,
+              blacklist: [],
+            } as IStorageOptions,
+          },
+        ],
+        main: AppView,
+        render,
+        share: {
+          name: 'counter',
+          type: 'Base',
+          port: 'server',
+          transports: {
+            server: transports[0],
+          },
+        },
+      })
+    ).rejects.toEqual(
+      new Error(
+        `The module "Counter2" has been disabled for state sharing, its module state cannot be enabled for storage.`
+      )
+    );
   });
 });

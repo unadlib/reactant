@@ -1,3 +1,4 @@
+/* eslint-disable no-promise-executor-return */
 import React from 'react';
 import { unmountComponentAtNode, render } from 'reactant-web';
 // eslint-disable-next-line import/no-extraneous-dependencies
