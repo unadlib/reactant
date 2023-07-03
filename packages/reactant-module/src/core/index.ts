@@ -8,3 +8,4 @@ export * from './subscribe';
 export * from './watch';
 export * from './load';
 export * from './applyMiddleware';
+export * from './getRef';
