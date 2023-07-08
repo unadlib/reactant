@@ -24,6 +24,7 @@ export type {
   ModuleOptions,
   ServiceIdentifiersMap,
   ContainerOptions,
+  ServiceIdentifier,
 } from 'reactant-di';
 
 export * from './core/index';

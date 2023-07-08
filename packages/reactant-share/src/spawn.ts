@@ -1,6 +1,6 @@
 import { containerKey, identifierKey, Service } from 'reactant';
-import { proxyClientActionName } from './constants';
-import { ProxyExec } from './interfaces';
+import { proxyClientActionName, proxyExecutorKey } from './constants';
+import type { ProxyExec, ProxyExecutor } from './interfaces';
 import { PortDetector } from './modules/portDetector';
 
 /**
@@ -63,7 +63,7 @@ export const spawn: ProxyExec = (module, key, args, options = {}) => {
   if (!Array.isArray(args)) {
     throw new Error(`The parameters of the method '${key}' must be an array.`);
   }
-  const target: Service = module;
+  const target: Service & ProxyExecutor = module;
   if (target[containerKey]?.isBound(PortDetector)) {
     const portDetector = target[containerKey]!.get(PortDetector);
     if (__DEV__) {
@@ -74,7 +74,15 @@ export const spawn: ProxyExec = (module, key, args, options = {}) => {
         );
       }
     }
-    // if the port is not a client, it just run the method in server port.
+    // If the method in main process and use coworker, it should be proxied for execution to a coworker process.
+    if (target[proxyExecutorKey]) {
+      return target[proxyExecutorKey]({
+        module: target[identifierKey]!,
+        method: key,
+        args,
+      });
+    }
+    // If the port is not a client, it just run the method in server port.
     if (portDetector.isClient) {
       if (!portDetector.transports.client) {
         return Promise.reject(

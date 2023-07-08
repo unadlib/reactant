@@ -53,8 +53,9 @@ class ReactantRouter extends BaseReactantRouter {
     super({
       ...options,
       autoCreateHistory: !(
-        sharedAppOptions.type === 'SharedWorker' &&
-        sharedAppOptions.port === 'server'
+        (sharedAppOptions.type === 'SharedWorker' &&
+          sharedAppOptions.port === 'server') ||
+        !globalThis.document
       ),
     });
 
