@@ -47,7 +47,7 @@ export class CoworkerAdapter {
           verbose: this.coworkerConfig?.enableTransportDebugger,
         })
       );
-    } else if (this.portDetector.sharedAppOptions.port === 'server') {
+    } else if (this.portDetector.sharedAppOptions.port !== 'client') {
       if (this.coworkerConfig!.transports?.main) {
         return this.coworkerConfig!.transports.main;
       }
