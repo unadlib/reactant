@@ -36,9 +36,10 @@ export class CounterView extends ViewModule {
   }
 
   component(this: CounterView) {
-    const [count, proxyCount] = useConnector(() => [
+    const [count, proxyCount, proxyCount1] = useConnector(() => [
       this.count,
       this.proxyCounter.count,
+      this.proxyCounter.count1,
     ]);
     return (
       <>
@@ -60,6 +61,20 @@ export class CounterView extends ViewModule {
         <button
           type="button"
           onClick={() => spawn(this.proxyCounter, 'increase', [])}
+        >
+          +
+        </button>
+        <p>proxy1 in coworker</p>
+        <button
+          type="button"
+          onClick={() => spawn(this.proxyCounter, 'decrease1', [])}
+        >
+          -
+        </button>
+        <div>{proxyCount1}</div>
+        <button
+          type="button"
+          onClick={() => spawn(this.proxyCounter, 'increase1', [])}
         >
           +
         </button>

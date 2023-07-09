@@ -19,7 +19,11 @@ export {
   getRehydrated,
 } from './modules/storage';
 export { CoworkerAdapter } from './modules/coworkerAdapter';
-export { CoworkerExecutor } from './modules/coworkerExecutor';
+export {
+  CoworkerExecutor,
+  CoworkerExecutorOptions,
+  ICoworkerExecutorOptions,
+} from './modules/coworkerExecutor';
 export { useLock } from './lock';
 export { spawn } from './spawn';
 export { fork } from './fork';

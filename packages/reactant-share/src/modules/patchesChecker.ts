@@ -8,9 +8,10 @@ import {
   injectable,
   optional,
 } from 'reactant';
+import type { ILastActionData } from 'reactant-last-action';
+
 import type { Middleware } from 'redux';
 import { routerModuleName } from '../constants';
-import type { ActionOptions } from '../interfaces';
 import { Storage } from './storage';
 import { PortDetector } from './portDetector';
 
@@ -55,7 +56,7 @@ export class PatchesChecker extends PluginModule {
     return next(_action);
   };
 
-  checkPatches(oldStateTree: Record<string, any>, options: ActionOptions) {
+  checkPatches(oldStateTree: Record<string, any>, options: ILastActionData) {
     options._patches!.forEach(({ op, path, value }) => {
       if (
         op === 'replace' &&

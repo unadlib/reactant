@@ -1,3 +1,4 @@
+/* eslint-disable default-param-last */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   PluginModule,
@@ -12,6 +13,18 @@ import { ReducersMapObject } from 'redux';
 
 const LastActionOptions = Symbol('LastActionOptions');
 
+export interface ILastActionState<T = any> extends ReactantAction<T> {
+  /**
+   * sync sequence
+   */
+  _sequence?: number;
+}
+
+export type ILastActionData = Pick<
+  ILastActionState<unknown>,
+  Exclude<keyof ILastActionState, '_inversePatches' | 'state'>
+>;
+
 export interface ILastActionOptions {
   /**
    * Define a string as LastAction reducer key.
@@ -20,14 +33,7 @@ export interface ILastActionOptions {
   /**
    * ignore action tracking
    */
-  ignoreAction?: (action: ReactantAction) => boolean;
-}
-
-export interface ILastActionState<T = any> extends ReactantAction<T> {
-  /**
-   * sync sequence
-   */
-  _sequence?: number;
+  ignoreAction?: (action: ILastActionData) => boolean;
 }
 
 @injectable()
@@ -80,7 +86,7 @@ class ReactantLastAction extends PluginModule {
             : { state, _inversePatches };
         const sequence = _state?._sequence ?? 0;
         const shouldIgnore = this.options?.ignoreAction?.(
-          action as ReactantAction
+          action as ILastActionData
         );
         return {
           ...action,
@@ -101,7 +107,7 @@ class ReactantLastAction extends PluginModule {
     return this._sequence ?? this.action?._sequence ?? 0;
   }
 
-  get action(): ILastActionState {
+  get action(): ILastActionData {
     return this[storeKey]?.getState()[this.stateKey] ?? null;
   }
 }

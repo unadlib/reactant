@@ -8,6 +8,8 @@ import {
   RouterOptions,
   createHashHistory,
   IRouterOptions,
+  CoworkerExecutorOptions,
+  ICoworkerExecutorOptions,
 } from 'reactant-share';
 import localForage from 'localforage';
 import { AppView } from './app.view';
@@ -29,6 +31,14 @@ createSharedApp({
         storage: localForage,
         loading: 'loading',
       } as IStorageOptions,
+    },
+    {
+      provide: CoworkerExecutorOptions,
+      useValue: {
+        enablePatchesChecker: true,
+        ignoreSyncMethods: ['increase1'],
+        ignoreSyncStateKeys: ['count1'],
+      } as ICoworkerExecutorOptions,
     },
   ],
   main: AppView,

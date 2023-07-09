@@ -137,7 +137,10 @@ class ReactantStorage extends PluginModule {
     return getRehydrated(target);
   }
 
+  beforeCombinePersistReducer?: () => void;
+
   beforeCombineRootReducers(reducers: ReducersMapObject): ReducersMapObject {
+    this.beforeCombinePersistReducer?.();
     for (const [_, set] of this.storageSettingMap) {
       set();
     }

@@ -9,11 +9,11 @@ import type {
   Config as BaseConfig,
   App,
   Renderer,
-  ReactModuleOptions,
   ServiceIdentifier,
 } from 'reactant';
-import type { ILastActionState } from 'reactant-last-action';
+import type { ILastActionData } from 'reactant-last-action';
 import type { RouterState } from 'reactant-router';
+
 import {
   isClientName,
   lastActionName,
@@ -182,11 +182,6 @@ export type ClientEvents = {
   [syncRouterName](name: string, router?: RouterState): Promise<RouterState>;
 };
 
-export type ActionOptions = Pick<
-  ILastActionState,
-  Exclude<keyof ILastActionState, '_inversePatches'>
->;
-
 export type ServerEvents = {
   [proxyServerActionName](
     options: ProxyExecParams & {
@@ -194,7 +189,7 @@ export type ServerEvents = {
       clientIds?: string[];
     }
   ): Promise<void>;
-  [lastActionName](options: ActionOptions): Promise<void>;
+  [lastActionName](options: ILastActionData): Promise<void>;
   [syncToClientsName](
     options: Record<string, any> | null | undefined
   ): Promise<void>;
