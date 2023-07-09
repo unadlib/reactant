@@ -1,7 +1,7 @@
 import { BroadcastChannel } from 'broadcast-channel';
 import { createTransport, Transport } from 'data-transport';
 
-export const createBroadcastTransport = (name: string) => {
+export const createBroadcastTransport = (name: string, verbose?: boolean) => {
   const broadcastChannel = new BroadcastChannel(
     `reactant-share-channel:${name}`
   );
@@ -17,6 +17,7 @@ export const createBroadcastTransport = (name: string) => {
     },
     sender: (message) => broadcastChannel.postMessage(JSON.stringify(message)),
     prefix: `reactant-share:${name}`,
+    verbose,
   });
   return transport;
 };

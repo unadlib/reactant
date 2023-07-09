@@ -174,10 +174,12 @@ const createSharedTabApp = async <T, S extends any[], R extends Renderer<S>>(
   }
   options.share.transports ??= {};
   options.share.transports.client ??= createBroadcastTransport(
-    options.share.name
+    options.share.name,
+    options.share.enableTransportDebugger
   );
   options.share.transports.server ??= createBroadcastTransport(
-    options.share.name
+    options.share.name,
+    options.share.enableTransportDebugger
   );
   if (options.share.port) {
     const app = createBaseApp(options);
@@ -309,12 +311,14 @@ export const createSharedApp = async <
           transports.client ??= createTransport('SharedWorkerClient', {
             worker: options.share.worker as SharedWorker,
             prefix: `reactant-share:${options.share.name}`,
+            verbose: options.share.enableTransportDebugger,
           });
         }
 
         if (options.share.port === 'server') {
           transports.server ??= createTransport('SharedWorkerInternal', {
             prefix: `reactant-share:${options.share.name}`,
+            verbose: options.share.enableTransportDebugger,
           });
         } else if (options.share.port === 'client' && !transports.client) {
           if (typeof options.share.workerURL !== 'string') {
@@ -325,6 +329,7 @@ export const createSharedApp = async <
           transports.client = createTransport('SharedWorkerClient', {
             worker: new SharedWorker(options.share.workerURL),
             prefix: `reactant-share:${options.share.name}`,
+            verbose: options.share.enableTransportDebugger,
           });
         }
         options.share.transports = transports;

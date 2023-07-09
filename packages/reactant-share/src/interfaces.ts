@@ -94,6 +94,10 @@ export interface ISharedAppOptions {
    */
   enablePatchesChecker?: boolean;
   /**
+   * Enable transport debugger for shared app.
+   */
+  enableTransportDebugger?: boolean;
+  /**
    * Transform client/server port
    */
   transform?: Transform;
