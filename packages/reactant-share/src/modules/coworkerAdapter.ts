@@ -24,27 +24,38 @@ export class CoworkerAdapter {
       if (this.portDetector.isCoworker) {
         return createTransport('Broadcast', {
           prefix: this.prefix,
+          verbose: this.coworkerConfig?.enableTransportDebugger,
         });
       }
       if (this.portDetector.sharedAppOptions.port === 'server') {
         return createTransport('Broadcast', {
           prefix: this.prefix,
+          verbose: this.coworkerConfig?.enableTransportDebugger,
         });
       }
     } else if (this.portDetector.isCoworker) {
-      return createTransport('SharedWorkerInternal', {});
+      return createTransport('SharedWorkerInternal', {
+        prefix: this.prefix,
+        verbose: this.coworkerConfig?.enableTransportDebugger,
+      });
     } else {
-      if (!this.portDetector.sharedAppOptions.coworker?.worker) {
+      if (!this.coworkerConfig?.worker) {
         throw new Error('No coworker support');
       }
       return createTransport('SharedWorkerClient', {
-        worker: this.portDetector.sharedAppOptions.coworker.worker,
+        worker: this.coworkerConfig.worker,
+        prefix: this.prefix,
+        verbose: this.coworkerConfig.enableTransportDebugger,
       });
     }
   }
 
+  get coworkerConfig() {
+    return this.portDetector.sharedAppOptions.coworker;
+  }
+
   protected get prefix() {
-    return `${this.portDetector.sharedAppOptions.name}-Coworker`;
+    return `reactant-share:${this.portDetector.sharedAppOptions.name}:coworker`;
   }
 
   /**

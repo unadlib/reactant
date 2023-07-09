@@ -129,6 +129,10 @@ export interface ISharedAppOptions {
      * Specify a SharedWorker for coworker.
      */
     worker?: SharedWorker;
+    /**
+     * Enable transport debugger for coworker.
+     */
+    enableTransportDebugger?: boolean;
   };
 }
 
