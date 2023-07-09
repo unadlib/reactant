@@ -13,6 +13,7 @@ import {
   Store,
   ReactantAction,
   actionIdentifier,
+  ReactModuleOptions,
 } from 'reactant';
 import type { ILastActionData } from 'reactant-last-action';
 
@@ -80,7 +81,9 @@ export class CoworkerExecutor extends PluginModule {
   ) {
     super();
     this.proxyModules =
-      this.portDetector.sharedAppOptions.coworker?.modules ?? [];
+      this.portDetector.sharedAppOptions.coworker?.modules.map((item) =>
+        this.getServiceIdentifier(item)
+      ) ?? [];
 
     if (this.coworkerAdapter.isCoworker && this.enablePatchesChecker) {
       // stricter checks to prevent cross-module state updates.
@@ -118,6 +121,10 @@ export class CoworkerExecutor extends PluginModule {
         });
       };
     }
+  }
+
+  protected getServiceIdentifier(item: any): ServiceIdentifier<unknown> {
+    return item?.provide ?? item;
   }
 
   protected get enablePatchesChecker() {
@@ -307,7 +314,8 @@ export class CoworkerExecutor extends PluginModule {
   /**
    * Add proxy modules.
    */
-  addModules(proxyModules: ServiceIdentifier<unknown>[]) {
+  addModules(modules: ReactModuleOptions[]) {
+    const proxyModules = modules.map((item) => this.getServiceIdentifier(item));
     if (__DEV__) {
       if (!Array.isArray(proxyModules)) {
         throw new TypeError(

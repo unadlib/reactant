@@ -10,6 +10,7 @@ import type {
   App,
   Renderer,
   ServiceIdentifier,
+  ReactModuleOptions,
 } from 'reactant';
 import type { ILastActionData } from 'reactant-last-action';
 import type { RouterState } from 'reactant-router';
@@ -120,7 +121,7 @@ export interface ISharedAppOptions {
     /**
      * Importing the injected dependency modules.
      */
-    modules: ServiceIdentifier<any>[];
+    modules: ReactModuleOptions[];
     /**
      * Specify a SharedWorker URL for coworker.
      */
@@ -133,6 +134,13 @@ export interface ISharedAppOptions {
      * Enable transport debugger for coworker.
      */
     enableTransportDebugger?: boolean;
+    /**
+     * coworker transports
+     */
+    transports?: {
+      main?: Transport;
+      coworker?: Transport;
+    };
   };
 }
 

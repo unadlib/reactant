@@ -22,25 +22,37 @@ export class CoworkerAdapter {
   protected createTransport() {
     if (this.portDetector.isWorkerMode) {
       if (this.portDetector.isCoworker) {
-        return createTransport('Broadcast', {
-          prefix: this.prefix,
-          verbose: this.coworkerConfig?.enableTransportDebugger,
-        });
+        return (
+          this.coworkerConfig!.transports?.coworker ??
+          createTransport('Broadcast', {
+            prefix: this.prefix,
+            verbose: this.coworkerConfig?.enableTransportDebugger,
+          })
+        );
       }
       if (this.portDetector.sharedAppOptions.port === 'server') {
-        return createTransport('Broadcast', {
-          prefix: this.prefix,
-          verbose: this.coworkerConfig?.enableTransportDebugger,
-        });
+        return (
+          this.coworkerConfig!.transports?.main ??
+          createTransport('Broadcast', {
+            prefix: this.prefix,
+            verbose: this.coworkerConfig?.enableTransportDebugger,
+          })
+        );
       }
     } else if (this.portDetector.isCoworker) {
-      return createTransport('SharedWorkerInternal', {
-        prefix: this.prefix,
-        verbose: this.coworkerConfig?.enableTransportDebugger,
-      });
-    } else {
+      return (
+        this.coworkerConfig!.transports?.coworker ??
+        createTransport('SharedWorkerInternal', {
+          prefix: this.prefix,
+          verbose: this.coworkerConfig?.enableTransportDebugger,
+        })
+      );
+    } else if (this.portDetector.sharedAppOptions.port === 'server') {
+      if (this.coworkerConfig!.transports?.main) {
+        return this.coworkerConfig!.transports.main;
+      }
       if (!this.coworkerConfig?.worker) {
-        throw new Error('No coworker support');
+        throw new Error('No coworker support in server port.');
       }
       return createTransport('SharedWorkerClient', {
         worker: this.coworkerConfig.worker,
