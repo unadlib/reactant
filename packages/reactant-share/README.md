@@ -10,6 +10,7 @@ A framework for building shared web applications that support multiple windows.
 - Shared Worker
 - Detached window
 - iframe
+- Coworker
 - Any other data-transport based application port, such as WebRTC
 
 ## Usage
