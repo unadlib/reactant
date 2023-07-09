@@ -5,7 +5,13 @@ import type {
   MergeInteraction,
   Transport,
 } from 'data-transport';
-import type { Config as BaseConfig, App, Renderer } from 'reactant';
+import type {
+  Config as BaseConfig,
+  App,
+  Renderer,
+  ReactModuleOptions,
+  ServiceIdentifier,
+} from 'reactant';
 import type { ILastActionState } from 'reactant-last-action';
 import type { RouterState } from 'reactant-router';
 import {
@@ -18,6 +24,7 @@ import {
   syncRouterName,
   syncWorkerRouterName,
   syncToClientsName,
+  proxyExecutorKey,
 } from './constants';
 
 export type { Transport } from 'data-transport';
@@ -98,6 +105,27 @@ export interface ISharedAppOptions {
    * `forcedSyncClient` is only true in `SharedTab` type.
    */
   forcedSyncClient?: boolean;
+  /**
+   * Whether to enable the `SharedWorker` mode.
+   */
+  coworker?: {
+    /**
+     * Whether to be in coworker.
+     */
+    isCoworker: boolean;
+    /**
+     * Importing the injected dependency modules.
+     */
+    modules: ServiceIdentifier<any>[];
+    /**
+     * Specify a SharedWorker URL for coworker.
+     */
+    workerURL?: string;
+    /**
+     * Specify a SharedWorker for coworker.
+     */
+    worker?: SharedWorker;
+  };
 }
 
 export interface Config<T, S extends any[], R extends Renderer<S>>
@@ -121,12 +149,23 @@ export type CallbackWithHook<T extends Transport = Transport<any>> = (
 
 export type PortApp = Partial<Record<Port, App<any, any, any>>>;
 
+export interface ProxyExecParams {
+  /**
+   * module name
+   */
+  module: string;
+  /**
+   * method name
+   */
+  method: string;
+  /**
+   * method arguments
+   */
+  args: any[];
+}
+
 export type ClientEvents = {
-  [proxyClientActionName](options: {
-    module: string;
-    method: string;
-    args: any[];
-  }): Promise<any>;
+  [proxyClientActionName](options: ProxyExecParams): Promise<any>;
   [preloadedStateActionName](): Promise<Record<string, any>>;
   [loadFullStateActionName](
     sequence: number
@@ -141,13 +180,12 @@ export type ActionOptions = Pick<
 >;
 
 export type ServerEvents = {
-  [proxyServerActionName](options: {
-    module: string;
-    method: string;
-    args: any[];
-    portName?: string;
-    clientIds?: string[];
-  }): Promise<void>;
+  [proxyServerActionName](
+    options: ProxyExecParams & {
+      portName?: string;
+      clientIds?: string[];
+    }
+  ): Promise<void>;
   [lastActionName](options: ActionOptions): Promise<void>;
   [syncToClientsName](
     options: Record<string, any> | null | undefined
@@ -208,3 +246,14 @@ export type ProxyExec = <
   : ReturnType<T[K]> extends Promise<infer R>
   ? Promise<R>
   : Promise<ReturnType<T[K]>>;
+
+export type SymmetricTransport<
+  T extends Record<string, (...args: any[]) => any>
+> = Transport<{
+  emit: T;
+  listen: T;
+}>;
+
+export interface ProxyExecutor {
+  [proxyExecutorKey]?: (params: ProxyExecParams) => Promise<unknown>;
+}

@@ -234,6 +234,10 @@ export class PortDetector {
     return !!this.detectPort('client');
   }
 
+  get isCoworker() {
+    return this.sharedAppOptions.coworker?.isCoworker;
+  }
+
   get transports() {
     return this.sharedAppOptions.transports ?? {};
   }

@@ -14,3 +14,9 @@ export const SharedAppOptions = Symbol('SharedAppOptions');
 
 export const storageModuleName = 'Storage';
 export const routerModuleName = 'Router';
+
+// Coworker
+export const proxyExecutorKey = Symbol('proxyExecutor');
+export const proxyWorkerExecuteName = '@@reactant:coworkerProxyWorkerExecute';
+export const syncStateName = '@@reactant:coworkerSyncState';
+export const syncAllStateName = '@@reactant:coworkerSyncAllState';

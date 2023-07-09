@@ -10,7 +10,7 @@ import {
 } from '../constants';
 import type { Service } from '../interfaces';
 
-interface Ref {
+export interface Ref {
   readonly store?: ReduxStore;
   readonly modules?: Record<string, any>;
   readonly container?: Container;

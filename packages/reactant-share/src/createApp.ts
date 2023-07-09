@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable no-param-reassign */
@@ -25,6 +26,8 @@ import { PortDetector } from './modules/portDetector';
 import { useLock } from './lock';
 import { IdentifierChecker } from './modules/identifierChecker';
 import { PatchesChecker } from './modules/patchesChecker';
+import { CoworkerExecutor } from './modules/coworkerExecutor';
+import { CoworkerAdapter } from './modules/coworkerAdapter';
 
 const createBaseApp = <T, S extends any[], R extends Renderer<S>>({
   share,
@@ -62,6 +65,28 @@ const createBaseApp = <T, S extends any[], R extends Renderer<S>>({
     },
     PortDetector
   );
+  if (share.coworker) {
+    if (__DEV__) {
+      if (!Array.isArray(options.modules)) {
+        console.warn(`coworker 'modules' is not an array.`);
+      } else if (!options.modules.length) {
+        console.warn(`coworker 'modules' is empty.`);
+      }
+    }
+    options.modules.push(CoworkerAdapter, CoworkerExecutor);
+    if (globalThis.SharedWorker) {
+      if (!share.coworker.worker) {
+        if (!share.coworker.workerURL) {
+          throw new Error(`'coworker.workerURL' does not exist.`);
+        }
+        share.coworker.worker = new SharedWorker(share.coworker.workerURL);
+      } else if (__DEV__ && share.coworker.workerURL) {
+        console.warn(
+          `'worker' already existed,'coworker.workerURL' is ignored.`
+        );
+      }
+    }
+  }
   if (__DEV__) {
     options.modules.push(IdentifierChecker);
   }
