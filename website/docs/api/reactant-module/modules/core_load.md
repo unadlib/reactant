@@ -17,7 +17,7 @@ custom_edit_url: null
 | Name | Type |
 | :------ | :------ |
 | `service` | `ThisService` |
-| `loadModules` | `ReactModuleOptions`<`any`\>[] |
+| `loadModules` | `ReactantModuleOptions`<`any`\>[] |
 
 #### Returns
 

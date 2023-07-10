@@ -13,7 +13,7 @@ import {
   Store,
   ReactantAction,
   actionIdentifier,
-  ReactModuleOptions,
+  ReactantModuleOptions,
 } from 'reactant';
 import type { ILastActionData } from 'reactant-last-action';
 
@@ -27,6 +27,7 @@ import {
   syncAllStateName,
   syncStateActionName,
   syncModuleStateActionName,
+  storageModuleName,
 } from '../constants';
 import type { ProxyExecParams, SymmetricTransport } from '../interfaces';
 
@@ -89,6 +90,8 @@ export class CoworkerExecutor extends PluginModule {
       // stricter checks to prevent cross-module state updates.
       this.middleware = (store) => (next) => (_action: ReactantAction) => {
         const { _patches, type, method } = _action;
+        // skip check for storage module change any state
+        if (type === storageModuleName) return next(_action);
         let hasCoworkerState: boolean | undefined;
         _patches?.forEach(({ path, op, value }, index) => {
           const _hasCoworkerState = this.proxyModuleKeys.includes(`${path[0]}`);
@@ -121,6 +124,36 @@ export class CoworkerExecutor extends PluginModule {
         });
       };
     }
+  }
+
+  // TODO: fix dynamic module with storage state
+  /**
+   * Add proxy modules.
+   */
+  addProxyModules(modules: ReactantModuleOptions[]) {
+    if (__DEV__) {
+      if (!Array.isArray(modules)) {
+        throw new TypeError(
+          `Expected an array, but received: ${typeof modules}`
+        );
+      }
+    }
+    const proxyModules = modules.map((item) => this.getServiceIdentifier(item));
+    this.proxyModules.push(...proxyModules);
+  }
+
+  /**
+   * Add ignore sync methods
+   */
+  addIgnoreSyncMethods(keys: string[]) {
+    this.ignoreSyncMethods.push(...keys);
+  }
+
+  /**
+   * Add ignore sync state keys
+   */
+  addIgnoreSyncStateKeys(keys: string[]) {
+    this.ignoreSyncStateKeys.push(...keys);
   }
 
   protected getServiceIdentifier(item: any): ServiceIdentifier<unknown> {
@@ -260,7 +293,7 @@ export class CoworkerExecutor extends PluginModule {
     }
   }
 
-  ignoreStates(state: State, currentState: State) {
+  protected ignoreStates(state: State, currentState: State) {
     this.ignoreSyncStateKeys.forEach((ignoreKey) => {
       this.proxyModuleKeys.forEach((key) => {
         state[key][ignoreKey] = currentState[key][ignoreKey];
@@ -309,22 +342,6 @@ export class CoworkerExecutor extends PluginModule {
         });
       });
     }
-  }
-
-  /**
-   * Add proxy modules.
-   */
-  addModules(modules: ReactModuleOptions[]) {
-    const proxyModules = modules.map((item) => this.getServiceIdentifier(item));
-    if (__DEV__) {
-      if (!Array.isArray(proxyModules)) {
-        throw new TypeError(
-          `Expected an array, but received: ${typeof proxyModules}`
-        );
-      }
-    }
-    this.proxyModules.push(...proxyModules);
-    this.applyProxyModules(proxyModules);
   }
 
   protected get transport() {

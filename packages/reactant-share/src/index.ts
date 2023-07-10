@@ -40,4 +40,5 @@ export type {
   ServerTransport,
   ISharedAppOptions,
   Config as SharedAppConfig,
+  SymmetricTransport,
 } from './interfaces';

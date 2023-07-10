@@ -10,7 +10,7 @@ import type {
   App,
   Renderer,
   ServiceIdentifier,
-  ReactModuleOptions,
+  ReactantModuleOptions,
 } from 'reactant';
 import type { ILastActionData } from 'reactant-last-action';
 import type { RouterState } from 'reactant-router';
@@ -121,7 +121,7 @@ export interface ISharedAppOptions {
     /**
      * Importing the injected dependency modules.
      */
-    modules: ReactModuleOptions[];
+    modules: ReactantModuleOptions[];
     /**
      * Specify a SharedWorker URL for coworker.
      */

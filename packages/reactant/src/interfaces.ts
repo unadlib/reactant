@@ -1,6 +1,6 @@
 import {
   ContainerOptions,
-  ReactModuleOptions,
+  ReactantModuleOptions,
   TypePreloadedState,
   ReactantStore,
   DevOptions,
@@ -16,7 +16,7 @@ export interface Config<T, S extends any[], R extends Renderer<S>> {
   /**
    * As the main start-up module.
    */
-  main: ReactModuleOptions<T>;
+  main: ReactantModuleOptions<T>;
   /**
    * As a rendering function for any React renderer.
    */
@@ -24,7 +24,7 @@ export interface Config<T, S extends any[], R extends Renderer<S>> {
   /**
    * Importing the injected dependency modules.
    */
-  modules?: ReactModuleOptions[];
+  modules?: ReactantModuleOptions[];
   /**
    * Dependent injection container options.
    */

@@ -96,7 +96,7 @@ export interface Service<T extends Record<string, any> = Record<string, any>> {
 
 export type ThisService = Service & { [P: string]: any };
 
-export type ReactModuleOptions<T = any> = ModuleOptions<T>;
+export type ReactantModuleOptions<T = any> = ModuleOptions<T>;
 
 export type ReactantStore = ReduxStore<any, AnyAction> & {
   reducers?: ReducersMapObject;
@@ -207,18 +207,18 @@ export type Watch = <
 ) => Unsubscribe;
 
 export interface LoadOptions<T> {
-  modules?: ReactModuleOptions[];
-  main: ReactModuleOptions<T>;
+  modules?: ReactantModuleOptions[];
+  main: ReactantModuleOptions<T>;
 }
 
 export type Loader = (
-  loadModules: ReactModuleOptions[],
+  loadModules: ReactantModuleOptions[],
   beforeReplaceReducer?: (container: Container) => void
 ) => void;
 
 export type Load = (
   service: ThisService,
-  loadModules: ReactModuleOptions[]
+  loadModules: ReactantModuleOptions[]
 ) => Promise<Container>;
 
 export type StateService<T extends Record<string, any>> = Service<T>;
