@@ -85,6 +85,9 @@ const createBaseApp = <T, S extends any[], R extends Renderer<S>>({
           `'worker' already existed,'coworker.workerURL' is ignored.`
         );
       }
+    } else {
+      // If the client does not support Shared Worker, the app will disable the Coworker.
+      delete share.coworker.worker;
     }
   }
   if (__DEV__) {

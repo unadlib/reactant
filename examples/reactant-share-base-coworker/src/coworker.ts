@@ -41,7 +41,6 @@ createSharedApp({
     coworker: {
       isCoworker: true,
       modules: [ProxyCounter],
-      workerURL: 'coworker.bundle.js',
     },
   },
 }).then((app) => {

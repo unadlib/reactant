@@ -52,7 +52,8 @@ export class CoworkerAdapter {
         return this.coworkerConfig!.transports.main;
       }
       if (!this.coworkerConfig?.worker) {
-        throw new Error('No coworker support in server port.');
+        if (__DEV__) console.warn('No coworker support in server port.');
+        return;
       }
       return createTransport('SharedWorkerClient', {
         worker: this.coworkerConfig.worker,
