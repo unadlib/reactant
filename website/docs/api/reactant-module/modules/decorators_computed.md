@@ -69,4 +69,4 @@ class Shop {
 
 #### Defined in
 
-[packages/reactant-module/src/decorators/computed.ts:29](https://github.com/unadlib/reactant/blob/5feb6f65/packages/reactant-module/src/decorators/computed.ts#L29)
+[packages/reactant-module/src/decorators/computed.ts:29](https://github.com/unadlib/reactant/blob/08156165/packages/reactant-module/src/decorators/computed.ts#L29)
