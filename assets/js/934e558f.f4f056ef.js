@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkwebsite=self.webpackChunkwebsite||[]).push([[8528],{7932:e=>{e.exports=JSON.parse('{"title":"Tooling","slug":"/category/tooling","permalink":"/docs/category/tooling","navigation":{"previous":{"title":"Shared App Coworker","permalink":"/docs/shared-app/shared-app-coworker"},"next":{"title":"Reactant CLI","permalink":"/docs/tooling/cli"}}}')}}]);
