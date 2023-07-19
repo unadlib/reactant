@@ -74,7 +74,8 @@ const createBaseApp = <T, S extends any[], R extends Renderer<S>>({
       }
     }
     options.modules.push(CoworkerAdapter, CoworkerExecutor);
-    if (globalThis.SharedWorker) {
+    // If the app is not shared, it will disable the Coworker.
+    if (globalThis.SharedWorker && share.port) {
       if (!share.coworker.worker) {
         if (!share.coworker.workerURL) {
           throw new Error(`'coworker.workerURL' does not exist.`);
