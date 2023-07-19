@@ -18,4 +18,4 @@ custom_edit_url: null
 
 #### Defined in
 
-[packages/reactant-di/src/optional.ts:3](https://github.com/unadlib/reactant/blob/08156165/packages/reactant-di/src/optional.ts#L3)
+[packages/reactant-di/src/optional.ts:3](https://github.com/unadlib/reactant/blob/3607db05/packages/reactant-di/src/optional.ts#L3)
