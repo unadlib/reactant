@@ -38,4 +38,4 @@ custom_edit_url: null
 
 #### Defined in
 
-[packages/reactant-di/src/decorators/multiInject.ts:6](https://github.com/unadlib/reactant/blob/3607db05/packages/reactant-di/src/decorators/multiInject.ts#L6)
+[packages/reactant-di/src/decorators/multiInject.ts:6](https://github.com/unadlib/reactant/blob/3940d734/packages/reactant-di/src/decorators/multiInject.ts#L6)
