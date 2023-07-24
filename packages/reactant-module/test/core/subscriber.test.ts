@@ -237,9 +237,16 @@ test('watch multiple values', () => {
     constructor() {
       watch(this, () => this.count0, watchFn0);
 
-      watch(this, () => [this.count0, this.count1], watchFn1, {
-        multiple: true,
-      });
+      watch(
+        this,
+        () => [this.count0, this.text],
+        (newValue, oldValue) => {
+          watchFn1(newValue, oldValue);
+        },
+        {
+          multiple: true,
+        }
+      );
     }
 
     @state
@@ -251,11 +258,11 @@ test('watch multiple values', () => {
     }
 
     @state
-    count1 = 0;
+    text = '0';
 
     @action
-    increase1() {
-      this.count1 += 1;
+    setText() {
+      this.text = `${Number(this.text) + 1}`;
     }
   }
 
@@ -291,28 +298,28 @@ test('watch multiple values', () => {
   expect(watchFn1.mock.calls.length).toBe(0);
 
   expect(counter.count0).toBe(0);
-  expect(counter.count1).toBe(0);
+  expect(counter.text).toBe('0');
   const subscribeFn = jest.fn();
   store.subscribe(() => {
     subscribeFn();
   });
   counter.increase0();
   expect(counter.count0).toBe(1);
-  expect(counter.count1).toBe(0);
+  expect(counter.text).toBe('0');
   expect(subscribeFn.mock.calls.length).toBe(1);
   expect(watchFn0.mock.calls.length).toBe(1);
   expect(watchFn1.mock.calls.length).toBe(1);
 
-  counter.increase1();
+  counter.setText();
   expect(counter.count0).toBe(1);
-  expect(counter.count1).toBe(1);
+  expect(counter.text).toBe('1');
   expect(subscribeFn.mock.calls.length).toBe(2);
   expect(watchFn0.mock.calls.length).toBe(1);
   expect(watchFn1.mock.calls.length).toBe(2);
 
   counter.increase0();
   expect(counter.count0).toBe(2);
-  expect(counter.count1).toBe(1);
+  expect(counter.text).toBe('1');
   expect(subscribeFn.mock.calls.length).toBe(3);
   expect(watchFn0.mock.calls.length).toBe(2);
   expect(watchFn1.mock.calls.length).toBe(3);
