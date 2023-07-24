@@ -1,4 +1,4 @@
-import { Watch } from '../interfaces';
+import { Watch, WatcherOptionsWithAwaitPromise } from '../interfaces';
 import { subscribe } from './subscribe';
 import { isEqual as defaultIsEqual } from '../utils';
 
@@ -45,19 +45,19 @@ const watch: Watch = (service, selector, watcher, options = {}) => {
   }
   let oldValue = selector();
   let ongoing = false;
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  const callback: typeof watcher = options?.awaitPromise
-    ? async (...args) => {
-        if (ongoing) return;
-        ongoing = true;
-        try {
-          await watcher(...args);
-        } finally {
-          ongoing = false;
+  const callback = (
+    (options as WatcherOptionsWithAwaitPromise<true>)?.awaitPromise
+      ? async (...args: Parameters<typeof watcher>) => {
+          if (ongoing) return;
+          ongoing = true;
+          try {
+            await watcher(...args);
+          } finally {
+            ongoing = false;
+          }
         }
-      }
-    : watcher;
+      : watcher
+  ) as (...args: any[]) => ReturnType<typeof watcher>;
   if (multiple) {
     if (!Array.isArray(oldValue)) {
       const className = Object.getPrototypeOf(service).constructor.name;

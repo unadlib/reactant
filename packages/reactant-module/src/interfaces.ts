@@ -188,7 +188,7 @@ export type Watch = <
   /**
    * Watched values
    */
-  selector: Selector<P extends true ? [...T] : T>,
+  selector: Selector<P extends true ? readonly [...T] | [...T] : T>,
   /**
    * Watch callback with value changes
    */
@@ -197,14 +197,17 @@ export type Watch = <
    * Watch options
    */
   options?: R extends Promise<void>
-    ? WatcherOptions<P> & {
-        /**
-         * Wait for each async watcher callback to complete before executing the next watcher callback
-         */
-        awaitPromise?: boolean;
-      }
+    ? WatcherOptionsWithAwaitPromise<P>
     : WatcherOptions<P>
 ) => Unsubscribe;
+
+export type WatcherOptionsWithAwaitPromise<P extends boolean> =
+  WatcherOptions<P> & {
+    /**
+     * Wait for each async watcher callback to complete before executing the next watcher callback
+     */
+    awaitPromise?: boolean;
+  };
 
 export interface LoadOptions<T> {
   modules?: ReactantModuleOptions[];

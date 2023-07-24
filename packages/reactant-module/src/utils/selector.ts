@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable func-names */
 /* eslint-disable prefer-rest-params */
 import { areShallowEqualWithArray } from './isEqual';
@@ -7,8 +8,7 @@ export function defaultMemoize(func: (...args: any) => any) {
   const lastResult: Map<any, unknown> = new Map();
   return function (this: ThisType<unknown>) {
     if (!areShallowEqualWithArray(lastArgs.get(this) ?? [], arguments)) {
-      // @ts-ignore
-      lastResult.set(this, func.apply(this, arguments));
+      lastResult.set(this, func.apply(this, arguments as any));
     }
     lastArgs.set(this, arguments);
     return lastResult.get(this);
@@ -16,15 +16,14 @@ export function defaultMemoize(func: (...args: any) => any) {
 }
 
 const createSelectorCreatorWithArray = (
-  memoize: (...args: any) => (...args: any) => any = defaultMemoize
+  memoize: (...args: any) => (..._args: any) => any = defaultMemoize
 ) => {
   return (
     dependenciesFunc: (that: any) => any[],
     resultFunc: (...args: any) => any
   ) => {
     const memoizedResultFunc = memoize(function (this: ThisType<unknown>) {
-      // @ts-ignore
-      return resultFunc.apply(this, arguments);
+      return resultFunc.apply(this, arguments as any);
     });
     return function (this: ThisType<unknown>) {
       return memoizedResultFunc.apply(
