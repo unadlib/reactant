@@ -57,9 +57,9 @@ const app = testBed({
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `service` | `ThisService` | Module instance |
-| `selector` | `Selector`<`P` extends ``true`` ? [...T[]] : `T`\> | Watched values |
+| `selector` | `Selector`<`P` extends ``true`` ? readonly [`T`] \| [...T[]] : `T`\> | Watched values |
 | `watcher` | `Watcher`<`T`, `R`\> | Watch callback with value changes |
-| `options?` | `R` extends `Promise`<`void`\> ? `WatcherOptions`<`P`\> & { `awaitPromise?`: `boolean`  } : `WatcherOptions`<`P`\> | Watch options |
+| `options?` | `R` extends `Promise`<`void`\> ? `WatcherOptionsWithAwaitPromise`<`P`\> : `WatcherOptions`<`P`\> | Watch options |
 
 #### Returns
 
@@ -67,4 +67,4 @@ const app = testBed({
 
 #### Defined in
 
-[packages/reactant-module/src/interfaces.ts:179](https://github.com/unadlib/reactant/blob/3940d734/packages/reactant-module/src/interfaces.ts#L179)
+[packages/reactant-module/src/interfaces.ts:179](https://github.com/unadlib/reactant/blob/65ec30fa/packages/reactant-module/src/interfaces.ts#L179)

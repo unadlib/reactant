@@ -94,4 +94,4 @@ export default async () => {
 
 #### Defined in
 
-[createApp.ts:286](https://github.com/unadlib/reactant/blob/3940d734/packages/reactant-share/src/createApp.ts#L286)
+[createApp.ts:286](https://github.com/unadlib/reactant/blob/65ec30fa/packages/reactant-share/src/createApp.ts#L286)
