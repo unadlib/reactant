@@ -37,10 +37,11 @@ export const handleClient = ({
       if (action._sequence && action._sequence === lastAction.sequence + 1) {
         if (action._reactant === actionIdentifier) {
           const currentState = app.store!.getState();
+          const _patches = action._patches ?? [];
           // support subset of modules sync up
           const patches = enablePatchesFilter
-            ? action._patches!.filter((item) => currentState[item.path[0]])
-            : action._patches!;
+            ? _patches.filter((item) => currentState[item.path[0]])
+            : _patches;
           const state = applyPatches(currentState, patches);
           app.store!.dispatch({ ...action, state });
         } else {

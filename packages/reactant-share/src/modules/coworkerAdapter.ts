@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable consistent-return */
 import { injectable } from 'reactant';
 import { createTransport, Transport } from 'data-transport';
@@ -40,12 +41,18 @@ export class CoworkerAdapter {
         );
       }
     } else if (this.portDetector.isCoworker) {
+      const isWebWorker =
+        !(globalThis as any).SharedWorkerGlobalScope &&
+        (globalThis as any).WorkerGlobalScope;
       return (
         this.coworkerConfig!.transports?.coworker ??
-        createTransport('SharedWorkerInternal', {
-          prefix: this.prefix,
-          verbose: this.coworkerConfig?.enableTransportDebugger,
-        })
+        createTransport(
+          isWebWorker ? 'WorkerInternal' : 'SharedWorkerInternal',
+          {
+            prefix: this.prefix,
+            verbose: this.coworkerConfig?.enableTransportDebugger,
+          }
+        )
       );
     } else if (this.portDetector.sharedAppOptions.port !== 'client') {
       if (this.coworkerConfig!.transports?.main) {
@@ -54,6 +61,13 @@ export class CoworkerAdapter {
       if (!this.coworkerConfig?.worker) {
         if (__DEV__) console.warn('No coworker support in server port.');
         return;
+      }
+      if (this.coworkerConfig.worker instanceof Worker) {
+        return createTransport('WorkerMain', {
+          worker: this.coworkerConfig.worker,
+          prefix: this.prefix,
+          verbose: this.coworkerConfig.enableTransportDebugger,
+        });
       }
       return createTransport('SharedWorkerClient', {
         worker: this.coworkerConfig.worker,

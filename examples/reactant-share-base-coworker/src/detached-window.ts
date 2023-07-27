@@ -15,8 +15,7 @@ createSharedApp({
   render,
   share: {
     name: 'SharedWorkerApp',
-    type: 'SharedWorker',
-    port: 'client',
+    type: 'Base',
     workerURL: 'worker.bundle.js',
     enablePatchesFilter: true,
   },

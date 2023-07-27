@@ -74,21 +74,48 @@ const createBaseApp = <T, S extends any[], R extends Renderer<S>>({
       }
     }
     options.modules.push(CoworkerAdapter, CoworkerExecutor);
-    // If the app is not shared, it will disable the Coworker.
-    if (globalThis.SharedWorker && share.port) {
-      if (!share.coworker.worker) {
-        if (!share.coworker.workerURL) {
-          throw new Error(`'coworker.workerURL' does not exist.`);
+    if (!share.coworker.isCoworker && !share.coworker.transports?.main) {
+      // If the app is not shared, it will use Coworker with WebWorker.
+      if (globalThis.SharedWorker && share.port) {
+        if (!share.coworker.worker) {
+          if (!share.coworker.workerURL) {
+            throw new Error(`'coworker.workerURL' does not exist.`);
+          }
+          share.coworker.worker = new SharedWorker(share.coworker.workerURL);
+        } else if (__DEV__) {
+          if (!(share.coworker.worker instanceof SharedWorker)) {
+            throw new Error(
+              `'share.coworker.worker' is not a SharedWorker instance.`
+            );
+          }
+          if (share.coworker.workerURL) {
+            console.warn(
+              `'worker' already existed,'coworker.workerURL' is ignored.`
+            );
+          }
         }
-        share.coworker.worker = new SharedWorker(share.coworker.workerURL);
-      } else if (__DEV__ && share.coworker.workerURL) {
-        console.warn(
-          `'worker' already existed,'coworker.workerURL' is ignored.`
-        );
+      } else if (share.type === 'Base' && !share.port) {
+        if (!share.coworker.worker) {
+          if (!share.coworker.workerURL) {
+            throw new Error(`'coworker.workerURL' does not exist.`);
+          }
+          share.coworker.worker = new Worker(share.coworker.workerURL);
+        } else if (__DEV__) {
+          if (!(share.coworker.worker instanceof Worker)) {
+            throw new Error(
+              `'share.coworker.worker' is not a Web Worker instance.`
+            );
+          }
+          if (share.coworker.workerURL) {
+            console.warn(
+              `'worker' already existed,'coworker.workerURL' is ignored.`
+            );
+          }
+        }
+      } else {
+        // If the client does not support Shared Worker in SharedWorker mode, the app will disable the Coworker.
+        delete share.coworker.worker;
       }
-    } else {
-      // If the client does not support Shared Worker, the app will disable the Coworker.
-      delete share.coworker.worker;
     }
   }
   if (__DEV__) {
@@ -312,6 +339,13 @@ export const createSharedApp = async <
         };
 
         if (options.share.port === 'client' && options.share.worker) {
+          if (__DEV__ && !transports.client) {
+            if (!(options.share.worker instanceof SharedWorker)) {
+              throw new Error(
+                `'options.share.worker' is not a SharedWorker instance.`
+              );
+            }
+          }
           transports.client ??= createTransport('SharedWorkerClient', {
             worker: options.share.worker as SharedWorker,
             prefix: `reactant-share:${options.share.name}`,

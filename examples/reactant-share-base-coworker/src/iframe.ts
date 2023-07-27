@@ -19,12 +19,9 @@ createSharedApp({
   main: CounterView,
   render,
   share: {
-    name: 'SharedWorkerApp',
-    port: 'client',
-    type: 'SharedWorker',
+    name: 'BaseWorkerApp',
+    type: 'Base',
     workerURL: 'worker.bundle.js',
-    portName:
-      globalThis.location.pathname === '/index.html' ? 'other' : 'default',
   },
 }).then((app) => {
   console.log(app, '====');

@@ -249,14 +249,14 @@ describe('base', () => {
       expect(onClientFn.mock.calls.length).toBe(1);
       expect(subscribeOnClientFn.mock.calls.length).toBe(0);
       expect(onServerFn.mock.calls.length).toBe(1);
-      expect(subscribeOnServerFn.mock.calls.length).toBe(0);
+      expect(subscribeOnServerFn.mock.calls.length).toBe(1);
 
       await clientApp.bootstrap(clientContainer);
 
       expect(onClientFn.mock.calls.length).toBe(1);
-      expect(subscribeOnClientFn.mock.calls.length).toBe(0);
+      expect(subscribeOnClientFn.mock.calls.length).toBe(1);
       expect(onServerFn.mock.calls.length).toBe(1);
-      expect(subscribeOnServerFn.mock.calls.length).toBe(0);
+      expect(subscribeOnServerFn.mock.calls.length).toBe(1);
       expect(clientContainer.querySelector('#count')?.textContent).toBe('0');
 
       act(() => {
@@ -268,9 +268,9 @@ describe('base', () => {
       await new Promise((resolve) => setTimeout(resolve));
 
       expect(onClientFn.mock.calls.length).toBe(1);
-      expect(subscribeOnClientFn.mock.calls.length).toBe(1);
+      expect(subscribeOnClientFn.mock.calls.length).toBe(2);
       expect(onServerFn.mock.calls.length).toBe(1);
-      expect(subscribeOnServerFn.mock.calls.length).toBe(1);
+      expect(subscribeOnServerFn.mock.calls.length).toBe(2);
 
       expect(serverContainer.querySelector('#count')?.textContent).toBe('1');
       expect(clientContainer.querySelector('#count')?.textContent).toBe('1');
@@ -284,9 +284,9 @@ describe('base', () => {
       await new Promise((resolve) => setTimeout(resolve));
 
       expect(onClientFn.mock.calls.length).toBe(1);
-      expect(subscribeOnClientFn.mock.calls.length).toBe(2);
+      expect(subscribeOnClientFn.mock.calls.length).toBe(3);
       expect(onServerFn.mock.calls.length).toBe(1);
-      expect(subscribeOnServerFn.mock.calls.length).toBe(2);
+      expect(subscribeOnServerFn.mock.calls.length).toBe(3);
 
       expect(serverContainer.querySelector('#count')?.textContent).toBe('2');
       expect(clientContainer.querySelector('#count')?.textContent).toBe('2');

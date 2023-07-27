@@ -19,7 +19,8 @@ export const routerModuleName = 'Router';
 export const proxyExecutorKey = Symbol('proxyExecutor');
 export const proxyWorkerExecuteName = '@@reactant:coworkerProxyWorkerExecute';
 export const syncStateName = '@@reactant:coworkerSyncState';
-export const syncAllStateName = '@@reactant:coworkerSyncAllState';
+export const requestSyncAllStateName = '@@reactant:coworkerRequestSyncAllState';
+export const pushAllStateName = '@@reactant:coworkerPushAllState';
 // Redux action types
 export const syncStateActionName = '@@reactant:syncState';
 export const syncModuleStateActionName = '@@reactant:syncModuleState';

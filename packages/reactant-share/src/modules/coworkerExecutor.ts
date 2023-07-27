@@ -14,6 +14,7 @@ import {
   ReactantAction,
   actionIdentifier,
   ReactantModuleOptions,
+  subscribe,
 } from 'reactant';
 import type { ILastActionData } from 'reactant-last-action';
 
@@ -24,10 +25,11 @@ import {
   proxyExecutorKey,
   proxyWorkerExecuteName,
   syncStateName,
-  syncAllStateName,
+  requestSyncAllStateName,
   syncStateActionName,
   syncModuleStateActionName,
   storageModuleName,
+  pushAllStateName,
 } from '../constants';
 import type { ProxyExecParams, SymmetricTransport } from '../interfaces';
 
@@ -36,10 +38,11 @@ type State = Record<string, Record<string, unknown>>;
 type ProxyExecutorInteraction = {
   [proxyWorkerExecuteName]: (execParams: ProxyExecParams) => Promise<unknown>;
   [syncStateName]: (action: ILastActionData, sequence: number) => Promise<void>;
-  [syncAllStateName]: () => Promise<{
+  [requestSyncAllStateName]: () => Promise<void>;
+  [pushAllStateName]: (options: {
     state: State;
     sequence: number;
-  }>;
+  }) => Promise<void>;
 };
 
 export interface ICoworkerExecutorOptions {
@@ -168,42 +171,53 @@ export class CoworkerExecutor extends PluginModule {
     this.applyProxyExecute();
     this.applyProxyModules(this.proxyModules);
     this.applyProxyState();
-    if (this.coworkerAdapter.isCoworker && this.storage) {
-      // sync up last state when proxy module state is rehydrated
-      this.proxyModules.forEach((serviceIdentifier) => {
-        const modules = this.ref.container!.getAll<any>(serviceIdentifier);
-        modules.forEach((module) => {
-          if (this.storage!.storageSettingMap.has(module)) {
-            const stopWatching = watch(
-              module,
-              () => this.storage!.getRehydrated(module),
-              (rehydrated) => {
-                if (rehydrated) {
-                  stopWatching();
-                  const { identifier, state } = getRef(module);
-                  this.sequence += 1;
-                  this.transport.emit(
-                    syncStateName,
-                    {
-                      _reactant: actionIdentifier,
-                      type: `${actionIdentifier}_${syncModuleStateActionName}`,
-                      params: [],
-                      _patches: [
-                        {
-                          op: 'replace',
-                          path: [identifier!],
-                          value: state,
-                        },
-                      ],
-                    },
-                    this.sequence
-                  );
+    if (this.coworkerAdapter.isCoworker) {
+      if (this.sequence === -1) {
+        this.sequence = 0;
+        this.pushAllState();
+      }
+      if (this.storage) {
+        // sync up last state when proxy module state is rehydrated
+        this.proxyModules.forEach((serviceIdentifier) => {
+          const modules = this.ref.container!.getAll<any>(serviceIdentifier);
+          modules.forEach((module) => {
+            if (this.storage!.storageSettingMap.has(module)) {
+              const stopWatching = watch(
+                module,
+                () => this.storage!.getRehydrated(module),
+                (rehydrated) => {
+                  if (rehydrated) {
+                    stopWatching();
+                    const { identifier, state } = getRef(module);
+                    this.sequence += 1;
+                    this.transport.emit(
+                      syncStateName,
+                      {
+                        _reactant: actionIdentifier,
+                        type: `${actionIdentifier}_${syncModuleStateActionName}`,
+                        params: [],
+                        _patches: [
+                          {
+                            op: 'replace',
+                            path: [identifier!],
+                            value: state,
+                          },
+                        ],
+                      },
+                      this.sequence
+                    );
+                  }
                 }
-              }
-            );
-          }
+              );
+            }
+          });
         });
-      });
+      }
+    }
+    if (this.coworkerAdapter.isMain) {
+      if (this.sequence === -1) {
+        this.requestSyncAllState();
+      }
     }
     return store;
   };
@@ -212,29 +226,17 @@ export class CoworkerExecutor extends PluginModule {
     return getRef(this);
   }
 
-  protected sequence = 0;
+  protected sequence = -1;
 
   protected applyProxyState() {
     if (this.coworkerAdapter.isMain) {
+      this.transport.listen(pushAllStateName, async (options) => {
+        this.handleSyncAllState(options);
+      });
       this.transport.listen(syncStateName, async (action, coworkerSequence) => {
         // If the sequence is not continuous, it means that the main process need sync all state from coworker process.
         if (this.sequence + 1 !== coworkerSequence) {
-          this.transport.emit(syncAllStateName).then((options) => {
-            this.sequence = options.sequence;
-            const currentState = this.ref.store!.getState();
-            const _sequence = this.portDetector.lastAction.sequence;
-            const state = {
-              ...currentState,
-              ...options.state,
-            };
-            this.ignoreStates(state, currentState);
-            this.ref.store!.dispatch({
-              _reactant: actionIdentifier,
-              type: `${actionIdentifier}_${syncStateActionName}`,
-              state,
-              _sequence,
-            });
-          });
+          this.requestSyncAllState();
           return;
         }
         this.sequence = coworkerSequence;
@@ -274,23 +276,52 @@ export class CoworkerExecutor extends PluginModule {
           }
         }
       );
-      this.transport.listen(syncAllStateName, async () => {
-        const currentState = this.ref.store!.getState();
-        const state: Record<string, Record<string, unknown>> = {};
-        this.proxyModuleKeys.forEach((key) => {
-          state[key] = {
-            ...currentState[key],
-          };
-          this.ignoreSyncStateKeys.forEach((ignoreKey) => {
-            delete state[key][ignoreKey];
-          });
-        });
-        return {
-          state,
-          sequence: this.sequence,
-        };
+      this.transport.listen(requestSyncAllStateName, async () => {
+        this.pushAllState();
       });
     }
+  }
+
+  protected pushAllState() {
+    const currentState = this.ref.store!.getState();
+    const state: Record<string, Record<string, unknown>> = {};
+    this.proxyModuleKeys.forEach((key) => {
+      state[key] = {
+        ...currentState[key],
+      };
+      this.ignoreSyncStateKeys.forEach((ignoreKey) => {
+        delete state[key][ignoreKey];
+      });
+    });
+
+    this.transport.emit(pushAllStateName, {
+      state,
+      sequence: this.sequence,
+    });
+  }
+
+  protected handleSyncAllState(options: { state: State; sequence: number }) {
+    if (options.sequence === this.sequence && this.sequence === -1) {
+      return;
+    }
+    this.sequence = options.sequence;
+    const currentState = this.ref.store!.getState();
+    const _sequence = this.portDetector.lastAction.sequence;
+    const state = {
+      ...currentState,
+      ...options.state,
+    };
+    this.ignoreStates(state, currentState);
+    this.ref.store!.dispatch({
+      _reactant: actionIdentifier,
+      type: `${actionIdentifier}_${syncStateActionName}`,
+      state,
+      _sequence,
+    });
+  }
+
+  protected requestSyncAllState() {
+    this.transport.emit(requestSyncAllStateName);
   }
 
   protected ignoreStates(state: State, currentState: State) {
