@@ -301,7 +301,7 @@ export class CoworkerExecutor extends PluginModule {
   }
 
   protected handleSyncAllState(options: { state: State; sequence: number }) {
-    if (options.sequence === this.sequence && this.sequence === -1) {
+    if (options.sequence === this.sequence && this.sequence !== -1) {
       return;
     }
     this.sequence = options.sequence;
