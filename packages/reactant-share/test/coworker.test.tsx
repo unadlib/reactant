@@ -226,8 +226,6 @@ describe('base', () => {
         },
       });
 
-      await coworkerApp.bootstrap(clientContainer);
-
       const clientApp = await createSharedApp({
         modules: [ProxyCounter],
         main: AppView,
@@ -361,7 +359,7 @@ describe('base', () => {
     }
   );
 
-  test.only('coworker - in base mode ', async () => {
+  test('coworker - in base mode ', async () => {
     onClientFn = jest.fn();
     subscribeOnClientFn = jest.fn();
     onServerFn = jest.fn();
@@ -425,7 +423,6 @@ describe('base', () => {
       },
     });
 
-    await coworkerApp.bootstrap(clientContainer);
     expect(coworkerApp.container.get(ProxyCounter).count).toBe(0);
 
     await spawn(serverApp.container.get(ProxyCounter), 'increase', []);
@@ -443,247 +440,174 @@ describe('base', () => {
     expect(subscribeOnServerFn.mock.calls.length).toBe(0);
   });
 
-  // test('coworker - server/client port mode in SharedTab', async () => {
-  //   onClientFn = jest.fn();
-  //   subscribeOnClientFn = jest.fn();
-  //   onServerFn = jest.fn();
-  //   subscribeOnServerFn = jest.fn();
+  test('coworker - server/client port mode in SharedTab', async () => {
+    onClientFn = jest.fn();
+    subscribeOnClientFn = jest.fn();
+    onServerFn = jest.fn();
+    subscribeOnServerFn = jest.fn();
+    coworkerModuleFn = jest.fn();
 
-  //   const transports = mockPairTransports();
-  //   const transports1 = mockPairTransports();
+    const transports = mockPairTransports();
+    const transports1 = mockPairTransports();
+    const coworkerTransports = mockPairTransports();
 
-  //   const sharedApp0 = await createSharedApp({
-  //     modules: [],
-  //     main: AppView,
-  //     render,
-  //     share: {
-  //       name: 'counter',
-  //       type: 'SharedTab',
-  //       transports: {
-  //         server: transports[0],
-  //         client: transports1[0],
-  //       },
-  //     },
-  //   });
-  //   expect(sharedApp0.instance.counter.portDetector.shared).toBe(true);
+    const sharedApp0 = await createSharedApp({
+      modules: [ProxyCounter],
+      main: AppView,
+      render,
+      share: {
+        name: 'counter',
+        type: 'SharedTab',
+        transports: {
+          server: transports[0],
+          client: transports1[0],
+        },
+        coworker: {
+          isCoworker: false,
+          modules: [ProxyCounter],
+          transports: {
+            main: coworkerTransports[0],
+          },
+        },
+      },
+    });
+    expect(sharedApp0.instance.counter.portDetector.shared).toBe(true);
 
-  //   expect(onClientFn.mock.calls.length).toBe(0);
-  //   expect(subscribeOnClientFn.mock.calls.length).toBe(0);
-  //   expect(onServerFn.mock.calls.length).toBe(1);
-  //   expect(subscribeOnServerFn.mock.calls.length).toBe(0);
-  //   await sharedApp0.bootstrap(serverContainer);
-  //   expect(onClientFn.mock.calls.length).toBe(0);
-  //   expect(subscribeOnClientFn.mock.calls.length).toBe(0);
-  //   expect(onServerFn.mock.calls.length).toBe(1);
-  //   expect(subscribeOnServerFn.mock.calls.length).toBe(0);
-  //   expect(serverContainer.querySelector('#count')?.textContent).toBe('0');
+    expect(onClientFn.mock.calls.length).toBe(0);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(0);
+    expect(onServerFn.mock.calls.length).toBe(1);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(0);
+    await sharedApp0.bootstrap(serverContainer);
+    expect(onClientFn.mock.calls.length).toBe(0);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(0);
+    expect(onServerFn.mock.calls.length).toBe(1);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(0);
+    expect(serverContainer.querySelector('#count')?.textContent).toBe('0');
 
-  //   await new Promise((resolve) => setTimeout(resolve, 1000 * 3));
+    await new Promise((resolve) => setTimeout(resolve, 1000 * 3));
 
-  //   const sharedApp1 = await createSharedApp({
-  //     modules: [],
-  //     main: AppView,
-  //     render,
-  //     share: {
-  //       name: 'counter',
-  //       type: 'SharedTab',
-  //       transports: {
-  //         server: transports1[0],
-  //         client: transports[1],
-  //       },
-  //     },
-  //   });
+    const sharedApp1 = await createSharedApp({
+      modules: [ProxyCounter],
+      main: AppView,
+      render,
+      share: {
+        name: 'counter',
+        type: 'SharedTab',
+        transports: {
+          server: transports1[0],
+          client: transports[1],
+        },
+        coworker: {
+          isCoworker: false,
+          modules: [ProxyCounter],
+          transports: {
+            main: coworkerTransports[0],
+          },
+        },
+      },
+    });
 
-  //   expect(onClientFn.mock.calls.length).toBe(1);
-  //   expect(subscribeOnClientFn.mock.calls.length).toBe(0);
-  //   expect(onServerFn.mock.calls.length).toBe(1);
-  //   expect(subscribeOnServerFn.mock.calls.length).toBe(0);
+    expect(onClientFn.mock.calls.length).toBe(1);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(0);
+    expect(onServerFn.mock.calls.length).toBe(1);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(0);
 
-  //   await sharedApp1.bootstrap(clientContainer);
-  //   expect(onClientFn.mock.calls.length).toBe(1);
-  //   expect(subscribeOnClientFn.mock.calls.length).toBe(0);
-  //   expect(onServerFn.mock.calls.length).toBe(1);
-  //   expect(subscribeOnServerFn.mock.calls.length).toBe(0);
-  //   expect(clientContainer.querySelector('#count')?.textContent).toBe('0');
+    await sharedApp1.bootstrap(clientContainer);
+    expect(onClientFn.mock.calls.length).toBe(1);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(0);
+    expect(onServerFn.mock.calls.length).toBe(1);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(0);
+    expect(clientContainer.querySelector('#count')?.textContent).toBe('0');
 
-  //   act(() => {
-  //     serverContainer
-  //       .querySelector('#increase')!
-  //       .dispatchEvent(new MouseEvent('click', { bubbles: true }));
-  //   });
+    act(() => {
+      serverContainer
+        .querySelector('#increase')!
+        .dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    });
 
-  //   // waiting for sync state
-  //   await new Promise((resolve) => setTimeout(resolve));
+    // waiting for sync state
+    await new Promise((resolve) => setTimeout(resolve));
 
-  //   expect(onClientFn.mock.calls.length).toBe(1);
-  //   expect(subscribeOnClientFn.mock.calls.length).toBe(1);
-  //   expect(onServerFn.mock.calls.length).toBe(1);
-  //   expect(subscribeOnServerFn.mock.calls.length).toBe(1);
+    expect(onClientFn.mock.calls.length).toBe(1);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(1);
+    expect(onServerFn.mock.calls.length).toBe(1);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(1);
 
-  //   expect(serverContainer.querySelector('#count')?.textContent).toBe('1');
-  //   expect(clientContainer.querySelector('#count')?.textContent).toBe('1');
+    expect(serverContainer.querySelector('#count')?.textContent).toBe('1');
+    expect(clientContainer.querySelector('#count')?.textContent).toBe('1');
 
-  //   act(() => {
-  //     clientContainer
-  //       .querySelector('#increase')!
-  //       .dispatchEvent(new MouseEvent('click', { bubbles: true }));
-  //   });
+    act(() => {
+      clientContainer
+        .querySelector('#increase')!
+        .dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    });
 
-  //   // waiting for sync state
-  //   await new Promise((resolve) => setTimeout(resolve));
+    // waiting for sync state
+    await new Promise((resolve) => setTimeout(resolve));
 
-  //   expect(onClientFn.mock.calls.length).toBe(1);
-  //   expect(subscribeOnClientFn.mock.calls.length).toBe(2);
-  //   expect(onServerFn.mock.calls.length).toBe(1);
-  //   expect(subscribeOnServerFn.mock.calls.length).toBe(2);
+    expect(onClientFn.mock.calls.length).toBe(1);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(2);
+    expect(onServerFn.mock.calls.length).toBe(1);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(2);
 
-  //   expect(serverContainer.querySelector('#count')?.textContent).toBe('2');
-  //   expect(clientContainer.querySelector('#count')?.textContent).toBe('2');
-  // });
+    expect(serverContainer.querySelector('#count')?.textContent).toBe('2');
+    expect(clientContainer.querySelector('#count')?.textContent).toBe('2');
 
-  // test('coworker - server/Minimal set client port mode', async () => {
-  //   const transports = mockPairTransports();
+    const coworkerApp = await createSharedApp({
+      modules: [ProxyCounter],
+      main: AppView,
+      render,
+      share: {
+        name: 'counter',
+        type: 'Base',
+        transports: {
+          server: transports[0],
+        },
+        coworker: {
+          isCoworker: true,
+          modules: [ProxyCounter],
+          transports: {
+            coworker: coworkerTransports[1],
+          },
+        },
+      },
+    });
 
-  //   const serverApp = await createSharedApp({
-  //     modules: [{ provide: 'todoList', useClass: TodoList }],
-  //     main: AppView,
-  //     render,
-  //     share: {
-  //       name: 'counter',
-  //       type: 'Base',
-  //       port: 'server',
-  //       transports: {
-  //         server: transports[0],
-  //       },
-  //     },
-  //   });
-  //   act(() => {
-  //     serverApp.bootstrap(serverContainer);
-  //   });
-  //   expect(serverContainer.querySelector('#count')?.textContent).toBe('0');
+    expect(coworkerApp.store?.getState().ProxyCounter).toEqual({ count: 0 });
+    expect(sharedApp0.store?.getState().ProxyCounter).toEqual({ count: 0 });
+    expect(sharedApp1.store?.getState().ProxyCounter).toEqual({ count: 0 });
+    expect(coworkerModuleFn.mock.calls).toEqual([]);
 
-  //   const clientApp = await createSharedApp({
-  //     modules: [],
-  //     main: AppView,
-  //     render,
-  //     share: {
-  //       name: 'counter',
-  //       type: 'Base',
-  //       port: 'client',
-  //       transports: {
-  //         client: transports[1],
-  //       },
-  //       enablePatchesFilter: true,
-  //     },
-  //   });
-  //   await clientApp.bootstrap(clientContainer);
-  //   expect(clientContainer.querySelector('#count')?.textContent).toBe('0');
+    coworkerApp.container.get(ProxyCounter).increase();
+    expect(coworkerApp.store?.getState().ProxyCounter).toEqual({ count: 1 });
+    expect(sharedApp0.store?.getState().ProxyCounter).toEqual({ count: 1 });
+    expect(sharedApp1.store?.getState().ProxyCounter).toEqual({ count: 1 });
+    expect(coworkerModuleFn.mock.calls).toEqual([[true]]);
 
-  //   act(() => {
-  //     serverContainer
-  //       .querySelector('#increase')!
-  //       .dispatchEvent(new MouseEvent('click', { bubbles: true }));
-  //   });
+    await spawn(coworkerApp.container.get(ProxyCounter), 'increase', []);
 
-  //   // waiting for sync state
-  //   await new Promise((resolve) => setTimeout(resolve));
+    expect(coworkerApp.store?.getState().ProxyCounter).toEqual({ count: 2 });
+    expect(sharedApp0.store?.getState().ProxyCounter).toEqual({ count: 2 });
+    expect(sharedApp1.store?.getState().ProxyCounter).toEqual({ count: 2 });
+    expect(coworkerModuleFn.mock.calls).toEqual([[true], [true]]);
 
-  //   expect(serverContainer.querySelector('#count')?.textContent).toBe('1');
-  //   expect(clientContainer.querySelector('#count')?.textContent).toBe('1');
+    await spawn(sharedApp0.container.get(ProxyCounter), 'increase', []);
 
-  //   expect(clientApp.store?.getState().counter.obj.number).toBe(1);
+    expect(coworkerApp.store?.getState().ProxyCounter).toEqual({ count: 3 });
+    expect(sharedApp0.store?.getState().ProxyCounter).toEqual({ count: 3 });
+    expect(sharedApp1.store?.getState().ProxyCounter).toEqual({ count: 3 });
+    expect(coworkerModuleFn.mock.calls).toEqual([[true], [true], [true]]);
 
-  //   act(() => {
-  //     clientContainer
-  //       .querySelector('#increase')!
-  //       .dispatchEvent(new MouseEvent('click', { bubbles: true }));
-  //   });
+    await spawn(sharedApp1.container.get(ProxyCounter), 'increase', []);
 
-  //   // waiting for sync state
-  //   await new Promise((resolve) => setTimeout(resolve));
-
-  //   expect(serverContainer.querySelector('#count')?.textContent).toBe('2');
-  //   expect(clientContainer.querySelector('#count')?.textContent).toBe('2');
-
-  //   expect(clientApp.store?.getState().counter.obj.number).toBe(2);
-
-  //   act(() => {
-  //     clientContainer
-  //       .querySelector('#increase')!
-  //       .dispatchEvent(new MouseEvent('click', { bubbles: true }));
-  //   });
-  //   // waiting for sync state
-  //   await new Promise((resolve) => setTimeout(resolve));
-
-  //   const fn = jest.fn();
-  //   clientApp.store!.subscribe(fn);
-  //   expect(fn.mock.calls.length).toBe(0);
-  //   await serverApp.container.get(PortDetector).syncToClients();
-  //   expect(fn.mock.calls.length).toBe(1);
-
-  //   await clientApp.container
-  //     .get(PortDetector)
-  //     .syncFullState({ forceSync: false });
-  //   expect(fn.mock.calls.length).toBe(1);
-  //   expect(clientApp.container.get(LastAction).sequence).toBe(
-  //     serverApp.container.get(LastAction).sequence
-  //   );
-
-  //   clientApp.container.get(LastAction).sequence = -1;
-  //   await clientApp.container
-  //     .get(PortDetector)
-  //     .syncFullState({ forceSync: false });
-  //   expect(fn.mock.calls.length).toBe(2);
-
-  //   await clientApp.container
-  //     .get(PortDetector)
-  //     .syncFullState({ forceSync: false });
-  //   expect(fn.mock.calls.length).toBe(2);
-
-  //   await clientApp.container.get(PortDetector).syncFullState();
-  //   expect(fn.mock.calls.length).toBe(3);
-  // });
-
-  // test('coworker - SPA mode', async () => {
-  //   onServerFn = jest.fn();
-  //   subscribeOnServerFn = jest.fn();
-  //   onClientFn = jest.fn();
-  //   subscribeOnClientFn = jest.fn();
-
-  //   const app = await createSharedApp({
-  //     modules: [],
-  //     main: AppView,
-  //     render,
-  //     share: {
-  //       name: 'counter',
-  //       type: 'Base',
-  //     },
-  //   });
-
-  //   expect(app.instance.counter.portDetector.shared).toBe(false);
-
-  //   expect(onClientFn.mock.calls.length).toBe(0);
-  //   expect(subscribeOnClientFn.mock.calls.length).toBe(0);
-  //   expect(onServerFn.mock.calls.length).toBe(0);
-  //   expect(subscribeOnServerFn.mock.calls.length).toBe(0);
-  //   await app.bootstrap(serverContainer);
-  //   expect(onClientFn.mock.calls.length).toBe(0);
-  //   expect(subscribeOnClientFn.mock.calls.length).toBe(0);
-  //   expect(onServerFn.mock.calls.length).toBe(0);
-  //   expect(subscribeOnServerFn.mock.calls.length).toBe(0);
-  //   expect(serverContainer.querySelector('#count')?.textContent).toBe('0');
-  //   act(() => {
-  //     serverContainer
-  //       .querySelector('#increase')!
-  //       .dispatchEvent(new MouseEvent('click', { bubbles: true }));
-  //   });
-
-  //   await new Promise((resolve) => setTimeout(resolve));
-  //   expect(serverContainer.querySelector('#count')?.textContent).toBe('1');
-
-  //   expect(onClientFn.mock.calls.length).toBe(0);
-  //   expect(subscribeOnClientFn.mock.calls.length).toBe(0);
-  //   expect(onServerFn.mock.calls.length).toBe(0);
-  //   expect(subscribeOnServerFn.mock.calls.length).toBe(0);
-  // });
+    expect(coworkerApp.store?.getState().ProxyCounter).toEqual({ count: 4 });
+    expect(sharedApp0.store?.getState().ProxyCounter).toEqual({ count: 4 });
+    expect(sharedApp1.store?.getState().ProxyCounter).toEqual({ count: 4 });
+    expect(coworkerModuleFn.mock.calls).toEqual([
+      [true],
+      [true],
+      [true],
+      [true],
+    ]);
+  });
 });
