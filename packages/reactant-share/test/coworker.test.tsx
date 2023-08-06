@@ -361,6 +361,88 @@ describe('base', () => {
     }
   );
 
+  test.only('coworker - in base mode ', async () => {
+    onClientFn = jest.fn();
+    subscribeOnClientFn = jest.fn();
+    onServerFn = jest.fn();
+    subscribeOnServerFn = jest.fn();
+    coworkerModuleFn = jest.fn();
+
+    const transports = mockPairTransports();
+    const coworkerTransports = mockPairTransports();
+
+    const serverApp = await createSharedApp({
+      modules: [ProxyCounter],
+      main: AppView,
+      render,
+      share: {
+        name: 'counter',
+        type: 'Base',
+        transports: {
+          server: transports[0],
+        },
+        coworker: {
+          isCoworker: false,
+          modules: [ProxyCounter],
+          transports: {
+            main: coworkerTransports[0],
+          },
+        },
+      },
+    });
+    expect(serverApp.instance.counter.portDetector.shared).toBe(false);
+
+    expect(onClientFn.mock.calls.length).toBe(0);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(0);
+    expect(onServerFn.mock.calls.length).toBe(0);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(0);
+    await serverApp.bootstrap(serverContainer);
+    expect(onClientFn.mock.calls.length).toBe(0);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(0);
+    expect(onServerFn.mock.calls.length).toBe(0);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(0);
+    expect(serverContainer.querySelector('#count')?.textContent).toBe('0');
+
+    expect(serverApp.container.get(ProxyCounter).count).toBe(0);
+
+    const coworkerApp = await createSharedApp({
+      modules: [ProxyCounter],
+      main: AppView,
+      render,
+      share: {
+        name: 'counter',
+        type: 'Base',
+        transports: {
+          server: transports[0],
+        },
+        coworker: {
+          isCoworker: true,
+          modules: [ProxyCounter],
+          transports: {
+            coworker: coworkerTransports[1],
+          },
+        },
+      },
+    });
+
+    await coworkerApp.bootstrap(clientContainer);
+    expect(coworkerApp.container.get(ProxyCounter).count).toBe(0);
+
+    await spawn(serverApp.container.get(ProxyCounter), 'increase', []);
+    expect(coworkerApp.container.get(ProxyCounter).count).toBe(1);
+    expect(serverApp.container.get(ProxyCounter).count).toBe(1);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(0);
+    expect(onServerFn.mock.calls.length).toBe(0);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(0);
+
+    coworkerApp.container.get(ProxyCounter).increase();
+    expect(coworkerApp.container.get(ProxyCounter).count).toBe(2);
+    expect(serverApp.container.get(ProxyCounter).count).toBe(2);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(0);
+    expect(onServerFn.mock.calls.length).toBe(0);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(0);
+  });
+
   // test('coworker - server/client port mode in SharedTab', async () => {
   //   onClientFn = jest.fn();
   //   subscribeOnClientFn = jest.fn();
