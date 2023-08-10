@@ -103,6 +103,24 @@ const app = createApp({
 app.bootstrap(document.getElementById('app'));
 ```
 
+## Packages
+- reactant
+- reactant-cli
+- reactant-di
+- reactant-last-action
+- reactant-model
+- reactant-module
+- reactant-native
+- reactant-redux
+- reactant-router
+- reactant-router-dom
+- reactant-router-native
+- reactant-share
+- reactant-ssr
+- reactant-storage
+- reactant-template
+- reactant-web
+
 ## Documentation
 
 * [Getting Started](https://reactant.js.org/docs/intro)
