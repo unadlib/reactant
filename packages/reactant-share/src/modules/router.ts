@@ -183,7 +183,7 @@ class ReactantRouter extends BaseReactantRouter {
         .emit(syncRouterName, this.portDetector.name, this.router)
         .then((router) => {
           if (!router) return;
-          this.history.push(router.location);
+          this.history.replace(router.location);
         });
     });
     // #endregion

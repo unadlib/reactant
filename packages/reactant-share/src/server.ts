@@ -32,7 +32,19 @@ export const handleServer = ({
   const patchesChecker: PatchesChecker | null = enablePatchesChecker
     ? container.get(PatchesChecker)
     : null;
-  portDetector.setPort({ server: app }, transport);
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  if (globalThis.SharedWorkerGlobalScope) {
+    let executed = false;
+    // before any other event, it should be connected with the first client
+    globalThis.addEventListener('connect', () => {
+      if (executed) return;
+      executed = true;
+      portDetector.setPort({ server: app }, transport);
+    });
+  } else {
+    portDetector.setPort({ server: app }, transport);
+  }
   const disposeListeners: ((() => void) | undefined)[] = [];
   disposeListeners.push(transport.listen(isClientName, async () => true));
   disposeListeners.push(
