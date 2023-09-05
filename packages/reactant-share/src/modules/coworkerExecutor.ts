@@ -45,6 +45,8 @@ type ProxyExecutorInteraction = {
   }) => Promise<void>;
 };
 
+// TODO: `ignoreSyncMethods` and `ignoreSyncStateKeys` support module name and method/state name.
+
 export interface ICoworkerExecutorOptions {
   /**
    * Ignore action methods in all proxy modules on coworker.
@@ -190,8 +192,10 @@ export class CoworkerExecutor extends PluginModule {
                     stopWatching();
                     const { identifier, state } = getRef(module);
                     this.sequence += 1;
+                    // If the coworker runs before the main process,
+                    // then the sequence will ensure that the state is properly synchronized.
                     this.transport.emit(
-                      syncStateName,
+                      { name: syncStateName, respond: false },
                       {
                         _reactant: actionIdentifier,
                         type: `${actionIdentifier}_${syncModuleStateActionName}`,
@@ -268,8 +272,10 @@ export class CoworkerExecutor extends PluginModule {
               );
             });
             this.sequence += 1;
+            // If the coworker runs before the main process,
+            // then the sequence will ensure that the state is properly synchronized.
             this.transport.emit(
-              syncStateName,
+              { name: syncStateName, respond: false },
               { ...lastAction, _patches },
               this.sequence
             );
@@ -294,10 +300,13 @@ export class CoworkerExecutor extends PluginModule {
       });
     });
 
-    this.transport.emit(pushAllStateName, {
-      state,
-      sequence: this.sequence,
-    });
+    this.transport.emit(
+      { name: pushAllStateName, respond: false },
+      {
+        state,
+        sequence: this.sequence,
+      }
+    );
   }
 
   protected handleSyncAllState(options: { state: State; sequence: number }) {
@@ -321,7 +330,7 @@ export class CoworkerExecutor extends PluginModule {
   }
 
   protected requestSyncAllState() {
-    this.transport.emit(requestSyncAllStateName);
+    this.transport.emit({ name: requestSyncAllStateName, respond: false });
   }
 
   protected ignoreStates(state: State, currentState: State) {
