@@ -109,9 +109,16 @@ export class Container extends BaseContainer {
    * get the loaded module
    */
   got<T>(serviceIdentifier: interfaces.ServiceIdentifier<T>): T | undefined {
-    return this._serviceIdentifiers.has(serviceIdentifier)
-      ? this.get(serviceIdentifier)
-      : undefined;
+    try {
+      return this._serviceIdentifiers.has(serviceIdentifier)
+        ? this.get(serviceIdentifier)
+        : undefined;
+    } catch (error) {
+      if (__DEV__) {
+        console.warn(error);
+      }
+      return undefined;
+    }
   }
 
   /**
@@ -120,9 +127,16 @@ export class Container extends BaseContainer {
   gotAll<T>(
     serviceIdentifier: interfaces.ServiceIdentifier<T>
   ): T[] | undefined {
-    return this._serviceIdentifiers.has(serviceIdentifier)
-      ? this.getAll(serviceIdentifier)
-      : undefined;
+    try {
+      return this._serviceIdentifiers.has(serviceIdentifier)
+        ? this.getAll(serviceIdentifier)
+        : undefined;
+    } catch (error) {
+      if (__DEV__) {
+        console.warn(error);
+      }
+      return undefined;
+    }
   }
 }
 
