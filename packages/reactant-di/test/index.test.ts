@@ -178,8 +178,15 @@ test('Container APIs: got/gotAll', () => {
   class FooBar1 {}
 
   @injectable()
+  class FooBar2 {}
+
+  @injectable()
   class Bar {
-    constructor(@multiInject(Foo) public foos: Foo[], public fooBar: FooBar) {}
+    constructor(
+      @multiInject(Foo) public foos: Foo[],
+      public fooBar: FooBar,
+      @optional() public fooBar2: FooBar2
+    ) {}
 
     public get length() {
       return this.foos.length;
@@ -207,4 +214,8 @@ test('Container APIs: got/gotAll', () => {
   expect(container.gotAll(Foo)).toEqual(bar.foos);
   expect(container.got(FooBar1)).toBeUndefined();
   expect(container.gotAll(FooBar1)).toBeUndefined();
+  expect(() => {
+    expect(container.got(FooBar2)).toBeUndefined();
+    expect(container.gotAll(FooBar2)).toBeUndefined();
+  }).not.toThrowError();
 });
