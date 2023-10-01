@@ -123,19 +123,13 @@ export function createStore<T = any>({
       const services: IService[] = container.getAll(ServiceIdentifier);
       loadedModules.add(ServiceIdentifier);
       services.forEach((service, index) => {
-        if (
-          typeof service !== 'object' ||
-          service === null ||
-          (service[modulesKey] && isMultipleInjection)
-        ) {
-          return;
-        }
         handlePlugin(service, pluginHooks);
         const className = (ServiceIdentifier as Function).name;
         let identifier: string | undefined =
           typeof ServiceIdentifier === 'string'
             ? ServiceIdentifier
             : service[nameKey];
+        // module identifier prioritizes using DI module token
         // The `options.name` property of the decorator `@injectable(options)` parameter must be specified as a string, otherwise a staged string will be generated.
         // this solution replaces the `combineReducers` need `Object.keys` get keys without `symbol` keys.
         identifier ??= getStageName(className ?? String(ServiceIdentifier));
@@ -167,6 +161,13 @@ export function createStore<T = any>({
         Object.assign(modulesMap, {
           [identifier]: service,
         });
+        if (
+          typeof service !== 'object' ||
+          service === null ||
+          (service[modulesKey] && isMultipleInjection)
+        ) {
+          return;
+        }
         const hasState = toString.call(service[stateKey]) === '[object Object]';
         if (hasState) {
           const isEmptyObject = Object.keys(service[stateKey]!).length === 0;

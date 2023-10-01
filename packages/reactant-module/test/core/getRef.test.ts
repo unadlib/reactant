@@ -58,6 +58,12 @@ test('getRef for base module', () => {
     { provide: 'symbol', useValue: Symbol('test') },
     { provide: 'null', useValue: null },
     { provide: 'undefined', useValue: undefined },
+    {
+      provide: 'function',
+      useValue: () => {
+        //
+      },
+    },
     Foo,
   ];
   const container = createContainer({
@@ -117,4 +123,17 @@ test('getRef for base module', () => {
   expect(getRef(counter).identifier).toBe('counter');
   expect(getRef(counter).state).toBe(store.getState().counter);
   expect(getRef(counter).initState).toEqual({ count: 0, others: { list: [] } });
+  expect(
+    Object.keys(getRef(counter).modules!).filter(
+      (name) => !/^@@reactant/.test(name)
+    )
+  ).toEqual([
+    'counter',
+    'string',
+    'number',
+    'symbol',
+    'null',
+    'undefined',
+    'function',
+  ]);
 });
