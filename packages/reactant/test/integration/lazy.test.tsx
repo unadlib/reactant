@@ -1,3 +1,5 @@
+/* eslint-disable no-promise-executor-return */
+/* eslint-disable no-use-before-define */
 /* eslint-disable import/no-extraneous-dependencies */
 import { Storage, StorageOptions, IStorageOptions } from 'reactant-storage';
 import { unmountComponentAtNode, render } from 'reactant-web';
