@@ -14,7 +14,7 @@ test('base `dynamic` use name by default', async () => {
   class Counter {
     constructor(public moduleRef: ModuleRef) {}
 
-    @dynamic('todoModule')
+    @dynamic('todo')
     readonly todo?: ITodo;
 
     @state
@@ -43,7 +43,7 @@ test('base `dynamic` use name by default', async () => {
   }
 
   @injectable({
-    name: 'todoModule',
+    name: 'todo',
   })
   class Todo implements ITodo {
     @state

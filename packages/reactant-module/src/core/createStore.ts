@@ -131,10 +131,11 @@ export function createStore<T = any>({
           return;
         }
         handlePlugin(service, pluginHooks);
-        const isPlainObject =
-          toString.call(service[stateKey]) === '[object Object]';
         const className = (ServiceIdentifier as Function).name;
-        let identifier: string | undefined = service[nameKey];
+        let identifier: string | undefined =
+          typeof ServiceIdentifier === 'string'
+            ? ServiceIdentifier
+            : service[nameKey];
         // The `options.name` property of the decorator `@injectable(options)` parameter must be specified as a string, otherwise a staged string will be generated.
         // this solution replaces the `combineReducers` need `Object.keys` get keys without `symbol` keys.
         identifier ??= getStageName(className ?? String(ServiceIdentifier));
@@ -166,7 +167,8 @@ export function createStore<T = any>({
         Object.assign(modulesMap, {
           [identifier]: service,
         });
-        if (isPlainObject) {
+        const hasState = toString.call(service[stateKey]) === '[object Object]';
+        if (hasState) {
           const isEmptyObject = Object.keys(service[stateKey]!).length === 0;
           if (!isEmptyObject) {
             const descriptors: Record<string, PropertyDescriptor> = {};
