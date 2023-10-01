@@ -64,6 +64,18 @@ test('getRef for base module', () => {
         //
       },
     },
+    {
+      provide: 'array',
+      useValue: [],
+    },
+    {
+      provide: 'set',
+      useValue: new Set(),
+    },
+    {
+      provide: 'map',
+      useValue: new Map(),
+    },
     Foo,
   ];
   const container = createContainer({
@@ -135,5 +147,8 @@ test('getRef for base module', () => {
     'null',
     'undefined',
     'function',
+    'array',
+    'set',
+    'map',
   ]);
 });
