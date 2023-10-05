@@ -18,6 +18,7 @@
     "url": "https://github.com/unadlib/reactant.git",
     "directory": "packages/reactant-web"
   },
+  "homepage": "https://reactant.js.org/",
   "authors": [
     "Michael Lin <unadlib@gmail.com> (https://github.com/unadlib)"
   ],

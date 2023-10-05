@@ -16,6 +16,7 @@
     "Reactant",
     "Reactant Last Action"
   ],
+  "homepage": "https://reactant.js.org/",
   "repository": {
     "type": "git",
     "url": "https://github.com/unadlib/reactant.git",

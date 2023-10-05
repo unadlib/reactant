@@ -44,7 +44,7 @@
   "bugs": {
     "url": "https://github.com/unadlib/reactant/issues"
   },
-  "homepage": "https://github.com/unadlib/reactant#readme",
+  "homepage": "https://reactant.js.org/",
   "devDependencies": {
     "@rollup/plugin-commonjs": "^11.0.2",
     "@rollup/plugin-node-resolve": "^6.1.0",

@@ -9,6 +9,7 @@
   "typedoc": {
     "entryPoint": "src/index.ts"
   },
+  "homepage": "https://reactant.js.org/",
   "repository": {
     "type": "git",
     "url": "https://github.com/unadlib/reactant.git",
@@ -26,7 +27,7 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "mutative": "^0.4.2",
+    "mutative": "^0.6.0",
     "reactant-di": "^0.88.0",
     "redux": "^4.1.0"
   },

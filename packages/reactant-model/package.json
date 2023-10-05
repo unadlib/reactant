@@ -16,6 +16,7 @@
     "Reactant",
     "Reactant Model"
   ],
+  "homepage": "https://reactant.js.org/",
   "repository": {
     "type": "git",
     "url": "https://github.com/unadlib/reactant.git",
@@ -26,11 +27,11 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "mutative": "^0.4.2",
+    "mutative": "^0.6.0",
     "reactant-module": "*"
   },
   "devDependencies": {
-    "mutative": "^0.4.2",
+    "mutative": "^0.6.0",
     "reactant-module": "^0.88.0"
   }
 }
