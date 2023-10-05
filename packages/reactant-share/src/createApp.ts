@@ -26,8 +26,6 @@ import { PortDetector } from './modules/portDetector';
 import { useLock } from './lock';
 import { IdentifierChecker } from './modules/identifierChecker';
 import { PatchesChecker } from './modules/patchesChecker';
-import { CoworkerExecutor } from './modules/coworkerExecutor';
-import { CoworkerAdapter } from './modules/coworkerAdapter';
 
 const createBaseApp = <T, S extends any[], R extends Renderer<S>>({
   share,
@@ -65,59 +63,6 @@ const createBaseApp = <T, S extends any[], R extends Renderer<S>>({
     },
     PortDetector
   );
-  if (share.coworker) {
-    if (__DEV__) {
-      if (!Array.isArray(options.modules)) {
-        console.warn(`coworker 'modules' is not an array.`);
-      } else if (!options.modules.length) {
-        console.warn(`coworker 'modules' is empty.`);
-      }
-    }
-    options.modules.push(CoworkerAdapter, CoworkerExecutor);
-    if (!share.coworker.isCoworker && !share.coworker.transports?.main) {
-      // If the app is not shared, it will use Coworker with WebWorker.
-      if (globalThis.SharedWorker && share.port) {
-        if (!share.coworker.worker) {
-          if (!share.coworker.workerURL) {
-            throw new Error(`'coworker.workerURL' does not exist.`);
-          }
-          share.coworker.worker = new SharedWorker(share.coworker.workerURL);
-        } else if (__DEV__) {
-          if (!(share.coworker.worker instanceof SharedWorker)) {
-            throw new Error(
-              `'share.coworker.worker' is not a SharedWorker instance.`
-            );
-          }
-          if (share.coworker.workerURL) {
-            console.warn(
-              `'worker' already existed,'coworker.workerURL' is ignored.`
-            );
-          }
-        }
-      } else if (share.type === 'Base' && !share.port) {
-        if (!share.coworker.worker) {
-          if (!share.coworker.workerURL) {
-            throw new Error(`'coworker.workerURL' does not exist.`);
-          }
-          share.coworker.worker = new Worker(share.coworker.workerURL);
-        } else if (__DEV__) {
-          if (!(share.coworker.worker instanceof Worker)) {
-            throw new Error(
-              `'share.coworker.worker' is not a Web Worker instance.`
-            );
-          }
-          if (share.coworker.workerURL) {
-            console.warn(
-              `'worker' already existed,'coworker.workerURL' is ignored.`
-            );
-          }
-        }
-      } else {
-        // If the client does not support Shared Worker in SharedWorker mode, the app will disable the Coworker.
-        delete share.coworker.worker;
-      }
-    }
-  }
   if (__DEV__) {
     options.modules.push(IdentifierChecker);
   }

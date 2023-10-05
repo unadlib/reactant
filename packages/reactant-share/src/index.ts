@@ -18,12 +18,7 @@ export {
   REHYDRATE,
   getRehydrated,
 } from './modules/storage';
-export { CoworkerAdapter } from './modules/coworkerAdapter';
-export {
-  CoworkerExecutor,
-  CoworkerExecutorOptions,
-  ICoworkerExecutorOptions,
-} from './modules/coworkerExecutor';
+export { Coworker, CoworkerOptions, createCoworker } from './modules/coworker';
 export { useLock } from './lock';
 export { spawn } from './spawn';
 export { fork } from './fork';
@@ -31,6 +26,7 @@ export { mockPairTransports } from './mockPairTransports';
 export { createBroadcastTransport } from './createTransport';
 
 export type { IRouterOptions } from './modules/router';
+export type { ICoworkerOptions } from './modules/coworker';
 export type { IStorageOptions, SetStorageOptions } from './modules/storage';
 export type { Transport } from './createTransport';
 export type {

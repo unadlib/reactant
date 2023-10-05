@@ -8,8 +8,9 @@ import {
   RouterOptions,
   createHashHistory,
   IRouterOptions,
-  CoworkerExecutorOptions,
-  ICoworkerExecutorOptions,
+  Coworker,
+  CoworkerOptions,
+  ICoworkerOptions,
 } from 'reactant-share';
 import localForage from 'localforage';
 import { AppView } from './app.view';
@@ -32,13 +33,15 @@ createSharedApp({
         loading: 'loading',
       } as IStorageOptions,
     },
+    Coworker,
     {
-      provide: CoworkerExecutorOptions,
+      provide: CoworkerOptions,
       useValue: {
+        isCoworker: false,
+        useModules: [ProxyCounter],
         enablePatchesChecker: true,
-        ignoreSyncMethods: ['increase1'],
         ignoreSyncStateKeys: ['count1'],
-      } as ICoworkerExecutorOptions,
+      } as ICoworkerOptions,
     },
   ],
   main: AppView,
@@ -49,10 +52,6 @@ createSharedApp({
     name: 'SharedWorkerApp',
     port: 'server',
     type: 'SharedWorker',
-    coworker: {
-      isCoworker: false,
-      modules: [ProxyCounter],
-    },
   },
 }).then((app) => {
   console.log(app, '====');

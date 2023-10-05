@@ -8,8 +8,9 @@ import {
   RouterOptions,
   createHashHistory,
   IRouterOptions,
-  CoworkerExecutorOptions,
-  ICoworkerExecutorOptions,
+  Coworker,
+  CoworkerOptions,
+  ICoworkerOptions,
 } from 'reactant-share';
 import localForage from 'localforage';
 import { AppView } from './app.view';
@@ -32,13 +33,17 @@ createSharedApp({
         loading: 'loading',
       } as IStorageOptions,
     },
+    Coworker,
     {
-      provide: CoworkerExecutorOptions,
+      provide: CoworkerOptions,
       useValue: {
+        isCoworker: false,
+        useModules: [ProxyCounter],
         enablePatchesChecker: true,
-        ignoreSyncMethods: ['increase1'],
         ignoreSyncStateKeys: ['count1'],
-      } as ICoworkerExecutorOptions,
+        // @ts-ignore
+        worker: new SharedWorker(new URL('./coworker.ts', import.meta.url)),
+      } as ICoworkerOptions,
     },
   ],
   main: AppView,
@@ -51,11 +56,6 @@ createSharedApp({
     forcedSyncClient: false,
     portName:
       globalThis.location.pathname === '/index.html' ? 'other' : 'default',
-    coworker: {
-      isCoworker: false,
-      modules: [ProxyCounter],
-      workerURL: 'coworker.bundle.js',
-    },
   },
 }).then((app) => {
   app.bootstrap(document.getElementById('app'));
