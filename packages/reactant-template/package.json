@@ -1,6 +1,6 @@
 {
   "name": "reactant-template",
-  "version": "0.87.0",
+  "version": "0.88.0",
   "description": "A templates collection for Reactant",
   "main": "index.js",
   "build": [],
@@ -10,6 +10,11 @@
   "keywords": [
     "Reactant"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/unadlib/reactant.git",
+    "directory": "packages/reactant-template"
+  },
   "authors": [
     "Michael Lin <unadlib@gmail.com> (https://github.com/unadlib)"
   ],

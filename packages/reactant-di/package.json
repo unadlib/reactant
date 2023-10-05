@@ -1,6 +1,6 @@
 {
   "name": "reactant-di",
-  "version": "0.87.0",
+  "version": "0.88.0",
   "description": "A dependency injection lib for Reactant",
   "main": "dist/index.cjs.js",
   "unpkg": "dist/index.umd.js",
@@ -17,6 +17,11 @@
     "DI",
     "dependency injection"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/unadlib/reactant.git",
+    "directory": "packages/reactant-di"
+  },
   "authors": [
     "Michael Lin <unadlib@gmail.com> (https://github.com/unadlib)"
   ],

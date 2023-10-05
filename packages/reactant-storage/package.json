@@ -1,6 +1,6 @@
 {
   "name": "reactant-storage",
-  "version": "0.87.0",
+  "version": "0.88.0",
   "description": "A persistence storage plugin for Reactant",
   "main": "dist/index.cjs.js",
   "unpkg": "dist/index.umd.js",
@@ -17,6 +17,11 @@
     "Storage",
     "Persistence"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/unadlib/reactant.git",
+    "directory": "packages/reactant-storage"
+  },
   "authors": [
     "Michael Lin <unadlib@gmail.com> (https://github.com/unadlib)"
   ],
@@ -34,7 +39,7 @@
   "devDependencies": {
     "react": "^17.0.2",
     "react-redux": "^7.2.8",
-    "reactant-module": "^0.87.0",
+    "reactant-module": "^0.88.0",
     "redux": "^4.1.0"
   }
 }

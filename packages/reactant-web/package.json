@@ -1,6 +1,6 @@
 {
   "name": "reactant-web",
-  "version": "0.87.0",
+  "version": "0.88.0",
   "description": "A Web application with react-dom for Reactant",
   "main": "dist/index.cjs.js",
   "unpkg": "dist/index.umd.js",
@@ -13,6 +13,11 @@
     "Reactant",
     "react-dom"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/unadlib/reactant.git",
+    "directory": "packages/reactant-web"
+  },
   "authors": [
     "Michael Lin <unadlib@gmail.com> (https://github.com/unadlib)"
   ],
@@ -21,7 +26,7 @@
     "react-dom": "^16.14.0 || ^17"
   },
   "dependencies": {
-    "reactant-router-dom": "^0.87.0"
+    "reactant-router-dom": "^0.88.0"
   },
   "devDependencies": {
     "react-dom": "^17.0.2"
