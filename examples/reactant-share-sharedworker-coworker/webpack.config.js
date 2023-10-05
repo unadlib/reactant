@@ -8,7 +8,6 @@ module.exports = {
   entry: {
     index: './src/index.ts',
     worker: './src/worker.ts',
-    coworker: './src/coworker.ts',
     iframe: './src/iframe.ts',
     'detached-window': './src/detached-window.ts',
   },

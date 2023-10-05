@@ -7,7 +7,6 @@ const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
 module.exports = {
   entry: {
     index: './src/index.ts',
-    coworker: './src/coworker.ts',
     iframe: './src/iframe.ts',
     'detached-window': './src/detached-window.ts',
   },

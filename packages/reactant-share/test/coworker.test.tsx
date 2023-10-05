@@ -3,7 +3,6 @@ import React from 'react';
 import { unmountComponentAtNode, render } from 'reactant-web';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { act } from 'react-dom/test-utils';
-import { LastAction } from 'reactant-last-action';
 import {
   injectable,
   state,
@@ -17,8 +16,10 @@ import {
   optional,
   mockPairTransports,
   fork,
-  CoworkerExecutor,
-  CoworkerAdapter,
+  Coworker,
+  CoworkerOptions,
+  type ICoworkerOptions,
+  createCoworker,
 } from '..';
 
 let serverContainer: Element;
@@ -144,14 +145,14 @@ describe('base', () => {
     name: 'ProxyCounter',
   })
   class ProxyCounter {
-    constructor(public coworkerAdapter: CoworkerAdapter) {}
+    constructor(public coworker: Coworker) {}
 
     @state
     count = 0;
 
     @action
     increase() {
-      coworkerModuleFn(this.coworkerAdapter.isCoworker);
+      coworkerModuleFn(this.coworker.isCoworker);
       this.count += 1;
     }
 
@@ -174,7 +175,20 @@ describe('base', () => {
       const coworkerTransports = mockPairTransports();
 
       const serverApp = await createSharedApp({
-        modules: [ProxyCounter],
+        modules: [
+          ProxyCounter,
+          Coworker,
+          {
+            provide: CoworkerOptions,
+            useValue: {
+              isCoworker: false,
+              useModules: [ProxyCounter],
+              transports: {
+                main: coworkerTransports[0],
+              },
+            } as ICoworkerOptions,
+          },
+        ],
         main: AppView,
         render,
         share: {
@@ -183,13 +197,6 @@ describe('base', () => {
           port: 'server',
           transports: {
             server: transports[0],
-          },
-          coworker: {
-            isCoworker: false,
-            modules: [ProxyCounter],
-            transports: {
-              main: coworkerTransports[0],
-            },
           },
         },
       });
@@ -207,7 +214,20 @@ describe('base', () => {
       expect(serverContainer.querySelector('#count')?.textContent).toBe('0');
 
       const coworkerApp = await createSharedApp({
-        modules: [ProxyCounter],
+        modules: [
+          ProxyCounter,
+          Coworker,
+          {
+            provide: CoworkerOptions,
+            useValue: {
+              isCoworker: true,
+              useModules: [ProxyCounter],
+              transports: {
+                coworker: coworkerTransports[1],
+              },
+            } as ICoworkerOptions,
+          },
+        ],
         main: AppView,
         render,
         share: {
@@ -216,18 +236,21 @@ describe('base', () => {
           transports: {
             server: transports[0],
           },
-          coworker: {
-            isCoworker: true,
-            modules: [ProxyCounter],
-            transports: {
-              coworker: coworkerTransports[1],
-            },
-          },
         },
       });
 
       const clientApp = await createSharedApp({
-        modules: [ProxyCounter],
+        modules: [
+          ProxyCounter,
+          Coworker,
+          {
+            provide: CoworkerOptions,
+            useValue: {
+              isCoworker: false,
+              useModules: [ProxyCounter],
+            } as ICoworkerOptions,
+          },
+        ],
         main: AppView,
         render,
         share: {
@@ -236,10 +259,6 @@ describe('base', () => {
           port: 'client',
           transports: {
             client: transports[1],
-          },
-          coworker: {
-            isCoworker: false,
-            modules: [ProxyCounter],
           },
         },
       });
@@ -370,7 +389,20 @@ describe('base', () => {
     const coworkerTransports = mockPairTransports();
 
     const serverApp = await createSharedApp({
-      modules: [ProxyCounter],
+      modules: [
+        ProxyCounter,
+        Coworker,
+        {
+          provide: CoworkerOptions,
+          useValue: {
+            isCoworker: false,
+            useModules: [ProxyCounter],
+            transports: {
+              main: coworkerTransports[0],
+            },
+          } as ICoworkerOptions,
+        },
+      ],
       main: AppView,
       render,
       share: {
@@ -378,13 +410,6 @@ describe('base', () => {
         type: 'Base',
         transports: {
           server: transports[0],
-        },
-        coworker: {
-          isCoworker: false,
-          modules: [ProxyCounter],
-          transports: {
-            main: coworkerTransports[0],
-          },
         },
       },
     });
@@ -404,7 +429,20 @@ describe('base', () => {
     expect(serverApp.container.get(ProxyCounter).count).toBe(0);
 
     const coworkerApp = await createSharedApp({
-      modules: [ProxyCounter],
+      modules: [
+        ProxyCounter,
+        Coworker,
+        {
+          provide: CoworkerOptions,
+          useValue: {
+            isCoworker: true,
+            useModules: [ProxyCounter],
+            transports: {
+              coworker: coworkerTransports[1],
+            },
+          } as ICoworkerOptions,
+        },
+      ],
       main: AppView,
       render,
       share: {
@@ -412,13 +450,6 @@ describe('base', () => {
         type: 'Base',
         transports: {
           server: transports[0],
-        },
-        coworker: {
-          isCoworker: true,
-          modules: [ProxyCounter],
-          transports: {
-            coworker: coworkerTransports[1],
-          },
         },
       },
     });
@@ -452,7 +483,20 @@ describe('base', () => {
     const coworkerTransports = mockPairTransports();
 
     const sharedApp0 = await createSharedApp({
-      modules: [ProxyCounter],
+      modules: [
+        ProxyCounter,
+        Coworker,
+        {
+          provide: CoworkerOptions,
+          useValue: {
+            isCoworker: false,
+            useModules: [ProxyCounter],
+            transports: {
+              main: coworkerTransports[0],
+            },
+          } as ICoworkerOptions,
+        },
+      ],
       main: AppView,
       render,
       share: {
@@ -461,13 +505,6 @@ describe('base', () => {
         transports: {
           server: transports[0],
           client: transports1[0],
-        },
-        coworker: {
-          isCoworker: false,
-          modules: [ProxyCounter],
-          transports: {
-            main: coworkerTransports[0],
-          },
         },
       },
     });
@@ -487,7 +524,20 @@ describe('base', () => {
     await new Promise((resolve) => setTimeout(resolve, 1000 * 3));
 
     const sharedApp1 = await createSharedApp({
-      modules: [ProxyCounter],
+      modules: [
+        ProxyCounter,
+        Coworker,
+        {
+          provide: CoworkerOptions,
+          useValue: {
+            isCoworker: false,
+            useModules: [ProxyCounter],
+            transports: {
+              main: coworkerTransports[0],
+            },
+          } as ICoworkerOptions,
+        },
+      ],
       main: AppView,
       render,
       share: {
@@ -496,13 +546,6 @@ describe('base', () => {
         transports: {
           server: transports1[0],
           client: transports[1],
-        },
-        coworker: {
-          isCoworker: false,
-          modules: [ProxyCounter],
-          transports: {
-            main: coworkerTransports[0],
-          },
         },
       },
     });
@@ -554,7 +597,20 @@ describe('base', () => {
     expect(clientContainer.querySelector('#count')?.textContent).toBe('2');
 
     const coworkerApp = await createSharedApp({
-      modules: [ProxyCounter],
+      modules: [
+        ProxyCounter,
+        Coworker,
+        {
+          provide: CoworkerOptions,
+          useValue: {
+            isCoworker: true,
+            useModules: [ProxyCounter],
+            transports: {
+              coworker: coworkerTransports[1],
+            },
+          } as ICoworkerOptions,
+        },
+      ],
       main: AppView,
       render,
       share: {
@@ -562,13 +618,6 @@ describe('base', () => {
         type: 'Base',
         transports: {
           server: transports[0],
-        },
-        coworker: {
-          isCoworker: true,
-          modules: [ProxyCounter],
-          transports: {
-            coworker: coworkerTransports[1],
-          },
         },
       },
     });
@@ -609,5 +658,174 @@ describe('base', () => {
       [true],
       [true],
     ]);
+  });
+
+  test('createCoworker - in base mode ', async () => {
+    onClientFn = jest.fn();
+    subscribeOnClientFn = jest.fn();
+    onServerFn = jest.fn();
+    subscribeOnServerFn = jest.fn();
+    coworkerModuleFn = jest.fn();
+
+    const transports = mockPairTransports();
+    const coworkerTransports = mockPairTransports();
+    const counterCoworkerTransports = mockPairTransports();
+    const [CounterCoworker, CounterCoworkerOptions] = createCoworker('counter');
+
+    const serverApp = await createSharedApp({
+      modules: [
+        ProxyCounter,
+        Coworker,
+        {
+          provide: CoworkerOptions,
+          useValue: {
+            isCoworker: false,
+            useModules: [ProxyCounter],
+            transports: {
+              main: coworkerTransports[0],
+            },
+          } as ICoworkerOptions,
+        },
+
+        {
+          provide: 'counter0',
+          useClass: ProxyCounter,
+        },
+        CounterCoworker,
+        {
+          provide: CounterCoworkerOptions,
+          useValue: {
+            isCoworker: false,
+            useModules: ['counter0'],
+            transports: {
+              main: counterCoworkerTransports[0],
+            },
+          } as ICoworkerOptions,
+        },
+      ],
+      main: AppView,
+      render,
+      share: {
+        name: 'counter',
+        type: 'Base',
+        transports: {
+          server: transports[0],
+        },
+      },
+    });
+    expect(serverApp.instance.counter.portDetector.shared).toBe(false);
+
+    expect(onClientFn.mock.calls.length).toBe(0);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(0);
+    expect(onServerFn.mock.calls.length).toBe(0);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(0);
+    await serverApp.bootstrap(serverContainer);
+    expect(onClientFn.mock.calls.length).toBe(0);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(0);
+    expect(onServerFn.mock.calls.length).toBe(0);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(0);
+    expect(serverContainer.querySelector('#count')?.textContent).toBe('0');
+
+    expect(serverApp.container.get(ProxyCounter).count).toBe(0);
+
+    const coworkerApp = await createSharedApp({
+      modules: [
+        ProxyCounter,
+        Coworker,
+        {
+          provide: CoworkerOptions,
+          useValue: {
+            isCoworker: true,
+            useModules: [ProxyCounter],
+            transports: {
+              coworker: coworkerTransports[1],
+            },
+          } as ICoworkerOptions,
+        },
+      ],
+      main: AppView,
+      render,
+      share: {
+        name: 'counter',
+        type: 'Base',
+        transports: {
+          server: transports[0],
+        },
+      },
+    });
+
+    expect(coworkerApp.container.get(ProxyCounter).count).toBe(0);
+
+    await spawn(serverApp.container.get(ProxyCounter), 'increase', []);
+    expect(coworkerApp.container.get(ProxyCounter).count).toBe(1);
+    expect(serverApp.container.get(ProxyCounter).count).toBe(1);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(0);
+    expect(onServerFn.mock.calls.length).toBe(0);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(0);
+
+    coworkerApp.container.get(ProxyCounter).increase();
+    expect(coworkerApp.container.get(ProxyCounter).count).toBe(2);
+    expect(serverApp.container.get(ProxyCounter).count).toBe(2);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(0);
+    expect(onServerFn.mock.calls.length).toBe(0);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(0);
+
+    const counterCoworkerApp = await createSharedApp({
+      modules: [
+        {
+          provide: 'counter0',
+          useClass: ProxyCounter,
+        },
+        {
+          provide: Coworker,
+          useClass: CounterCoworker,
+        },
+        {
+          provide: CounterCoworkerOptions,
+          useValue: {
+            isCoworker: true,
+            useModules: ['counter0'],
+            transports: {
+              coworker: counterCoworkerTransports[1],
+            },
+          } as ICoworkerOptions,
+        },
+      ],
+      main: AppView,
+      render,
+      share: {
+        name: 'counter',
+        type: 'Base',
+        transports: {
+          server: transports[0],
+        },
+      },
+    });
+
+    expect(
+      counterCoworkerApp.container.get<ProxyCounter>('counter0').count
+    ).toBe(0);
+
+    await spawn(
+      serverApp.container.get<ProxyCounter>('counter0'),
+      'increase',
+      []
+    );
+    expect(
+      counterCoworkerApp.container.get<ProxyCounter>('counter0').count
+    ).toBe(1);
+    expect(serverApp.container.get<ProxyCounter>('counter0').count).toBe(1);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(0);
+    expect(onServerFn.mock.calls.length).toBe(0);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(0);
+
+    counterCoworkerApp.container.get<ProxyCounter>('counter0').increase();
+    expect(
+      counterCoworkerApp.container.get<ProxyCounter>('counter0').count
+    ).toBe(2);
+    expect(serverApp.container.get<ProxyCounter>('counter0').count).toBe(2);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(0);
+    expect(onServerFn.mock.calls.length).toBe(0);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(0);
   });
 });

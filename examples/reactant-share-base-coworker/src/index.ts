@@ -8,10 +8,16 @@ import {
   RouterOptions,
   createHashHistory,
   IRouterOptions,
+  Coworker,
+  CoworkerOptions,
+  ICoworkerOptions,
+  createCoworker,
 } from 'reactant-share';
 import localForage from 'localforage';
 import { AppView } from './app.view';
 import { ProxyCounter } from './proxyCounter';
+
+const [CounterWorker, CounterWorkerOptions] = createCoworker('Counter');
 
 createSharedApp({
   modules: [
@@ -30,17 +36,36 @@ createSharedApp({
         loading: 'loading',
       } as IStorageOptions,
     },
+    Coworker,
+    {
+      provide: CoworkerOptions,
+      useValue: {
+        useModules: [ProxyCounter],
+        // @ts-ignore
+        worker: new Worker(new URL('./coworker.ts', import.meta.url)),
+        isCoworker: false,
+      } as ICoworkerOptions,
+    },
+    {
+      provide: 'NewProxyCounter',
+      useClass: ProxyCounter,
+    },
+    CounterWorker,
+    {
+      provide: CounterWorkerOptions,
+      useValue: {
+        useModules: ['NewProxyCounter'],
+        // @ts-ignore
+        worker: new Worker(new URL('./counter-coworker.ts', import.meta.url)),
+        isCoworker: false,
+      } as ICoworkerOptions,
+    },
   ],
   main: AppView,
   render,
   share: {
     name: 'SharedWorkerApp',
     type: 'Base',
-    coworker: {
-      isCoworker: false,
-      modules: [ProxyCounter],
-      workerURL: 'coworker.bundle.js',
-    },
   },
 }).then((app) => {
   app.bootstrap(document.getElementById('app'));

@@ -5,13 +5,7 @@ import type {
   MergeInteraction,
   Transport,
 } from 'data-transport';
-import type {
-  Config as BaseConfig,
-  App,
-  Renderer,
-  ServiceIdentifier,
-  ReactantModuleOptions,
-} from 'reactant';
+import type { Config as BaseConfig, App, Renderer } from 'reactant';
 import type { ILastActionData } from 'reactant-last-action';
 import type { RouterState } from 'reactant-router';
 
@@ -110,38 +104,6 @@ export interface ISharedAppOptions {
    * `forcedSyncClient` is only true in `SharedTab` type.
    */
   forcedSyncClient?: boolean;
-  /**
-   * Whether to enable the `SharedWorker` mode.
-   */
-  coworker?: {
-    /**
-     * Whether to be in coworker.
-     */
-    isCoworker: boolean;
-    /**
-     * Importing the injected dependency modules.
-     */
-    modules: ReactantModuleOptions[];
-    /**
-     * Specify a SharedWorker URL for coworker.
-     */
-    workerURL?: string;
-    /**
-     * Specify a SharedWorker for coworker.
-     */
-    worker?: SharedWorker | Worker;
-    /**
-     * Enable transport debugger for coworker.
-     */
-    enableTransportDebugger?: boolean;
-    /**
-     * coworker transports
-     */
-    transports?: {
-      main?: Transport;
-      coworker?: Transport;
-    };
-  };
 }
 
 export interface Config<T, S extends any[], R extends Renderer<S>>

@@ -1,11 +1,12 @@
+/* eslint-disable no-shadow */
+/* eslint-disable consistent-return */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-param-reassign */
 import {
-  applyPatches,
   injectable,
-  optional,
+  applyPatches,
   watch,
   getRef,
   ServiceIdentifier,
@@ -13,12 +14,12 @@ import {
   Store,
   ReactantAction,
   actionIdentifier,
-  ReactantModuleOptions,
-  subscribe,
+  inject,
+  optional,
 } from 'reactant';
+import { createTransport, Transport } from 'data-transport';
 import type { ILastActionData } from 'reactant-last-action';
 
-import { CoworkerAdapter } from './coworkerAdapter';
 import { PortDetector } from './portDetector';
 import { Storage } from './storage';
 import {
@@ -35,6 +36,10 @@ import type { ProxyExecParams, SymmetricTransport } from '../interfaces';
 
 type State = Record<string, Record<string, unknown>>;
 
+interface Module<T> extends Function {
+  new (...args: any[]): T;
+}
+
 type ProxyExecutorInteraction = {
   [proxyWorkerExecuteName]: (execParams: ProxyExecParams) => Promise<unknown>;
   [syncStateName]: (action: ILastActionData, sequence: number) => Promise<void>;
@@ -45,13 +50,30 @@ type ProxyExecutorInteraction = {
   }) => Promise<void>;
 };
 
-// TODO: `ignoreSyncMethods` and `ignoreSyncStateKeys` support module name and method/state name.
-
-export interface ICoworkerExecutorOptions {
+export interface ICoworkerOptions {
   /**
-   * Ignore action methods in all proxy modules on coworker.
+   * Importing the injected dependency modules.
    */
-  ignoreSyncMethods?: string[];
+  useModules: ServiceIdentifier<unknown>[];
+  /**
+   *  Whether the current process is the coworker process.
+   */
+  isCoworker: boolean;
+  /**
+   * Specify a SharedWorker for coworker.
+   */
+  worker?: SharedWorker | Worker;
+  /**
+   * Enable transport debugger for coworker.
+   */
+  enableTransportDebugger?: boolean;
+  /**
+   * coworker transports
+   */
+  transports?: {
+    main?: Transport;
+    coworker?: Transport;
+  };
   /**
    * Ignore sync state key in all proxy modules on coworker and main Process.
    */
@@ -62,36 +84,34 @@ export interface ICoworkerExecutorOptions {
   enablePatchesChecker?: boolean;
 }
 
-export const CoworkerExecutorOptions = Symbol('CoworkerExecutorOptions');
+export const CoworkerOptions = Symbol('CoworkerOptions');
 
 @injectable({
-  name: 'CoworkerExecutor',
+  name: 'Coworker',
 })
-export class CoworkerExecutor extends PluginModule {
+export class Coworker extends PluginModule {
   protected proxyModules: ServiceIdentifier<unknown>[];
 
   protected proxyModuleKeys: string[] = [];
 
-  protected ignoreSyncMethods =
-    this.proxyExecutorOptions?.ignoreSyncMethods ?? [];
-
   protected ignoreSyncStateKeys =
-    this.proxyExecutorOptions?.ignoreSyncStateKeys ?? [];
+    this.coworkerOptions?.ignoreSyncStateKeys ?? [];
+
+  protected transport?: SymmetricTransport<ProxyExecutorInteraction>;
 
   constructor(
     protected portDetector: PortDetector,
-    protected coworkerAdapter: CoworkerAdapter,
-    @optional() protected storage?: Storage,
-    @optional(CoworkerExecutorOptions)
-    protected proxyExecutorOptions?: ICoworkerExecutorOptions
+    @inject(CoworkerOptions) protected coworkerOptions: ICoworkerOptions,
+    @optional() protected storage?: Storage
   ) {
     super();
-    this.proxyModules =
-      this.portDetector.sharedAppOptions.coworker?.modules.map((item) =>
-        this.getServiceIdentifier(item)
-      ) ?? [];
+    if (!this.portDetector.isClient) {
+      this.transport = this.createTransport();
+    }
 
-    if (this.coworkerAdapter.isCoworker && this.enablePatchesChecker) {
+    this.proxyModules = [...this.coworkerOptions.useModules];
+
+    if (this.isCoworker && this.enablePatchesChecker) {
       // stricter checks to prevent cross-module state updates.
       this.middleware = (store) => (next) => (_action: ReactantAction) => {
         const { _patches, type, method } = _action;
@@ -114,7 +134,7 @@ export class CoworkerExecutor extends PluginModule {
       };
     }
 
-    if (this.storage && this.coworkerAdapter.isMain) {
+    if (this.storage && this.isMain) {
       // main process should ignore proxy module storage state
       this.storage.beforeCombinePersistReducer = () => {
         const proxyModules: any[] = [];
@@ -131,11 +151,92 @@ export class CoworkerExecutor extends PluginModule {
     }
   }
 
+  protected createTransport():
+    | SymmetricTransport<ProxyExecutorInteraction>
+    | undefined {
+    if (this.portDetector.isWorkerMode) {
+      if (this.isCoworker) {
+        return (
+          this.coworkerOptions!.transports?.coworker ??
+          createTransport('Broadcast', {
+            prefix: this.prefix,
+            verbose: this.coworkerOptions?.enableTransportDebugger,
+          })
+        );
+      }
+      if (this.portDetector.sharedAppOptions.port === 'server') {
+        return (
+          this.coworkerOptions!.transports?.main ??
+          createTransport('Broadcast', {
+            prefix: this.prefix,
+            verbose: this.coworkerOptions?.enableTransportDebugger,
+          })
+        );
+      }
+    } else if (this.isCoworker) {
+      const isWebWorker =
+        !(globalThis as any).SharedWorkerGlobalScope &&
+        (globalThis as any).WorkerGlobalScope;
+      return (
+        this.coworkerOptions!.transports?.coworker ??
+        createTransport(
+          isWebWorker ? 'WorkerInternal' : 'SharedWorkerInternal',
+          {
+            prefix: this.prefix,
+            verbose: this.coworkerOptions?.enableTransportDebugger,
+          }
+        )
+      );
+    } else if (this.portDetector.sharedAppOptions.port !== 'client') {
+      if (this.coworkerOptions!.transports?.main) {
+        return this.coworkerOptions!.transports.main;
+      }
+      if (!this.coworkerOptions?.worker) {
+        if (__DEV__) console.warn('No coworker support in server port.');
+        return;
+      }
+      if (this.coworkerOptions.worker instanceof Worker) {
+        return createTransport('WorkerMain', {
+          worker: this.coworkerOptions.worker,
+          prefix: this.prefix,
+          verbose: this.coworkerOptions.enableTransportDebugger,
+        });
+      }
+      return createTransport('SharedWorkerClient', {
+        worker: this.coworkerOptions.worker,
+        prefix: this.prefix,
+        verbose: this.coworkerOptions.enableTransportDebugger,
+      });
+    }
+  }
+
+  protected get prefix() {
+    return `reactant-share:${this.portDetector.sharedAppOptions.name}:coworker:${this.name}`;
+  }
+
+  get name() {
+    return this.ref.identifier;
+  }
+
+  /**
+   * Whether the current process is the coworker process.
+   */
+  get isCoworker() {
+    return this.coworkerOptions.isCoworker;
+  }
+
+  /**
+   * Whether the current process is the main process.
+   */
+  get isMain() {
+    return !this.isCoworker && !!this.transport;
+  }
+
   // TODO: fix dynamic module with storage state
   /**
    * Add proxy modules.
    */
-  addProxyModules(modules: ReactantModuleOptions[]) {
+  addProxyModules(modules: ServiceIdentifier<unknown>[]) {
     if (__DEV__) {
       if (!Array.isArray(modules)) {
         throw new TypeError(
@@ -143,15 +244,7 @@ export class CoworkerExecutor extends PluginModule {
         );
       }
     }
-    const proxyModules = modules.map((item) => this.getServiceIdentifier(item));
-    this.proxyModules.push(...proxyModules);
-  }
-
-  /**
-   * Add ignore sync methods
-   */
-  addIgnoreSyncMethods(keys: string[]) {
-    this.ignoreSyncMethods.push(...keys);
+    this.proxyModules.push(...modules);
   }
 
   /**
@@ -161,19 +254,15 @@ export class CoworkerExecutor extends PluginModule {
     this.ignoreSyncStateKeys.push(...keys);
   }
 
-  protected getServiceIdentifier(item: any): ServiceIdentifier<unknown> {
-    return item?.provide ?? item;
-  }
-
   protected get enablePatchesChecker() {
-    return this.proxyExecutorOptions?.enablePatchesChecker ?? __DEV__;
+    return this.coworkerOptions?.enablePatchesChecker ?? __DEV__;
   }
 
   afterCreateStore = (store: Store) => {
     this.applyProxyExecute();
     this.applyProxyModules(this.proxyModules);
     this.applyProxyState();
-    if (this.coworkerAdapter.isCoworker) {
+    if (this.isCoworker) {
       if (this.sequence === -1) {
         this.sequence = 0;
         this.pushAllState();
@@ -194,7 +283,7 @@ export class CoworkerExecutor extends PluginModule {
                     this.sequence += 1;
                     // If the coworker runs before the main process,
                     // then the sequence will ensure that the state is properly synchronized.
-                    this.transport.emit(
+                    this.transport!.emit(
                       { name: syncStateName, respond: false },
                       {
                         _reactant: actionIdentifier,
@@ -218,10 +307,8 @@ export class CoworkerExecutor extends PluginModule {
         });
       }
     }
-    if (this.coworkerAdapter.isMain) {
-      if (this.sequence === -1) {
-        this.requestSyncAllState();
-      }
+    if (this.isMain && this.sequence === -1) {
+      this.requestSyncAllState();
     }
     return store;
   };
@@ -233,56 +320,55 @@ export class CoworkerExecutor extends PluginModule {
   protected sequence = -1;
 
   protected applyProxyState() {
-    if (this.coworkerAdapter.isMain) {
-      this.transport.listen(pushAllStateName, async (options) => {
+    if (this.isMain) {
+      this.transport!.listen(pushAllStateName, async (options) => {
         this.handleSyncAllState(options);
       });
-      this.transport.listen(syncStateName, async (action, coworkerSequence) => {
-        // If the sequence is not continuous, it means that the main process need sync all state from coworker process.
-        if (this.sequence + 1 !== coworkerSequence) {
-          this.requestSyncAllState();
-          return;
+      this.transport!.listen(
+        syncStateName,
+        async (action, coworkerSequence) => {
+          // If the sequence is not continuous, it means that the main process need sync all state from coworker process.
+          if (this.sequence + 1 !== coworkerSequence) {
+            this.requestSyncAllState();
+            return;
+          }
+          this.sequence = coworkerSequence;
+          const currentState = this.ref.store!.getState();
+          const _sequence = this.portDetector.lastAction.sequence;
+          const state = applyPatches(currentState, action._patches!);
+          this.ignoreStates(state, currentState);
+          this.ref.store!.dispatch({
+            ...action,
+            state,
+            _sequence,
+          });
         }
-        this.sequence = coworkerSequence;
-        const currentState = this.ref.store!.getState();
-        const _sequence = this.portDetector.lastAction.sequence;
-        const state = applyPatches(currentState, action._patches!);
-        this.ignoreStates(state, currentState);
-        this.ref.store!.dispatch({
-          ...action,
-          state,
-          _sequence,
-        });
-      });
+      );
     }
-    if (this.coworkerAdapter.isCoworker) {
+    if (this.isCoworker) {
       watch(
         this,
         () => this.portDetector.lastAction.action,
         (lastAction) => {
-          if (
-            this.proxyModuleKeys.includes(lastAction.type as string) &&
-            !this.ignoreSyncMethods.includes(lastAction.method!)
-          ) {
-            const _patches = lastAction._patches?.filter(({ path }) => {
-              const [module, key] = path;
-              return (
-                this.proxyModuleKeys.includes(module as string) &&
-                !this.ignoreSyncStateKeys.includes(key as string)
-              );
-            });
-            this.sequence += 1;
-            // If the coworker runs before the main process,
-            // then the sequence will ensure that the state is properly synchronized.
-            this.transport.emit(
-              { name: syncStateName, respond: false },
-              { ...lastAction, _patches },
-              this.sequence
+          const _patches = lastAction._patches?.filter(({ path }) => {
+            const [module, key] = path;
+            return (
+              this.proxyModuleKeys.includes(module as string) &&
+              !this.ignoreSyncStateKeys.includes(key as string)
             );
-          }
+          });
+          if (!_patches || _patches.length === 0) return;
+          this.sequence += 1;
+          // If the coworker runs before the main process,
+          // then the sequence will ensure that the state is properly synchronized.
+          this.transport!.emit(
+            { name: syncStateName, respond: false },
+            { ...lastAction, _patches },
+            this.sequence
+          );
         }
       );
-      this.transport.listen(requestSyncAllStateName, async () => {
+      this.transport!.listen(requestSyncAllStateName, async () => {
         this.pushAllState();
       });
     }
@@ -300,7 +386,7 @@ export class CoworkerExecutor extends PluginModule {
       });
     });
 
-    this.transport.emit(
+    this.transport!.emit(
       { name: pushAllStateName, respond: false },
       {
         state,
@@ -330,7 +416,7 @@ export class CoworkerExecutor extends PluginModule {
   }
 
   protected requestSyncAllState() {
-    this.transport.emit({ name: requestSyncAllStateName, respond: false });
+    this.transport!.emit({ name: requestSyncAllStateName, respond: false });
   }
 
   protected ignoreStates(state: State, currentState: State) {
@@ -342,8 +428,8 @@ export class CoworkerExecutor extends PluginModule {
   }
 
   protected applyProxyExecute() {
-    if (this.coworkerAdapter.isCoworker) {
-      this.transport.listen(
+    if (this.isCoworker) {
+      this.transport!.listen(
         proxyWorkerExecuteName,
         async ({ module, method, args }) => {
           const instance = this.ref.modules![module];
@@ -359,18 +445,20 @@ export class CoworkerExecutor extends PluginModule {
   }
 
   protected applyProxyModules(proxyModules: ServiceIdentifier<unknown>[]) {
-    if (this.coworkerAdapter.isMain) {
+    if (this.isMain) {
       proxyModules.forEach((serviceIdentifier) => {
         const modules = this.ref.container!.getAll<any>(serviceIdentifier);
         modules.forEach((module) => {
           if (__DEV__ && module[proxyExecutorKey]) {
             console.warn(
-              `The proxy module "${serviceIdentifier.toString()}" already exists.`
+              `The proxy module "${serviceIdentifier.toString()}" with "${
+                this.name
+              }" already exists.`
             );
           }
           this.proxyModuleKeys.push(getRef(module)!.identifier!);
           module[proxyExecutorKey] = (execParams: ProxyExecParams) => {
-            return this.transport.emit(proxyWorkerExecuteName, execParams);
+            return this.transport!.emit(proxyWorkerExecuteName, execParams);
           };
         });
       });
@@ -383,9 +471,24 @@ export class CoworkerExecutor extends PluginModule {
       });
     }
   }
-
-  protected get transport() {
-    return this.coworkerAdapter
-      .transport as SymmetricTransport<ProxyExecutorInteraction>;
-  }
 }
+
+const ICoworker = Coworker;
+
+export const createCoworker = (name: string): [Module<Coworker>, symbol] => {
+  const CoworkerOptions = Symbol(`${name}CoworkerOptions`);
+
+  @injectable({
+    name: `${name}Coworker`,
+  })
+  class Coworker extends ICoworker {
+    constructor(
+      protected portDetector: PortDetector,
+      @inject(CoworkerOptions) protected coworkerOptions: ICoworkerOptions,
+      @optional() protected storage?: Storage
+    ) {
+      super(portDetector, coworkerOptions, storage);
+    }
+  }
+  return [Coworker, CoworkerOptions] as any;
+};

@@ -16,9 +16,9 @@ export class ProxyCounter {
     protected proxyCounter1: ProxyCounter1,
     @optional() protected storage?: Storage
   ) {
-    // this.storage?.setStorage(this, {
-    //   whitelist: ['count'],
-    // });
+    this.storage?.setStorage(this, {
+      whitelist: ['count'],
+    });
   }
 
   @state

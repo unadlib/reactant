@@ -8,13 +8,14 @@ import {
   RouterOptions,
   createHashHistory,
   IRouterOptions,
-  Coworker,
-  CoworkerOptions,
   ICoworkerOptions,
+  createCoworker,
 } from 'reactant-share';
 import localForage from 'localforage';
 import { AppView } from './app.view';
 import { ProxyCounter } from './proxyCounter';
+
+const [CounterWorker, CounterWorkerOptions] = createCoworker('Counter');
 
 createSharedApp({
   modules: [
@@ -33,11 +34,15 @@ createSharedApp({
         loading: 'loading',
       } as IStorageOptions,
     },
-    Coworker,
     {
-      provide: CoworkerOptions,
+      provide: 'NewProxyCounter',
+      useClass: ProxyCounter,
+    },
+    CounterWorker,
+    {
+      provide: CounterWorkerOptions,
       useValue: {
-        useModules: [ProxyCounter],
+        useModules: ['NewProxyCounter'],
         isCoworker: true,
       } as ICoworkerOptions,
     },
