@@ -16,6 +16,8 @@ import {
   actionIdentifier,
   inject,
   optional,
+  nameKey,
+  Service,
 } from 'reactant';
 import { createTransport, Transport } from 'data-transport';
 import type { ILastActionData } from 'reactant-last-action';
@@ -97,7 +99,7 @@ export class Coworker extends PluginModule {
   protected ignoreSyncStateKeys =
     this.coworkerOptions?.ignoreSyncStateKeys ?? [];
 
-  protected transport?: SymmetricTransport<ProxyExecutorInteraction>;
+  transport?: SymmetricTransport<ProxyExecutorInteraction>;
 
   constructor(
     protected portDetector: PortDetector,
@@ -215,7 +217,7 @@ export class Coworker extends PluginModule {
   }
 
   get name() {
-    return this.ref.identifier;
+    return (this as Service)[nameKey];
   }
 
   /**
