@@ -18,7 +18,12 @@ export {
   REHYDRATE,
   getRehydrated,
 } from './modules/storage';
-export { Coworker, CoworkerOptions, createCoworker } from './modules/coworker';
+export {
+  Coworker,
+  CoworkerOptions,
+  createCoworker,
+  getCoworker,
+} from './modules/coworker';
 export { useLock } from './lock';
 export { spawn } from './spawn';
 export { fork } from './fork';

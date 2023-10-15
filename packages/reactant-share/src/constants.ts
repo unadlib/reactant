@@ -21,6 +21,7 @@ export const proxyWorkerExecuteName = '@@reactant:coworkerProxyWorkerExecute';
 export const syncStateName = '@@reactant:coworkerSyncState';
 export const requestSyncAllStateName = '@@reactant:coworkerRequestSyncAllState';
 export const pushAllStateName = '@@reactant:coworkerPushAllState';
+export const coworkerKey = Symbol('coworker');
 // Redux action types
 export const syncStateActionName = '@@reactant:syncState';
 export const syncModuleStateActionName = '@@reactant:syncModuleState';

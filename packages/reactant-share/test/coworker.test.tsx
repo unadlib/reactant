@@ -20,6 +20,7 @@ import {
   CoworkerOptions,
   type ICoworkerOptions,
   createCoworker,
+  getCoworker,
 } from '..';
 
 let serverContainer: Element;
@@ -60,6 +61,8 @@ describe('base', () => {
   let subscribeOnServerFn: jest.Mock<any, any>;
 
   let coworkerModuleFn: jest.Mock<any, any>;
+  let coworkerModuleSubscribe: jest.Mock<any, any>;
+  let nonCoworkerModuleSubscribe: jest.Mock<any, any>;
 
   @injectable({
     name: 'counter',
@@ -80,6 +83,9 @@ describe('base', () => {
         return subscribe(this, () => {
           subscribeOnServerFn?.();
         });
+      });
+      subscribe(this, () => {
+        nonCoworkerModuleSubscribe?.(getCoworker(this)?.name);
       });
     }
 
@@ -145,7 +151,11 @@ describe('base', () => {
     name: 'ProxyCounter',
   })
   class ProxyCounter {
-    constructor(public coworker: Coworker) {}
+    constructor(public coworker: Coworker) {
+      subscribe(this, () => {
+        coworkerModuleSubscribe?.(getCoworker(this)?.name);
+      });
+    }
 
     @state
     count = 0;
@@ -666,6 +676,8 @@ describe('base', () => {
     onServerFn = jest.fn();
     subscribeOnServerFn = jest.fn();
     coworkerModuleFn = jest.fn();
+    coworkerModuleSubscribe = jest.fn();
+    nonCoworkerModuleSubscribe = jest.fn();
 
     const transports = mockPairTransports();
     const coworkerTransports = mockPairTransports();
@@ -827,5 +839,26 @@ describe('base', () => {
     expect(subscribeOnClientFn.mock.calls.length).toBe(0);
     expect(onServerFn.mock.calls.length).toBe(0);
     expect(subscribeOnServerFn.mock.calls.length).toBe(0);
+    expect(coworkerModuleSubscribe.mock.calls.map((item) => item[0])).toEqual([
+      'Coworker',
+      'counterCoworker',
+      'Coworker',
+      'counterCoworker',
+      'Coworker',
+      'Coworker',
+      'counterCoworker',
+      'Coworker',
+      'Coworker',
+      'counterCoworker',
+      'Coworker',
+      'counterCoworker',
+      'counterCoworker',
+      'Coworker',
+      'counterCoworker',
+      'counterCoworker',
+    ]);
+    expect(nonCoworkerModuleSubscribe.mock.calls).toEqual(
+      Array(10).fill([undefined])
+    );
   });
 });

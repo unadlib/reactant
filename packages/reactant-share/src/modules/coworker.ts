@@ -33,6 +33,7 @@ import {
   syncModuleStateActionName,
   storageModuleName,
   pushAllStateName,
+  coworkerKey,
 } from '../constants';
 import type { ProxyExecParams, SymmetricTransport } from '../interfaces';
 
@@ -217,7 +218,7 @@ export class Coworker extends PluginModule {
   }
 
   get name() {
-    return (this as Service)[nameKey];
+    return (this as Service)[nameKey]!;
   }
 
   /**
@@ -451,6 +452,14 @@ export class Coworker extends PluginModule {
       proxyModules.forEach((serviceIdentifier) => {
         const modules = this.ref.container!.getAll<any>(serviceIdentifier);
         modules.forEach((module) => {
+          if (__DEV__ && module[coworkerKey]) {
+            console.warn(
+              `The proxy module "${serviceIdentifier.toString()}" with "${
+                this.name
+              }" coworker already exists.`
+            );
+          }
+          module[coworkerKey] = this;
           if (__DEV__ && module[proxyExecutorKey]) {
             console.warn(
               `The proxy module "${serviceIdentifier.toString()}" with "${
@@ -468,6 +477,14 @@ export class Coworker extends PluginModule {
       proxyModules.forEach((serviceIdentifier) => {
         const modules = this.ref.container!.getAll<any>(serviceIdentifier);
         modules.forEach((module) => {
+          if (__DEV__ && module[coworkerKey]) {
+            console.warn(
+              `The proxy module "${serviceIdentifier.toString()}" with "${
+                this.name
+              }" coworker already exists.`
+            );
+          }
+          module[coworkerKey] = this;
           this.proxyModuleKeys.push(getRef(module)!.identifier!);
         });
       });
@@ -493,4 +510,8 @@ export const createCoworker = (name: string): [Module<Coworker>, symbol] => {
     }
   }
   return [Coworker, CoworkerOptions] as any;
+};
+
+export const getCoworker = (instance: object): Coworker | undefined => {
+  return (instance as any)?.[coworkerKey];
 };

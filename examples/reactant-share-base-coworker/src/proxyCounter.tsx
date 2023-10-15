@@ -1,15 +1,21 @@
-import { injectable, action, state } from 'reactant-share';
+import { injectable, action, state, getCoworker, subscribe } from 'reactant-share';
 
 @injectable({
   name: 'ProxyCounter',
 })
 export class ProxyCounter {
+  constructor() {
+    subscribe(this, () => {
+      console.log('coworker:', getCoworker(this)?.name);
+    });
+  }
+
   @state
   count = 0;
 
   @action
   increase() {
-    console.log('increase');
+    console.log('increase', getCoworker(this));
     this.count += 1;
   }
 
