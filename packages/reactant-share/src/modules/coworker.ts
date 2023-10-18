@@ -448,18 +448,26 @@ export class Coworker extends PluginModule {
   }
 
   protected applyProxyModules(proxyModules: ServiceIdentifier<unknown>[]) {
-    if (this.isMain) {
-      proxyModules.forEach((serviceIdentifier) => {
-        const modules = this.ref.container!.getAll<any>(serviceIdentifier);
-        modules.forEach((module) => {
-          if (__DEV__ && module[coworkerKey]) {
-            console.warn(
-              `The proxy module "${serviceIdentifier.toString()}" with "${
-                this.name
-              }" coworker already exists.`
-            );
-          }
-          module[coworkerKey] = this;
+    proxyModules.forEach((serviceIdentifier) => {
+      const modules = this.ref.container!.getAll<any>(serviceIdentifier);
+      modules.forEach((module) => {
+        if (this.portDetector.isolatedModules.includes(module)) {
+          throw new Error(`
+            The module "${serviceIdentifier.toString()}" is isolated, and cannot be used as a proxy module in '${
+            this.name
+          }' coworker.
+          `);
+        }
+        if (__DEV__ && module[coworkerKey]) {
+          console.warn(
+            `The proxy module "${serviceIdentifier.toString()}" with "${
+              this.name
+            }" coworker already exists.`
+          );
+        }
+        module[coworkerKey] = this;
+        this.proxyModuleKeys.push(getRef(module)!.identifier!);
+        if (this.isMain) {
           if (__DEV__ && module[proxyExecutorKey]) {
             console.warn(
               `The proxy module "${serviceIdentifier.toString()}" with "${
@@ -467,28 +475,12 @@ export class Coworker extends PluginModule {
               }" already exists.`
             );
           }
-          this.proxyModuleKeys.push(getRef(module)!.identifier!);
           module[proxyExecutorKey] = (execParams: ProxyExecParams) => {
             return this.transport!.emit(proxyWorkerExecuteName, execParams);
           };
-        });
+        }
       });
-    } else {
-      proxyModules.forEach((serviceIdentifier) => {
-        const modules = this.ref.container!.getAll<any>(serviceIdentifier);
-        modules.forEach((module) => {
-          if (__DEV__ && module[coworkerKey]) {
-            console.warn(
-              `The proxy module "${serviceIdentifier.toString()}" with "${
-                this.name
-              }" coworker already exists.`
-            );
-          }
-          module[coworkerKey] = this;
-          this.proxyModuleKeys.push(getRef(module)!.identifier!);
-        });
-      });
-    }
+    });
   }
 }
 

@@ -861,4 +861,77 @@ describe('base', () => {
       Array(10).fill([undefined])
     );
   });
+
+  test('createCoworker for check isolatedModules - in base mode ', async () => {
+    onClientFn = jest.fn();
+    subscribeOnClientFn = jest.fn();
+    onServerFn = jest.fn();
+    subscribeOnServerFn = jest.fn();
+    coworkerModuleFn = jest.fn();
+    coworkerModuleSubscribe = jest.fn();
+    nonCoworkerModuleSubscribe = jest.fn();
+
+    const transports = mockPairTransports();
+    const coworkerTransports = mockPairTransports();
+    const counterCoworkerTransports = mockPairTransports();
+    const [CounterCoworker, CounterCoworkerOptions] = createCoworker('counter');
+
+    @injectable()
+    class Counter0 {
+      constructor(public portDetector: PortDetector) {
+        this.portDetector.disableShare(this);
+      }
+
+      @state
+      count = 0;
+    }
+
+    try {
+      const serverApp = await createSharedApp({
+        modules: [
+          ProxyCounter,
+          Coworker,
+          {
+            provide: CoworkerOptions,
+            useValue: {
+              isCoworker: false,
+              useModules: [ProxyCounter],
+              transports: {
+                main: coworkerTransports[0],
+              },
+            } as ICoworkerOptions,
+          },
+
+          {
+            provide: 'counter0',
+            useClass: Counter0,
+          },
+          CounterCoworker,
+          {
+            provide: CounterCoworkerOptions,
+            useValue: {
+              isCoworker: false,
+              useModules: ['counter0'],
+              transports: {
+                main: counterCoworkerTransports[0],
+              },
+            } as ICoworkerOptions,
+          },
+        ],
+        main: AppView,
+        render,
+        share: {
+          name: 'counter',
+          type: 'Base',
+          transports: {
+            server: transports[0],
+          },
+        },
+      });
+    } catch (e: any) {
+      expect(e.message).toMatch(
+        `The module "counter0" is isolated, and cannot be used as a proxy module in 'counterCoworker' coworker.`
+      );
+    }
+  });
 });
