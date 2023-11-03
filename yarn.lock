@@ -4744,10 +4744,10 @@ dargs@^7.0.0:
   resolved "https://registry.yarnpkg.com/dargs/-/dargs-7.0.0.tgz#04015c41de0bcb69ec84050f3d9be0caf8d6d5cc"
   integrity sha512-2iy1EkLdlBzQGvbweYRFxmFath8+K7+AKB0TlhHWkNuH+TmovaMH/Wp7V7R4u7f4SnX3OgLsU9t1NI9ioDnUpg==
 
-data-transport@^4.2.4:
-  version "4.2.4"
-  resolved "https://registry.yarnpkg.com/data-transport/-/data-transport-4.2.4.tgz#e6221f8e2defe176f82443ded808a1a22528660b"
-  integrity sha512-3SbTHaJWDMOW9O21EDrg/ZcFit7ux8dzMekpmLeRUnAhm85PLO5HJzg6dnLV36wIFx4pD4iulV0Wer+NlSqnSQ==
+data-transport@^4.3.1:
+  version "4.3.1"
+  resolved "https://registry.yarnpkg.com/data-transport/-/data-transport-4.3.1.tgz#3381c5339e272f8bd95d5a3a95363949f2b4526c"
+  integrity sha512-NWJLv5HWKXvUYZxlD7tKx4bODs+P2wy5uSXQ+mkcAQQofR3GzdxhyXjNNNQKhKZTnaKWLy/2yPeVu/0RcK9YIw==
   dependencies:
     uuid "^9.0.0"
 
