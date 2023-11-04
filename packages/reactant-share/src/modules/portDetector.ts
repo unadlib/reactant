@@ -55,7 +55,7 @@ export class PortDetector {
   previousPort?: Port;
 
   /**
-   * client id
+   * client id, it will be generated when the port is client, it is null in server port.
    */
   clientId: string | null = null;
 
@@ -64,7 +64,10 @@ export class PortDetector {
    */
   allowDisableSync = () => true;
 
-  private clientIds: string[] = [];
+  /**
+   * client ids, it will collect all the client ids when the port is server, it is an empty array in client port.
+   */
+  clientIds: string[] = [];
 
   constructor(
     @inject(SharedAppOptions) public sharedAppOptions: ISharedAppOptions,
@@ -96,6 +99,7 @@ export class PortDetector {
         syncClientIdsFromClientsName,
         async () => {
           if (this.clientId) {
+            // for all clients send current client id to server
             transport.emit(
               { name: syncClientIdToServerName, respond: false },
               this.clientId
