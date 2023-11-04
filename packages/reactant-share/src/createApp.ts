@@ -141,7 +141,7 @@ const createSharedTabApp = async <T, S extends any[], R extends Renderer<S>>(
    * Performance issue with broadcast-channel repo in Safari.
    */
   const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-  if (isSafari) {
+  if (isSafari && !options.share.forcedShare) {
     options.share.transports = {};
     options.share.port = undefined;
     options.share.type = 'Base';

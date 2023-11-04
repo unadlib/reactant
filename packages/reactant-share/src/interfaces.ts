@@ -108,6 +108,10 @@ export interface ISharedAppOptions {
    * `forcedSyncClient` is only true in `SharedTab` type.
    */
   forcedSyncClient?: boolean;
+  /**
+   * forced share, disabled by default.
+   */
+  forcedShare?: boolean;
 }
 
 export interface Config<T, S extends any[], R extends Renderer<S>>
