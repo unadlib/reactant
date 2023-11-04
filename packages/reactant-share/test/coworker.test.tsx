@@ -210,6 +210,8 @@ describe('base', () => {
           },
         },
       });
+      expect(serverApp.container.get(PortDetector).clientId).toBeNull();
+      expect(serverApp.container.get(PortDetector).clientIds).toEqual([]);
       expect(serverApp.instance.counter.portDetector.shared).toBe(true);
 
       expect(onClientFn.mock.calls.length).toBe(0);
@@ -249,6 +251,9 @@ describe('base', () => {
         },
       });
 
+      expect(coworkerApp.container.get(PortDetector).clientId).toBeNull();
+      expect(coworkerApp.container.get(PortDetector).clientIds).toEqual([]);
+
       const clientApp = await createSharedApp({
         modules: [
           ProxyCounter,
@@ -273,12 +278,26 @@ describe('base', () => {
         },
       });
 
+      expect(serverApp.container.get(PortDetector).clientId).toBeNull();
+      expect(serverApp.container.get(PortDetector).clientIds.length).toBe(1);
+      expect(clientApp.container.get(PortDetector).clientId).not.toBeNull();
+      expect(clientApp.container.get(PortDetector).clientIds).toEqual([]);
+      expect(coworkerApp.container.get(PortDetector).clientId).toBeNull();
+      expect(coworkerApp.container.get(PortDetector).clientIds).toEqual([]);
+
       expect(onClientFn.mock.calls.length).toBe(1);
       expect(subscribeOnClientFn.mock.calls.length).toBe(0);
       expect(onServerFn.mock.calls.length).toBe(1);
       expect(subscribeOnServerFn.mock.calls.length).toBe(1);
 
       await clientApp.bootstrap(clientContainer);
+
+      expect(serverApp.container.get(PortDetector).clientId).toBeNull();
+      expect(serverApp.container.get(PortDetector).clientIds.length).toBe(1);
+      expect(clientApp.container.get(PortDetector).clientId).not.toBeNull();
+      expect(clientApp.container.get(PortDetector).clientIds).toEqual([]);
+      expect(coworkerApp.container.get(PortDetector).clientId).toBeNull();
+      expect(coworkerApp.container.get(PortDetector).clientIds).toEqual([]);
 
       expect(onClientFn.mock.calls.length).toBe(1);
       expect(subscribeOnClientFn.mock.calls.length).toBe(1);
