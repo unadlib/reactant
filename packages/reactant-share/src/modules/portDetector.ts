@@ -11,6 +11,9 @@ import {
   loadFullStateActionName,
   SharedAppOptions,
   syncToClientsName,
+  syncClientIdsFromClientsName,
+  syncClientIdToServerName,
+  removeClientIdToServerName,
 } from '../constants';
 import type {
   CallbackWithHook,
@@ -52,7 +55,7 @@ export class PortDetector {
   previousPort?: Port;
 
   /**
-   * client id
+   * client id, it will be generated when the port is client, it is null in server port.
    */
   clientId: string | null = null;
 
@@ -61,12 +64,18 @@ export class PortDetector {
    */
   allowDisableSync = () => true;
 
+  /**
+   * client ids, it will collect all the client ids when the port is server, it is an empty array in client port.
+   */
+  clientIds: string[] = [];
+
   constructor(
     @inject(SharedAppOptions) public sharedAppOptions: ISharedAppOptions,
     public lastAction: LastAction
   ) {
     this.onClient((transport) => {
       this.clientId = createId();
+      this.clientIds = [];
       this.syncFullState({ forceSync: false });
       const disposeSyncToClients = transport.listen(
         syncToClientsName,
@@ -82,16 +91,52 @@ export class PortDetector {
             fullState[this.lastAction.stateKey]._sequence;
         }
       );
+      transport.emit(
+        { name: syncClientIdToServerName, respond: false },
+        this.clientId
+      );
+      const disposeSyncClientIds = transport.listen(
+        syncClientIdsFromClientsName,
+        async () => {
+          if (this.clientId) {
+            // for all clients send current client id to server
+            transport.emit(
+              { name: syncClientIdToServerName, respond: false },
+              this.clientId
+            );
+          }
+        }
+      );
+      const removeClientIdToServer = () => {
+        transport.emit(
+          { name: removeClientIdToServerName, respond: false },
+          this.clientId!
+        );
+      };
+      // the unload event is just only triggered in shared worker mode
+      window.addEventListener('unload', removeClientIdToServer);
       return () => {
-        disposeSyncToClients?.();
         this.previousPort = 'client';
+        disposeSyncToClients?.();
+        disposeSyncClientIds?.();
+        window.removeEventListener('unload', removeClientIdToServer);
       };
     });
 
-    this.onServer(() => {
+    this.onServer((transport) => {
       this.clientId = null;
+      transport.emit({ name: syncClientIdsFromClientsName, respond: false });
+      const disposeSyncClientId = transport.listen(
+        syncClientIdToServerName,
+        (clientId) => {
+          if (!this.clientIds.includes(clientId)) {
+            this.clientIds.push(clientId);
+          }
+        }
+      );
       return () => {
         this.previousPort = 'server';
+        disposeSyncClientId?.();
       };
     });
   }

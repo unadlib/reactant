@@ -158,6 +158,8 @@ describe('base', () => {
           },
         },
       });
+      expect(serverApp.container.get(PortDetector).clientId).toBeNull();
+      expect(serverApp.container.get(PortDetector).clientIds).toEqual([]);
       expect(serverApp.instance.counter.portDetector.shared).toBe(true);
 
       expect(onClientFn.mock.calls.length).toBe(0);
@@ -165,6 +167,8 @@ describe('base', () => {
       expect(onServerFn.mock.calls.length).toBe(1);
       expect(subscribeOnServerFn.mock.calls.length).toBe(0);
       await serverApp.bootstrap(serverContainer);
+      expect(serverApp.container.get(PortDetector).clientId).toBeNull();
+      expect(serverApp.container.get(PortDetector).clientIds).toEqual([]);
       expect(onClientFn.mock.calls.length).toBe(0);
       expect(subscribeOnClientFn.mock.calls.length).toBe(0);
       expect(onServerFn.mock.calls.length).toBe(1);
@@ -185,12 +189,21 @@ describe('base', () => {
         },
       });
 
+      expect(serverApp.container.get(PortDetector).clientId).toBeNull();
+      expect(serverApp.container.get(PortDetector).clientIds.length).toBe(1);
+      expect(clientApp.container.get(PortDetector).clientId).not.toBeNull();
+      expect(clientApp.container.get(PortDetector).clientIds).toEqual([]);
       expect(onClientFn.mock.calls.length).toBe(1);
       expect(subscribeOnClientFn.mock.calls.length).toBe(0);
       expect(onServerFn.mock.calls.length).toBe(1);
       expect(subscribeOnServerFn.mock.calls.length).toBe(0);
 
       await clientApp.bootstrap(clientContainer);
+
+      expect(serverApp.container.get(PortDetector).clientId).toBeNull();
+      expect(serverApp.container.get(PortDetector).clientIds.length).toBe(1);
+      expect(clientApp.container.get(PortDetector).clientId).not.toBeNull();
+      expect(clientApp.container.get(PortDetector).clientIds).toEqual([]);
 
       expect(onClientFn.mock.calls.length).toBe(1);
       expect(subscribeOnClientFn.mock.calls.length).toBe(0);
@@ -285,6 +298,8 @@ describe('base', () => {
         },
       },
     });
+    expect(sharedApp0.container.get(PortDetector).clientId).toBeNull();
+    expect(sharedApp0.container.get(PortDetector).clientIds).toEqual([]);
     expect(sharedApp0.instance.counter.portDetector.shared).toBe(true);
 
     expect(onClientFn.mock.calls.length).toBe(0);
@@ -292,6 +307,8 @@ describe('base', () => {
     expect(onServerFn.mock.calls.length).toBe(1);
     expect(subscribeOnServerFn.mock.calls.length).toBe(0);
     await sharedApp0.bootstrap(serverContainer);
+    expect(sharedApp0.container.get(PortDetector).clientId).toBeNull();
+    expect(sharedApp0.container.get(PortDetector).clientIds).toEqual([]);
     expect(onClientFn.mock.calls.length).toBe(0);
     expect(subscribeOnClientFn.mock.calls.length).toBe(0);
     expect(onServerFn.mock.calls.length).toBe(1);
@@ -314,12 +331,23 @@ describe('base', () => {
       },
     });
 
+    expect(sharedApp0.container.get(PortDetector).clientId).toBeNull();
+    expect(sharedApp0.container.get(PortDetector).clientIds.length).toBe(1);
+    expect(sharedApp1.container.get(PortDetector).clientId).not.toBeNull();
+    expect(sharedApp1.container.get(PortDetector).clientIds).toEqual([]);
+
     expect(onClientFn.mock.calls.length).toBe(1);
     expect(subscribeOnClientFn.mock.calls.length).toBe(0);
     expect(onServerFn.mock.calls.length).toBe(1);
     expect(subscribeOnServerFn.mock.calls.length).toBe(0);
 
     await sharedApp1.bootstrap(clientContainer);
+
+    expect(sharedApp0.container.get(PortDetector).clientId).toBeNull();
+    expect(sharedApp0.container.get(PortDetector).clientIds.length).toBe(1);
+    expect(sharedApp1.container.get(PortDetector).clientId).not.toBeNull();
+    expect(sharedApp1.container.get(PortDetector).clientIds).toEqual([]);
+
     expect(onClientFn.mock.calls.length).toBe(1);
     expect(subscribeOnClientFn.mock.calls.length).toBe(0);
     expect(onServerFn.mock.calls.length).toBe(1);

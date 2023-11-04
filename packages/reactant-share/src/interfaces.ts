@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-use-before-define */
 import type {
   BaseInteraction,
@@ -19,6 +20,9 @@ import {
   syncRouterName,
   syncWorkerRouterName,
   syncToClientsName,
+  syncClientIdsFromClientsName,
+  syncClientIdToServerName,
+  removeClientIdToServerName,
   proxyExecutorKey,
 } from './constants';
 
@@ -150,6 +154,8 @@ export type ClientEvents = {
   ): Promise<Record<string, any> | null | undefined>;
   [isClientName](): Promise<boolean>;
   [syncRouterName](name: string, router?: RouterState): Promise<RouterState>;
+  [syncClientIdToServerName](clientId: string): void;
+  [removeClientIdToServerName](clientId: string): void;
 };
 
 export type ServerEvents = {
@@ -164,6 +170,7 @@ export type ServerEvents = {
     options: Record<string, any> | null | undefined
   ): Promise<void>;
   [syncWorkerRouterName](name: string): Promise<RouterState | undefined>;
+  [syncClientIdsFromClientsName](): Promise<void>;
 };
 
 export interface HandleServerOptions {
