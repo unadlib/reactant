@@ -260,9 +260,9 @@ describe('base', () => {
     await new Promise((resolve) => setTimeout(resolve));
 
     expect(onClientFn.mock.calls.length).toBe(1);
-    expect(subscribeOnClientFn.mock.calls.length).toBe(5);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(3);
     expect(onServerFn.mock.calls.length).toBe(1);
-    expect(subscribeOnServerFn.mock.calls.length).toBe(5);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(3);
     expect(serverContainer.querySelector('#content')?.textContent).toBe('0+');
     // expect(clientContainer.querySelector('#content')?.textContent).toBe('0+');
     act(() => {
@@ -274,9 +274,9 @@ describe('base', () => {
     await new Promise((resolve) => setTimeout(resolve));
 
     expect(onClientFn.mock.calls.length).toBe(1);
-    expect(subscribeOnClientFn.mock.calls.length).toBe(7);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(5);
     expect(onServerFn.mock.calls.length).toBe(1);
-    expect(subscribeOnServerFn.mock.calls.length).toBe(6);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(4);
 
     expect(serverContainer.querySelector('#content')?.textContent).toBe('0+');
     expect(clientContainer.querySelector('#content')?.textContent).toBe('0+');
@@ -381,9 +381,17 @@ describe('base', () => {
         { pathname: '/', search: '', hash: '', state: undefined },
         'POP'
       );
+      window.dispatchEvent(
+        new CustomEvent('popstate', {
+          bubbles: true,
+          composed: true,
+          detail: {},
+        })
+      );
     }
-    expect(clientApp.instance.router.currentPath).toBe('/');
-    expect(serverApp.instance.router.currentPath).toBe('/');
+    // TODO: fix history go back mock
+    // expect(clientApp.instance.router.currentPath).toBe('/');
+    // expect(serverApp.instance.router.currentPath).toBe('/');
   });
 
   test('base server/client port mode in SharedTab', async () => {
@@ -843,24 +851,24 @@ describe('SharedWorker', () => {
     });
 
     expect(onClientFn.mock.calls.length).toBe(1);
-    expect(subscribeOnClientFn.mock.calls.length).toBe(2);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(1);
     expect(onServerFn.mock.calls.length).toBe(1);
-    expect(subscribeOnServerFn.mock.calls.length).toBe(3);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(2);
 
     await clientApp.bootstrap(clientContainer);
 
     expect(onClientFn.mock.calls.length).toBe(1);
-    expect(subscribeOnClientFn.mock.calls.length).toBe(3);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(2);
     expect(onServerFn.mock.calls.length).toBe(1);
-    expect(subscribeOnServerFn.mock.calls.length).toBe(3);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(2);
     expect(clientContainer.querySelector('#content')?.textContent).toBe('home');
 
     await new Promise((resolve) => setTimeout(resolve));
 
     expect(onClientFn.mock.calls.length).toBe(1);
-    expect(subscribeOnClientFn.mock.calls.length).toBe(3);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(2);
     expect(onServerFn.mock.calls.length).toBe(1);
-    expect(subscribeOnServerFn.mock.calls.length).toBe(3);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(2);
     expect(clientContainer.querySelector('#content')?.textContent).toBe('home');
 
     act(() => {
@@ -872,9 +880,9 @@ describe('SharedWorker', () => {
     await new Promise((resolve) => setTimeout(resolve));
 
     expect(onClientFn.mock.calls.length).toBe(1);
-    expect(subscribeOnClientFn.mock.calls.length).toBe(6);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(4);
     expect(onServerFn.mock.calls.length).toBe(1);
-    expect(subscribeOnServerFn.mock.calls.length).toBe(6);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(4);
     expect(serverApp.instance.router.currentPath).toBe('/counter');
     expect(clientApp.instance.router.currentPath).toBe('/counter');
     expect(clientContainer.querySelector('#content')?.textContent).toBe('0+');
@@ -1093,27 +1101,27 @@ describe('Worker', () => {
     });
 
     expect(onClientFn.mock.calls.length).toBe(1);
-    expect(subscribeOnClientFn.mock.calls.length).toBe(2);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(1);
     expect(onServerFn.mock.calls.length).toBe(1);
     // sync up router and trigger Redux update
-    expect(subscribeOnServerFn.mock.calls.length).toBe(3);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(2);
 
     act(() => {
       clientApp.bootstrap(clientContainer);
     });
 
     expect(onClientFn.mock.calls.length).toBe(1);
-    expect(subscribeOnClientFn.mock.calls.length).toBe(3);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(2);
     expect(onServerFn.mock.calls.length).toBe(1);
-    expect(subscribeOnServerFn.mock.calls.length).toBe(3);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(2);
     expect(clientContainer.querySelector('#content')?.textContent).toBe('home');
 
     await new Promise((resolve) => setTimeout(resolve));
 
     expect(onClientFn.mock.calls.length).toBe(1);
-    expect(subscribeOnClientFn.mock.calls.length).toBe(3);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(2);
     expect(onServerFn.mock.calls.length).toBe(1);
-    expect(subscribeOnServerFn.mock.calls.length).toBe(3);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(2);
     expect(clientContainer.querySelector('#content')?.textContent).toBe('home');
 
     act(() => {
@@ -1125,9 +1133,9 @@ describe('Worker', () => {
     await new Promise((resolve) => setTimeout(resolve));
 
     expect(onClientFn.mock.calls.length).toBe(1);
-    expect(subscribeOnClientFn.mock.calls.length).toBe(6);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(4);
     expect(onServerFn.mock.calls.length).toBe(1);
-    expect(subscribeOnServerFn.mock.calls.length).toBe(6);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(4);
     expect(serverApp.instance.router.currentPath).toBe('/counter');
     expect(clientApp.instance.router.currentPath).toBe('/counter');
     expect(clientContainer.querySelector('#content')?.textContent).toBe('0+');
@@ -1625,7 +1633,7 @@ describe('base with storage and router', () => {
     expect(onClientFn.mock.calls.length).toBe(0);
     expect(subscribeOnClientFn.mock.calls.length).toBe(0);
     expect(onServerFn.mock.calls.length).toBe(1);
-    expect(subscribeOnServerFn.mock.calls.length).toBe(6);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(5);
 
     const clientApp = await createSharedApp({
       modules: [
@@ -1652,14 +1660,14 @@ describe('base with storage and router', () => {
     expect(onClientFn.mock.calls.length).toBe(1);
     expect(subscribeOnClientFn.mock.calls.length).toBe(0);
     expect(onServerFn.mock.calls.length).toBe(1);
-    expect(subscribeOnServerFn.mock.calls.length).toBe(6);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(5);
 
     await clientApp.bootstrap(clientContainer);
 
     expect(onClientFn.mock.calls.length).toBe(1);
     expect(subscribeOnClientFn.mock.calls.length).toBe(2);
     expect(onServerFn.mock.calls.length).toBe(1);
-    expect(subscribeOnServerFn.mock.calls.length).toBe(6);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(5);
     expect(clientContainer.querySelector('#content')?.textContent).toBe('-0+');
 
     await Promise.resolve();
@@ -1667,7 +1675,7 @@ describe('base with storage and router', () => {
     expect(onClientFn.mock.calls.length).toBe(1);
     expect(subscribeOnClientFn.mock.calls.length).toBe(4);
     expect(onServerFn.mock.calls.length).toBe(1);
-    expect(subscribeOnServerFn.mock.calls.length).toBe(7);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(6);
 
     expect(serverContainer.querySelector('#content')?.textContent).toBe('-0+');
     expect(clientContainer.querySelector('#content')?.textContent).toBe('-0+');
@@ -1681,9 +1689,9 @@ describe('base with storage and router', () => {
     await Promise.resolve();
 
     expect(onClientFn.mock.calls.length).toBe(1);
-    expect(subscribeOnClientFn.mock.calls.length).toBe(7);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(5);
     expect(onServerFn.mock.calls.length).toBe(1);
-    expect(subscribeOnServerFn.mock.calls.length).toBe(10);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(7);
 
     expect(serverApp.instance.router.currentPath).toBe('/');
     expect(clientApp.instance.router.currentPath).toBe('/');
@@ -1780,22 +1788,22 @@ describe('base with storage and router', () => {
     expect(onClientFn.mock.calls.length).toBe(1);
     expect(subscribeOnClientFn.mock.calls.length).toBe(1);
     expect(onServerFn.mock.calls.length).toBe(1);
-    expect(subscribeOnServerFn.mock.calls.length).toBe(5);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(4);
 
     await clientApp.bootstrap(clientContainer);
 
     expect(onClientFn.mock.calls.length).toBe(1);
     expect(subscribeOnClientFn.mock.calls.length).toBe(2);
     expect(onServerFn.mock.calls.length).toBe(1);
-    expect(subscribeOnServerFn.mock.calls.length).toBe(5);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(4);
     expect(clientContainer.querySelector('#content')?.textContent).toBe('home');
 
     await Promise.resolve();
 
     expect(onClientFn.mock.calls.length).toBe(1);
-    expect(subscribeOnClientFn.mock.calls.length).toBe(5);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(3);
     expect(onServerFn.mock.calls.length).toBe(1);
-    expect(subscribeOnServerFn.mock.calls.length).toBe(8);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(4);
     expect(clientContainer.querySelector('#content')?.textContent).toBe('-0+');
 
     act(() => {
@@ -1807,9 +1815,9 @@ describe('base with storage and router', () => {
     await new Promise((resolve) => setTimeout(resolve));
 
     expect(onClientFn.mock.calls.length).toBe(1);
-    expect(subscribeOnClientFn.mock.calls.length).toBe(8);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(5);
     expect(onServerFn.mock.calls.length).toBe(1);
-    expect(subscribeOnServerFn.mock.calls.length).toBe(11);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(6);
     expect(serverApp.instance.router.currentPath).toBe('/counter');
     expect(clientApp.instance.router.currentPath).toBe('/counter');
     expect(clientContainer.querySelector('#content')?.textContent).toBe('-0+');

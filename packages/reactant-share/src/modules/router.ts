@@ -68,6 +68,8 @@ class ReactantRouter extends BaseReactantRouter {
     const syncForwardBackward =
       this.options.syncForwardBackward ?? !this.portDetector.isWorkerMode;
 
+    // in shared worker mode, the browser's forward and backward events are not synchronized by default
+    // and if you want to synchronize, you need to set the `syncForwardBackward` option to `true`
     if (globalThis.document && syncForwardBackward) {
       window.addEventListener('popstate', () => {
         if (!this.passiveRoute) {
