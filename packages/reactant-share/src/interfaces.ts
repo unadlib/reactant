@@ -157,7 +157,11 @@ export type ClientEvents = {
     sequence: number
   ): Promise<Record<string, any> | null | undefined>;
   [isClientName](): Promise<boolean>;
-  [syncRouterName](name: string, router?: RouterState): Promise<RouterState>;
+  [syncRouterName](
+    name: string,
+    timestamp: number,
+    router?: RouterState
+  ): Promise<RouterState>;
   [syncClientIdToServerName](clientId: string): void;
   [removeClientIdToServerName](clientId: string): void;
 };
@@ -167,6 +171,7 @@ export type ServerEvents = {
     options: ProxyExecParams & {
       portName?: string;
       clientIds?: string[];
+      excludeClientIds?: string[];
     }
   ): Promise<void>;
   [lastActionName](options: ILastActionData): Promise<void>;

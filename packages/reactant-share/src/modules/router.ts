@@ -39,12 +39,18 @@ export interface IRouterOptions extends IBaseRouterOptions {
    * default initial route
    */
   defaultRoute?: string;
+  /**
+   * sync browser forward and backward events, default is `false` in shared worker mode.
+   */
+  syncForwardBackward?: boolean;
 }
 
 @injectable({
   name: routerModuleName,
 })
 class ReactantRouter extends BaseReactantRouter {
+  private passiveRoute = false;
+
   constructor(
     protected portDetector: PortDetector,
     @inject(SharedAppOptions) protected sharedAppOptions: ISharedAppOptions,
@@ -58,6 +64,17 @@ class ReactantRouter extends BaseReactantRouter {
         !globalThis.document
       ),
     });
+
+    const syncForwardBackward =
+      this.options.syncForwardBackward ?? !this.portDetector.isWorkerMode;
+
+    if (globalThis.document && syncForwardBackward) {
+      window.addEventListener('popstate', () => {
+        if (!this.passiveRoute) {
+          this._lastRoutedTimestamp = Date.now();
+        }
+      });
+    }
 
     if (!this.portDetector.shared) {
       const stopWatching = this.watchRehydratedRouting();
@@ -102,7 +119,11 @@ class ReactantRouter extends BaseReactantRouter {
           .emit(syncWorkerRouterName, this.portDetector.name)
           .then((router) => {
             if (router) {
-              this._changeRoutingOnSever(this.portDetector.name, router);
+              this._changeRoutingOnSever(
+                this.portDetector.name,
+                router,
+                Date.now()
+              );
             }
           });
       } else if (this.enableCacheRouting) {
@@ -129,6 +150,8 @@ class ReactantRouter extends BaseReactantRouter {
           spawn(this as any, '_changeRoutingOnSever', [
             this.portDetector.name,
             this.router,
+            this._lastRoutedTimestamp,
+            this.portDetector.clientId,
           ]);
         }
       );
@@ -138,15 +161,15 @@ class ReactantRouter extends BaseReactantRouter {
         this,
         () => this.router,
         () => {
-          if (this.router) {
-            // just update the current router to routers mapping by name
-            this._setRouters(this.portDetector.name, this.router);
-          }
           if (!this.portDetector.isWorkerMode) {
-            fork(this as any, '_changeRoutingOnClient', [
-              this.portDetector.name,
-              this.router,
-            ]);
+            fork(
+              this as any,
+              '_changeRoutingOnClient',
+              [this.portDetector.name, this.router, this._lastRoutedTimestamp],
+              {
+                silent: true,
+              }
+            );
           }
         }
       );
@@ -169,21 +192,31 @@ class ReactantRouter extends BaseReactantRouter {
             );
           })
         : Promise.resolve();
-      return transport!.listen(syncRouterName, async (name, router) => {
-        await rehydratedPromise;
-        const currentRouter = this._routers[name]!;
-        if (!currentRouter && router) {
-          this._changeRoutingOnSever(name, router);
+      return transport!.listen(
+        syncRouterName,
+        async (name, timestamp, router) => {
+          await rehydratedPromise;
+          const currentRouter = this._routers[name]!;
+          if (!currentRouter && router) {
+            this._changeRoutingOnSever(name, router, timestamp);
+          }
+          return currentRouter;
         }
-        return currentRouter;
-      });
+      );
     });
     this.portDetector.onClient((transport) => {
       transport!
-        .emit(syncRouterName, this.portDetector.name, this.router)
+        .emit(
+          syncRouterName,
+          this.portDetector.name,
+          this._lastRoutedTimestamp,
+          this.router
+        )
         .then((router) => {
           if (!router) return;
+          this.passiveRoute = true;
           this.history.replace(router.location);
+          this.passiveRoute = false;
         });
     });
     // #endregion
@@ -199,7 +232,8 @@ class ReactantRouter extends BaseReactantRouter {
           const router = this._routers[this.portDetector.name];
           this._changeRoutingOnSever(
             this.portDetector.name,
-            router ?? this.defaultHistory
+            router ?? this.defaultHistory,
+            Date.now()
           );
         }
       }
@@ -207,7 +241,17 @@ class ReactantRouter extends BaseReactantRouter {
     return stopWatching;
   }
 
-  protected _changeRoutingOnSever(name: string, router: RouterState) {
+  private _lastRoutedTimestamp = Date.now();
+
+  protected _changeRoutingOnSever(
+    name: string,
+    router: RouterState,
+    timestamp: number,
+    clientId?: string
+  ) {
+    // Only update the latest routes
+    if (this._lastRoutedTimestamp >= timestamp) return;
+    this._lastRoutedTimestamp = timestamp;
     this._setRouters(name, router);
     if (name === this.portDetector.name) {
       if (this.portDetector.isWorkerMode) {
@@ -216,28 +260,54 @@ class ReactantRouter extends BaseReactantRouter {
         this.history.createHref(router.location) !==
         this.history.createHref(this.router!.location)
       ) {
+        this.passiveRoute = true;
         this.history.push(router.location);
+        this.passiveRoute = false;
       }
       if (this.portDetector.shared) {
-        fork(this as any, '_changeRoutingOnClient', [
-          this.portDetector.name,
-          this.router,
-        ]);
+        fork(
+          this as any,
+          '_changeRoutingOnClient',
+          [this.portDetector.name, this.router, timestamp],
+          {
+            silent: true,
+            clientIds: clientId
+              ? //  Skip routing the origin of the client
+                this.portDetector.clientIds.filter((id) => id !== clientId)
+              : undefined,
+          }
+        );
       }
     } else if (this.portDetector.shared) {
-      fork(this as any, '_changeRoutingOnClient', [name, router]);
+      fork(this as any, '_changeRoutingOnClient', [name, router, timestamp], {
+        silent: true,
+        clientIds: clientId
+          ? //  Skip routing the origin of the client
+            this.portDetector.clientIds.filter((id) => id !== clientId)
+          : undefined,
+      });
     }
   }
 
-  protected _changeRoutingOnClient(name: string, router: RouterState) {
-    if (name !== this.portDetector.name) return;
+  protected _changeRoutingOnClient(
+    name: string,
+    router: RouterState,
+    timestamp?: number
+  ) {
+    if (
+      name !== this.portDetector.name ||
+      (timestamp && this._lastRoutedTimestamp >= timestamp)
+    )
+      return;
     const route = () => {
       if (
         this.history &&
         this.history.createHref(router.location) !==
           this.history.createHref(this.router!.location)
       ) {
+        this.passiveRoute = true;
         this.history.push(router.location);
+        this.passiveRoute = false;
       }
     };
     if (this.portDetector.disableSyncClient) {
@@ -340,6 +410,7 @@ class ReactantRouter extends BaseReactantRouter {
       );
       this.dispatchChanged(router);
     } else {
+      this._lastRoutedTimestamp = Date.now();
       super.push(path, locationState);
     }
   }
@@ -359,6 +430,7 @@ class ReactantRouter extends BaseReactantRouter {
       );
       this.dispatchChanged(router);
     } else {
+      this._lastRoutedTimestamp = Date.now();
       super.replace(path, locationState);
     }
   }
@@ -378,6 +450,7 @@ class ReactantRouter extends BaseReactantRouter {
       );
       this.dispatchChanged(router);
     } else {
+      this._lastRoutedTimestamp = Date.now();
       super.go(n);
     }
   }
@@ -397,6 +470,7 @@ class ReactantRouter extends BaseReactantRouter {
       );
       this.dispatchChanged(router);
     } else {
+      this._lastRoutedTimestamp = Date.now();
       super.goBack();
     }
   }
@@ -416,6 +490,7 @@ class ReactantRouter extends BaseReactantRouter {
       );
       this.dispatchChanged(router);
     } else {
+      this._lastRoutedTimestamp = Date.now();
       super.goForward();
     }
   }
