@@ -73,7 +73,7 @@ class ReactantRouter extends BaseReactantRouter {
     if (globalThis.document && syncForwardBackward) {
       window.addEventListener('popstate', () => {
         if (!this.passiveRoute) {
-          this._lastRoutedTimestamp = Date.now();
+          this.lastRoutedTimestamp = Date.now();
         }
       });
     }
@@ -152,7 +152,7 @@ class ReactantRouter extends BaseReactantRouter {
           spawn(this as any, '_changeRoutingOnSever', [
             this.portDetector.name,
             this.router,
-            this._lastRoutedTimestamp,
+            this.lastRoutedTimestamp,
             this.portDetector.clientId,
           ]);
         }
@@ -167,7 +167,7 @@ class ReactantRouter extends BaseReactantRouter {
             fork(
               this as any,
               '_changeRoutingOnClient',
-              [this.portDetector.name, this.router, this._lastRoutedTimestamp],
+              [this.portDetector.name, this.router, this.lastRoutedTimestamp],
               {
                 silent: true,
               }
@@ -211,7 +211,7 @@ class ReactantRouter extends BaseReactantRouter {
         .emit(
           syncRouterName,
           this.portDetector.name,
-          this._lastRoutedTimestamp,
+          this.lastRoutedTimestamp,
           this.router
         )
         .then((router) => {
@@ -243,7 +243,10 @@ class ReactantRouter extends BaseReactantRouter {
     return stopWatching;
   }
 
-  private _lastRoutedTimestamp = Date.now();
+  /**
+   * The timestamp of the last routing.
+   */
+  lastRoutedTimestamp = Date.now();
 
   protected _changeRoutingOnSever(
     name: string,
@@ -252,8 +255,8 @@ class ReactantRouter extends BaseReactantRouter {
     clientId?: string
   ) {
     // Only update the latest routes
-    if (this._lastRoutedTimestamp >= timestamp) return;
-    this._lastRoutedTimestamp = timestamp;
+    if (this.lastRoutedTimestamp >= timestamp) return;
+    this.lastRoutedTimestamp = timestamp;
     this._setRouters(name, router);
     if (name === this.portDetector.name) {
       if (this.portDetector.isWorkerMode) {
@@ -298,7 +301,7 @@ class ReactantRouter extends BaseReactantRouter {
   ) {
     if (
       name !== this.portDetector.name ||
-      (timestamp && this._lastRoutedTimestamp >= timestamp)
+      (timestamp && this.lastRoutedTimestamp >= timestamp)
     )
       return;
     const route = () => {
@@ -412,7 +415,7 @@ class ReactantRouter extends BaseReactantRouter {
       );
       this.dispatchChanged(router);
     } else {
-      this._lastRoutedTimestamp = Date.now();
+      this.lastRoutedTimestamp = Date.now();
       super.push(path, locationState);
     }
   }
@@ -432,7 +435,7 @@ class ReactantRouter extends BaseReactantRouter {
       );
       this.dispatchChanged(router);
     } else {
-      this._lastRoutedTimestamp = Date.now();
+      this.lastRoutedTimestamp = Date.now();
       super.replace(path, locationState);
     }
   }
@@ -452,7 +455,7 @@ class ReactantRouter extends BaseReactantRouter {
       );
       this.dispatchChanged(router);
     } else {
-      this._lastRoutedTimestamp = Date.now();
+      this.lastRoutedTimestamp = Date.now();
       super.go(n);
     }
   }
@@ -472,7 +475,7 @@ class ReactantRouter extends BaseReactantRouter {
       );
       this.dispatchChanged(router);
     } else {
-      this._lastRoutedTimestamp = Date.now();
+      this.lastRoutedTimestamp = Date.now();
       super.goBack();
     }
   }
@@ -492,7 +495,7 @@ class ReactantRouter extends BaseReactantRouter {
       );
       this.dispatchChanged(router);
     } else {
-      this._lastRoutedTimestamp = Date.now();
+      this.lastRoutedTimestamp = Date.now();
       super.goForward();
     }
   }
