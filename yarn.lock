@@ -4744,10 +4744,10 @@ dargs@^7.0.0:
   resolved "https://registry.yarnpkg.com/dargs/-/dargs-7.0.0.tgz#04015c41de0bcb69ec84050f3d9be0caf8d6d5cc"
   integrity sha512-2iy1EkLdlBzQGvbweYRFxmFath8+K7+AKB0TlhHWkNuH+TmovaMH/Wp7V7R4u7f4SnX3OgLsU9t1NI9ioDnUpg==
 
-data-transport@^4.3.1:
-  version "4.3.1"
-  resolved "https://registry.yarnpkg.com/data-transport/-/data-transport-4.3.1.tgz#3381c5339e272f8bd95d5a3a95363949f2b4526c"
-  integrity sha512-NWJLv5HWKXvUYZxlD7tKx4bODs+P2wy5uSXQ+mkcAQQofR3GzdxhyXjNNNQKhKZTnaKWLy/2yPeVu/0RcK9YIw==
+data-transport@^4.3.2:
+  version "4.3.2"
+  resolved "https://registry.yarnpkg.com/data-transport/-/data-transport-4.3.2.tgz#cd99ecc677188f883401fd3b58c00bf5cd4f86f0"
+  integrity sha512-niWZXzJcMS+P1Uj7hjl4RjMr3pdDSHc5egaQJlRJniK+x9IHtkVfusxmg6Yif55q3JLhnAEs/BRBg/lEkaDNHA==
   dependencies:
     uuid "^9.0.0"
 
@@ -9294,10 +9294,10 @@ multimatch@5.0.0:
     arrify "^2.0.1"
     minimatch "^3.0.4"
 
-mutative@^0.6.0:
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/mutative/-/mutative-0.6.0.tgz#43a007237ee7dbec6ff7a6384de2e3510d6993e7"
-  integrity sha512-TcEBPDJHauFxiLtrgDLZBn2lfW6FMKBcr7lyRHimwdznrqWsmXHLXnBjb+7mTLXRg6GebKWHV1v0qtSGvQp5Yw==
+mutative@^0.7.0:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/mutative/-/mutative-0.7.0.tgz#f69f2678ac8c47ad4098760f19c2ad12da4f4b78"
+  integrity sha512-oSOC00Ku0abYGZ4Rao4PgWNaDJMIEpHsdyaX71tLPhiQLKSy26v8RYYcM+LVkVL2h1rfzxbcYwUWZks5xiwdNg==
 
 mute-stream@0.0.7:
   version "0.0.7"
