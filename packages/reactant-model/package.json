@@ -1,6 +1,6 @@
 {
   "name": "reactant-model",
-  "version": "0.91.0",
+  "version": "0.92.0",
   "description": "A model lib for Reactant",
   "main": "dist/index.cjs.js",
   "unpkg": "dist/index.umd.js",
@@ -32,6 +32,6 @@
   },
   "devDependencies": {
     "mutative": "^0.7.1",
-    "reactant-module": "^0.91.0"
+    "reactant-module": "^0.92.0"
   }
 }
