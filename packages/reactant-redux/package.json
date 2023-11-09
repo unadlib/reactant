@@ -1,6 +1,6 @@
 {
   "name": "reactant-redux",
-  "version": "0.92.0",
+  "version": "0.93.0",
   "description": "A redux lib for Reactant",
   "main": "dist/index.cjs.js",
   "unpkg": "dist/index.umd.js",
@@ -31,7 +31,7 @@
     "redux": "^4.1.0"
   },
   "devDependencies": {
-    "reactant-module": "^0.92.0",
+    "reactant-module": "^0.93.0",
     "redux": "^4.1.0"
   }
 }
