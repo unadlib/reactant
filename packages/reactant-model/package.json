@@ -27,11 +27,11 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "mutative": "^0.7.0",
+    "mutative": "^0.7.1",
     "reactant-module": "*"
   },
   "devDependencies": {
-    "mutative": "^0.7.0",
+    "mutative": "^0.7.1",
     "reactant-module": "^0.91.0"
   }
 }
