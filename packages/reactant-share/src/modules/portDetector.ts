@@ -134,9 +134,19 @@ export class PortDetector {
           }
         }
       );
+      const disposeRemoveClientId = transport.listen(
+        removeClientIdToServerName,
+        (clientId) => {
+          const index = this.clientIds.findIndex((id) => id === clientId);
+          if (index !== -1) {
+            this.clientIds.splice(index, 1);
+          }
+        }
+      );
       return () => {
         this.previousPort = 'server';
         disposeSyncClientId?.();
+        disposeRemoveClientId?.();
       };
     });
   }
