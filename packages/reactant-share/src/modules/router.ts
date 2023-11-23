@@ -254,9 +254,6 @@ class ReactantRouter extends BaseReactantRouter {
     timestamp: number,
     clientId?: string
   ) {
-    // Only update the latest routes
-    if (this.lastRoutedTimestamp >= timestamp) return;
-    this.lastRoutedTimestamp = timestamp;
     this._setRouters(name, router);
     if (name === this.portDetector.name) {
       if (this.portDetector.isWorkerMode) {
