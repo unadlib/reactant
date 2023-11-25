@@ -26,6 +26,8 @@ import type {
 } from '../interfaces';
 import { createId } from '../utils';
 
+type OnClientDestroy = (clientId: string) => unknown;
+
 /**
  * Port Detector
  *
@@ -44,6 +46,8 @@ export class PortDetector {
   protected clientCallbacks = new Set<
     CallbackWithHook<Required<Transports>['server']>
   >();
+
+  protected clientDestroyCallbacks = new Set<OnClientDestroy>();
 
   syncFullStatePromise?: ReturnType<
     ClientEvents[typeof loadFullStateActionName]
@@ -140,6 +144,15 @@ export class PortDetector {
           const index = this.clientIds.findIndex((id) => id === clientId);
           if (index !== -1) {
             this.clientIds.splice(index, 1);
+
+            const callbacks = this.clientDestroyCallbacks;
+            for (const callback of callbacks) {
+              try {
+                callback(clientId);
+              } catch (e) {
+                console.error(e);
+              }
+            }
           }
         }
       );
@@ -270,6 +283,21 @@ export class PortDetector {
 
     return () => {
       this.clientCallbacks.delete(callback);
+    };
+  };
+
+  /**
+   * emit client destroy event with clientId
+   */
+  onClientDestroy = (callback: OnClientDestroy) => {
+    if (typeof callback !== 'function') {
+      throw new Error(`'onClientDestroy' argument should be a function.`);
+    }
+
+    this.clientDestroyCallbacks.add(callback);
+
+    return () => {
+      this.clientDestroyCallbacks.delete(callback);
     };
   };
 
