@@ -11,6 +11,7 @@ import {
   ClientTransport,
   ServerTransport,
   Transport,
+  watch,
 } from 'reactant-share';
 import { TodoListView } from './todoList.view';
 import { CounterView } from './counter.view';
@@ -60,6 +61,11 @@ export class AppView extends ViewModule {
           async (n) => `response '${n}' from server port`
         );
       }
+    );
+    watch(
+      this,
+      () => this.router.currentPath,
+      () => console.log('current', this.router.currentPath)
     );
     this.portDetector.onClient(
       (

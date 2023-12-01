@@ -39,10 +39,6 @@ export interface IRouterOptions extends IBaseRouterOptions {
    * default initial route
    */
   defaultRoute?: string;
-  /**
-   * sync browser forward and backward events, default is `false` in shared worker mode.
-   */
-  syncForwardBackward?: boolean;
 }
 
 @injectable({
@@ -65,12 +61,7 @@ class ReactantRouter extends BaseReactantRouter {
       ),
     });
 
-    const syncForwardBackward =
-      this.options.syncForwardBackward ?? !this.portDetector.isWorkerMode;
-
-    // in shared worker mode, the browser's forward and backward events are not synchronized by default
-    // and if you want to synchronize, you need to set the `syncForwardBackward` option to `true`
-    if (globalThis.document && syncForwardBackward) {
+    if (globalThis.document) {
       window.addEventListener('popstate', () => {
         if (!this.passiveRoute) {
           this.lastRoutedTimestamp = Date.now();
@@ -254,6 +245,11 @@ class ReactantRouter extends BaseReactantRouter {
     timestamp: number,
     clientId?: string
   ) {
+    if (!this.portDetector.isServerWorker && globalThis.document) {
+      // Only update the latest routes
+      if (this.lastRoutedTimestamp >= timestamp) return;
+      this.lastRoutedTimestamp = timestamp;
+    }
     this._setRouters(name, router);
     if (name === this.portDetector.name) {
       if (this.portDetector.isWorkerMode) {
@@ -296,6 +292,8 @@ class ReactantRouter extends BaseReactantRouter {
     router: RouterState,
     timestamp?: number
   ) {
+    // if the client is the non-origin of the routing, skip it
+    // or if the timestamp of the routing is earlier than the last routing, skip it
     if (
       name !== this.portDetector.name ||
       (timestamp && this.lastRoutedTimestamp >= timestamp)

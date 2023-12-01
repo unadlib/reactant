@@ -8,6 +8,7 @@ import {
   PortDetector,
   useConnector,
   Router,
+  watch,
 } from 'reactant-share';
 import { TodoListView } from './todoList.view';
 import { CounterView } from './counter.view';
@@ -47,6 +48,13 @@ export class AppView extends ViewModule {
       this.type = 'Client';
       this.setType?.('Client');
     });
+    watch(
+      this,
+      () => this.router.currentPath,
+      (currentPath) => {
+        console.log('currentPath', currentPath);
+      }
+    );
   }
 
   component() {

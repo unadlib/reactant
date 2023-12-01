@@ -260,9 +260,9 @@ describe('base', () => {
     await new Promise((resolve) => setTimeout(resolve));
 
     expect(onClientFn.mock.calls.length).toBe(1);
-    expect(subscribeOnClientFn.mock.calls.length).toBe(4);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(3);
     expect(onServerFn.mock.calls.length).toBe(1);
-    expect(subscribeOnServerFn.mock.calls.length).toBe(4);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(3);
     expect(serverContainer.querySelector('#content')?.textContent).toBe('0+');
     // expect(clientContainer.querySelector('#content')?.textContent).toBe('0+');
     act(() => {
@@ -274,9 +274,9 @@ describe('base', () => {
     await new Promise((resolve) => setTimeout(resolve));
 
     expect(onClientFn.mock.calls.length).toBe(1);
-    expect(subscribeOnClientFn.mock.calls.length).toBe(6);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(5);
     expect(onServerFn.mock.calls.length).toBe(1);
-    expect(subscribeOnServerFn.mock.calls.length).toBe(5);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(4);
 
     expect(serverContainer.querySelector('#content')?.textContent).toBe('0+');
     expect(clientContainer.querySelector('#content')?.textContent).toBe('0+');
@@ -1689,9 +1689,9 @@ describe('base with storage and router', () => {
     await Promise.resolve();
 
     expect(onClientFn.mock.calls.length).toBe(1);
-    expect(subscribeOnClientFn.mock.calls.length).toBe(6);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(5);
     expect(onServerFn.mock.calls.length).toBe(1);
-    expect(subscribeOnServerFn.mock.calls.length).toBe(8);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(7);
 
     expect(serverApp.instance.router.currentPath).toBe('/');
     expect(clientApp.instance.router.currentPath).toBe('/');
