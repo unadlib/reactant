@@ -135,7 +135,12 @@ const simpleLock = (name: LockName, callback: LockCallBack) => {
 export const useLock = (name: LockName, callback: LockCallBack) => {
   const isPrimitiveLock = !!(navigator as any).locks?.request;
   if (isPrimitiveLock) {
-    return (navigator as any).locks.request(name, callback);
+    return (navigator as any).locks.request(name, callback).catch((e: any) => {
+      if (e.code === 18 && e.toString().startsWith('SecurityError')) {
+        return simpleLock(name, callback);
+      }
+      return e;
+    });
   }
   return simpleLock(name, callback);
 };
