@@ -335,7 +335,6 @@ export class Coworker extends PluginModule {
             this.requestSyncAllState();
             return;
           }
-          this.sequence = coworkerSequence;
           const currentState = this.ref.store!.getState();
           const _sequence = this.portDetector.lastAction.sequence;
           const state = applyPatches(currentState, action._patches!);
@@ -345,6 +344,7 @@ export class Coworker extends PluginModule {
             state,
             _sequence,
           });
+          this.sequence = coworkerSequence;
         }
       );
     }
