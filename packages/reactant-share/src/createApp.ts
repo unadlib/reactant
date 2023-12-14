@@ -162,6 +162,7 @@ const createSharedTabApp = async <T, S extends any[], R extends Renderer<S>>(
     return app;
   }
   let app: App<T, S, R>;
+  let isServer = false;
   app = await Promise.race([
     new Promise<App<T, S, R>>((resolve) => {
       // TODO: clear locks for testing in SharedTab mode
@@ -172,6 +173,7 @@ const createSharedTabApp = async <T, S extends any[], R extends Renderer<S>>(
         } else {
           options.share.transform?.('server');
         }
+        isServer = true;
         resolve(app);
         return new Promise(() => {
           //
@@ -179,10 +181,12 @@ const createSharedTabApp = async <T, S extends any[], R extends Renderer<S>>(
       });
     }),
     new Promise<App<T, S, R>>(async (resolve) => {
+      // `isServer` is a variable that is not updated synchronously.
+      // and low version safari will trigger event itself.
       const isClient = await options.share.transports?.client?.emit(
         isClientName
       );
-      if (isClient) {
+      if (isClient && !isServer) {
         options.share.port = 'client';
         const app = createBaseApp(options);
         resolve(app);

@@ -37,6 +37,7 @@ createSharedApp({
     type: 'SharedTab',
     portName:
       globalThis.location.pathname === '/index.html' ? 'other' : 'default',
+    forcedShare: true,
   },
 }).then((app) => {
   console.log(app, '====');
