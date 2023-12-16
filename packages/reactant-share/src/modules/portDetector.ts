@@ -119,7 +119,7 @@ export class PortDetector {
       };
       // do not use `unload` event
       // https://developer.chrome.com/docs/web-platform/deprecating-unload
-      // the unload event is just only triggered in shared worker mode
+      // the pagehide event is just only triggered in shared worker mode
       window.addEventListener('pagehide', removeClientIdToServer);
       return () => {
         this.previousPort = 'client';
