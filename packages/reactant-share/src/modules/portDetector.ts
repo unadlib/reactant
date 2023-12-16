@@ -117,13 +117,15 @@ export class PortDetector {
           this.clientId!
         );
       };
+      // do not use `unload` event
+      // https://developer.chrome.com/docs/web-platform/deprecating-unload
       // the unload event is just only triggered in shared worker mode
-      window.addEventListener('unload', removeClientIdToServer);
+      window.addEventListener('pagehide', removeClientIdToServer);
       return () => {
         this.previousPort = 'client';
         disposeSyncToClients?.();
         disposeSyncClientIds?.();
-        window.removeEventListener('unload', removeClientIdToServer);
+        window.removeEventListener('pagehide', removeClientIdToServer);
       };
     });
 

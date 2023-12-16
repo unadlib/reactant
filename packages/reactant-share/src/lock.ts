@@ -41,7 +41,9 @@ const addUnloadListener = () => {
   /**
    * After unload event, It is known that the clear of localStorage in some Firefox scenarios and Safari v10 does not execute properly.
    */
-  window.addEventListener('unload', () => {
+  window.addEventListener('pagehide', () => {
+    // do not use `unload` event
+    // https://developer.chrome.com/docs/web-platform/deprecating-unload
     clearTabLocks([tabId], localStorage);
   });
 };
