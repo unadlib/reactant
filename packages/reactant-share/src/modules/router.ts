@@ -9,7 +9,6 @@ import {
   action,
   stateKey,
   modulesKey,
-  subscribe,
 } from 'reactant';
 import { Router as BaseReactantRouter, RouterOptions } from 'reactant-router';
 import type {
@@ -151,20 +150,15 @@ class ReactantRouter extends BaseReactantRouter {
       );
     });
     this.portDetector.onServer(() => {
-      if (globalThis.document) {
-        const unsubscribe = subscribe(this, () => {
-          if (this.router) {
-            unsubscribe();
-            // just update the current router to routers mapping by name at first time in shared tab mode
-            this._setRouters(this.portDetector.name, this.router!);
-          }
-        });
-      }
       return watch(
         this,
         () => this.router,
         () => {
           if (!this.portDetector.isWorkerMode) {
+            if (globalThis.document) {
+              // just update the current router to routers mapping by name at every time in shared tab mode
+              this._setRouters(this.portDetector.name, this.router!);
+            }
             fork(
               this as any,
               '_changeRoutingOnClient',
@@ -173,10 +167,6 @@ class ReactantRouter extends BaseReactantRouter {
                 silent: true,
               }
             );
-          }
-          if (globalThis.document) {
-            // just update the current router to routers mapping by name at every time in shared tab mode
-            this._setRouters(this.portDetector.name, this.router!);
           }
         }
       );
