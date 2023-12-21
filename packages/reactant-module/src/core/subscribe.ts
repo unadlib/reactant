@@ -36,31 +36,19 @@ import { storeKey, subscriptionsKey, unsubscriptionsKey } from '../constants';
  * });
  * ```
  */
-const subscribe: Subscribe = (service, listener, options) => {
+const subscribe: Subscribe = (service, listener) => {
   if (typeof listener !== 'function') {
     throw new Error(`The 'listener' should be a function.`);
   }
   let unsubscribe: Unsubscribe;
-  let ongoing = false;
-  const callback = options?.awaitPromise
-    ? async () => {
-        if (ongoing) return;
-        ongoing = true;
-        try {
-          await listener();
-        } finally {
-          ongoing = false;
-        }
-      }
-    : listener;
   if (service[storeKey]) {
-    unsubscribe = service[storeKey]?.subscribe(callback)!;
+    unsubscribe = service[storeKey]?.subscribe(listener)!;
   } else {
     // When constructing
     const subscriptions = service[subscriptionsKey] ?? [];
     let _unsubscribe: Unsubscribe;
     subscriptions.push(() => {
-      _unsubscribe = service[storeKey]?.subscribe(callback)!;
+      _unsubscribe = service[storeKey]?.subscribe(listener)!;
     });
     unsubscribe = () => {
       return _unsubscribe();

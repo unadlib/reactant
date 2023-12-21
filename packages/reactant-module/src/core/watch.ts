@@ -35,8 +35,12 @@ import { isEqual as defaultIsEqual } from '../utils';
  * });
  * ```
  */
-const watch: Watch = (service, selector, watcher, options = {}) => {
-  const { multiple = false, isEqual = defaultIsEqual } = options;
+const watch: Watch = (
+  service,
+  selector,
+  watcher,
+  { multiple = false, isEqual = defaultIsEqual } = {}
+) => {
   if (typeof watcher !== 'function') {
     const className = Object.getPrototypeOf(service).constructor.name;
     throw new Error(
@@ -44,20 +48,6 @@ const watch: Watch = (service, selector, watcher, options = {}) => {
     );
   }
   let oldValue = selector();
-  let ongoing = false;
-  const callback = (
-    (options as WatcherOptionsWithAwaitPromise<true>)?.awaitPromise
-      ? async (...args: Parameters<typeof watcher>) => {
-          if (ongoing) return;
-          ongoing = true;
-          try {
-            await watcher(...args);
-          } finally {
-            ongoing = false;
-          }
-        }
-      : watcher
-  ) as (...args: any[]) => ReturnType<typeof watcher>;
   if (multiple) {
     if (!Array.isArray(oldValue)) {
       const className = Object.getPrototypeOf(service).constructor.name;
@@ -72,8 +62,8 @@ const watch: Watch = (service, selector, watcher, options = {}) => {
         if (!isEqual(newValue[i], oldValue[i])) {
           const lastValues = oldValue;
           oldValue = newValue;
-          callback(newValue, lastValues);
-          return;
+          watcher(newValue, lastValues);
+          break;
         }
       }
     });
@@ -83,7 +73,7 @@ const watch: Watch = (service, selector, watcher, options = {}) => {
     if (!isEqual(newValue, oldValue)) {
       const lastValue = oldValue;
       oldValue = newValue;
-      callback(newValue, lastValue);
+      watcher(newValue, lastValue);
     }
   });
 };

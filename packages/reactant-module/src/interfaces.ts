@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable no-use-before-define */
 import type {
   Store as ReduxStore,
   PreloadedState,
@@ -139,7 +137,7 @@ export type HandlePlugin<T = any> = (
   pluginHooks: PluginHooks
 ) => void;
 
-export type Subscribe = <R extends void | Promise<void>>(
+export type Subscribe = (
   /**
    * Module instance
    */
@@ -147,40 +145,14 @@ export type Subscribe = <R extends void | Promise<void>>(
   /**
    * Redux's store subscription
    */
-  listener: () => R,
-  /**
-   * Watch options
-   */
-  options?: R extends Promise<void>
-    ? {
-        /**
-         * Wait for each async subscriber callback to complete before executing the next subscriber callback
-         */
-        awaitPromise?: boolean;
-      }
-    : void
+  listener: () => void
 ) => Unsubscribe;
 
 type Selector<T> = () => T;
 
-type Watcher<T, R> = (newValue: T, oldValue: T) => R;
+type Watcher<T> = (newValue: T, oldValue: T) => void;
 
-interface WatcherOptions<P extends boolean> {
-  /**
-   * Use multiple values watching
-   */
-  multiple?: P;
-  /**
-   * Define `isEqual` function as shallow comparison
-   */
-  isEqual?: (x: unknown, y: unknown) => boolean;
-}
-
-export type Watch = <
-  P extends boolean,
-  T extends P extends true ? any[] : any,
-  R extends void | Promise<void>
->(
+export type Watch = <P extends boolean, T extends P extends true ? any[] : any>(
   /**
    * Module instance
    */
@@ -192,13 +164,20 @@ export type Watch = <
   /**
    * Watch callback with value changes
    */
-  watcher: Watcher<T, R>,
+  watcher: Watcher<T>,
   /**
    * Watch options
    */
-  options?: R extends Promise<void>
-    ? WatcherOptionsWithAwaitPromise<P>
-    : WatcherOptions<P>
+  options?: {
+    /**
+     * Use multiple values watching
+     */
+    multiple?: P;
+    /**
+     * Define `isEqual` function as shallow comparison
+     */
+    isEqual?: (x: unknown, y: unknown) => boolean;
+  }
 ) => Unsubscribe;
 
 export type WatcherOptionsWithAwaitPromise<P extends boolean> =
