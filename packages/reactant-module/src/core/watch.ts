@@ -1,4 +1,4 @@
-import { Watch, WatcherOptionsWithAwaitPromise } from '../interfaces';
+import { Watch } from '../interfaces';
 import { subscribe } from './subscribe';
 import { isEqual as defaultIsEqual } from '../utils';
 
@@ -47,6 +47,7 @@ const watch: Watch = (
       `The 'watcher' should be a function in the class '${className}'.`
     );
   }
+  const callback = watcher as (...args: any[]) => ReturnType<typeof watcher>;
   let oldValue = selector();
   if (multiple) {
     if (!Array.isArray(oldValue)) {
@@ -62,8 +63,8 @@ const watch: Watch = (
         if (!isEqual(newValue[i], oldValue[i])) {
           const lastValues = oldValue;
           oldValue = newValue;
-          watcher(newValue, lastValues);
-          break;
+          callback(newValue, lastValues);
+          return;
         }
       }
     });
@@ -73,7 +74,7 @@ const watch: Watch = (
     if (!isEqual(newValue, oldValue)) {
       const lastValue = oldValue;
       oldValue = newValue;
-      watcher(newValue, lastValue);
+      callback(newValue, lastValue);
     }
   });
 };

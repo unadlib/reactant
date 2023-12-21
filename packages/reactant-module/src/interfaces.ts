@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 import type {
   Store as ReduxStore,
   PreloadedState,
@@ -179,14 +180,6 @@ export type Watch = <P extends boolean, T extends P extends true ? any[] : any>(
     isEqual?: (x: unknown, y: unknown) => boolean;
   }
 ) => Unsubscribe;
-
-export type WatcherOptionsWithAwaitPromise<P extends boolean> =
-  WatcherOptions<P> & {
-    /**
-     * Wait for each async watcher callback to complete before executing the next watcher callback
-     */
-    awaitPromise?: boolean;
-  };
 
 export interface LoadOptions<T> {
   modules?: ReactantModuleOptions[];
