@@ -27,7 +27,7 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "mutative": "^1.0.0",
+    "mutative": "^1.0.2",
     "reactant-di": "^0.101.0",
     "redux": "^4.1.0"
   },
