@@ -30,7 +30,7 @@ PluginModule.constructor
 
 #### Defined in
 
-[packages/reactant-router/src/router.tsx:62](https://github.com/unadlib/reactant/blob/b3eef4af/packages/reactant-router/src/router.tsx#L62)
+[packages/reactant-router/src/router.tsx:62](https://github.com/unadlib/reactant/blob/27b84881/packages/reactant-router/src/router.tsx#L62)
 
 ## Properties
 
@@ -40,7 +40,7 @@ PluginModule.constructor
 
 #### Defined in
 
-[packages/reactant-router/src/router.tsx:103](https://github.com/unadlib/reactant/blob/b3eef4af/packages/reactant-router/src/router.tsx#L103)
+[packages/reactant-router/src/router.tsx:103](https://github.com/unadlib/reactant/blob/27b84881/packages/reactant-router/src/router.tsx#L103)
 
 ___
 
@@ -50,11 +50,11 @@ ___
 
 #### Inherited from
 
-PluginModule.\_\_@storeKey@113479
+PluginModule.\_\_@storeKey@113231
 
 #### Defined in
 
-[packages/reactant-module/src/core/plugin.ts:15](https://github.com/unadlib/reactant/blob/b3eef4af/packages/reactant-module/src/core/plugin.ts#L15)
+[packages/reactant-module/src/core/plugin.ts:15](https://github.com/unadlib/reactant/blob/27b84881/packages/reactant-module/src/core/plugin.ts#L15)
 
 ___
 
@@ -64,7 +64,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-router/src/router.tsx:54](https://github.com/unadlib/reactant/blob/b3eef4af/packages/reactant-router/src/router.tsx#L54)
+[packages/reactant-router/src/router.tsx:54](https://github.com/unadlib/reactant/blob/27b84881/packages/reactant-router/src/router.tsx#L54)
 
 ___
 
@@ -74,7 +74,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-router/src/router.tsx:50](https://github.com/unadlib/reactant/blob/b3eef4af/packages/reactant-router/src/router.tsx#L50)
+[packages/reactant-router/src/router.tsx:50](https://github.com/unadlib/reactant/blob/27b84881/packages/reactant-router/src/router.tsx#L50)
 
 ___
 
@@ -91,7 +91,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-router/src/router.tsx:98](https://github.com/unadlib/reactant/blob/b3eef4af/packages/reactant-router/src/router.tsx#L98)
+[packages/reactant-router/src/router.tsx:98](https://github.com/unadlib/reactant/blob/27b84881/packages/reactant-router/src/router.tsx#L98)
 
 ___
 
@@ -107,7 +107,7 @@ PluginModule.enhancer
 
 #### Defined in
 
-[packages/reactant-module/src/core/plugin.ts:32](https://github.com/unadlib/reactant/blob/b3eef4af/packages/reactant-module/src/core/plugin.ts#L32)
+[packages/reactant-module/src/core/plugin.ts:32](https://github.com/unadlib/reactant/blob/27b84881/packages/reactant-module/src/core/plugin.ts#L32)
 
 ___
 
@@ -117,7 +117,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-router/src/router.tsx:52](https://github.com/unadlib/reactant/blob/b3eef4af/packages/reactant-router/src/router.tsx#L52)
+[packages/reactant-router/src/router.tsx:52](https://github.com/unadlib/reactant/blob/27b84881/packages/reactant-router/src/router.tsx#L52)
 
 ___
 
@@ -133,7 +133,7 @@ PluginModule.middleware
 
 #### Defined in
 
-[packages/reactant-module/src/core/plugin.ts:27](https://github.com/unadlib/reactant/blob/b3eef4af/packages/reactant-module/src/core/plugin.ts#L27)
+[packages/reactant-module/src/core/plugin.ts:27](https://github.com/unadlib/reactant/blob/27b84881/packages/reactant-module/src/core/plugin.ts#L27)
 
 ___
 
@@ -165,7 +165,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-router/src/router.tsx:56](https://github.com/unadlib/reactant/blob/b3eef4af/packages/reactant-router/src/router.tsx#L56)
+[packages/reactant-router/src/router.tsx:56](https://github.com/unadlib/reactant/blob/27b84881/packages/reactant-router/src/router.tsx#L56)
 
 ___
 
@@ -175,7 +175,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-router/src/router.tsx:62](https://github.com/unadlib/reactant/blob/b3eef4af/packages/reactant-router/src/router.tsx#L62)
+[packages/reactant-router/src/router.tsx:62](https://github.com/unadlib/reactant/blob/27b84881/packages/reactant-router/src/router.tsx#L62)
 
 ___
 
@@ -195,7 +195,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-router/src/router.tsx:58](https://github.com/unadlib/reactant/blob/b3eef4af/packages/reactant-router/src/router.tsx#L58)
+[packages/reactant-router/src/router.tsx:58](https://github.com/unadlib/reactant/blob/27b84881/packages/reactant-router/src/router.tsx#L58)
 
 ___
 
@@ -205,7 +205,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-router/src/router.tsx:60](https://github.com/unadlib/reactant/blob/b3eef4af/packages/reactant-router/src/router.tsx#L60)
+[packages/reactant-router/src/router.tsx:60](https://github.com/unadlib/reactant/blob/27b84881/packages/reactant-router/src/router.tsx#L60)
 
 ## Accessors
 
@@ -219,7 +219,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-router/src/router.tsx:111](https://github.com/unadlib/reactant/blob/b3eef4af/packages/reactant-router/src/router.tsx#L111)
+[packages/reactant-router/src/router.tsx:111](https://github.com/unadlib/reactant/blob/27b84881/packages/reactant-router/src/router.tsx#L111)
 
 ___
 
@@ -233,7 +233,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-router/src/router.tsx:107](https://github.com/unadlib/reactant/blob/b3eef4af/packages/reactant-router/src/router.tsx#L107)
+[packages/reactant-router/src/router.tsx:107](https://github.com/unadlib/reactant/blob/27b84881/packages/reactant-router/src/router.tsx#L107)
 
 ___
 
@@ -247,7 +247,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-router/src/router.tsx:83](https://github.com/unadlib/reactant/blob/b3eef4af/packages/reactant-router/src/router.tsx#L83)
+[packages/reactant-router/src/router.tsx:83](https://github.com/unadlib/reactant/blob/27b84881/packages/reactant-router/src/router.tsx#L83)
 
 ## Methods
 
@@ -273,7 +273,7 @@ PluginModule.afterCombineRootReducers
 
 #### Defined in
 
-[packages/reactant-module/src/core/plugin.ts:47](https://github.com/unadlib/reactant/blob/b3eef4af/packages/reactant-module/src/core/plugin.ts#L47)
+[packages/reactant-module/src/core/plugin.ts:47](https://github.com/unadlib/reactant/blob/27b84881/packages/reactant-module/src/core/plugin.ts#L47)
 
 ___
 
@@ -299,7 +299,7 @@ PluginModule.afterCreateStore
 
 #### Defined in
 
-[packages/reactant-module/src/core/plugin.ts:37](https://github.com/unadlib/reactant/blob/b3eef4af/packages/reactant-module/src/core/plugin.ts#L37)
+[packages/reactant-module/src/core/plugin.ts:37](https://github.com/unadlib/reactant/blob/27b84881/packages/reactant-module/src/core/plugin.ts#L37)
 
 ___
 
@@ -323,7 +323,7 @@ PluginModule.beforeCombineRootReducers
 
 #### Defined in
 
-[packages/reactant-router/src/router.tsx:87](https://github.com/unadlib/reactant/blob/b3eef4af/packages/reactant-router/src/router.tsx#L87)
+[packages/reactant-router/src/router.tsx:87](https://github.com/unadlib/reactant/blob/27b84881/packages/reactant-router/src/router.tsx#L87)
 
 ___
 
@@ -343,7 +343,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-router/src/router.tsx:123](https://github.com/unadlib/reactant/blob/b3eef4af/packages/reactant-router/src/router.tsx#L123)
+[packages/reactant-router/src/router.tsx:123](https://github.com/unadlib/reactant/blob/27b84881/packages/reactant-router/src/router.tsx#L123)
 
 ___
 
@@ -357,7 +357,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-router/src/router.tsx:127](https://github.com/unadlib/reactant/blob/b3eef4af/packages/reactant-router/src/router.tsx#L127)
+[packages/reactant-router/src/router.tsx:127](https://github.com/unadlib/reactant/blob/27b84881/packages/reactant-router/src/router.tsx#L127)
 
 ___
 
@@ -371,7 +371,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-router/src/router.tsx:131](https://github.com/unadlib/reactant/blob/b3eef4af/packages/reactant-router/src/router.tsx#L131)
+[packages/reactant-router/src/router.tsx:131](https://github.com/unadlib/reactant/blob/27b84881/packages/reactant-router/src/router.tsx#L131)
 
 ___
 
@@ -397,7 +397,7 @@ PluginModule.preloadedStateHandler
 
 #### Defined in
 
-[packages/reactant-module/src/core/plugin.ts:20](https://github.com/unadlib/reactant/blob/b3eef4af/packages/reactant-module/src/core/plugin.ts#L20)
+[packages/reactant-module/src/core/plugin.ts:20](https://github.com/unadlib/reactant/blob/27b84881/packages/reactant-module/src/core/plugin.ts#L20)
 
 ___
 
@@ -421,7 +421,7 @@ PluginModule.provider
 
 #### Defined in
 
-[packages/reactant-router/src/router.tsx:135](https://github.com/unadlib/reactant/blob/b3eef4af/packages/reactant-router/src/router.tsx#L135)
+[packages/reactant-router/src/router.tsx:135](https://github.com/unadlib/reactant/blob/27b84881/packages/reactant-router/src/router.tsx#L135)
 
 ___
 
@@ -442,7 +442,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-router/src/router.tsx:115](https://github.com/unadlib/reactant/blob/b3eef4af/packages/reactant-router/src/router.tsx#L115)
+[packages/reactant-router/src/router.tsx:115](https://github.com/unadlib/reactant/blob/27b84881/packages/reactant-router/src/router.tsx#L115)
 
 ___
 
@@ -463,4 +463,4 @@ ___
 
 #### Defined in
 
-[packages/reactant-router/src/router.tsx:119](https://github.com/unadlib/reactant/blob/b3eef4af/packages/reactant-router/src/router.tsx#L119)
+[packages/reactant-router/src/router.tsx:119](https://github.com/unadlib/reactant/blob/27b84881/packages/reactant-router/src/router.tsx#L119)

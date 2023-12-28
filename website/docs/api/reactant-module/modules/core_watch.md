@@ -10,7 +10,7 @@ custom_edit_url: null
 
 ### watch
 
-▸ **watch**<`P`, `T`, `R`\>(`service`, `selector`, `watcher`, `options?`): `Unsubscribe`
+▸ **watch**<`P`, `T`\>(`service`, `selector`, `watcher`, `options?`): `Unsubscribe`
 
 ## Description
 
@@ -50,7 +50,6 @@ const app = testBed({
 | :------ | :------ |
 | `P` | extends `boolean` |
 | `T` | extends `any` |
-| `R` | extends `void` \| `Promise`<`void`\> |
 
 #### Parameters
 
@@ -58,8 +57,10 @@ const app = testBed({
 | :------ | :------ | :------ |
 | `service` | `ThisService` | Module instance |
 | `selector` | `Selector`<`P` extends ``true`` ? readonly [`T`] \| [...T[]] : `T`\> | Watched values |
-| `watcher` | `Watcher`<`T`, `R`\> | Watch callback with value changes |
-| `options?` | `R` extends `Promise`<`void`\> ? `WatcherOptionsWithAwaitPromise`<`P`\> : `WatcherOptions`<`P`\> | Watch options |
+| `watcher` | `Watcher`<`T`\> | Watch callback with value changes |
+| `options?` | `Object` | Watch options |
+| `options.isEqual?` | (`x`: `unknown`, `y`: `unknown`) => `boolean` | - |
+| `options.multiple?` | `P` | Use multiple values watching |
 
 #### Returns
 
@@ -67,4 +68,4 @@ const app = testBed({
 
 #### Defined in
 
-[packages/reactant-module/src/interfaces.ts:179](https://github.com/unadlib/reactant/blob/b3eef4af/packages/reactant-module/src/interfaces.ts#L179)
+[packages/reactant-module/src/interfaces.ts:156](https://github.com/unadlib/reactant/blob/27b84881/packages/reactant-module/src/interfaces.ts#L156)

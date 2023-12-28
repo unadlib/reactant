@@ -10,7 +10,7 @@ custom_edit_url: null
 
 ### subscribe
 
-▸ **subscribe**<`R`\>(`service`, `listener`, `options?`): `Unsubscribe`
+▸ **subscribe**(`service`, `listener`): `Unsubscribe`
 
 ## Description
 
@@ -44,19 +44,12 @@ const app = testBed({
 });
 ```
 
-#### Type parameters
-
-| Name | Type |
-| :------ | :------ |
-| `R` | extends `void` \| `Promise`<`void`\> |
-
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `service` | `ThisService` | Module instance |
-| `listener` | () => `R` | Redux's store subscription |
-| `options?` | `R` extends `Promise`<`void`\> ? { `awaitPromise?`: `boolean`  } : `void` | Watch options |
+| `listener` | () => `void` | Redux's store subscription |
 
 #### Returns
 
@@ -64,4 +57,4 @@ const app = testBed({
 
 #### Defined in
 
-[packages/reactant-module/src/interfaces.ts:142](https://github.com/unadlib/reactant/blob/b3eef4af/packages/reactant-module/src/interfaces.ts#L142)
+[packages/reactant-module/src/interfaces.ts:141](https://github.com/unadlib/reactant/blob/27b84881/packages/reactant-module/src/interfaces.ts#L141)

@@ -16,7 +16,7 @@ auto create history and handle middleware
 
 #### Defined in
 
-[packages/reactant-router/src/router.tsx:42](https://github.com/unadlib/reactant/blob/b3eef4af/packages/reactant-router/src/router.tsx#L42)
+[packages/reactant-router/src/router.tsx:42](https://github.com/unadlib/reactant/blob/27b84881/packages/reactant-router/src/router.tsx#L42)
 
 ___
 
@@ -28,7 +28,7 @@ Auto provider injection.
 
 #### Defined in
 
-[packages/reactant-router/src/router.tsx:38](https://github.com/unadlib/reactant/blob/b3eef4af/packages/reactant-router/src/router.tsx#L38)
+[packages/reactant-router/src/router.tsx:38](https://github.com/unadlib/reactant/blob/27b84881/packages/reactant-router/src/router.tsx#L38)
 
 ___
 
@@ -48,4 +48,4 @@ create history for router, use `createHashHistory`/`createBrowserHistory`/`creat
 
 #### Defined in
 
-[packages/reactant-router/src/router.tsx:34](https://github.com/unadlib/reactant/blob/b3eef4af/packages/reactant-router/src/router.tsx#L34)
+[packages/reactant-router/src/router.tsx:34](https://github.com/unadlib/reactant/blob/27b84881/packages/reactant-router/src/router.tsx#L34)
