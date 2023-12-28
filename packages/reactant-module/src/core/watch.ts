@@ -1,4 +1,4 @@
-import { Watch, WatcherOptionsWithAwaitPromise } from '../interfaces';
+import { Watch } from '../interfaces';
 import { subscribe } from './subscribe';
 import { isEqual as defaultIsEqual } from '../utils';
 
@@ -35,29 +35,20 @@ import { isEqual as defaultIsEqual } from '../utils';
  * });
  * ```
  */
-const watch: Watch = (service, selector, watcher, options = {}) => {
-  const { multiple = false, isEqual = defaultIsEqual } = options;
+const watch: Watch = (
+  service,
+  selector,
+  watcher,
+  { multiple = false, isEqual = defaultIsEqual } = {}
+) => {
   if (typeof watcher !== 'function') {
     const className = Object.getPrototypeOf(service).constructor.name;
     throw new Error(
       `The 'watcher' should be a function in the class '${className}'.`
     );
   }
+  const callback = watcher as (...args: any[]) => ReturnType<typeof watcher>;
   let oldValue = selector();
-  let ongoing = false;
-  const callback = (
-    (options as WatcherOptionsWithAwaitPromise<true>)?.awaitPromise
-      ? async (...args: Parameters<typeof watcher>) => {
-          if (ongoing) return;
-          ongoing = true;
-          try {
-            await watcher(...args);
-          } finally {
-            ongoing = false;
-          }
-        }
-      : watcher
-  ) as (...args: any[]) => ReturnType<typeof watcher>;
   if (multiple) {
     if (!Array.isArray(oldValue)) {
       const className = Object.getPrototypeOf(service).constructor.name;
