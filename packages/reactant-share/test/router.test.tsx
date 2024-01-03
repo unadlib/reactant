@@ -1375,49 +1375,55 @@ describe('Worker', () => {
     expect(app.instance.router.currentPath).toBe('/counter');
     expect(clientContainer.querySelector('#content')?.textContent).toBe('0+');
 
+    let hashChange = listenHashChange();
     act(() => {
       clientContainer
         .querySelector('#replace')!
         .dispatchEvent(new MouseEvent('click', { bubbles: true }));
     });
-    await new Promise((resolve) => setTimeout(resolve));
+    await hashChange;
     expect(app.instance.router.currentPath).toBe('/');
     expect(clientContainer.querySelector('#content')?.textContent).toBe('home');
+
+    hashChange = listenHashChange();
     act(() => {
       clientContainer
         .querySelector('#counter')!
         .dispatchEvent(new MouseEvent('click', { bubbles: true }));
     });
-    await new Promise((resolve) => setTimeout(resolve));
+    await hashChange;
     expect(app.instance.router.currentPath).toBe('/counter');
     expect(clientContainer.querySelector('#content')?.textContent).toBe('0+');
 
+    hashChange = listenHashChange();
     act(() => {
       clientContainer
         .querySelector('#goBack')!
         .dispatchEvent(new MouseEvent('click', { bubbles: true }));
     });
-    await new Promise((resolve) => setTimeout(resolve));
-    expect(app.instance.router.currentPath).toBe('/counter');
-    expect(clientContainer.querySelector('#content')?.textContent).toBe('0+');
+    await hashChange;
+    expect(app.instance.router.currentPath).toBe('/');
+    expect(clientContainer.querySelector('#content')?.textContent).toBe('home');
 
+    hashChange = listenHashChange();
     act(() => {
       clientContainer
         .querySelector('#goForward')!
         .dispatchEvent(new MouseEvent('click', { bubbles: true }));
     });
-    await new Promise((resolve) => setTimeout(resolve));
-    expect(app.instance.router.currentPath).toBe('/');
-    expect(clientContainer.querySelector('#content')?.textContent).toBe('home');
+    await hashChange;
+    expect(app.instance.router.currentPath).toBe('/counter');
+    expect(clientContainer.querySelector('#content')?.textContent).toBe('0+');
 
+    hashChange = listenHashChange();
     act(() => {
       clientContainer
         .querySelector('#go')!
         .dispatchEvent(new MouseEvent('click', { bubbles: true }));
     });
-    await new Promise((resolve) => setTimeout(resolve));
-    expect(app.instance.router.currentPath).toBe('/counter');
-    expect(clientContainer.querySelector('#content')?.textContent).toBe('0+');
+    await hashChange;
+    expect(app.instance.router.currentPath).toBe('/');
+    expect(clientContainer.querySelector('#content')?.textContent).toBe('home');
   });
 });
 
