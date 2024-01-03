@@ -53,6 +53,16 @@ afterEach(() => {
   clientContainer.remove();
 });
 
+const listenHashChange = () => {
+  return new Promise<void>((resolve) => {
+    const callback = () => {
+      window.removeEventListener('hashchange', callback);
+      resolve();
+    };
+    window.addEventListener('hashchange', callback);
+  });
+};
+
 describe('base', () => {
   let onClientFn: jest.Mock<any, any>;
   let subscribeOnClientFn: jest.Mock<any, any>;
@@ -1139,55 +1149,59 @@ describe('Worker', () => {
     expect(serverApp.instance.router.currentPath).toBe('/counter');
     expect(clientApp.instance.router.currentPath).toBe('/counter');
     expect(clientContainer.querySelector('#content')?.textContent).toBe('0+');
-
+    let hashChange = listenHashChange();
     act(() => {
       clientContainer
         .querySelector('#replace')!
         .dispatchEvent(new MouseEvent('click', { bubbles: true }));
     });
-    await new Promise((resolve) => setTimeout(resolve));
+    await hashChange;
     expect(serverApp.instance.router.currentPath).toBe('/');
     expect(clientApp.instance.router.currentPath).toBe('/');
     expect(clientContainer.querySelector('#content')?.textContent).toBe('home');
+    hashChange = listenHashChange();
     act(() => {
       clientContainer
         .querySelector('#counter')!
         .dispatchEvent(new MouseEvent('click', { bubbles: true }));
     });
-    await new Promise((resolve) => setTimeout(resolve));
+    await hashChange;
     expect(serverApp.instance.router.currentPath).toBe('/counter');
     expect(clientApp.instance.router.currentPath).toBe('/counter');
     expect(clientContainer.querySelector('#content')?.textContent).toBe('0+');
 
+    hashChange = listenHashChange();
     act(() => {
       clientContainer
         .querySelector('#goBack')!
         .dispatchEvent(new MouseEvent('click', { bubbles: true }));
     });
-    await new Promise((resolve) => setTimeout(resolve));
-    expect(serverApp.instance.router.currentPath).toBe('/counter');
-    expect(clientApp.instance.router.currentPath).toBe('/counter');
-    expect(clientContainer.querySelector('#content')?.textContent).toBe('0+');
+    await hashChange;
+    expect(serverApp.instance.router.currentPath).toBe('/');
+    expect(clientApp.instance.router.currentPath).toBe('/');
+    expect(clientContainer.querySelector('#content')?.textContent).toBe('home');
 
+    hashChange = listenHashChange();
     act(() => {
       clientContainer
         .querySelector('#goForward')!
         .dispatchEvent(new MouseEvent('click', { bubbles: true }));
     });
-    await new Promise((resolve) => setTimeout(resolve));
-    expect(serverApp.instance.router.currentPath).toBe('/');
-    expect(clientApp.instance.router.currentPath).toBe('/');
-    expect(clientContainer.querySelector('#content')?.textContent).toBe('home');
+    await hashChange;
+    expect(serverApp.instance.router.currentPath).toBe('/counter');
+    expect(clientApp.instance.router.currentPath).toBe('/counter');
+    expect(clientContainer.querySelector('#content')?.textContent).toBe('0+');
 
+    hashChange = listenHashChange();
     act(() => {
       clientContainer
         .querySelector('#go')!
         .dispatchEvent(new MouseEvent('click', { bubbles: true }));
     });
-    await new Promise((resolve) => setTimeout(resolve));
-    expect(serverApp.instance.router.currentPath).toBe('/counter');
-    expect(clientApp.instance.router.currentPath).toBe('/counter');
-    expect(clientContainer.querySelector('#content')?.textContent).toBe('0+');
+    await hashChange;
+    expect(serverApp.instance.router.currentPath).toBe('/');
+    expect(clientApp.instance.router.currentPath).toBe('/');
+    expect(clientContainer.querySelector('#content')?.textContent).toBe('home');
   });
 
   test('forcedSyncClient for server/client port mode with router in SharedWorker', async () => {
