@@ -25,4 +25,4 @@ custom_edit_url: null
 
 #### Defined in
 
-[packages/reactant-module/src/interfaces.ts:194](https://github.com/unadlib/reactant/blob/27b84881/packages/reactant-module/src/interfaces.ts#L194)
+[packages/reactant-module/src/interfaces.ts:194](https://github.com/unadlib/reactant/blob/06fada32/packages/reactant-module/src/interfaces.ts#L194)

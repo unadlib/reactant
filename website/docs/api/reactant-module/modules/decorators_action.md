@@ -62,7 +62,7 @@ expect(app.instance.count).toBe(1);
 
 #### Defined in
 
-[packages/reactant-module/src/decorators/action.ts:47](https://github.com/unadlib/reactant/blob/27b84881/packages/reactant-module/src/decorators/action.ts#L47)
+[packages/reactant-module/src/decorators/action.ts:47](https://github.com/unadlib/reactant/blob/06fada32/packages/reactant-module/src/decorators/action.ts#L47)
 
 ___
 
@@ -76,4 +76,4 @@ ___
 
 #### Defined in
 
-[packages/reactant-module/src/decorators/action.ts:17](https://github.com/unadlib/reactant/blob/27b84881/packages/reactant-module/src/decorators/action.ts#L17)
+[packages/reactant-module/src/decorators/action.ts:17](https://github.com/unadlib/reactant/blob/06fada32/packages/reactant-module/src/decorators/action.ts#L17)

@@ -39,4 +39,4 @@ custom_edit_url: null
 
 #### Defined in
 
-[packages/reactant-module/src/decorators/lazy.ts:6](https://github.com/unadlib/reactant/blob/27b84881/packages/reactant-module/src/decorators/lazy.ts#L6)
+[packages/reactant-module/src/decorators/lazy.ts:6](https://github.com/unadlib/reactant/blob/06fada32/packages/reactant-module/src/decorators/lazy.ts#L6)

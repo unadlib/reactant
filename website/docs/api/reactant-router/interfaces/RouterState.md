@@ -14,7 +14,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[packages/reactant-router/src/router.tsx:26](https://github.com/unadlib/reactant/blob/27b84881/packages/reactant-router/src/router.tsx#L26)
+[packages/reactant-router/src/router.tsx:26](https://github.com/unadlib/reactant/blob/06fada32/packages/reactant-router/src/router.tsx#L26)
 
 ___
 
@@ -24,4 +24,4 @@ ___
 
 #### Defined in
 
-[packages/reactant-router/src/router.tsx:27](https://github.com/unadlib/reactant/blob/27b84881/packages/reactant-router/src/router.tsx#L27)
+[packages/reactant-router/src/router.tsx:27](https://github.com/unadlib/reactant/blob/06fada32/packages/reactant-router/src/router.tsx#L27)
