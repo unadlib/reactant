@@ -1,13 +1,13 @@
 # TODO
 - [x] update API docs
 - [x] use Mutative
-- [ ] upgrade react-native v0.72.0
+- [ ] upgrade react-native v0.73.4
 - [ ] support TS 5.0 new decorator(https://github.com/tc39/proposal-decorators)
 - [ ] upgrade inversify v6
-- [ ] upgrade react-router v6.3.0
-- [ ] upgrade react/react-dom v18
+- [ ] upgrade react-router v6.22.1
+- [ ] upgrade react/react-dom 17.x and 18.x
 - [ ] upgrade redux v5
-- [ ] upgrade react-redux v9
+- [ ] upgrade react-redux v8.1.3 for React 17.x and 18.x
 - [ ] support `upgrade` CLI
 - [ ] dynamic unloading module
 - [ ] improve CLI about `bun`
