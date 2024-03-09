@@ -5,6 +5,7 @@ import {
   createStore,
   action,
   computed,
+  untracked,
 } from '../..';
 
 describe('@computed', () => {
@@ -1564,5 +1565,91 @@ describe('@computed with automatic dependencies collection', () => {
     expect(foo.baseCounter.num).toBe(2);
     expect(foo.counter.computedFn.mock.calls.length).toBe(3);
     expect(foo.baseCounter.computedFn.mock.calls.length).toBe(2);
+  });
+  test('untracked', () => {
+    const computedFn0 = jest.fn();
+    const computedFn = jest.fn();
+
+    @injectable()
+    class Counter0 {
+      @state
+      count = 0;
+
+      @action
+      increase() {
+        this.count += 1;
+      }
+
+      @computed
+      get num() {
+        computedFn0();
+        return this.count + 1;
+      }
+    }
+    @injectable()
+    class Counter {
+      constructor(public counter0: Counter0) {}
+
+      @state
+      count = 0;
+
+      @action
+      increase() {
+        this.count += 1;
+      }
+
+      @computed
+      get num() {
+        computedFn();
+        return this.count + untracked(() => this.counter0.num);
+      }
+    }
+    const ServiceIdentifiers = new Map();
+    const modules = [Counter];
+    const container = createContainer({
+      ServiceIdentifiers,
+      modules,
+      options: {
+        defaultScope: 'Singleton',
+      },
+    });
+    const counter = container.get(Counter);
+    const store = createStore({
+      modules,
+      container,
+      ServiceIdentifiers,
+      loadedModules: new Set(),
+      load: (...args: any[]) => {
+        //
+      },
+      dynamicModules: new Map(),
+      pluginHooks: {
+        middleware: [],
+        beforeCombineRootReducers: [],
+        afterCombineRootReducers: [],
+        enhancer: [],
+        preloadedStateHandler: [],
+        afterCreateStore: [],
+        provider: [],
+      },
+    });
+    expect(computedFn.mock.calls.length).toBe(0);
+    expect(computedFn0.mock.calls.length).toBe(0);
+    expect(counter.num).toBe(1);
+    counter.increase();
+    expect(Object.values(store.getState())[0]).toEqual({ count: 1 });
+    expect(counter.num).toBe(2);
+    expect(counter.counter0.num).toBe(1);
+    expect(computedFn0.mock.calls.length).toBe(1);
+    expect(computedFn.mock.calls.length).toBe(2);
+    expect(counter.num).toBe(2);
+    expect(counter.counter0.num).toBe(1);
+    expect(computedFn0.mock.calls.length).toBe(1);
+    expect(computedFn.mock.calls.length).toBe(2);
+    counter.counter0.increase();
+    expect(counter.num).toBe(2);
+    expect(counter.counter0.num).toBe(2);
+    expect(computedFn0.mock.calls.length).toBe(2);
+    expect(computedFn.mock.calls.length).toBe(2);
   });
 });

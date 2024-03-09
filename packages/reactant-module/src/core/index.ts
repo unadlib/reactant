@@ -9,3 +9,4 @@ export * from './watch';
 export * from './load';
 export * from './applyMiddleware';
 export * from './getRef';
+export { untracked } from './signal';
