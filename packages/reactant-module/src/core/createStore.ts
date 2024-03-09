@@ -52,8 +52,9 @@ import type {
   Subscriptions,
   ThisService,
 } from '../interfaces';
-import { getComposeEnhancers, getStageName, perform } from '../utils';
+import { getComposeEnhancers, getStageName, isEqual, perform } from '../utils';
 import { handlePlugin } from './handlePlugin';
+import { signal } from './signal';
 
 interface CreateStoreOptions<T> {
   modules: ModuleOptions[];
@@ -170,6 +171,7 @@ export function createStore<T = any>({
         }
         const hasState = toString.call(service[stateKey]) === '[object Object]';
         if (hasState) {
+          const signalMap: any = {};
           const isEmptyObject = Object.keys(service[stateKey]!).length === 0;
           if (!isEmptyObject) {
             const descriptors: Record<string, PropertyDescriptor> = {};
@@ -184,6 +186,15 @@ export function createStore<T = any>({
                 enumerable: true,
                 configurable: true,
                 get(this: ThisService) {
+                  const stagedState = getStagedState();
+                  if (!stagedState && signalMap[key]) {
+                    const current = this[stateKey]![key];
+                    // TODO: check `this.constructor.name === 'ReactantRouter'`
+                    if (!isEqual(signalMap[key].value, current)) {
+                      signalMap[key].value = current;
+                    }
+                    return signalMap[key].value;
+                  }
                   return this[stateKey]![key];
                 },
                 set(this: ThisService, value: unknown) {
@@ -228,11 +239,20 @@ export function createStore<T = any>({
                     [key]: reducer,
                   });
                 }
+                signalMap[key] = signal(value);
+                const current = signalMap[key];
                 const reducer = (state = value, action: ReactantAction) => {
-                  return action._reactant === actionIdentifier &&
+                  if (
+                    action._reactant === actionIdentifier &&
                     action.state[identifier!]
-                    ? action.state[identifier!][key]
-                    : state;
+                  ) {
+                    const nextState = action.state[identifier!][key];
+                    if (!isEqual(nextState, state)) {
+                      current.value = nextState;
+                    }
+                    return nextState;
+                  }
+                  return state;
                 };
                 return Object.assign(serviceReducersMapObject, {
                   [key]: reducer,
