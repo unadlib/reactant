@@ -70,7 +70,8 @@ export const computed: any = (...args: any[]) => {
   return {
     ...args[2],
     get(this: Service) {
-      if (!this[storeKey]) {
+      const stagedState = getStagedState();
+      if (!this[storeKey] || stagedState) {
         return args[2].get.call(this);
       }
       let currentComputed = computedMap.get(this);

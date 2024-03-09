@@ -1,13 +1,15 @@
+/* eslint-disable no-shadow */
 /* eslint-disable consistent-return */
 /* eslint-disable no-else-return */
 /* eslint-disable @typescript-eslint/no-this-alias */
-/* eslint-disable no-bitwise */
 /* eslint-disable no-use-before-define */
-const RUNNING = 1 << 0;
-const NOTIFIED = 1 << 1;
-const OUTDATED = 1 << 2;
-const HAS_ERROR = 1 << 4;
-const TRACKING = 1 << 5;
+const enum ComputedFlags {
+  Running,
+  Notified,
+  Outdated,
+  HasError,
+  Tracking,
+}
 
 interface ExternalSignal<T = unknown> {
   value: T;
@@ -135,32 +137,38 @@ class Computed<T = unknown> extends Signal<T> {
 
   _globalVersion = globalVersion - 1;
 
-  _flags: number;
+  _flags: Set<ComputedFlags> = new Set([ComputedFlags.Outdated]);
 
   constructor(compute: () => T) {
     super(undefined);
     this._compute = compute;
-    this._flags = OUTDATED;
   }
 
   _refresh() {
-    this._flags &= ~NOTIFIED;
+    this._flags.delete(ComputedFlags.Notified);
 
-    if (this._flags & RUNNING) {
+    if (this._flags.has(ComputedFlags.Running)) {
       return false;
     }
-    if ((this._flags & (OUTDATED | TRACKING)) === TRACKING) {
+
+    if (
+      !this._flags.has(ComputedFlags.Outdated) &&
+      this._flags.has(ComputedFlags.Tracking)
+    ) {
       return true;
     }
-    this._flags &= ~OUTDATED;
+
+    this._flags.delete(ComputedFlags.Outdated);
 
     if (this._globalVersion === globalVersion) {
       return true;
     }
+
     this._globalVersion = globalVersion;
-    this._flags |= RUNNING;
+    this._flags.add(ComputedFlags.Running);
+
     if (this._version > 0 && !this.needsToRecompute()) {
-      this._flags &= ~RUNNING;
+      this._flags.delete(ComputedFlags.Running);
       return true;
     }
 
@@ -170,27 +178,28 @@ class Computed<T = unknown> extends Signal<T> {
       evalContext = this;
       const value = this._compute();
       if (
-        this._flags & HAS_ERROR ||
+        this._flags.has(ComputedFlags.HasError) ||
         this._value !== value ||
         this._version === 0
       ) {
         this._value = value;
-        this._flags &= ~HAS_ERROR;
+        this._flags.delete(ComputedFlags.HasError);
         this._version += 1;
       }
     } catch (err) {
       this._value = err as T;
-      this._flags |= HAS_ERROR;
+      this._flags.add(ComputedFlags.HasError);
       this._version += 1;
     }
+
     evalContext = prevContext;
     this.cleanupSources();
-    this._flags &= ~RUNNING;
+    this._flags.delete(ComputedFlags.Running);
     return true;
   }
 
   get value() {
-    if (this._flags & RUNNING) {
+    if (this._flags.has(ComputedFlags.Running)) {
       throw new Error('Cycle detected');
     }
     const node = this.addDependency();
@@ -198,7 +207,7 @@ class Computed<T = unknown> extends Signal<T> {
     if (node !== undefined) {
       node._version = this._version;
     }
-    if (this._flags & HAS_ERROR) {
+    if (this._flags.has(ComputedFlags.HasError)) {
       throw this._value;
     }
     return this._value;

@@ -187,15 +187,15 @@ export function createStore<T = any>({
                 configurable: true,
                 get(this: ThisService) {
                   const stagedState = getStagedState();
-                  if (!stagedState && signalMap[key]) {
-                    const current = this[stateKey]![key];
-                    // TODO: check `this.constructor.name === 'ReactantRouter'`
-                    if (!isEqual(signalMap[key].value, current)) {
-                      signalMap[key].value = current;
-                    }
-                    return signalMap[key].value;
+                  const current = this[stateKey]![key];
+                  if (
+                    !stagedState &&
+                    signalMap[key] &&
+                    !isEqual(signalMap[key].value, current)
+                  ) {
+                    signalMap[key].value = current;
                   }
-                  return this[stateKey]![key];
+                  return current;
                 },
                 set(this: ThisService, value: unknown) {
                   this[stateKey]![key] = value;

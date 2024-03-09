@@ -389,6 +389,70 @@ describe('@computed with automatic dependencies collection', () => {
     expect(counter.num).toBe(3);
     expect(computedFn.mock.calls.length).toBe(2);
   });
+
+  test('base - action with calling computed', () => {
+    const computedFn = jest.fn();
+    @injectable()
+    class Counter {
+      @state
+      count = { value: 0 };
+
+      @action
+      increase() {
+        expect(this.num === this.count).toBe(true);
+        this.count.value += 1;
+      }
+
+      @computed
+      get num() {
+        computedFn();
+        return this.count;
+      }
+    }
+    const ServiceIdentifiers = new Map();
+    const modules = [Counter];
+    const container = createContainer({
+      ServiceIdentifiers,
+      modules,
+      options: {
+        defaultScope: 'Singleton',
+      },
+    });
+    const counter = container.get(Counter);
+    const store = createStore({
+      modules,
+      container,
+      ServiceIdentifiers,
+      loadedModules: new Set(),
+      load: (...args: any[]) => {
+        //
+      },
+      dynamicModules: new Map(),
+      pluginHooks: {
+        middleware: [],
+        beforeCombineRootReducers: [],
+        afterCombineRootReducers: [],
+        enhancer: [],
+        preloadedStateHandler: [],
+        afterCreateStore: [],
+        provider: [],
+      },
+    });
+    expect(computedFn.mock.calls.length).toBe(0);
+    expect(counter.num.value).toBe(0);
+    expect(computedFn.mock.calls.length).toBe(1);
+    counter.increase();
+    expect(computedFn.mock.calls.length).toBe(2);
+    expect(Object.values(store.getState())[0]).toEqual({ count: { value: 1 } });
+    expect(counter.num.value).toBe(1);
+    expect(computedFn.mock.calls.length).toBe(3);
+    expect(counter.num.value).toBe(1);
+    expect(computedFn.mock.calls.length).toBe(3);
+    counter.increase();
+    expect(counter.num.value).toBe(2);
+    expect(computedFn.mock.calls.length).toBe(5);
+  });
+
   test('base with multi-state', () => {
     const computedFn = jest.fn();
     @injectable()
