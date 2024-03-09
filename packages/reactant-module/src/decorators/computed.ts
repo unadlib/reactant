@@ -48,7 +48,13 @@ export const computed: any = (...args: any[]) => {
       }
       const depsCallbackSelector = createSelectorWithArray(
         // for performance improvement
-        (that: Service) => [that[storeKey]?.getState()],
+        (that: Service) => {
+          const stagedState = getStagedState();
+          if (stagedState) {
+            return [stagedState];
+          }
+          return [that[storeKey]?.getState()];
+        },
         // eslint-disable-next-line func-names
         function (this: Service) {
           return depsCallback(this);
