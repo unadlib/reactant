@@ -2,6 +2,9 @@
 /* eslint-disable consistent-return */
 /* eslint-disable no-else-return */
 /* eslint-disable @typescript-eslint/no-this-alias */
+
+import { isEqual } from '../utils';
+
 /* eslint-disable no-use-before-define */
 const enum ComputedFlags {
   Running,
@@ -80,7 +83,7 @@ class Signal<T = unknown> {
     if (evalContext instanceof Computed) {
       throw new Error('Computed cannot have side-effects');
     }
-    if (value !== this._value) {
+    if (!isEqual(value, this._value)) {
       this._value = value;
       this._version += 1;
       globalVersion += 1;
