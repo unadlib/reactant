@@ -38,6 +38,7 @@ import {
   enableInspectorKey,
   dynamicModulesKey,
   strictKey,
+  enableAutoComputedKey,
 } from '../constants';
 import { getStagedState } from '../decorators';
 import type {
@@ -52,8 +53,9 @@ import type {
   Subscriptions,
   ThisService,
 } from '../interfaces';
-import { getComposeEnhancers, getStageName, perform } from '../utils';
+import { getComposeEnhancers, getStageName, isEqual, perform } from '../utils';
 import { handlePlugin } from './handlePlugin';
+import { type Signal, signal } from './signal';
 
 interface CreateStoreOptions<T> {
   modules: ModuleOptions[];
@@ -89,6 +91,7 @@ export function createStore<T = any>({
   let reducers: ReducersMapObject = {};
   const subscriptions: Subscriptions[] = [];
   const enableAutoFreeze = devOptions.autoFreeze ?? false;
+  const enableAutoComputed = devOptions.autoComputed ?? false;
   const enableReduxDevTools = devOptions.reduxDevTools ?? __DEV__;
   const enablePatches = devOptions.enablePatches ?? false;
   const enableInspector = devOptions.enableInspector ?? false;
@@ -170,6 +173,7 @@ export function createStore<T = any>({
         }
         const hasState = toString.call(service[stateKey]) === '[object Object]';
         if (hasState) {
+          const signalMap: Record<string, Signal> = {};
           const isEmptyObject = Object.keys(service[stateKey]!).length === 0;
           if (!isEmptyObject) {
             const descriptors: Record<string, PropertyDescriptor> = {};
@@ -184,7 +188,17 @@ export function createStore<T = any>({
                 enumerable: true,
                 configurable: true,
                 get(this: ThisService) {
-                  return this[stateKey]![key];
+                  const current = this[stateKey]![key];
+                  if (!enableAutoComputed) return current;
+                  const stagedState = getStagedState();
+                  if (
+                    !stagedState &&
+                    signalMap[key] &&
+                    !isEqual(signalMap[key].value, current)
+                  ) {
+                    signalMap[key].value = current;
+                  }
+                  return current;
                 },
                 set(this: ThisService, value: unknown) {
                   this[stateKey]![key] = value;
@@ -228,11 +242,20 @@ export function createStore<T = any>({
                     [key]: reducer,
                   });
                 }
+                signalMap[key] = signal(value);
+                const current = signalMap[key];
                 const reducer = (state = value, action: ReactantAction) => {
-                  return action._reactant === actionIdentifier &&
+                  if (
+                    action._reactant === actionIdentifier &&
                     action.state[identifier!]
-                    ? action.state[identifier!][key]
-                    : state;
+                  ) {
+                    const nextState = action.state[identifier!][key];
+                    if (enableAutoComputed && !isEqual(nextState, state)) {
+                      current.value = nextState;
+                    }
+                    return nextState;
+                  }
+                  return state;
                 };
                 return Object.assign(serviceReducersMapObject, {
                   [key]: reducer,
@@ -337,7 +360,12 @@ export function createStore<T = any>({
               configurable: false,
               value: enablePatches,
             },
-
+            // enableAutoComputed options for state-derived computing
+            [enableAutoComputedKey]: {
+              enumerable: false,
+              configurable: false,
+              value: enableAutoComputed,
+            },
             // enableInspector options for state changing check before dispatching
             [enableInspectorKey]: {
               enumerable: false,

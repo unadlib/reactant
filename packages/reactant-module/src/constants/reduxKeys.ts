@@ -5,6 +5,8 @@ export const unsubscriptionsKey: unique symbol = Symbol('unsubscriptions');
 export const stateKey: unique symbol = Symbol('state');
 export const defaultStateKey: unique symbol = Symbol('defaultState');
 export const enablePatchesKey: unique symbol = Symbol('enablePatches');
+export const enableAutoComputedKey: unique symbol =
+  Symbol('enableAutoComputed');
 export const enableAutoFreezeKey: unique symbol = Symbol('enableAutoFreeze');
 export const strictKey: unique symbol = Symbol('strict');
 export const enableInspectorKey: unique symbol = Symbol('enableInspector');

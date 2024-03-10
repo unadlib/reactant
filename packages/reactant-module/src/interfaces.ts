@@ -32,6 +32,7 @@ import {
   unsubscriptionsKey,
   enableInspectorKey,
   strictKey,
+  enableAutoComputedKey,
 } from './constants';
 import { PluginModule } from './core';
 
@@ -57,6 +58,10 @@ export interface DevOptions {
    */
   autoFreeze?: boolean;
   /**
+   * Enable auto computed.
+   */
+  autoComputed?: boolean;
+  /**
    * Enable redux dev tools.
    */
   reduxDevTools?: boolean;
@@ -81,6 +86,7 @@ export interface Service<T extends Record<string, any> = Record<string, any>> {
   readonly [storeKey]?: ReduxStore;
   readonly [loaderKey]?: Loader;
   readonly [enablePatchesKey]?: boolean;
+  readonly [enableAutoComputedKey]?: boolean;
   readonly [enableAutoFreezeKey]?: boolean;
   readonly [strictKey]?: boolean;
   readonly [enableInspectorKey]?: boolean;
