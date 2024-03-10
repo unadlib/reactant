@@ -10,12 +10,58 @@ custom_edit_url: null
 
 ### computed
 
-▸ **computed**(`depsCallback`): (`target`: `object`, `key`: `string`, `descriptor`: `TypedPropertyDescriptor`<`any`\>) => { `configurable?`: `boolean` ; `enumerable?`: `boolean` ; `set?`: (`value`: `any`) => `void` ; `value?`: `any` ; `writable?`: `boolean` ; `get`: (`this`: `Service`<`Record`<`string`, `any`\>\>) => `any`  }
+▸ **computed**(`target`, `key`, `descriptor`): `any`
 
 ## Description
 
 You can use `@computed` to decorate a getter function for derived data,
 which quickly solves performance problems for computing derived data.
+
+if you want to use `@computed` with non-manually maintained dependencies,
+you should enable auto computed feature by setting 'autoComputed' to 'true' in the dev options.
+
+## Example
+
+```ts
+class Shop {
+  @state
+  fruits = [];
+
+  @state
+  vegetables = [];
+
+  @computed(({ fruits, vegetables }: Shop) => [fruits, fruits])
+  get sum() {
+    return this.fruits.length + this.vegetables.length;
+  }
+}
+```
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `target` | `object` |
+| `key` | `string` |
+| `descriptor` | `TypedPropertyDescriptor`<`any`\> |
+
+#### Returns
+
+`any`
+
+#### Defined in
+
+[packages/reactant-module/src/decorators/computed.ts:9](https://github.com/unadlib/reactant/blob/f385c7b0/packages/reactant-module/src/decorators/computed.ts#L9)
+
+▸ **computed**(`depsCallback`): (`target`: `object`, `key`: `string`, `descriptor`: `TypedPropertyDescriptor`<`any`\>) => `any`
+
+## Description
+
+You can use `@computed` to decorate a getter function for derived data,
+which quickly solves performance problems for computing derived data.
+
+if you want to use `@computed` with non-manually maintained dependencies,
+you should enable auto computed feature by setting 'autoComputed' to 'true' in the dev options.
 
 ## Example
 
@@ -44,7 +90,7 @@ class Shop {
 
 `fn`
 
-▸ (`target`, `key`, `descriptor`): `Object`
+▸ (`target`, `key`, `descriptor`): `any`
 
 ##### Parameters
 
@@ -56,17 +102,8 @@ class Shop {
 
 ##### Returns
 
-`Object`
-
-| Name | Type |
-| :------ | :------ |
-| `configurable?` | `boolean` |
-| `enumerable?` | `boolean` |
-| `set?` | (`value`: `any`) => `void` |
-| `value?` | `any` |
-| `writable?` | `boolean` |
-| `get` | (`this`: `Service`<`Record`<`string`, `any`\>\>) => `any` |
+`any`
 
 #### Defined in
 
-[packages/reactant-module/src/decorators/computed.ts:29](https://github.com/unadlib/reactant/blob/06fada32/packages/reactant-module/src/decorators/computed.ts#L29)
+[packages/reactant-module/src/decorators/computed.ts:15](https://github.com/unadlib/reactant/blob/f385c7b0/packages/reactant-module/src/decorators/computed.ts#L15)

@@ -114,7 +114,7 @@ define storage loading UI
 
 #### Defined in
 
-[packages/reactant-storage/src/storage.tsx:41](https://github.com/unadlib/reactant/blob/06fada32/packages/reactant-storage/src/storage.tsx#L41)
+[packages/reactant-storage/src/storage.tsx:41](https://github.com/unadlib/reactant/blob/f385c7b0/packages/reactant-storage/src/storage.tsx#L41)
 
 ___
 
@@ -172,7 +172,7 @@ Partial.storage
 
 #### Defined in
 
-[packages/reactant-storage/src/storage.tsx:37](https://github.com/unadlib/reactant/blob/06fada32/packages/reactant-storage/src/storage.tsx#L37)
+[packages/reactant-storage/src/storage.tsx:37](https://github.com/unadlib/reactant/blob/f385c7b0/packages/reactant-storage/src/storage.tsx#L37)
 
 ___
 

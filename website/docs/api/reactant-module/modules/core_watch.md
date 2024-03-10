@@ -68,4 +68,4 @@ const app = testBed({
 
 #### Defined in
 
-[packages/reactant-module/src/interfaces.ts:156](https://github.com/unadlib/reactant/blob/06fada32/packages/reactant-module/src/interfaces.ts#L156)
+[packages/reactant-module/src/interfaces.ts:162](https://github.com/unadlib/reactant/blob/f385c7b0/packages/reactant-module/src/interfaces.ts#L162)

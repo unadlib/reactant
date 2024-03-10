@@ -25,6 +25,9 @@ export function computed(
  * You can use `@computed` to decorate a getter function for derived data,
  * which quickly solves performance problems for computing derived data.
  *
+ * if you want to use `@computed` with non-manually maintained dependencies,
+ * you should enable auto computed feature by setting 'autoComputed' to 'true' in the dev options.
+ *
  * ## Example
  *
  * ```ts
