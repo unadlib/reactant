@@ -38,6 +38,7 @@ import {
   enableInspectorKey,
   dynamicModulesKey,
   strictKey,
+  enableAutoComputedKey,
 } from '../constants';
 import { getStagedState } from '../decorators';
 import type {
@@ -90,6 +91,7 @@ export function createStore<T = any>({
   let reducers: ReducersMapObject = {};
   const subscriptions: Subscriptions[] = [];
   const enableAutoFreeze = devOptions.autoFreeze ?? false;
+  const enableAutoComputed = devOptions.autoComputed ?? false;
   const enableReduxDevTools = devOptions.reduxDevTools ?? __DEV__;
   const enablePatches = devOptions.enablePatches ?? false;
   const enableInspector = devOptions.enableInspector ?? false;
@@ -186,8 +188,9 @@ export function createStore<T = any>({
                 enumerable: true,
                 configurable: true,
                 get(this: ThisService) {
-                  const stagedState = getStagedState();
                   const current = this[stateKey]![key];
+                  if (!enableAutoComputed) return current;
+                  const stagedState = getStagedState();
                   if (
                     !stagedState &&
                     signalMap[key] &&
@@ -247,7 +250,7 @@ export function createStore<T = any>({
                     action.state[identifier!]
                   ) {
                     const nextState = action.state[identifier!][key];
-                    if (!isEqual(nextState, state)) {
+                    if (enableAutoComputed && !isEqual(nextState, state)) {
                       current.value = nextState;
                     }
                     return nextState;
@@ -357,7 +360,12 @@ export function createStore<T = any>({
               configurable: false,
               value: enablePatches,
             },
-
+            // enableAutoComputed options for state-derived computing
+            [enableAutoComputedKey]: {
+              enumerable: false,
+              configurable: false,
+              value: enableAutoComputed,
+            },
             // enableInspector options for state changing check before dispatching
             [enableInspectorKey]: {
               enumerable: false,

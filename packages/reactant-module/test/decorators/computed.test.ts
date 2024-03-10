@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 import {
   injectable,
   createContainer,
@@ -505,6 +506,9 @@ describe('@computed with automatic dependencies collection', () => {
         afterCreateStore: [],
         provider: [],
       },
+      devOptions: {
+        autoComputed: true,
+      },
     });
     expect(computedFn.mock.calls.length).toBe(0);
     counter.increase();
@@ -563,6 +567,9 @@ describe('@computed with automatic dependencies collection', () => {
         preloadedStateHandler: [],
         afterCreateStore: [],
         provider: [],
+      },
+      devOptions: {
+        autoComputed: true,
       },
     });
     expect(computedFn.mock.calls.length).toBe(0);
@@ -627,6 +634,9 @@ describe('@computed with automatic dependencies collection', () => {
         preloadedStateHandler: [],
         afterCreateStore: [],
         provider: [],
+      },
+      devOptions: {
+        autoComputed: true,
       },
     });
     expect(computedFn.mock.calls.length).toBe(0);
@@ -699,6 +709,9 @@ describe('@computed with automatic dependencies collection', () => {
         preloadedStateHandler: [],
         afterCreateStore: [],
         provider: [],
+      },
+      devOptions: {
+        autoComputed: true,
       },
     });
     expect(computedFn.mock.calls.length).toBe(0);
@@ -780,6 +793,9 @@ describe('@computed with automatic dependencies collection', () => {
         preloadedStateHandler: [],
         afterCreateStore: [],
         provider: [],
+      },
+      devOptions: {
+        autoComputed: true,
       },
     });
     expect(computedFn.mock.calls.length).toBe(0);
@@ -867,6 +883,9 @@ describe('@computed with automatic dependencies collection', () => {
         afterCreateStore: [],
         provider: [],
       },
+      devOptions: {
+        autoComputed: true,
+      },
     });
     expect(computedFn.mock.calls.length).toBe(0);
     expect(computedFn0.mock.calls.length).toBe(1);
@@ -926,6 +945,9 @@ describe('@computed with automatic dependencies collection', () => {
       @computed
       get num() {
         computedFn1();
+        if (this.count > 1) {
+          return this.count + 100;
+        }
         return this.count + this.counter0.num;
       }
     }
@@ -976,6 +998,9 @@ describe('@computed with automatic dependencies collection', () => {
         afterCreateStore: [],
         provider: [],
       },
+      devOptions: {
+        autoComputed: true,
+      },
     });
     expect(computedFn.mock.calls.length).toBe(0);
     expect(computedFn0.mock.calls.length).toBe(1);
@@ -1012,6 +1037,7 @@ describe('@computed with automatic dependencies collection', () => {
     expect(counter.counter1.counter0.num).toBe(1);
 
     counter.counter1.counter0.increase();
+    expect(counter.counter1.count).toBe(1);
     expect(counter.counter1.counter0.count).toBe(1);
     expect(counter.counter1.counter0.num).toBe(2);
     expect(counter.counter1.num).toBe(3);
@@ -1024,6 +1050,27 @@ describe('@computed with automatic dependencies collection', () => {
     expect(computedFn.mock.calls.length).toBe(4);
     expect(computedFn0.mock.calls.length).toBe(3);
     expect(computedFn1.mock.calls.length).toBe(4);
+
+    counter.counter1.increase();
+    expect(counter.counter1.count).toBe(2);
+    expect(counter.counter1.counter0.count).toBe(1);
+    expect(counter.counter1.counter0.num).toBe(2);
+    expect(counter.counter1.num).toBe(102);
+    expect(counter.num).toBe(105);
+    expect(computedFn.mock.calls.length).toBe(5);
+    expect(computedFn0.mock.calls.length).toBe(3);
+    expect(computedFn1.mock.calls.length).toBe(5);
+
+    counter.counter1.counter0.increase();
+    expect(counter.counter1.count).toBe(2);
+    expect(counter.counter1.counter0.count).toBe(2);
+    expect(counter.counter1.counter0.num).toBe(3);
+    expect(counter.counter1.num).toBe(102);
+    expect(counter.num).toBe(105);
+    expect(computedFn.mock.calls.length).toBe(5);
+    // only change counter0 count and it will only trigger computedFn0 computed
+    expect(computedFn0.mock.calls.length).toBe(4);
+    expect(computedFn1.mock.calls.length).toBe(5);
   });
   test('base with single-computed in multi-modules', () => {
     const computedFn = jest.fn();
@@ -1088,6 +1135,9 @@ describe('@computed with automatic dependencies collection', () => {
         preloadedStateHandler: [],
         afterCreateStore: [],
         provider: [],
+      },
+      devOptions: {
+        autoComputed: true,
       },
     });
     expect(computedFn.mock.calls.length).toBe(0);
@@ -1166,6 +1216,9 @@ describe('@computed with automatic dependencies collection', () => {
         afterCreateStore: [],
         provider: [],
       },
+      devOptions: {
+        autoComputed: true,
+      },
     });
     expect(computedFn.mock.calls.length).toBe(0);
     counter.increase();
@@ -1238,6 +1291,9 @@ describe('@computed with automatic dependencies collection', () => {
         afterCreateStore: [],
         provider: [],
       },
+      devOptions: {
+        autoComputed: true,
+      },
     });
     expect(computedFn.mock.calls.length).toBe(0);
     counter.increase();
@@ -1249,6 +1305,101 @@ describe('@computed with automatic dependencies collection', () => {
     counter.increase();
     expect(counter.num).toBe(3);
     expect(computedFn.mock.calls.length).toBe(2);
+  });
+  test('base mix different computed - 3', () => {
+    const computedFn0 = jest.fn();
+    const computedFn = jest.fn();
+
+    @injectable()
+    class Counter0 {
+      @state
+      count = 0;
+
+      @action
+      increase() {
+        this.count += 1;
+      }
+
+      @computed(({ count }: Counter0) => [count])
+      get num() {
+        computedFn0();
+        return this.count + 1;
+      }
+    }
+
+    @injectable()
+    class Counter {
+      constructor(public counter0: Counter0) {}
+
+      @state
+      count = this.counter0.num - 1;
+
+      @action
+      increase() {
+        this.count += 1;
+      }
+
+      @computed
+      get num() {
+        computedFn();
+        return this.count + this.counter0.num;
+      }
+    }
+    const ServiceIdentifiers = new Map();
+    const modules = [Counter];
+    const container = createContainer({
+      ServiceIdentifiers,
+      modules,
+      options: {
+        defaultScope: 'Singleton',
+      },
+    });
+    const counter = container.get(Counter);
+    const store = createStore({
+      modules,
+      container,
+      ServiceIdentifiers,
+      loadedModules: new Set(),
+      load: (...args: any[]) => {
+        //
+      },
+      dynamicModules: new Map(),
+      pluginHooks: {
+        middleware: [],
+        beforeCombineRootReducers: [],
+        afterCombineRootReducers: [],
+        enhancer: [],
+        preloadedStateHandler: [],
+        afterCreateStore: [],
+        provider: [],
+      },
+      devOptions: {
+        autoComputed: true,
+      },
+    });
+    expect(computedFn0.mock.calls.length).toBe(1);
+    expect(computedFn.mock.calls.length).toBe(0);
+    expect(counter.counter0.num).toBe(1);
+    expect(counter.num).toBe(1);
+
+    expect(Object.values(store.getState())[0]).toEqual({ count: 0 });
+
+    counter.counter0.increase();
+    expect(counter.num).toBe(2);
+    expect(counter.counter0.num).toBe(2);
+    expect(computedFn0.mock.calls.length).toBe(2);
+    expect(computedFn.mock.calls.length).toBe(2);
+
+    expect(counter.num).toBe(2);
+    expect(counter.counter0.num).toBe(2);
+    expect(computedFn0.mock.calls.length).toBe(2);
+    expect(computedFn.mock.calls.length).toBe(2);
+
+    counter.increase();
+    expect(counter.num).toBe(3);
+    expect(counter.counter0.num).toBe(2);
+    expect(computedFn0.mock.calls.length).toBe(2);
+    expect(computedFn.mock.calls.length).toBe(3);
   });
   test('NaN and object value', () => {
     for (const value of [
@@ -1332,6 +1483,9 @@ describe('@computed with automatic dependencies collection', () => {
           preloadedStateHandler: [],
           afterCreateStore: [],
           provider: [],
+        },
+        devOptions: {
+          autoComputed: true,
         },
       });
       expect(computedFn.mock.calls.length).toBe(0);
@@ -1446,6 +1600,9 @@ describe('@computed with automatic dependencies collection', () => {
           afterCreateStore: [],
           provider: [],
         },
+        devOptions: {
+          autoComputed: true,
+        },
       });
       expect(computedFn.mock.calls.length).toBe(0);
       expect(counter.sum).toBe(0);
@@ -1531,6 +1688,9 @@ describe('@computed with automatic dependencies collection', () => {
         preloadedStateHandler: [],
         afterCreateStore: [],
         provider: [],
+      },
+      devOptions: {
+        autoComputed: true,
       },
     });
     expect(foo.counter.computedFn.mock.calls.length).toBe(0);
@@ -1631,6 +1791,9 @@ describe('@computed with automatic dependencies collection', () => {
         preloadedStateHandler: [],
         afterCreateStore: [],
         provider: [],
+      },
+      devOptions: {
+        autoComputed: true,
       },
     });
     expect(computedFn.mock.calls.length).toBe(0);

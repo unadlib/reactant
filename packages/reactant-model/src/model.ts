@@ -9,7 +9,6 @@ import {
   identifierKey,
   nameKey,
   strictKey,
-  Patch,
   Patches,
 } from 'reactant-module';
 

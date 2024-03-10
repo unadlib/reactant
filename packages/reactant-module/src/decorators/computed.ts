@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createSelectorWithArray } from '../utils';
 import { computed as signalComputed } from '../core/signal';
-import { storeKey } from '../constants';
+import { storeKey, enableAutoComputedKey } from '../constants';
 import { Service } from '../interfaces';
 import { getStagedState } from './action';
 
@@ -61,7 +61,10 @@ export const computed: any = (...args: any[]) => {
         }
       );
       const selector = createSelectorWithArray(
-        (that: Service) => depsCallbackSelector.call(that),
+        (that: Service) =>
+          that[enableAutoComputedKey]
+            ? depsCallback(that)
+            : depsCallbackSelector.call(that),
         descriptor.get!
       );
       return {
@@ -76,6 +79,14 @@ export const computed: any = (...args: any[]) => {
   return {
     ...args[2],
     get(this: Service) {
+      if (!this[enableAutoComputedKey]) {
+        if (__DEV__) {
+          console.warn(
+            `You should enable auto computed feature by setting 'autoComputed' to 'true' in the dev options.`
+          );
+        }
+        return args[2].get.call(this);
+      }
       const stagedState = getStagedState();
       if (!this[storeKey] || stagedState) {
         return args[2].get.call(this);
