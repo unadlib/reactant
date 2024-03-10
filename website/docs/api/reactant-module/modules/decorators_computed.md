@@ -51,7 +51,7 @@ class Shop {
 
 #### Defined in
 
-[packages/reactant-module/src/decorators/computed.ts:9](https://github.com/unadlib/reactant/blob/f385c7b0/packages/reactant-module/src/decorators/computed.ts#L9)
+[packages/reactant-module/src/decorators/computed.ts:9](https://github.com/unadlib/reactant/blob/5d60d9c3/packages/reactant-module/src/decorators/computed.ts#L9)
 
 ▸ **computed**(`depsCallback`): (`target`: `object`, `key`: `string`, `descriptor`: `TypedPropertyDescriptor`<`any`\>) => `any`
 
@@ -106,4 +106,4 @@ class Shop {
 
 #### Defined in
 
-[packages/reactant-module/src/decorators/computed.ts:15](https://github.com/unadlib/reactant/blob/f385c7b0/packages/reactant-module/src/decorators/computed.ts#L15)
+[packages/reactant-module/src/decorators/computed.ts:15](https://github.com/unadlib/reactant/blob/5d60d9c3/packages/reactant-module/src/decorators/computed.ts#L15)
