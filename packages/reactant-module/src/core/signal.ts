@@ -2,10 +2,9 @@
 /* eslint-disable consistent-return */
 /* eslint-disable no-else-return */
 /* eslint-disable @typescript-eslint/no-this-alias */
-
+/* eslint-disable no-use-before-define */
 import { isEqual } from '../utils';
 
-/* eslint-disable no-use-before-define */
 const enum ComputedFlags {
   Running,
   Notified,
