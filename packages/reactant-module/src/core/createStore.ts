@@ -55,7 +55,7 @@ import type {
 } from '../interfaces';
 import { getComposeEnhancers, getStageName, isEqual, perform } from '../utils';
 import { handlePlugin } from './handlePlugin';
-import { signal } from './signal';
+import { type Signal, signal } from './signal';
 
 interface CreateStoreOptions<T> {
   modules: ModuleOptions[];
@@ -173,7 +173,7 @@ export function createStore<T = any>({
         }
         const hasState = toString.call(service[stateKey]) === '[object Object]';
         if (hasState) {
-          const signalMap: any = {};
+          const signalMap: Record<string, Signal> = {};
           const isEmptyObject = Object.keys(service[stateKey]!).length === 0;
           if (!isEmptyObject) {
             const descriptors: Record<string, PropertyDescriptor> = {};
