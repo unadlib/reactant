@@ -1,10 +1,24 @@
+/* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createSelectorWithArray } from '../utils';
-import { computed as signalComputed } from '../core/signal';
+import { type Computed, computed as signalComputed } from '../core/signal';
 import { storeKey, enableAutoComputedKey } from '../constants';
-import { Service } from '../interfaces';
+import { type Service } from '../interfaces';
 import { getStagedState } from './action';
 
+export function computed(
+  target: object,
+  key: string,
+  descriptor: TypedPropertyDescriptor<any>
+): any;
+
+export function computed(
+  depsCallback: (instance: any) => any[]
+): (
+  target: object,
+  key: string,
+  descriptor: TypedPropertyDescriptor<any>
+) => any;
 /**
  * ## Description
  *
@@ -28,7 +42,7 @@ import { getStagedState } from './action';
  * }
  * ```
  */
-export const computed: any = (...args: any[]) => {
+export function computed(...args: any[]) {
   if (args.length === 1 && typeof args[0] === 'function') {
     return (
       target: object,
@@ -75,9 +89,15 @@ export const computed: any = (...args: any[]) => {
       };
     };
   }
-  const computedMap: WeakMap<object, any> = new WeakMap();
+  const descriptor = args[2] as TypedPropertyDescriptor<any>;
+  if (__DEV__) {
+    if (typeof descriptor.get !== 'function') {
+      throw new Error(`'@computed' should decorate a getter.`);
+    }
+  }
+  const computedMap: WeakMap<object, Computed<unknown>> = new WeakMap();
   return {
-    ...args[2],
+    ...descriptor,
     get(this: Service) {
       if (!this[enableAutoComputedKey]) {
         if (__DEV__) {
@@ -85,20 +105,20 @@ export const computed: any = (...args: any[]) => {
             `You should enable auto computed feature by setting 'autoComputed' to 'true' in the dev options.`
           );
         }
-        return args[2].get.call(this);
+        return descriptor.get!.call(this);
       }
       const stagedState = getStagedState();
       if (!this[storeKey] || stagedState) {
-        return args[2].get.call(this);
+        return descriptor.get!.call(this);
       }
       let currentComputed = computedMap.get(this);
       if (!currentComputed) {
-        currentComputed = signalComputed(args[2].get.bind(this));
+        currentComputed = signalComputed(descriptor.get!.bind(this));
         computedMap.set(this, currentComputed);
       }
       return currentComputed.value;
     },
   };
-};
+}
 
 // https://github.com/microsoft/TypeScript/issues/338

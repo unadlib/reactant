@@ -137,6 +137,7 @@ class Computed<T = unknown> extends Signal<T> {
 
   _globalVersion = globalVersion - 1;
 
+  // TODO: refactor for improving performance
   _flags: Set<ComputedFlags> = new Set([ComputedFlags.Outdated]);
 
   constructor(compute: () => T) {
@@ -279,4 +280,10 @@ class Computed<T = unknown> extends Signal<T> {
 const computed = <T>(compute: () => T) =>
   new Computed(compute) as ExternalComputed<T>;
 
-export { signal, computed, untracked };
+export {
+  signal,
+  computed,
+  untracked,
+  ExternalComputed as Computed,
+  ExternalSignal as Signal,
+};
