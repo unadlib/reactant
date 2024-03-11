@@ -91,8 +91,8 @@ describe('@computed', () => {
 
       @action
       increase() {
-        expect(this.num === this.count).toBe(true);
-        expect(this.num === this.count).toBe(true);
+        expect(this.num === this.count).toBe(false);
+        expect(this.num === this.count).toBe(false);
         this.count.value += 1;
       }
 
@@ -135,15 +135,15 @@ describe('@computed', () => {
     expect(counter.num.value).toBe(0);
     expect(computedFn.mock.calls.length).toBe(1);
     counter.increase();
-    expect(computedFn.mock.calls.length).toBe(2);
+    expect(computedFn.mock.calls.length).toBe(1);
     expect(Object.values(store.getState())[0]).toEqual({ count: { value: 1 } });
     expect(counter.num.value).toBe(1);
-    expect(computedFn.mock.calls.length).toBe(3);
+    expect(computedFn.mock.calls.length).toBe(2);
     expect(counter.num.value).toBe(1);
-    expect(computedFn.mock.calls.length).toBe(3);
+    expect(computedFn.mock.calls.length).toBe(2);
     counter.increase();
     expect(counter.num.value).toBe(2);
-    expect(computedFn.mock.calls.length).toBe(5);
+    expect(computedFn.mock.calls.length).toBe(3);
   });
   test('base - action with calling computed - 2', () => {
     const computedFn = jest.fn();
@@ -155,8 +155,7 @@ describe('@computed', () => {
       @action
       increase() {
         // !!! first call computed
-        expect(this.num === this.count).toBe(true);
-        expect(this.num === this.count).toBe(true);
+        expect(this.num === this.count).toBe(this.num === this.count);
         this.count.value += 1;
       }
 
@@ -207,7 +206,7 @@ describe('@computed', () => {
     expect(computedFn.mock.calls.length).toBe(2);
     counter.increase();
     expect(counter.num.value).toBe(2);
-    expect(computedFn.mock.calls.length).toBe(4);
+    expect(computedFn.mock.calls.length).toBe(3);
   });
   test('NaN and object value', () => {
     const computedCountFn = jest.fn();

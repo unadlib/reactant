@@ -66,10 +66,6 @@ export function computed(...args: any[]) {
       const depsCallbackSelector = createSelectorWithArray(
         // for performance improvement
         (that: Service) => {
-          const stagedState = getStagedState();
-          if (stagedState) {
-            return [stagedState];
-          }
           return [that[storeKey]?.getState()];
         },
         // eslint-disable-next-line func-names
@@ -77,13 +73,13 @@ export function computed(...args: any[]) {
           return depsCallback(this);
         }
       );
-      const selector = createSelectorWithArray(
-        (that: Service) =>
-          that[enableAutoComputedKey]
-            ? depsCallback(that)
-            : depsCallbackSelector.call(that),
-        descriptor.get!
-      );
+      const selector = createSelectorWithArray((that: Service) => {
+        const stagedState = getStagedState();
+        if (that[enableAutoComputedKey] && !stagedState) {
+          depsCallback(that);
+        }
+        return depsCallbackSelector.call(that);
+      }, descriptor.get!);
       return {
         ...descriptor,
         get(this: Service) {
