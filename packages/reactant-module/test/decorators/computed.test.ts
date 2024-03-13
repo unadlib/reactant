@@ -521,7 +521,7 @@ describe('@computed with automatic dependencies collection', () => {
     expect(counter.num).toBe(3);
     expect(computedFn.mock.calls.length).toBe(2);
   });
-  test.only('base with error', () => {
+  test('base with error', () => {
     const computedFn = jest.fn();
     @injectable()
     class Counter {
@@ -602,6 +602,10 @@ describe('@computed with automatic dependencies collection', () => {
         //
       }
     });
+    expect(counter.num).toBe(6);
+    expect(computedFn.mock.calls.length).toBe(6);
+    expect(counter.num).toBe(6);
+    expect(computedFn.mock.calls.length).toBe(6);
     expect(counter.num).toBe(6);
     expect(computedFn.mock.calls.length).toBe(6);
   });
