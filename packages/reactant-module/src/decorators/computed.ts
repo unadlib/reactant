@@ -1,3 +1,5 @@
+/* eslint-disable no-return-assign */
+/* eslint-disable prefer-const */
 /* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createSelectorWithArray } from '../utils';
@@ -94,7 +96,14 @@ export function computed(...args: any[]) {
       throw new Error(`'@computed' should decorate a getter.`);
     }
   }
-  const computedMap: WeakMap<object, Computed<unknown>> = new WeakMap();
+  const computedMap: WeakMap<
+    object,
+    {
+      instance: Computed<unknown>;
+      storeState?: object;
+      value?: unknown;
+    }
+  > = new WeakMap();
   return {
     ...descriptor,
     get(this: Service) {
@@ -107,15 +116,30 @@ export function computed(...args: any[]) {
         return descriptor.get!.call(this);
       }
       const stagedState = getStagedState();
-      if (!this[storeKey] || stagedState) {
+      if (!this[storeKey]) {
         return descriptor.get!.call(this);
       }
       let currentComputed = computedMap.get(this);
+      if (stagedState) {
+        // if the state is staged and the cache value is computed with the current store state, return the cache value.
+        if (currentComputed?.storeState === this[storeKey].getState()) {
+          return currentComputed!.value;
+        }
+        // because the state is staged and it's a draft, so the cache value is invalid, so we need to recompute the value without signal computed instance.
+        return descriptor.get!.call(this);
+      }
       if (!currentComputed) {
-        currentComputed = signalComputed(descriptor.get!.bind(this));
+        const instance = signalComputed(descriptor.get!.bind(this));
+        currentComputed = {
+          instance,
+        };
         computedMap.set(this, currentComputed);
       }
-      return currentComputed.value;
+      const currentValue = currentComputed.instance.value;
+      // update the cache value and store state
+      currentComputed.value = currentValue;
+      currentComputed.storeState = this[storeKey].getState();
+      return currentValue;
     },
   };
 }

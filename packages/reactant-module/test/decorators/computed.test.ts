@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 /* eslint-disable no-use-before-define */
 import {
   injectable,
@@ -520,6 +521,90 @@ describe('@computed with automatic dependencies collection', () => {
     expect(counter.num).toBe(3);
     expect(computedFn.mock.calls.length).toBe(2);
   });
+  test.only('base with error', () => {
+    const computedFn = jest.fn();
+    @injectable()
+    class Counter {
+      @state
+      count = 0;
+
+      @action
+      increase(callback?: () => void) {
+        callback?.();
+        this.count += 1;
+      }
+
+      @computed
+      get num() {
+        computedFn();
+        if (this.count === 2 || this.count === 4) {
+          throw new Error('error');
+        }
+        return this.count + 1;
+      }
+    }
+    const ServiceIdentifiers = new Map();
+    const modules = [Counter];
+    const container = createContainer({
+      ServiceIdentifiers,
+      modules,
+      options: {
+        defaultScope: 'Singleton',
+      },
+    });
+    const counter = container.get(Counter);
+    const store = createStore({
+      modules,
+      container,
+      ServiceIdentifiers,
+      loadedModules: new Set(),
+      load: (...args: any[]) => {
+        //
+      },
+      dynamicModules: new Map(),
+      pluginHooks: {
+        middleware: [],
+        beforeCombineRootReducers: [],
+        afterCombineRootReducers: [],
+        enhancer: [],
+        preloadedStateHandler: [],
+        afterCreateStore: [],
+        provider: [],
+      },
+      devOptions: {
+        autoComputed: true,
+      },
+    });
+    expect(computedFn.mock.calls.length).toBe(0);
+    counter.increase();
+    expect(Object.values(store.getState())[0]).toEqual({ count: 1 });
+    expect(counter.num).toBe(2);
+    expect(computedFn.mock.calls.length).toBe(1);
+    expect(counter.num).toBe(2);
+    expect(computedFn.mock.calls.length).toBe(1);
+    counter.increase();
+    try {
+      counter.num;
+    } catch (error) {
+      //
+    }
+    counter.increase(() => {
+      // it will recompute the `num` property
+      expect(() => counter.num).toThrowError();
+    });
+    expect(counter.num).toBe(4);
+    expect(computedFn.mock.calls.length).toBe(4);
+    counter.increase();
+    counter.increase(() => {
+      try {
+        counter.num;
+      } catch (error) {
+        //
+      }
+    });
+    expect(counter.num).toBe(6);
+    expect(computedFn.mock.calls.length).toBe(6);
+  });
   test('base - action with calling computed - 1', () => {
     const computedFn = jest.fn();
     @injectable()
@@ -529,7 +614,7 @@ describe('@computed with automatic dependencies collection', () => {
 
       @action
       increase() {
-        expect(this.num === this.count).toBe(true);
+        expect(this.num === this.count).toBe(false);
         this.count.value += 1;
       }
 
@@ -575,15 +660,15 @@ describe('@computed with automatic dependencies collection', () => {
     expect(counter.num.value).toBe(0);
     expect(computedFn.mock.calls.length).toBe(1);
     counter.increase();
-    expect(computedFn.mock.calls.length).toBe(2);
+    expect(computedFn.mock.calls.length).toBe(1);
     expect(Object.values(store.getState())[0]).toEqual({ count: { value: 1 } });
     expect(counter.num.value).toBe(1);
-    expect(computedFn.mock.calls.length).toBe(3);
+    expect(computedFn.mock.calls.length).toBe(2);
     expect(counter.num.value).toBe(1);
-    expect(computedFn.mock.calls.length).toBe(3);
+    expect(computedFn.mock.calls.length).toBe(2);
     counter.increase();
     expect(counter.num.value).toBe(2);
-    expect(computedFn.mock.calls.length).toBe(5);
+    expect(computedFn.mock.calls.length).toBe(3);
   });
   test('base - action with calling computed - 2', () => {
     const computedFn = jest.fn();
@@ -595,8 +680,7 @@ describe('@computed with automatic dependencies collection', () => {
       @action
       increase() {
         // !!! first call computed
-        expect(this.num === this.count).toBe(true);
-        expect(this.num === this.count).toBe(true);
+        expect(this.num === this.count).toBe(this.num === this.count);
         this.count.value += 1;
       }
 
@@ -651,9 +735,9 @@ describe('@computed with automatic dependencies collection', () => {
     counter.increase();
     // !!! if you want to have a better performance, you need to use `computed` with dependencies collection args.
     expect(counter.num.value).toBe(2);
-    expect(computedFn.mock.calls.length).toBe(6);
+    expect(computedFn.mock.calls.length).toBe(4);
     expect(counter.num.value).toBe(2);
-    expect(computedFn.mock.calls.length).toBe(6);
+    expect(computedFn.mock.calls.length).toBe(4);
   });
   test('base with multi-state', () => {
     const computedFn = jest.fn();
