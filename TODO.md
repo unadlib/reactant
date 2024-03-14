@@ -1,6 +1,7 @@
 # TODO
 - [x] update API docs
 - [x] use Mutative
+- [ ] Implementing non-invasive injection for DI
 - [ ] upgrade react-native v0.73.4
 - [ ] support TS 5.0 new decorator(https://github.com/tc39/proposal-decorators)
 - [ ] upgrade inversify v6
