@@ -21,6 +21,8 @@ import {
   StorageOptions,
   IStorageOptions,
   mockPairTransports,
+  computed,
+  watch,
 } from '..';
 import { MemoryStorage } from './MemoryStorage';
 
@@ -478,5 +480,227 @@ describe('base', () => {
         `The module "Counter2" has been disabled for state sharing, its module state cannot be enabled for storage.`
       )
     );
+  });
+
+  test('base SPA mode with storage and enable auto-computed', async () => {
+    @injectable({
+      name: 'counter1',
+    })
+    class Counter1 {
+      constructor(private storage: Storage) {
+        this.storage.setStorage(this, {
+          whitelist: ['count1'],
+        });
+      }
+
+      @state
+      count1 = 0;
+
+      @action
+      increase() {
+        this.count1 += 1;
+      }
+
+      @computed
+      get doubleCount() {
+        return this.count1 * 2;
+      }
+    }
+
+    const storage = new MemoryStorage({
+      'persist:root': '{"_persist":"{\\"version\\":-1,\\"rehydrated\\":true}"}',
+      'persist:counter1':
+        '{"count1":"1","_persist":"{\\"version\\":-1,\\"rehydrated\\":true}"}',
+    });
+
+    onClientFn = jest.fn();
+    subscribeOnClientFn = jest.fn();
+    onServerFn = jest.fn();
+    subscribeOnServerFn = jest.fn();
+
+    const app = await createSharedApp({
+      modules: [
+        Storage,
+        Counter1,
+        {
+          provide: StorageOptions,
+          useValue: {
+            storage,
+            blacklist: [],
+          } as IStorageOptions,
+        },
+      ],
+      main: AppView,
+      render,
+      share: {
+        name: 'counter',
+        type: 'Base',
+      },
+      devOptions: {
+        autoComputed: true,
+      },
+    });
+    expect(onClientFn.mock.calls.length).toBe(0);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(0);
+    expect(onServerFn.mock.calls.length).toBe(0);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(0);
+    await app.bootstrap(serverContainer);
+
+    await new Promise((resolve) => setTimeout(resolve));
+
+    expect(onClientFn.mock.calls.length).toBe(0);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(0);
+    expect(onServerFn.mock.calls.length).toBe(0);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(0);
+    expect(serverContainer.querySelector('#count')?.textContent).toBe('0');
+
+    act(() => {
+      serverContainer
+        .querySelector('#increase')!
+        .dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    });
+
+    await new Promise((resolve) => setTimeout(resolve));
+
+    expect(onClientFn.mock.calls.length).toBe(0);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(0);
+    expect(onServerFn.mock.calls.length).toBe(0);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(0);
+
+    expect(serverContainer.querySelector('#count')?.textContent).toBe('1');
+
+    act(() => {
+      serverContainer
+        .querySelector('#increase')!
+        .dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    });
+
+    await new Promise((resolve) => setTimeout(resolve));
+
+    expect(onClientFn.mock.calls.length).toBe(0);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(0);
+    expect(onServerFn.mock.calls.length).toBe(0);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(0);
+
+    expect(serverContainer.querySelector('#count')?.textContent).toBe('2');
+
+    await new Promise((resolve) => setTimeout(resolve));
+
+    expect(app.container.get(Counter1).doubleCount).toBe(2);
+  });
+
+  test('base SPA mode with storage and enable auto-computed', async () => {
+    @injectable({
+      name: 'counter1',
+    })
+    class Counter1 {
+      constructor(private storage: Storage) {
+        this.storage.setStorage(this, {
+          whitelist: ['count1'],
+        });
+        watch(
+          this,
+          () => this.count1,
+          () => {
+            expect(this.doubleCount).toBe(2);
+            expect(this.count1).toBe(1);
+          }
+        );
+      }
+
+      @state
+      count1 = 0;
+
+      @action
+      increase() {
+        this.count1 += 1;
+      }
+
+      @computed
+      get doubleCount() {
+        return this.count1 * 2;
+      }
+    }
+
+    const storage = new MemoryStorage({
+      'persist:root': '{"_persist":"{\\"version\\":-1,\\"rehydrated\\":true}"}',
+      'persist:counter1':
+        '{"count1":"1","_persist":"{\\"version\\":-1,\\"rehydrated\\":true}"}',
+    });
+
+    onClientFn = jest.fn();
+    subscribeOnClientFn = jest.fn();
+    onServerFn = jest.fn();
+    subscribeOnServerFn = jest.fn();
+
+    const app = await createSharedApp({
+      modules: [
+        Storage,
+        Counter1,
+        {
+          provide: StorageOptions,
+          useValue: {
+            storage,
+            blacklist: [],
+          } as IStorageOptions,
+        },
+      ],
+      main: AppView,
+      render,
+      share: {
+        name: 'counter',
+        type: 'Base',
+      },
+      devOptions: {
+        autoComputed: true,
+      },
+    });
+    expect(onClientFn.mock.calls.length).toBe(0);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(0);
+    expect(onServerFn.mock.calls.length).toBe(0);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(0);
+    await app.bootstrap(serverContainer);
+
+    await new Promise((resolve) => setTimeout(resolve));
+
+    expect(onClientFn.mock.calls.length).toBe(0);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(0);
+    expect(onServerFn.mock.calls.length).toBe(0);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(0);
+    expect(serverContainer.querySelector('#count')?.textContent).toBe('0');
+
+    act(() => {
+      serverContainer
+        .querySelector('#increase')!
+        .dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    });
+
+    await new Promise((resolve) => setTimeout(resolve));
+
+    expect(onClientFn.mock.calls.length).toBe(0);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(0);
+    expect(onServerFn.mock.calls.length).toBe(0);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(0);
+
+    expect(serverContainer.querySelector('#count')?.textContent).toBe('1');
+
+    act(() => {
+      serverContainer
+        .querySelector('#increase')!
+        .dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    });
+
+    await new Promise((resolve) => setTimeout(resolve));
+
+    expect(onClientFn.mock.calls.length).toBe(0);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(0);
+    expect(onServerFn.mock.calls.length).toBe(0);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(0);
+
+    expect(serverContainer.querySelector('#count')?.textContent).toBe('2');
+
+    await new Promise((resolve) => setTimeout(resolve));
+
+    expect(app.container.get(Counter1).doubleCount).toBe(2);
   });
 });

@@ -4,6 +4,7 @@ export const subscriptionsKey: unique symbol = Symbol('subscriptions');
 export const unsubscriptionsKey: unique symbol = Symbol('unsubscriptions');
 export const stateKey: unique symbol = Symbol('state');
 export const defaultStateKey: unique symbol = Symbol('defaultState');
+export const signalMapKey: unique symbol = Symbol('signalMap');
 export const enablePatchesKey: unique symbol = Symbol('enablePatches');
 export const enableAutoComputedKey: unique symbol =
   Symbol('enableAutoComputed');

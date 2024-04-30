@@ -10,6 +10,10 @@ import {
   identifierKey,
   nameKey,
   storeKey,
+  getRef,
+  watch,
+  signalMapKey,
+  enableAutoComputedKey,
 } from 'reactant-module';
 import type { Reducer, ReducersMapObject, Store } from 'redux';
 import {
@@ -158,6 +162,25 @@ class ReactantStorage extends PluginModule {
       }
       const persistConfig = this.persistConfig[key];
       if (persistConfig) {
+        if ((this as Service)[enableAutoComputedKey]) {
+          const target = getRef(this)!.modules![key];
+          const ref = getRef(target);
+          const stopWatching = watch(
+            this,
+            () => ref!.state!._persist?.rehydrated,
+            (rehydrated) => {
+              if (rehydrated) {
+                stopWatching();
+                const persistStateKeys = persistConfig.whitelist ?? [];
+                persistStateKeys.forEach((persistStateKey) => {
+                  // need to update the target signal value to the latest hydrated state
+                  target[signalMapKey][persistStateKey].value =
+                    ref.state![persistStateKey];
+                });
+              }
+            }
+          );
+        }
         const reducer = persistReducer(persistConfig, reducers[key]);
         Object.assign(reducers, {
           [key]: reducer,
