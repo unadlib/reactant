@@ -204,6 +204,7 @@ export function createStore<T = any>({
                     signalMap[key] &&
                     !isEqual(signalMap[key].value, current)
                   ) {
+                    // Manual update signal value when the state is changed outside the common reducer.
                     signalMap[key].value = current;
                   }
                   return current;
