@@ -39,6 +39,7 @@ import {
   dynamicModulesKey,
   strictKey,
   enableAutoComputedKey,
+  signalMapKey,
 } from '../constants';
 import { getStagedState } from '../decorators';
 import type {
@@ -176,7 +177,14 @@ export function createStore<T = any>({
           const signalMap: Record<string, Signal> = {};
           const isEmptyObject = Object.keys(service[stateKey]!).length === 0;
           if (!isEmptyObject) {
-            const descriptors: Record<string, PropertyDescriptor> = {};
+            const descriptors: Record<string, PropertyDescriptor> = {
+              [signalMapKey]: {
+                enumerable: false,
+                configurable: false,
+                writable: false,
+                value: signalMap,
+              },
+            };
             for (const key in service[stateKey]) {
               const descriptor = Object.getOwnPropertyDescriptor(service, key);
               // eslint-disable-next-line no-continue
@@ -196,6 +204,7 @@ export function createStore<T = any>({
                     signalMap[key] &&
                     !isEqual(signalMap[key].value, current)
                   ) {
+                    // Manual update signal value when the state is changed outside the common reducer.
                     signalMap[key].value = current;
                   }
                   return current;

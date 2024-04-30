@@ -33,8 +33,10 @@ import {
   enableInspectorKey,
   strictKey,
   enableAutoComputedKey,
+  signalMapKey,
 } from './constants';
 import { PluginModule } from './core';
+import type { Signal } from './core/signal';
 
 export type Patch = IPatch<true>;
 
@@ -84,6 +86,7 @@ export interface Service<T extends Record<string, any> = Record<string, any>> {
   readonly [stateKey]?: T;
   readonly [defaultStateKey]?: T;
   readonly [storeKey]?: ReduxStore;
+  readonly [signalMapKey]?: Record<string, Signal<unknown>>;
   readonly [loaderKey]?: Loader;
   readonly [enablePatchesKey]?: boolean;
   readonly [enableAutoComputedKey]?: boolean;
