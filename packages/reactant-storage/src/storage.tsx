@@ -173,9 +173,11 @@ class ReactantStorage extends PluginModule {
                 stopWatching();
                 const persistStateKeys = persistConfig.whitelist ?? [];
                 persistStateKeys.forEach((persistStateKey) => {
-                  // need to update the target signal value to the latest hydrated state
-                  target[signalMapKey][persistStateKey].value =
-                    ref.state![persistStateKey];
+                  if (target[signalMapKey]?.[persistStateKey]) {
+                    // need to update the target signal value to the latest hydrated state
+                    target[signalMapKey][persistStateKey].value =
+                      ref.state![persistStateKey];
+                  }
                 });
               }
             }
