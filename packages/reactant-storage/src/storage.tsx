@@ -167,7 +167,7 @@ class ReactantStorage extends PluginModule {
           const ref = getRef(target);
           const stopWatching = watch(
             this,
-            () => ref!.state!._persist?.rehydrated,
+            () => ref!.state?._persist?.rehydrated,
             (rehydrated) => {
               if (rehydrated) {
                 stopWatching();
