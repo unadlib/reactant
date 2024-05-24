@@ -2,7 +2,7 @@
 - [x] update API docs
 - [x] use Mutative
 - [ ] Implementing non-invasive injection for DI
-- [ ] upgrade react-native v0.73.4
+- [x] upgrade react-native
 - [ ] support TS 5.0 new decorator(https://github.com/tc39/proposal-decorators), [more detail](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-5-0.html#differences-with-experimental-legacy-decorators)
 - [ ] upgrade inversify v6
 - [ ] upgrade react-router v6.22.1
