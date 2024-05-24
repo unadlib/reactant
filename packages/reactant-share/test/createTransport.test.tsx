@@ -14,7 +14,7 @@ import {
   useConnector,
   subscribe,
   createSharedApp,
-  spawn,
+  delegate,
   PortDetector,
   optional,
 } from '..';
@@ -132,7 +132,7 @@ describe('base', () => {
           <button
             id="decrease"
             type="button"
-            onClick={() => spawn(this.counter, 'decrease', [])}
+            onClick={() => delegate(this.counter, 'decrease', [])}
           >
             -
           </button>
@@ -140,7 +140,7 @@ describe('base', () => {
           <button
             id="increase"
             type="button"
-            onClick={() => spawn(this.counter, 'increase', [])}
+            onClick={() => delegate(this.counter, 'increase', [])}
           >
             +
           </button>

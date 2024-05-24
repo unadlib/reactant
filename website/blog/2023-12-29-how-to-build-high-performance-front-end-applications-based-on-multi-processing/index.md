@@ -74,7 +74,7 @@ Coworker consists of two modules:
 
 ## API
 
-`spawn()` - It will forward execution to the module and specified function proxies in Coworker, inspired by the Actor model.
+`delegate()` - It will forward execution to the module and specified function proxies in Coworker, inspired by the Actor model.
 
 ## Examples
 
@@ -82,7 +82,7 @@ We will create a Counter application with Coworker based on the ‘Base‘ patte
 
 1. Firstly, create app.tsx that contains the ProxyCounter module which needs to be executed in Coworker.
 
-Its calling method `spawn(this.proxyCounter, 'increase', [])` is exactly the same as that of general Shared Web Apps. Whether it will be executed with a proxy in Coworker depends on the configuration of createApp.
+Its calling method `delegate(this.proxyCounter, 'increase', [])` is exactly the same as that of general Shared Web Apps. Whether it will be executed with a proxy in Coworker depends on the configuration of createApp.
 
 ```tsx
 import React from "react";
@@ -92,7 +92,7 @@ import {
   useConnector,
   action,
   state,
-  spawn,
+  delegate,
 } from "reactant-share";
 
 @injectable({
@@ -134,14 +134,14 @@ export class AppView extends ViewModule {
     return (
       <>
         <div>{count}</div>
-        <button type="button" onClick={() => spawn(this, "increase", [])}>
+        <button type="button" onClick={() => delegate(this, "increase", [])}>
           +
         </button>
         <p>proxy in coworker</p>
         <div>{proxyCount}</div>
         <button
           type="button"
-          onClick={() => spawn(this.proxyCounter, "increase", [])}
+          onClick={() => delegate(this.proxyCounter, "increase", [])}
         >
           +
         </button>
@@ -220,7 +220,7 @@ createSharedApp({
 });
 ```
 
-So far, we have completed a basic application with a Coworker. Users trigger the `spawn(this.proxyCounter, 'increase', [])` in the main process via the UI. It will be forwarded to the coworker to execute the increase function of proxyCounter, and the shared state will automatically synchronize back to the main process. The rendering update is completed by the `useConnector()` Hook.
+So far, we have completed a basic application with a Coworker. Users trigger the `delegate(this.proxyCounter, 'increase', [])` in the main process via the UI. It will be forwarded to the coworker to execute the increase function of proxyCounter, and the shared state will automatically synchronize back to the main process. The rendering update is completed by the `useConnector()` Hook.
 
 ## Q&A
 

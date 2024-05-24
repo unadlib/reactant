@@ -143,7 +143,7 @@ const config = {
         entryPoints: [
           '../packages/reactant-share/src/createApp.ts',
           '../packages/reactant-share/src/portDetector.ts',
-          '../packages/reactant-share/src/spawn.ts',
+          '../packages/reactant-share/src/delegate.ts',
           '../packages/reactant-share/src/fork.ts',
           '../packages/reactant-share/src/router.ts',
           '../packages/reactant-share/src/storage.ts',

@@ -10,46 +10,75 @@ import {
 } from 'reactant';
 
 @injectable()
-class Counter {
+class PhoneService {
   @state
-  count = 0;
+  phoneNumber = '';
 
   @action
-  increase() {
-    this.count += 1;
+  inputDigit(digit: string) {
+    this.phoneNumber += digit;
   }
 
   @action
-  decrease() {
-    this.count -= 1;
+  clear() {
+    this.phoneNumber = '';
+  }
+
+  @action
+  call() {
+    alert(`Calling ${this.phoneNumber}...`);
+    this.clear(); // Clear the number after calling
   }
 }
 
 @injectable()
-class AppView extends ViewModule {
-  constructor(public counter: Counter) {
+class PhoneApp extends ViewModule {
+  constructor(public phoneService: PhoneService) {
     super();
   }
 
   component() {
-    const count = useConnector(() => this.counter.count);
+    const phoneNumber = useConnector(() => this.phoneService.phoneNumber);
     return (
-      <>
-        <button type="button" onClick={() => this.counter.decrease()}>
-          -
+      <div>
+        <h1>Phone Dialer</h1>
+        <div style={{ fontSize: '24px', marginBottom: '20px' }}>
+          {phoneNumber}
+        </div>
+        <div>
+          {['1', '2', '3', '4', '5', '6', '7', '8', '9', '*', '0', '#'].map(
+            (digit) => (
+              <button
+                key={digit}
+                onClick={() => this.phoneService.inputDigit(digit)}
+                style={{ width: '60px', height: '60px', margin: '5px' }}
+              >
+                {digit}
+              </button>
+            )
+          )}
+        </div>
+        <button
+          onClick={() => this.phoneService.call()}
+          style={{ marginTop: '20px' }}
+        >
+          Call
         </button>
-        <div>{count}</div>
-        <button type="button" onClick={() => this.counter.increase()}>
-          +
+        <button
+          onClick={() => this.phoneService.clear()}
+          style={{ marginTop: '20px', marginLeft: '10px' }}
+        >
+          Clear
         </button>
-      </>
+      </div>
     );
   }
 }
 
 const app = createApp({
-  main: AppView,
+  main: PhoneApp,
+  modules: [],
   render,
 });
 
-app.bootstrap(document.getElementById('app'));
+app.bootstrap(document.getElementById('root'));

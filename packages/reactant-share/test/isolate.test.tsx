@@ -12,7 +12,7 @@ import {
   useConnector,
   subscribe,
   createSharedApp,
-  spawn,
+  delegate,
   PortDetector,
   optional,
   mockPairTransports,
@@ -119,7 +119,7 @@ describe('base', () => {
           <button
             id="decrease"
             type="button"
-            onClick={() => spawn(this.counter, 'decrease', [])}
+            onClick={() => delegate(this.counter, 'decrease', [])}
           >
             -
           </button>
@@ -127,7 +127,7 @@ describe('base', () => {
           <button
             id="increase"
             type="button"
-            onClick={() => spawn(this.counter, 'increase', [])}
+            onClick={() => delegate(this.counter, 'increase', [])}
           >
             +
           </button>
@@ -539,13 +539,13 @@ describe('base', () => {
       expect(serverApp.instance.counter.num).toBe(1);
       expect(result1).toBeUndefined();
 
-      const result2 = await spawn(clientApp.instance.counter, 'setNum', [4]);
+      const result2 = await delegate(clientApp.instance.counter, 'setNum', [4]);
 
       expect(clientApp.instance.counter.num).toBe(3);
       expect(serverApp.instance.counter.num).toBe(4);
       expect(result2).toBe(4);
 
-      const result3 = await spawn(clientApp.instance.counter, 'setNum', [5], {
+      const result3 = await delegate(clientApp.instance.counter, 'setNum', [5], {
         respond: false,
       });
 

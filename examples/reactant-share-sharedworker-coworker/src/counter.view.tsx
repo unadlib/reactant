@@ -5,7 +5,7 @@ import {
   useConnector,
   action,
   state,
-  spawn,
+  delegate,
 } from 'reactant-share';
 
 import { ProxyCounter } from './proxyCounter';
@@ -43,38 +43,38 @@ export class CounterView extends ViewModule {
     ]);
     return (
       <>
-        <button type="button" onClick={() => spawn(this, 'decrease', [])}>
+        <button type="button" onClick={() => delegate(this, 'decrease', [])}>
           -
         </button>
         <div>{count}</div>
-        <button type="button" onClick={() => spawn(this, 'increase', [])}>
+        <button type="button" onClick={() => delegate(this, 'increase', [])}>
           +
         </button>
         <p>proxy in coworker</p>
         <button
           type="button"
-          onClick={() => spawn(this.proxyCounter, 'decrease', [])}
+          onClick={() => delegate(this.proxyCounter, 'decrease', [])}
         >
           -
         </button>
         <div>{proxyCount}</div>
         <button
           type="button"
-          onClick={() => spawn(this.proxyCounter, 'increase', [])}
+          onClick={() => delegate(this.proxyCounter, 'increase', [])}
         >
           +
         </button>
         <p>proxy1 in coworker</p>
         <button
           type="button"
-          onClick={() => spawn(this.proxyCounter, 'decrease1', [])}
+          onClick={() => delegate(this.proxyCounter, 'decrease1', [])}
         >
           -
         </button>
         <div>{proxyCount1}</div>
         <button
           type="button"
-          onClick={() => spawn(this.proxyCounter, 'increase1', [])}
+          onClick={() => delegate(this.proxyCounter, 'increase1', [])}
         >
           +
         </button>

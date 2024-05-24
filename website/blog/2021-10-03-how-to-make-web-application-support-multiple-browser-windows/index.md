@@ -84,7 +84,7 @@ import {
   useConnector,
   action,
   state,
-  spawn,
+  delegate,
 } from "reactant-share";
 
 @injectable({ name: "counter" })
@@ -107,7 +107,7 @@ export class AppView extends ViewModule {
   component() {
     const count = useConnector(() => this.counter.count);
     return (
-      <button type="button" onClick={() => spawn(this.counter, "increase", [])}>
+      <button type="button" onClick={() => delegate(this.counter, "increase", [])}>
         {count}
       </button>
     );
@@ -163,10 +163,10 @@ createSharedApp({
 The specific workflow of `increase` looks like this.
 
 1. The user clicks the button in client app.
-2. `spawn(this.counter, "increase", [])` will be executed, which passes the parameters about the proxy execution to the server app.
+2. `delegate(this.counter, "increase", [])` will be executed, which passes the parameters about the proxy execution to the server app.
 3. The server app will execute `this.counter.increase()`, and sync the updated state back to each client apps.
 
-`spawn()` in reactant-share is inspired by the [actor model](https://en.wikipedia.org/wiki/Actor_model).
+`delegate()` in reactant-share is inspired by the [actor model](https://en.wikipedia.org/wiki/Actor_model).
 
 ## reactant-share Framework
 
@@ -193,7 +193,7 @@ reactant-share provides CLI and full support for Typescript, as well as support 
 
 Since reactant-share uses [data-transport](http://github.com/unadlib/data-transport), reactant-share supports almost all the transports supported by data-transport.The client app and the server app, whichever is loaded first, the client app will wait for the server app to finish starting and get all the initial application state from it.
 
-Using the actor model in the client app to design spawn(), we can do `spawn(counterModule, 'increase', [])` to let the server app proxy the execution of the module method and respond and sync both the state and the result back to the client app.
+Using the actor model in the client app to design delegate(), we can do `delegate(counterModule, 'increase', [])` to let the server app proxy the execution of the module method and respond and sync both the state and the result back to the client app.
 
 But if we need direct communication between the client app and the server app, then we need to use the `PortDetector` module.
 
@@ -217,13 +217,13 @@ Since reactant-share is based on Redux, it fully supports Redux DevTools, and th
 
 ### Fault Tolerance / Data Consistency
 
-Since state synchronization after the client app uses `spawn()` to get the server app proxy to execute each time may cause it to be out of order in edge cases for various reasons, reactant-share integrates `reactant-last-action`, which provides sequence markers to keep If the client app receives a synchronized action that checks for an exception in the sequence, the client app will launch a full state synchronization to correct the action sequence.
+Since state synchronization after the client app uses `delegate()` to get the server app proxy to execute each time may cause it to be out of order in edge cases for various reasons, reactant-share integrates `reactant-last-action`, which provides sequence markers to keep If the client app receives a synchronized action that checks for an exception in the sequence, the client app will launch a full state synchronization to correct the action sequence.
 
 In addition, when the browser does not support the Worker API, reactant-share will perform a graceful degradation (e.g. SharedWorker mode -> Shared-Tab mode -> SPA mode).
 
 ### Isolation
 
-Regardless of modes such as Shared-Tab, SharedWorker, each application instance runs in isolation and their basic interactions can only be triggered by `spawn()` to synchronize state.
+Regardless of modes such as Shared-Tab, SharedWorker, each application instance runs in isolation and their basic interactions can only be triggered by `delegate()` to synchronize state.
 
 ### Configuration
 
@@ -368,9 +368,9 @@ class Todo {
 
 `ViewModule` is a view module with a component, which is completely different from React class component. The component of `ViewModule` is a function component that is used for the state connection between the module and the UI (using `useConnector()`) and for the application view bootstrap.
 
-- `spawn()`
+- `delegate()`
 
-`spawn()` transfers class methods execution from the client app to the server app and synchronizes the state to all client apps. It is inspired by the Actor model, but unlike other actor models, reactant-share's `spawn()` does not create new threads.
+`delegate()` transfers class methods execution from the client app to the server app and synchronizes the state to all client apps. It is inspired by the Actor model, but unlike other actor models, reactant-share's `delegate()` does not create new threads.
 
 - `createSharedApp()`
 

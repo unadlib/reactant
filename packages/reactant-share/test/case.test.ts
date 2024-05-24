@@ -8,7 +8,7 @@ import {
   injectable,
   state,
   action,
-  spawn,
+  delegate,
   mockPairTransports,
   ViewModule,
   PortDetector,
@@ -41,7 +41,7 @@ class Counter extends ViewModule {
   }
 
   async increase() {
-    await spawn(this as Counter, '_increase', []);
+    await delegate(this as Counter, '_increase', []);
   }
 
   [increaseSymbol]() {
@@ -286,7 +286,7 @@ test('switch diff port', async () => {
   expect(client0.instance.count).toBe(6);
 });
 
-test('spawn error case0', async () => {
+test('delegate error case0', async () => {
   const transports = mockPairTransports();
 
   const server = await createSharedApp({
@@ -329,34 +329,36 @@ test('spawn error case0', async () => {
   expect(server.instance.count).toBe(3);
   expect(client0.instance.count).toBe(3);
 
-  await spawn(client0.instance, 'increaseFunc', []);
+  await delegate(client0.instance, 'increaseFunc', []);
   expect(server.instance.count).toBe(4);
   expect(client0.instance.count).toBe(4);
 
   expect(() => {
-    spawn(client0.instance, increaseSymbol, []);
+    delegate(client0.instance, increaseSymbol, []);
   }).toThrowError();
 
   expect(() => {
-    spawn(client0.instance, 'count' as any, []);
+    delegate(client0.instance, 'count' as any, []);
   }).toThrowError();
 
   expect(() => {
     // @ts-ignore
-    spawn(client0.instance, 'increaseFunc');
+    delegate(client0.instance, 'increaseFunc');
   }).toThrowError();
 
   const portDetector1 = client0.container.get(PortDetector);
   portDetector1.transports.client = null as any;
 
-  spawn(client0.instance, 'increaseFunc', [], { respond: true }).catch((e) => {
-    expect(e).toEqual(
-      new Error('Detected that the current client transport does not exist.')
-    );
-  });
+  delegate(client0.instance, 'increaseFunc', [], { respond: true }).catch(
+    (e) => {
+      expect(e).toEqual(
+        new Error('Detected that the current client transport does not exist.')
+      );
+    }
+  );
 });
 
-test('spawn error case1', async () => {
+test('delegate error case1', async () => {
   @injectable()
   class Counter1 extends ViewModule {
     @state
@@ -368,7 +370,7 @@ test('spawn error case1', async () => {
     }
 
     async increase() {
-      await spawn(this as Counter1, '_increase', []);
+      await delegate(this as Counter1, '_increase', []);
     }
 
     [increaseSymbol]() {
@@ -401,7 +403,7 @@ test('spawn error case1', async () => {
   });
 
   expect(() => {
-    spawn(server.instance, 'increaseFunc', [], { respond: true });
+    delegate(server.instance, 'increaseFunc', [], { respond: true });
   }).toThrowError(/a temporary string/);
 
   const client0 = await createSharedApp({
@@ -420,11 +422,11 @@ test('spawn error case1', async () => {
   await client0.bootstrap();
 
   expect(() => {
-    spawn(client0.instance, 'increaseFunc', [], { respond: true });
+    delegate(client0.instance, 'increaseFunc', [], { respond: true });
   }).toThrowError(/a temporary string/);
 });
 
-test('spawn error case2', async () => {
+test('delegate error case2', async () => {
   @injectable({
     name: Symbol('counter') as any,
   })
@@ -438,7 +440,7 @@ test('spawn error case2', async () => {
     }
 
     async increase() {
-      await spawn(this as Counter1, '_increase', []);
+      await delegate(this as Counter1, '_increase', []);
     }
 
     [increaseSymbol]() {
@@ -471,7 +473,7 @@ test('spawn error case2', async () => {
   });
 
   expect(() => {
-    spawn(server.instance, 'increaseFunc', [], { respond: true });
+    delegate(server.instance, 'increaseFunc', [], { respond: true });
   }).toThrowError(/a temporary string/);
 
   const client0 = await createSharedApp({
@@ -490,11 +492,11 @@ test('spawn error case2', async () => {
   await client0.bootstrap();
 
   expect(() => {
-    spawn(client0.instance, 'increaseFunc', [], { respond: true });
+    delegate(client0.instance, 'increaseFunc', [], { respond: true });
   }).toThrowError(/a temporary string/);
 });
 
-test('spawn with args', async () => {
+test('delegate with args', async () => {
   const transports = mockPairTransports();
 
   const server = await createSharedApp({
@@ -511,7 +513,7 @@ test('spawn with args', async () => {
     },
   });
 
-  await spawn(server.instance, 'add', [1]);
+  await delegate(server.instance, 'add', [1]);
   expect(server.instance.count).toBe(1);
   await server.instance.increase();
   expect(server.instance.count).toBe(2);
@@ -537,7 +539,7 @@ test('spawn with args', async () => {
   expect(server.instance.count).toBe(3);
   expect(client0.instance.count).toBe(3);
 
-  await spawn(client0.instance, 'add', [1]);
+  await delegate(client0.instance, 'add', [1]);
   expect(server.instance.count).toBe(4);
   expect(client0.instance.count).toBe(4);
 });

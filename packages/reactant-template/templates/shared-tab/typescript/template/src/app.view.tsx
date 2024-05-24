@@ -1,5 +1,5 @@
 import React from 'react';
-import { ViewModule, injectable, useConnector, spawn } from 'reactant-share';
+import { ViewModule, injectable, useConnector, delegate } from 'reactant-share';
 import { CounterService } from './counter.service';
 
 @injectable()
@@ -14,14 +14,14 @@ class AppView extends ViewModule {
       <>
         <button
           type="button"
-          onClick={() => spawn(this.counter, 'decrease', [])}
+          onClick={() => delegate(this.counter, 'decrease', [])}
         >
           -
         </button>
         <div>{count}</div>
         <button
           type="button"
-          onClick={() => spawn(this.counter, 'increase', [])}
+          onClick={() => delegate(this.counter, 'increase', [])}
         >
           +
         </button>
