@@ -343,7 +343,7 @@ test('delegate error case0', async () => {
 
   expect(() => {
     // @ts-ignore
-    delegate(client0.instance, 'increaseFunc');
+    delegate(client0.instance, 'increaseFunc', 0);
   }).toThrowError();
 
   const portDetector1 = client0.container.get(PortDetector);
@@ -600,7 +600,7 @@ test('fork error case0', async () => {
 
   expect(() => {
     // @ts-ignore
-    fork(server.instance, 'increaseFunc');
+    fork(server.instance, 'increaseFunc', 0);
   }).toThrowError();
 
   const portDetector1 = server.container.get(PortDetector);
