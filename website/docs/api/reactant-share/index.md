@@ -10,5 +10,5 @@ custom_edit_url: null
 ## Modules
 
 - [createApp](modules/createApp.md)
+- [delegate](modules/delegate.md)
 - [fork](modules/fork.md)
-- [spawn](modules/spawn.md)

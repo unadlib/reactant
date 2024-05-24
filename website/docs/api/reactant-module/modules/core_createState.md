@@ -72,4 +72,4 @@ expect(app.instance.count).toBe(1);
 
 #### Defined in
 
-[packages/reactant-module/src/core/createState.ts:45](https://github.com/unadlib/reactant/blob/5d60d9c3/packages/reactant-module/src/core/createState.ts#L45)
+[packages/reactant-module/src/core/createState.ts:45](https://github.com/unadlib/reactant/blob/f66dad8a/packages/reactant-module/src/core/createState.ts#L45)

@@ -21,7 +21,7 @@ and `bootstrap()` method(You can run `bootstrap` to start the app inject into th
 ## Example
 
 ```ts
-import { createSharedApp, injectable, state, action, spawn, mockPairTransports } from 'reactant-share';
+import { createSharedApp, injectable, state, action, delegate, mockPairTransports } from 'reactant-share';
 
 @injectable({
   name: 'counter',
@@ -67,7 +67,7 @@ export default async () => {
     },
   });
 
-  await spawn(client.instance, 'increase', []);
+  await delegate(client.instance, 'increase', []);
 
   expect(client.instance.count).toBe(1);
   expect(server.instance.count).toBe(1);
@@ -94,4 +94,4 @@ export default async () => {
 
 #### Defined in
 
-[createApp.ts:262](https://github.com/unadlib/reactant/blob/5d60d9c3/packages/reactant-share/src/createApp.ts#L262)
+[createApp.ts:262](https://github.com/unadlib/reactant/blob/f66dad8a/packages/reactant-share/src/createApp.ts#L262)

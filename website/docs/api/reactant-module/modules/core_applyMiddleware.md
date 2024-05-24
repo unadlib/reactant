@@ -42,4 +42,4 @@ typeof `__class`
 
 #### Defined in
 
-[packages/reactant-module/src/core/applyMiddleware.ts:30](https://github.com/unadlib/reactant/blob/5d60d9c3/packages/reactant-module/src/core/applyMiddleware.ts#L30)
+[packages/reactant-module/src/core/applyMiddleware.ts:30](https://github.com/unadlib/reactant/blob/f66dad8a/packages/reactant-module/src/core/applyMiddleware.ts#L30)
