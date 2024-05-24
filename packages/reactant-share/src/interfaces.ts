@@ -206,6 +206,37 @@ export type FunctionKeys<T> = Exclude<
   void
 >;
 
+type ProxyArgs<
+  F extends (...args: any[]) => any,
+  O extends EmitParameter<any>['respond']
+> = Parameters<F> extends []
+  ? [
+      /**
+       * Pass in the parameters for this method.
+       */
+      args?: Parameters<F>,
+      /**
+       * proxy execution options
+       */
+      options?: { respond?: O; portName?: string; clientIds?: string[] } & Pick<
+        EmitParameter<any>,
+        Exclude<keyof EmitParameter<any>, 'name' | 'respond'>
+      >
+    ]
+  : [
+      /**
+       * Pass in the parameters for this method.
+       */
+      args: Parameters<F>,
+      /**
+       * proxy execution options
+       */
+      options?: { respond?: O; portName?: string; clientIds?: string[] } & Pick<
+        EmitParameter<any>,
+        Exclude<keyof EmitParameter<any>, 'name' | 'respond'>
+      >
+    ];
+
 export type ProxyExec = <
   T extends Record<string | number | symbol, any>,
   K extends FunctionKeys<T>,
@@ -219,17 +250,7 @@ export type ProxyExec = <
    * Specify the name of a method in this module.
    */
   key: K,
-  /**
-   * Pass in the parameters for this method.
-   */
-  args: Parameters<T[K]>,
-  /**
-   * proxy execution options
-   */
-  options?: { respond?: O; portName?: string; clientIds?: string[] } & Pick<
-    EmitParameter<any>,
-    Exclude<keyof EmitParameter<any>, 'name' | 'respond'>
-  >
+  ...args: ProxyArgs<T[K], O>
 ) => O extends false
   ? void
   : ReturnType<T[K]> extends Promise<infer R>

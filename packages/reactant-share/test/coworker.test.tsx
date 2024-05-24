@@ -130,7 +130,7 @@ describe('base', () => {
           <button
             id="decrease"
             type="button"
-            onClick={() => delegate(this.counter, 'decrease', [])}
+            onClick={() => delegate(this.counter, 'decrease')}
           >
             -
           </button>
@@ -138,7 +138,7 @@ describe('base', () => {
           <button
             id="increase"
             type="button"
-            onClick={() => delegate(this.counter, 'increase', [])}
+            onClick={() => delegate(this.counter, 'increase')}
           >
             +
           </button>
@@ -360,9 +360,14 @@ describe('base', () => {
       expect(serverApp.instance.counter.num).toBe(4);
       expect(result2).toBe(4);
 
-      const result3 = await delegate(clientApp.instance.counter, 'setNum', [5], {
-        respond: false,
-      });
+      const result3 = await delegate(
+        clientApp.instance.counter,
+        'setNum',
+        [5],
+        {
+          respond: false,
+        }
+      );
 
       expect(clientApp.instance.counter.num).toBe(3);
       expect(serverApp.instance.counter.num).toBe(5);
@@ -787,7 +792,7 @@ describe('base', () => {
 
     expect(coworkerApp.container.get(ProxyCounter).count).toBe(0);
 
-    await delegate(serverApp.container.get(ProxyCounter), 'increase', []);
+    await delegate(serverApp.container.get(ProxyCounter), 'increase');
     expect(coworkerApp.container.get(ProxyCounter).count).toBe(1);
     expect(serverApp.container.get(ProxyCounter).count).toBe(1);
     expect(subscribeOnClientFn.mock.calls.length).toBe(0);
@@ -839,8 +844,7 @@ describe('base', () => {
 
     await delegate(
       serverApp.container.get<ProxyCounter>('counter0'),
-      'increase',
-      []
+      'increase'
     );
     expect(
       counterCoworkerApp.container.get<ProxyCounter>('counter0').count

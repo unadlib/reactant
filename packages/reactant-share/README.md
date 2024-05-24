@@ -57,7 +57,7 @@ export class AppView extends ViewModule {
   component() {
     const count = useConnector(() => this.counter.count);
     return (
-      <button type="button" onClick={() => delegate(this.counter, 'increase', [])}>
+      <button type="button" onClick={() => delegate(this.counter, 'increase')}>
         {count}
       </button>
     );

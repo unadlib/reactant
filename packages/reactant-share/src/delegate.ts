@@ -48,8 +48,9 @@ import { PortDetector } from './modules/portDetector';
  * ```
  * reference: https://en.wikipedia.org/wiki/Actor_model
  */
-export const delegate: ProxyExec = (module, key, args, options = {}) => {
+export const delegate = ((module, key, args, options = {}) => {
   const method = module[key];
+  const _args = args ?? [];
   if (typeof key !== 'string') {
     throw new Error(
       `'delegate()' is valid only for method name with string type.`
@@ -60,7 +61,7 @@ export const delegate: ProxyExec = (module, key, args, options = {}) => {
       `The property '${key}'' must be a method in class '${module.constructor.name}'.`
     );
   }
-  if (!Array.isArray(args)) {
+  if (!Array.isArray(_args)) {
     throw new Error(`The parameters of the method '${key}' must be an array.`);
   }
   const target: Service & ProxyExecutor = module;
@@ -79,7 +80,7 @@ export const delegate: ProxyExec = (module, key, args, options = {}) => {
       return target[proxyExecutorKey]({
         module: target[identifierKey]!,
         method: key,
-        args,
+        args: _args,
       });
     }
     // If the port is not a client, it just run the method in server port.
@@ -99,10 +100,10 @@ export const delegate: ProxyExec = (module, key, args, options = {}) => {
         {
           module: target[identifierKey]!,
           method: key,
-          args,
+          args: _args,
         }
       );
     }
   }
-  return (method as Function).apply(target, args);
-};
+  return (method as Function).apply(target, _args);
+}) as ProxyExec;

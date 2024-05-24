@@ -29,6 +29,7 @@ export { delegate } from './delegate';
 export { fork } from './fork';
 export { mockPairTransports } from './mockPairTransports';
 export { createBroadcastTransport } from './createTransport';
+export { applyMethod } from './applyMethod';
 
 export type { IRouterOptions } from './modules/router';
 export type { ICoworkerOptions } from './modules/coworker';
