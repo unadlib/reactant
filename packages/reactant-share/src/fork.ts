@@ -15,12 +15,9 @@ import { PortDetector } from './modules/portDetector';
  *
  * reference: https://en.wikipedia.org/wiki/Actor_model
  */
-export const fork: ProxyExec = (
-  module,
-  key,
-  args,
-  { portName, clientIds, ...options } = {}
-) => {
+export const fork = ((module, key, _args, _options) => {
+  const args = _args ?? [];
+  const { clientIds, portName, ...options } = _options ?? {};
   const method = module[key];
   if (typeof key !== 'string') {
     throw new Error(`'fork()' is valid only for method name with string type.`);
@@ -67,4 +64,4 @@ export const fork: ProxyExec = (
     );
   }
   return (method as Function).apply(target, args);
-};
+}) as ProxyExec;
