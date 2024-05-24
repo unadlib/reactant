@@ -7,7 +7,7 @@ import {
   useConnector,
   action,
   state,
-  spawn,
+  delegate,
   computed,
   optional,
   Storage,
@@ -36,7 +36,7 @@ export class TodoListView extends ViewModule {
     });
     if (this.isDetachedWindow) {
       window.addEventListener('unload', () => {
-        spawn(this as TodoListView, 'setExistDetachedWindow', [false]);
+        delegate(this as TodoListView, 'setExistDetachedWindow', [false]);
       });
     }
   }
@@ -92,7 +92,7 @@ export class TodoListView extends ViewModule {
         <button
           type="button"
           onClick={async () => {
-            await spawn(this, 'add', [todo]);
+            await delegate(this, 'add', [todo]);
             setTodo('');
           }}
         >
@@ -101,7 +101,7 @@ export class TodoListView extends ViewModule {
         {list.map(({ id, text, complete }) => (
           <li
             key={id}
-            onClick={() => spawn(this, 'toggle', [id])}
+            onClick={() => delegate(this, 'toggle', [id])}
             style={complete ? { textDecoration: 'line-through' } : {}}
           >
             {text}
@@ -111,7 +111,7 @@ export class TodoListView extends ViewModule {
           <button
             type="button"
             onClick={async () => {
-              await spawn(this, 'setExistDetachedWindow', [true]);
+              await delegate(this, 'setExistDetachedWindow', [true]);
               window.open('./detached-window.html', '', 'width=300,height=600');
             }}
           >

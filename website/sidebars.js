@@ -152,7 +152,7 @@ const sidebars = {
       items: [
         'api/reactant-share/modules/createApp',
         'api/reactant-share/classes/portDetector.PortDetector',
-        'api/reactant-share/modules/spawn',
+        'api/reactant-share/modules/delegate',
         'api/reactant-share/modules/fork',
         'api/reactant-share/classes/router.Router',
         'api/reactant-share/interfaces/router.IRouterOptions',

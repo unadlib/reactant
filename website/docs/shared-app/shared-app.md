@@ -93,7 +93,7 @@ import {
   useConnector,
   action,
   state,
-  spawn,
+  delegate,
 } from 'reactant-share';
 
 @injectable({ name: 'counter' })
@@ -116,7 +116,7 @@ export class AppView extends ViewModule {
   component() {
     const count = useConnector(() => this.counter.count);
     return (
-      <button type="button" onClick={() => spawn(this.counter, 'increase', [])}>
+      <button type="button" onClick={() => delegate(this.counter, 'increase', [])}>
         {count}
       </button>
     );
@@ -172,10 +172,10 @@ createSharedApp({
 The specific workflow of `increase` looks like this.
 
 1. The user clicks the button in client app.
-2. `spawn(this.counter, "increase", [])` will be executed, which passes the parameters about the proxy execution to the server app.
+2. `delegate(this.counter, "increase", [])` will be executed, which passes the parameters about the proxy execution to the server app.
 3. The server app will execute `this.counter.increase()`, and sync the updated state back to each client apps.
 
-`spawn()` in reactant-share is inspired by the [actor model](https://en.wikipedia.org/wiki/Actor_model).
+`delegate()` in reactant-share is inspired by the [actor model](https://en.wikipedia.org/wiki/Actor_model).
 
 ## Browser Compatibility in SharedWorker mode
 

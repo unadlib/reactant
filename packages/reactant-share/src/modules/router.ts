@@ -25,7 +25,7 @@ import {
 } from '../constants';
 import type { ISharedAppOptions } from '../interfaces';
 import { PortDetector } from './portDetector';
-import { spawn } from '../spawn';
+import { delegate } from '../delegate';
 import { fork } from '../fork';
 
 export {
@@ -140,7 +140,7 @@ class ReactantRouter extends BaseReactantRouter {
         this,
         () => this.router,
         () => {
-          spawn(this as any, '_changeRoutingOnSever', [
+          delegate(this as any, '_changeRoutingOnSever', [
             this.portDetector.name,
             this.router,
             this.lastRoutedTimestamp,

@@ -8,7 +8,7 @@ import { PortDetector } from './modules/portDetector';
  *
  * ## Description
  *
- * `spawn()` is very similar to the actor model,
+ * `delegate()` is very similar to the actor model,
  *  which transfers the corresponding module method to the server thread for execution and returns the result as response.
  *
  * Note: It does not create new threads, it always runs on the server thread that has already been created.
@@ -17,7 +17,7 @@ import { PortDetector } from './modules/portDetector';
  *
  * ```tsx
  * import React from 'react';
- * import { ViewModule, createApp, injectable, useConnector, action, state, spawn } from 'reactant-share';
+ * import { ViewModule, createApp, injectable, useConnector, action, state, delegate } from 'reactant-share';
  *
  * @injectable({ name: 'counter'})
  * class Counter {
@@ -39,7 +39,7 @@ import { PortDetector } from './modules/portDetector';
  *   component() {
  *     const count = useConnector(() => this.counter.count);
  *     return (
- *       <button type="button" onClick={() => spawn(this.counter, 'increase', [])}>
+ *       <button type="button" onClick={() => delegate(this.counter, 'increase', [])}>
  *         {count}
  *       </button>
  *     );
@@ -48,11 +48,11 @@ import { PortDetector } from './modules/portDetector';
  * ```
  * reference: https://en.wikipedia.org/wiki/Actor_model
  */
-export const spawn: ProxyExec = (module, key, args, options = {}) => {
+export const delegate: ProxyExec = (module, key, args, options = {}) => {
   const method = module[key];
   if (typeof key !== 'string') {
     throw new Error(
-      `'spawn()' is valid only for method name with string type.`
+      `'delegate()' is valid only for method name with string type.`
     );
   }
   if (typeof method !== 'function') {

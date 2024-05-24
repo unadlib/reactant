@@ -6,7 +6,7 @@ import {
   action,
   state,
   inject,
-  spawn,
+  delegate,
   subscribe,
   PortDetector,
 } from 'reactant-share';
@@ -54,14 +54,14 @@ export class AppView extends ViewModule {
       <>
         <button
           type="button"
-          onClick={() => spawn(this.counter, 'decrease', [])}
+          onClick={() => delegate(this.counter, 'decrease', [])}
         >
           -
         </button>
         <div>{count}</div>
         <button
           type="button"
-          onClick={() => spawn(this.counter, 'increase', [])}
+          onClick={() => delegate(this.counter, 'increase', [])}
         >
           +
         </button>

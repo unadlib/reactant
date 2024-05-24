@@ -25,7 +25,7 @@ export {
   getCoworker,
 } from './modules/coworker';
 export { useLock } from './lock';
-export { spawn } from './spawn';
+export { delegate } from './delegate';
 export { fork } from './fork';
 export { mockPairTransports } from './mockPairTransports';
 export { createBroadcastTransport } from './createTransport';

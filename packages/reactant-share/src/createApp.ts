@@ -206,7 +206,7 @@ const createSharedTabApp = async <T, S extends any[], R extends Renderer<S>>(
  * ## Example
  *
  * ```ts
- * import { createSharedApp, injectable, state, action, spawn, mockPairTransports } from 'reactant-share';
+ * import { createSharedApp, injectable, state, action, delegate, mockPairTransports } from 'reactant-share';
  *
  * @injectable({
  *   name: 'counter',
@@ -252,7 +252,7 @@ const createSharedTabApp = async <T, S extends any[], R extends Renderer<S>>(
  *     },
  *   });
  *
- *   await spawn(client.instance, 'increase', []);
+ *   await delegate(client.instance, 'increase', []);
  *
  *   expect(client.instance.count).toBe(1);
  *   expect(server.instance.count).toBe(1);

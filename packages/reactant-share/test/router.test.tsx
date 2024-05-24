@@ -16,7 +16,7 @@ import {
   useConnector,
   subscribe,
   createSharedApp,
-  spawn,
+  delegate,
   PortDetector,
   Router,
   mockPairTransports,
@@ -129,7 +129,7 @@ describe('base', () => {
           <button
             id="increase"
             type="button"
-            onClick={() => spawn(this, 'increase', [])}
+            onClick={() => delegate(this, 'increase', [])}
           >
             +
           </button>
@@ -740,7 +740,7 @@ describe('SharedWorker', () => {
           <button
             id="increase"
             type="button"
-            onClick={() => spawn(this, 'increase', [])}
+            onClick={() => delegate(this, 'increase', [])}
           >
             +
           </button>
@@ -975,7 +975,7 @@ describe('Worker', () => {
           <button
             id="increase"
             type="button"
-            onClick={() => spawn(this, 'increase', [])}
+            onClick={() => delegate(this, 'increase', [])}
           >
             +
           </button>
@@ -1524,7 +1524,7 @@ describe('base with storage and router', () => {
           <button
             id="decrease"
             type="button"
-            onClick={() => spawn(this.counter, 'decrease', [])}
+            onClick={() => delegate(this.counter, 'decrease', [])}
           >
             -
           </button>
@@ -1532,7 +1532,7 @@ describe('base with storage and router', () => {
           <button
             id="increase"
             type="button"
-            onClick={() => spawn(this.counter, 'increase', [])}
+            onClick={() => delegate(this.counter, 'increase', [])}
           >
             +
           </button>
@@ -2019,7 +2019,7 @@ describe('SharedWorker - createMemoryHistory', () => {
           <button
             id="increase"
             type="button"
-            onClick={() => spawn(this, 'increase', [])}
+            onClick={() => delegate(this, 'increase', [])}
           >
             +
           </button>
@@ -2254,7 +2254,7 @@ describe('Worker - createMemoryHistory', () => {
           <button
             id="increase"
             type="button"
-            onClick={() => spawn(this, 'increase', [])}
+            onClick={() => delegate(this, 'increase', [])}
           >
             +
           </button>

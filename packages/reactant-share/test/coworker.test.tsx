@@ -11,7 +11,7 @@ import {
   useConnector,
   subscribe,
   createSharedApp,
-  spawn,
+  delegate,
   PortDetector,
   optional,
   mockPairTransports,
@@ -130,7 +130,7 @@ describe('base', () => {
           <button
             id="decrease"
             type="button"
-            onClick={() => spawn(this.counter, 'decrease', [])}
+            onClick={() => delegate(this.counter, 'decrease', [])}
           >
             -
           </button>
@@ -138,7 +138,7 @@ describe('base', () => {
           <button
             id="increase"
             type="button"
-            onClick={() => spawn(this.counter, 'increase', [])}
+            onClick={() => delegate(this.counter, 'increase', [])}
           >
             +
           </button>
@@ -354,13 +354,13 @@ describe('base', () => {
       expect(serverApp.instance.counter.num).toBe(1);
       expect(result1).toBeUndefined();
 
-      const result2 = await spawn(clientApp.instance.counter, 'setNum', [4]);
+      const result2 = await delegate(clientApp.instance.counter, 'setNum', [4]);
 
       expect(clientApp.instance.counter.num).toBe(3);
       expect(serverApp.instance.counter.num).toBe(4);
       expect(result2).toBe(4);
 
-      const result3 = await spawn(clientApp.instance.counter, 'setNum', [5], {
+      const result3 = await delegate(clientApp.instance.counter, 'setNum', [5], {
         respond: false,
       });
 
@@ -379,21 +379,21 @@ describe('base', () => {
       expect(clientApp.store?.getState().ProxyCounter).toEqual({ count: 1 });
       expect(coworkerModuleFn.mock.calls).toEqual([[true]]);
 
-      await spawn(coworkerApp.container.get(ProxyCounter), 'increase', []);
+      await delegate(coworkerApp.container.get(ProxyCounter), 'increase', []);
 
       expect(coworkerApp.store?.getState().ProxyCounter).toEqual({ count: 2 });
       expect(serverApp.store?.getState().ProxyCounter).toEqual({ count: 2 });
       expect(clientApp.store?.getState().ProxyCounter).toEqual({ count: 2 });
       expect(coworkerModuleFn.mock.calls).toEqual([[true], [true]]);
 
-      await spawn(serverApp.container.get(ProxyCounter), 'increase', []);
+      await delegate(serverApp.container.get(ProxyCounter), 'increase', []);
 
       expect(coworkerApp.store?.getState().ProxyCounter).toEqual({ count: 3 });
       expect(serverApp.store?.getState().ProxyCounter).toEqual({ count: 3 });
       expect(clientApp.store?.getState().ProxyCounter).toEqual({ count: 3 });
       expect(coworkerModuleFn.mock.calls).toEqual([[true], [true], [true]]);
 
-      await spawn(clientApp.container.get(ProxyCounter), 'increase', []);
+      await delegate(clientApp.container.get(ProxyCounter), 'increase', []);
 
       expect(coworkerApp.store?.getState().ProxyCounter).toEqual({ count: 4 });
       expect(serverApp.store?.getState().ProxyCounter).toEqual({ count: 4 });
@@ -485,7 +485,7 @@ describe('base', () => {
 
     expect(coworkerApp.container.get(ProxyCounter).count).toBe(0);
 
-    await spawn(serverApp.container.get(ProxyCounter), 'increase', []);
+    await delegate(serverApp.container.get(ProxyCounter), 'increase', []);
     expect(coworkerApp.container.get(ProxyCounter).count).toBe(1);
     expect(serverApp.container.get(ProxyCounter).count).toBe(1);
     expect(subscribeOnClientFn.mock.calls.length).toBe(0);
@@ -662,21 +662,21 @@ describe('base', () => {
     expect(sharedApp1.store?.getState().ProxyCounter).toEqual({ count: 1 });
     expect(coworkerModuleFn.mock.calls).toEqual([[true]]);
 
-    await spawn(coworkerApp.container.get(ProxyCounter), 'increase', []);
+    await delegate(coworkerApp.container.get(ProxyCounter), 'increase', []);
 
     expect(coworkerApp.store?.getState().ProxyCounter).toEqual({ count: 2 });
     expect(sharedApp0.store?.getState().ProxyCounter).toEqual({ count: 2 });
     expect(sharedApp1.store?.getState().ProxyCounter).toEqual({ count: 2 });
     expect(coworkerModuleFn.mock.calls).toEqual([[true], [true]]);
 
-    await spawn(sharedApp0.container.get(ProxyCounter), 'increase', []);
+    await delegate(sharedApp0.container.get(ProxyCounter), 'increase', []);
 
     expect(coworkerApp.store?.getState().ProxyCounter).toEqual({ count: 3 });
     expect(sharedApp0.store?.getState().ProxyCounter).toEqual({ count: 3 });
     expect(sharedApp1.store?.getState().ProxyCounter).toEqual({ count: 3 });
     expect(coworkerModuleFn.mock.calls).toEqual([[true], [true], [true]]);
 
-    await spawn(sharedApp1.container.get(ProxyCounter), 'increase', []);
+    await delegate(sharedApp1.container.get(ProxyCounter), 'increase', []);
 
     expect(coworkerApp.store?.getState().ProxyCounter).toEqual({ count: 4 });
     expect(sharedApp0.store?.getState().ProxyCounter).toEqual({ count: 4 });
@@ -787,7 +787,7 @@ describe('base', () => {
 
     expect(coworkerApp.container.get(ProxyCounter).count).toBe(0);
 
-    await spawn(serverApp.container.get(ProxyCounter), 'increase', []);
+    await delegate(serverApp.container.get(ProxyCounter), 'increase', []);
     expect(coworkerApp.container.get(ProxyCounter).count).toBe(1);
     expect(serverApp.container.get(ProxyCounter).count).toBe(1);
     expect(subscribeOnClientFn.mock.calls.length).toBe(0);
@@ -837,7 +837,7 @@ describe('base', () => {
       counterCoworkerApp.container.get<ProxyCounter>('counter0').count
     ).toBe(0);
 
-    await spawn(
+    await delegate(
       serverApp.container.get<ProxyCounter>('counter0'),
       'increase',
       []
