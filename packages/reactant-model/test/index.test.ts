@@ -7,7 +7,7 @@ import {
   createStore,
   ReactantMiddleware,
   PluginModule,
-  stateKey,
+  getRef,
 } from 'reactant-module';
 import { apply as applyPatches } from 'mutative';
 import { model } from '..';
@@ -218,7 +218,7 @@ test('base model with `useValue` and `enablePatches`', () => {
       enablePatches: true,
     },
   });
-  const originalTodoState = foo.todo[stateKey]!;
+  const originalTodoState = getRef(foo.todo).state!;
   expect(Object.values(store.getState())).toEqual([{ todoList: [] }]);
   expect(actionFn.mock.calls.length).toBe(0);
   foo.add('test');
@@ -240,12 +240,15 @@ test('base model with `useValue` and `enablePatches`', () => {
   ]);
   expect(
     applyPatches(originalTodoState, actionFn.mock.calls[0][0]._patches)
-  ).toEqual(foo.todo[stateKey]);
+  ).toEqual(getRef(foo.todo).state);
   expect(
     applyPatches(originalTodoState, actionFn.mock.calls[0][0]._patches) ===
-      foo.todo[stateKey]
+      getRef(foo.todo).state
   ).toBe(false);
   expect(
-    applyPatches(foo.todo[stateKey]!, actionFn.mock.calls[0][0]._inversePatches)
+    applyPatches(
+      getRef(foo.todo).state!,
+      actionFn.mock.calls[0][0]._inversePatches
+    )
   ).toEqual(originalTodoState);
 });
