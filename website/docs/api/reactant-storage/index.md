@@ -28,7 +28,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[packages/reactant-storage/src/storage.tsx:48](https://github.com/unadlib/reactant/blob/f66dad8a/packages/reactant-storage/src/storage.tsx#L48)
+[packages/reactant-storage/src/storage.tsx:48](https://github.com/unadlib/reactant/blob/c6e11a24/packages/reactant-storage/src/storage.tsx#L48)
 
 ## Variables
 
@@ -48,7 +48,7 @@ ___
 
 #### Defined in
 
-[packages/reactant-storage/src/storage.tsx:29](https://github.com/unadlib/reactant/blob/f66dad8a/packages/reactant-storage/src/storage.tsx#L29)
+[packages/reactant-storage/src/storage.tsx:29](https://github.com/unadlib/reactant/blob/c6e11a24/packages/reactant-storage/src/storage.tsx#L29)
 
 ## Functions
 
@@ -68,4 +68,4 @@ ___
 
 #### Defined in
 
-[packages/reactant-storage/src/storage.tsx:31](https://github.com/unadlib/reactant/blob/f66dad8a/packages/reactant-storage/src/storage.tsx#L31)
+[packages/reactant-storage/src/storage.tsx:31](https://github.com/unadlib/reactant/blob/c6e11a24/packages/reactant-storage/src/storage.tsx#L31)

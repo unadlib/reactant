@@ -19,7 +19,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[packages/reactant-module/src/core/view.ts:12](https://github.com/unadlib/reactant/blob/f66dad8a/packages/reactant-module/src/core/view.ts#L12)
+[packages/reactant-module/src/core/view.ts:12](https://github.com/unadlib/reactant/blob/c6e11a24/packages/reactant-module/src/core/view.ts#L12)
 
 ## Properties
 
@@ -29,11 +29,11 @@ custom_edit_url: null
 
 #### Implementation of
 
-Service.\_\_@identifierKey@59324
+Service.\_\_@identifierKey@59261
 
 #### Defined in
 
-[packages/reactant-module/src/core/view.ts:8](https://github.com/unadlib/reactant/blob/f66dad8a/packages/reactant-module/src/core/view.ts#L8)
+[packages/reactant-module/src/core/view.ts:8](https://github.com/unadlib/reactant/blob/c6e11a24/packages/reactant-module/src/core/view.ts#L8)
 
 ___
 
@@ -43,11 +43,11 @@ ___
 
 #### Implementation of
 
-Service.\_\_@storeKey@59309
+Service.\_\_@storeKey@59246
 
 #### Defined in
 
-[packages/reactant-module/src/core/view.ts:10](https://github.com/unadlib/reactant/blob/f66dad8a/packages/reactant-module/src/core/view.ts#L10)
+[packages/reactant-module/src/core/view.ts:10](https://github.com/unadlib/reactant/blob/c6e11a24/packages/reactant-module/src/core/view.ts#L10)
 
 ## Methods
 
@@ -69,4 +69,4 @@ React function component defined by the current ViewModule
 
 #### Defined in
 
-[packages/reactant-module/src/core/view.ts:28](https://github.com/unadlib/reactant/blob/f66dad8a/packages/reactant-module/src/core/view.ts#L28)
+[packages/reactant-module/src/core/view.ts:28](https://github.com/unadlib/reactant/blob/c6e11a24/packages/reactant-module/src/core/view.ts#L28)

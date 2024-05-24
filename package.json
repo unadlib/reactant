@@ -87,7 +87,7 @@
     "tslib": "^2.5.0",
     "typedoc": "^0.23.25",
     "typedoc-plugin-markdown": "^3.14.0",
-    "typescript": "^5.0.4",
+    "typescript": "^5.4.5",
     "yargs": "^15.1.0"
   },
   "resolutions": {
