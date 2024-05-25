@@ -1,7 +1,6 @@
 /* eslint-disable no-use-before-define */
 import type {
   Store as ReduxStore,
-  PreloadedState,
   AnyAction,
   Middleware,
   Action,
@@ -78,7 +77,7 @@ export type ReduxDevToolsOptions = Pick<
   Exclude<keyof EnhancerOptions, 'actionSanitizer' | 'serialize'>
 >;
 
-export type TypePreloadedState<T> = PreloadedState<T>;
+export type TypePreloadedState<T> = T;
 
 export type Subscriptions = (() => void)[];
 
@@ -112,7 +111,7 @@ export type ReactantStore = ReduxStore<any, AnyAction> & {
 
 export type ReactantMiddleware = Middleware;
 
-export interface ReactantAction<T = any> extends Action<string | symbol> {
+export interface ReactantAction<T = any> extends Action<string> {
   method?: string;
   state: Record<string, T>;
   params: any[];

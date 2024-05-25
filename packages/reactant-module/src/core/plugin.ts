@@ -1,11 +1,5 @@
 import type { FunctionComponent } from 'react';
-import type {
-  ReducersMapObject,
-  Middleware,
-  PreloadedState,
-  Reducer,
-  Store,
-} from 'redux';
+import type { ReducersMapObject, Middleware, Reducer, Store } from 'redux';
 import { injectable } from 'reactant-di';
 import { storeKey } from '../constants';
 import { Service } from '../interfaces';
@@ -17,9 +11,7 @@ abstract class PluginModule implements Service {
   /**
    * preloaded state handler for Redux
    */
-  preloadedStateHandler?(
-    preloadedState: PreloadedState<any>
-  ): PreloadedState<any>;
+  preloadedStateHandler?(preloadedState: any): any;
 
   /**
    * inject middleware for Redux

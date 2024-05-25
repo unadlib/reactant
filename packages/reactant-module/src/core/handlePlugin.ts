@@ -1,4 +1,4 @@
-import { ReducersMapObject, Reducer, PreloadedState } from 'redux';
+import type { ReducersMapObject, Reducer } from 'redux';
 import { PluginModule } from './plugin';
 import { PluginHooks, HandlePlugin } from '../interfaces';
 
@@ -19,9 +19,8 @@ export const handlePlugin: HandlePlugin = (
       );
     }
     if (typeof service.preloadedStateHandler === 'function') {
-      pluginHooks.preloadedStateHandler.push(
-        (preloadedState: PreloadedState<any>) =>
-          service.preloadedStateHandler!(preloadedState)
+      pluginHooks.preloadedStateHandler.push((preloadedState: any) =>
+        service.preloadedStateHandler!(preloadedState)
       );
     }
     if (typeof service.enhancer === 'function') {

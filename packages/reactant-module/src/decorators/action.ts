@@ -1,7 +1,8 @@
 /* eslint-disable no-console */
 /* eslint-disable func-names */
 import { create } from 'mutative';
-import { Patches, ReactantAction, Service } from '../interfaces';
+import type { AnyAction } from 'redux';
+import type { Patches, Service } from '../interfaces';
 import {
   storeKey,
   actionIdentifier,
@@ -116,7 +117,7 @@ const action = (
             );
           }
         }
-        this[storeKey]!.dispatch<ReactantAction>({
+        this[storeKey]!.dispatch<AnyAction>({
           type: this[identifierKey]!,
           method: key,
           params: args,
