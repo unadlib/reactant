@@ -1,12 +1,11 @@
 /* eslint-disable consistent-return */
 import React, { PropsWithChildren, FunctionComponent } from 'react';
 import { PluginModule, injectable, inject, storeKey } from 'reactant-module';
-import type { ReducersMapObject, Store } from 'redux';
+import type { AnyAction, ReducersMapObject } from 'redux';
 import {
   connectRouter,
   ConnectedRouter,
   CALL_HISTORY_METHOD,
-  RouterAction,
   onLocationChanged,
   routerActions,
 } from 'connected-react-router';
@@ -66,7 +65,8 @@ class ReactantRouter extends PluginModule {
     this.autoCreateHistory = this.options?.autoCreateHistory ?? true;
     if (this.autoCreateHistory) {
       this.history = this.options.createHistory();
-      this.middleware = (store) => (next) => (action: RouterAction) => {
+      this.middleware = (store) => (next) => (_action) => {
+        const action = _action as AnyAction;
         if (action.type !== CALL_HISTORY_METHOD) {
           return next(action);
         }
@@ -113,23 +113,23 @@ class ReactantRouter extends PluginModule {
   }
 
   push(path: string, state?: LocationState) {
-    this.store?.dispatch(this.routerActions.push(path, state));
+    this.store?.dispatch(this.routerActions.push(path, state) as AnyAction);
   }
 
   replace(path: string, state?: LocationState) {
-    this.store?.dispatch(this.routerActions.replace(path, state));
+    this.store?.dispatch(this.routerActions.replace(path, state) as AnyAction);
   }
 
   go(n: number) {
-    this.store?.dispatch(this.routerActions.go(n));
+    this.store?.dispatch(this.routerActions.go(n) as AnyAction);
   }
 
   goBack() {
-    this.store?.dispatch(this.routerActions.goBack());
+    this.store?.dispatch(this.routerActions.goBack() as AnyAction);
   }
 
   goForward() {
-    this.store?.dispatch(this.routerActions.goForward());
+    this.store?.dispatch(this.routerActions.goForward() as AnyAction);
   }
 
   provider = (props: PropsWithChildren<any>) => {

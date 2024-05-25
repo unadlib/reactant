@@ -62,7 +62,7 @@ export const model = <
         }
         const lastState = module[storeKey]?.getState();
         module[storeKey]!.dispatch({
-          type: module[identifierKey],
+          type: module[identifierKey]!,
           method: key,
           state: {
             ...lastState,

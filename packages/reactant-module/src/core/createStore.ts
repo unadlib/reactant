@@ -12,11 +12,11 @@ import {
   ServiceIdentifiersMap,
 } from 'reactant-di';
 import {
+  Action,
   AnyAction,
   applyMiddleware,
   combineReducers,
   createStore as createStoreWithRedux,
-  PreloadedState,
   Reducer,
   ReducersMapObject,
 } from 'redux';
@@ -66,7 +66,7 @@ interface CreateStoreOptions<T> {
   load: (...args: Parameters<Loader>) => void;
   dynamicModules: DynamicModules;
   pluginHooks: PluginHooks;
-  preloadedState?: PreloadedState<T>;
+  preloadedState?: T;
   devOptions?: DevOptions;
   originalStore?: ReactantStore;
   beforeReplaceReducer?: () => void;
@@ -245,7 +245,7 @@ export function createStore<T = any>({
                     return action._reactant === actionIdentifier &&
                       action.state[identifier!]
                       ? action.state[identifier!][key]
-                      : pureReducer(state, action);
+                      : pureReducer(state, action as AnyAction);
                   };
                   return Object.assign(serviceReducersMapObject, {
                     [key]: reducer,

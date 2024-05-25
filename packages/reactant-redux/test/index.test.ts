@@ -5,7 +5,6 @@ import {
   createContainer,
   createStore,
 } from 'reactant-module';
-import { Dispatch } from 'redux';
 import { redux } from '..';
 
 test('base redux with `useValue`', () => {
@@ -38,7 +37,7 @@ test('base redux with `useValue`', () => {
         action.type === 'add' ? [...state, action.payload] : state,
     },
     actions: {
-      add: (text: string) => (dispatch: Dispatch<AddTodoAction>) =>
+      add: (text: string) => (dispatch) =>
         dispatch({
           type: 'add',
           payload: { text, completed: false },
@@ -133,7 +132,7 @@ test('base redux with `useFactory`', () => {
         ) => (action.type === 'add' ? [...state, action.payload] : state),
       },
       actions: {
-        add: (text: string) => (dispatch: Dispatch<AddTodoAction>) =>
+        add: (text: string) => (dispatch) =>
           dispatch({
             type: 'add',
             payload: { text, completed: false },

@@ -28,10 +28,10 @@
   "license": "MIT",
   "peerDependencies": {
     "reactant-module": "*",
-    "redux": "^4.1.0"
+    "redux": "^5.0.1"
   },
   "devDependencies": {
     "reactant-module": "^0.110.0",
-    "redux": "^4.1.0"
+    "redux": "^5.0.1"
   }
 }

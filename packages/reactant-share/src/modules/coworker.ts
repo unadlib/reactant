@@ -116,7 +116,8 @@ export class Coworker extends PluginModule {
 
     if (this.isCoworker && this.enablePatchesChecker) {
       // stricter checks to prevent cross-module state updates.
-      this.middleware = (store) => (next) => (_action: ReactantAction) => {
+      this.middleware = (store) => (next) => (action) => {
+        const _action = action as ReactantAction;
         const { _patches, type, method } = _action;
         // skip check for storage module change any state
         if (type === storageModuleName) return next(_action);

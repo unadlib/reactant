@@ -131,6 +131,68 @@ describe('useConnector', () => {
     @injectable()
     class FooView extends ViewModule {
       @state
+      count = 0;
+
+      @action
+      increase() {
+        this.count += 1;
+      }
+
+      @state
+      key: string | null = null;
+
+      @action
+      setValue(value: string) {
+        this.key = value;
+      }
+
+      component() {
+        const value = useConnector(
+          () => this.key,
+          (newValue, oldValue) => {
+            checkFn();
+            return newValue === oldValue;
+          }
+        );
+        renderFn(value);
+        return null;
+      }
+    }
+
+    const app = createApp({
+      modules: [],
+      main: {
+        provide: 'FooView',
+        useClass: FooView,
+      },
+      render,
+    });
+    expect(checkFn).toBeCalledTimes(0);
+    expect(renderFn).toBeCalledTimes(0);
+    act(() => {
+      app.bootstrap(container);
+    });
+    expect(checkFn).toBeCalledTimes(1);
+    expect(renderFn).toBeCalledTimes(1);
+    act(() => {
+      app.instance.setValue('str');
+    });
+    expect(checkFn).toBeCalledTimes(3);
+    expect(renderFn).toBeCalledTimes(2);
+    act(() => {
+      app.instance.increase();
+    });
+    expect(checkFn).toBeCalledTimes(4);
+    expect(renderFn).toBeCalledTimes(2);
+  });
+
+  test('selector with error custom shallowEqual', () => {
+    const renderFn = jest.fn();
+    const checkFn = jest.fn();
+
+    @injectable()
+    class FooView extends ViewModule {
+      @state
       key: string | null = null;
 
       @action
@@ -161,16 +223,9 @@ describe('useConnector', () => {
     });
     expect(checkFn).toBeCalledTimes(0);
     expect(renderFn).toBeCalledTimes(0);
-    act(() => {
-      app.bootstrap(container);
-    });
-    expect(checkFn).toBeCalledTimes(0);
-    expect(renderFn).toBeCalledTimes(1);
     expect(() => {
-      app.instance.setValue('str');
-    }).toThrow();
-    expect(checkFn).toBeCalledTimes(3);
-    expect(renderFn).toBeCalledTimes(1);
+      app.bootstrap(container);
+    }).toThrowError('some error');
   });
 
   test('selector without store', () => {

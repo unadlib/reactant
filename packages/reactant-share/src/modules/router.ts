@@ -16,6 +16,7 @@ import type {
   RouterState,
 } from 'reactant-router';
 import type { LocationState } from 'history';
+import type { AnyAction } from 'redux';
 import {
   routerModuleName,
   SharedAppOptions,
@@ -391,7 +392,7 @@ class ReactantRouter extends BaseReactantRouter {
 
   protected dispatchChanged(router: RouterState) {
     this.store?.dispatch(
-      this.onLocationChanged(router.location, router.action)!
+      this.onLocationChanged(router.location, router.action) as AnyAction
     );
   }
 
