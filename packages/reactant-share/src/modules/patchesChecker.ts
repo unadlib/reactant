@@ -36,7 +36,8 @@ export class PatchesChecker extends PluginModule {
     }
   }
 
-  middleware: Middleware = (store) => (next) => (_action: ReactantAction) => {
+  middleware: Middleware = (store) => (next) => (action) => {
+    const _action = action as ReactantAction;
     const { _patches, type, method } = _action;
     let hasIsolatedState: boolean;
     _patches?.forEach(({ path, op, value }, index) => {
