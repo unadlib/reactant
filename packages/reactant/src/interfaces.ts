@@ -48,7 +48,4 @@ export interface App<T, S extends any[], R extends Renderer<S>> {
   bootstrap(...args: S): ReturnType<R> | Promise<R>;
 }
 
-export type ShallowEqual = (
-  a: Record<string, any>,
-  b: Record<string, any>
-) => boolean;
+export type ShallowEqual<T> = (a: T, b: T) => boolean;

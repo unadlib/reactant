@@ -47,13 +47,13 @@ import { ShallowEqual } from '../interfaces';
  */
 export function useConnector<T>(
   selector: (container: Container) => T,
-  shallowEqual?: ShallowEqual
+  shallowEqual?: ShallowEqual<T>
 ) {
   try {
     const container = useContext(ContainerContext);
     return useSelector(
-      () => selector(container!) as Record<string, any>,
-      shallowEqual || areShallowEqualWithObject
+      () => selector(container!) as unknown,
+      (shallowEqual || areShallowEqualWithObject) as any
     ) as T;
   } catch (e) {
     try {
