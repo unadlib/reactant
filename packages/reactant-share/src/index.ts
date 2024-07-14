@@ -43,4 +43,5 @@ export type {
   ISharedAppOptions,
   Config as SharedAppConfig,
   SymmetricTransport,
+  ProxyExecParams,
 } from './interfaces';

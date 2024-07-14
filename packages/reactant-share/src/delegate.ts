@@ -101,6 +101,7 @@ export const delegate = ((module, key, args, options = {}) => {
           module: target[identifierKey]!,
           method: key,
           args: _args,
+          hook: options._extra?.serverHook,
         }
       );
     }

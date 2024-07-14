@@ -148,6 +148,10 @@ export interface ProxyExecParams {
    * method arguments
    */
   args: any[];
+  /**
+   * hook execution options
+   */
+  hook?: string;
 }
 
 export type ClientEvents = {

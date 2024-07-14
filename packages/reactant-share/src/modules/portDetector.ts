@@ -23,6 +23,7 @@ import type {
   Transports,
   Transport,
   ISharedAppOptions,
+  ProxyExecParams,
 } from '../interfaces';
 import { createId } from '../utils';
 
@@ -72,6 +73,11 @@ export class PortDetector {
    * client ids, it will collect all the client ids when the port is server, it is an empty array in client port.
    */
   clientIds: string[] = [];
+
+  /**
+   * server hooks for delegate(this, key, args, { _extra: { serverHook: '$hookName' } }) method
+   */
+  serverHooks: Record<string, (options: ProxyExecParams) => any> = {};
 
   constructor(
     @inject(SharedAppOptions) public sharedAppOptions: ISharedAppOptions,
