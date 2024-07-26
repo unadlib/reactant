@@ -9340,10 +9340,10 @@ multimatch@5.0.0:
     arrify "^2.0.1"
     minimatch "^3.0.4"
 
-mutative@^1.0.7:
-  version "1.0.7"
-  resolved "https://registry.yarnpkg.com/mutative/-/mutative-1.0.7.tgz#61bb72e8b271fdbdae4e49411bdadf9b973a64ce"
-  integrity sha512-5pKxmcpNfb3h8k23c8u/amcoesLXn6eZaXett9FV0G9xpIOOVxsjlVptHnHc/0ZtJy2VsHBtdx76vZONnupwRQ==
+mutative@^1.0.8:
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/mutative/-/mutative-1.0.8.tgz#5dfc7a74bdda8acc5b3c1d91aba47d95f2b2dd3a"
+  integrity sha512-bVVGCfEQTJDbsa+L1LX3jJftFnWZWfH0XIM+h/rJYnjgof3ZimBSuF/mOrh/NJI7H4pWGoji+DDuurPGpUZofw==
 
 mute-stream@0.0.7:
   version "0.0.7"
