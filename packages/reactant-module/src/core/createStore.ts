@@ -204,8 +204,19 @@ export function createStore<T = any>({
                     signalMap[key] &&
                     !isEqual(signalMap[key].value, current)
                   ) {
-                    // Manual update signal value when the state is changed outside the common reducer.
-                    signalMap[key].value = current;
+                    try {
+                      // Manual update signal value when the state is changed outside the common reducer.
+                      signalMap[key].value = current;
+                    } catch (e) {
+                      if (
+                        JSON.stringify(signalMap[key].value) !==
+                        JSON.stringify(current)
+                      ) {
+                        console.error(
+                          `[Reactant] The '${key}' state value of the module '${className}' has been changed outside the common reducer, which may cause the state to be out of sync. Please check middleware to update the state value without signal updating.`
+                        );
+                      }
+                    }
                   }
                   return current;
                 },

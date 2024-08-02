@@ -389,7 +389,8 @@ class ReactantRouter extends BaseReactantRouter {
     },
   } as RouterState;
 
-  protected dispatchChanged(router: RouterState) {
+  protected dispatchChanged(router?: RouterState) {
+    if (!router) return;
     this.store?.dispatch(
       this.onLocationChanged(router.location, router.action)!
     );
