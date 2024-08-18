@@ -40,6 +40,7 @@ const app = createApp({
   render,
   devOptions: {
     reduxDevTools: true,
+    autoComputed: true,
   },
 });
 

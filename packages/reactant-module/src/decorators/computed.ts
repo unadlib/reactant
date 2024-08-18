@@ -108,7 +108,8 @@ export function computed(...args: any[]) {
     ...descriptor,
     get(this: Service) {
       if (!this[enableAutoComputedKey]) {
-        if (__DEV__) {
+        // if the auto computed feature is disabled, return the computed value directly.
+        if (__DEV__ && this[storeKey]) {
           console.warn(
             `You should enable auto computed feature by setting 'autoComputed' to 'true' in the dev options.`
           );
