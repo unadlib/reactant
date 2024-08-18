@@ -15,7 +15,7 @@ import {
   signalMapKey,
   enableAutoComputedKey,
 } from 'reactant-module';
-import type { Reducer, ReducersMapObject, Store } from 'redux';
+import type { Middleware, Reducer, ReducersMapObject, Store } from 'redux';
 import {
   persistStore,
   persistReducer,
@@ -129,6 +129,29 @@ class ReactantStorage extends PluginModule {
     });
   }
 
+  middleware: Middleware = (store) => (next) => (_action) => {
+    if (
+      (this as Service)[enableAutoComputedKey] &&
+      _action.type === REHYDRATE &&
+      _action.key !== 'root'
+    ) {
+      const target = getRef(this).modules![_action.key];
+      const persistStateKeys = Object.keys(_action.payload) ?? [];
+      persistStateKeys.forEach((persistStateKey) => {
+        if (
+          persistStateKey !== '_persist' &&
+          target[signalMapKey]?.[persistStateKey]
+        ) {
+          // need to update the target signal value to the latest hydrated state
+          target[signalMapKey][persistStateKey].value =
+            _action.payload[persistStateKey];
+        }
+      });
+    }
+    const result = next(_action);
+    return result;
+  };
+
   /**
    * get every module rehydrated
    */
@@ -162,27 +185,6 @@ class ReactantStorage extends PluginModule {
       }
       const persistConfig = this.persistConfig[key];
       if (persistConfig) {
-        if ((this as Service)[enableAutoComputedKey]) {
-          const target = getRef(this)!.modules![key];
-          const ref = getRef(target);
-          const stopWatching = watch(
-            this,
-            () => ref!.state?._persist?.rehydrated,
-            (rehydrated) => {
-              if (rehydrated) {
-                stopWatching();
-                const persistStateKeys = persistConfig.whitelist ?? [];
-                persistStateKeys.forEach((persistStateKey) => {
-                  if (target[signalMapKey]?.[persistStateKey]) {
-                    // need to update the target signal value to the latest hydrated state
-                    target[signalMapKey][persistStateKey].value =
-                      ref.state![persistStateKey];
-                  }
-                });
-              }
-            }
-          );
-        }
         const reducer = persistReducer(persistConfig, reducers[key]);
         Object.assign(reducers, {
           [key]: reducer,

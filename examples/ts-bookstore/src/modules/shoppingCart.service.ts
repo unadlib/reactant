@@ -1,4 +1,4 @@
-import { injectable, action, state } from 'reactant';
+import { injectable, action, state, computed, watch } from 'reactant';
 import { Storage } from 'reactant-storage';
 
 interface IListItem {
@@ -16,6 +16,14 @@ class ShoppingCart {
     this.storage.setStorage(this, {
       whitelist: ['list'],
     });
+
+    watch(
+      this,
+      () => this.bookCount,
+      () => {
+        console.log('bookCount:', this.bookCount);
+      }
+    );
   }
 
   @state
@@ -29,6 +37,11 @@ class ShoppingCart {
     } else {
       book.count += item.count;
     }
+  }
+
+  @computed
+  get bookCount() {
+    return this.list.reduce((acc, item) => acc + item.count, 0);
   }
 }
 
