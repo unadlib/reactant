@@ -136,7 +136,7 @@ class ReactantStorage extends PluginModule {
       _action.key !== 'root'
     ) {
       const target = getRef(this).modules![_action.key];
-      const persistStateKeys = Object.keys(_action.payload) ?? [];
+      const persistStateKeys = Object.keys(_action.payload ?? {}) ?? [];
       persistStateKeys.forEach((persistStateKey) => {
         if (
           persistStateKey !== '_persist' &&
