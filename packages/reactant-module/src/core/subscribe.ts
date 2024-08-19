@@ -36,18 +36,24 @@ import { storeKey, subscriptionsKey, unsubscriptionsKey } from '../constants';
  * });
  * ```
  */
-const subscribe: Subscribe = (service, listener) => {
+const subscribe: Subscribe = (service, listener, { immediate } = {}) => {
   if (typeof listener !== 'function') {
     throw new Error(`The 'listener' should be a function.`);
   }
   let unsubscribe: Unsubscribe;
   if (service[storeKey]) {
+    if (immediate) {
+      listener();
+    }
     unsubscribe = service[storeKey]?.subscribe(listener)!;
   } else {
     // When constructing
     const subscriptions = service[subscriptionsKey] ?? [];
     let _unsubscribe: Unsubscribe;
     subscriptions.push(() => {
+      if (immediate) {
+        listener();
+      }
       _unsubscribe = service[storeKey]?.subscribe(listener)!;
     });
     unsubscribe = () => {

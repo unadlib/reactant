@@ -11,16 +11,22 @@ import {
 test('subscribe in constructor', () => {
   const storeSubscribeFn = jest.fn();
   const subscribeFn = jest.fn();
+  const subscribeFn1 = jest.fn();
+  const subscribeFn2 = jest.fn();
+  const subscribeFn3 = jest.fn();
   const whenFn = jest.fn();
 
   @injectable()
   class Foo {
     unsubscribe: () => void;
 
+    unsubscribe1: () => void;
+
     dispose: () => void;
 
     constructor() {
       this.unsubscribe = subscribe(this, subscribeFn);
+      this.unsubscribe1 = subscribe(this, subscribeFn1, { immediate: true });
       this.dispose = watch(this, () => this.count, whenFn);
     }
 
@@ -76,11 +82,13 @@ test('subscribe in constructor', () => {
   foo.increase();
   expect(storeSubscribeFn.mock.calls.length).toBe(1);
   expect(subscribeFn.mock.calls.length).toBe(1);
+  expect(subscribeFn1.mock.calls.length).toBe(2);
   expect(subscribeFn.mock.calls).toEqual([[]]);
   expect(whenFn.mock.calls).toEqual([[2, 1]]);
   foo.increase();
   expect(storeSubscribeFn.mock.calls.length).toBe(2);
   expect(subscribeFn.mock.calls.length).toBe(2);
+  expect(subscribeFn1.mock.calls.length).toBe(3);
   expect(whenFn.mock.calls).toEqual([
     [2, 1],
     [3, 2],
@@ -88,6 +96,7 @@ test('subscribe in constructor', () => {
   foo.increase1();
   expect(storeSubscribeFn.mock.calls.length).toBe(3);
   expect(subscribeFn.mock.calls.length).toBe(3);
+  expect(subscribeFn1.mock.calls.length).toBe(4);
   expect(whenFn.mock.calls).toEqual([
     [2, 1],
     [3, 2],
@@ -95,18 +104,29 @@ test('subscribe in constructor', () => {
   foo.increase1();
   expect(storeSubscribeFn.mock.calls.length).toBe(4);
   expect(subscribeFn.mock.calls.length).toBe(4);
+  expect(subscribeFn1.mock.calls.length).toBe(5);
   expect(whenFn.mock.calls.length).toEqual(2);
 
   foo.unsubscribe();
+  foo.unsubscribe1();
   foo.increase();
   expect(storeSubscribeFn.mock.calls.length).toBe(5);
   expect(subscribeFn.mock.calls.length).toBe(4);
+  expect(subscribeFn1.mock.calls.length).toBe(5);
   expect(whenFn.mock.calls.length).toEqual(3);
+
+  subscribe(foo, subscribeFn2);
+  expect(subscribeFn2.mock.calls.length).toBe(0);
+
+  subscribe(foo, subscribeFn3, { immediate: true });
+  expect(subscribeFn3.mock.calls.length).toBe(1);
 
   foo.dispose();
   foo.increase();
   expect(storeSubscribeFn.mock.calls.length).toBe(6);
   expect(whenFn.mock.calls.length).toEqual(3);
+  expect(subscribeFn2.mock.calls.length).toBe(1);
+  expect(subscribeFn3.mock.calls.length).toBe(2);
 });
 
 test('subscribe in non-constructor', () => {
