@@ -155,7 +155,16 @@ export type Subscribe = (
   /**
    * Redux's store subscription
    */
-  listener: () => void
+  listener: () => void,
+  /**
+   * Redux's options subscription
+   */
+  options?: {
+    /**
+     * Whether to trigger the listener immediately
+     */
+    immediate?: boolean;
+  }
 ) => Unsubscribe;
 
 type Selector<T> = () => T;
