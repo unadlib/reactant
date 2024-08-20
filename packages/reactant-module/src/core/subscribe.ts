@@ -43,7 +43,11 @@ const subscribe: Subscribe = (service, listener, { immediate } = {}) => {
   let unsubscribe: Unsubscribe;
   if (service[storeKey]) {
     if (immediate) {
-      listener();
+      try {
+        listener();
+      } catch (error) {
+        console.error(error);
+      }
     }
     unsubscribe = service[storeKey]?.subscribe(listener)!;
   } else {
@@ -52,7 +56,11 @@ const subscribe: Subscribe = (service, listener, { immediate } = {}) => {
     let _unsubscribe: Unsubscribe;
     subscriptions.push(() => {
       if (immediate) {
-        listener();
+        try {
+          listener();
+        } catch (error) {
+          console.error(error);
+        }
       }
       _unsubscribe = service[storeKey]?.subscribe(listener)!;
     });
