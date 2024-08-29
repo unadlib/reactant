@@ -116,6 +116,33 @@ export function createStore<T = any>({
     }
   }
   const multipleInjectMap = getMetadata(METADATA_KEY.multiple);
+  const allServiceIdentifiers = Array.from(ServiceIdentifiers);
+  allServiceIdentifiers
+    .sort(([a], [b]) => {
+      let aDeps = [];
+      try {
+        aDeps = Reflect.getMetadata(METADATA_KEY.paramtypes, a) ?? [];
+      } catch (e) {
+        //
+      }
+      let bDeps = [];
+      try {
+        bDeps = Reflect.getMetadata(METADATA_KEY.paramtypes, b) ?? [];
+      } catch (e) {
+        //
+      }
+      return aDeps.length - bDeps.length;
+    })
+    .sort(([a], [b]) => {
+      // TODO: fix issue
+      // @ts-ignore
+      if (a?.name === 'ReactantRouter') return -1;
+      return 0;
+    });
+  ServiceIdentifiers.clear();
+  allServiceIdentifiers.forEach(([ServiceIdentifier, value]) => {
+    ServiceIdentifiers.set(ServiceIdentifier, value);
+  });
   for (const [ServiceIdentifier] of ServiceIdentifiers) {
     // `Service` should be bound before `createStore`.
     const isMultipleInjection = multipleInjectMap.has(ServiceIdentifier);

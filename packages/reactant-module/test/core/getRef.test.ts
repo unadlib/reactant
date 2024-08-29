@@ -117,16 +117,16 @@ test('getRef for base module', () => {
   expect(counter.count).toBe(0);
   expect(counter.string).toBe('test');
   expect(Object.values(store.getState())).toEqual([
-    { count: 0, others: { list: [] } },
     { list: [] },
+    { count: 0, others: { list: [] } },
   ]);
   counter.increase();
   expect(counter.count).toBe(1);
   counter.add();
   expect(counter.others.list).toEqual([0]);
   expect(Object.values(store.getState())).toEqual([
-    { count: 1, others: { list: [0] } },
     { list: [] },
+    { count: 1, others: { list: [0] } },
   ]);
   expect((counter as any)[initStateKey].count).toBe(0);
   expect(getRef(counter).initState!.count).toBe(0);
@@ -140,7 +140,6 @@ test('getRef for base module', () => {
       (name) => !/^@@reactant/.test(name)
     )
   ).toEqual([
-    'counter',
     'string',
     'number',
     'symbol',
@@ -150,5 +149,6 @@ test('getRef for base module', () => {
     'array',
     'set',
     'map',
+    'counter',
   ]);
 });

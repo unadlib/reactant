@@ -74,7 +74,7 @@ describe('@computed', () => {
     });
     expect(computedFn.mock.calls.length).toBe(0);
     counter.increase();
-    expect(Object.values(store.getState())[0]).toEqual({ count: 1 });
+    expect(Object.values(store.getState())[1]).toEqual({ count: 1 });
     expect(counter.num).toBe(2);
     expect(computedFn.mock.calls.length).toBe(1);
     expect(counter.num).toBe(2);
@@ -977,7 +977,7 @@ describe('@computed with automatic dependencies collection', () => {
     expect(computedFn.mock.calls.length).toBe(0);
     expect(computedFn0.mock.calls.length).toBe(1);
     counter.increase();
-    expect(Object.values(store.getState())[0]).toEqual({ count: 1 });
+    expect(Object.values(store.getState())[1]).toEqual({ count: 1 });
     expect(counter.num).toBe(3);
     expect(computedFn.mock.calls.length).toBe(1);
     expect(computedFn0.mock.calls.length).toBe(2);
@@ -1093,7 +1093,7 @@ describe('@computed with automatic dependencies collection', () => {
     expect(computedFn0.mock.calls.length).toBe(1);
     expect(computedFn1.mock.calls.length).toBe(1);
     counter.increase();
-    expect(Object.values(store.getState())[0]).toEqual({ count: 1 });
+    expect(Object.values(store.getState())[1]).toEqual({ count: 1 });
     expect(counter.num).toBe(3);
     expect(computedFn.mock.calls.length).toBe(1);
     expect(computedFn0.mock.calls.length).toBe(2);
@@ -1229,7 +1229,7 @@ describe('@computed with automatic dependencies collection', () => {
     });
     expect(computedFn.mock.calls.length).toBe(0);
     counter.increase();
-    expect(Object.values(store.getState())[0]).toEqual({ count: 1 });
+    expect(Object.values(store.getState())[1]).toEqual({ count: 1 });
     expect(counter.num).toBe(3);
     expect(computedFn.mock.calls.length).toBe(1);
     expect(counter.num).toBe(3);
@@ -1309,7 +1309,7 @@ describe('@computed with automatic dependencies collection', () => {
     });
     expect(computedFn.mock.calls.length).toBe(0);
     counter.increase();
-    expect(Object.values(store.getState())[0]).toEqual({ count: 1 });
+    expect(Object.values(store.getState())[1]).toEqual({ count: 1 });
     expect(counter.num).toBe(2);
     expect(computedFn.mock.calls.length).toBe(1);
     expect(counter.num).toBe(2);
@@ -1384,7 +1384,7 @@ describe('@computed with automatic dependencies collection', () => {
     });
     expect(computedFn.mock.calls.length).toBe(0);
     counter.increase();
-    expect(Object.values(store.getState())[0]).toEqual({ count: 1 });
+    expect(Object.values(store.getState())[1]).toEqual({ count: 1 });
     expect(counter.num).toBe(2);
     expect(computedFn.mock.calls.length).toBe(1);
     expect(counter.num).toBe(2);
@@ -1887,7 +1887,7 @@ describe('@computed with automatic dependencies collection', () => {
     expect(computedFn0.mock.calls.length).toBe(0);
     expect(counter.num).toBe(1);
     counter.increase();
-    expect(Object.values(store.getState())[0]).toEqual({ count: 1 });
+    expect(Object.values(store.getState())[1]).toEqual({ count: 1 });
     expect(counter.num).toBe(2);
     expect(counter.counter0.num).toBe(1);
     expect(computedFn0.mock.calls.length).toBe(1);
