@@ -116,29 +116,24 @@ export function createStore<T = any>({
     }
   }
   const multipleInjectMap = getMetadata(METADATA_KEY.multiple);
+  // it's just a workaround for the issue of `ServiceIdentifiers` order.
+  // InversifyJS issue: https://github.com/inversify/InversifyJS/issues/1578
   const allServiceIdentifiers = Array.from(ServiceIdentifiers);
-  allServiceIdentifiers
-    .sort(([a], [b]) => {
-      let aDeps = [];
-      try {
-        aDeps = Reflect.getMetadata(METADATA_KEY.paramtypes, a) ?? [];
-      } catch (e) {
-        //
-      }
-      let bDeps = [];
-      try {
-        bDeps = Reflect.getMetadata(METADATA_KEY.paramtypes, b) ?? [];
-      } catch (e) {
-        //
-      }
-      return aDeps.length - bDeps.length;
-    })
-    .sort(([a], [b]) => {
-      // TODO: fix issue
-      // @ts-ignore
-      if (a?.name === 'ReactantRouter') return -1;
-      return 0;
-    });
+  allServiceIdentifiers.sort(([a], [b]) => {
+    let aDeps = [];
+    try {
+      aDeps = Reflect.getMetadata(METADATA_KEY.paramtypes, a) ?? [];
+    } catch (e) {
+      //
+    }
+    let bDeps = [];
+    try {
+      bDeps = Reflect.getMetadata(METADATA_KEY.paramtypes, b) ?? [];
+    } catch (e) {
+      //
+    }
+    return aDeps.length - bDeps.length;
+  });
   ServiceIdentifiers.clear();
   allServiceIdentifiers.forEach(([ServiceIdentifier, value]) => {
     ServiceIdentifiers.set(ServiceIdentifier, value);

@@ -1,7 +1,7 @@
 /* eslint-disable consistent-return */
 import React, { PropsWithChildren, FunctionComponent } from 'react';
 import { PluginModule, injectable, inject, storeKey } from 'reactant-module';
-import type { ReducersMapObject, Store } from 'redux';
+import type { ReducersMapObject } from 'redux';
 import {
   connectRouter,
   ConnectedRouter,
@@ -19,6 +19,7 @@ export {
 } from 'history';
 
 export { LOCATION_CHANGE } from 'connected-react-router';
+export type { LocationChangeAction } from 'connected-react-router';
 
 const RouterOptions = Symbol('RouterOptions');
 
