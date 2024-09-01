@@ -135,6 +135,10 @@ export function createStore<T = any>({
     return aDeps.length - bDeps.length;
   });
   ServiceIdentifiers.clear();
+  // ServiceIdentifiers is sorted by the number of dependencies.
+  // The purpose is to ensure that the module is loaded in the correct order.
+  // The module with fewer dependencies is loaded first.
+  // ServiceIdentifiers is a mutable object, so it needs to be redefined.
   allServiceIdentifiers.forEach(([ServiceIdentifier, value]) => {
     ServiceIdentifiers.set(ServiceIdentifier, value);
   });
