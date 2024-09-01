@@ -1,3 +1,4 @@
+/* eslint-disable prefer-destructuring */
 /* eslint-disable no-shadow */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable consistent-return */
@@ -10,9 +11,14 @@ import {
   stateKey,
   modulesKey,
 } from 'reactant';
-import { Router as BaseReactantRouter, RouterOptions } from 'reactant-router';
+import {
+  Router as BaseReactantRouter,
+  LOCATION_CHANGE,
+  RouterOptions,
+} from 'reactant-router';
 import type {
   IRouterOptions as IBaseRouterOptions,
+  LocationChangeAction,
   RouterState,
 } from 'reactant-router';
 import type { LocationState } from 'history';
@@ -220,12 +226,21 @@ class ReactantRouter extends BaseReactantRouter {
   }
 
   watchRehydratedRouting() {
-    const stopWatching = watch(
+    // The first rendering and the hydration of the persistent router may emit actions in a different order due to the module order.
+    let firstTrigger = false;
+    const stopWatchingRehydrated = watch(
       this,
       () => (this as any)[stateKey]._persist?.rehydrated,
       (rehydrated) => {
+        if (!this.enableCacheRouting) {
+          stopWatchingRehydrated();
+        }
         if (rehydrated) {
-          stopWatching();
+          stopWatchingRehydrated();
+          if (!firstTrigger) {
+            firstTrigger = true;
+            return;
+          }
           const router = this._routers[this.portDetector.name];
           this._changeRoutingOnSever(
             this.portDetector.name,
@@ -235,7 +250,37 @@ class ReactantRouter extends BaseReactantRouter {
         }
       }
     );
-    return stopWatching;
+    const stopWatchingIsFirstRendering = watch(
+      this,
+      () => this.portDetector.lastAction.action,
+      () => {
+        if (!this.enableCacheRouting) {
+          stopWatchingIsFirstRendering();
+        }
+        const action = this.portDetector.lastAction
+          .action as any as LocationChangeAction;
+        if (
+          action.type === LOCATION_CHANGE &&
+          action.payload.isFirstRendering
+        ) {
+          stopWatchingIsFirstRendering();
+          if (!firstTrigger) {
+            firstTrigger = true;
+            return;
+          }
+          const router = this._routers[this.portDetector.name];
+          this._changeRoutingOnSever(
+            this.portDetector.name,
+            router ?? this.defaultHistory,
+            Date.now()
+          );
+        }
+      }
+    );
+    return () => {
+      stopWatchingRehydrated();
+      stopWatchingIsFirstRendering();
+    };
   }
 
   /**

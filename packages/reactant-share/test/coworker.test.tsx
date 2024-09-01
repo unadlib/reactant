@@ -863,7 +863,6 @@ describe('base', () => {
     expect(onServerFn.mock.calls.length).toBe(0);
     expect(subscribeOnServerFn.mock.calls.length).toBe(0);
     expect(coworkerModuleSubscribe.mock.calls.map((item) => item[0])).toEqual([
-      'Coworker',
       'counterCoworker',
       'Coworker',
       'counterCoworker',
@@ -875,9 +874,10 @@ describe('base', () => {
       'counterCoworker',
       'Coworker',
       'counterCoworker',
-      'counterCoworker',
       'Coworker',
       'counterCoworker',
+      'counterCoworker',
+      'Coworker',
       'counterCoworker',
     ]);
     expect(nonCoworkerModuleSubscribe.mock.calls).toEqual(

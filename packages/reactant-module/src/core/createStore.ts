@@ -116,6 +116,32 @@ export function createStore<T = any>({
     }
   }
   const multipleInjectMap = getMetadata(METADATA_KEY.multiple);
+  // it's just a workaround for the issue of `ServiceIdentifiers` order.
+  // InversifyJS issue: https://github.com/inversify/InversifyJS/issues/1578
+  const allServiceIdentifiers = Array.from(ServiceIdentifiers);
+  allServiceIdentifiers.sort(([a], [b]) => {
+    let aDeps = [];
+    try {
+      aDeps = Reflect.getMetadata(METADATA_KEY.paramtypes, a) ?? [];
+    } catch (e) {
+      //
+    }
+    let bDeps = [];
+    try {
+      bDeps = Reflect.getMetadata(METADATA_KEY.paramtypes, b) ?? [];
+    } catch (e) {
+      //
+    }
+    return aDeps.length - bDeps.length;
+  });
+  ServiceIdentifiers.clear();
+  // ServiceIdentifiers is sorted by the number of dependencies.
+  // The purpose is to ensure that the module is loaded in the correct order.
+  // The module with fewer dependencies is loaded first.
+  // ServiceIdentifiers is a mutable object, so it needs to be redefined.
+  allServiceIdentifiers.forEach(([ServiceIdentifier, value]) => {
+    ServiceIdentifiers.set(ServiceIdentifier, value);
+  });
   for (const [ServiceIdentifier] of ServiceIdentifiers) {
     // `Service` should be bound before `createStore`.
     const isMultipleInjection = multipleInjectMap.has(ServiceIdentifier);
