@@ -1,8 +1,8 @@
 /* eslint-disable lines-between-class-members */
-import { handlePlugin, PluginModule, Store } from '../..';
+import { pushPlugin, PluginModule, Store } from '../..';
 
 test('base `handlePlugin` with invalid service', () => {
-  for (const item of [
+  const arr = [
     {},
     [],
     function () {
@@ -11,7 +11,8 @@ test('base `handlePlugin` with invalid service', () => {
     () => {
       //
     },
-  ]) {
+  ];
+  for (const item of arr) {
     const pluginHooks = {
       middleware: [],
       beforeCombineRootReducers: [],
@@ -21,7 +22,7 @@ test('base `handlePlugin` with invalid service', () => {
       afterCreateStore: [],
       provider: [],
     };
-    handlePlugin(item, pluginHooks);
+    pushPlugin(item, pluginHooks, arr.indexOf(item));
     Object.entries(pluginHooks).forEach(([_, hooks]) => {
       expect(hooks.length).toBe(0);
     });
@@ -29,7 +30,7 @@ test('base `handlePlugin` with invalid service', () => {
 });
 
 test('base `handlePlugin` with valid service', () => {
-  for (const item of [
+  const arr = [
     {
       service: new (class extends PluginModule {
         middleware = () => () => () => null;
@@ -50,7 +51,8 @@ test('base `handlePlugin` with valid service', () => {
         provider: 1,
       },
     },
-  ]) {
+  ];
+  for (const item of arr) {
     const pluginHooks = {
       middleware: [],
       beforeCombineRootReducers: [],
@@ -60,7 +62,7 @@ test('base `handlePlugin` with valid service', () => {
       afterCreateStore: [],
       provider: [],
     };
-    handlePlugin(item.service, pluginHooks);
+    pushPlugin(item.service, pluginHooks, arr.indexOf(item));
     Object.entries(pluginHooks).forEach(([key, hooks]) => {
       expect(hooks.length).toBe((item.length as any)[key]);
     });
