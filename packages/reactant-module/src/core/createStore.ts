@@ -55,7 +55,12 @@ import type {
   ThisService,
 } from '../interfaces';
 import { getComposeEnhancers, getStageName, isEqual, perform } from '../utils';
-import { handlePlugin } from './handlePlugin';
+import {
+  assignPlugin,
+  pushPlugin,
+  mergePluginHooks,
+  generatePluginHooks,
+} from './handlePlugin';
 import { type Signal, signal } from './signal';
 
 interface CreateStoreOptions<T> {
@@ -98,6 +103,9 @@ export function createStore<T = any>({
   const enableInspector = devOptions.enableInspector ?? false;
   const strict = devOptions.strict ?? false;
 
+  const _pushPluginHooks = generatePluginHooks();
+  const _assignPluginHooks = generatePluginHooks();
+
   dynamicModules.forEach((module, key) => {
     try {
       const services = container!.getAll(key);
@@ -116,9 +124,11 @@ export function createStore<T = any>({
     }
   }
   const multipleInjectMap = getMetadata(METADATA_KEY.multiple);
+  // #region sort ServiceIdentifiers
   // it's just a workaround for the issue of `ServiceIdentifiers` order.
   // InversifyJS issue: https://github.com/inversify/InversifyJS/issues/1578
   const allServiceIdentifiers = Array.from(ServiceIdentifiers);
+  const allServiceIdentifierKeys = Array.from(ServiceIdentifiers.keys());
   allServiceIdentifiers.sort(([a], [b]) => {
     let aDeps = [];
     try {
@@ -142,6 +152,7 @@ export function createStore<T = any>({
   allServiceIdentifiers.forEach(([ServiceIdentifier, value]) => {
     ServiceIdentifiers.set(ServiceIdentifier, value);
   });
+  // #endregion
   for (const [ServiceIdentifier] of ServiceIdentifiers) {
     // `Service` should be bound before `createStore`.
     const isMultipleInjection = multipleInjectMap.has(ServiceIdentifier);
@@ -153,7 +164,12 @@ export function createStore<T = any>({
       const services: IService[] = container.getAll(ServiceIdentifier);
       loadedModules.add(ServiceIdentifier);
       services.forEach((service, index) => {
-        handlePlugin(service, pluginHooks);
+        const indexPlugin = allServiceIdentifierKeys.indexOf(ServiceIdentifier);
+        if (indexPlugin === -1) {
+          pushPlugin(service, _pushPluginHooks, indexPlugin);
+        } else {
+          assignPlugin(service, _assignPluginHooks, indexPlugin);
+        }
         const className = (ServiceIdentifier as Function).name;
         let identifier: string | undefined =
           typeof ServiceIdentifier === 'string'
@@ -428,6 +444,8 @@ export function createStore<T = any>({
       });
     }
   }
+  // #region keep plugin instance order
+  mergePluginHooks(pluginHooks, _assignPluginHooks, _pushPluginHooks);
   if (typeof store === 'undefined') {
     // load reducers and create store for Redux
     const reducer = isExistReducer

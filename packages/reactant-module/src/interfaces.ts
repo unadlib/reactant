@@ -144,7 +144,8 @@ export type PluginHooks = Collection<PluginModule>;
 
 export type HandlePlugin<T = any> = (
   service: T,
-  pluginHooks: PluginHooks
+  pluginHooks: PluginHooks,
+  index: number
 ) => void;
 
 export type Subscribe = (
