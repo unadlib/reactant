@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-param-reassign */
 /* eslint-disable default-param-last */
 /* eslint-disable guard-for-in */
@@ -166,7 +167,7 @@ export function createStore<T = any>({
       services.forEach((service, index) => {
         const indexPlugin = allServiceIdentifierKeys.indexOf(ServiceIdentifier);
         if (indexPlugin === -1) {
-          pushPlugin(service, _pushPluginHooks, indexPlugin);
+          pushPlugin(service, _pushPluginHooks);
         } else {
           assignPlugin(service, _assignPluginHooks, indexPlugin);
         }

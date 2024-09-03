@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-use-before-define */
 import type {
   Store as ReduxStore,
@@ -145,7 +146,7 @@ export type PluginHooks = Collection<PluginModule>;
 export type HandlePlugin<T = any> = (
   service: T,
   pluginHooks: PluginHooks,
-  index: number
+  index?: number
 ) => void;
 
 export type Subscribe = (

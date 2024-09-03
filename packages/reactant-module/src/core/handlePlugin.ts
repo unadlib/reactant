@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-param-reassign */
 import { ReducersMapObject, Reducer, PreloadedState } from 'redux';
 import { type FunctionComponent } from 'react';
@@ -34,9 +35,9 @@ export const mergePluginHooks = (
 export const assignPlugin: HandlePlugin = (
   service: any,
   pluginHooks: PluginHooks,
-  index: number
+  index?: number
 ) => {
-  if (service instanceof PluginModule) {
+  if (service instanceof PluginModule && typeof index === 'number') {
     if (typeof service.beforeCombineRootReducers === 'function') {
       pluginHooks.beforeCombineRootReducers[index] = (
         reducers: ReducersMapObject
