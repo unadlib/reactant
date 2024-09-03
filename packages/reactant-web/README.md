@@ -8,6 +8,7 @@ A Web application with react-dom for Reactant
 
 ```bash
 npm install reactant-web
+# or
 yarn add reactant-web
 ```
 
