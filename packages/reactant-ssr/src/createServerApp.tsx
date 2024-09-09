@@ -18,11 +18,9 @@ export const createServerApp = <T, S extends any[], R extends Renderer<S>>(
     render: (element) => element,
   });
   const AppComponent = (appProps: AppProps) => {
-    return (bootstrap as (
-      Component: FunctionComponent<any>
-    ) => JSX.Element)((Component: FunctionComponent<AppProps>) => (
-      <Component {...appProps} />
-    )) as JSX.Element;
+    return (bootstrap as (Component: FunctionComponent<any>) => JSX.Element)(
+      (Component: FunctionComponent<AppProps>) => <Component {...appProps} />
+    ) as JSX.Element;
   };
   return {
     bootstrap: AppComponent,
