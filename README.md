@@ -133,4 +133,4 @@ You can visit [reactant.js.org](https://reactant.js.org/) for more documentation
 
 ## License
 
-USM is [MIT licensed](https://github.com/unadlib/usm/blob/master/LICENSE).
+Reactant is [MIT licensed](https://github.com/unadlib/reactant/blob/master/LICENSE).
