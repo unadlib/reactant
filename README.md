@@ -130,3 +130,7 @@ app.bootstrap(document.getElementById('app'));
 * [API Reference](https://reactant.js.org/docs/api/reactant/modules/createApp)
 
 You can visit [reactant.js.org](https://reactant.js.org/) for more documentation.
+
+## License
+
+USM is [MIT licensed](https://github.com/unadlib/usm/blob/master/LICENSE).
