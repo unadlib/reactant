@@ -1,3 +1,4 @@
+/* eslint-disable prefer-const */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
 import { unmountComponentAtNode, render } from 'reactant-web';
@@ -55,11 +56,11 @@ describe('base', () => {
     }
   }
 
-  let onClientFn: jest.Mock<any, any>;
-  let subscribeOnClientFn: jest.Mock<any, any>;
+  let onClientFn: jest.Mock<any, any> | null = null;
+  let subscribeOnClientFn: jest.Mock<any, any> | null = null;
 
-  let onServerFn: jest.Mock<any, any>;
-  let subscribeOnServerFn: jest.Mock<any, any>;
+  let onServerFn: jest.Mock<any, any> | null = null;
+  let subscribeOnServerFn: jest.Mock<any, any> | null = null;
 
   @injectable({
     name: 'counter',
