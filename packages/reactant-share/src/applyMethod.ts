@@ -21,7 +21,7 @@ export const applyMethod = (
       `The '${options.method}' method for module '${options.module}' does not exist.`
     );
   }
-  // If the method in main process and use coworker, it should be proxied for execution to a coworker process.
+  // If the method in main thread and use coworker, it should be proxied for execution to a coworker thread.
   if (module[proxyExecutorKey]) {
     return module[proxyExecutorKey](options);
   }

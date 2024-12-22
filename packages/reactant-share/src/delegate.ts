@@ -75,7 +75,7 @@ export const delegate = ((module, key, args, options = {}) => {
         );
       }
     }
-    // If the method in main process and use coworker, it should be proxied for execution to a coworker process.
+    // If the method in main thread and use coworker, it should be proxied for execution to a coworker thread.
     if (target[proxyExecutorKey]) {
       return target[proxyExecutorKey]({
         module: target[identifierKey]!,

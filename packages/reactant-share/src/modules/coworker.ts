@@ -59,7 +59,7 @@ export interface ICoworkerOptions {
    */
   useModules: ServiceIdentifier<unknown>[];
   /**
-   *  Whether the current process is the coworker process.
+   *  Whether the current thread is the coworker thread.
    */
   isCoworker: boolean;
   /**
@@ -78,7 +78,7 @@ export interface ICoworkerOptions {
     coworker?: Transport;
   };
   /**
-   * Ignore sync state key in all proxy modules on coworker and main Process.
+   * Ignore sync state key in all proxy modules on coworker and main thread.
    */
   ignoreSyncStateKeys?: string[];
   /**
@@ -138,7 +138,7 @@ export class Coworker extends PluginModule {
     }
 
     if (this.storage && this.isMain) {
-      // main process should ignore proxy module storage state
+      // main thread should ignore proxy module storage state
       this.storage.beforeCombinePersistReducer = () => {
         const proxyModules: any[] = [];
         this.proxyModules.forEach((serviceIdentifier) => {
@@ -222,14 +222,14 @@ export class Coworker extends PluginModule {
   }
 
   /**
-   * Whether the current process is the coworker process.
+   * Whether the current thread is the coworker thread.
    */
   get isCoworker() {
     return this.coworkerOptions.isCoworker;
   }
 
   /**
-   * Whether the current process is the main process.
+   * Whether the current thread is the main thread.
    */
   get isMain() {
     return !this.isCoworker && !!this.transport;
@@ -284,7 +284,7 @@ export class Coworker extends PluginModule {
                     stopWatching();
                     const { identifier, state } = getRef(module);
                     this.sequence += 1;
-                    // If the coworker runs before the main process,
+                    // If the coworker runs before the main thread,
                     // then the sequence will ensure that the state is properly synchronized.
                     this.transport!.emit(
                       { name: syncStateName, respond: false },
@@ -330,7 +330,7 @@ export class Coworker extends PluginModule {
       this.transport!.listen(
         syncStateName,
         async (action, coworkerSequence) => {
-          // If the sequence is not continuous, it means that the main process need sync all state from coworker process.
+          // If the sequence is not continuous, it means that the main thread need sync all state from coworker thread.
           if (this.sequence + 1 !== coworkerSequence) {
             this.requestSyncAllState();
             return;
@@ -362,7 +362,7 @@ export class Coworker extends PluginModule {
           });
           if (!_patches || _patches.length === 0) return;
           this.sequence += 1;
-          // If the coworker runs before the main process,
+          // If the coworker runs before the main thread,
           // then the sequence will ensure that the state is properly synchronized.
           this.transport!.emit(
             { name: syncStateName, respond: false },
