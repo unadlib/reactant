@@ -183,7 +183,7 @@ export class Coworker extends PluginModule {
       return (
         this.coworkerOptions!.transports?.coworker ??
         createTransport(
-          isWebWorker ? 'WorkerInternal' : 'SharedWorkerInternal',
+          isWebWorker ? 'WebWorkerInternal' : 'SharedWorkerInternal',
           {
             prefix: this.prefix,
             verbose: this.coworkerOptions?.enableTransportDebugger,
@@ -199,7 +199,7 @@ export class Coworker extends PluginModule {
         return;
       }
       if (this.coworkerOptions.worker instanceof Worker) {
-        return createTransport('WorkerMain', {
+        return createTransport('WebWorkerClient', {
           worker: this.coworkerOptions.worker,
           prefix: this.prefix,
           verbose: this.coworkerOptions.enableTransportDebugger,
