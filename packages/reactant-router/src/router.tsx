@@ -1,6 +1,16 @@
 /* eslint-disable consistent-return */
 import React, { PropsWithChildren, FunctionComponent } from 'react';
-import { PluginModule, injectable, inject, storeKey } from 'reactant-module';
+import {
+  PluginModule,
+  injectable,
+  inject,
+  storeKey,
+  signalMapKey,
+  type Service,
+  signal,
+  enableAutoComputedKey,
+  type Signal,
+} from 'reactant-module';
 import type { ReducersMapObject } from 'redux';
 import {
   connectRouter,
@@ -91,6 +101,34 @@ class ReactantRouter extends PluginModule {
         `The identifier '${this.stateKey}' has a duplicate name, please reset the option 'stateKey' of 'ReactantRouter' module.`
       );
     }
+    if ((this as Service)[enableAutoComputedKey]) {
+      const signalMap: Record<string, Signal> =
+        (this as Service)[signalMapKey] ?? {};
+      signalMap[this.stateKey] = signal({});
+      const current = signalMap[this.stateKey];
+      if (!(this as Service)[signalMapKey]) {
+        Object.defineProperties(this, {
+          [signalMapKey]: {
+            enumerable: false,
+            configurable: false,
+            writable: false,
+            value: signalMap,
+          },
+        });
+      }
+      const reducer = connectRouter(this.history ?? this.defaultHistory);
+      return Object.assign(reducers, {
+        // TODO: fix type
+        [this.stateKey]: (state: any, action: any) => {
+          const result = reducer(state, action);
+          if (result !== state) {
+            // update signal value for auto-computed
+            current.value = result;
+          }
+          return result;
+        },
+      });
+    }
     return Object.assign(reducers, {
       [this.stateKey]: connectRouter(this.history ?? this.defaultHistory),
     });
@@ -106,6 +144,12 @@ class ReactantRouter extends PluginModule {
   );
 
   get router(): RouterState | undefined {
+    if ((this as Service)[enableAutoComputedKey]) {
+      const currentRouter = (this as Service)[signalMapKey]?.[this.stateKey];
+      if (currentRouter) {
+        return currentRouter!.value as RouterState;
+      }
+    }
     return this.store?.getState()[this.stateKey];
   }
 
