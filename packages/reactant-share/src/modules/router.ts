@@ -67,6 +67,32 @@ class ReactantRouter extends BaseReactantRouter {
       ),
     });
 
+    this.portDetector.onClient(() => {
+      const stopWatching = watch(
+        this,
+        () => this.portDetector.lastAction.action,
+        () => {
+          const action = this.portDetector.lastAction
+            .action as any as LocationChangeAction;
+          if (
+            action.type === LOCATION_CHANGE &&
+            action.payload.isFirstRendering
+          ) {
+            const router = this._routers[this.portDetector.name];
+            if (
+              router &&
+              this.history.createHref(router.location) !==
+                this.history.createHref(this.router!.location)
+            ) {
+              stopWatching();
+              // router reducer @@router/LOCATION_CHANGE event and syncFullState event The events may be out of order, so we re-check route consistency after synchronizing the state.
+              this.history.replace(router.location);
+            }
+          }
+        }
+      );
+    });
+
     if (globalThis.document) {
       window.addEventListener('popstate', () => {
         if (!this.passiveRoute) {
