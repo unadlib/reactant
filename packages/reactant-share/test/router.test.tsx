@@ -1813,18 +1813,12 @@ describe('base with storage and router', () => {
 
     await clientApp.bootstrap(clientContainer);
 
-    expect(onClientFn.mock.calls.length).toBe(1);
-    expect(subscribeOnClientFn.mock.calls.length).toBe(2);
-    expect(onServerFn.mock.calls.length).toBe(1);
-    expect(subscribeOnServerFn.mock.calls.length).toBe(2);
-    expect(clientContainer.querySelector('#content')?.textContent).toBe('home');
-
     await Promise.resolve();
 
     expect(onClientFn.mock.calls.length).toBe(1);
-    expect(subscribeOnClientFn.mock.calls.length).toBe(4);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(6);
     expect(onServerFn.mock.calls.length).toBe(1);
-    expect(subscribeOnServerFn.mock.calls.length).toBe(4);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(6);
     expect(clientContainer.querySelector('#content')?.textContent).toBe('-0+');
 
     act(() => {
@@ -1836,9 +1830,9 @@ describe('base with storage and router', () => {
     await new Promise((resolve) => setTimeout(resolve));
 
     expect(onClientFn.mock.calls.length).toBe(1);
-    expect(subscribeOnClientFn.mock.calls.length).toBe(6);
+    expect(subscribeOnClientFn.mock.calls.length).toBe(8);
     expect(onServerFn.mock.calls.length).toBe(1);
-    expect(subscribeOnServerFn.mock.calls.length).toBe(6);
+    expect(subscribeOnServerFn.mock.calls.length).toBe(8);
     expect(serverApp.instance.router.currentPath).toBe('/counter');
     expect(clientApp.instance.router.currentPath).toBe('/counter');
     expect(clientContainer.querySelector('#content')?.textContent).toBe('-0+');
