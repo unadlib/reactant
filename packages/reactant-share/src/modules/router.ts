@@ -45,6 +45,10 @@ export interface IRouterOptions extends IBaseRouterOptions {
    * default initial route
    */
   defaultRoute?: string;
+  /**
+   *  The maximum number of historical records stored in the browser, the default is 10.
+   */
+  maxHistoryLength?: number;
 }
 
 @injectable({
@@ -52,6 +56,10 @@ export interface IRouterOptions extends IBaseRouterOptions {
 })
 class ReactantRouter extends BaseReactantRouter {
   private passiveRoute = false;
+
+  private cachedHistory: RouterState[] = [];
+
+  private forwardHistory: RouterState[] = [];
 
   constructor(
     protected portDetector: PortDetector,
@@ -139,6 +147,19 @@ class ReactantRouter extends BaseReactantRouter {
 
     // #region sync init router from clients in Worker mode
     this.portDetector.onServer((transport) => {
+      watch(
+        this,
+        () => this.router,
+        (router) => {
+          if (
+            router?.location.pathname !==
+            this.cachedHistory[0]?.location?.pathname
+          ) {
+            this.cachedHistory.unshift(router!);
+            this.cachedHistory.length = this.maxHistoryLength; // Limit the length of the historical stack
+          }
+        }
+      );
       if (this.portDetector.isWorkerMode && !this.enableCacheRouting) {
         transport
           .emit(syncWorkerRouterName, this.portDetector.name)
@@ -249,6 +270,10 @@ class ReactantRouter extends BaseReactantRouter {
         });
     });
     // #endregion
+  }
+
+  get maxHistoryLength() {
+    return this.options.maxHistoryLength ?? 10;
   }
 
   watchRehydratedRouting() {
@@ -511,63 +536,148 @@ class ReactantRouter extends BaseReactantRouter {
     }
   }
 
-  async go(n: number) {
-    if (this.portDetector.isServerWorker) {
-      const router: RouterState = await fork(
-        this as any,
-        '_makeRoutingOnClient',
-        [
-          {
-            args: [n],
-            action: 'go',
-            name: this.portDetector.name,
-          },
-        ]
-      );
-      this.dispatchChanged(router);
-    } else {
+  async go(n: number): Promise<void> {
+    if (!this.portDetector.shared) {
       this.lastRoutedTimestamp = Date.now();
       super.go(n);
+      return;
+    }
+    if (this.portDetector.isClient) {
+      return delegate(this as ReactantRouter, 'go', [n]);
+    }
+    if (n < 0) {
+      // Navigate backward (like goBack)
+      const stepsBack = Math.abs(n);
+      if (this.cachedHistory.length > stepsBack) {
+        // Pop the current route to the forward history stack
+        const currentRouter = this.cachedHistory.shift();
+        this.forwardHistory.unshift(currentRouter!); // Add to forward history
+
+        // Get the target router (stepsBack-th item)
+        const targetRouter = this.cachedHistory[stepsBack - 1];
+
+        if (targetRouter) {
+          const router: RouterState = await fork(
+            this as any,
+            '_makeRoutingOnClient',
+            [
+              {
+                args: [
+                  targetRouter.location.pathname,
+                  targetRouter.location.state,
+                ],
+                action: 'replace',
+                name: this.portDetector.name,
+              },
+            ]
+          );
+          this.dispatchChanged(router);
+        } else {
+          console.warn('No more history to go back.');
+        }
+      } else {
+        console.warn('No more history to go back.');
+      }
+    } else if (n > 0) {
+      // Navigate forward (like goForward)
+      const stepsForward = n;
+      if (this.forwardHistory.length >= stepsForward) {
+        const targetRouter = this.forwardHistory[stepsForward - 1];
+        if (targetRouter) {
+          const router: RouterState = await fork(
+            this as any,
+            '_makeRoutingOnClient',
+            [
+              {
+                args: [
+                  targetRouter.location.pathname,
+                  targetRouter.location.state,
+                ],
+                action: 'replace',
+                name: this.portDetector.name,
+              },
+            ]
+          );
+          this.dispatchChanged(router);
+        } else {
+          console.warn('No more history to go forward.');
+        }
+        // Remove the used entry from the forward stack
+        this.forwardHistory.splice(0, stepsForward);
+      } else {
+        console.warn('No more history to go forward.');
+      }
+    } else {
+      // Go to the current route (refresh the page)
+      console.warn('Going to the current route (n = 0) does nothing.');
     }
   }
 
-  async goBack() {
-    if (this.portDetector.isServerWorker) {
-      const router: RouterState = await fork(
-        this as any,
-        '_makeRoutingOnClient',
-        [
-          {
-            args: [],
-            action: 'goBack',
-            name: this.portDetector.name,
-          },
-        ]
-      );
-      this.dispatchChanged(router);
-    } else {
+  async goBack(): Promise<void> {
+    if (!this.portDetector.shared) {
       this.lastRoutedTimestamp = Date.now();
       super.goBack();
+      return;
+    }
+    if (this.portDetector.isClient) {
+      return delegate(this as ReactantRouter, 'goBack', []);
+    }
+    if (this.cachedHistory.length > 1) {
+      const currentRouter = this.cachedHistory.shift(); // Pop the current route
+      this.forwardHistory.unshift(currentRouter!); // Push to forward stack
+      this.forwardHistory.length = this.maxHistoryLength; // Limit the length of the forward stack
+      const previousRouter = this.cachedHistory[0]; // Get the previous route
+      if (previousRouter) {
+        const router: RouterState = await fork(
+          this as any,
+          '_makeRoutingOnClient',
+          [
+            {
+              args: [
+                previousRouter.location.pathname,
+                previousRouter.location.state,
+              ],
+              action: 'replace',
+              name: this.portDetector.name,
+            },
+          ]
+        );
+        this.dispatchChanged(router);
+      } else {
+        console.warn('No forward route available.');
+      }
+    } else {
+      console.warn('No previous route available.');
     }
   }
 
-  async goForward() {
-    if (this.portDetector.isServerWorker) {
-      const router: RouterState = await fork(
-        this as any,
-        '_makeRoutingOnClient',
-        [
-          {
-            args: [],
-            action: 'goForward',
-            name: this.portDetector.name,
-          },
-        ]
-      );
-      this.dispatchChanged(router);
-    } else {
+  async goForward(): Promise<void> {
+    if (!this.portDetector.shared) {
       this.lastRoutedTimestamp = Date.now();
       super.goForward();
+      return;
+    }
+    if (this.portDetector.isClient) {
+      return delegate(this as ReactantRouter, 'goForward', []);
+    }
+    if (this.forwardHistory.length > 0) {
+      const nextRouter = this.forwardHistory.shift(); // Pop from forward stack
+      if (nextRouter) {
+        const router: RouterState = await fork(
+          this as any,
+          '_makeRoutingOnClient',
+          [
+            {
+              args: [nextRouter.location.pathname, nextRouter.location.state],
+              action: 'replace',
+              name: this.portDetector.name,
+            },
+          ]
+        );
+        this.dispatchChanged(router);
+      }
+    } else {
+      console.warn('No forward route available.');
     }
   }
 }

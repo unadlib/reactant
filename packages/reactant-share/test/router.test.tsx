@@ -2445,6 +2445,7 @@ describe('Worker - createMemoryHistory', () => {
         .querySelector('#goBack')!
         .dispatchEvent(new MouseEvent('click', { bubbles: true }));
     });
+    await Promise.resolve();
     expect(serverApp.instance.router.currentPath).toBe('/');
     expect(clientApp.instance.router.currentPath).toBe('/');
     expect(clientContainer.querySelector('#content')?.textContent).toBe('home');
@@ -2661,6 +2662,7 @@ describe('Worker - createMemoryHistory', () => {
         .querySelector('#goBack')!
         .dispatchEvent(new MouseEvent('click', { bubbles: true }));
     });
+    await Promise.resolve();
     expect(app.instance.router.currentPath).toBe('/');
     expect(clientContainer.querySelector('#content')?.textContent).toBe('home');
 
