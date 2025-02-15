@@ -8,7 +8,7 @@ import { rollup } from 'rollup';
 import resolvePlugin from '@rollup/plugin-node-resolve';
 import replacePlugin from '@rollup/plugin-replace';
 import commonjsPlugin from '@rollup/plugin-commonjs';
-import { terser as terserPlugin } from 'rollup-plugin-terser';
+import terserPlugin from '@rollup/plugin-terser';
 import chalk from 'chalk';
 
 type GenerateOption = {
