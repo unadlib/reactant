@@ -7,8 +7,13 @@ import {
   containerKey,
   stateKey,
   initStateKey,
+  enablePatchesKey,
+  enableAutoFreezeKey,
+  strictKey,
+  enableInspectorKey,
+  checkActionKey,
 } from '../constants';
-import type { Service } from '../interfaces';
+import type { DevOptions, Service } from '../interfaces';
 
 export interface Ref {
   readonly store?: ReduxStore;
@@ -17,6 +22,11 @@ export interface Ref {
   readonly identifier?: string;
   readonly state?: Record<string, any>;
   readonly initState?: Record<string, any>;
+  readonly enablePatches?: boolean;
+  readonly enableAutoFreeze?: boolean;
+  readonly strict?: boolean;
+  readonly enableInspector?: boolean;
+  readonly checkAction?: DevOptions['checkAction'];
 }
 
 /**
@@ -42,6 +52,21 @@ export const getRef = (instance: object): Ref => {
     },
     get initState() {
       return _instance[initStateKey];
+    },
+    get enablePatches() {
+      return _instance[enablePatchesKey];
+    },
+    get enableAutoFreeze() {
+      return _instance[enableAutoFreezeKey];
+    },
+    get strict() {
+      return _instance[strictKey];
+    },
+    get enableInspector() {
+      return _instance[enableInspectorKey];
+    },
+    get checkAction() {
+      return _instance[checkActionKey];
     },
   };
 };
