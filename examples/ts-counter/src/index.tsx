@@ -67,9 +67,12 @@ class AppView extends ViewModule {
 const app = createApp({
   main: AppView,
   render,
-  // devOptions: {
-  //   autoComputed: true,
-  // },
+  devOptions: {
+    autoComputed: true,
+    checkAction: (options) => {
+      console.log('checkAction', options);
+    },
+  },
 });
 
 app.bootstrap(document.getElementById('root'));

@@ -636,4 +636,88 @@ describe('@action', () => {
     );
     warn.mockReset();
   });
+
+  test('base with `checkAction`', () => {
+    interface Todo {
+      text: string;
+    }
+    @injectable({
+      name: 'todo',
+    })
+    class TodoList {
+      @state
+      list: Todo[] = [
+        {
+          text: 'foo',
+        },
+      ];
+
+      @action
+      add(text: string) {
+        this.list.slice(-1)[0].text = text;
+        this.list.push({ text });
+      }
+
+      @action
+      noChange() {
+        this.list.slice(-1)[0].text = this.list.slice(-1)[0].text;
+      }
+    }
+
+    const actionFn = jest.fn();
+
+    const middleware: Middleware = (store) => (next) => (_action) => {
+      actionFn(_action);
+      return next(_action);
+    };
+
+    const ServiceIdentifiers = new Map();
+    const modules = [TodoList, applyMiddleware(middleware)];
+    const container = createContainer({
+      ServiceIdentifiers,
+      modules,
+      options: {
+        defaultScope: 'Singleton',
+      },
+    });
+    const todoList = container.get(TodoList);
+    const fn = jest.fn();
+    const store = createStore({
+      modules,
+      container,
+      ServiceIdentifiers,
+      loadedModules: new Set(),
+      load: (...args: any[]) => {
+        //
+      },
+      dynamicModules: new Map(),
+      pluginHooks: {
+        middleware: [],
+        beforeCombineRootReducers: [],
+        afterCombineRootReducers: [],
+        enhancer: [],
+        preloadedStateHandler: [],
+        afterCreateStore: [],
+        provider: [],
+      },
+      devOptions: {
+        checkAction: fn,
+      },
+    });
+    todoList.noChange();
+    expect(fn).toBeCalledTimes(1);
+    const options = fn.mock.calls[0][0];
+    expect(options.target).toEqual(todoList);
+    expect(options.ref.store).toEqual(store);
+    expect(options.ref.container).toEqual(container);
+    expect(options.ref.identifier).toEqual('todo');
+    expect(options.ref.state).toEqual({ list: [{ text: 'foo' }] });
+    expect(options.ref.initState).toEqual({ list: [{ text: 'foo' }] });
+    expect(options.ref.strict).toEqual(false);
+    expect(options.ref.enablePatches).toEqual(false);
+    expect(options.ref.enableInspector).toEqual(false);
+    expect(options.ref.checkAction).toEqual(fn);
+    expect(options.method).toEqual('noChange');
+    expect(options.args).toEqual([]);
+  });
 });

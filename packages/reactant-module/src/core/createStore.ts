@@ -41,6 +41,7 @@ import {
   strictKey,
   enableAutoComputedKey,
   signalMapKey,
+  checkActionKey,
 } from '../constants';
 import { getStagedState } from '../decorators';
 import type {
@@ -103,7 +104,7 @@ export function createStore<T = any>({
   const enablePatches = devOptions.enablePatches ?? false;
   const enableInspector = devOptions.enableInspector ?? false;
   const strict = devOptions.strict ?? false;
-
+  const checkAction = devOptions.checkAction;
   const _pushPluginHooks = generatePluginHooks();
   const _assignPluginHooks = generatePluginHooks();
 
@@ -434,6 +435,12 @@ export function createStore<T = any>({
               enumerable: false,
               configurable: false,
               value: enableInspector,
+            },
+            // check action method
+            [checkActionKey]: {
+              enumerable: false,
+              configurable: false,
+              value: checkAction,
             },
           });
         } catch (e) {

@@ -11,4 +11,5 @@ export const enableAutoComputedKey: unique symbol =
 export const enableAutoFreezeKey: unique symbol = Symbol('enableAutoFreeze');
 export const strictKey: unique symbol = Symbol('strict');
 export const enableInspectorKey: unique symbol = Symbol('enableInspector');
+export const checkActionKey: unique symbol = Symbol('checkAction');
 export const actionIdentifier = 'REACTANT_ACTION' as const;

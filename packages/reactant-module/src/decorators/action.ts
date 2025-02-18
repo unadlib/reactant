@@ -2,15 +2,8 @@
 /* eslint-disable func-names */
 import { create } from 'mutative';
 import { Patches, ReactantAction, Service } from '../interfaces';
-import {
-  storeKey,
-  actionIdentifier,
-  enablePatchesKey,
-  enableAutoFreezeKey,
-  identifierKey,
-  enableInspectorKey,
-  strictKey,
-} from '../constants';
+import { actionIdentifier } from '../constants';
+import { getRef } from '../core';
 
 let stagedState: Record<string, unknown> | undefined;
 
@@ -56,20 +49,33 @@ const action = (
     );
   }
   const value = function (this: Service, ...args: unknown[]) {
-    if (typeof this[storeKey] === 'undefined') {
+    const ref = getRef(this);
+    if (typeof ref.store === 'undefined') {
       throw new Error(
         `'this' in method '${key.toString()}' of class '${
           target.constructor.name
         }' decorated by '@action' must be bound to the current class instance.`
       );
     }
+    if (typeof ref.checkAction === 'function') {
+      ref.checkAction({
+        target: this,
+        ref,
+        method: key,
+        args,
+      });
+    } else if (__DEV__ && ref.checkAction !== undefined) {
+      throw new Error(
+        `The method '${key}' decorated by '@action' must be checked by 'checkAction' option function.`
+      );
+    }
     if (typeof stagedState === 'undefined') {
       try {
-        const lastState = this[storeKey]?.getState();
+        const lastState = ref.store.getState();
         let state: Record<string, unknown>;
         let patches: Patches | undefined;
         let inversePatches: Patches | undefined;
-        if (this[enablePatchesKey]) {
+        if (ref.enablePatches) {
           [state, patches, inversePatches] = create(
             lastState,
             (draftState) => {
@@ -83,8 +89,8 @@ const action = (
             },
             {
               enablePatches: true,
-              strict: this[strictKey],
-              enableAutoFreeze: this[enableAutoFreezeKey],
+              strict: ref.strict,
+              enableAutoFreeze: ref.enableAutoFreeze,
             }
           );
         } else {
@@ -100,29 +106,27 @@ const action = (
               }
             },
             {
-              strict: this[strictKey],
-              enableAutoFreeze: this[enableAutoFreezeKey],
+              strict: ref.strict,
+              enableAutoFreeze: ref.enableAutoFreeze,
             }
           );
         }
         stagedState = undefined;
         if (__DEV__) {
-          const methodName = `${this[
-            identifierKey
-          ]?.toString()}.${key.toString()}`;
-          if (this[enableInspectorKey] && lastState === state) {
+          const methodName = `${ref.identifier}.${key.toString()}`;
+          if (ref.enableInspector && lastState === state) {
             console.warn(
               `There are no state updates to method '${methodName}'`
             );
           }
         }
-        this[storeKey]!.dispatch<ReactantAction>({
-          type: this[identifierKey]!,
+        ref.store.dispatch<ReactantAction>({
+          type: ref.identifier!,
           method: key,
           params: args,
           state,
           _reactant: actionIdentifier,
-          ...(this[enablePatchesKey]
+          ...(ref.enablePatches
             ? {
                 _patches: patches,
                 _inversePatches: inversePatches,

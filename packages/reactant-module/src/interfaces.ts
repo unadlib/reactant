@@ -35,8 +35,9 @@ import {
   strictKey,
   enableAutoComputedKey,
   signalMapKey,
+  checkActionKey,
 } from './constants';
-import { PluginModule } from './core';
+import { PluginModule, Ref } from './core';
 import type { Signal } from './core/signal';
 
 export type Patch = IPatch<true>;
@@ -72,6 +73,15 @@ export interface DevOptions {
    * Redux dev tools enhancer options.
    */
   reduxDevToolsOptions?: ReduxDevToolsOptions;
+  /**
+   * Check action method.
+   */
+  checkAction?: (options: {
+    target: Service;
+    ref: Ref;
+    method: string;
+    args: any[];
+  }) => void;
 }
 
 export type ReduxDevToolsOptions = Pick<
@@ -99,6 +109,7 @@ export interface Service<T extends Record<string, any> = Record<string, any>> {
   readonly [containerKey]?: Container;
   readonly [modulesKey]?: Record<string, any>;
   readonly [initStateKey]?: Record<string, any>;
+  readonly [checkActionKey]?: DevOptions['checkAction'];
   [identifierKey]?: string;
   [nameKey]?: string;
 }
