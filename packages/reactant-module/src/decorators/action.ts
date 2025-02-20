@@ -58,12 +58,16 @@ const action = (
       );
     }
     if (typeof ref.checkAction === 'function') {
-      ref.checkAction({
-        target: this,
-        ref,
-        method: key,
-        args,
-      });
+      try {
+        ref.checkAction({
+          target: this,
+          ref,
+          method: key,
+          args,
+        });
+      } catch (error) {
+        console.error(error);
+      }
     } else if (__DEV__ && ref.checkAction !== undefined) {
       throw new Error(
         `The method '${key}' decorated by '@action' must be checked by 'checkAction' option function.`
