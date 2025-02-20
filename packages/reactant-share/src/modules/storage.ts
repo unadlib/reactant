@@ -36,6 +36,11 @@ class ReactantStorage extends BaseReactantStorage {
       if (this.portDetector.isServer) {
         this.portDetector.syncToClients();
       }
+      // If client is hydrated later than server
+      // we need to sync the full state from server to client
+      if (this.portDetector.isClient) {
+        this.portDetector.syncFullState();
+      }
     });
   }
 }
