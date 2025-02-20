@@ -27,6 +27,7 @@ createSharedApp({
       useValue: {
         storage: localForage,
         loading: 'loading',
+        disableClientRehydrated: true,
       } as IStorageOptions,
     },
   ],

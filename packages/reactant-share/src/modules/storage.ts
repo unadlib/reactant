@@ -14,7 +14,10 @@ import { PortDetector } from './portDetector';
 import { storageModuleName } from '../constants';
 
 export interface IStorageOptions extends IBaseStorageOptions {
-  //
+  /**
+   * disable client rehydrated
+   */
+  disableClientRehydrated?: boolean;
 }
 
 @injectable({
@@ -36,12 +39,22 @@ class ReactantStorage extends BaseReactantStorage {
       if (this.portDetector.isServer) {
         this.portDetector.syncToClients();
       }
-      // If client is hydrated later than server
-      // we need to sync the full state from server to client
-      if (this.portDetector.isClient) {
-        this.portDetector.syncFullState();
-      }
     });
+  }
+
+  /**
+   * set module to storage persistent
+   */
+  override setStorage<T extends object>(
+    target: T,
+    options: SetStorageOptions<T>
+  ) {
+    return super.setStorage(
+      target,
+      this.options.disableClientRehydrated && this.portDetector.isClient
+        ? { ...options, blacklist: [], whitelist: [] }
+        : options
+    );
   }
 }
 
