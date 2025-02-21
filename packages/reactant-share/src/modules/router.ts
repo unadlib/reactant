@@ -598,7 +598,7 @@ class ReactantRouter extends BaseReactantRouter {
                   targetRouter.location.pathname,
                   targetRouter.location.state,
                 ],
-                action: 'replace',
+                action: 'push',
                 name: this.portDetector.name,
               },
             ]
@@ -642,7 +642,7 @@ class ReactantRouter extends BaseReactantRouter {
                 previousRouter.location.pathname,
                 previousRouter.location.state,
               ],
-              action: 'replace',
+              action: 'push',
               name: this.portDetector.name,
             },
           ]
@@ -674,7 +674,7 @@ class ReactantRouter extends BaseReactantRouter {
           [
             {
               args: [nextRouter.location.pathname, nextRouter.location.state],
-              action: 'replace',
+              action: 'push',
               name: this.portDetector.name,
             },
           ]
