@@ -152,10 +152,15 @@ class ReactantRouter extends BaseReactantRouter {
         () => this.router,
         (router) => {
           if (
-            router?.location.pathname !==
-            this.cachedHistory[0]?.location?.pathname
+            router &&
+            router.location.pathname !==
+              this.cachedHistory[0]?.location?.pathname
           ) {
-            this.cachedHistory.unshift(router!);
+            if (router.action === 'REPLACE') {
+              this.cachedHistory[0] = router;
+            } else {
+              this.cachedHistory.unshift(router!);
+            }
             this.cachedHistory.length = this.maxHistoryLength; // Limit the length of the historical stack
           }
         }
@@ -273,7 +278,7 @@ class ReactantRouter extends BaseReactantRouter {
   }
 
   get maxHistoryLength() {
-    return this.options.maxHistoryLength ?? 10;
+    return this.options.maxHistoryLength ?? 50;
   }
 
   watchRehydratedRouting() {
