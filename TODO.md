@@ -1,6 +1,7 @@
 # TODO
 - [x] update API docs
 - [x] use Mutative
+- [ ] fix router state sync checking logic
 - [ ] Implementing non-invasive injection for DI
 - [x] upgrade react-native
 - [ ] support TS 5.0 new decorator(https://github.com/tc39/proposal-decorators), [more detail](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-5-0.html#differences-with-experimental-legacy-decorators)
