@@ -1,4 +1,5 @@
-import { containerKey, identifierKey, Service } from 'reactant';
+/* eslint-disable consistent-return */
+import { containerKey, identifierKey, Service, watch } from 'reactant';
 import { proxyClientActionName, proxyExecutorKey } from './constants';
 import type { ProxyExec, ProxyExecutor } from './interfaces';
 import { PortDetector } from './modules/portDetector';
@@ -92,18 +93,46 @@ export const delegate = ((module, key, args, options = {}) => {
           )
         );
       }
-      return portDetector.transports.client.emit(
-        {
-          ...options,
-          name: proxyClientActionName,
-        },
-        {
-          module: target[identifierKey]!,
-          method: key,
-          args: _args,
-          hook: options._extra?.serverHook,
-        }
-      );
+      return portDetector.transports.client
+        .emit(
+          {
+            ...options,
+            name: proxyClientActionName,
+          },
+          {
+            module: target[identifierKey]!,
+            method: key,
+            args: _args,
+            hook: options._extra?.serverHook,
+          }
+        )
+        .then((response) => {
+          // If the response is undefined, it means that the method is not executed.
+          if (!response) return;
+          const [sequence, result] = response;
+          if (portDetector.lastAction.sequence >= sequence) {
+            return result;
+          }
+          if (__DEV__) {
+            console.warn(
+              `The sequence of the action is not consistent.`,
+              sequence,
+              portDetector.lastAction.sequence
+            );
+          }
+          return new Promise((resolve) => {
+            const unwatch = watch(
+              portDetector,
+              () => portDetector.lastAction.sequence,
+              () => {
+                if (portDetector.lastAction.sequence >= sequence) {
+                  unwatch();
+                  resolve(result);
+                }
+              }
+            );
+          });
+        });
     }
   }
   return (method as Function).apply(target, _args);

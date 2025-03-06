@@ -155,7 +155,7 @@ export interface ProxyExecParams {
 }
 
 export type ClientEvents = {
-  [proxyClientActionName](options: ProxyExecParams): Promise<any>;
+  [proxyClientActionName](options: ProxyExecParams): Promise<[number, any]>;
   [preloadedStateActionName](): Promise<Record<string, any>>;
   [loadFullStateActionName](
     sequence: number
