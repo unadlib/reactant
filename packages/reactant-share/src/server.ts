@@ -57,11 +57,14 @@ export const handleServer = ({
       if (options.hook) {
         const hook = portDetector.serverHooks[options.hook];
         if (typeof hook === 'function') {
-          return hook(options);
+          const result = await hook(options);
+          const { sequence } = portDetector.lastAction;
+          return [sequence, result];
         }
       }
       const result = await applyMethod(app, options);
-      return result;
+      const { sequence } = portDetector.lastAction;
+      return [sequence, result];
     })
   );
   disposeListeners.push(() => transport.dispose());
