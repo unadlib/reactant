@@ -78,6 +78,8 @@ class ReactantStorage extends PluginModule {
     };
     this.persistRootConfig = {
       key: 'root',
+      // https://github.com/rt2zz/redux-persist/issues/786#issuecomment-421850652
+      timeout: null as any,
       ...this.options,
     };
   }
