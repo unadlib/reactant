@@ -120,19 +120,9 @@ export const delegate = ((module, key, args, options = {}) => {
               portDetector.lastAction.sequence
             );
           }
-          portDetector.syncFullState({ forceSync: false });
-          return new Promise((resolve) => {
-            const unwatch = watch(
-              portDetector,
-              () => portDetector.lastAction.sequence,
-              () => {
-                if (portDetector.lastAction.sequence >= sequence) {
-                  unwatch();
-                  resolve(result);
-                }
-              }
-            );
-          });
+          return portDetector
+            .syncFullState({ forceSync: false })
+            .then(() => result);
         });
     }
   }
