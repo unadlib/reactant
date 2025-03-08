@@ -87,11 +87,7 @@ class ReactantRouter extends BaseReactantRouter {
             action.payload.isFirstRendering
           ) {
             const router = this._routers[this.portDetector.name];
-            if (
-              router &&
-              this.history.createHref(router.location) !==
-                this.history.createHref(this.router!.location)
-            ) {
+            if (router && this.compareRouter(router, this.router!)) {
               stopWatching();
               // router reducer @@router/LOCATION_CHANGE event and syncFullState event The events may be out of order, so we re-check route consistency after synchronizing the state.
               this.history.replace(router.location);
@@ -339,6 +335,17 @@ class ReactantRouter extends BaseReactantRouter {
     };
   }
 
+  compareRouter(router1: RouterState, router2: RouterState) {
+    return (
+      this.history.createHref(router1.location) !==
+        this.history.createHref(router2.location) ||
+      JSON.stringify(router1.location.state) !==
+        JSON.stringify(router2.location.state) ||
+      JSON.stringify((router1.location as any).query) !==
+        JSON.stringify((router2.location as any).query)
+    );
+  }
+
   /**
    * The timestamp of the last routing.
    */
@@ -359,10 +366,7 @@ class ReactantRouter extends BaseReactantRouter {
     if (name === this.portDetector.name) {
       if (this.portDetector.isWorkerMode) {
         this.dispatchChanged(router);
-      } else if (
-        this.history.createHref(router.location) !==
-        this.history.createHref(this.router!.location)
-      ) {
+      } else if (this.compareRouter(router, this.router!)) {
         this.passiveRoute = true;
         this.history.push(router.location);
         this.passiveRoute = false;
@@ -405,11 +409,7 @@ class ReactantRouter extends BaseReactantRouter {
     )
       return;
     const route = () => {
-      if (
-        this.history &&
-        this.history.createHref(router.location) !==
-          this.history.createHref(this.router!.location)
-      ) {
+      if (this.history && this.compareRouter(router, this.router!)) {
         this.passiveRoute = true;
         this.history.push(router.location);
         this.passiveRoute = false;
