@@ -1,6 +1,6 @@
 {
   "name": "reactant-module",
-  "version": "0.134.0",
+  "version": "0.135.0",
   "description": "A module model for Reactant",
   "main": "dist/index.cjs.js",
   "unpkg": "dist/index.umd.js",
@@ -28,7 +28,7 @@
   "license": "MIT",
   "dependencies": {
     "mutative": "^1.1.0",
-    "reactant-di": "^0.134.0",
+    "reactant-di": "^0.135.0",
     "redux": "^4.1.0"
   },
   "devDependencies": {
