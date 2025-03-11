@@ -149,8 +149,8 @@ class ReactantRouter extends BaseReactantRouter {
         (router) => {
           if (
             router &&
-            router.location.pathname !==
-              this.cachedHistory[0]?.location?.pathname
+            (!this.cachedHistory[0] ||
+              this.compareRouter(router, this.cachedHistory[0]))
           ) {
             if (router.action === 'REPLACE') {
               this.cachedHistory[0] = router;
@@ -337,8 +337,9 @@ class ReactantRouter extends BaseReactantRouter {
 
   compareRouter(router1: RouterState, router2: RouterState) {
     return (
-      this.history.createHref(router1.location) !==
-        this.history.createHref(router2.location) ||
+      router1.location.pathname !== router2.location.pathname ||
+      router1.location.hash !== router2.location.hash ||
+      router1.location.search !== router2.location.search ||
       JSON.stringify(router1.location.state) !==
         JSON.stringify(router2.location.state) ||
       JSON.stringify((router1.location as any).query) !==
