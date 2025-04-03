@@ -61,6 +61,19 @@ class ReactantRouter extends BaseReactantRouter {
 
   private forwardHistory: RouterState[] = [];
 
+  private firstRenderingSync: Promise<void>;
+
+  private firstRenderingSyncResolve!: () => void;
+
+  private firstActiveSync: Promise<void>;
+
+  private firstActiveSyncResolve!: () => void;
+
+  /**
+   * The promise of the first client sync.
+   */
+  public firstClientSync: Promise<[void, void]>;
+
   constructor(
     protected portDetector: PortDetector,
     @inject(SharedAppOptions) protected sharedAppOptions: ISharedAppOptions,
@@ -75,6 +88,18 @@ class ReactantRouter extends BaseReactantRouter {
       ),
     });
 
+    this.firstRenderingSync = new Promise<void>((resolve) => {
+      this.firstRenderingSyncResolve = resolve;
+    });
+    this.firstActiveSync = new Promise<void>((resolve) => {
+      this.firstActiveSyncResolve = resolve;
+    });
+
+    this.firstClientSync = Promise.all([
+      this.firstRenderingSync,
+      this.firstActiveSync,
+    ]);
+
     this.portDetector.onClient(() => {
       const stopWatching = watch(
         this,
@@ -86,12 +111,13 @@ class ReactantRouter extends BaseReactantRouter {
             action.type === LOCATION_CHANGE &&
             action.payload.isFirstRendering
           ) {
+            stopWatching();
             const router = this._routers[this.portDetector.name];
             if (router && this.compareRouter(router, this.router!)) {
-              stopWatching();
               // router reducer @@router/LOCATION_CHANGE event and syncFullState event The events may be out of order, so we re-check route consistency after synchronizing the state.
               this.history.replace(router.location);
             }
+            this.firstRenderingSyncResolve();
           }
         }
       );
@@ -264,10 +290,14 @@ class ReactantRouter extends BaseReactantRouter {
           this.router
         )
         .then((router) => {
-          if (!router) return;
+          if (!router) {
+            this.firstActiveSyncResolve();
+            return;
+          }
           this.passiveRoute = true;
           this.history.replace(router.location);
           this.passiveRoute = false;
+          this.firstActiveSyncResolve();
         });
     });
     // #endregion

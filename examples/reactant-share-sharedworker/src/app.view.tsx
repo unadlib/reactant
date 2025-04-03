@@ -77,6 +77,10 @@ export class AppView extends ViewModule {
         transport.emit('test', 42).then((response) => {
           console.log(response);
         });
+        this.router.firstClientSync.then(() => {
+          this.router.push('/counter');
+          console.log('first client sync', this.router.currentPath);
+        });
       }
     );
   }
