@@ -149,7 +149,9 @@ export type FirstParameter<T extends (...args: any) => any> = T extends (
   : never;
 
 type Collection<T> = {
-  [P in Exclude<keyof T, keyof Service>]-?: NonNullable<T[P]>[];
+  [P in Exclude<keyof T, keyof Service | typeof storeKey>]-?: NonNullable<
+    T[P]
+  >[];
 };
 
 export type PluginHooks = Collection<PluginModule>;
