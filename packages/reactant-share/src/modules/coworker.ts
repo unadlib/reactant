@@ -19,7 +19,11 @@ import {
   nameKey,
   Service,
 } from 'reactant';
-import { createTransport, Transport } from 'data-transport';
+import {
+  createTransport,
+  Transport,
+  type TransportOptions,
+} from 'data-transport';
 import type { ILastActionData } from 'reactant-last-action';
 
 import { PortDetector } from './portDetector';
@@ -70,6 +74,10 @@ export interface ICoworkerOptions {
    * Enable transport debugger for coworker.
    */
   enableTransportDebugger?: boolean;
+  /**
+   * Logger for coworker.
+   */
+  logger?: TransportOptions['logger'];
   /**
    * coworker transports
    */
@@ -164,6 +172,7 @@ export class Coworker extends PluginModule {
           createTransport('Broadcast', {
             prefix: this.prefix,
             verbose: this.coworkerOptions?.enableTransportDebugger,
+            logger: this.coworkerOptions?.logger,
           })
         );
       }
@@ -173,6 +182,7 @@ export class Coworker extends PluginModule {
           createTransport('Broadcast', {
             prefix: this.prefix,
             verbose: this.coworkerOptions?.enableTransportDebugger,
+            logger: this.coworkerOptions?.logger,
           })
         );
       }
@@ -187,6 +197,7 @@ export class Coworker extends PluginModule {
           {
             prefix: this.prefix,
             verbose: this.coworkerOptions?.enableTransportDebugger,
+            logger: this.coworkerOptions?.logger,
           }
         )
       );
@@ -203,12 +214,14 @@ export class Coworker extends PluginModule {
           worker: this.coworkerOptions.worker,
           prefix: this.prefix,
           verbose: this.coworkerOptions.enableTransportDebugger,
+          logger: this.coworkerOptions?.logger,
         });
       }
       return createTransport('SharedWorkerClient', {
         worker: this.coworkerOptions.worker,
         prefix: this.prefix,
         verbose: this.coworkerOptions.enableTransportDebugger,
+        logger: this.coworkerOptions?.logger,
       });
     }
   }

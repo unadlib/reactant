@@ -266,9 +266,14 @@ describe('base', () => {
       expect(serverApp.instance.counter.num).toBe(4);
       expect(result2).toBe(4);
 
-      const result3 = await delegate(clientApp.instance.counter, 'setNum', [5], {
-        respond: false,
-      });
+      const result3 = await delegate(
+        clientApp.instance.counter,
+        'setNum',
+        [5],
+        {
+          respond: false,
+        }
+      );
 
       expect(clientApp.instance.counter.num).toBe(3);
       expect(serverApp.instance.counter.num).toBe(5);
@@ -490,6 +495,127 @@ describe('base', () => {
 
     await clientApp.container.get(PortDetector).syncFullState();
     expect(fn.mock.calls.length).toBe(3);
+  });
+
+  test('base server/Minimal set client port mode with enableTransportDebugger and transportLogger', async () => {
+    const serverLogger = jest.fn();
+    const clientLogger = jest.fn();
+    const transports = mockPairTransports({
+      serverLogger,
+      clientLogger,
+      serverVerbose: true,
+      clientVerbose: true,
+    });
+
+    const serverApp = await createSharedApp({
+      modules: [{ provide: 'todoList', useClass: TodoList }],
+      main: AppView,
+      render,
+      share: {
+        name: 'counter',
+        type: 'Base',
+        port: 'server',
+        transports: {
+          server: transports[0],
+        },
+        enableTransportDebugger: true,
+        transportLogger: serverLogger,
+      },
+    });
+    act(() => {
+      serverApp.bootstrap(serverContainer);
+    });
+    expect(serverContainer.querySelector('#count')?.textContent).toBe('0');
+
+    const clientApp = await createSharedApp({
+      modules: [],
+      main: AppView,
+      render,
+      share: {
+        name: 'counter',
+        type: 'Base',
+        port: 'client',
+        transports: {
+          client: transports[1],
+        },
+        enablePatchesFilter: true,
+        transportLogger: clientLogger,
+        enableTransportDebugger: true,
+      },
+    });
+    await clientApp.bootstrap(clientContainer);
+    expect(clientContainer.querySelector('#count')?.textContent).toBe('0');
+
+    act(() => {
+      serverContainer
+        .querySelector('#increase')!
+        .dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    });
+
+    // waiting for sync state
+    await new Promise((resolve) => setTimeout(resolve));
+
+    expect(serverContainer.querySelector('#count')?.textContent).toBe('1');
+    expect(clientContainer.querySelector('#count')?.textContent).toBe('1');
+
+    expect(clientApp.store?.getState().counter.obj.number).toBe(1);
+
+    act(() => {
+      clientContainer
+        .querySelector('#increase')!
+        .dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    });
+
+    // waiting for sync state
+    await new Promise((resolve) => setTimeout(resolve));
+
+    expect(serverContainer.querySelector('#count')?.textContent).toBe('2');
+    expect(clientContainer.querySelector('#count')?.textContent).toBe('2');
+
+    expect(clientApp.store?.getState().counter.obj.number).toBe(2);
+    // waiting for sync state
+    await new Promise((resolve) => setTimeout(resolve));
+    expect(serverLogger.mock.calls.length).toBe(6);
+    expect(clientLogger.mock.calls.length).toBe(8);
+    act(() => {
+      clientContainer
+        .querySelector('#increase')!
+        .dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    });
+    // waiting for sync state
+    await new Promise((resolve) => setTimeout(resolve));
+
+    const fn = jest.fn();
+    clientApp.store!.subscribe(fn);
+    expect(fn.mock.calls.length).toBe(0);
+    await serverApp.container.get(PortDetector).syncToClients();
+    expect(fn.mock.calls.length).toBe(1);
+
+    await clientApp.container
+      .get(PortDetector)
+      .syncFullState({ forceSync: false });
+    expect(fn.mock.calls.length).toBe(1);
+    expect(clientApp.container.get(LastAction).sequence).toBe(
+      serverApp.container.get(LastAction).sequence
+    );
+
+    clientApp.container.get(LastAction).sequence = -1;
+    await clientApp.container
+      .get(PortDetector)
+      .syncFullState({ forceSync: false });
+    expect(fn.mock.calls.length).toBe(2);
+
+    await clientApp.container
+      .get(PortDetector)
+      .syncFullState({ forceSync: false });
+    expect(fn.mock.calls.length).toBe(2);
+
+    await clientApp.container.get(PortDetector).syncFullState();
+    expect(fn.mock.calls.length).toBe(3);
+    // waiting for sync state
+    await new Promise((resolve) => setTimeout(resolve));
+    expect(serverLogger.mock.calls.length).toBe(13);
+    expect(clientLogger.mock.calls.length).toBe(20);
   });
 
   test('base SPA mode', async () => {

@@ -5,6 +5,7 @@ import type {
   EmitParameter,
   MergeInteraction,
   Transport,
+  TransportOptions,
 } from 'data-transport';
 import type { Config as BaseConfig, App, Renderer } from 'reactant';
 import type { ILastActionData } from 'reactant-last-action';
@@ -96,6 +97,10 @@ export interface ISharedAppOptions {
    * Enable transport debugger for shared app.
    */
   enableTransportDebugger?: boolean;
+  /**
+   * Transport logger for shared app.
+   */
+  transportLogger?: TransportOptions['logger'];
   /**
    * Transform client/server port
    */
