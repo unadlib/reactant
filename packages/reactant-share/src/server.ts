@@ -13,6 +13,7 @@ import {
 import { PortDetector } from './modules/portDetector';
 import { PatchesChecker } from './modules/patchesChecker';
 import { applyMethod } from './applyMethod';
+import { isSharedWorker } from './utils';
 
 export const handleServer = ({
   app,
@@ -32,9 +33,7 @@ export const handleServer = ({
   const patchesChecker: PatchesChecker | null = enablePatchesChecker
     ? container.get(PatchesChecker)
     : null;
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  if (globalThis.SharedWorkerGlobalScope) {
+  if (isSharedWorker) {
     let executed = false;
     // before any other event, it should be connected with the first client
     globalThis.addEventListener('connect', () => {

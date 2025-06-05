@@ -33,6 +33,7 @@ import type { ISharedAppOptions } from '../interfaces';
 import { PortDetector } from './portDetector';
 import { delegate } from '../delegate';
 import { fork } from '../fork';
+import { isSharedWorker } from '../utils';
 
 export {
   createBrowserHistory,
@@ -380,7 +381,7 @@ class ReactantRouter extends BaseReactantRouter {
   /**
    * The timestamp of the last routing.
    */
-  lastRoutedTimestamp = Date.now();
+  lastRoutedTimestamp = isSharedWorker ? 0 : Date.now();
 
   protected _changeRoutingOnSever(
     name: string,
