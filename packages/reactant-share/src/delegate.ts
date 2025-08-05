@@ -115,7 +115,7 @@ export const delegate = ((module, key, args, options = {}) => {
           }
           if (__DEV__) {
             console.warn(
-              `The sequence of the action is not consistent.`,
+              `The sequence of the action is not consistent in ${target[identifierKey]}.${key}.`,
               sequence,
               portDetector.lastAction.sequence
             );
