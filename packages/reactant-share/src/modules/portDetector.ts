@@ -402,6 +402,15 @@ export class PortDetector {
     )
       return;
     const store = (this as Service)[storeKey];
+    if (__DEV__) {
+      console.log(
+        '[syncFullState]',
+        'old sequence:',
+        this.lastAction.sequence,
+        'new sequence:',
+        fullState[this.lastAction.stateKey]._sequence
+      );
+    }
     store!.dispatch({
       type: `${actionIdentifier}_${loadFullStateActionName}`,
       state: this.getNextState(fullState),

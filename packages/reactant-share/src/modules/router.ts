@@ -221,12 +221,19 @@ class ReactantRouter extends BaseReactantRouter {
         this,
         () => this.router,
         () => {
-          delegate(this as any, '_changeRoutingOnSever', [
-            this.portDetector.name,
-            this.router,
-            this.lastRoutedTimestamp,
-            this.portDetector.clientId,
-          ]);
+          delegate(
+            this as any,
+            '_changeRoutingOnSever',
+            [
+              this.portDetector.name,
+              this.router,
+              this.lastRoutedTimestamp,
+              this.portDetector.clientId,
+            ],
+            {
+              respond: false,
+            }
+          );
         }
       );
     });
