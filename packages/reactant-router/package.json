@@ -26,7 +26,7 @@
     "Michael Lin <unadlib@gmail.com> (https://github.com/unadlib)"
   ],
   "peerDependencies": {
-    "react": "^16.12.0 || ^17",
+    "react": "^16.12.0 || ^17 || ^18",
     "react-redux": "^7.2.8",
     "reactant-module": "*",
     "redux": "^4.1.0"

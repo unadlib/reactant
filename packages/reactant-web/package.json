@@ -24,7 +24,7 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "react-dom": "^16.14.0 || ^17"
+    "react-dom": "^16.14.0 || ^17 || ^18"
   },
   "dependencies": {
     "reactant-router-dom": "^0.148.0"
