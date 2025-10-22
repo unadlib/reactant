@@ -6,7 +6,7 @@
 - [ ] support TS 5.0 new decorator(https://github.com/tc39/proposal-decorators), [more detail](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-5-0.html#differences-with-experimental-legacy-decorators)
 - [ ] upgrade inversify v6
 - [ ] upgrade react-router v6.22.1
-- [ ] upgrade react/react-dom 17.x and 18.x
+- [x] upgrade react/react-dom 17.x and 18.x
 - [ ] upgrade react-native
 - [ ] upgrade redux v5
 - [ ] upgrade react-redux v8.1.3 for React 17.x and 18.x
