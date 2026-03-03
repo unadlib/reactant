@@ -16,6 +16,14 @@ import {
 } from '..';
 
 const increaseSymbol = Symbol('increase');
+const isProduction = process.env.NODE_ENV === 'production';
+
+const assertTemporaryStringError = (callback: () => void) => {
+  if (isProduction) {
+    return;
+  }
+  expect(callback).toThrowError(/a temporary string/);
+};
 
 @injectable({
   name: 'counter',
@@ -402,9 +410,9 @@ test('delegate error case1', async () => {
     },
   });
 
-  expect(() => {
+  assertTemporaryStringError(() => {
     delegate(server.instance, 'increaseFunc', [], { respond: true });
-  }).toThrowError(/a temporary string/);
+  });
 
   const client0 = await createSharedApp({
     modules: [],
@@ -421,9 +429,9 @@ test('delegate error case1', async () => {
   });
   await client0.bootstrap();
 
-  expect(() => {
+  assertTemporaryStringError(() => {
     delegate(client0.instance, 'increaseFunc', [], { respond: true });
-  }).toThrowError(/a temporary string/);
+  });
 });
 
 test('delegate error case2', async () => {
@@ -472,9 +480,9 @@ test('delegate error case2', async () => {
     },
   });
 
-  expect(() => {
+  assertTemporaryStringError(() => {
     delegate(server.instance, 'increaseFunc', [], { respond: true });
-  }).toThrowError(/a temporary string/);
+  });
 
   const client0 = await createSharedApp({
     modules: [],
@@ -491,9 +499,9 @@ test('delegate error case2', async () => {
   });
   await client0.bootstrap();
 
-  expect(() => {
+  assertTemporaryStringError(() => {
     delegate(client0.instance, 'increaseFunc', [], { respond: true });
-  }).toThrowError(/a temporary string/);
+  });
 });
 
 test('delegate with args', async () => {
@@ -658,20 +666,24 @@ test('fork error case1', async () => {
     },
   });
 
-  expect(console.error).toHaveBeenCalled();
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  expect(console.error.mock.calls[0][0]).toContain(
-    `The decorator for class Counter1 should set "@injectable({ name: 'Counter1' })".`
-  );
+  if (isProduction) {
+    expect(console.error).not.toHaveBeenCalled();
+  } else {
+    expect(console.error).toHaveBeenCalled();
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    expect(console.error.mock.calls[0][0]).toContain(
+      `The decorator for class Counter1 should set "@injectable({ name: 'Counter1' })".`
+    );
+  }
 
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   console.error.mockRestore();
 
-  expect(() => {
+  assertTemporaryStringError(() => {
     fork(server.instance, 'increaseFunc', [], { respond: true });
-  }).toThrowError(/a temporary string/);
+  });
 
   const client0 = await createSharedApp({
     modules: [],
@@ -688,9 +700,9 @@ test('fork error case1', async () => {
   });
   await client0.bootstrap();
 
-  expect(() => {
+  assertTemporaryStringError(() => {
     fork(server.instance, 'increaseFunc', [], { respond: true });
-  }).toThrowError(/a temporary string/);
+  });
 
   expect(() => {
     fork(client0.instance, 'increaseFunc', [], { respond: true });
@@ -743,9 +755,9 @@ test('fork error case2', async () => {
     },
   });
 
-  expect(() => {
+  assertTemporaryStringError(() => {
     fork(server.instance, 'increaseFunc', [], { respond: true });
-  }).toThrowError(/a temporary string/);
+  });
 
   const client0 = await createSharedApp({
     modules: [],
@@ -762,9 +774,9 @@ test('fork error case2', async () => {
   });
   await client0.bootstrap();
 
-  expect(() => {
+  assertTemporaryStringError(() => {
     fork(server.instance, 'increaseFunc', [], { respond: true });
-  }).toThrowError(/a temporary string/);
+  });
 });
 
 test('fork with args', async () => {

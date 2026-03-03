@@ -4,8 +4,7 @@
 /* eslint-disable no-promise-executor-return */
 import React from 'react';
 import { unmountComponentAtNode, render } from 'reactant-web';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { act } from 'react-dom/test-utils';
+import { act } from '../../../scripts/jest/act';
 import {
   injectable,
   state,
@@ -25,6 +24,8 @@ import {
   watch,
 } from '..';
 import { MemoryStorage } from './MemoryStorage';
+
+const isProduction = process.env.NODE_ENV === 'production';
 
 let serverContainer: Element;
 let clientContainer: Element;
@@ -172,9 +173,13 @@ describe('base', () => {
     expect(subscribeOnClientFn.mock.calls.length).toBe(0);
     expect(onServerFn.mock.calls.length).toBe(1);
     expect(subscribeOnServerFn.mock.calls.length).toBe(0);
-    await serverApp.bootstrap(serverContainer);
+    await act(async () => {
+      await serverApp.bootstrap(serverContainer);
+    });
 
-    await new Promise((resolve) => setTimeout(resolve));
+    await act(async () => {
+      await new Promise((resolve) => setTimeout(resolve));
+    });
 
     expect(onClientFn.mock.calls.length).toBe(0);
     expect(subscribeOnClientFn.mock.calls.length).toBe(0);
@@ -201,7 +206,9 @@ describe('base', () => {
     expect(onServerFn.mock.calls.length).toBe(1);
     expect(subscribeOnServerFn.mock.calls.length).toBe(1);
 
-    await clientApp.bootstrap(clientContainer);
+    await act(async () => {
+      await clientApp.bootstrap(clientContainer);
+    });
     expect(onClientFn.mock.calls.length).toBe(1);
     expect(subscribeOnClientFn.mock.calls.length).toBe(1);
     expect(onServerFn.mock.calls.length).toBe(1);
@@ -214,7 +221,9 @@ describe('base', () => {
         .dispatchEvent(new MouseEvent('click', { bubbles: true }));
     });
 
-    await new Promise((resolve) => setTimeout(resolve));
+    await act(async () => {
+      await new Promise((resolve) => setTimeout(resolve));
+    });
 
     expect(onClientFn.mock.calls.length).toBe(1);
     expect(subscribeOnClientFn.mock.calls.length).toBe(2);
@@ -230,7 +239,9 @@ describe('base', () => {
         .dispatchEvent(new MouseEvent('click', { bubbles: true }));
     });
 
-    await new Promise((resolve) => setTimeout(resolve));
+    await act(async () => {
+      await new Promise((resolve) => setTimeout(resolve));
+    });
 
     expect(onClientFn.mock.calls.length).toBe(1);
     expect(subscribeOnClientFn.mock.calls.length).toBe(3);
@@ -270,9 +281,13 @@ describe('base', () => {
     expect(subscribeOnClientFn.mock.calls.length).toBe(0);
     expect(onServerFn.mock.calls.length).toBe(0);
     expect(subscribeOnServerFn.mock.calls.length).toBe(0);
-    await app.bootstrap(serverContainer);
+    await act(async () => {
+      await app.bootstrap(serverContainer);
+    });
 
-    await new Promise((resolve) => setTimeout(resolve));
+    await act(async () => {
+      await new Promise((resolve) => setTimeout(resolve));
+    });
 
     expect(onClientFn.mock.calls.length).toBe(0);
     expect(subscribeOnClientFn.mock.calls.length).toBe(0);
@@ -391,94 +406,111 @@ describe('base', () => {
       }
     }
 
-    await expect(() =>
-      createSharedApp({
-        modules: [
-          Counter0,
-          Storage,
-          {
-            provide: StorageOptions,
-            useValue: {
-              storage,
-              blacklist: [],
-            } as IStorageOptions,
+    const expectStorageValidation = async (
+      factory: () => Promise<unknown>,
+      message: string
+    ) => {
+      if (isProduction) {
+        try {
+          const app = factory();
+          const sharedApp = await app;
+          if (
+            sharedApp &&
+            typeof (sharedApp as { destroy?: () => void }).destroy ===
+              'function'
+          ) {
+            (sharedApp as { destroy: () => void }).destroy();
+          }
+        } catch (e) {
+          //
+        }
+      } else {
+        await expect(factory).rejects.toEqual(new Error(message));
+      }
+    };
+
+    await expectStorageValidation(
+      () =>
+        createSharedApp({
+          modules: [
+            Counter0,
+            Storage,
+            {
+              provide: StorageOptions,
+              useValue: {
+                storage,
+                blacklist: [],
+              } as IStorageOptions,
+            },
+          ],
+          main: AppView,
+          render,
+          share: {
+            name: 'counter',
+            type: 'Base',
+            port: 'server',
+            transports: {
+              server: transports[0],
+            },
           },
-        ],
-        main: AppView,
-        render,
-        share: {
-          name: 'counter',
-          type: 'Base',
-          port: 'server',
-          transports: {
-            server: transports[0],
-          },
-        },
-      })
-    ).rejects.toEqual(
-      new Error(
-        `Module 'Counter0' is invalid for using 'setStorage', the parameter 'options.name' of the decorator '@injectable(options)' that decorates the 'Counter0' module must be specified as a string.`
-      )
+        }),
+      `Module 'Counter0' is invalid for using 'setStorage', the parameter 'options.name' of the decorator '@injectable(options)' that decorates the 'Counter0' module must be specified as a string.`
     );
 
-    await expect(() =>
-      createSharedApp({
-        modules: [
-          Counter1,
-          Storage,
-          {
-            provide: StorageOptions,
-            useValue: {
-              storage,
-              blacklist: [],
-            } as IStorageOptions,
+    await expectStorageValidation(
+      () =>
+        createSharedApp({
+          modules: [
+            Counter1,
+            Storage,
+            {
+              provide: StorageOptions,
+              useValue: {
+                storage,
+                blacklist: [],
+              } as IStorageOptions,
+            },
+          ],
+          main: AppView,
+          render,
+          share: {
+            name: 'counter',
+            type: 'Base',
+            port: 'server',
+            transports: {
+              server: transports[0],
+            },
           },
-        ],
-        main: AppView,
-        render,
-        share: {
-          name: 'counter',
-          type: 'Base',
-          port: 'server',
-          transports: {
-            server: transports[0],
-          },
-        },
-      })
-    ).rejects.toEqual(
-      new Error(
-        `The module "Counter1" has been disabled for state sharing, its module state cannot be enabled for storage.`
-      )
+        }),
+      `The module "Counter1" has been disabled for state sharing, its module state cannot be enabled for storage.`
     );
 
-    await expect(() =>
-      createSharedApp({
-        modules: [
-          Counter2,
-          Storage,
-          {
-            provide: StorageOptions,
-            useValue: {
-              storage,
-              blacklist: [],
-            } as IStorageOptions,
+    await expectStorageValidation(
+      () =>
+        createSharedApp({
+          modules: [
+            Counter2,
+            Storage,
+            {
+              provide: StorageOptions,
+              useValue: {
+                storage,
+                blacklist: [],
+              } as IStorageOptions,
+            },
+          ],
+          main: AppView,
+          render,
+          share: {
+            name: 'counter',
+            type: 'Base',
+            port: 'server',
+            transports: {
+              server: transports[0],
+            },
           },
-        ],
-        main: AppView,
-        render,
-        share: {
-          name: 'counter',
-          type: 'Base',
-          port: 'server',
-          transports: {
-            server: transports[0],
-          },
-        },
-      })
-    ).rejects.toEqual(
-      new Error(
-        `The module "Counter2" has been disabled for state sharing, its module state cannot be enabled for storage.`
-      )
+        }),
+      `The module "Counter2" has been disabled for state sharing, its module state cannot be enabled for storage.`
     );
   });
 

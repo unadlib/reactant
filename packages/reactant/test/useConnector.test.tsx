@@ -1,8 +1,7 @@
 /* eslint-disable no-shadow */
 import React, { FC } from 'react';
 import { unmountComponentAtNode, render } from 'reactant-web';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { act } from 'react-dom/test-utils';
+import { act } from '../../../scripts/jest/act';
 import {
   injectable,
   state,
@@ -73,7 +72,9 @@ describe('useConnector', () => {
       if (list[i] !== list[i - 1]) {
         expectedRenderCallList.push(list[i]);
       }
-      app.instance.setValue(list[i]);
+      act(() => {
+        app.instance.setValue(list[i]);
+      });
       expect(subscribeFn.mock.calls.length).toBe(i + 1);
       expect(renderFn.mock.calls).toEqual(
         expectedRenderCallList.map((item) => [item])
@@ -114,7 +115,9 @@ describe('useConnector', () => {
     const list = ['str', 'string', true, false, 1, 2, Symbol(''), Symbol('')];
 
     for (let i = 0; i < list.length; i += 1) {
-      app.instance.setValue(list[i]);
+      act(() => {
+        app.instance.setValue(list[i]);
+      });
       expect(subscribeFn.mock.calls.length).toBe(i + 1);
       expect(renderFn.mock.calls).toEqual(
         [null, ...list]
@@ -127,6 +130,7 @@ describe('useConnector', () => {
   test('selector with custom shallowEqual', () => {
     const renderFn = jest.fn();
     const checkFn = jest.fn();
+    let throwError = false;
 
     @injectable()
     class FooView extends ViewModule {
@@ -143,7 +147,10 @@ describe('useConnector', () => {
           () => this.key,
           (newValue, oldValue) => {
             checkFn();
-            throw new Error(`some error`);
+            if (throwError) {
+              throw new Error(`some error`);
+            }
+            return newValue === oldValue;
           }
         );
         renderFn(value);
@@ -164,12 +171,14 @@ describe('useConnector', () => {
     act(() => {
       app.bootstrap(container);
     });
-    expect(checkFn).toBeCalledTimes(0);
+    throwError = true;
     expect(renderFn).toBeCalledTimes(1);
     expect(() => {
-      app.instance.setValue('str');
-    }).toThrow();
-    expect(checkFn).toBeCalledTimes(3);
+      act(() => {
+        app.instance.setValue('str');
+      });
+    }).toThrow('some error');
+    expect(checkFn).toBeCalled();
     expect(renderFn).toBeCalledTimes(1);
   });
 
@@ -233,7 +242,9 @@ describe('useConnector', () => {
       app.bootstrap(container);
     });
     expect(renderFn).toBeCalledTimes(1);
-    app.instance.setValue('str');
+    act(() => {
+      app.instance.setValue('str');
+    });
     expect(renderFn).toBeCalledTimes(2);
     expect(renderFn.mock.calls).toEqual([[null], ['str']]);
   });

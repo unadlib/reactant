@@ -54,9 +54,8 @@
     "@types/glob-parent": "^5.1.0",
     "@types/jest": "^29.0.3",
     "@types/node": "^13.7.1",
-    "@types/react": "^17.0.49",
-    "@types/react-dom": "^17.0.17",
-    "@types/react-redux": "^7.1.24",
+    "@types/react": "^18.3.1",
+    "@types/react-dom": "^18.3.1",
     "@types/react-router": "^5.1.18",
     "@types/react-router-dom": "^5.3.3",
     "@typescript-eslint/eslint-plugin": "^5.56.0",
@@ -91,8 +90,8 @@
     "yargs": "^15.1.0"
   },
   "resolutions": {
-    "@types/react": "^17.0.49",
-    "@types/react-dom": "^17.0.17"
+    "@types/react": "^18.3.1",
+    "@types/react-dom": "^18.3.1"
   },
   "config": {
     "commitizen": {

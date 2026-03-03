@@ -1,7 +1,7 @@
 /* eslint-disable no-shadow */
 /* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
-import { act } from 'react-dom/test-utils';
+import { act } from '../../../scripts/jest/act';
 import {
   ViewModule,
   createApp,

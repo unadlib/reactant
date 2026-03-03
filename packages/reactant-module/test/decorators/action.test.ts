@@ -11,6 +11,8 @@ import {
   applyMiddleware,
 } from '../..';
 
+const isProduction = process.env.NODE_ENV === 'production';
+
 describe('@action', () => {
   test('base', () => {
     @injectable({
@@ -99,12 +101,17 @@ describe('@action', () => {
       [],
       Symbol(''),
     ]) {
-      expect(() => {
+      const runUnexpectedChange = () => {
         counter.returnValue = value;
         counter.unexpectedChange();
-      }).toThrowError(
-        /The return value of the method 'unexpectedChange' is not allowed./
-      );
+      };
+      if (isProduction) {
+        expect(runUnexpectedChange).not.toThrow();
+      } else {
+        expect(runUnexpectedChange).toThrowError(
+          /The return value of the method 'unexpectedChange' is not allowed./
+        );
+      }
     }
   });
 
@@ -631,9 +638,13 @@ describe('@action', () => {
       //
     });
     todoList.noChange();
-    expect(warn).toBeCalledWith(
-      `There are no state updates to method 'todo.noChange'`
-    );
+    if (isProduction) {
+      expect(warn).not.toBeCalled();
+    } else {
+      expect(warn).toBeCalledWith(
+        `There are no state updates to method 'todo.noChange'`
+      );
+    }
     warn.mockReset();
   });
 

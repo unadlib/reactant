@@ -3,7 +3,7 @@
 /* eslint-disable class-methods-use-this */
 import React, { FC, PropsWithChildren } from 'react';
 import { unmountComponentAtNode, render } from 'reactant-web';
-import { act } from 'react-dom/test-utils';
+import { act } from '../../../../scripts/jest/act';
 import { ViewModule, createApp, injectable, PluginModule, state } from '../..';
 
 let container: Element;

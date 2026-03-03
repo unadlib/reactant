@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable class-methods-use-this */
 import React, { FC } from 'react';
-import { act } from 'react-dom/test-utils';
+import { act } from '../../../scripts/jest/act';
 
 import {
   unmountComponentAtNode,

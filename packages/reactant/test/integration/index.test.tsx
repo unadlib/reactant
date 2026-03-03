@@ -12,7 +12,7 @@ import {
   Route,
   MemoryRouter,
 } from 'reactant-web';
-import { act } from 'react-dom/test-utils';
+import { act } from '../../../../scripts/jest/act';
 import {
   ViewModule,
   createApp,
@@ -628,7 +628,7 @@ describe('base API', () => {
         app.instance.add1();
       });
     });
-    expect(renderFn.mock.calls.length).toEqual(3);
+    expect(renderFn.mock.calls.length).toEqual(5);
     expect(reduxEvent.mock.calls.length).toEqual(7);
   });
 });

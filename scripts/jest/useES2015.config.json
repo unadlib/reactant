@@ -13,6 +13,9 @@
       }
     ]
   },
+  "setupFilesAfterEnv": [
+    "<rootDir>/scripts/jest/setup.ts"
+  ],
   "testMatch": ["**/?(*.)+(es2015).[jt]s?(x)"],
   "testPathIgnorePatterns": [
     "examples",

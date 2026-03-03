@@ -2,8 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
 import { unmountComponentAtNode, render } from 'reactant-web';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { act } from 'react-dom/test-utils';
+import { act } from '../../../scripts/jest/act';
 import {
   injectable,
   state,
@@ -17,6 +16,8 @@ import {
   optional,
   mockPairTransports,
 } from '..';
+
+const isProduction = process.env.NODE_ENV === 'production';
 
 let serverContainer: Element;
 let clientContainer: Element;
@@ -205,13 +206,17 @@ describe('base', () => {
         .dispatchEvent(new MouseEvent('click', { bubbles: true }));
     });
     expect(serverContainer.querySelector('#count')?.textContent).toBe('0');
-    expect(spy.mock.calls).toEqual([
-      [
-        "The state 'todoList.list' operation in the method 'decrease' of the module 'counter'  is a replacement update operation, be sure to check the state 'todoList.list' update operation and use mutation updates to ensure the minimum set of update patches.",
-      ],
-      [
-        "The state 'counter.obj' operation in the method 'decrease' of the module 'counter'  is a replacement update operation, be sure to check the state 'counter.obj' update operation and use mutation updates to ensure the minimum set of update patches.",
-      ],
-    ]);
+    if (isProduction) {
+      expect(spy.mock.calls).toEqual([]);
+    } else {
+      expect(spy.mock.calls).toEqual([
+        [
+          "The state 'todoList.list' operation in the method 'decrease' of the module 'counter'  is a replacement update operation, be sure to check the state 'todoList.list' update operation and use mutation updates to ensure the minimum set of update patches.",
+        ],
+        [
+          "The state 'counter.obj' operation in the method 'decrease' of the module 'counter'  is a replacement update operation, be sure to check the state 'counter.obj' update operation and use mutation updates to ensure the minimum set of update patches.",
+        ],
+      ]);
+    }
   });
 });

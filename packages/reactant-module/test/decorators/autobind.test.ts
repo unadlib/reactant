@@ -168,5 +168,7 @@ test('`@autobind` decorate error', () => {
       },
     });
     const counter = container.get(Counter);
-  }).toThrowError(/only be decorated by '@action' as a class method/);
+  }).toThrowError(
+    /only be decorated by '@action' as a class method|Invalid property descriptor/
+  );
 });

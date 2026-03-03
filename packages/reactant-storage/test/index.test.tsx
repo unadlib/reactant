@@ -1,7 +1,7 @@
 /* eslint-disable no-shadow */
 /* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
-import { act } from 'react-dom/test-utils';
+import { act } from '../../../scripts/jest/act';
 
 import {
   ViewModule,
@@ -40,6 +40,22 @@ class MemoryStorage {
     });
   }
 }
+
+const isProduction = process.env.NODE_ENV === 'production';
+
+const expectStorageValidationError = (callback: () => void) => {
+  if (isProduction) {
+    const currentEnv = process.env.NODE_ENV;
+    process.env.NODE_ENV = 'development';
+    try {
+      expect(callback).toThrowErrorMatchingSnapshot();
+    } finally {
+      process.env.NODE_ENV = currentEnv;
+    }
+    return;
+  }
+  expect(callback).toThrowErrorMatchingSnapshot();
+};
 
 let container: Element;
 
@@ -151,8 +167,10 @@ describe('base API', () => {
     act(() => {
       app.bootstrap(container);
     });
-    await new Promise((resolve) => {
-      setTimeout(resolve);
+    await act(async () => {
+      await new Promise((resolve) => {
+        setTimeout(resolve);
+      });
     });
     // just wait for async rehydration
     expect(
@@ -199,7 +217,7 @@ describe('base API', () => {
       }
     }
 
-    expect(() => {
+    expectStorageValidationError(() => {
       createApp({
         modules: [
           {
@@ -212,7 +230,7 @@ describe('base API', () => {
         main: AppView,
         render,
       });
-    }).toThrowErrorMatchingSnapshot();
+    });
   });
 
   test('base persistence module with non-string name', async () => {
@@ -237,7 +255,7 @@ describe('base API', () => {
       }
     }
 
-    expect(() => {
+    expectStorageValidationError(() => {
       createApp({
         modules: [
           {
@@ -250,7 +268,7 @@ describe('base API', () => {
         main: AppView,
         render,
       });
-    }).toThrowErrorMatchingSnapshot();
+    });
   });
 
   test('base persistence module without setting name', async () => {
@@ -272,7 +290,7 @@ describe('base API', () => {
       }
     }
 
-    expect(() => {
+    expectStorageValidationError(() => {
       createApp({
         modules: [
           {
@@ -285,7 +303,7 @@ describe('base API', () => {
         main: AppView,
         render,
       });
-    }).toThrowErrorMatchingSnapshot();
+    });
   });
 
   test('base persistence all module without setting name', async () => {
@@ -320,9 +338,13 @@ describe('base API', () => {
       main: AppView,
       render,
     });
-    expect(spy.mock.calls.slice(-1)[0][0]).toMatch(
-      /For state persistence, The '@injectable\({ name }\)' in the @@reactant\/AppView\/.+ module has not been set yet\./
-    );
+    if (isProduction) {
+      expect(spy).not.toHaveBeenCalled();
+    } else {
+      expect(spy.mock.calls.slice(-1)[0][0]).toMatch(
+        /For state persistence, The '@injectable\({ name }\)' in the @@reactant\/AppView\/.+ module has not been set yet\./
+      );
+    }
   });
 
   test('base persistence module with onRehydrated', async () => {
@@ -432,12 +454,16 @@ describe('base API', () => {
     act(() => {
       app.bootstrap(container);
     });
-    await new Promise((resolve) => {
-      setTimeout(resolve);
+    await act(async () => {
+      await new Promise((resolve) => {
+        setTimeout(resolve);
+      });
     });
     expect(container.querySelector('#increase')?.textContent).toBeUndefined();
     expect(app.instance.bar.storage.rehydrated).toBe(false);
-    await app.instance.bar.promiseRehydrated;
+    await act(async () => {
+      await app.instance.bar.promiseRehydrated;
+    });
     expect(container.querySelector('#increase')?.textContent).toBe('1');
     expect(app.instance.bar.storage.rehydrated).toBe(true);
     act(() => {
@@ -484,7 +510,7 @@ describe('check with error', () => {
       }
     }
 
-    expect(() => {
+    expectStorageValidationError(() => {
       createApp({
         modules: [
           {
@@ -497,7 +523,7 @@ describe('check with error', () => {
         main: AppView,
         render,
       });
-    }).toThrowErrorMatchingSnapshot();
+    });
   });
 
   test('base persistence with `_persist` module', async () => {
@@ -518,7 +544,7 @@ describe('check with error', () => {
       }
     }
 
-    expect(() => {
+    expectStorageValidationError(() => {
       createApp({
         modules: [
           {
@@ -531,6 +557,6 @@ describe('check with error', () => {
         main: AppView,
         render,
       });
-    }).toThrowErrorMatchingSnapshot();
+    });
   });
 });

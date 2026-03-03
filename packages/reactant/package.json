@@ -33,14 +33,15 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "react": "^16.12.0 || ^17 || ^18"
+    "react": "^16.12.0 || ^17 || ^18",
+    "react-redux": "^8.1.3"
   },
   "dependencies": {
-    "react-redux": "^7.2.8",
+    "react-redux": "^8.1.3",
     "reactant-module": "^0.149.0"
   },
   "devDependencies": {
-    "react": "^17.0.2",
+    "react": "^18.3.1",
     "reactant-storage": "^0.149.0",
     "reactant-web": "^0.149.0"
   }

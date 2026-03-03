@@ -4,8 +4,7 @@
 import React from 'react';
 import { unmountComponentAtNode, render } from 'reactant-web';
 import { BroadcastChannel } from 'broadcast-channel';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { act } from 'react-dom/test-utils';
+import { act } from '../../../scripts/jest/act';
 import {
   injectable,
   state,

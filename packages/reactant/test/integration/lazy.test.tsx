@@ -3,7 +3,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { Storage, StorageOptions, IStorageOptions } from 'reactant-storage';
 import { unmountComponentAtNode, render } from 'reactant-web';
-import { act } from 'react-dom/test-utils';
+import { act } from '../../../../scripts/jest/act';
 import {
   createApp,
   injectable,

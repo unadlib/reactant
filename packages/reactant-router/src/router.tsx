@@ -139,7 +139,7 @@ class ReactantRouter extends PluginModule {
     action: string;
   };
 
-  ConnectedRouter: FunctionComponent = (props) => (
+  ConnectedRouter: FunctionComponent<PropsWithChildren<{}>> = (props) => (
     <ConnectedRouter history={this.history}>{props.children}</ConnectedRouter>
   );
 

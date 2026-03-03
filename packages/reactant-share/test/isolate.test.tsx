@@ -1,8 +1,7 @@
 /* eslint-disable no-promise-executor-return */
 import React from 'react';
 import { unmountComponentAtNode, render } from 'reactant-web';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { act } from 'react-dom/test-utils';
+import { act } from '../../../scripts/jest/act';
 import { LastAction } from 'reactant-last-action';
 import {
   injectable,
@@ -18,6 +17,8 @@ import {
   mockPairTransports,
   fork,
 } from '..';
+
+const isProduction = process.env.NODE_ENV === 'production';
 
 let serverContainer: Element;
 let clientContainer: Element;
@@ -586,16 +587,20 @@ describe('base', () => {
       expect(serverApp.container.get(PortDetector).lastAction.sequence).toBe(3);
       expect(clientApp.container.get(PortDetector).lastAction.sequence).toBe(3);
 
-      expect(() => {
+      const expectedMessage = `Update state error: Mixed update of shared state and isolated state is not supported, please check method 'Counter1.increase'.`;
+      const increaseOnClient = () => {
         clientApp.container.get(Counter1).increase();
-      }).toThrowError(
-        `Update state error: Mixed update of shared state and isolated state is not supported, please check method 'Counter1.increase'.`
-      );
-      expect(() => {
+      };
+      const increaseOnServer = () => {
         serverApp.container.get(Counter1).increase();
-      }).toThrowError(
-        `Update state error: Mixed update of shared state and isolated state is not supported, please check method 'Counter1.increase'.`
-      );
+      };
+      if (isProduction) {
+        expect(increaseOnClient).not.toThrow();
+        expect(increaseOnServer).not.toThrow();
+      } else {
+        expect(increaseOnClient).toThrowError(expectedMessage);
+        expect(increaseOnServer).toThrowError(expectedMessage);
+      }
     }
   );
 

@@ -13,6 +13,9 @@
       }
     ]
   },
+  "setupFilesAfterEnv": [
+    "<rootDir>/scripts/jest/setup.ts"
+  ],
   "testPathIgnorePatterns": [
     "examples",
     "packages/reactant-cli/templates",

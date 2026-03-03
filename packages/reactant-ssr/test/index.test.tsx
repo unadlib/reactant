@@ -4,8 +4,7 @@ import React, { FunctionComponent, PropsWithChildren } from 'react';
 import { unmountComponentAtNode, render } from 'reactant-web';
 import { AppProps } from 'next/app';
 import { PluginModule } from 'reactant';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { act } from 'react-dom/test-utils';
+import { act } from '../../../scripts/jest/act';
 import { createServerApp, AppView } from '..';
 
 let container: Element;
