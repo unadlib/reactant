@@ -99,7 +99,11 @@ export const hydrateRoot = (container: Element | Document, children: ReactNode) 
   return root;
 };
 
-export const render: LegacyRender = ((element, container, callback) => {
+export const render: LegacyRender = ((
+  element: Parameters<LegacyRender>[0],
+  container: Parameters<LegacyRender>[1],
+  callback: Parameters<LegacyRender>[2]
+) => {
   if (!createConcurrentRoot || !container) {
     return ReactDom.render(element, container, callback);
   }
@@ -114,7 +118,11 @@ export const render: LegacyRender = ((element, container, callback) => {
   return null;
 }) as LegacyRender;
 
-export const hydrate: LegacyHydrate = ((element, container, callback) => {
+export const hydrate: LegacyHydrate = ((
+  element: Parameters<LegacyHydrate>[0],
+  container: Parameters<LegacyHydrate>[1],
+  callback: Parameters<LegacyHydrate>[2]
+) => {
   if (!hydrateConcurrentRoot || !container) {
     return ReactDom.hydrate(element, container, callback);
   }
@@ -141,7 +149,7 @@ export const hydrate: LegacyHydrate = ((element, container, callback) => {
 }) as LegacyHydrate;
 
 export const unmountComponentAtNode: LegacyUnmountComponentAtNode = (
-  (container) => {
+  (container: Parameters<LegacyUnmountComponentAtNode>[0]) => {
     const root = roots.get(container as RootContainer);
     if (root) {
       root.unmount();
