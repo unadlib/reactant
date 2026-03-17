@@ -3,6 +3,7 @@
 /* eslint-disable global-require */
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable import/no-extraneous-dependencies */
+import fs from 'fs';
 import path from 'path';
 import { rollup } from 'rollup';
 import resolvePlugin from '@rollup/plugin-node-resolve';
@@ -19,15 +20,28 @@ type GenerateOption = {
   banner?: string;
 };
 
-const generateBundledModules = async ({
-  inputFile,
-  outputFile,
-  format,
-  name,
-  banner,
-}: GenerateOption) => {
-  console.log(`Generating bundle:`);
-  console.log(chalk.grey(`-> ${outputFile}`));
+type GenerateEsmModulesOption = {
+  inputFiles: string[];
+  outputDir: string;
+  banner?: string;
+};
+
+const writeEsmPackageJson = (outputDir: string) => {
+  fs.writeFileSync(
+    path.resolve(outputDir, 'package.json'),
+    JSON.stringify({ type: 'module' }, null, 2)
+  );
+};
+
+const getExternalModules = (outputPath: string) => {
+  const { dependencies = {}, devDependencies = {} } = require(path.resolve(
+    outputPath,
+    '../../package.json'
+  ));
+  return Object.keys({ ...dependencies, ...devDependencies });
+};
+
+const createPlugins = (format: GenerateOption['format']) => {
   const isUmd = format === 'umd';
   const plugins = [
     resolvePlugin(),
@@ -51,12 +65,22 @@ const generateBundledModules = async ({
   if (isUmd) {
     plugins.push(terserPlugin());
   }
+  return plugins;
+};
+
+const generateBundledModules = async ({
+  inputFile,
+  outputFile,
+  format,
+  name,
+  banner,
+}: GenerateOption) => {
+  console.log(`Generating bundle:`);
+  console.log(chalk.grey(`-> ${outputFile}`));
+  const isUmd = format === 'umd';
+  const plugins = createPlugins(format);
   try {
-    const { dependencies = {}, devDependencies = {} } = require(path.resolve(
-      outputFile,
-      '../../package.json'
-    ));
-    const external = Object.keys({ ...dependencies, ...devDependencies });
+    const external = getExternalModules(outputFile);
     const bundle = await rollup({
       input: inputFile,
       external,
@@ -76,4 +100,38 @@ const generateBundledModules = async ({
   }
 };
 
-export { generateBundledModules };
+const generateEsmModules = async ({
+  inputFiles,
+  outputDir,
+  banner,
+}: GenerateEsmModulesOption) => {
+  console.log(`Generating bundle:`);
+  console.log(chalk.grey(`-> ${outputDir}`));
+  try {
+    const bundle = await rollup({
+      input: inputFiles,
+      external: getExternalModules(outputDir),
+      plugins: createPlugins('es'),
+      treeshake: {
+        moduleSideEffects: false,
+      },
+    });
+    await bundle.write({
+      dir: outputDir,
+      format: 'es',
+      banner,
+      exports: 'named',
+      preserveModules: true,
+      preserveModulesRoot: path.dirname(inputFiles[0]),
+      entryFileNames: '[name].js',
+      chunkFileNames: '[name].js',
+    });
+    writeEsmPackageJson(outputDir);
+    console.log(chalk.green(`Succeed to generate ${outputDir} esm modules.\n`));
+  } catch (e) {
+    console.log(chalk.red(`Failed to generate ${outputDir} esm modules.\n`));
+    console.log(chalk.red(e));
+  }
+};
+
+export { generateBundledModules, generateEsmModules };
