@@ -1,0 +1,15 @@
+{
+  "name": "reactant-share-vite-treeshaking",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "build": "vite build",
+    "verify": "node ./verify-bundle.mjs",
+    "test": "yarn build && yarn verify"
+  },
+  "devDependencies": {
+    "typescript": "~5.7.2",
+    "vite": "^6.2.0"
+  }
+}

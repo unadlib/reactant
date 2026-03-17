@@ -22,6 +22,7 @@ jobs:
         yarn install
         yarn test
         yarn build
+        yarn test:treeshaking
         yarn test
       env:
         CI: true

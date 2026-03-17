@@ -1,0 +1,35 @@
+{
+  "name": "reactant-runtime-vite-treeshaking",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "build:reactant-di": "vite build --config ./vite.reactant-di.config.ts",
+    "verify:reactant-di": "node ./verify-bundle.mjs reactant-di ./dist/reactant-di",
+    "build:reactant-module": "vite build --config ./vite.reactant-module.config.ts",
+    "verify:reactant-module": "node ./verify-bundle.mjs reactant-module ./dist/reactant-module",
+    "build:reactant-last-action": "vite build --config ./vite.reactant-last-action.config.ts",
+    "verify:reactant-last-action": "node ./verify-bundle.mjs reactant-last-action ./dist/reactant-last-action",
+    "build:reactant": "vite build --config ./vite.reactant.config.ts",
+    "verify:reactant": "node ./verify-bundle.mjs reactant ./dist/reactant",
+    "build:reactant-redux": "vite build --config ./vite.reactant-redux.config.ts",
+    "verify:reactant-redux": "node ./verify-bundle.mjs reactant-redux ./dist/reactant-redux",
+    "build:reactant-model": "vite build --config ./vite.reactant-model.config.ts",
+    "verify:reactant-model": "node ./verify-bundle.mjs reactant-model ./dist/reactant-model",
+    "build:reactant-web": "vite build --config ./vite.reactant-web.config.ts",
+    "verify:reactant-web": "node ./verify-bundle.mjs reactant-web ./dist/reactant-web",
+    "build:reactant-storage": "vite build --config ./vite.reactant-storage.config.ts",
+    "verify:reactant-storage": "node ./verify-bundle.mjs reactant-storage ./dist/reactant-storage",
+    "build:reactant-router": "vite build --config ./vite.reactant-router.config.ts",
+    "verify:reactant-router": "node ./verify-bundle.mjs reactant-router ./dist/reactant-router",
+    "build:reactant-router-dom": "vite build --config ./vite.reactant-router-dom.config.ts",
+    "verify:reactant-router-dom": "node ./verify-bundle.mjs reactant-router-dom ./dist/reactant-router-dom",
+    "build:reactant-ssr": "vite build --config ./vite.reactant-ssr.config.ts",
+    "verify:reactant-ssr": "node ./verify-bundle.mjs reactant-ssr ./dist/reactant-ssr",
+    "test": "yarn build:reactant-di && yarn verify:reactant-di && yarn build:reactant-module && yarn verify:reactant-module && yarn build:reactant-last-action && yarn verify:reactant-last-action && yarn build:reactant && yarn verify:reactant && yarn build:reactant-redux && yarn verify:reactant-redux && yarn build:reactant-model && yarn verify:reactant-model && yarn build:reactant-web && yarn verify:reactant-web && yarn build:reactant-storage && yarn verify:reactant-storage && yarn build:reactant-router && yarn verify:reactant-router && yarn build:reactant-router-dom && yarn verify:reactant-router-dom && yarn build:reactant-ssr && yarn verify:reactant-ssr"
+  },
+  "devDependencies": {
+    "typescript": "~5.7.2",
+    "vite": "^6.2.0"
+  }
+}
