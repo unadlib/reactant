@@ -3,14 +3,11 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable prefer-destructuring */
 /* eslint-disable @typescript-eslint/no-empty-function */
+import { injectable, state, action, ViewModule } from 'reactant';
 import {
   createSharedApp,
-  injectable,
-  state,
-  action,
   delegate,
   mockPairTransports,
-  ViewModule,
   PortDetector,
   fork,
 } from '..';

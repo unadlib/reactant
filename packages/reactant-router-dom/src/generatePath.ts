@@ -18,9 +18,13 @@ const compilePath = (path: string) => {
   return generator;
 };
 
-export const generatePath: typeof ReactRouterDom.generatePath = (
-  path = '/',
-  params = {}
+export const generatePath: typeof ReactRouterDom.generatePath = <S extends string>(
+  path: S = '/' as S,
+  params?: ReactRouterDom.ExtractRouteParams<S, string | number | boolean>
 ) => {
-  return path === '/' ? path : compilePath(path)(params, { pretty: true });
+  const nextParams =
+    params ??
+    ({} as ReactRouterDom.ExtractRouteParams<S, string | number | boolean>);
+
+  return path === '/' ? path : compilePath(path)(nextParams, { pretty: true });
 };

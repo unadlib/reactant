@@ -1,8 +1,5 @@
 /* eslint-disable no-promise-executor-return */
 import React from 'react';
-import { unmountComponentAtNode, render } from 'reactant-web';
-import { act } from '../../../scripts/jest/act';
-import { LastAction } from 'reactant-last-action';
 import {
   injectable,
   state,
@@ -10,10 +7,15 @@ import {
   ViewModule,
   useConnector,
   subscribe,
+  optional,
+} from 'reactant';
+import { unmountComponentAtNode, render } from 'reactant-web';
+import { act } from '../../../scripts/jest/act';
+import { LastAction } from 'reactant-last-action';
+import {
   createSharedApp,
   delegate,
   PortDetector,
-  optional,
   mockPairTransports,
   fork,
 } from '..';

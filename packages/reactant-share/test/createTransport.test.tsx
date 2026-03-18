@@ -2,9 +2,6 @@
 /* eslint-disable no-promise-executor-return */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import React from 'react';
-import { unmountComponentAtNode, render } from 'reactant-web';
-import { BroadcastChannel } from 'broadcast-channel';
-import { act } from '../../../scripts/jest/act';
 import {
   injectable,
   state,
@@ -12,10 +9,15 @@ import {
   ViewModule,
   useConnector,
   subscribe,
+  optional,
+} from 'reactant';
+import { unmountComponentAtNode, render } from 'reactant-web';
+import { BroadcastChannel } from 'broadcast-channel';
+import { act } from '../../../scripts/jest/act';
+import {
   createSharedApp,
   delegate,
   PortDetector,
-  optional,
 } from '..';
 
 const mockBroadcastChannels: MockBroadcastChannel[] = [];

@@ -4,9 +4,6 @@
 /* eslint-disable no-promise-executor-return */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { FunctionComponent, PropsWithChildren } from 'react';
-import { unmountComponentAtNode, render, Switch, Route } from 'reactant-web';
-import type { History, LocationListener } from 'history';
-import { act } from '../../../scripts/jest/act';
 import {
   injectable,
   state,
@@ -14,6 +11,12 @@ import {
   ViewModule,
   useConnector,
   subscribe,
+  optional,
+} from 'reactant';
+import { unmountComponentAtNode, render, Switch, Route } from 'reactant-web';
+import type { History, LocationListener } from 'history';
+import { act } from '../../../scripts/jest/act';
+import {
   createSharedApp,
   delegate,
   PortDetector,
@@ -28,7 +31,6 @@ import {
   StorageOptions,
   IStorageOptions,
   Storage,
-  optional,
 } from '..';
 import { MemoryStorage } from './MemoryStorage';
 

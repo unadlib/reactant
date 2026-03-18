@@ -3,8 +3,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-promise-executor-return */
 import React from 'react';
-import { unmountComponentAtNode, render } from 'reactant-web';
-import { act } from '../../../scripts/jest/act';
 import {
   injectable,
   state,
@@ -12,16 +10,20 @@ import {
   ViewModule,
   useConnector,
   subscribe,
+  optional,
+  computed,
+  watch,
+} from 'reactant';
+import { unmountComponentAtNode, render } from 'reactant-web';
+import { act } from '../../../scripts/jest/act';
+import {
   createSharedApp,
   delegate,
   PortDetector,
-  optional,
   Storage,
   StorageOptions,
   IStorageOptions,
   mockPairTransports,
-  computed,
-  watch,
 } from '..';
 import { MemoryStorage } from './MemoryStorage';
 
