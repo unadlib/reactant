@@ -6,6 +6,8 @@ sidebar_position: 2
 
 This guide covers the breaking changes introduced by the `reactant-share` tree-shaking fix.
 
+For the broader upgrade path that also covers React 18 alignment, `react-redux@8`, package entrypoint changes, and runtime tree-shaking changes across the monorepo, see the [Upgrade Guide: React 18 and Tree-Shaking Changes](../resources/upgrade-guide-react18-and-treeshaking.md).
+
 ## Why this changed
 
 Older versions of `reactant-share` exposed an umbrella root entry. The package root re-exported APIs from:

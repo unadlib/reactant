@@ -1,6 +1,6 @@
 {
   "name": "reactant-router",
-  "version": "0.149.0",
+  "version": "0.150.0",
   "description": "A router plugin for Reactant",
   "main": "dist/index.cjs.js",
   "unpkg": "dist/index.umd.js",
@@ -40,7 +40,7 @@
   "devDependencies": {
     "react": "^18.3.1",
     "react-redux": "^8.1.3",
-    "reactant-module": "^0.149.0",
+    "reactant-module": "^0.150.0",
     "redux": "^4.1.0"
   },
   "license": "MIT"
