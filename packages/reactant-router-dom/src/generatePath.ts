@@ -1,5 +1,6 @@
 import pathToRegexp from 'path-to-regexp';
 import type * as ReactRouterDom from 'react-router-dom';
+import type { ExtractRouteParams } from 'react-router';
 
 const cache: Record<string, pathToRegexp.PathFunction> = {};
 const cacheLimit = 10000;
@@ -20,11 +21,9 @@ const compilePath = (path: string) => {
 
 export const generatePath: typeof ReactRouterDom.generatePath = <S extends string>(
   path: S = '/' as S,
-  params?: ReactRouterDom.ExtractRouteParams<S, string | number | boolean>
+  params?: ExtractRouteParams<S, string | number | boolean>
 ) => {
-  const nextParams =
-    params ??
-    ({} as ReactRouterDom.ExtractRouteParams<S, string | number | boolean>);
+  const nextParams = params ?? ({} as ExtractRouteParams<S, string | number | boolean>);
 
   return path === '/' ? path : compilePath(path)(nextParams, { pretty: true });
 };
