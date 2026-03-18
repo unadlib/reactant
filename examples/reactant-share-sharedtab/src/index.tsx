@@ -2,15 +2,13 @@ import React from 'react';
 import { render } from 'reactant-web';
 import {
   ViewModule,
-  createSharedApp,
   injectable,
   useConnector,
   action,
   state,
-  delegate,
   subscribe,
-  PortDetector,
-} from 'reactant-share';
+} from 'reactant';
+import { createSharedApp, delegate, PortDetector } from 'reactant-share';
 
 @injectable({
   name: 'counter',

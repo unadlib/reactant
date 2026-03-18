@@ -5,10 +5,9 @@ import {
   RouterOptions,
   Storage,
   StorageOptions,
-  IStorageOptions,
-  IRouterOptions,
   createHashHistory,
 } from 'reactant-share';
+import type { IStorageOptions, IRouterOptions } from 'reactant-share';
 import localForage from 'localforage';
 import { AppView } from './modules/app.view';
 

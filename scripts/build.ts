@@ -1,7 +1,8 @@
 /* eslint-disable no-console */
 import path from 'path';
+import fs from 'fs';
 import { compile } from './typescript';
-import { generateBundledModules } from './rollup';
+import { generateBundledModules, generateEsmModules } from './rollup';
 import { buildTypes as buildTypesObject } from './workspaces';
 
 process.chdir(path.resolve(__dirname, '..'));
@@ -13,6 +14,13 @@ console.log(`\nBuilding...\n`);
 compile(async ({ currentPath, name, packageJson }) => {
   const banner = packageJson.bin ? '#!/usr/bin/env node' : undefined;
   const { build: buildTypes = ['es', 'cjs', 'umd'] } = packageJson;
+  await generateEsmModules({
+    inputFiles: [path.resolve(currentPath, 'build/index.js')].filter(
+      (entryFile) => fs.existsSync(entryFile)
+    ),
+    outputDir: path.resolve(currentPath, 'dist/esm'),
+    banner,
+  });
   for (const buildType of buildTypes) {
     await generateBundledModules({
       inputFile: path.resolve(currentPath, 'build/index.js'),

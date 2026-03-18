@@ -86,14 +86,8 @@ Its calling method, `delegate(this.proxyCounter, 'increase', [])`, is identical 
 
 ```tsx
 import React from "react";
-import {
-  ViewModule,
-  injectable,
-  useConnector,
-  action,
-  state,
-  delegate,
-} from "reactant-share";
+import { ViewModule, injectable, useConnector, action, state } from "reactant";
+import { delegate } from "reactant-share";
 
 @injectable({
   name: "ProxyCounter",
@@ -249,4 +243,3 @@ Multithreaded programming for front-end applications is likely to become a key s
 
 - reactant-share Document：https://reactant.js.org/docs/shared-app
 - reactant-share Repo: https://github.com/unadlib/reactant/tree/master/packages/reactant-share
-

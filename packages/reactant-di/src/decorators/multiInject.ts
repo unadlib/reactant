@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import { multiInject as multiInjectWithInversify, decorate } from 'inversify';
 import { METADATA_KEY } from '../constants';
 import { ServiceIdentifier } from '../interfaces';

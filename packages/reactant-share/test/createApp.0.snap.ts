@@ -1,4 +1,5 @@
-import { createSharedApp, injectable, state, action, delegate, mockPairTransports } from 'reactant-share';
+import { injectable, state, action } from 'reactant';
+import { createSharedApp, delegate, mockPairTransports } from 'reactant-share';
 
 @injectable({
   name: 'counter',

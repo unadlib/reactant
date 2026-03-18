@@ -3,15 +3,9 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, FunctionComponent } from 'react';
 import { Switch, Route } from 'reactant-web';
-import {
-  ViewModule,
-  injectable,
-  useConnector,
-  Router,
-  PortDetector,
-  ClientTransport,
-  ServerTransport,
-} from 'reactant-share';
+import { ViewModule, injectable, useConnector } from 'reactant';
+import { Router, PortDetector } from 'reactant-share';
+import type { ClientTransport, ServerTransport } from 'reactant-share';
 import { TodoListView } from './todoList.view';
 import { CounterView } from './counter.view';
 import style from './style.css';

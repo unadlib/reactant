@@ -1,6 +1,7 @@
 import SimplePeer from 'simple-peer';
 import { render } from 'reactant-web';
-import { createSharedApp, createTransport } from 'reactant-share';
+import { createSharedApp } from 'reactant-share';
+import { createTransport } from 'data-transport';
 import { AppView, Counter } from './app';
 
 const peer = new SimplePeer({

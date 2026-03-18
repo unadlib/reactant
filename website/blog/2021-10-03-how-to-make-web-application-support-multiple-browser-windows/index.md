@@ -84,8 +84,8 @@ import {
   useConnector,
   action,
   state,
-  delegate,
-} from "reactant-share";
+} from "reactant";
+import { delegate } from "reactant-share";
 
 @injectable({ name: "counter" })
 class Counter {

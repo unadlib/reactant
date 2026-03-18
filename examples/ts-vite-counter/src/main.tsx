@@ -9,7 +9,7 @@ import {
   action,
   state,
   computed,
-} from 'reactant-share';
+} from 'reactant';
 
 @injectable()
 class Counter {

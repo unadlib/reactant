@@ -31,15 +31,8 @@ Here is the counter example, it uses `reactant-share` ShareWorker mode:
 
 ```tsx
 import React from 'react';
-import {
-  ViewModule,
-  createApp,
-  injectable,
-  useConnector,
-  action,
-  state,
-  delegate,
-} from 'reactant-share';
+import { ViewModule, createApp, injectable, useConnector, action, state } from 'reactant';
+import { delegate } from 'reactant-share';
 
 @injectable({ name: 'counter' })
 class Counter {

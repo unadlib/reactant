@@ -4,8 +4,9 @@
   "description": "A react router dom for Reactant",
   "main": "dist/index.cjs.js",
   "unpkg": "dist/index.umd.js",
-  "module": "dist/index.esm.js",
+  "module": "dist/esm/index.js",
   "types": "dist/index.d.ts",
+  "sideEffects": false,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -26,8 +27,12 @@
     "Michael Lin <unadlib@gmail.com> (https://github.com/unadlib)"
   ],
   "license": "MIT",
+  "umdBundledDependencies": [
+    "path-to-regexp"
+  ],
   "dependencies": {
     "@types/react-router-dom": "^5.3.3",
+    "path-to-regexp": "^1.8.0",
     "react-router": "^5.3.1",
     "react-router-dom": "^5.3.1"
   }

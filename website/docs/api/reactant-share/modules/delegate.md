@@ -25,7 +25,8 @@ Note: It does not create new threads, it always runs on the server thread that h
 
 ```tsx
 import React from 'react';
-import { ViewModule, createApp, injectable, useConnector, action, state, delegate } from 'reactant-share';
+import { ViewModule, createApp, injectable, useConnector, action, state } from 'reactant';
+import { delegate } from 'reactant-share';
 
 @injectable({ name: 'counter'})
 class Counter {

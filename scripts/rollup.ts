@@ -33,12 +33,27 @@ const writeEsmPackageJson = (outputDir: string) => {
   );
 };
 
-const getExternalModules = (outputPath: string) => {
-  const { dependencies = {}, devDependencies = {} } = require(path.resolve(
-    outputPath,
-    '../../package.json'
-  ));
-  return Object.keys({ ...dependencies, ...devDependencies });
+const getExternalModules = (
+  outputPath: string,
+  format?: GenerateOption['format'] | 'esm'
+) => {
+  const {
+    dependencies = {},
+    devDependencies = {},
+    peerDependencies = {},
+    umdBundledDependencies = [],
+  } = require(path.resolve(outputPath, '../../package.json'));
+  const external = Object.keys({
+    ...dependencies,
+    ...devDependencies,
+    ...peerDependencies,
+  });
+  if (format !== 'umd') {
+    return external;
+  }
+  return external.filter(
+    (dependency) => !umdBundledDependencies.includes(dependency)
+  );
 };
 
 const createPlugins = (format: GenerateOption['format']) => {
@@ -80,7 +95,7 @@ const generateBundledModules = async ({
   const isUmd = format === 'umd';
   const plugins = createPlugins(format);
   try {
-    const external = getExternalModules(outputFile);
+    const external = getExternalModules(outputFile, format);
     const bundle = await rollup({
       input: inputFile,
       external,
@@ -110,11 +125,8 @@ const generateEsmModules = async ({
   try {
     const bundle = await rollup({
       input: inputFiles,
-      external: getExternalModules(outputDir),
+      external: getExternalModules(outputDir, 'esm'),
       plugins: createPlugins('es'),
-      treeshake: {
-        moduleSideEffects: false,
-      },
     });
     await bundle.write({
       dir: outputDir,

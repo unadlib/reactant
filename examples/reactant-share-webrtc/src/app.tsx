@@ -6,10 +6,9 @@ import {
   action,
   state,
   inject,
-  delegate,
   subscribe,
-  PortDetector,
-} from 'reactant-share';
+} from 'reactant';
+import { delegate, PortDetector } from 'reactant-share';
 
 @injectable({
   name: 'counter',

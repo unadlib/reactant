@@ -1,10 +1,6 @@
 import { render } from 'reactant-web';
-import {
-  createSharedApp,
-  RouterOptions,
-  createHashHistory,
-  IRouterOptions,
-} from 'reactant-share';
+import { createSharedApp, RouterOptions, createHashHistory } from 'reactant-share';
+import type { IRouterOptions } from 'reactant-share';
 import { CounterView } from './counter.view';
 
 createSharedApp({

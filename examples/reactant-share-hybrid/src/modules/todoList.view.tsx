@@ -7,11 +7,10 @@ import {
   useConnector,
   action,
   state,
-  delegate,
   computed,
   optional,
-  Storage,
-} from 'reactant-share';
+} from 'reactant';
+import { delegate, Storage } from 'reactant-share';
 
 interface Todo {
   id: string;

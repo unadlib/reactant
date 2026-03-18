@@ -22,15 +22,6 @@ import {
 } from 'connected-react-router';
 import type { Location, LocationState, Action, History } from 'history';
 
-export {
-  createHashHistory,
-  createBrowserHistory,
-  createMemoryHistory,
-} from 'history';
-
-export { LOCATION_CHANGE } from 'connected-react-router';
-export type { LocationChangeAction } from 'connected-react-router';
-
 const RouterOptions = Symbol('RouterOptions');
 
 export interface RouterState {

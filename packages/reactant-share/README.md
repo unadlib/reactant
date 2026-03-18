@@ -4,6 +4,8 @@
 
 A framework for building shared web applications that support multiple windows.
 
+If you are upgrading from older umbrella imports, see the [reactant-share Migration Guide](https://reactant.js.org/docs/shared-app/reactant-share-migration-guide).
+
 ## Support
 
 - Shared Tab
@@ -27,15 +29,8 @@ Here is the counter example, it uses `reactant-share` ShareWorker mode:
 
 ```tsx
 import React from 'react';
-import {
-  ViewModule,
-  createApp,
-  injectable,
-  useConnector,
-  action,
-  state,
-  delegate,
-} from 'reactant-share';
+import { ViewModule, createApp, injectable, useConnector, action, state } from 'reactant';
+import { delegate } from 'reactant-share';
 
 @injectable({ name: 'counter' })
 class Counter {

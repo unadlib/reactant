@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import 'reflect-metadata';
 import {
   Container as BaseContainer,
   MetadataReader,

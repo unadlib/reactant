@@ -5,36 +5,16 @@ import {
   injectable,
   storeKey,
   ReactantStore,
-  ReactantAction,
   optional,
   actionIdentifier,
 } from 'reactant-module';
 import { ReducersMapObject } from 'redux';
-
-const LastActionOptions = Symbol('LastActionOptions');
-
-export interface ILastActionState<T = any> extends ReactantAction<T> {
-  /**
-   * sync sequence
-   */
-  _sequence?: number;
-}
-
-export type ILastActionData = Pick<
-  ILastActionState<unknown>,
-  Exclude<keyof ILastActionState, '_inversePatches' | 'state'>
->;
-
-export interface ILastActionOptions {
-  /**
-   * Define a string as LastAction reducer key.
-   */
-  stateKey?: string;
-  /**
-   * ignore action tracking
-   */
-  ignoreAction?: (action: ILastActionData) => boolean;
-}
+import {
+  LastActionOptions,
+  ILastActionData,
+  ILastActionOptions,
+  ILastActionState,
+} from './options';
 
 @injectable()
 class ReactantLastAction extends PluginModule {
@@ -112,4 +92,4 @@ class ReactantLastAction extends PluginModule {
   }
 }
 
-export { ReactantLastAction as LastAction, LastActionOptions };
+export { ReactantLastAction as LastAction };

@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import { METADATA_KEY } from '../constants';
 import { ServiceIdentifier } from '../interfaces';
 

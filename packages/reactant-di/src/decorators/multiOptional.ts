@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import { optional as optionalWithInversify, decorate } from 'inversify';
 import { multiInject } from './multiInject';
 import { ServiceIdentifier } from '../interfaces';

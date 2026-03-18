@@ -9,14 +9,15 @@ export {
   useParams,
   useHistory,
   useLocation,
-  generatePath,
   Prompt,
   Redirect,
   Router,
   StaticRouter,
-  matchPath,
   withRouter,
 } from 'react-router-dom';
+
+export { generatePath } from './generatePath';
+export { matchPath } from './matchPath';
 
 export type {
   RedirectProps,

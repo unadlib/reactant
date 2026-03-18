@@ -4,13 +4,11 @@ import {
   Router,
   Storage,
   StorageOptions,
-  IStorageOptions,
   RouterOptions,
   createHashHistory,
-  IRouterOptions,
-  ICoworkerOptions,
   createCoworker,
 } from 'reactant-share';
+import type { IStorageOptions, IRouterOptions, ICoworkerOptions } from 'reactant-share';
 import localForage from 'localforage';
 import { AppView } from './app.view';
 import { ProxyCounter } from './proxyCounter';

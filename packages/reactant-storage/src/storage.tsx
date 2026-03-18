@@ -25,14 +25,9 @@ import {
   REHYDRATE,
 } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
+import { getRehydrated } from './getRehydrated';
 
 const StorageOptions = Symbol('StorageOptions');
-
-export const getRehydrated = (target: object): undefined | boolean => {
-  const module: Service = target;
-  const state = module[stateKey];
-  return state?._persist?.rehydrated;
-};
 
 export interface IStorageOptions extends Partial<PersistConfig<any>> {
   /**

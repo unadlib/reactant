@@ -1,5 +1,6 @@
 import React from 'react';
-import { ViewModule, injectable, useConnector, delegate } from 'reactant-share';
+import { ViewModule, injectable, useConnector } from 'reactant';
+import { delegate } from 'reactant-share';
 import { CounterService } from './counter.service';
 
 @injectable({

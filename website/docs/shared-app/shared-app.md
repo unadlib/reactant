@@ -43,6 +43,8 @@ It has a unique Server thread to share the Shared Web Apps, whether it's code sh
 
 To build such Shared Web Apps, `reactant-share` was created. reactant-share is based on the `reactant` framework and `react` library, which supports the following features.
 
+If you are upgrading an existing codebase, see the [reactant-share Migration Guide](./reactant-share-migration-guide.md).
+
 - Dependency injection
 - Immutable state management
 - View module
@@ -86,15 +88,8 @@ The overall workflow of the reactant-share is shown in the figure below. Here is
 
 ```tsx
 import React from 'react';
-import {
-  ViewModule,
-  createApp,
-  injectable,
-  useConnector,
-  action,
-  state,
-  delegate,
-} from 'reactant-share';
+import { ViewModule, createApp, injectable, useConnector, action, state } from 'reactant';
+import { delegate } from 'reactant-share';
 
 @injectable({ name: 'counter' })
 class Counter {

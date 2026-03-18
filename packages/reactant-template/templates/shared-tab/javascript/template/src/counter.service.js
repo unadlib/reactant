@@ -1,4 +1,4 @@
-import { injectable, action, state } from 'reactant-share';
+import { injectable, action, state } from 'reactant';
 
 @injectable({
   name: 'counter',

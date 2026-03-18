@@ -1,5 +1,3 @@
-import 'reflect-metadata';
-
 export { createContainer, bindModules } from './createContainer';
 export {
   inject,
